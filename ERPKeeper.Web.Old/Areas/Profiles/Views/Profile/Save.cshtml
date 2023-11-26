@@ -1,0 +1,48 @@
+﻿@model Social.Core.ERP.Models.Profiles.Profile
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="globalContainer">
+    <div id="contentCol">
+        <div class="leftColContainer">
+            @Html.Partial("_MenuERP")
+        </div>
+
+        <div class="rightColContainer">
+
+
+            <div class="leftSubColContainer">
+                <div class="leftSubColBoxHearder">
+                    <div class="appIconStyle" style="background-color: #131925;height:30px;padding:0px;">
+                        <div class="appIconsImage" style="background-position: -270px 0;"></div>
+                        <div style="color: white;float:left;padding-top:5px;">@Model.Name</div>
+                    </div>
+                </div>
+
+
+
+                @Html.Partial("_Profile", Model)
+
+
+                <div style="">
+                    @foreach (var role in Model.Roles)
+                    {
+                        <div class="boxBlue" style="height:15px;background-color:#808080">
+                            @Html.ActionLink(role.Type.ToString(), "Detail", role.Type.ToString(), new { Id = Model.ProfileGuid, Area = Social.Core.ERP.DAL.Profiles.Roles.getArea(role.Type) }, new { @style = "color:#ffffff;" })
+                        </div>
+
+                    }
+                </div>
+            </div>
+
+            <div class="rightSubColContainer">
+
+                @Html.Partial("_LeftMenu", Model)
+
+            </div>
+        </div>
+
+    </div>
+</div>

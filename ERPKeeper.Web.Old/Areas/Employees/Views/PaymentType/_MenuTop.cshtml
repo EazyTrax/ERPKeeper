@@ -1,0 +1,18 @@
+﻿@model ERPKeeper.Node.Models.Employees.EmployeePaymentType
+
+<div class="row bg-fb2 p-2 mb-2 mh-50 rounded">
+    <div class="col">
+        <strong> Payment Stub</strong>
+    </div>
+    <div class="col text-right">
+        <span id="ImageMenuCore" style="cursor:pointer">
+            <i class="fab fa-chrome fa-lg text-muted"></i>
+        </span>
+    </div>
+</div>
+
+@Html.ActionLink("Home of " + Model.Name, "Home", new { Controller = "PaymentType", Id = Model.Uid })
+@Html.ActionLink("Payments", "Payments", new { Controller = "PaymentType", Id = Model.Uid })
+
+
+

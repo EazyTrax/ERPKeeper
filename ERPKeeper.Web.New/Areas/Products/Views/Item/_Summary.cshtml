@@ -1,0 +1,69 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+
+
+
+
+
+<div class="row bg-fb2 py-2 rounded mb-2">
+    <div class="col-6 mb-2 font-weight-600">
+        General
+    </div>
+    <div class="col-6">
+    </div>
+
+    <div class="col-6">
+        Sell Price
+    </div>
+    <div class="col-6">
+        @Model.UnitPrice.ToString("N0")
+    </div>
+
+    <div class="col-6">
+        Purchase Price
+    </div>
+    <div class="col-6">
+        @Model.PurchasePrice.ToString("N0")
+    </div>
+</div>
+
+<div class="row bg-fb2 py-2 rounded mb-2">
+    <div class="col-6 mb-2 font-weight-600">
+        Stock
+    </div>
+    <div class="col-6">
+        <a href="/@CompanyId/Products/Items/@Model.Uid/Refresh/Stock"></a>
+        <span class="material-icons-outlined">
+            refresh
+        </span>
+    </div>
+
+    <div class="col-6">
+        Purchase
+    </div>
+    <div class="col-6">
+        @Model.AmountPurchase.ToString("N0")
+    </div>
+
+    <div class="col-6">
+        Sold
+    </div>
+    <div class="col-6">
+        @Model.AmountSold.ToString("N0")
+    </div>
+
+    <div class="col-6">
+        Adjust
+    </div>
+    <div class="col-6">
+        @Model.StockAmount.ToString("N0")
+    </div>
+
+
+    <div class="col-6">
+        Stock
+    </div>
+    <div class="col-6">
+        @Model.AmountOnHand.ToString("N0")
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿<div id="ChartPartialIncomeDiv">
+    <div style="padding-left:0px;margin-bottom:0px;">
+        <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+            <div class="col" style="font-weight: 600;">
+                AGING SALE
+            </div>
+            <div class="col text-right">
+                <a onclick="Load_ChartIncome(30)" style="cursor: pointer;">30</a>  ·
+                <a onclick="Load_ChartIncome(90)" style="cursor: pointer;">90</a>  ·
+                <a onclick="Load_ChartIncome(365)" style="cursor: pointer;">365</a>  ·
+                <a onclick="Load_ChartIncome(0)" style="cursor: pointer;">ALL</a>
+            </div>
+        </div>
+
+
+        @Html.DevExpress().Chart(settings =>
+    {
+        settings.Name = "IncomeChartAge";
+
+        settings.Width = 380;
+        settings.Height = 150;
+        settings.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+
+        settings.Titles.Add(new ChartTitle()
+        {
+            Font = new System.Drawing.Font("Tahoma", 12),
+            Text = ""
+        });
+        settings.BorderOptions.Visibility = DefaultBoolean.False;
+        settings.Legend.Visibility = DefaultBoolean.False;
+
+        Series IncomeChartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Area);
+        IncomeChartSeries.ArgumentDataMember = "TrnDate";
+        IncomeChartSeries.ValueDataMembers[0] = "TotalAmount";
+        IncomeChartSeries.CrosshairEnabled = DefaultBoolean.True;
+        IncomeChartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+        ((AreaSeriesView)IncomeChartSeries.View).MarkerVisibility = DefaultBoolean.False;
+        settings.Series.Add(IncomeChartSeries);
+
+
+        ((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+        ((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+        ((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+        ((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+        ((XYDiagram)settings.Diagram).Margins.Left = 0;
+        ((XYDiagram)settings.Diagram).Margins.Right = 0;
+
+
+    }).Bind(Model).GetHtml()
+    </div>
+    @Html.Partial("~/Areas/Customers/Views/DashBoard/_Ageing_Income.cshtml")
+</div>

@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row bg-fb2 mh-50 p-2 mb-2">
+    <div class="col-8 p-0">
+        <div class="mb-2">@Lang.FundTransfers</div>
+    </div>
+    <div class="col p-0 text-right">
+        <a href="@Url.Action("New", "FundTransfers")">
+            <i class="fas fa-plus-circle fa-lg text-muted"></i>
+        </a>
+        <span id="ImageMenuLedger" style="cursor:pointer">
+            <i class="fas fa-globe-asia fa-lg text-muted"></i>
+        </span>
+
+
+
+        @Html.DevExpress().PopupMenu(settings =>
+        {
+            settings.Name = "PopupMenuLedger";
+            settings.PopupElementID = "ImageMenuLedger";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+            settings.PopupAction = PopupAction.LeftMouseClick;
+
+            settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+            settings.Items.Add("ReOrder").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ReOrder" });
+
+        }).GetHtml()
+
+    </div>
+</div>
+
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+    settings.Styles.Item.SelectedStyle.BackColor = System.Drawing.Color.LightGray;
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Vertical;
+    settings.Width = Unit.Percentage(100);
+    //settings.Items.Add("Lists").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home" });
+}).GetHtml()

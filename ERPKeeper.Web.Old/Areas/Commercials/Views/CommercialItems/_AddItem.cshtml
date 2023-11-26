@@ -1,0 +1,38 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+<div class="p-2 bg-fb2">
+    @using (Html.BeginForm("AddItem", "Commercial", new { id = Model.Uid, Area = "Commercials" }, FormMethod.Post, new { @id = "AddItemForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div style="float:left;padding-right:10px;">
+            @Html.Action("Partial_ComboBoxItems", "CommercialItems", new { Area = "Commercials", transactionType = Model.TransactionType })
+        </div>
+        <div style="float:left;padding-right:10px;">
+            @Html.DevExpress().SpinEdit(settings =>
+               {
+                   settings.Name = "Amount";
+                   settings.Width = Unit.Pixel(80);
+                   settings.Properties.MinValue = 1;
+                   settings.Properties.MaxValue = 5000;
+                   settings.Properties.AllowNull = false;
+                   settings.Number = 1;
+               }).GetHtml()
+        </div>
+        <div style="float:left;padding-right:10px;">
+            <script type="text/javascript">
+                function OnClick(sender, args) {
+                    document.getElementById('AddItemForm').submit();
+                }
+            </script>
+
+            @Html.DevExpress().Button(settings =>
+            {
+                settings.Name = "btmClickMe";
+                settings.Text = "Add";
+                settings.UseSubmitBehavior = false;
+                settings.ClientSideEvents.Click = "OnClick";
+            }).GetHtml()
+        </div>
+        <div style="clear:both;"></div>
+    }
+</div>

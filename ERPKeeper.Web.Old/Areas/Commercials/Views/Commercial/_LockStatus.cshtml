@@ -1,0 +1,8 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+
+@if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+{
+    <img src='/Icon/LockStatus/true'>
+}
+

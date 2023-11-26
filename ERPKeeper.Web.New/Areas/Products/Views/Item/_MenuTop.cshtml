@@ -1,0 +1,44 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+<div class="mb-2 border border-bottom">
+    <div class="row mb-2 font-weight-600">
+        <div class="col-10 p-2">
+            <a href="/">ERP</a>
+            <a href="/@CompanyId/Products">> Products</a>
+            <a href="/@CompanyId/Products/Groups">> Groups</a>
+            @if (Model.GroupItemUid != null)
+            {
+                <a href="/@CompanyId/Products/Groups/@Model.GroupItemUid">> @Model.GroupItem.Name</a>
+            }
+            <a href="/@CompanyId/Products/Items/@Model.Uid">> @Model.PartNumber</a>
+        </div>
+
+        <div class="col-2 p-2 text-right">
+            <div class="btn-group">
+                <a class="btn btn-outline-light border btn-sm dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-calculator"></i>
+                </a>
+                <ul class="dropdown-menu p-2">
+                    <li>
+                        <a href="/@CompanyId/Products/Items/@Model.Uid/Copy">Copy</a>
+                    </li>
+                    <li>
+                        <a href="/@CompanyId/Products/Items/@Model.Uid/UpdateStock">Stock</a>
+                    </li>
+                    <li>
+                        <a href="/@CompanyId/Products/Items/@Model.Uid/Delete">Delete</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="text-right p-1">
+        <a href="/@CompanyId/Products/Items/@Model.Uid">Overview</a>  ·
+        <a href="/@CompanyId/Products/Items/@Model.Uid/Estimates">Estimates</a>  ·
+        <a href="/@CompanyId/Products/Items/@Model.Uid/Purchases">Purchases</a>  ·
+        <a href="/@CompanyId/Products/Items/@Model.Uid/Sales">Sales</a> ·
+        <a href="/@CompanyId/Products/Items/@Model.Uid/Edit">Edit</a>
+    </div>
+</div>

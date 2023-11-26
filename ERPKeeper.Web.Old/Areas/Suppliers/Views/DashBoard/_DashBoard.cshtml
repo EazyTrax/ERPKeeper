@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Careers";
+    Layout = null;
+
+    var SuppliersCount = erpNodeDBContext.Suppliers.Count().ToString("N0");
+
+}
+
+
+
+
+
+<div class="row">
+    <div class="col mb-1 bg-fb2 p-2 mh-50">
+        <a href="@Url.Action("Home","Suppliers")">
+            <span class="h6">@SuppliersCount</span><br /><br />
+            Suppliers
+        </a>
+    </div>
+
+</div>

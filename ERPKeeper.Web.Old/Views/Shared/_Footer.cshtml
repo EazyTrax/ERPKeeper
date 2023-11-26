@@ -1,0 +1,28 @@
+﻿@*<div class="container-fluid bg-fb1 fixed-bottom">*@
+    <div class="navbar fixed-bottom navbar-light p-2 bg-white">
+        <div class="container-non-responsive">
+            <div class="row mt-1">
+                <div class="col-9 my-2">
+                    <a href="/" style="font-weight:600;">ERP KEEPER @@2019</a>  ·
+                    · @System.Globalization.CultureInfo.CurrentCulture.ToString()
+                    @if (ViewBag.nodeName != null && User.Identity.IsAuthenticated && CurrentUser.CheckAccessLevelAuthorize(ERPKeeper.Node.Models.Security.Enums.AccessLevel.Accountant))
+                    {
+                        <span>·</span> @Html.ActionLink("Post GL", "PostGL", "DashBoard", new { Area = "Accounting" }, null)
+                        @*<span>·</span> @Html.ActionLink("Un Post", "UnPostGL", "DashBoard", new { Area = "Accounting" }, null)*@
+                    }
+                    · <span onclick="$('#FeedBackDiv').removeClass('d-none');$('#FeedBackDiv').load('@Url.Action("_FeedBackFooter", "FeedBacks", new { Area = "Development" })');">Feed Back</span>
+                </div>
+                <div class="col-3 my-2 text-right">
+                    [@Html.ActionLink("ไทย", "Change", "Language", new { id = "Th", Area = "Setting" }, null)
+                    | @Html.ActionLink("en-US", "Change", "Language", new { id = "En", Area = "Setting" }, null)]
+                </div>
+            </div>
+
+            <div class="d-none" id="FeedBackDiv">
+                <div class="border bg-white mh-80 text-center py-4">
+                    <i class="fas fa-circle-notch fa-spin fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>

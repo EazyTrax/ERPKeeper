@@ -1,0 +1,41 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.GeneralPayment
+
+
+
+<div class="row p-2 mb-2 bg-fb2 mh-50 rounded">
+    <div class="col p-0">
+        Payment  Summary
+    </div>
+    <div class="col-3 p-0 text-right">
+        <a href="@Url.Action("UpdateBalance",new { id = Model.Uid})">
+            <span style="cursor:pointer"><i class="fas fa-sync-alt fa-lg text-light"></i></span>
+        </a>
+    </div>
+</div>
+
+<div class="p-2 bg-fb2 mh-80 mb-2 rounded">
+    @foreach (var commercial in Model.Commercials)
+    {
+        <div class="row p-0 mb-1">
+            <div class="col-8 p-0">
+                @Html.ActionLink(commercial.Name, "Home", "Sale", new { id = commercial.Uid }, null)<br />
+            </div>
+            <div class="col-4 p-0 text-right">
+                @commercial.Total.ToString("N2")
+            </div>
+        </div>
+    }
+
+    @if (Model.RetentionType != null)
+    {
+        <div class="row mb-1">
+            <div class="col-7 p-0 ml-3">@Model.RetentionType.Name</div>
+            <div class="col p-0  text-right">@Model.AmountRetention.ToString("N2")</div>
+        </div>
+    }
+
+    <div class="row  mb-1">
+        <div class="col-7 p-0 ml-3">@Model.AssetAccount.Name</div>
+        <div class="col  p-0 text-right">@Model.AmountAfterDiscountAndRetention.ToString("N2")</div>
+    </div>
+</div>

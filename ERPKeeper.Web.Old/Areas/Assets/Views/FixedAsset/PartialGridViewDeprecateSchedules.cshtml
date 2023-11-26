@@ -1,0 +1,94 @@
+@model ERPKeeper.Node.Models.Assets.FixedAsset
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewDeprecatedAsset";
+
+        settings.CallbackRouteValues = new { Controller = "FixedAssets", Action = "PartialGridViewDeprecateSchedules", Type = ViewData["Type"] };
+        settings.KeyFieldName = "Uid";
+        settings.Settings.ShowFooter = true;
+        settings.Styles.Footer.Font.Bold = true;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StartDate";
+            column.Caption = "Start Date";
+            column.Width = 100;
+
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "EndDate";
+            column.Caption = "End Date";
+            column.Width = 100;
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TotalDays";
+            column.Caption = "Days";
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "DepreciationValue";
+            column.Caption = "Dep Value";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "DepreciationValue").DisplayFormat = "N2";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "DepreciateAccumulation";
+            column.Caption = "Acc Dep";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RemainValue";
+            column.Caption = "Remain";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus";;
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+    });
+}
+@grid.Bind(Model.DepreciationSchedules.ToList()).GetHtml()

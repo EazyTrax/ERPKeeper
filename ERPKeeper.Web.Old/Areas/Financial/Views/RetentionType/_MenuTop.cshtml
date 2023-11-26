@@ -1,0 +1,58 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.RetentionType
+
+
+
+<div class="bg-fb2 p-2 mb-1 row mh-50 rounded">
+    <div class="col-9">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "RetentionTypes",new { Area = "Financial"})">RETENTION TYPES</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "RetentionType",new { Area = "Financial" , Id = Model.Uid})">@Model.Name</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right">
+        <span id="ImageMenuPlus"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAdd";
+       settings.PopupElementID = "ImageMenuPlus";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+
+       //settings.Items.Add(subSetting =>
+       //{
+       //    subSetting.Text = "New Retention Type";
+       //    //subSetting.Items.Add(ERPKeeper.Node.Models.Financial.Payments.Enums.RetentionDirection.Receive.ToString()).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "RetentionType", Action = "New", id = ERPKeeper.Node.Models.Financial.Payments.Enums.RetentionDirection.Receive });
+       //    //subSetting.Items.Add(ERPKeeper.Node.Models.Financial.Payments.Enums.RetentionDirection.Pay.ToString()).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "RetentionType", Action = "New", id = ERPKeeper.Node.Models.Financial.Payments.Enums.RetentionDirection.Pay });
+       //});
+       settings.PopupAction = PopupAction.LeftMouseClick;
+   }).GetHtml()
+    </div>
+</div>
+
+
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+    settings.Width = 200;
+
+    settings.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "RetentionType", Action = "Home", Id = Model.Uid });
+    settings.Items.Add("History").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "RetentionType", Action = "History", Id = Model.Uid });
+    settings.Items.Add("Download").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "RetentionType", Action = "Download", Id = Model.Uid });
+
+
+}).GetHtml()
+</div>

@@ -1,0 +1,130 @@
+﻿
+@model ERPKeeper.Node.Models.Equity.CapitalActivity
+
+<div class="bg-fb2">
+
+    @using (Html.BeginForm("Save", "CapitalActivity"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "CapitalActivities";
+       settings.Width = Unit.Percentage(100);
+       settings.ColCount = 1;
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Investment";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+
+           groupSettings.Items.Add(m => m.Type, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+           });
+
+           groupSettings.Items.Add(m => m.TrnDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+
+           });
+
+
+           groupSettings.Items.Add(m => m.InvestorUid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Investor";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.Profiles.ToList();
+           });
+
+
+
+
+
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Par Value";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+
+           groupSettings.Items.Add(m => m.EachStockParValue, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Stock Price";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+
+               spSetting.Properties.DisplayFormatString = "N2";
+               spSetting.Properties.SpinButtons.ShowIncrementButtons = false;
+           });
+
+           groupSettings.Items.Add(m => m.StockAmount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               spSetting.Properties.SpinButtons.ShowIncrementButtons = false;
+               spSetting.Properties.DisplayFormatString = "N0";
+           });
+
+           groupSettings.Items.Add(m => m.EquityAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Stock Account";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.EquityAccounts;
+           });
+
+
+
+
+           groupSettings.Items.Add(m => m.AssetAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Asset Account";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetCashEquivalentAccounts(); ;
+           });
+
+           groupSettings.Items.Add(item =>
+           {
+               item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+               item.ShowCaption = DefaultBoolean.False;
+               item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+               var button = (ButtonSettings)item.NestedExtensionSettings;
+               button.Name = "SaveButton";
+               button.Text = "Save";
+               button.UseSubmitBehavior = true;
+           });
+       });
+
+   }).GetHtml()
+
+    }
+</div>

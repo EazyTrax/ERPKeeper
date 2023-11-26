@@ -1,0 +1,18 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            @Html.Partial("_Detail", Model)
+        </div>
+        <div class="col-3 col-Right pr-0">
+            @Html.Partial("_InventorySummary", Model)
+            @Html.Partial("_TilePreview", Model)
+            @Html.Partial("_Parameters", Model)
+        </div>
+    </div>
+</div>

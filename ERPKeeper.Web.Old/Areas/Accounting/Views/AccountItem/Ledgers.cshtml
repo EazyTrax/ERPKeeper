@@ -1,0 +1,12 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+<div class="globalContainer">
+  <div class="row">
+    <div class="col-2 col-Left pl-0">
+      @Html.Partial("_Menu")
+    </div>
+    <div class="col-10 colRightFull pr-0">
+      @Html.Action("PartialGridViewLedger", new { id = Model.Uid })
+    </div>
+  </div>
+</div>

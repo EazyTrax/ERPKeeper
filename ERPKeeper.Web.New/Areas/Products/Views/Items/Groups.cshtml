@@ -1,0 +1,15 @@
+﻿@using ERPKeeper.Node.Models.Items.Enums
+
+<div class="row">
+    <div class="col-9 pl-0 col-left">
+
+        <div class="bg-fb1 p-2 mb-2">
+            <a href="/@CompanyId/Products">Items</a>  ·
+            <a href="/@CompanyId/Products/Groups">Groups</a>
+        </div>
+
+        @await Component.InvokeAsync("_Items_Groups", new { })
+        <partial name="_ItemsList" />
+    </div>
+</div>
+

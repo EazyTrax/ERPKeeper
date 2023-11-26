@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+
+
+    var employeesCount = erpNodeDBContext.Employees
+        .Where(e => e.Status == ERPKeeper.Node.Models.Employees.EmployeeStatus.Active)
+        .Count().ToString("N0");
+
+
+
+    var positionsCount = erpNodeDBContext.EmployeePositions.Count().ToString("N0");
+
+}
+
+
+
+
+<div style="margin-top:10px;">
+    <a href="@Url.Action("Home","Employees")">
+        <div class="rcorners3">
+            <span style="font-size:24px;font-weight:600;">@employeesCount</span><br /><br />
+            Active
+        </div>
+    </a>
+    <a href="@Url.Action("Home","Employees",new {  id = "InActive"})">
+        <div class="rcorners3">
+            <span style="font-size:24px;font-weight:600;">-</span><br /><br />
+            In-Active
+        </div>
+    </a>
+    <a href="@Url.Action("Home","Positions")">
+        <div class="rcorners3">
+            <span style="font-size:24px;font-weight:600;">@positionsCount</span><br /><br />
+            Positions
+            <div style="position:absolute;top:-5px; right:-5px;padding:3px;background-color:#3b5998;color:white;"> 3 </div>
+        </div>
+    </a>
+    <div style="clear:both;"></div>
+</div>

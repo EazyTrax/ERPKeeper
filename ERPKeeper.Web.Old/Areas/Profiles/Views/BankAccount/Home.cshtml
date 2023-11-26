@@ -1,0 +1,20 @@
+﻿@model ERPKeeper.Node.Models.Profiles.BankAccount
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            <div class="Box250">
+                @if (Model != null)
+                {
+                    @Html.ActionLink(Model.Profile.Name, "Home", "Profile", new { id = Model.Profile.Uid }, null)
+                }
+            </div>
+
+        </div>
+        <div class="col col-Middle p-0">
+         
+                @Html.Partial("_Form")
+         
+        </div>
+    </div>
+</div>

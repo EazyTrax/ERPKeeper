@@ -1,0 +1,34 @@
+﻿@model ERPKeeper.Node.Models.Accounting.TransactionLedger
+
+<div class="mb-2 border-top">
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Accounting.Ledger>()
+            .ID("LedgerList")
+            .KeyExpr("Uid")
+            .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Journals/{Model.Uid}/Ledgers/All"))
+            .AllowColumnReordering(true)
+            .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
+            .ShowColumnLines(true)
+            .ShowBorders(false)
+            .ColumnAutoWidth(false)
+            .Paging(pagging => pagging.PageSize(100))
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.AccountUid)
+                    .Lookup(lookup => lookup.DataSource(Organization.ErpNodeDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+                    .Width(200).HeaderCellTemplate(@<text>Account</text>);
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntries/<%= data.Uid %>/"><%= data.Memo %></a></text>);
+                columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Credit).Width(100).Format(Format.FixedPoint);
+            })
+        )
+</div>
+
+
+
+
+
+
+
+
+
+

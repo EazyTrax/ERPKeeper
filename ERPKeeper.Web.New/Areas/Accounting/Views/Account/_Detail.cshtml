@@ -1,0 +1,89 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+@using ERPKeeper.Node.Models.Accounting
+
+@{
+    var item = new
+    {
+        Model.Uid,
+        Model.Name,
+        Model.Description,
+        Model.No,
+        Model.Type,
+        Model.SubEnumType,
+        Model.IsCashEquivalent,
+        Model.IsLiquidity,
+        Model.OpeningCreditBalance,
+        Model.OpeningDebitBalance,
+        Model.TotalDebit,
+        Model.TotalCredit,
+        Model.IsFocus
+    };
+}
+
+
+<div class="mb-3 p-1">
+    <form id="EditForm" method="post" action="/@CompanyId/Accounting/Accounts/@Model.Uid/Update">
+        <div class="row">
+            <div class="col-6 p-1 mb-2">
+                <div class="p-1">
+                    @(Html.DevExtreme().Form<ERPKeeper.Node.Models.Accounting.AccountItem>()
+                        .ID("form_0")
+                        .FormData(item)
+                        .LabelMode(FormLabelMode.Static)
+                        .LabelLocation(FormLabelLocation.Left)
+                        .MinColWidth(300)
+                        .ReadOnly(false)
+                        .ShowColonAfterLabel(true)
+                        .ColCount(1)
+                        .Items(items =>
+                        {
+                            items.AddSimpleFor(m => m.Name);
+                            items.AddSimpleFor(m => m.No);
+                            
+
+                            items.AddSimpleFor(m => m.Type).Editor(e => e.SelectBox()
+                            .SearchEnabled(true)
+                            .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DisplayExpr("Text").ValueExpr("Value"));
+
+                            items.AddSimpleFor(m => m.SubEnumType).Editor(e => e.SelectBox()
+                            .SearchEnabled(true)
+                            .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DisplayExpr("Text").ValueExpr("Value"));
+
+                            items.AddSimpleFor(m => m.IsLiquidity);
+                            items.AddSimpleFor(m => m.IsCashEquivalent);
+                            items.AddSimpleFor(m => m.IsFocus);
+                        })
+                        )
+
+
+                </div>
+
+            </div>
+            <div class="col-6 p-1 mb-2">
+                <div class="p-1">
+                    @(Html.DevExtreme().Form<ERPKeeper.Node.Models.Accounting.AccountItem>()
+                        .ID("form_1")
+                        .FormData(item)
+                        .LabelMode(FormLabelMode.Static)
+                        .LabelLocation(FormLabelLocation.Left)
+                        .MinColWidth(300)
+                        .ReadOnly(false)
+                        .ShowColonAfterLabel(true)
+                        .ColCount(1)
+                        .Items(items =>
+                        {
+                            items.AddSimpleFor(m => m.Description).Editor(e => e.TextArea().MinHeight(200));
+                        })
+                        )
+                </div>
+            </div>
+            <div class="col-12 text-right">
+                <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

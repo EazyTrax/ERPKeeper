@@ -1,0 +1,41 @@
+@model IList<ERPKeeper.Node.Models.Customers.Customer>
+
+<div class="border mb-1 p-2">
+    @Html.DevExpress().Chart(settings =>
+       {
+           settings.Name = "IncomeChart";
+
+           settings.Width = 720;
+           settings.Height = 300;
+
+           settings.Titles.Add(new ChartTitle()
+           {
+               Font = new System.Drawing.Font("Tahoma", 12),
+               Text = ""
+           });
+
+
+           settings.BorderOptions.Visibility = DefaultBoolean.False;
+           settings.Legend.Visibility = DefaultBoolean.False;
+
+           Series IncomeChartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Pie);
+           IncomeChartSeries.ArgumentDataMember = "Profile.Name";
+           IncomeChartSeries.ValueDataMembers[0] = "SumSaleBalance";
+
+           //IncomeChartSeries.CrosshairEnabled = DefaultBoolean.True;
+           //IncomeChartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+           IncomeChartSeries.Label.TextPattern = "{A}";
+           ((PieSeriesLabel)IncomeChartSeries.Label).Position = PieSeriesLabelPosition.TwoColumns;
+           settings.Series.Add(IncomeChartSeries);
+
+
+           //((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+           //((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+           //((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+           //((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+           //((XYDiagram)settings.Diagram).Margins.Left = 0;
+           //((XYDiagram)settings.Diagram).Margins.Right = 0;
+
+
+       }).Bind(Model).GetHtml()
+</div>

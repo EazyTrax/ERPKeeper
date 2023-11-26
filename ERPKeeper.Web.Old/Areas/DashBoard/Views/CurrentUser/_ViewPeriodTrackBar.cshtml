@@ -1,0 +1,25 @@
+﻿
+
+
+@Html.DevExpress().TrackBar(
+                settings =>
+                {
+                    settings.Name = "TimeRange";
+                    settings.Properties.ScalePosition = ScalePosition.LeftOrTop;
+                    settings.Properties.ValueToolTipPosition = ValueToolTipPosition.RightOrBottom;
+                    settings.Properties.ValueType = typeof(string);
+                    settings.Width = Unit.Percentage(100);
+                    settings.Properties.Items.AddRange(new TrackBarItem[] {
+                        new TrackBarItem("Week"),
+                        new TrackBarItem("Month"),
+                        new TrackBarItem("Year"),
+                        new TrackBarItem("All"),
+                    });
+
+                    settings.Properties.ShowChangeButtons = false;
+
+                 //   settings.Properties.ClientSideEvents.PositionChanged = "alert('Hi')";
+                }
+            ).GetHtml()
+
+

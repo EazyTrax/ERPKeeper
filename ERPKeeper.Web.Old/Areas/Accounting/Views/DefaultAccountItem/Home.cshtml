@@ -1,0 +1,21 @@
+﻿@model ERPKeeper.Node.Models.Accounting.DefaultAccountItem
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            <b>@Model.AccountType.ToString().ToUpper()</b>
+            <div style="">
+                <a href="@Url.Action("Home", "DashBoard", new { Area = "Accounting" })">
+                    <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+                </a>
+            </div>
+
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_Edit")
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>

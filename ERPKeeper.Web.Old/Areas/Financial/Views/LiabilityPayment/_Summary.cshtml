@@ -1,0 +1,41 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.LiabilityPayment
+
+
+<div id="DivPaymentSummary" class="mb-1">
+    <div class="row p-2 mb-2 bg-fb2 mh-50">
+        <div class="col font-weight-bold">
+            Payment  Summary
+        </div>
+        <div class="col-3 text-right">
+            <a href="@Url.Action("UpdateBalance",new { id = Model.Uid})">
+                <span style="cursor:pointer"><i class="fas fa-sync-alt fa-lg text-light"></i></span>
+            </a>
+        </div>
+    </div>
+    <div class="p-2 mb-2 bg-fb2 mh-50">
+
+
+        <div class="row mb-1 p-0 rounded">
+            <div class="col-8 p-0">@Model.LiabilityAccount.Name</div>
+            <div class="col-3 text-right p-0">@Model.Amount.ToString("N2")</div>
+        </div>
+
+
+        @{
+            if (Model.AmountPayFromOptionalAcc != 0 && Model.OptionalAssetAccount != null)
+            {
+                <div class="row mb-1 p-0 rounded">
+                    <div class="col-1 p-0"></div>
+                    <div class="col-8 p-0 ">@Model.OptionalAssetAccount.Name</div>
+                    <div class="col-3 p-0 text-right">@Model.AmountPayFromOptionalAcc.ToString("N2")</div>
+                </div>
+            }
+
+            <div class="row mb-1 p-0 rounded">
+                <div class="col-1 p-0"></div>
+                <div class="col-8 p-0">@Model.AssetAccount.Name</div>
+                <div class="col-3 p-0 text-right">@Model.AmountPayFromPrimaryAcc.ToString("N2")</div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿
+@model ERPKeeper.Node.Models.Profiles.Profile
+
+<div class="bg-fb2 p-2 mb-1" style="padding:0px;width:450px;">
+    @using (Html.BeginForm("ChangePin", "Profile", new { Area = "Profiles" }, FormMethod.Post, new { @id = "SaveForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "PinDetail";
+       settings.Width = Unit.Pixel(300);
+       settings.ColCount = 1;
+
+
+
+       settings.Items.Add(m => m.Pin, itemSettings =>
+       {
+           itemSettings.Caption = "New Pin";
+           itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+       });
+
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+       });
+
+
+
+   }).GetHtml()
+    }
+
+</div>

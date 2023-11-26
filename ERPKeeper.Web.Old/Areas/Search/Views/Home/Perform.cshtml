@@ -1,0 +1,27 @@
+﻿@model ERPKeeper.Node.Models.Search.SearchModel
+
+@{
+    string output = Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented);
+}
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            <div class="p-2 bg-fb2 mh-50 rounded mb-2">
+                <b>Search String: </b>
+                @Model.FullSearchString
+            </div>
+
+            <div class="p-2 mb-2 bg-fb2 mh-50  mh-80">
+                @*@Model.Parameters?.Count??0 --*@
+                @Html.Raw(output.Replace(Environment.NewLine, @"<br />"))
+            </div>
+        </div>
+        <div class="col-3 col-Right">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model IList<ERPKeeper.Node.Models.Items.Item>
+
+
+@Html.DevExpress().ComboBox(
+        settings =>
+        {
+            settings.Name = "itemUid";
+
+            settings.CallbackRouteValues = new
+            {
+                Controller = "CommercialItems",
+                Action = "Partial_ComboBoxItems",
+                Area = "Commercials",
+                transactionType = ViewBag.transactionType,
+                purchasePurpose = ViewBag.purchasePurpose
+            };
+            settings.Width = 320;
+            settings.Properties.ValueField = "Uid";
+            settings.Properties.ValueType = typeof(Guid);
+            settings.SelectedIndex = 0;
+            settings.Properties.TextField = "PartNumber";
+            settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            settings.Properties.CallbackPageSize = 20;
+            settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            settings.Properties.TextFormatString = "{0}";
+
+
+            settings.Properties.Columns.Add("PartNumber", "PartNumber", 150);
+            settings.Properties.Columns.Add("ItemType", "ItemType", 150);
+            settings.Properties.Columns.Add("Description", "Description", 150);
+            settings.Properties.Columns.Add("UnitPrice", "UnitPrice", 100);
+        }
+).BindList(Model).GetHtml()

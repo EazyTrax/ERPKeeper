@@ -1,0 +1,99 @@
+﻿
+<div id="treeListDemo" class="mb-3">
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Items.Item>()
+    .ID("gridList")
+    .DataSource(Organization.Items
+    .GetAll()
+    .Where(items => items.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory)
+    .Select(i=> new{
+    i.Uid ,
+    i.PartNumber,
+    i.Description ,
+    i.UnitPrice ,
+    i.ItemType ,
+    
+    i.BrandGuid,
+    i.BrandName,
+    i.GroupItemUid,
+    
+    i.AmountPurchase,
+    i.AmountOnHand,
+    i.AmountSold,
+
+
+    i.AmountOnPurchaseOrder,
+    i.AmountOnQuotation,
+    i.AmountOnSaleOrder,
+    })
+
+
+        @*   d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/All")
+            .InsertUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Insert")
+            .UpdateUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Update")
+            .UpdateMethod("Post")
+            .DeleteUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Delete")
+            .DeleteMethod("Post")*@
+
+    )
+    .KeyExpr("Uid")
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .AllowColumnResizing(false).AllowColumnReordering(true)
+    .Paging(paging => paging.Enabled(true).PageSize(500))
+    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+    .ColumnAutoWidth(true)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .StateStoring(s => s
+        .Enabled(true)
+        .Type(StateStoringType.LocalStorage)
+        .StorageKey("Customers_Inventory")
+    )
+    .RowAlternationEnabled(true)
+    .Columns(columns => {
+    columns.Add().DataField("BrandName").Width(100)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Products/Brand/<%= data.BrandGuid %>/">
+                <%= data.BrandName %>
+            </a>
+        </text>);
+
+    columns.Add().DataField("PartNumber")
+    .SortOrder(SortOrder.Asc)
+    .SortIndex(1)
+    .Width(200)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Products/Items/<%= data.Uid %>/">
+                <span class="font-weight-600"><%= data.PartNumber %></span>
+            </a>
+        </text>);
+
+    columns.Add().DataField("Description")
+            .Width(430)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Products/Items/<%= data.Uid %>/">
+                <%= data.Description %>
+            </a>
+        </text>);
+
+                columns.Add().DataField("UnitPrice").Width(100).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
+                columns.AddFor(m=>m.AmountPurchase).Width(60).HeaderCellTemplate(@<text>PU</text>);
+                columns.AddFor(m => m.AmountSold).Width(60).HeaderCellTemplate(@<text>SL</text>);
+                columns.AddFor(m => m.AmountOnHand).Width(60).HeaderCellTemplate(@<text>Stock</text>);
+                columns.AddFor(m => m.AmountOnQuotation).Width(60).HeaderCellTemplate(@<text>QU</text>);
+                columns.AddFor(m => m.AmountOnSaleOrder).Width(60).HeaderCellTemplate(@<text>OR</text>);
+                columns.AddFor(m => m.AmountOnPurchaseOrder).Width(60).HeaderCellTemplate(@<text>PO</text>);
+    })
+    )
+</div>
+
+

@@ -1,0 +1,13 @@
+﻿@model ERPKeeper.Node.Models.Estimations.SaleQuote
+
+
+<div class="row">
+    <div class="col col-Middle p-0">
+        @Html.DevExpress().WebDocumentViewer(settings =>
+                {
+                    settings.Name = "documentViewer";
+                }).Bind(ViewBag.Report).GetHtml()
+    </div>
+</div>
+
+

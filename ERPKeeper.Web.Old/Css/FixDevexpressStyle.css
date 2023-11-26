@@ -1,0 +1,60 @@
+﻿
+.dxtlControl {
+    font-family: 'Prompt', 'Segoe UI','Helvetica Neue',Helvetica,Verdana,san-serif !important;
+    font-size: 14px !important;
+}
+
+.dxtlControl_MetropolisBlue {
+    font-family: 'Prompt', 'Segoe UI','Helvetica Neue',Helvetica,Verdana,san-serif !important;
+    font-size: 14px !important;
+}
+
+.dxgvControl_MetropolisBlue a {
+    color: black;
+}
+
+.dxgvControl_DevEx, .dxgvDisabled_DevEx, .dxeHyperlink_DevEx, .dxtlControl_DevEx {
+    font-family: 'Prompt', 'Segoe UI','Helvetica Neue',Helvetica,Verdana,san-serif !important;
+    font-size: 14px !important;
+}
+
+.dxgvControl_MetropolisBlue, .dxgvDisabled_MetropolisBlue, .dxeHyperlink_MetropolisBlue, .dxflFormLayout_MetropolisBlue {
+    font-family: 'Prompt', 'Segoe UI','Helvetica Neue',Helvetica,Verdana,san-serif !important;
+    font-size: 14px !important;
+}
+
+.dxnbLite_MetropolisBlue, .dxmLite_MetropolisBlue, .dxflFormLayout_DevEx {
+    font-family: 'Prompt', 'Segoe UI','Helvetica Neue',Helvetica,Verdana,san-serif !important;
+    font-size: 14px !important;
+}
+
+.dxpnlControl_MetropolisBlue {
+    font-family: 'Prompt', 'Segoe UI','Helvetica Neue',Helvetica,Verdana,san-serif !important;
+    font-size: 14px !important;
+}
+
+
+.dxp-num {
+    background-color: #EEEEEE;
+}
+
+.dxtlNode {
+    white-space: normal !important;
+}
+
+
+/*.dxtlNode td.dxtl {
+        padding: 0px !important;
+    }*/
+
+.dxnb-header, .dxnb-headerCollapsed {
+    /*border-radius: 5px !important;*/
+}
+
+.dxnb-gr {
+    margin-bottom: 5px !important;
+}
+
+/*.dxflFormLayout_MetropolisBlue {
+    padding: 0px !important;
+}*/

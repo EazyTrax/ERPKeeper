@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Employees"})">Employees</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Payments",new { Area = "Employees" })">Payments</a>
+            </li>
+
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <span id="ImageMenuCore" style="cursor:pointer">
+            <i class="fab fa-chrome fa-lg text-muted"></i>
+        </span>
+
+        @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuCore";
+           settings.PopupElementID = "ImageMenuCore";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+           settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+           settings.Items.Add("ReOrderNo").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payments", Action = "ReOrderNo" });
+           settings.Items.Add("Export").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payments", Action = "Export" });
+       }).GetHtml()
+
+    </div>
+</div>
+
+
+
+

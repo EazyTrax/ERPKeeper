@@ -1,0 +1,63 @@
+﻿@model ERPKeeper.Node.Models.Employees.Employee
+
+<div style="background-color:#EEEEEE;padding:10px;min-height:30px;margin-bottom:10px;">
+    @if (Model.Position != null)
+    {
+        <div style="background-color:#EEEEEE;padding:10px;margin-bottom:10px;">
+            <a href="@Url.Action("Home", "Position", new { id = Model.PositionGuid, Area = "Employees" })">
+                @Model.Position.Title
+            </a>
+            <br />
+            <span style="font-size:smaller;">@Model.Position.Description</span><br /><br />
+        </div>
+    }
+
+</div>
+<div style="background-color:#EEEEEE;padding:10px;min-height:30px;margin-bottom:10px;">
+
+
+    @using (Html.BeginForm("ChangePosition", "Employee", new { id = Model.ProfileUid }, FormMethod.Post, new { @id = "SaveForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ProfileUid)
+
+        @Html.DevExpress().FormLayout(settings =>
+       {
+           settings.Name = "AssignPositionform";
+           settings.Width = Unit.Percentage(100);
+           settings.EncodeHtml = false;
+           settings.ColCount = 2;
+
+           settings.Items.Add(m => m.PositionGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Assign Position", "Home", "Positions", new { Area = "Employees" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Title";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+
+               cb.Properties.DataSource = erpNodeDBContext.EmployeePositions.ToList();
+           });
+
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Action";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+               groupSettings.Items.Add(item =>
+               {
+                   item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                   item.ShowCaption = DefaultBoolean.False;
+                   item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                   var button = (ButtonSettings)item.NestedExtensionSettings;
+                   button.Name = "SaveButton";
+                   button.Text = "Assign";
+                   button.UseSubmitBehavior = true;
+               });
+           });
+       }).GetHtml()
+    }
+</div>

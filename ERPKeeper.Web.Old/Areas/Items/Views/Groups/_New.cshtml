@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = null;
+}
+
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>NEW GROUP</b><br /><br />
+
+    @using (Html.BeginForm("New", "Groups"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().TextBox(
+                            settings =>
+                            {
+                                settings.Name = "GroupName";
+                            }
+                        ).GetHtml()
+
+        <br />
+        <input type="submit" />
+    }
+</div>
+
+

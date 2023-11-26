@@ -1,0 +1,35 @@
+﻿@Html.DevExpress().NavBar(settings =>
+{
+    settings.Width = Unit.Percentage(100);
+    settings.Name = "nbERPCustomers";
+    settings.AutoCollapse = true;
+    settings.ShowExpandButtons = false;
+    settings.SaveStateToCookies = true;
+
+    settings.Styles.LoadingPanel.Paddings.Padding = Unit.Pixel(0);
+    settings.Styles.GroupHeaderCollapsed.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+    settings.Styles.GroupHeaderCollapsed.ForeColor = System.Drawing.Color.Black;
+    settings.Styles.GroupHeader.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+    settings.Styles.GroupHeader.ForeColor = System.Drawing.Color.Black;
+    settings.Styles.GroupHeader.BorderBottom.BorderStyle = BorderStyle.Solid;
+    settings.Styles.GroupHeader.BorderBottom.BorderColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+    settings.Styles.GroupContent.Paddings.PaddingLeft = Unit.Pixel(0);
+    settings.Styles.GroupContent.Paddings.PaddingRight = Unit.Pixel(0);
+    settings.Styles.GroupContent.Paddings.PaddingBottom = Unit.Pixel(0);
+    settings.Styles.Item.CssClass = "px-1";
+    
+    settings.Groups.Add(item =>
+    {
+        item.Text = "Documents";
+        item.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Documents", Action = "Home" });
+        item.Items.Add("Upload").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Documents", Action = "Upload" });
+    });
+
+}).GetHtml()
+
+
+<div style="margin-top:50px;padding-left:10px;">
+    <a href="@Url.Action("Home", "DashBoard")">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+</div>

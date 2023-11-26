@@ -1,0 +1,24 @@
+﻿@model ERPKeeper.Node.Models.Employees.Employee
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col">
+            @Html.Partial("_ActionMenu")
+            <div class="p-2 mb-1 bg-fb1 mh-80">
+                <strong>Leaves</strong>
+                <br />
+                @Html.ActionLink("Create Leave", "CreateLeave", new { id = Model.ProfileUid })
+            </div>
+            @Html.Action("PartialGridViewLeaves", "Employee", new { id = Model.ProfileUid })
+        </div>
+        <div class="col-3 col-Right pr-0">
+            <div class="p-2 mb-2 bg-fb2 mh-50">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@model ERPKeeper.Node.Models.Profiles.Profile
+
+@{
+    var profile = new
+    {
+        Model.Uid,
+        Model.Name,
+        Model.ShotName,
+        Model.TaxNumber,
+        Model.WebSite,
+        Model.PhoneNumber
+    };
+}
+
+
+<div class="mb-3">
+    <form id="EditForm" method="post" action="/Profiles/@Model.Uid/Update">
+        <div class="row">
+            <div class="col-6 pl-0">
+                <div class="p-2 bg-fb1 rouned mb-2">
+                    @(Html.DevExtreme().Form<ERPKeeper.Node.Models.Profiles.Profile>()
+                    .ID("form_0")
+                    .FormData(profile)
+                    .LabelMode(FormLabelMode.Static)
+                    .LabelLocation(FormLabelLocation.Left)
+                    .MinColWidth(300)
+                    .ReadOnly(false)
+                    .ShowColonAfterLabel(true)
+                    .ColCount(1)
+                    .Items(items => {
+                    items.AddSimpleFor(m=>m.Name);
+                    items.AddSimpleFor(m=>m.ShotName);
+                    items.AddSimpleFor(m=>m.TaxNumber);
+                    })
+                    )
+                </div>
+                  <div class="p-2 bg-fb1 rouned">
+                    @(Html.DevExtreme().Form<ERPKeeper.Node.Models.Profiles.Profile>()
+                    .ID("form_1")
+                    .FormData(profile)
+                    .LabelMode(FormLabelMode.Static)
+                    .LabelLocation(FormLabelLocation.Left)
+                    .MinColWidth(300)
+                    .ReadOnly(false)
+                    .ShowColonAfterLabel(true)
+                    .ColCount(1)
+                    .Items(items => {
+                    items.AddSimpleFor(m=>m.WebSite);
+                    items.AddSimpleFor(m=>m.PhoneNumber);
+                    items.AddSimpleFor(m=>m.Note).Editor(e=>e.TextArea().MinHeight(100));
+                    })
+                    )
+                </div>
+            </div>
+            <div class="col-6 pr-0 mb-2">
+              
+            </div>
+            <div class="col-12 text-right">
+                <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                    Save
+                </button>
+            </div>
+        </div>
+
+
+    </form>
+</div>

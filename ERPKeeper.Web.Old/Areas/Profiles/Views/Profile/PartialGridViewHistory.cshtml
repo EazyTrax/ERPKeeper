@@ -1,0 +1,42 @@
+﻿
+@model ERPKeeper.Node.Models.Profiles.Profile
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewProfileAddresses";
+
+        settings.KeyFieldName = "Uid";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Addresses", Action = "PartialGridViewHistory", id = ViewBag.Uid };
+
+
+        settings.Styles.SearchPanel.BorderBottom.BorderWidth = Unit.Pixel(5);
+        settings.Styles.SearchPanel.BorderBottom.BorderColor = System.Drawing.Color.White;
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RecordDate";
+            column.Caption = "Date Time";
+            column.Width = Unit.Pixel(200);
+            column.SortIndex = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Title";
+            column.Caption = "Title"; ;
+           
+        });
+
+        settings.EnableTheming = true;
+
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+    });
+}
+@grid.Bind(Model.Histories).GetHtml()

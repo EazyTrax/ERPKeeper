@@ -1,0 +1,40 @@
+﻿<div class="row mb-1">
+  <div class="col bg-gray p-2 mr-2 mh-80">
+    Assets<br /><br />
+    <span style="font-size:24px;">
+      @erpNodeDBContext.AccountItems.Where(i => i.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Asset).ToList().Sum(a => a.CurrentBalance).ToString("N0")
+    </span>
+  </div>
+
+  <div class="col bg-gray p-2 mr-2 ">
+
+    Liability<br /><br />
+    <span style="font-size:24px;">
+      @erpNodeDBContext.AccountItems.Where(i => i.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Liability).ToList().Sum(a => a.CurrentBalance).ToString("N0")
+    </span>
+  </div>
+
+  <div class="col bg-gray p-2 mr-2 ">
+
+    Equity<br /><br />
+    <span style="font-size:24px;">
+      @erpNodeDBContext.AccountItems.Where(i => i.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Capital).ToList().Sum(a => a.CurrentBalance).ToString("N0")
+    </span>
+  </div>
+
+  <div class="col bg-gray p-2 mr-2 ">
+
+    Income<br /><br />
+    <span style="font-size:24px;">
+      @erpNodeDBContext.AccountItems.Where(i => i.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Income).ToList().Sum(a => a.CurrentBalance).ToString("N0")
+    </span>
+  </div>
+
+  <div class="col bg-gray p-2 ">
+
+    Expense<br /><br />
+    <span style="font-size:24px;">
+      @erpNodeDBContext.AccountItems.Where(i => i.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Expense).ToList().Sum(a => a.CurrentBalance).ToString("N0")
+    </span>
+  </div>
+</div>

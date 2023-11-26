@@ -1,0 +1,50 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Careers", Action = "PartialGridView" };
+        settings.KeyFieldName = "Uid";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Title";
+            column.Caption = "Profile Name";
+            
+            column.Width = 300;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string ProfileGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = DataBinder.Eval(t.DataItem, "Title").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Redirect", new { id = ProfileGuid }));
+            });
+        });
+
+
+
+        settings.EnableTheming = true;
+        
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowFooter = true;
+
+        
+        
+        
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+
+    });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,189 @@
+@model IList<ERPKeeper.Node.Models.Items.Item>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+
+        settings.CallbackRouteValues = new
+        {
+            Controller = "Items",
+            Action = "PartialGridView",
+            id = ViewBag.id
+};
+        settings.KeyFieldName = "Uid";
+        settings.SettingsPager.PageSize = 1000;
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Styles.Header.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.Settings.ShowFooter = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+
+
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+
+         
+
+
+        if (Model.Count > 1000)
+        {
+            settings.SettingsPager.Position = PagerPosition.Bottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSize = 1000;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "1000", "2000" };
+        }
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Uid";
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = VerticalAlign.Top;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string status = DataBinder.Eval(t.DataItem, "Status").ToString();
+                //  string StatusImage = ERPKeeper.Node.Helpers.Status.StatusImage(status);
+                string SpanBadge = (DataBinder.Eval(t.DataItem, "SpanBadge") ?? " ").ToString() + "  ";
+                ViewContext.Writer.Write(SpanBadge);
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PartNumber";
+            column.Caption = Lang.PartNumber;
+            column.SettingsHeaderFilter.Mode = GridHeaderFilterMode.CheckedList;
+
+            column.Width = 120;
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string itemGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string partNumber = (DataBinder.Eval(t.DataItem, "PartNumber") ?? "N/A").ToString();
+
+                string divShell = "<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; max-width:180px;'>{0}</div>";
+            
+                ViewContext.Writer.Write(string.Format(divShell, Html.ActionLink(partNumber, "Home", "Item", new { id = itemGuid }, null).ToString()));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Brand.Name";
+            column.Caption = "Brand";
+            column.SettingsHeaderFilter.Mode = GridHeaderFilterMode.CheckedList;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string brandUid = (DataBinder.Eval(t.DataItem, "Brand.Uid") ?? " ").ToString();
+                string brand = (DataBinder.Eval(t.DataItem, "Brand.Name") ?? " ").ToString();
+                string divShell = "<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; max-width:120px;'>{0}</div>";
+
+                ViewContext.Writer.Write(string.Format(divShell, Html.ActionLink(brand, "Home", "Brand", new { id = brandUid }, null)));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Uid";
+            column.Caption = Lang.Detail;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string brandUid = (DataBinder.Eval(t.DataItem, "Brand.Uid") ?? Guid.Empty).ToString();
+                string description = (DataBinder.Eval(t.DataItem, "Description") ?? " ").ToString().Replace(Environment.NewLine, "<br />");
+                string divShell = "<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; max-width:280px;'>{0}</div>";
+
+                ViewContext.Writer.Write(string.Format(divShell, description));
+            });
+        });
+
+        /*  settings.Columns.Add(column =>
+          {
+              column.FieldName = "ItemGroup.Name";
+              column.Caption = "Group";
+
+              column.SetDataItemTemplateContent(t =>
+              {
+                  string ItemGroupUid = (DataBinder.Eval(t.DataItem, "ItemGroup.Uid") ?? Guid.Empty).ToString();
+                  string ItemGroupName = Html.ActionLink((DataBinder.Eval(t.DataItem, "ItemGroup.Name") ?? " ").ToString() + " ", "Home", "ItemGroup", new { id = ItemGroupUid }, null).ToString();
+                  ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:120px;'>{0}</div>", ItemGroupName));
+              });
+          });*/
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UnitPrice";
+            column.Caption = "Price";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+        });
+
+        if (ViewBag.id != null && ViewBag.id.ToString() == "Inventory")
+        {
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "AmountOnHand";
+                column.Caption = "Stock"; ;
+                column.Width = 60;
+                column.PropertiesEdit.DisplayFormatString = "N0";
+                column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+            });
+
+            //settings.Columns.Add(column =>
+            //{
+            //    column.FieldName = "StockValue";
+            //    column.Caption = "Value";
+            //    column.PropertiesEdit.DisplayFormatString = "N0";
+            //    column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            //
+            //});
+            //settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "StockValue").DisplayFormat = "N0";
+            //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "StockValue").DisplayFormat = "N0";
+
+        }
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

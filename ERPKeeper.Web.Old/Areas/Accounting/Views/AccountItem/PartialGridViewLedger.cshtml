@@ -1,0 +1,153 @@
+@model IQueryable<ERPKeeper.Node.Models.Accounting.Ledger>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "AccountItem", Action = "PartialGridViewLedger", id = ViewBag.id };
+        settings.KeyFieldName = "Uid";
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+
+        };
+
+        var TotalCredit = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        TotalCredit.ShowInGroupFooterColumn = "Credit";
+        TotalCredit.DisplayFormat = "N2";
+
+        var TotalDebit = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        TotalDebit.ShowInGroupFooterColumn = "Debit";
+        TotalDebit.DisplayFormat = "N2";
+
+        if (Model.Count() > 500)
+        {
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.Position = PagerPosition.Bottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSize = 500;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "500", "2000" };
+        }
+        else
+        {
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        }
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.SortIndex = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TransactionType";
+            column.Caption = "Type";
+
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "transactionName";
+            column.Caption = "TR.";
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string TransactionGuid = (DataBinder.Eval(t.DataItem, "TransactionGuid") ?? "NA").ToString();
+                string transactionName = (DataBinder.Eval(t.DataItem, "transactionName") ?? "NA").ToString();
+                string TransactionType = (DataBinder.Eval(t.DataItem, "TransactionType") ?? "NA").ToString();
+
+                ViewContext.Writer.Write(Html.ActionLink(transactionName, "Redirect", "Transaction", new { Area = "Transactions", id = TransactionGuid, Type = TransactionType }, new { target = "_blank" }));
+            });
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.Width = 130;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.Width = 130;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        //settings.Columns.Add(column =>
+        //{
+        //  column.FieldName = "Balance";
+        //  column.PropertiesEdit.DisplayFormatString = "N2";
+
+        //});
+
+        //settings.Columns.Add(column =>
+        //{
+        //  column.FieldName = "Memo";
+        //});
+
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+
+    });
+}
+
+@grid.BindToLINQ(string.Empty, string.Empty, (s, e) =>
+  {
+    e.QueryableSource = Model;
+    e.KeyExpression = "Uid";
+  }).GetHtml()
+

@@ -1,0 +1,37 @@
+﻿@using ERPKeeper.WebFrontEnd.Areas.Documents.Models;
+@model List<PdfPageModel>
+
+
+
+@Html.DevExpress().DataView(settings =>
+{
+    settings.Name = "DocumentView01";
+
+    settings.CallbackRouteValues = new
+    {
+        Controller = "Document",
+        Action = "_PDFViewer",
+        id = ViewBag.id
+    };
+
+    settings.SettingsTableLayout.RowsPerPage = 1;
+    settings.SettingsTableLayout.ColumnCount = 1;
+    settings.PagerSettings.ShowNumericButtons = true;
+   
+
+
+    settings.Width = Unit.Pixel(777);
+
+    settings.SetItemTemplateContent(c =>
+    {
+        PdfPageModel pageModel = c.DataItem as PdfPageModel;
+        Html.DevExpress().BinaryImage(imageSettings =>
+        {
+            imageSettings.Name = "bimPdfPage" + pageModel.PageNumber;
+            imageSettings.Width = Unit.Pixel(750);
+            imageSettings.Properties.ImageSizeMode = ImageSizeMode.FitProportional;
+        }).Bind(pageModel.GetPageImageBytes()).Render();
+    });
+
+}).Bind(Model).GetHtml()
+<div class="text-white"></div>

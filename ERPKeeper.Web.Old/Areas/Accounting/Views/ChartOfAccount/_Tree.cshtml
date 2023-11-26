@@ -1,0 +1,116 @@
+@model IList<ERPKeeper.Node.Models.Accounting.AccountItem>
+
+
+@{
+    var grid = Html.DevExpress().TreeList(settings =>
+    {
+        settings.Name = "GridView";
+        settings.CallbackRouteValues = new { Controller = "ChartOfAccount", Action = "_Tree", id = ViewBag.id };
+        settings.KeyFieldName = "Uid";
+        settings.ParentFieldName = "ParentUid";
+        settings.Settings.ShowFooter = true;
+
+        settings.Settings.ShowColumnHeaders = false;
+        settings.Settings.ShowGroupFooter = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+
+        settings.Styles.GroupFooter.BackColor = System.Drawing.Color.Transparent;
+        settings.Styles.Footer.BackColor = System.Drawing.Color.Transparent;
+        settings.Styles.Node.BackColor = System.Drawing.Color.Transparent;
+        settings.Styles.Indent.BackColor = System.Drawing.Color.Transparent;
+        settings.Styles.IndentWithButton.BackColor = System.Drawing.Color.Transparent;
+        settings.ControlStyle.BackColor = System.Drawing.Color.Transparent;
+
+        settings.EncodeHtml = false;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsBehavior.AutoExpandAllNodes = true;
+        settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.None;
+
+        settings.Styles.Header.Border.BorderStyle = BorderStyle.Solid;
+
+
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.SettingsPager.Visible = false;
+
+        //settings.Images.ExpandedButton.Height = Unit.Pixel(0);
+        //settings.Images.ExpandedButton.Width = Unit.Pixel(0);
+
+
+        settings.Theme = "Default";
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Name";
+
+
+            column.SetDataCellTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                string SpanBadge = DataBinder.Eval(t.DataItem, "SpanBadge").ToString();
+                ViewContext.Writer.Write(SpanBadge + " " + Html.ActionLink(name, "Redirect", "ChartOfAccount", new { id = Uid }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Code";
+            column.Caption = "Code";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SubEnumType";
+            column.Caption = "Sub Type";
+
+
+            //column.SetDataCellTemplateContent(t =>
+            //{
+
+
+            //  string SubEnumTypeString = DataBinder.Eval(t.DataItem, "SubEnumType").ToString();
+            //  if (SubEnumTypeString.ToLower() == "none")
+            //  {
+            //    ViewContext.Writer.Write("");
+            //  }
+            //  else
+            //  {
+            //    ViewContext.Writer.Write(SubEnumTypeString);
+            //  }
+
+            //});
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CurrentBalance";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00); ";
+        });
+
+        settings.Summary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance").DisplayFormat = "{0:n2}";
+        settings.Summary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningBalance").DisplayFormat = "{0:n2}";
+
+        //settings.Columns.Add(column =>
+        //{
+        //  column.FieldName = "OpeningBalance";
+        //  column.Width = 100;
+        //  column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        //});
+    });
+
+}
+@grid.Bind(Model).GetHtml()

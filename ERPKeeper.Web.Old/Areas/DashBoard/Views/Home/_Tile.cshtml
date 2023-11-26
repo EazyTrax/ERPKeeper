@@ -1,0 +1,66 @@
+﻿
+<div class="row">
+    <div class="col-6 p-0">
+        <div class="mb-2" id="DivCurrentAssetandLiability">
+            @Html.Action("_Chart_CurrentAssetandLiability", "Reports", new { Area = "Accounting" })
+        </div>
+        <div class="mb-2">
+            @Html.Action("_ChartIncome", "DashBoard", new { Area = "Customers" })
+        </div>
+        <div class="bg-fb2 mb-2 p-2 rounded mh-100">
+            <div class="font-weight-bold text-uppercase">Purchasing</div>
+
+            @foreach (var order in Organization.ErpNodeDBContext.PurchaseEstimates.Where(q => q.Status == ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus.Ordered).ToList())
+            {
+                <a href="/Suppliers/Quote/@order.Uid" target="_blank">
+                    <div class="row">
+                        <div class="col-4 p-0">
+                            @order.Name
+                        </div>
+                        <div class="col-5 p-0 ">
+                            <div style="width:100px;" class="overflow-hidden">
+                                @order.Reference
+                            </div>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            @order.LinesTotal.ToString("N0")
+                        </div>
+                    </div>
+                </a>
+            }
+
+
+
+        </div>
+    </div>
+    <div class="col-6 pr-0">
+        <div class="mb-2" id='DivProfitAndLostSummary'>
+            @Html.Action("_Chart_ProfitAndLostSummary", "Reports", new { Area = "Accounting" })
+        </div>
+        <div class="mb-2">
+            @Html.Action("_ChartExpense", "DashBoard", new { Area = "Suppliers" })
+        </div>
+        <div class="bg-fb2 mb-2 p-2 rounded mh-100">
+            <div class="font-weight-bold text-uppercase">Ordering</div>
+            @foreach (var order in Organization.ErpNodeDBContext.SaleEstimates.Where(q => q.Status == ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus.Ordered).ToList())
+            {
+                <a href="/Customers/Quote/@order.Uid" target="_blank">
+                    <div class="row">
+                        <div class="col-4 p-0">
+                            @order.Name
+                        </div>
+                        <div class="col-5 p-0 ">
+                            <div style="width:100px;" class="overflow-hidden">
+                                @order.Reference
+                            </div>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            @order.LinesTotal.ToString("N0")
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+

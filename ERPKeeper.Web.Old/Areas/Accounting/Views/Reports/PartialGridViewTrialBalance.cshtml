@@ -1,0 +1,121 @@
+﻿@model IList<ERPKeeper.Node.Models.Accounting.TrialBalanceAccountItem>
+
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Reports", Action = "PartialGridViewTrialBalance", Area = "Accounting", type = ViewBag.Type };
+        settings.KeyFieldName = "Uid";
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+        var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        TotalGroup.ShowInGroupFooterColumn = "Debit";
+        TotalGroup.DisplayFormat = "N2";
+
+        var BalanceGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        BalanceGroup.ShowInGroupFooterColumn = "Credit";
+        BalanceGroup.DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Type";
+            column.Caption = "Type";
+            
+            column.SortIndex = 1;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SubType";
+            column.Caption = "Sub Type";
+            
+            column.SortIndex = 2;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.Code";
+            column.Caption = "Account Code";
+            
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "AccountItem.Uid") ?? "N?A").ToString();
+                string codeName = (DataBinder.Eval(t.DataItem, "AccountItem.Code") ?? "N?A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(codeName, "Redirect", "ChartOfAccount", new { id = accountUid, Area = "Accounting" }, null));
+            });
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.Name";
+            column.Caption = "Account";
+            
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "AccountItem.Uid") ?? "N?A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "AccountItem.Name") ?? "N?A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Redirect", "ChartOfAccount", new { id = accountUid, Area = "Accounting" }, null));
+            });
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Balance";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

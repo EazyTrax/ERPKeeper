@@ -1,0 +1,20 @@
+﻿
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <span class="bg-dark px-2 mt-2 mr-3 text-white">
+            Documents
+        </span>
+    </div>
+    <div class="col text-right">
+
+    </div>
+    <div class="class col-12">
+        @Html.DevExpress().Menu(settings =>
+        {
+            settings.Name = "nbERPDocuments";
+            settings.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Documents", Action = "Home" });
+            settings.Items.Add("Matching").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Documents", Action = "Matching" });
+        }).GetHtml()
+    </div>
+</div>
+

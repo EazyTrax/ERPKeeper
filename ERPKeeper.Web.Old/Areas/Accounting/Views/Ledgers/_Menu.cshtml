@@ -1,0 +1,24 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-11 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Ledgers",new { Area = "Accounting"})">@Model.Type.ToString()</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home","AccountItem",new { Area = "Accounting", id=Model.Uid})"><b>@(Model.No ?? "NA") </b> @Model.Name</a>
+            </li>
+
+        </ol>
+    </div>
+
+
+</div>
+<div class="mb-2">
+  
+</div>

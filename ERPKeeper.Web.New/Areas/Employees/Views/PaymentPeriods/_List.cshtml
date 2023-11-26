@@ -1,0 +1,51 @@
+﻿
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Employees.EmployeePaymentPeriod>()
+    .ID("gridList")
+    .DataSource(d => d.RemoteController().Key("Uid")
+    .LoadUrl($"/API/Employment/PaymentPeriods/All")
+    .InsertUrl($"/API/Employment/PaymentPeriods/Insert")
+    .UpdateUrl($"/API/Employment/PaymentPeriods/Update")
+    .UpdateMethod("Post")
+    .DeleteUrl($"/API/Employment/PaymentPeriods/Delete")
+    .DeleteMethod("Post")
+    )
+    .KeyExpr("Uid")
+    .RowAlternationEnabled(true)
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Width("100%")
+    .Paging(paging => paging.PageSize(100))
+    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
+    )
+
+    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .FilterRow(filterRow => filterRow
+    .Visible(true)
+    .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .Columns(columns =>
+    {
+
+    columns.AddFor(m=>m.TrnDate).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
+    columns.AddFor(m=>m.Name).CellTemplate(@<text><a href="/@CompanyId/Employees/PaymentPeriods/<%= data.Uid %>/"><%= displayValue %></a></text>);
+    columns.AddFor(m=>m.TotalEarning).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Earning</text>);
+    columns.AddFor(m=>m.TotalDeduction).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Deduction</text>);
+    })
+
+    )
+</div>
+
+

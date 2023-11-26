@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+<div class="p-2 mb-2 bg-fb2 mh-50 rounded">
+    <b>Upload Files</b><br /><br />
+    @using (Html.BeginForm("FileUpload", "Documents", new { id = ViewBag.id, Area = "Documents" }, FormMethod.Post, null))
+    {
+        @Html.Hidden("TypeString", ERPKeeper.Node.Models.Documents.ReferenceTypes.FundTransfer.ToString())
+
+        @Html.DevExpress().TextBox(settings =>
+        {
+            settings.Name = "memo";
+            settings.Properties.NullText = "Memo Text";
+            settings.Width = Unit.Pixel(280);
+        }).GetHtml()
+        <br />
+
+
+        @Html.DevExpress().UploadControl(settings =>
+   {
+       settings.Name = "UploadControl";
+       settings.CallbackRouteValues = new { Controller = "Documents", Action = "FileUpload", Area = "Documents", id = ViewBag.id };
+
+       settings.ShowAddRemoveButtons = true;
+       settings.ShowProgressPanel = true;
+       settings.ShowClearFileSelectionButton = true;
+
+
+       settings.ShowUploadButton = true;
+       settings.UploadMode = UploadControlUploadMode.Standard;
+       settings.Width = Unit.Pixel(280);
+
+       //settings.UploadMode = UploadControlUploadMode.Advanced;
+       settings.AdvancedModeSettings.EnableDragAndDrop = true;
+       settings.AdvancedModeSettings.EnableMultiSelect = true;
+       settings.AdvancedModeSettings.EnableFileList = true;
+       settings.ValidationSettings.MaxFileSize = 20480000;
+       settings.ValidationSettings.AllowedFileExtensions = new String[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".jpeg", ".jpg", ".png" };
+
+       settings.BrowseButton.Text = "Select";
+       settings.Styles.Button.CssClass = "btn btn-warning  btn-sm";
+       settings.ClientSideEvents.FilesUploadComplete = "function(s, e) { alert('Upload Completed, Reload'); }";
+
+   }).GetHtml()
+    }
+</div> 
+
+ window.location.reload(false);

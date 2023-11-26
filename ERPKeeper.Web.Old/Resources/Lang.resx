@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Financial" xml:space="preserve">
+    <value>Financial</value>
+  </data>
+  <data name="ChartOfAccount" xml:space="preserve">
+    <value>Chart Of Account</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
+  <data name="EarnestReceives" xml:space="preserve">
+    <value>Earnest Receives</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Ledgers" xml:space="preserve">
+    <value>General Ledger</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="OverDue" xml:space="preserve">
+    <value>Over Due</value>
+  </data>
+  <data name="Investors" xml:space="preserve">
+    <value>Investors</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="UnPaid" xml:space="preserve">
+    <value>Un Paid</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Departments</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="Periods" xml:space="preserve">
+    <value>Periods</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="BankAccounts" xml:space="preserve">
+    <value>Bank Accounts</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Quotation" xml:space="preserve">
+    <value>Quotation</value>
+  </data>
+  <data name="SalesOrder" xml:space="preserve">
+    <value>SalesOrder</value>
+  </data>
+  <data name="SupplierPayment" xml:space="preserve">
+    <value>Supplier Payment</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>Accounting</value>
+  </data>
+  <data name="FixedAssets" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="DashBoard" xml:space="preserve">
+    <value>DashBoard</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="FiscalYear" xml:space="preserve">
+    <value>Fiscal Year</value>
+  </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>Purchase</value>
+  </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
+  <data name="Purchases" xml:space="preserve">
+    <value>Purchases</value>
+  </data>
+  <data name="AccountGroups" xml:space="preserve">
+    <value>Account Groups</value>
+  </data>
+  <data name="CapitalActivity" xml:space="preserve">
+    <value>Capital Activity</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>System Account</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="Brands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="IncomeTax" xml:space="preserve">
+    <value>Income Tax</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="ItemGroups" xml:space="preserve">
+    <value>Item Groups</value>
+  </data>
+  <data name="NonInventory" xml:space="preserve">
+    <value>Non-Inventory</value>
+  </data>
+  <data name="SalesTax" xml:space="preserve">
+    <value>Sales Tax</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="TaxCodes" xml:space="preserve">
+    <value>Tax Codes</value>
+  </data>
+  <data name="Accountants" xml:space="preserve">
+    <value>Accountants</value>
+  </data>
+  <data name="CashAccount" xml:space="preserve">
+    <value>Cash Account</value>
+  </data>
+  <data name="PurchaseReturn" xml:space="preserve">
+    <value>Purchase Return</value>
+  </data>
+  <data name="SalesReturn" xml:space="preserve">
+    <value>Sale Return</value>
+  </data>
+  <data name="SalesReturns" xml:space="preserve">
+    <value>Sale Returns</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="Persons" xml:space="preserve">
+    <value>Persons</value>
+  </data>
+  <data name="Asset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="Assets" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="AssetTypes" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>Positions</value>
+  </data>
+  <data name="FinancialAccounts" xml:space="preserve">
+    <value>Financial Accounts</value>
+  </data>
+  <data name="FundTransfers" xml:space="preserve">
+    <value>Fund Transfers</value>
+  </data>
+  <data name="Lend" xml:space="preserve">
+    <value>Lend</value>
+  </data>
+  <data name="SupplierPayments" xml:space="preserve">
+    <value>Bill Payments</value>
+  </data>
+  <data name="Loans" xml:space="preserve">
+    <value>Loans</value>
+  </data>
+  <data name="PaymentStubs" xml:space="preserve">
+    <value>Payment Stubs</value>
+  </data>
+  <data name="PaymentTemplate" xml:space="preserve">
+    <value>PaymentTemplate</value>
+  </data>
+  <data name="ReceivePayments" xml:space="preserve">
+    <value>Receive Payments</value>
+  </data>
+  <data name="RetentionPayments" xml:space="preserve">
+    <value>Retention Payments</value>
+  </data>
+  <data name="RetentionTypes" xml:space="preserve">
+    <value>Retention Types</value>
+  </data>
+  <data name="BusinessDirectory" xml:space="preserve">
+    <value>BusinessDirectory</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Help Center</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="FixedAssetTypes" xml:space="preserve">
+    <value>Asset Types</value>
+  </data>
+  <data name="TrialBalance" xml:space="preserve">
+    <value>Trial Balance</value>
+  </data>
+  <data name="YourRemainingTasks" xml:space="preserve">
+    <value>Your Remaining Tasks</value>
+  </data>
+  <data name="Capital" xml:space="preserve">
+    <value>Capital</value>
+  </data>
+  <data name="Liability" xml:space="preserve">
+    <value>Liability</value>
+  </data>
+  <data name="Estimation" xml:space="preserve">
+    <value>Estimation</value>
+  </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Quotes</value>
+  </data>
+  <data name="LiabilityPaymentTypes" xml:space="preserve">
+    <value>Liability Payment Types</value>
+  </data>
+  <data name="ReceivePaymentTypes" xml:space="preserve">
+    <value>Receive Payment Types</value>
+  </data>
+  <data name="ProfitAndLost" xml:space="preserve">
+    <value>Profit And Lost</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Profit</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="Addresses" xml:space="preserve">
+    <value>Addresses</value>
+  </data>
+  <data name="AddRole" xml:space="preserve">
+    <value>Add Role</value>
+  </data>
+  <data name="Cases" xml:space="preserve">
+    <value>Cases</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DocumentGroups" xml:space="preserve">
+    <value>Document Groups</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Due</value>
+  </data>
+  <data name="GrossPorfit" xml:space="preserve">
+    <value>Gross Porfit</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="IncomeStatement" xml:space="preserve">
+    <value>Income Statement</value>
+  </data>
+  <data name="JournalEntries" xml:space="preserve">
+    <value>Journal Entries</value>
+  </data>
+  <data name="JournalEntryTypes" xml:space="preserve">
+    <value>Journal Entry Types</value>
+  </data>
+  <data name="NotDue" xml:space="preserve">
+    <value>NotDue</value>
+  </data>
+  <data name="PartNumber" xml:space="preserve">
+    <value>Part Number</value>
+  </data>
+  <data name="Sponsor" xml:space="preserve">
+    <value>Sponsor</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="FixedAsset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="NonDeprecatedAsset" xml:space="preserve">
+    <value>Non Deprecated Asset</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenTask" xml:space="preserve">
+    <value>Open Task</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="YourOpenTask" xml:space="preserve">
+    <value>Your Open Task</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>Opening Balance</value>
+  </data>
+  <data name="RelatedAccount" xml:space="preserve">
+    <value>Related Account</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="TaxID" xml:space="preserve">
+    <value>Tax ID</value>
+  </data>
+  <data name="BankAccount" xml:space="preserve">
+    <value>Bank Account</value>
+  </data>
+  <data name="RetainEarning" xml:space="preserve">
+    <value>Retain Earning</value>
+  </data>
+  <data name="CostOfGoodsSold" xml:space="preserve">
+    <value>COSG</value>
+  </data>
+  <data name="TaxPeriods" xml:space="preserve">
+    <value>Tax Periods</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>Void</value>
+  </data>
+  <data name="Incomes" xml:space="preserve">
+    <value>Incomes</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TrnDate" xml:space="preserve">
+    <value>Trn Date</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="AddCommecialRole" xml:space="preserve">
+    <value>Add Commecial Role</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="Cancle" xml:space="preserve">
+    <value>Cancle</value>
+  </data>
+  <data name="PartialPaid" xml:space="preserve">
+    <value>PartialPaid</value>
+  </data>
+  <data name="DeprecateSchedules" xml:space="preserve">
+    <value>Deprecated Schedules</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="AdvancePayment" xml:space="preserve">
+    <value>Advance Payment</value>
+  </data>
+  <data name="CashPayment" xml:space="preserve">
+    <value>Cash Payment</value>
+  </data>
+  <data name="Costing" xml:space="preserve">
+    <value>Costing</value>
+  </data>
+  <data name="Estimates" xml:space="preserve">
+    <value>Bills Of Materials</value>
+  </data>
+  <data name="Commercials" xml:space="preserve">
+    <value>Commercials</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="LiabilityPayments" xml:space="preserve">
+    <value>Liability Payments</value>
+  </data>
+  <data name="AssetAccounts" xml:space="preserve">
+    <value>Asset Accounts</value>
+  </data>
+  <data name="LiabilityAccounts" xml:space="preserve">
+    <value>Liability Accounts</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="BalanceSheet" xml:space="preserve">
+    <value>Balance Sheet</value>
+  </data>
+  <data name="FavoriteAccount" xml:space="preserve">
+    <value>Favorite Account</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="CoperateTax" xml:space="preserve">
+    <value>Coperate Tax</value>
+  </data>
+  <data name="CoperateTaxes" xml:space="preserve">
+    <value>CoperateTaxes</value>
+  </data>
+  <data name="Shipment" xml:space="preserve">
+    <value>Shipment</value>
+  </data>
+  <data name="Shipments" xml:space="preserve">
+    <value>Shipments</value>
+  </data>
+  <data name="Investment" xml:space="preserve">
+    <value>Investment</value>
+  </data>
+  <data name="Investments" xml:space="preserve">
+    <value>Investments</value>
+  </data>
+  <data name="Lends" xml:space="preserve">
+    <value>Lends</value>
+  </data>
+  <data name="Loan" xml:space="preserve">
+    <value>Loan</value>
+  </data>
+  <data name="PurchaseQuote" xml:space="preserve">
+    <value>Purchase Quote</value>
+  </data>
+  <data name="PurchaseQuotes" xml:space="preserve">
+    <value>Purchase Quotes</value>
+  </data>
+  <data name="SaleQuote" xml:space="preserve">
+    <value>Sale Quote</value>
+  </data>
+  <data name="SaleQuotes" xml:space="preserve">
+    <value>Sale Quotes</value>
+  </data>
+  <data name="EstimationItem" xml:space="preserve">
+    <value>Estimation Item</value>
+  </data>
+  <data name="EstimationItems" xml:space="preserve">
+    <value>Estimation Items</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="PaymentPeriod" xml:space="preserve">
+    <value>Payment Period</value>
+  </data>
+  <data name="PaymentPeriods" xml:space="preserve">
+    <value>Payment Periods</value>
+  </data>
+  <data name="CommercialTaxes" xml:space="preserve">
+    <value>Commercials</value>
+  </data>
+  <data name="IncomeTaxes" xml:space="preserve">
+    <value>Income Taxes</value>
+  </data>
+  <data name="TaxGroup" xml:space="preserve">
+    <value>Tax Group</value>
+  </data>
+  <data name="TaxGroups" xml:space="preserve">
+    <value>Tax Groups</value>
+  </data>
+  <data name="EventLog" xml:space="preserve">
+    <value>Event Log</value>
+  </data>
+  <data name="EventLogs" xml:space="preserve">
+    <value>Event Logs</value>
+  </data>
+  <data name="PurchaseOrder" xml:space="preserve">
+    <value>Purchase Order</value>
+  </data>
+  <data name="PurchaseOrders" xml:space="preserve">
+    <value>Purchase Orders</value>
+  </data>
+  <data name="SalesOrders" xml:space="preserve">
+    <value>Sales Orders</value>
+  </data>
+  <data name="Retention" xml:space="preserve">
+    <value>Retention</value>
+  </data>
+  <data name="Retentions" xml:space="preserve">
+    <value>Retentions</value>
+  </data>
+  <data name="PaymentRetentions" xml:space="preserve">
+    <value>Retentions</value>
+  </data>
+  <data name="Deprecation" xml:space="preserve">
+    <value>Deprecation</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Locations" xml:space="preserve">
+    <value>Locations</value>
+  </data>
+</root>

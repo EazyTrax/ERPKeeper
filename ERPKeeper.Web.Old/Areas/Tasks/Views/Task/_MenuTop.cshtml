@@ -1,0 +1,54 @@
+﻿@model ERPKeeper.Node.Models.Tasks.Task
+
+<div class="bg-fb2 p-2 mb-2 mh-50 border rounded">
+    <div class="row">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase ">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Tasks",new { Area = "Tasks"})">Tasks</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "MyTasks",new { Area = "Tasks"})">My</a>
+                </li>
+
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Task",new { Area = "Tasks", id = Model.Uid})">
+                        @Model.Title
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="col text-right">
+            <span id="ImageMenuAction" style="cursor:pointer">
+                <i class="fab fa-chrome fa-lg text-muted"></i>
+            </span>
+            @Html.DevExpress().PopupMenu(settings =>
+            {
+                settings.Name = "PopupMenuAction";
+                settings.PopupElementID = "ImageMenuAction";
+                settings.ShowPopOutImages = DefaultBoolean.True;
+                settings.PopupAction = PopupAction.LeftMouseClick;
+                settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+                settings.Items.Add(item =>
+                {
+                    item.Text = "Change Status";
+                    item.Items.Add("Open").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Open });
+                    item.Items.Add("Pending").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Pending });
+                    item.Items.Add("Complete").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Close });
+                 });
+
+                settings.Items.Add(item =>
+                {
+                    item.Text = "Advance ";
+                    item.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Copy", id = Model.Uid, newStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Open });
+                    item.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Delete", id = Model.Uid, newStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Pending });
+               });
+            }).GetHtml()
+        </div>
+    </div>
+</div>

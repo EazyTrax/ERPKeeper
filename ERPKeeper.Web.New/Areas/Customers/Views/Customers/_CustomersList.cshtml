@@ -1,0 +1,75 @@
+﻿
+<div id="treeListDemo" class="mb-3">
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Customers.Customer>()
+    .ID("gridList")
+    .DataSource(d => d.RemoteController().Key("ProfileUid")
+    .LoadUrl($"/API/{CompanyId}/Customers/Customers/All")
+  @*  .InsertUrl($"/API/{CompanyId}/Customers/Customers/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/Update")
+    .UpdateMethod("Post")
+    .DeleteUrl($"/API/{CompanyId}/Customers/Customers/Delete")
+    .DeleteMethod("Post")*@
+    )
+    .KeyExpr("ProfileUid")
+    .RowAlternationEnabled(true)
+    
+        @*.ExpandedRowKeys(new[] { 1 })*@
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Paging(paging => paging.PageSize(100))
+    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(false)@*
+            .AllowDeleting(true)*@
+    .AllowAdding(false)
+    )
+
+    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+   @* .FilterRow(filterRow => filterRow
+    .Visible(true)
+    .ApplyFilter(GridApplyFilterMode.Auto)
+    )*@
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .Columns(columns => {
+    columns.AddFor(m=>m.ProfileUid).Width(150)
+    .Lookup(lookup => lookup
+            .DataSource(Organization.ErpNodeDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.TaxNumber}))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>TAX</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
+
+    columns.AddFor(m=>m.ProfileUid).Width(80)
+    .Lookup(lookup => lookup
+            .DataSource(Organization.ErpNodeDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.ShotName}))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>SN</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
+
+        
+    columns.AddFor(m=>m.ProfileUid).Lookup(lookup => lookup
+            .DataSource(Organization.ErpNodeDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.Name}))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>Customer</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
+
+    columns.AddFor(m=>m.TotalBalance).Width(100).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.SumSaleBalance).Width(100).HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);
+    //columns.Add().DataField("Id");
+    })
+    )
+</div>
+
+

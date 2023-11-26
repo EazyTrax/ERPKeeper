@@ -1,0 +1,25 @@
+﻿@model ERPKeeper.Node.Models.Suppliers.Supplier
+
+
+<div class="row bg-fb2 py-2 rounded">
+    <div class="col-6">
+        Purchasesd
+    </div>
+    <div class="col-6">
+        @Model.SumPurchaseBalance
+    </div>
+
+    <div class="col-6">
+        Count
+    </div>
+    <div class="col-6">
+        @Model.CountPurchases
+    </div>
+
+    <div class="col-6">
+        Balance
+    </div>
+    <div class="col-6">
+        @Model.TotalBalance
+    </div>
+</div>

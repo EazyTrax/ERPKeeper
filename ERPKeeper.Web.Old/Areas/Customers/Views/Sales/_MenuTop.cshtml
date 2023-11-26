@@ -1,0 +1,64 @@
+﻿@using ERPKeeper.Helpers.Enums
+@using ERPKeeper.Node.Models.Transactions
+
+
+
+<div class="row mb-2">
+    <div class="col-9 p-0">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home", new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "DashBoard", new { Area = "Customers"})">Customers</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Sales",new { Area = "Customers"})">Sales</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right">
+        <div class="p-2">
+            <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+            <span id="ImageMenuChart" style="cursor:pointer"><i class="fas fa-chart-pie fa-lg text-muted"></i></span>
+
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuAction";
+           settings.PopupElementID = "ImageMenuAction";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+           settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+           settings.Items.Add(item =>
+           {
+               item.Text = "Export";
+               item.Items.Add("Last Month").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "ExportLastMonth", DocumentType = @"ใบส่งของ/ใบกำกับภาษี" });
+               item.Items.Add("Last Year").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "ExportLastYear", DocumentType = @"ใบส่งของ/ใบกำกับภาษี" });
+               item.Items.Add("Last Year (Opeing)").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "ExportLastYearOpeing", DocumentType = @"ใบส่งของ/ใบกำกับภาษี" });
+
+               item.Items.Add("PostLedger All").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "PostLedgerAll" });
+               item.Items.Add("UnPost All").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "UnPostAll" });
+           });
+
+           settings.Items.Add("Update Payments").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "UpdatePayments" });
+
+       }).GetHtml()
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuChart";
+           settings.PopupElementID = "ImageMenuChart";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+           settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+           settings.Items.Add("Chart").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sales", Action = "Chart",Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.All });
+       }).GetHtml()
+
+        </div>
+    </div>
+    <div class="col-12 p-0">
+        @Html.Partial("_MenuTile")
+    </div>
+</div>

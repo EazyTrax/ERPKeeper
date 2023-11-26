@@ -1,0 +1,90 @@
+﻿
+@{
+    var quotedItemLines = Organization.ErpNodeDBContext
+        .QuoteItems
+        .Where(qi => qi.Quote.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.SaleQuote)
+        .Where(qi => qi.Quote.Status == ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus.Ordered)
+        .ToList();
+
+    var quotedItems = quotedItemLines
+        .GroupBy(qil => qil.ItemGuid)
+        .Select(i => new { ItemGuid = i.Key, Item = i.FirstOrDefault().Item, ItemLines = i.OrderBy(q => q.Quote.No).ToList() })
+        .ToList();
+}
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col p-0">
+            @Html.Partial("_MenuTop")
+
+
+            @foreach (var item in quotedItems)
+            {
+                <div class="p-2 bg-fb1 mb-2" id="item-@item.ItemGuid">
+                    <div class="row  p-2  mb-2 bg-fb2">
+                        <div class="col-6 p-0 font-weight-bold">
+                            @item.Item.PartNumber
+                        </div>
+                        <div class="col-6 text-right">
+                            <span class="font-weight-bold">Order @item.ItemLines.Sum(i => i.Amount).ToString("N0")</span>  (Stock @item.Item.StockAmount)
+                        </div>
+                    </div>
+
+                    @foreach (var line in item.ItemLines)
+                    {
+
+                        int day = (line.Quote.TrnDate - DateTime.Now).Days;
+
+                        <div class="row p-1 bg-fb1 mb-1 border-bottom">
+                            <div class="col-2 p-0">
+                                <a href="/Customers/Quote/@line.QuoteId">
+                                    @line.Quote.Name
+                                </a>
+                                <br />
+                                (@day)
+                            </div>
+                            <div class="col-3 p-0 overflow-hidden">
+                                <a href="/Customers/Customer/@line.Quote.ProfileGuid">
+                                    @line.Quote.ProfileName
+                                </a>
+                            </div>
+                            <div class="col-3 p-0 overflow-hidden">
+                                @line.ItemPartNumber
+                            </div>
+                            <div class="col-2 text-right">
+                                @line.Amount.ToString("N0")
+                            </div>
+                            <div class="col-2 text-right">
+                                @line.UnitPrice.ToString("N0")
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-3 p-0">
+            <div class="p-2 bg-fb1 mb-2">
+                <div class="font-weight-bold p-2 bg-fb2 mb-2">
+                    Order Items
+                </div>
+
+                @foreach (var item in quotedItems)
+                {
+                    <div class="row  p-2 border-bottom border-white bg-fb2">
+                        <div class="col-6 p-0 font-weight-bold">
+                            <a href="#item-@item.ItemGuid">
+                                @item.Item.PartNumber
+                            </a>
+                        </div>
+                        <div class="col-6 text-right">
+                            @item.ItemLines.Sum(i => i.Amount).ToString("N0")
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

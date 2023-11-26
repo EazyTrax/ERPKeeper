@@ -1,0 +1,29 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+
+@if (Model.GeneralPaymentUid == null)
+{
+    <div class="p-2 mb-2 bg-fb2 mh-50 rounded text-right">
+        <a href="@DevExpressHelper.GetUrl(new { Controller="Purchase", Action = "CreatePayment", id = Model.Uid , payDate = Model.TrnDate })" class="text-white btn btn-secondary btn-sm active" role="button" aria-pressed="true">
+            <i class="fas fa-plus-circle fa-lg "></i> Cash Pay (@Model.TrnDate.ToShortDateString())
+        </a>
+        <a href="@DevExpressHelper.GetUrl(new { Controller="Purchase", Action = "CreatePayment", id = Model.Uid })" class="text-white btn btn-secondary btn-sm active" role="button" aria-pressed="true">
+            <i class="fas fa-plus-circle fa-lg "></i> Pay
+        </a>
+    </div>
+}
+else
+{
+    <div class="row p-2 mb-2 bg-fb2 mh-50 rounded">
+        <div class="col-12 p-0 font-weight-bold">Payment</div>
+        <div class="col-6 p-0 ">
+            <a href="@Url.Action("Home","SupplierPayment",new { Id= Model.GeneralPaymentUid})">
+                @Model.GeneralPayment.Name
+            </a>
+        </div>
+        <div class="col-6 p-0 text-right">
+            @Model.GeneralPayment.TrnDate.ToString("dd-MMM-yy")
+        </div>
+    </div>
+}
+

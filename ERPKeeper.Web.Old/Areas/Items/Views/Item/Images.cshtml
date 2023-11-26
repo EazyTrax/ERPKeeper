@@ -1,0 +1,33 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            <div class="row mb-1 p-2 bg-fb2 mh-200">
+                @foreach (var itemImage in Model.Images)
+                {
+                    <div class="col-4 p-2 mt-3 mr-2 bg-white">
+                        <div class="row">
+                            <div class="col-10 p-2">
+                                <img src="@Url.Action("GetImageById","item",new { id= itemImage.Uid})" width="180" height="180" /><br />
+                            </div>
+                            <div class="col-2 text-right p-2">
+                                <a href="@Url.Action("RemoveImage",new { id = itemImage.Uid })">
+                                    <i class="fas fa-trash-alt fa-lg text-muted"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @Html.Partial("_ImagesUpload")
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>
+

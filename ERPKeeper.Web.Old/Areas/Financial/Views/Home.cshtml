@@ -1,0 +1,20 @@
+﻿
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+       
+        <div class="col col-Middle p-0">
+                @Html.Action("_TopGridView", "Customers", new { Area = "Customers" })
+        </div>
+
+        <div class="col-3 col-Right pr-0">
+         
+            @Html.Action("_Chart", "DashBoard", new { Area = "Customers" })
+            @Html.Action("_ChartAge", "DashBoard", new { Area = "Customers" })
+        </div>
+    </div>
+</div>

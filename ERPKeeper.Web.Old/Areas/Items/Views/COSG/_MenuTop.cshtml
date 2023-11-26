@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+
+}
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <span class="bg-dark px-2 mt-2 mr-3 text-white">
+        Items Costing
+    </span>
+
+    <div class="row mb-1">
+        <div class="col-8">
+
+
+        </div>
+        <div class="col text-right">
+            <span id="ImageMenuAction" style="cursor:pointer">
+                <i class="fab fa-chrome fa-lg text-muted"></i>
+            </span>
+
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuAction";
+           settings.PopupElementID = "ImageMenuAction";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+           settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+           settings.Items.Add("Recal COSG").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Update", Controller = "COSG" });
+
+       }).GetHtml()
+        </div>
+    </div>
+</div>

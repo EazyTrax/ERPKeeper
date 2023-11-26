@@ -1,0 +1,33 @@
+﻿
+<div class="" style="min-width:350px;">
+    @using (Html.BeginForm("Perform", "Home", new { Area = "Search" }, FormMethod.Post, new { @id = "SearchForm" , target = "_blank" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col p-0 ">
+                @Html.DevExpress().TextBox(
+                        settings => {
+                            settings.Name = "SearchString";
+                            settings.Width = Unit.Percentage(100);
+                            settings.Properties.NullText = "";
+                            settings.Text = ViewBag.SearchString;
+                            settings.Properties.ClientSideEvents.KeyPress = "function (e) { if (e.which == 13) { $('#SearchForm').submit(); return false; }}";
+                            settings.ControlStyle.CssClass = "rounded";
+                        }
+
+                    ).GetHtml()
+            </div>
+            @*<div class="col p-0 mx-1 my-0">
+                <a class="btn btn-secondary py-1 btn-sm"  onclick="document.forms['SearchForm'].submit();" style="cursor:pointer" role="button">
+                    <i class="fas fa-search  text-white"></i>
+                </a>
+            </div>*@
+        </div>
+    }
+
+    <script>
+      
+    </script>
+</div>
+
+

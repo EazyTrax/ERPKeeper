@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims;
+
+<div class="row ">
+    <div class="col-9 px-0 py-1 mb-2">
+        <a href="/" class="font-weight-600">
+            ERP
+        </a>
+    </div>
+    <div class="col-3 text-right">
+        <div class="btn-group">
+            <a class="btn btn-outline-light  btn-sm dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+            </a>
+            <ul class="dropdown-menu p-2">
+                <li>
+                    <a href="/tec/@(Context.Request.Path.ToString().Replace($"/{CompanyId}",""))" class="font-weight-600">
+                        TEC
+                    </a>
+                </li>
+                <li>
+                    <a href="/bit/@(Context.Request.Path.ToString().Replace($"/{CompanyId}",""))" class="font-weight-600">
+                        BIT
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

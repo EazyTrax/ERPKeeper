@@ -1,0 +1,23 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+
+@if (Model != null)
+{
+    var accountItems = Organization.ChartOfAccount.ListRelatedAccounts(Model);
+
+    <div class="border p-1 mt-2 mb-2 bg-fb2 rounded">
+        @foreach (var account in accountItems.OrderByDescending(_PreviewAccount => _PreviewAccount.SubEnumType))
+        {
+            <a href="@Url.Action("Redirect", "ChartOfAccount", new { id = @account.Uid })">
+                <div class="row my-1">
+                    <div class="col-9 p-0 overflow-hidden text-nowrap">
+                        @account.Name
+                    </div>
+                    <div class="col-3 p-0 text-right  overflow-hidden text-nowrap">
+                        @decimal.Parse((account.CurrentBalance).ToString()).ToString("N0")
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+}

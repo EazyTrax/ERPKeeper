@@ -1,0 +1,54 @@
+@model ERPKeeper.Node.Models.Accounting.TransactionLedger
+@{
+    Layout = null;
+}
+<div class="bg-warning mb-2 p-2 rounded">
+    <div class="row mb-1">
+        <div class="col-7 p-0  font-weight-bold">
+            DR.
+        </div>
+        <div class="col-4 p-0 text-right"></div>
+    </div>
+    @{
+        foreach (var drLedger in Model.DrLedgers())
+        {
+            <div class="row mb-1">
+                <div class="col-7 p-0 overflow-hidden text-nowrap">
+                    <a href="@Url.Action("Home", "AccountItem", new { id = drLedger.AccountUid , Area = "Accounting"})">@drLedger.AccountName</a>
+                </div>
+                <div class="col-4 p-0 text-right">@(((decimal)drLedger.Debit).ToString("N2"))</div>
+            </div>
+        }
+
+        <div class="row mt-2 mb-1">
+            <div class="col-1 p-0"></div>
+            <div class="col-6 p-0 font-weight-bold">
+                CR.
+            </div>
+            <div class="col p-0 text-right overflow-hidden text-nowrap">
+
+            </div>
+        </div>
+        foreach (var crLedger in Model.CrLedgers())
+        {
+            <div class="row mb-1">
+                <div class="col-1 p-0"></div>
+                <div class="col-6 p-0 overflow-hidden text-nowrap">
+                    <a href="@Url.Action("Home", "AccountItem", new { id = crLedger.AccountUid , Area = "Accounting"})">@crLedger.AccountName</a>
+
+                </div>
+                <div class="col p-0 text-right overflow-hidden text-nowrap">
+                    @(((decimal)crLedger.Credit).ToString("N2"))
+                </div>
+            </div>
+        }
+    }
+
+    <div class="mt-3">
+        <div class="row">
+            <div class="col p-0 font-weight-bold">@Model.TransactionName</div>
+            <div class="col p-0 font-weight-bold text-right">@Model.TrnDate.ToShortDateString()</div>
+        </div>
+    </div>
+</div>
+

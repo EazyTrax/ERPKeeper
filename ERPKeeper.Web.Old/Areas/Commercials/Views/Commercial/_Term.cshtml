@@ -1,0 +1,205 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+@{
+
+    var area = "";
+    var controllerName = "";
+
+    switch (Model.TransactionType)
+    {
+
+        case ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Sale:
+            area = "Customers";
+            controllerName = "Sale";
+            break;
+        case ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase:
+            area = "Suppliers";
+            controllerName = "Purchase";
+            break;
+        default:
+            area = "Commercials";
+            controllerName = "Commercial";
+            break;
+    }
+}
+
+<div class="MiddleColContainerBox">
+
+
+    @*@using (Ajax.BeginForm("Save", "Commercial", new { Area = "Commercials" }, null, new { @id = "SaveForm" }))*@
+    @using (Html.BeginForm("Save", controllerName, new { Area = area }, FormMethod.Post, new { @id = "SaveForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.HiddenFor(model => model.Total)
+        @Html.HiddenFor(model => model.LinesTotal)
+        @Html.HiddenFor(model => model.ProfileGuid)
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "Item";
+       settings.Width = Unit.Percentage(100);
+       settings.ColCount = 3;
+
+
+       settings.EncodeHtml = false;
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "DETAIL";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+
+
+           groupSettings.Items.Add(m => m.TrnDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+               
+           });
+
+
+       });
+
+
+
+
+
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Tax Information";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.TaxCodeGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Tax Group", "", "TaxCodes", new { Area = "Setting" }, null).ToHtmlString();
+
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.TaxCodes.ListAll();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+           });
+
+        
+
+
+
+       });
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+
+           groupSettings.Caption = "DETAIL";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.PaymentTermGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = itemSettings.Caption = Html.ActionLink("Payment Term", "", "PaymentTerms", new { Area = "Setting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.PaymentTerms.ToList();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+           });
+
+           groupSettings.Items.Add(m => m.ShippingTermGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Shipping Term", "", "ShippingTerms", new { Area = "Setting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.ShippingTerms.ToList();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+           });
+
+
+           groupSettings.Items.Add(m => m.ShippingMethodGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Shipping Method", "", "ShippingMethods", new { Area = "Setting" }, null).ToHtmlString();
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.ShippingMethods.ToList();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+           });
+
+
+
+
+
+
+
+
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Action";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.ProjectGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.Projects.ToList();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+           });
+
+           groupSettings.Items.Add(m => m.Reference, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+               
+
+
+               TextBoxSettings tb = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+               tb.Properties.MaxLength = 30;
+           });
+
+           groupSettings.Items.Add(m => m.Memo, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+               
+           });
+
+
+       });
+   }).GetHtml()
+    }
+
+</div>

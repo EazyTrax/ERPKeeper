@@ -1,0 +1,68 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+@{
+    bool checkCurrentController(string controllerName)
+    {
+        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+        return currentControllerName == controllerName;
+    }
+
+    void Template(string display, string controller, int? count = null)
+    {
+        <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
+            <div class="col p-0">
+                <a href="/@CompanyId/Accounting/@controller" class="text-fs-16">
+                    @SharedLocalizer.GetLocalizedHtmlString(display)
+                </a>
+            </div>
+            <div class="col-2 p-0 text-right">
+                <span class="badge badge-light text-dark">@count</span>
+            </div>
+        </div>
+    }
+}
+
+<div>
+    <div class="font-weight-600 mb-3 ">
+        <a href="/@CompanyId/Accounting">Accounting</a>
+    </div>
+
+    @{
+        Template("Fiscal Years", "FiscalYears");
+    }
+
+    <div class="pl-2">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Uid" class="text-fs-16">
+            @Model.Name
+        </a>
+    </div>
+  
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Uid/Incomes" class="text-fs-16">
+            Incomes
+        </a>
+    </div>
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Uid/Expenses" class="text-fs-16">
+            Expenses
+        </a>
+    </div>
+
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Uid/TrialBalance" class="text-fs-16">
+            Trial Balance
+        </a>
+    </div>
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Uid/Journals" class="text-fs-16">
+            Journals
+        </a>
+    </div>
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Uid/Balances" class="text-fs-16">
+            Balances
+        </a>
+    </div>
+
+</div>
+

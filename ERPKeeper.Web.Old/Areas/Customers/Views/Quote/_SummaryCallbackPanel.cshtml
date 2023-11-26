@@ -1,0 +1,13 @@
+﻿@model ERPKeeper.Node.Models.Estimations.SaleQuote
+
+@Html.DevExpress().CallbackPanel(
+    settings =>
+    {
+        settings.Name = "cbpExample";
+        settings.CallbackRouteValues = new { Controller = "Quote", Action = "_SummaryCallbackPanel", id = Model.Uid };
+        settings.Width = Unit.Percentage(100);
+        settings.SetContent(Html.Partial("_Summary", Model).ToHtmlString());
+    }
+).GetHtml()
+
+

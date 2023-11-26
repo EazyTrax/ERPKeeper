@@ -1,0 +1,106 @@
+﻿
+@{
+    
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Projects.Project
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "GridView";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+    settings.Width = Unit.Percentage(100);
+    settings.KeyFieldName = "Uid";
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Width = 30;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.EncodeHtml = false;
+    settings.Settings.ShowFooter = true;
+
+    settings.CallbackRouteValues = new { Controller = "Project", Action = "PartialGridViewEstimates", id = Model.Uid };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Project", Action = "PartialGridViewUpdateEstimates", id = Model.Uid };
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Item.PartNumber";
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string itemGuid = DataBinder.Eval(t.DataItem, "ItemUid").ToString();
+            string partNumber = (DataBinder.Eval(t.DataItem, "Item.PartNumber") ?? "N/A").ToString();
+            string itemType = DataBinder.Eval(t.DataItem, "Item.ItemType").ToString();
+            string itemTypeImage = ERPKeeper.Node.Helpers.Status.ItemTypeImage(itemType) + " ";
+
+            ViewContext.Writer.Write(itemTypeImage + Html.ActionLink(partNumber, "Home", "Item", new { id = itemGuid, Area = "Items" }, null).ToString().Replace("\n", "<br />\n"));
+        });
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Amount";
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UnitPrice";
+        column.Caption = "Purchase Price";
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "LinePrice";
+        column.Caption = "Purchase Line";
+    });
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "LinePrice").DisplayFormat = "N2";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UnitSellingPrice";
+        column.Caption = "Sale Price";
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "SellingLinePrice";
+        column.Caption = "SaleLines";
+    });
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SellingLinePrice").DisplayFormat = "N2";
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Profit";
+        column.Caption = "Profit";
+    });
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Profit").DisplayFormat = "N2";
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Memo";
+    });
+
+    settings.EditFormLayoutProperties.ColCount = 2;
+    settings.EditFormLayoutProperties.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+    settings.EditFormLayoutProperties.Items.Add("Amount");
+    settings.EditFormLayoutProperties.Items.Add("UnitPrice");
+    settings.EditFormLayoutProperties.Items.Add("UnitSellingPrice");
+    settings.EditFormLayoutProperties.Items.Add("Memo").ColSpan = 2;
+
+
+
+
+    settings.EditFormLayoutProperties.Items.AddCommandItem(i =>
+    {
+        i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        i.ColSpan = 2;
+    });
+    settings.ClientSideEvents.RowDblClick = "OnRowDblClick";
+
+}).Bind(Model.Materials.ToList()).GetHtml()

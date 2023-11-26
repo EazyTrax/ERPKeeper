@@ -1,0 +1,46 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>New Parameter</b><br /><br />
+    @using (Html.BeginForm("NewParameter" ,"Group", new { id = Model.Uid }, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().ComboBox(
+                settings =>
+                {
+                    settings.Name = "ItemParameterTypeUid";
+                    settings.CallbackRouteValues = new
+                    {
+                        Controller = "CommercialItems",
+                        Action = "Partial_ComboBoxItems",
+                        Area = "Commercials",
+                        transactionType = ViewBag.transactionType,
+                        purchasePurpose = ViewBag.purchasePurpose
+                    };
+
+                    settings.Properties.ValueField = "Uid";
+                    settings.Properties.ValueType = typeof(Guid);
+                    settings.SelectedIndex = 0;
+                    settings.Properties.TextField = "Name";
+                    settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                    settings.Properties.CallbackPageSize = 20;
+                    settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                    settings.Properties.TextFormatString = "{0}";
+
+                 //   settings.Properties.DataSource = ;
+
+                }
+        ).BindList(Organization.ItemParameterTypes.ListAll).GetHtml()
+        <br />
+        @Html.DevExpress().TextBox(
+                            settings =>
+                            {
+                                settings.Name = "Value";
+                            }
+                        ).GetHtml()
+
+        <br />
+        <input type="submit" />
+    }
+</div>
+

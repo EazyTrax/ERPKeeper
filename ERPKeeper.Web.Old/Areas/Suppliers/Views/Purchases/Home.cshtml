@@ -1,0 +1,12 @@
+﻿
+<div class="Container">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col p-0">
+            @Html.Partial("_MenuTop")
+            @Html.Action("PartialGridView", new { Id = ViewBag.Id })
+        </div>
+    </div>
+</div>

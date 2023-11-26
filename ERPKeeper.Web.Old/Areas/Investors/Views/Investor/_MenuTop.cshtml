@@ -1,0 +1,55 @@
+﻿@{ Layout = null; }
+@model ERPKeeper.Node.Models.Equity.Investor
+@using ERPKeeper.Node.Models.Equity.Enums
+
+    <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase ">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "DashBoard",new { Area = "Investors"})">DashBoard</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Investors",new { Area = "Investors"})">Investors</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Investor",new { Area = "Investors", id = Model.ProfileUid})">
+                        @Model.Profile.Name
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="col-3">
+            
+        </div>
+    </div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Width = Unit.Percentage(100);
+    settings.Name = "nbERPInvesters";
+    int activityCount = Model.CapitalActivities.Count();
+    settings.EncodeHtml = false;
+
+    settings.Items.Add(ERPKeeper.Helpers.Badge.Info(activityCount) + ERPKeeper.WebFrontEnd.Resources.Lang.CapitalActivity, null, null, Url.Action("CapitalActivities", "Investor", new { Area = "Investors", id = Model.ProfileUid }, null));
+}).GetHtml()
+
+
+<div style="margin-top:50px;padding-left:10px;">
+    <a href="@Url.Action("Home", "Investors")">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+    <span id="ImageMenuPlus"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+    @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuAdd";
+    settings.PopupElementID = "ImageMenuPlus";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+
+    settings.Items.Add("Invest").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "CapitalActivity", Action = "New", Type = CapitalActivityType.Invest, investorUid = Model.ProfileUid });
+    settings.Items.Add("WithDraw").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "CapitalActivity", Action = "New", Type = CapitalActivityType.Withdraw, investorUid = Model.ProfileUid });
+}).GetHtml()
+</div>

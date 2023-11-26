@@ -1,0 +1,79 @@
+﻿@model ERPKeeper.Node.Models.Customers.Customer
+
+
+@{
+    var items = Organization
+                                        .ErpNodeDBContext
+                                        .CommercialItems
+                                        .Include("Item")
+                                        .Where(c => c.Commercial.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Sale)
+                                        .Where(c => c.Commercial.ProfileGuid == Model.ProfileUid)
+                                        .ToList()
+                                        .Select(i =>
+                                            new
+                                            {
+                                                Commercial = new
+                                                {
+                                                    i.Commercial.Uid,
+                                                    i.Commercial.Name,
+                                                    i.Commercial.TrnDate,
+                                                    i.Commercial.Reference
+                                                },
+
+                                                ItemGuid = i.ItemGuid,
+                                                Item = new
+                                                {
+                                                    i.Item.Uid,
+                                                    i.Item.PartNumber
+                                                },
+                                                i.Amount,
+                                                i.UnitPrice,
+                                                i.LineTotal
+                                            }
+                                        )
+                                .ToList();
+}
+
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+
+<div id="treeListDemo" class="mb-3">
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.CommercialItem>()
+    .ID("gridList")
+    .DataSource(items)
+    .KeyExpr("Uid")
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .GroupPanel(groupPanel => groupPanel.Visible(true))
+    .Paging(paging => paging.PageSize(100))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .ColumnAutoWidth(false)
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+    )
+    .Columns(columns => {
+    columns.Add().DataField("Commercial.TrnDate").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.Add().DataField("Item.PartNumber")
+    .Width(130)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/">
+                <%= data.Item.PartNumber %>
+            </a>
+        </text>);
+
+
+    columns.Add().DataField("Commercial.Reference").HeaderCellTemplate(@<text>Reference</text>);
+    columns.Add().DataField("Amount").Format(Format.FixedPoint);
+    columns.Add().DataField("UnitPrice").Format(Format.FixedPoint);
+    columns.Add().DataField("LineTotal").Format(Format.FixedPoint);
+
+
+    })
+    )
+</div>
+

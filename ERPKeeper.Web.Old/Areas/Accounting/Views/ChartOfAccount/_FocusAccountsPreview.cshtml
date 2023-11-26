@@ -1,0 +1,30 @@
+﻿@model IList<ERPKeeper.Node.Models.Accounting.AccountItem>
+
+@if (Model.Count > 0)
+{
+    <div class="row p-2 mb-2 bg-fb2 border rounded" style="min-height:196px;">
+        <div class="col-8 p-0">
+            <span class=" font-weight-bold">FOCUS @(ViewBag.AccountType)</span>
+        </div>
+        <div class="col p-0 text-right">
+            <a href="@DevExpressHelper.GetUrl(new { Area = "Accounting", Controller = "ChartOfAccount", Action = "UpdateBalance" })">
+                <i class="fas fa-sync-alt fa-lg text-light"></i>
+            </a>
+        </div>
+        <div class="col-12 p-0 my-2">
+            @foreach (var account in Model.OrderByDescending(_PreviewAccount => _PreviewAccount.SubEnumType))
+            {
+                <a href="@Url.Action("Redirect", "ChartOfAccount", new { id = @account.Uid })">
+                    <div class="row py-1 bg-fb1 border-bottom border-white">
+                        <div class="col-8 p-0 overflow-hidden flex-nowrap text-nowrap">
+                            @Html.Raw(account.SpanBadge)  @account.Name
+                        </div>
+                        <div class="col p-0 text-right">
+                            @decimal.Parse((account.CurrentBalance).ToString()).ToString("N0")
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,170 @@
+﻿
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "fiscalyear", Action = "PartialGridView_Fiscal_Closing_Balance", Area = "Accounting", id = ViewBag.id };
+        settings.KeyFieldName = "Uid";
+        settings.EnableTheming = true;
+        settings.EncodeHtml = false;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsExport.EnableClientSideExportAPI = true;
+        settings.SettingsExport.Landscape = true;
+        settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+        settings.SettingsExport.RightMargin = 0;
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+        settings.Styles.Footer.Font.Bold = true;
+        settings.Styles.Footer.ForeColor = System.Drawing.Color.DarkBlue;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.GroupFooter.ForeColor = System.Drawing.Color.DarkRed;
+
+        settings.Toolbars.Add(t =>
+        {
+            t.EnableAdaptivity = true;
+            t.Items.Add(GridViewToolbarCommand.ExportToPdf);
+            t.Items.Add(GridViewToolbarCommand.ExportToXls);
+            t.Items.Add(GridViewToolbarCommand.ExportToXlsx);
+        });
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+
+
+        settings.Settings.ShowFooter = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Type";
+            column.Caption = "Acc Type";
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.GroupIndex = 1;
+        });
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.No";
+            column.Caption = "Acc No";
+            column.SortIndex = 2;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string AccountGuid = DataBinder.Eval(t.DataItem, "Account.Uid").ToString();
+                string Number = (DataBinder.Eval(t.DataItem, "Account.No") ?? "N?A").ToString();
+
+
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "AccountItem", new { id = AccountGuid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Name";
+            column.Caption = "Acc";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "Account.Uid").ToString();
+                string Name = DataBinder.Eval(t.DataItem, "Account.Name").ToString();
+
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.SubEnumType";
+            column.Caption = "Sub Type";
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Dr.";
+            column.FieldName = "Debit";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Cr.";
+            column.FieldName = "Credit";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Code";
+            column.Caption = " ";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "AccountGuid") ?? "N?A").ToString();
+                string redirectUrl = Url.Action("AccountLedger", "FiscalYear", new { id = ViewBag.id, accountUid = accountUid, Area = "Accounting" });
+                ViewContext.Writer.Write("<a href='{0}'>{1}</a>", redirectUrl, "<i class='fas fa-globe-asia'></i>");
+            });
+        });
+
+
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+
+
+
+        var TotalDebitGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        TotalDebitGroup.ShowInGroupFooterColumn = "Debit";
+        TotalDebitGroup.DisplayFormat = "N2";
+
+        var TotalCreditGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        TotalCreditGroup.ShowInGroupFooterColumn = "Credit";
+        TotalCreditGroup.DisplayFormat = "N2";
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

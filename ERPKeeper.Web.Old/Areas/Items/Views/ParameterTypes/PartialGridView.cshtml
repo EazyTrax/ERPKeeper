@@ -1,0 +1,47 @@
+
+
+@model IList<ERPKeeper.Node.Models.Items.ItemParameterType>
+
+    @{
+        var grid = Html.DevExpress().GridView(settings =>
+        {
+            settings.Name = "GridView";
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.CallbackRouteValues = new { Controller = "ParameterTypes", Action = "PartialGridView" };
+            settings.KeyFieldName = "Uid";
+
+            settings.Width = Unit.Percentage(100);
+            settings.EnableTheming = true;
+            settings.Styles.Header.Font.Bold = true;
+
+            settings.SettingsPager.PageSize = 100;
+
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Name";
+                column.Caption = "Name";
+
+                column.Width = 200;
+                column.SortIndex = 1;
+                column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+                column.SetDataItemTemplateContent(t =>
+                {
+                    string itemGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                    string partNumber = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                    ViewContext.Writer.Write(Html.ActionLink(partNumber, "Home", "ParameterType", new { id = itemGuid }, null));
+                });
+            });
+            //settings.Columns.Add(column =>
+            //{
+            //    column.FieldName = "ItemsCount";
+            //    column.Caption = "Items Count";
+            //});
+            //settings.Columns.Add(column =>
+            //{
+            //    column.FieldName = "WebSite";
+            //    column.Caption = "Web Site";
+            //});
+        });
+    }
+    @grid.Bind(Model).GetHtml()

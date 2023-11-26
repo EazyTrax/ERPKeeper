@@ -1,0 +1,28 @@
+﻿
+@model IList<ERPKeeper.Node.Models.Profiles.HistoryItem>
+
+@{ Layout = null;}
+
+
+<div style="padding-bottom:10px;font-size: 15px;background-color:#EEEEEE;padding:10px;margin-bottom:3px;">
+    <span style="font-weight: 600;text-transform:uppercase">
+        USAGE HISTORY | @Html.ActionLink("All", "history", "profile", new { Area = "Profiles", id = CurrentUser.ProfileUid }, null)
+    </span>
+</div>
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div style="margin-top:10px;">
+        @foreach (var histroyItem in Model)
+        {
+            <div class="mb-2">
+                <div style="float:left;background-color:#efb328; font-size: smaller;padding :0px 5px;margin-right:10px;text-transform:lowercase;">
+                    @histroyItem.Type
+                </div>
+                <div style="float:right;width:220px;overflow:hidden;">
+                    <a href="@histroyItem.Url">@histroyItem.Title</a><br />
+                </div>
+                <div style="clear:both;">
+                </div>
+            </div>
+        }
+    </div>
+</div>

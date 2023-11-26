@@ -1,0 +1,21 @@
+﻿@Html.DevExpress().ComboBox(
+        settings =>
+        {
+            settings.Name = "AddedProfileGuid";
+            settings.CallbackRouteValues = new { Controller = "Profiles", Action = "_ComboBoxProfiles", Area = "Profiles" };
+            settings.Width = 220;
+            settings.Properties.ValueField = "Uid";
+            settings.Properties.ValueType = typeof(Guid);
+            settings.SelectedIndex = 0;
+            settings.Properties.TextField = "Name";
+            settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            settings.Properties.CallbackPageSize = 20;
+            settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            settings.Properties.TextFormatString = "{0}";
+
+
+            //settings.Properties.Columns.Add("PartNumber", "PartNumber", 150);
+            //settings.Properties.Columns.Add("Description", "Description", 150);
+            //settings.Properties.Columns.Add("UnitPrice", "UnitPrice", 100);
+        }
+).BindList(Model).GetHtml()

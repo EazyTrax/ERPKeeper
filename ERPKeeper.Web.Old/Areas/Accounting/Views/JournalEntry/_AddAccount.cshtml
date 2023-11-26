@@ -1,0 +1,17 @@
+﻿@model ERPKeeper.Node.Models.Accounting.JournalEntry
+
+
+<div style="float:right;">
+    @using (Html.BeginForm("AddAccount", "JournalEntry", new { id = Model.Uid, Area = "Accounting" }, FormMethod.Post, new { @id = "AddAccount" }))
+    {
+        @Html.AntiForgeryToken()
+        <div style="float:left;padding-right:10px;">
+            @Html.Action("_ComboBoxAccount", "JournalEntry", new { Area = "Accounting" })
+        </div>
+        <div style="float:left;padding-right:10px;">
+            <a href="javascript:document.getElementById('AddAccount').submit();">Add </a>
+        </div>
+
+    }
+</div>
+<div style="clear:both;"></div>

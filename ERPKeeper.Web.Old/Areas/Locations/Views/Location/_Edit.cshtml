@@ -1,0 +1,89 @@
+﻿@model ERPKeeper.Node.Models.Location
+
+<div class="row">
+    <div class="col-6 p-1 bg-fb2 ">
+        @using (Html.BeginForm("Save", "Location", new { Area = "Locations" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Uid)
+            
+            @Html.DevExpress().FormLayout(settings =>
+       {
+           settings.Name = "LocationForm";
+
+           settings.Width = Unit.Percentage(100);
+           settings.EncodeHtml = false;
+           settings.ColCount = 1;
+           settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+
+           settings.Items.AddGroupItem(groupSetting =>
+           {
+               groupSetting.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSetting.Caption = "Location Info";
+
+               groupSetting.Items.Add(m => m.Name, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+
+                   TextBoxSettings tbs = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+                   tbs.Width = Unit.Pixel(150);
+
+               });
+
+               groupSetting.Items.Add(m => m.Type, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+               });
+
+
+               //groupSetting.Items.Add(m => m.CustomerProfileGuid, itemSettings =>
+               //{
+               //    itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               //    itemSettings.Caption = "Customer";
+               //    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+
+               //    ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               //    cb.Width = Unit.Pixel(150);
+               //    cb.Properties.TextField = "DisplayName";
+               //    cb.Properties.ValueField = "Uid";
+               //    cb.Properties.ValueType = typeof(Guid);
+               //    cb.Properties.DataSource = erpNodeDBContext.Profiles.ToList();
+               //});
+
+
+               //groupSetting.Items.Add(m => m.Detail, itemSettings =>
+               //{
+               //    itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               //    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+
+               //    MemoSettings memoSetting = (MemoSettings)itemSettings.NestedExtensionSettings;
+               //    memoSetting.Width = Unit.Pixel(150);
+
+               //});
+
+
+               settings.Items.AddGroupItem(groupSettings =>
+               {
+                   groupSettings.Caption = "Action";
+                   groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+                   groupSettings.Items.Add(item =>
+                   {
+                       item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                       item.ShowCaption = DefaultBoolean.False;
+                       item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                       var button = (ButtonSettings)item.NestedExtensionSettings;
+                       button.Name = "SaveButton";
+                       button.Text = "Save";
+                       button.UseSubmitBehavior = true;
+                   });
+               });
+           });
+
+       }).GetHtml()
+        }
+    </div>
+    <div class="col-6"></div>
+</div>

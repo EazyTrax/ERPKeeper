@@ -1,0 +1,134 @@
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewABC";
+
+        settings.CallbackRouteValues = new { Controller = "JournalEntries", Action = "PartialGridView", Type = ViewData["Type"] };
+        settings.KeyFieldName = "Uid";
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Settings.ShowFooter = false;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowHeaderFilterButton = true;
+
+        //settings.Settings.ShowGroupPanel = true;
+        //settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+
+        //settings.BeforeGetCallbackResult = (sender, e) =>
+        //{
+        //    if (ViewBag.GroupedColumns == null)
+        //    {
+        //        return;
+        //    }
+
+        //    MVCxGridView gridNew = (MVCxGridView)sender;
+        //    string[] columnNames = ViewBag.GroupedColumns.Split(';');
+        //    gridNew.ClearSort();
+
+        //    foreach (string name in columnNames)
+        //    {
+        //        gridNew.GroupBy(gridNew.Columns[name]);
+        //    }
+        //    gridNew.ExpandAll();
+        //};
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FiscalYearName";
+            column.Caption = Lang.FiscalYear;
+            column.Width = 100;
+            column.GroupIndex = 1;
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "No";
+            column.Width = 100;
+            column.SortIndex = 1;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Number = DataBinder.Eval(t.DataItem, "Name").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "JournalEntry", new { id = id }, null));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "JournalEntryType.Name";
+        //    column.Caption = "Type";
+
+        //    column.SetDataItemTemplateContent(t =>
+        //    {
+        //        string JournalEntryTypeGuid = DataBinder.Eval(t.DataItem, "JournalEntryTypeGuid").ToString();
+        //        string Name = (DataBinder.Eval(t.DataItem, "JournalEntryType.Name") ?? "N/A").ToString();
+        //        ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "JournalEntryType", new { id = JournalEntryTypeGuid }, null));
+        //    });
+        //});
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.Caption = "Debit";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.Caption = "Debit";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Memo";
+            column.Caption = "Memo";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus"; ;
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

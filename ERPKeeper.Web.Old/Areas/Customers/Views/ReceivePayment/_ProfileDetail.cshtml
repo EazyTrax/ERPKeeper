@@ -1,0 +1,19 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.ReceivePayment
+
+
+@if (Model.Profile != null)
+{
+    <div class="bg-fb2 p-2 mb-2 mh-50 ">
+        <a href="@Url.Action("Home", "Profile", new { id = @Model.Profile.Uid, Area = "Profiles" })">
+            <strong>@Model.Profile.Name</strong>
+        </a><br />
+        @Model.Profile.TaxNumber  <br /><br />
+    </div>
+}
+else
+{
+    <span>Not Found</span>
+}
+
+
+

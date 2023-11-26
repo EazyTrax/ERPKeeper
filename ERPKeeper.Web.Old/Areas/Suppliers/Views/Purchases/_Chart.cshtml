@@ -1,0 +1,54 @@
+
+@Html.DevExpress().Chart(settings =>
+{
+    settings.Name = "Chart";
+
+
+    settings.Width = 1000;
+    settings.Height = 200;
+
+    settings.Titles.Add(new ChartTitle()
+    {
+        Font = new System.Drawing.Font("Tahoma", 12),
+        Text = ""
+    });
+    settings.BorderOptions.Visibility = DefaultBoolean.False;
+    settings.Legend.Visibility = DefaultBoolean.False;
+
+
+
+
+    //Series IncomeChartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Bar);
+    //IncomeChartSeries.ArgumentDataMember = "TrnDate";
+    //IncomeChartSeries.ValueDataMembers[0] = "IncomeAmount";
+    //IncomeChartSeries.CrosshairEnabled = DefaultBoolean.True;
+    //IncomeChartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+
+    //settings.Series.Add(IncomeChartSeries);
+
+
+
+    Series ExpensechartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Bar);
+    ExpensechartSeries.ArgumentDataMember = "TrnDate";
+    ExpensechartSeries.ValueDataMembers[0] = "ExpenseAmount";
+    ExpensechartSeries.CrosshairEnabled = DefaultBoolean.True;
+    ExpensechartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+
+    settings.Series.Add(ExpensechartSeries);
+
+
+
+    // CType(Me.ChartControl1.Diagram, XYDiagram).AxisY.NumericOptions.Format = NumericFormat.Percent;
+
+    ((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+    ((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+    ((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+
+    ((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+
+    ((XYDiagram)settings.Diagram).Margins.Left = 0;
+    ((XYDiagram)settings.Diagram).Margins.Right = 0;
+
+
+}).Bind(Model).GetHtml()
+

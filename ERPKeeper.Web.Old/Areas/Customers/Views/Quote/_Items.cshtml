@@ -1,0 +1,22 @@
+﻿@model ERPKeeper.Node.Models.Estimations.SaleQuote
+
+    <div>
+        <div class="row col-12 p-2 mb-1 bg-gray">
+            <div class="col-2 p-0"><strong>@Model.Items.Count() ITEMS</strong></div>
+            <div class="col-10 p-0 text-right">
+                @Html.Partial("_AddItem", Model)
+            </div>
+        </div>
+        <div class="mb-2 p-0">
+            <script>
+                function OnRowDblClick(s, e) {
+                    s.StartEditRow(e.visibleIndex);
+                }
+
+                function OnEndCallback(s, e) {
+                    cbpExample.PerformCallback();
+                }
+            </script>
+            @Html.Partial("PartialGridViewItems", Model)
+        </div>
+    </div>

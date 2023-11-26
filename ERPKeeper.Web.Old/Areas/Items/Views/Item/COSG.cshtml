@@ -1,0 +1,37 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col-7 col-Middle">
+            @Html.Partial("_MenuTop")
+            @Html.Action("PartialGridViewCOSG", "Item", new { id = Model.Uid })
+        </div>
+        <div class="col col-Right">
+            @Html.Partial("_ItemGroupDetail")
+
+            @if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory)
+            {
+                <div class="p-2 mb-1 bg-fb2">
+                    <b>Sold</b> @(Model.AmountSold)  Units<br />
+                    <b>Stock</b> @(Model.AmountOnHand)  Units<br />
+                    <b>ReOrder</b> @(Model.AmountReorder)  Units<br />
+                </div>
+
+                if (Model.ReorderRequiredAmount > 0)
+                {
+                    <div class="p-2   mb-1 bg-fb2" style="background-color:#3b5998;color:white;">
+                        <b>Required</b> @Model.ReorderRequiredAmount
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>

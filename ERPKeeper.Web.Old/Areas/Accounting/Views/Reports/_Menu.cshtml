@@ -1,0 +1,48 @@
+
+
+@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <b>@Lang.Reports.ToUpper()</b>
+</div>
+<div class="p-2">
+    @Html.ActionLink("Trial Balance", "TrialBalance")<br />
+    @Html.ActionLink("Balance Sheet", "BalanceSheet")<br />
+    @Html.ActionLink("Opening Balance", "OpeningBalance")<br />
+    @*<br /><br />
+        <b>In Complete</b><br />
+        Cash Flow Statement<br />
+        Transaction Detail by Account<br />
+        GL Report<br />
+        Transaction Journal<br />
+        Change Log<br />
+        Sale Tax Liability<br />
+        Item List<br />
+        YTD Profit Compared to Last Year<br />*@
+</div>
+
+<div class="mt-3">
+
+    <a href="@Url.Action("NewAccount","AccountItem" , new { id = Guid.Empty})">
+        <span id="ImageMenuPlus" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+    </a>
+    <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+    <a href="@Url.Action("Ledger")">
+        <i class="fas fa-globe-asia fa-lg text-muted"></i>
+    </a>
+</div>
+@Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuAction";
+    settings.PopupElementID = "ImageMenuAction";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+    settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+    settings.Items.Add("Update Current Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "UpdateBalance" });
+    settings.Items.Add("Post Opening").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "PostOpeningBalance" });
+    settings.Items.Add("Update History Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "updatehistorybalance" });
+
+
+}).GetHtml()

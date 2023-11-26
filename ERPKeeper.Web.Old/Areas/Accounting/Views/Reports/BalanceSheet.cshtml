@@ -1,0 +1,30 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col-10 col-Middle pr-0">
+            <div class="bg-fb2 p-2 mb-2 mh-50">
+                <b>BALANCE SHEET</b>
+
+                <a href="@Url.Action("Home", "DashBoard", new { Area = "Accounting" })">
+                    <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+                </a>
+            </div>
+            <div class="p-2 bg-fb1 mb-1">
+
+            </div>
+            @Html.DevExpress().WebDocumentViewer(settings =>
+               {
+                   settings.Name = "documentViewer";
+               }).Bind(ViewBag.Report).GetHtml()
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,39 @@
+﻿@model ERPKeeper.Node.Models.Employees.Employee
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+
+        <div class="col">
+            @Html.Partial("_ActionMenu")
+
+            <div class="row">
+                <div class="col col-Middle p-0">
+                    <div class="p-2 mb-1 bg-fb1 mh-350">
+                        Detail
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-3 col-Right pr-0">
+            <div class="bg-fb2 p-2 mb-2 mh-50">
+                @Model.Status
+            </div>
+            <div class="row mb-1 ">
+                <div class="col-12 p-2 mb-2 bg-fb2 mh-50">
+                    <b>@Model.CurrentSalary.ToString("N0")</b>
+                    Current Salary
+                </div>
+                <div class="col-12 p-2 mb-2 bg-fb2 mh-50">
+                    <b>@Model.TotalIncome.ToString("N0")</b>
+                    Total  Balance
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

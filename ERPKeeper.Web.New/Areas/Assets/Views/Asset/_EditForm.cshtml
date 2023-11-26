@@ -1,0 +1,36 @@
+﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+
+<form id="EditForm" action="/@CompanyId/Assets/Assets/@Model.Uid/Update" method="post">
+    <div class="row p-1 border-bottom border-2">
+        <div class="col-6 p-1">
+            <div class="mb-3 font-weight-600">General</div>
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("Name")</div>
+            <div class="mb-2">@Html.DevExtreme().TextAreaFor(m=>m.Memo).Height(150).Label("Detail")</div>
+        </div>
+
+        <div class="col-6 p-1 mb-2 rounded">
+            <div class="mb-2">
+                <div class="mb-3 font-weight-600">Type</div>
+                @(Html.DevExtreme().SelectBoxFor(m => m.FixedAssetTypeUid)
+                    .DataSource(Organization.FixedAssetTypes.All().Select(t => new { t.Uid, t.Name }).ToList())
+                    .Placeholder("Choose Projects")
+                    .DisplayExpr("Name")
+                    .ValueExpr("Uid")
+                    .ShowClearButton(true)
+                    )
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 p-0 mb-3 font-weight-600">Dates</div>
+                <div class="col-6 pl-0 mb-2">@Html.DevExtreme().DateBoxFor(m=>m.StartDeprecationDate).Label("CreatedDate")</div>
+                <div class="col-6 pr-0 mb-2">@Html.DevExtreme().DateBoxFor(m=>m.EndDeprecationDate).Disabled(true).Label("DueDate")</div>
+            </div>
+
+
+            <div class="p-1 text-right">
+            </div>
+        </div>
+
+
+
+    </div>
+</form>

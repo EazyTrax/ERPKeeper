@@ -1,0 +1,106 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+@{
+    decimal width = 200;
+    var currentFiscalYear = Organization.FiscalYears.CurrentPeriod;
+    decimal maxValue = currentFiscalYear.ExpenseBalance;
+
+    if (currentFiscalYear.IncomeBalance >= currentFiscalYear.ExpenseBalance)
+    {
+        maxValue = currentFiscalYear.IncomeBalance;
+    }
+
+    if (maxValue == 0)
+    {
+        maxValue = 20;
+    }
+
+    int incomeWidth = (int)(width * currentFiscalYear.IncomeBalance / maxValue) + 10;
+    int expenseWidth = (int)(width * currentFiscalYear.ExpenseBalance / maxValue) + 10;
+    int profitWidth = (int)(width * currentFiscalYear.ProfitBalance / maxValue) + 10;
+}
+
+
+<div class="row border-success mb-1 bg-fb2 p-2">
+    <div class="col-8">
+        <strong>@currentFiscalYear.Name @Lang.ProfitAndLost.ToUpper()</strong>
+    </div>
+    <div class="col text-right">
+        <a href="@DevExpressHelper.GetUrl(new { Area = "Accounting", Controller = "FiscalYear", Action = "UpdateClosingBalance", id = currentFiscalYear.Uid })">
+            <i class="fas fa-sync-alt fa-lg text-light"></i>
+        </a>
+    </div>
+</div>
+
+
+<div class="border border-secondary p-2 mb-1" style="height:150px;overflow:hidden;">
+    <a href="@DevExpressHelper.GetUrl(new {Area = "Accounting", Controller = "FiscalYear", Action = "Incomes", id = currentFiscalYear.Uid })">
+        <div class="mb-2">
+            <div style="float:left;width:@(incomeWidth)px;height:20px;padding:5px;color:white;">
+            </div>
+            <div style="float:left;margin-left:10px; font-size:90%;">
+                <b>@Lang.Income</b><br />
+                @currentFiscalYear.IncomeBalance.ToString("N0")
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </a>
+
+    <a href="@DevExpressHelper.GetUrl(new {Area = "Accounting", Controller = "FiscalYear", Action = "Expenses", id = currentFiscalYear.Uid })">
+        <div class="mb-2">
+            <div class="bg-danger" style="float:left;width:@(expenseWidth)px;height:20px;padding:5px;">
+            </div>
+            <div style="float:left;margin-left:10px; font-size:90%;">
+                <b>@Lang.Expense</b><br />
+                @currentFiscalYear.ExpenseBalance.ToString("N0")
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </a>
+
+    <a href="@DevExpressHelper.GetUrl(new {Area = "Accounting", Controller = "FiscalYear", Action = "ClosingEntries", id = currentFiscalYear.Uid })">
+        <div class="mb-0">
+            <div style="float:left;background-color:#efb328;width:@(profitWidth)px;height:20px;padding:5px;">
+
+            </div>
+            <div style="float:left;margin-left:10px; font-size:90%;">
+                <b>@Lang.Profit</b><br />
+                @currentFiscalYear.ProfitBalance.ToString("N0")
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </a>
+    <div style="clear:both;"></div>
+</div>
+<div class="row">
+    <div class="col mr-1 bg-fb2 p-2">
+        <b>I/E</b>
+        <br />
+        @{ string ieRatio = (currentFiscalYear.ExpenseBalance == 0) ? "NaN" : (currentFiscalYear.IncomeBalance / currentFiscalYear.ExpenseBalance).ToString("N3");}
+        @ieRatio
+    </div>
+    <div class="col mr-1 bg-fb2 p-2">
+        <b>E/I</b>
+        <br />
+        @{ string eiRatio = (currentFiscalYear.IncomeBalance == 0) ? "NaN" : (currentFiscalYear.ExpenseBalance / currentFiscalYear.IncomeBalance).ToString("N3");}
+        @eiRatio
+    </div>
+    <div class="col mr-1 bg-fb2 p-2">
+        @*<b>D/A</b>
+            <br />
+            @{ string debtToAssetRatio2 = (liabilityValue / assetValue).ToString("N2");}
+            @debtToAssetRatio*@
+    </div>
+    <div class="col mr-1 bg-fb2 p-2">
+        <b>P/I</b>
+        <br />
+        @{ string piRatio = (currentFiscalYear.IncomeBalance == 0) ? "NaN" : (currentFiscalYear.ProfitBalance / currentFiscalYear.IncomeBalance).ToString("N3");}
+        @piRatio
+    </div>
+    <div class="col mr-0 bg-fb2 p-2">
+        <b>P/E</b>
+        <br />
+        @{ string peRatio = (currentFiscalYear.ExpenseBalance == 0) ? "NaN" : (currentFiscalYear.ProfitBalance / currentFiscalYear.ExpenseBalance).ToString("N3");}
+        @peRatio
+    </div>
+</div>

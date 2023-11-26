@@ -1,0 +1,30 @@
+@model ERPKeeper.Node.Models.Estimations.SaleQuote
+
+
+<div class="bg-fb1 mb-1 p-2">
+    <div class="row mb-2  p-2 bg-fb2">
+        <div class="col-10 p-0 mb-1 font-weight-bold">
+            Assist Items
+        </div>
+        <div class="col p-0 text-right">
+            <a href="/customers/customer/@Model.ProfileGuid/UpdateAssistItems">
+                <i class="fas fa-sync-alt text-secondary"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        @foreach (var assistItem in Organization.AssistItems.GetItems(Model.ProfileGuid).OrderByDescending(i => i.Chance).ToList())
+        {
+            <div class="col-10  mb-1 p-0">
+                <a href="@Url.Action("AddItem", "Quote", new { area = "Customers", id = Model.Uid , itemUid = assistItem.ItemId })">
+                    <i class="fas fa-plus-circle text-secondary"></i>
+                </a>
+                @assistItem.ItemPartNumber
+            </div>
+            <div class="col-2  mb-1">
+                @assistItem.Chance.ToString("N0")%
+            </div>
+        }
+    </div>
+</div>

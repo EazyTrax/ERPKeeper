@@ -1,0 +1,10 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.ShippingMethod
+
+<b>New Payment Term</b><br /><br />
+@using (Html.BeginForm("Save", "PaymentTerm"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.Uid)
+    @Html.TextBoxFor(model => model.Name)<br />
+    <input type="submit"/>
+}

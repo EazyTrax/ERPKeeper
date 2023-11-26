@@ -1,0 +1,1956 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F87797FC-F580-4A18-90E7-C351B3C31050}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERPKeeper.WebFrontEnd</RootNamespace>
+    <AssemblyName>ERPKeeper.WebFrontEnd</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews Condition="'$(Configuration)'=='Debug'">false</MvcBuildViews>
+    <MvcBuildViews Condition="'$(Configuration)'=='Release'">false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44370</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Use64BitIISExpress />
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <AutoParameterizationWebConfigConnectionStrings>false</AutoParameterizationWebConfigConnectionStrings>
+    <InsertAdditionalWebCofigConnectionStrings>false</InsertAdditionalWebCofigConnectionStrings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Drawing.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Docs.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v23.1.Drawing, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v23.1.Export, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v23.1.Web.WebForms, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v23.1.Web, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=110.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.110.2.0\lib\net471\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.7.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.7.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="DevExpress.Web.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxTreeList.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.Desktop.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.SpellChecker.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Charts.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v23.1.Presets, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxGauges.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v23.1.Web, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPivotGrid.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v23.1.Core.Desktop, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxScheduler.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Spreadsheet.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataVisualization.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.TreeMap.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeMap.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v23.1.Core, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxRichEdit.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.Resources.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.Mvc5.v23.1, Version=23.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Projects\AddPill.png" />
+    <Content Include="Areas\Projects\newPill.png" />
+    <Content Include="Content\Advertising\16618625416754035772.png" />
+    <Content Include="Content\BackGround\backgroud_login.png" />
+    <Content Include="Content\Banner\BookKeeper.png" />
+    <Content Include="Content\Banner\BookKeeper755.png" />
+    <Content Include="Content\Banner\customer.png" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\dx.carmine.compact.css" />
+    <Content Include="Content\dx.carmine.css" />
+    <Content Include="Content\dx.common.css" />
+    <Content Include="Content\dx.contrast.compact.css" />
+    <Content Include="Content\dx.contrast.css" />
+    <Content Include="Content\dx.dark.compact.css" />
+    <Content Include="Content\dx.dark.css" />
+    <Content Include="Content\dx.darkmoon.compact.css" />
+    <Content Include="Content\dx.darkmoon.css" />
+    <Content Include="Content\dx.darkviolet.compact.css" />
+    <Content Include="Content\dx.darkviolet.css" />
+    <Content Include="Content\dx.greenmist.compact.css" />
+    <Content Include="Content\dx.greenmist.css" />
+    <Content Include="Content\dx.ios7.default.css" />
+    <Content Include="Content\dx.light.compact.css" />
+    <Content Include="Content\dx.light.css" />
+    <Content Include="Content\dx.material.blue.dark.css" />
+    <Content Include="Content\dx.material.blue.light.css" />
+    <Content Include="Content\dx.material.lime.dark.css" />
+    <Content Include="Content\dx.material.lime.light.css" />
+    <Content Include="Content\dx.material.orange.dark.css" />
+    <Content Include="Content\dx.material.orange.light.css" />
+    <Content Include="Content\dx.material.purple.dark.css" />
+    <Content Include="Content\dx.material.purple.light.css" />
+    <Content Include="Content\dx.material.teal.dark.css" />
+    <Content Include="Content\dx.material.teal.light.css" />
+    <Content Include="Content\dx.softblue.compact.css" />
+    <Content Include="Content\dx.softblue.css" />
+    <Content Include="Content\dx.spa.css" />
+    <Content Include="Content\Icon\AccountTypes\Liability.png" />
+    <Content Include="Content\Icon\export.png" />
+    <Content Include="Content\Icon\ItemTypes\Asset.png" />
+    <Content Include="Content\Icon\ItemTypes\Expense.png" />
+    <Content Include="Content\Icon\ItemTypes\Inventory.png" />
+    <Content Include="Content\Icon\ItemTypes\NonDeprecatedAsset.png" />
+    <Content Include="Content\Icon\ItemTypes\NonInventory.png" />
+    <Content Include="Content\Icon\ItemTypes\Service.png" />
+    <Content Include="Content\Icon\ListTile\list.png" />
+    <Content Include="Content\Icon\ListTile\tiles.png" />
+    <Content Include="Content\Icon\SignIn\facebook-icon.png" />
+    <Content Include="Content\Icon\SignIn\google.png" />
+    <Content Include="Content\Icon\Status\Active.png" />
+    <Content Include="Content\Icon\Black-White-calendar.png" />
+    <Content Include="Content\Icon\box24.png" />
+    <Content Include="Content\Icon\clock.png" />
+    <Content Include="Content\Icon\Create.png" />
+    <Content Include="Content\Icon\Application.png" />
+    <Content Include="Content\Icon\back.png" />
+    <Content Include="Content\Icon\cgTBHj3Uo01.png" />
+    <Content Include="Content\Icon\chart.png" />
+    <Content Include="Content\Icon\chart2.png" />
+    <Content Include="Content\Icon\CoreAccounting.png" />
+    <Content Include="Content\Icon\CoreLogin.png" />
+    <Content Include="Content\Icon\customer.png" />
+    <Content Include="Content\Icon\documents.png" />
+    <Content Include="Content\Icon\down.png" />
+    <Content Include="Content\Icon\dropmenu.png" />
+    <Content Include="Content\Icon\erp.png" />
+    <Content Include="Content\Icon\facebook.png" />
+    <Content Include="Content\Icon\False.png" />
+    <Content Include="Content\Icon\fbLogin.png" />
+    <Content Include="Content\Icon\globe.png" />
+    <Content Include="Content\Icon\googleLogin.png" />
+    <Content Include="Content\Icon\grey_new_seo-05-128.png" />
+    <Content Include="Content\Icon\Key.png" />
+    <Content Include="Content\Icon\linkin.png" />
+    <Content Include="Content\Icon\list.png" />
+    <Content Include="Content\Icon\lock.png" />
+    <Content Include="Content\Icon\loginGoogle.png" />
+    <Content Include="Content\Icon\logo.png" />
+    <Content Include="Content\Icon\Logout.png" />
+    <Content Include="Content\Icon\mini.png" />
+    <Content Include="Content\Icon\People32.png" />
+    <Content Include="Content\Icon\Photo.png" />
+    <Content Include="Content\Icon\plus30.png" />
+    <Content Include="Content\Icon\Preloader_3.gif" />
+    <Content Include="Content\Icon\Red-signin_Long_base_44dp.png" />
+    <Content Include="Content\Icon\red.png" />
+    <Content Include="Content\Icon\save.png" />
+    <Content Include="Content\Icon\security.png" />
+    <Content Include="Content\Icon\setting.png" />
+    <Content Include="Content\Icon\skydrive.png" />
+    <Content Include="Content\Icon\Status\Close.png" />
+    <Content Include="Content\Icon\Status\Pending.png" />
+    <Content Include="Content\Icon\Status\Draft.png" />
+    <Content Include="Content\Icon\Status\Edit.png" />
+    <Content Include="Content\Icon\Status\False.png" />
+    <Content Include="Content\Icon\Status\InActive.png" />
+    <Content Include="Content\Icon\Status\Issue.png" />
+    <Content Include="Content\Icon\Status\Issued.png" />
+    <Content Include="Content\Icon\Status\Open.png" />
+    <Content Include="Content\Icon\Status\Paid.png" />
+    <Content Include="Content\Icon\Status\Tranfered.png" />
+    <Content Include="Content\Icon\Status\True.png" />
+    <Content Include="Content\Icon\Status\Void.png" />
+    <Content Include="Content\Icon\Store.png" />
+    <Content Include="Content\Icon\structure.png" />
+    <Content Include="Content\Icon\True.png" />
+    <Content Include="Content\Icon\verify.png" />
+    <Content Include="Content\Icon\Core.png" />
+    <Content Include="Content\Images\Core.png" />
+    <Content Include="Content\Images\default_product.jpg" />
+    <Content Include="Content\Images\items_Dashboard.png" />
+    <Content Include="Content\Images\load80.gif" />
+    <Content Include="Content\Images\topMenu.PNG" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\Logo\ERPKeeperOld.png" />
+    <Content Include="Content\Logo\ERPKeeper.png" />
+    <Content Include="Content\Logo\tec.png" />
+    <Content Include="Content\Metro\account.png" />
+    <Content Include="Content\Metro\asset-money.png" />
+    <Content Include="Content\Metro\asset.png" />
+    <Content Include="Content\Metro\bank.png" />
+    <Content Include="Content\Metro\company.png" />
+    <Content Include="Content\Metro\company2.png" />
+    <Content Include="Content\Metro\employee.png" />
+    <Content Include="Content\Metro\Folder.png" />
+    <Content Include="Content\Metro\folder2.png" />
+    <Content Include="Content\Metro\list-detail.png" />
+    <Content Include="Content\Metro\owner.png" />
+    <Content Include="Content\Metro\tax.png" />
+    <Content Include="Content\Metro\tax2.png" />
+    <Content Include="Content\Metro\vendor-manufactory.png" />
+    <Content Include="Content\Metro\vendor.png" />
+    <Content Include="Content\red.png" />
+    <Content Include="Content\SampleImage\6945bd67-069c-40cd-be13-be08677a6961.jpg" />
+    <Content Include="Content\SampleImage\6ac4db3a-5de8-4cdf-9364-2140f2a4d807.jpg" />
+    <Content Include="Content\SampleImage\86424ad7-ea33-e411-941a-00152d65fb16.jpg" />
+    <Content Include="Content\SampleImage\8963ab99-b9cd-4873-852c-5c8e12132264.jpg" />
+    <Content Include="Content\SampleImage\Capture.PNG" />
+    <Content Include="Content\SampleImage\ccw.png" />
+    <Content Include="Content\SampleImage\cf-140515tokyo8467.jpg" />
+    <Content Include="Content\SampleImage\Chart.png" />
+    <Content Include="Content\SampleImage\dashboard.jpeg" />
+    <Content Include="Content\SampleImage\DashBoardRight.png" />
+    <Content Include="Content\SampleImage\Deployment-Pack.png" />
+    <Content Include="Content\SampleImage\editAddress.png" />
+    <Content Include="Content\SampleImage\ERPicons.png" />
+    <Content Include="Content\SampleImage\Feed.png" />
+    <Content Include="Content\SampleImage\Group.png" />
+    <Content Include="Content\SampleImage\Groups.png" />
+    <Content Include="Content\SampleImage\ImageAccountItem.png" />
+    <Content Include="Content\SampleImage\login.jpg" />
+    <Content Include="Content\SampleImage\menu.png" />
+    <Content Include="Content\SampleImage\Photo.png" />
+    <Content Include="Content\SampleImage\prod.png" />
+    <Content Include="Content\SampleImage\rightSample.png" />
+    <Content Include="Content\SampleImage\SCG.png" />
+    <Content Include="Content\SampleImage\SystemAccount.png" />
+    <Content Include="Content\SampleImage\TimeLine.png" />
+    <Content Include="Content\SampleImage\tsop_sfp.png" />
+    <Content Include="Content\SampleImage\Wearable-Tech-Numbers.jpg" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\Css\TimeLine.css" />
+    <Content Include="Css\FixDevexpressStyle.css" />
+    <Content Include="Css\Style.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\aspnet\dx.aspnet.data.js" />
+    <Content Include="Scripts\aspnet\dx.aspnet.mvc.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr.min.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\event.min.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\supplemental.min.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\cldr\unresolved.min.js" />
+    <Content Include="Scripts\dx.all.debug.js" />
+    <Content Include="Scripts\dx.all.js" />
+    <Content Include="Scripts\dx.mobile.debug.js" />
+    <Content Include="Scripts\dx.mobile.js" />
+    <Content Include="Scripts\dx.viz-web.debug.js" />
+    <Content Include="Scripts\dx.viz-web.js" />
+    <Content Include="Scripts\dx.viz.debug.js" />
+    <Content Include="Scripts\dx.viz.js" />
+    <Content Include="Scripts\dx.web.debug.js" />
+    <Content Include="Scripts\dx.web.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\globalize.cultures.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Areas\Suppliers\Views\Purchases\Export.cshtml" />
+    <Content Include="Areas\Documents\Views\web.config" />
+    <Content Include="Areas\Customers\Views\Sale\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Files.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\Files.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivity\_JournalItems.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfer\_JournalItems.cshtml" />
+    <Content Include="Areas\Setting\Views\PaymentTerms\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\PaymentTerm\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingMethod\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingMethods\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingTerm\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingTerms\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\PaymentTerms\PartialGridView.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingMethods\PartialGridView.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingTerms\PartialGridView.cshtml" />
+    <Content Include="Areas\Setting\Views\PaymentTerm\_Form.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingMethod\_New.cshtml" />
+    <Content Include="Areas\Setting\Views\ShippingTerm\_New.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntries\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntry\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntry\_Detail.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriods\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\_Detail.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntry\_ComboBoxAccount.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntry\_AddAccount.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\PartialGridViewPaymentItem.cshtml" />
+    <Content Include="Areas\Employees\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTypes\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTemplates\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTemplate\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTemplate\_Form.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentType\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Profiles\Views\web.config" />
+    <Content Include="Areas\Employees\Views\Position\Home.cshtml" />
+    <Content Include="Areas\Investors\Views\web.config" />
+    <Content Include="Areas\Financial\Views\web.config" />
+    <Content Include="Areas\Employees\Views\web.config" />
+    <Content Include="Areas\Customers\Views\web.config" />
+    <Content Include="Areas\Suppliers\Views\web.config" />
+    <Content Include="Areas\Transactions\Views\web.config" />
+    <Content Include="Areas\Customers\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\web.config" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Home.cshtml" />
+    <Content Include="Areas\Setting\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\JournalItems.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\ExportReceipt.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\Export.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\_AddStub.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\_ComboBoxStub.cshtml" />
+    <Content Include="Areas\Search\Views\web.config" />
+    <Content Include="Areas\Search\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\Export.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentType\_Form.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\Export.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\_ComboBoxProfiles.cshtml" />
+    <Content Include="Areas\Items\Views\Items\Partial_ComboBoxItems.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\Addresses.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\BankAccounts.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\Items.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\_Form.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\Export.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfer\Export.cshtml" />
+    <Content Include="Areas\Profiles\Views\Addresses\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Addresses\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionTypes\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionTypes\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionType\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionType\_Form.cshtml" />
+    <Content Include="Areas\Initial\Views\web.config" />
+    <Content Include="Areas\Initial\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\Position\_Form.cshtml" />
+    <Content Include="Areas\Accounting\Views\Ledgers\PartialGridViewLedger.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\Export.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\OutputTax.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\Commercial.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\PartialGridViewCommercial.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\_Detail.cshtml" />
+    <Content Include="Areas\Assets\Views\web.config" />
+    <Content Include="Areas\DashBoard\Views\web.config" />
+    <Content Include="Areas\DashBoard\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriods\Export.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridView_Fiscal_Closing_Balance.cshtml" />
+    <Content Include="Areas\Accounting\Views\ChartOfAccount\_Tree.cshtml" />
+    <Content Include="Areas\Items\Views\Items\PartialGridView.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_HistoryTransactionsGridView.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntries\PartialGridView.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntry\PartialGridView.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriods\PartialGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\PartialGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\Employees\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriod\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTemplates\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTemplate\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTypes\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\Positions\PartialGridView.cshtml" />
+    <Content Include="Areas\Documents\Views\Documents\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfers\PartialGridView.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_Term.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_Summary.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionType\PartialGridView.cshtml" />
+    <Content Include="Areas\Taxes\Views\web.config" />
+    <Content Include="Areas\Profiles\Views\Profile\ChangePin.cshtml" />
+    <Content Include="Areas\Commercials\Views\web.config" />
+    <Content Include="Areas\Accounting\Views\web.config" />
+    <Content Include="Areas\Suppliers\Views\DashBoard\_ChartExpense.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_Menu.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\PartialGridViewHistory.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_Display.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\_TopGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Suppliers\_TopGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\DashBoard\_ChartAge.cshtml" />
+    <Content Include="Areas\Customers\Views\DashBoard\_ChartFlow.cshtml" />
+    <Content Include="Areas\Suppliers\Views\DashBoard\_ChartFlow.cshtml" />
+    <Content Include="Areas\Suppliers\Views\DashBoard\_ChartAge.cshtml" />
+    <Content Include="Areas\Investors\Views\Investors\_Chart.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\_Chart.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\Top.cshtml" />
+    <Content Include="Areas\NewsFeed\Views\web.config" />
+    <Content Include="Areas\NewsFeed\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\NewsFeed\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\BankAccounts\_BankAccounts.cshtml" />
+    <Content Include="Areas\DashBoard\Views\User\Home.cshtml" />
+    <Content Include="Areas\DashBoard\Views\User\_TimeLine.cshtml" />
+    <Content Include="Areas\Customers\Views\DashBoard\_ChartIncome.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchases\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\Items\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\_ChartIncome.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\Chart.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\_ChartExpense.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\_ActionMenu.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Suppliers\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYears\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntries\_MenuTop.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\_MenuTop.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssets\PartialGridView.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssets\_MenuTop.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssets\Home.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAsset\_MenuTop.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAsset\Home.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAsset\_Detail.cshtml" />
+    <Content Include="Areas\Items\Views\Brands\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\Brands\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Brands\PartialGridView.cshtml" />
+    <Content Include="Areas\Profiles\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\_SearchFromTaxId.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\_Tree.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\Tree.cshtml" />
+    <Content Include="Areas\Items\Views\Item\Images.cshtml" />
+    <Content Include="Areas\Items\Views\Item\DataSheets.cshtml" />
+    <Content Include="Areas\Items\Views\Brand\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Brand\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\Brand\_Detail.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\DashBoard.cshtml" />
+    <Content Include="Areas\Items\Views\Item\PartialGridViewSpecifications.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAsset\PartialGridViewDeprecateSchedules.cshtml" />
+    <Content Include="Areas\Items\Views\Items\Export.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_LockStatus.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\ExportShippingLabel.cshtml" />
+    <Content Include="Areas\Commercials\Views\CommercialItem\Home.cshtml" />
+    <Content Include="Areas\Commercials\Views\CommercialItem\_Detail.cshtml" />
+    <Content Include="Areas\Customers\Views\DashBoard\_Ageing_Income.cshtml" />
+    <Content Include="Areas\Suppliers\Views\DashBoard\_Ageing_Expense.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\Payments.cshtml" />
+    <Content Include="Areas\Employees\Views\Payment\_ActionMenu.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Balance_Closing.cshtml" />
+    <Content Include=".well-known\acme-challenge\x-4AEJoKIUdYWjZFFHfMyfHM5uGPjcwgh_s3QQyOS1A" />
+    <Content Include="Areas\Documents\Views\Documents\_FileUploadForm.cshtml" />
+    <Content Include="Areas\Documents\Views\Documents\Upload.cshtml" />
+    <Content Include="Areas\Documents\Views\Documents\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\Chart.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfers\_MenuTop.cshtml" />
+    <Content Include="Areas\Investors\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\PartialGridViewPurchaseHistory.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Export.cshtml" />
+    <Content Include="Content\Fonts\RSU.ttf" />
+    <Content Include="Areas\Accounting\Views\JournalEntryTypes\PartialGridView.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryTypes\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryTypes\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryType\_Detail.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryType\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfer\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\web.config" />
+    <Content Include="Areas\Items\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_ItemGroupDetail.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\Payments.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\_NewPayment.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\_NewPayment.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\Home.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\PartialGridViewProjects.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_New.cshtml" />
+    <Content Include="Areas\Projects\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Tasks\Views\Task\Home.cshtml" />
+    <Content Include="Areas\Projects\Views\web.config" />
+    <Content Include="Areas\Tasks\Views\Tasks\PartialGridViewTasks.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\PartialGridViewYoursOpenTasks.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\_NewTask.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Brands\_New.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivity\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\Item\CommercialItemsCost.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\Tasks.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\PartialGridViewPayments.cshtml" />
+    <Content Include="Areas\Accounting\Views\DefaultAccounts\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\DefaultAccounts\PartialGridView.cshtml" />
+    <Content Include="Areas\Accounting\Views\DefaultAccountItem\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\DefaultAccountItem\_Edit.cshtml" />
+    <Content Include="Areas\Financial\Views\Loans\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\Loans\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\Loans\PartialGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchases\Chart.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriods\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\Loan\_Detail.cshtml" />
+    <Content Include="Areas\Financial\Views\Loan\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\Loan\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\Lend\_Detail.cshtml" />
+    <Content Include="Areas\Financial\Views\Lend\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\Lend\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\Lends\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\Lends\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\Lends\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_Balance_Period.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetType\_MenuTop.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCodes\_MenuTop.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCode\_MenuTop.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivities\_MenuTop.cshtml" />
+    <Content Include="Areas\Tasks\Views\Task\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionTypes\_MenuTop.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_HistorySummary.cshtml" />
+    <Content Include="Content\Form\PP30_310757K.pdf" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\_Summary.cshtml" />
+    <Content Include="Areas\Accounting\Views\ChartOfAccount\_FocusAccountsPreview.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\PartialGridViewHistory.cshtml" />
+    <Content Include="Areas\Investors\Views\Investors\_MenuTop.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetType\ListDeprecatedAssets.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetType\PartialGridViewDeprecatedAssets.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryType\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryType\ListEnties.cshtml" />
+    <Content Include="Areas\Authen\Views\UnAuthorize\fail.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\SearchFromRD.cshtml" />
+    <Content Include="Areas\Employees\Views\Positions\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\History.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionType\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_IncomeStatement.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridView_Incomes.cshtml" />
+    <Content Include="Areas\Documents\Views\Document\Home.cshtml" />
+    <Content Include="Areas\Documents\Views\Document\_MenuTop.cshtml" />
+    <Content Include="Areas\Documents\Views\Document\_Detail.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\StockValue.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridViewItemsBalance.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntry\_MenuTop.cshtml" />
+    <Content Include="Areas\Advertising\Views\web.config" />
+    <Content Include="Areas\Advertising\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Advertising\Views\Home\_SideAdvertise.cshtml" />
+    <Content Include="Areas\HelpCenter\Views\web.config" />
+    <Content Include="Areas\Documents\Views\Groups\Home.cshtml" />
+    <Content Include="Areas\Documents\Views\Groups\_MenuTop.cshtml" />
+    <Content Include="Areas\Documents\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Tasks\Views\Task\_Detail.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\_MenuTop.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_MenuTop.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\_Detail.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\_MenuTop.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Home.cshtml" />
+    <Content Include="Areas\Items\Views\DashBoard\_DashBoardItems.cshtml" />
+    <Content Include="Areas\Financial\Views\DashBoard\_DashBoard.cshtml" />
+    <Content Include="Areas\Suppliers\Views\DashBoard\_DashBoard.cshtml" />
+    <Content Include="Areas\Employees\Views\Employees\_DashBoard.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfer\Documents.cshtml" />
+    <Content Include="Areas\Documents\Views\Documents\_List.cshtml" />
+    <Content Include="Areas\Documents\Views\Document\PDFViewer.cshtml" />
+    <Content Include="Areas\Documents\Views\Document\_PDFViewer.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\Documents.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Documents.cshtml" />
+    <Content Include="Areas\Items\Views\Brand\Items.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\Documents.cshtml" />
+    <Content Include="Areas\BusinessDirectory\Views\web.config" />
+    <Content Include="Areas\BusinessDirectory\Views\Home\Home.cshtml" />
+    <Content Include="Areas\BusinessDirectory\Views\Home\_MenuTop.cshtml" />
+    <Content Include="Areas\BusinessDirectory\Views\Home\AdsLink.cshtml" />
+    <Content Include="Areas\Accounting\Views\DashBoard\_DashBoardItems.cshtml" />
+    <Content Include="Areas\Accounting\Views\DefaultAccounts\_Menu.cshtml" />
+    <Content Include="Areas\Customers\Views\Quotes\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Quotes\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Quotes\PartialGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_Detail.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\Items.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\PartialGridViewItems.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_Items.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_AddItem.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\Partial_ComboBoxItems.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\Documents.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Items.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_Summary.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_SummaryCallbackPanel.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_SummaryCallbackPanel.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\Export.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAsset\DepreciateSchedules.cshtml" />
+    <Content Include="Areas\Initial\Views\Home\_Begin.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\_JobPosition.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\_ProfitSummary.cshtml" />
+    <Content Include="Areas\Employees\Views\Positions\_AvailablePositions.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\PartialGridViewTasks.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Tasks.cshtml" />
+    <Content Include="Areas\Projects\Views\Cases\PartialGridViewCases.cshtml" />
+    <Content Include="Areas\Projects\Views\Cases\_MenuTop.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\_NewCase.cshtml" />
+    <Content Include="Areas\Projects\Views\Cases\Home.cshtml" />
+    <Content Include="Areas\Projects\Views\Case\_Detail.cshtml" />
+    <Content Include="Areas\Projects\Views\Case\_MenuTop.cshtml" />
+    <Content Include="Areas\Projects\Views\Case\Home.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Cases.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\PartialGridViewCases.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_RelatedAccount.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\_Chart_ProfitAndLostSummary.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_TreeViewProjects.cshtml" />
+    <Content Include="Areas\Profiles\Views\Address\_MenuTop.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\_RightSummary.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_ProfileDetail.cshtml" />
+    <Content Include="Areas\Items\Views\Item\PartialGridViewCommercialItemsCost.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\PartialGridViewUnAssignCommercial.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\UnAssignCommercial.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriods\UnAssignCommercial.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayments\PartialGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayments\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayments\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_Form.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\ExportPaymentVoucher.cshtml" />
+    <Content Include="Areas\Initial\Views\Activate\Home.cshtml" />
+    <Content Include="Areas\Initial\Views\Activate\_ActivateForm.cshtml" />
+    <Content Include="Areas\Employees\Views\Employees\_MenuTop.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\Position.cshtml" />
+    <Content Include="Areas\Investors\Views\Investor\_MenuTop.cshtml" />
+    <Content Include="Areas\Investors\Views\Investor\CapitalActivities.cshtml" />
+    <Content Include="Areas\Investors\Views\Investor\PartialGridViewCapitalActivities.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_ChangePin.cshtml" />
+    <Content Include="Areas\Employees\Views\Position\_MenuTop.cshtml" />
+    <Content Include="Areas\Employees\Views\Position\Employees.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayments\PartialGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayments\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayments\Export.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayments\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\Documents.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\_Form.cshtml" />
+    <Content Include="Areas\Employees\Views\Position\PartialGridViewPositionEmployees.cshtml" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <None Include="Scripts\jquery-3.7.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\StatusHelpers.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\Ledger.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_ShowFavoriteAccountDetail.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\Icon.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\_Chart_CurrentAssetandLiability.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionType\History.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_AddItem.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\Partial_ComboBoxItems.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_Detail.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\PartialGridViewItems.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_Items.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_ProfileDetail.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_Summary.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\_SummaryCallbackPanel.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\Documents.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\Export.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quote\Items.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quotes\PartialGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quotes\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Quotes\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Log.cshtml" />
+    <Content Include="Areas\Financial\Views\AssetAccounts\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\AssetAccounts\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\AssetAccounts\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\AssetAccount\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\AssetAccount\_Detail.cshtml" />
+    <Content Include="Areas\Tasks\Views\web.config" />
+    <Content Include="Areas\Assets\Views\DeprecateSchedules\PartialGridView.cshtml" />
+    <Content Include="Areas\Assets\Views\DeprecateSchedules\Home.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAsset\_Summary.cshtml" />
+    <Content Include="Areas\DashBoard\Views\CurrentUser\_ViewPeriodTrackBar.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_Payment.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Payments.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\Documents.cshtml" />
+    <Content Include="Areas\Items\Views\Items\_GridTileItems.cshtml" />
+    <Content Include="Areas\Items\Views\Items\Tile.cshtml" />
+    <Content Include="Areas\Items\Views\Items\_ListTileChoice.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_TilePreview.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_MiniChart.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_Summary.cshtml" />
+    <Content Include="Areas\Items\Views\COSG\PartialGridView.cshtml" />
+    <Content Include="Areas\Items\Views\COSG\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\_Age.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Items.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\PartialGridViewBillOfMaterials.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\_AddItem.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Partial_ComboBoxItems.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\OpeningEntries.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridView_Balance_Closing.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_AccountsLedger.cshtml" />
+    <Content Include="Areas\Authen\Views\SignIn\_SignInBox.cshtml" />
+    <Content Include="Areas\Authen\Views\SignIn\Fail.cshtml" />
+    <Content Include="Areas\Authen\Views\SignIn\Home.cshtml" />
+    <Content Include="Areas\Authen\Views\web.config" />
+    <Content Include="Areas\Items\Views\Items\ExportTag.cshtml" />
+    <Content Include="Areas\Items\Views\Item\ExportTag.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_TransactionsLedger.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\_Age.cshtml" />
+    <Content Include="Areas\Items\Views\Brand\_UploadImage.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_BalanceSheet.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridView_Balance.cshtml" />
+    <Content Include="Areas\Advertising\Views\Home\_SideAccFirm.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentTypes\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\PartialGridViewTrialBalance.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\_Menu.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\_Chart_ProfitAndLostSummary.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\BalanceSheet.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\IncomeStatement.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\TrialBalance.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Balance_Incomes.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Balance_Expenses.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridView_Expenses.cshtml" />
+    <Content Include="Areas\Accounting\Views\JournalEntryTypes\_Preview.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\_ProfileDetail.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_ProfileDetail.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_Role.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\_AvaliableCommercials.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\Export.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayments\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayment\Home.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetTypes\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccounts\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccounts\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccounts\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccount\_Detail.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccount\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccount\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Permissions\PartialGridView.cshtml" />
+    <Content Include="Areas\Profiles\Views\Permissions\_MenuTop.cshtml" />
+    <Content Include="Areas\Profiles\Views\Permissions\Home.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\_OpenTaskSummary.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\Tasks.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\PartialGridViewTasks.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayment\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayments\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayments\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayment\_Form.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccount\Payments.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityAccount\PartialGridViewPayments.cshtml" />
+    <Content Include="Areas\Tasks\Views\Task\_SubTaskSummary.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTaxes\PartialGridView.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTaxes\_MenuTop.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTaxes\Export.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTaxes\Home.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\_PopUpNewTask.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYears\_ProfitSummary.cshtml" />
+    <Content Include="Areas\Items\Views\ParameterTypes\PartialGridView.cshtml" />
+    <Content Include="Areas\Items\Views\ParameterTypes\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\ParameterTypes\_New.cshtml" />
+    <Content Include="Areas\Items\Views\ParameterTypes\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Groups\_New.cshtml" />
+    <Content Include="Areas\Items\Views\Groups\_TreeList.cshtml" />
+    <Content Include="Areas\Items\Views\Groups\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Group\_Detail.cshtml" />
+    <Content Include="Areas\Items\Views\Group\PartialGridView.cshtml" />
+    <Content Include="Areas\Items\Views\Group\_MenuTop.cshtml" />
+    <Content Include="Areas\Items\Views\Group\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Group\Items.cshtml" />
+    <Content Include="Areas\Employees\Views\Careers\PartialGridView.cshtml" />
+    <Content Include="Areas\Items\Views\Group\_AddItem.cshtml" />
+    <Content Include="Areas\Items\Views\Group\_CreateChildItem.cshtml" />
+    <Content Include="Areas\Menu\Views\web.config" />
+    <Content Include="Areas\Menu\Views\Default\_Main.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\_PreloadProfilesGridView.cshtml" />
+    <Content Include="Areas\Items\Views\DashBoard\_ReorderItemsAlert.cshtml" />
+    <Content Include="Areas\Tasks\Views\Tasks\_PreLoadOpenTaskSummary.cshtml" />
+    <Content Include="Areas\Items\Views\Items\_Advertise.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Shipments.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\_Chart_SummaryCurrentAssetandLiability.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\_Chart_SummaryProfitAndLost.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\_SummaryCurrentFinancial.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTax\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Tasks\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTax\_DetailForm.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriods\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriods\_MenuTop.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriods\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\IncomeTax\_MenuTop.cshtml" />
+    <Content Include="Areas\Search\Views\Home\_SearchBox.cshtml" />
+    <Content Include="Areas\Search\Views\Home\Perform.cshtml" />
+    <Content Include="Areas\Help\Views\web.config" />
+    <Content Include="Areas\Customers\Views\Customer\Sales.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\SaleQuotes.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\Purchases.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\PurchaseQuotes.cshtml" />
+    <Content Include="Areas\Items\Views\Items\Search.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriod\_Form.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriod\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriod\_MenuTop.cshtml" />
+    <Content Include="Areas\Authen\Views\Oauth\FacebookCallBack.cshtml" />
+    <Content Include="Areas\Authen\Views\SignIn\Register.cshtml" />
+    <Content Include="Areas\Authen\Views\SignIn\_RegisterBox.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\OpeningBalance.cshtml" />
+    <Content Include="Areas\Accounting\Views\Reports\PartialGridViewOpeningBalance.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\Leaves.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\PartialGridViewLeaves.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\_MenuTop.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\PartialGridViewCommercialTaxes.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\_Form.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\_Form.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\NonRecovery.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\Assigable.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\PartialGridViewAssigableCommercials.cshtml" />
+    <Content Include="Areas\Taxes\Views\CommercialTaxes\PartialGridViewNonRecoveryCommercialTaxes.cshtml" />
+    <Content Include="Areas\Documents\Views\DashBoard\_MenuTop.cshtml" />
+    <Content Include="Areas\Documents\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Accounting\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Assets\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Authen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\BusinessDirectory\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Commercials\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Financial\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Help\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\HelpCenter\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Initial\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Investors\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Items\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Search\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Setting\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Suppliers\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Transactions\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\Documents.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayment\_DivCommercials.cshtml" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\_Summary.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_Summary.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_OpenCommercials.cshtml" />
+    <Content Include="Areas\Financial\Views\LiabilityPayment\_Summary.cshtml" />
+    <Content Include="Areas\Financial\Views\GeneralPayment\PartialGridViewPaymentRetentions.cshtml" />
+    <Content Include="Areas\Financial\Views\GeneralPayment\_DivPayFrom.cshtml" />
+    <Content Include="Areas\Financial\Views\GeneralPayment\_DivCommercials.cshtml" />
+    <Content Include="Areas\Financial\Views\GeneralPayment\PartialGridViewPayFrom.cshtml" />
+    <Content Include="Areas\Financial\Views\GeneralPayment\PartialGridViewCommercials.cshtml" />
+    <Content Include="Areas\DashBoard\Views\Home\_Tile.cshtml" />
+    <Content Include="Areas\DashBoard\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_ImagesUpload.cshtml" />
+    <Content Include="Areas\Items\Views\Items\_MenuTile.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxPeriod\_MenuCommercial.cshtml" />
+    <Content Include="Areas\Items\Views\Item\Parameters.cshtml" />
+    <Content Include="Areas\Items\Views\Item\PartialGridViewParameters.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_InventorySummary.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_NewParameter.cshtml" />
+    <Content Include="Areas\Accounting\Views\Ledgers\_SummaryLedger.cshtml" />
+    <Content Include="Areas\Assets\Views\Shared\_MenuTop.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Commercials.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\PartialGridViewCommercials.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Quotes.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\PartialGridViewSaleQuotes.cshtml" />
+    <Content Include="Areas\Items\Views\Group\Parameters.cshtml" />
+    <Content Include="Areas\Items\Views\Group\PartialGridViewParameters.cshtml" />
+    <Content Include="Areas\Items\Views\Group\_NewParameter.cshtml" />
+    <Content Include="Areas\Items\Views\Group\_Parameters.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_Parameters.cshtml" />
+    <Content Include="Areas\DashBoard\Views\Home\_TileCashBalance.cshtml" />
+    <Content Include="Areas\COGS\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\COGS\Views\web.config" />
+    <Content Include="Areas\COGS\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Items\Views\COSG\_MenuTop.cshtml" />
+    <Content Include="Content\Fonts\Roboto-300.ttf" />
+    <Content Include="Content\Fonts\Roboto-300.woff" />
+    <Content Include="Content\Fonts\Roboto-300.woff2" />
+    <Content Include="Content\Fonts\Roboto-400.ttf" />
+    <Content Include="Content\Fonts\Roboto-400.woff" />
+    <Content Include="Content\Fonts\Roboto-400.woff2" />
+    <Content Include="Content\Fonts\Roboto-500.ttf" />
+    <Content Include="Content\Fonts\Roboto-500.woff" />
+    <Content Include="Content\Fonts\Roboto-500.woff2" />
+    <Content Include="Content\icons\dxicons.ttf" />
+    <Content Include="Content\icons\dxicons.woff" />
+    <Content Include="Content\icons\dxicons.woff2" />
+    <Content Include="Content\icons\dxiconsios.ttf" />
+    <Content Include="Content\icons\dxiconsios.woff" />
+    <Content Include="Content\icons\dxiconsios.woff2" />
+    <Content Include="Content\icons\dxiconsmaterial.ttf" />
+    <Content Include="Content\icons\dxiconsmaterial.woff" />
+    <Content Include="Content\icons\dxiconsmaterial.woff2" />
+    <Content Include="Areas\Customers\Views\ReceivePayment\_Commercials.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Balance_Opening.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentType\_MenuTop.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_COGS.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\Report_AssetDeprecations.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\PartialGridView_COGS.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_AssistItems.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\_AssistItems.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\History.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\PartialGridViewSalesQuotes.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\_RightSummary.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentPeriod\Export.cshtml" />
+    <Content Include="Areas\DashBoard\Views\Shared\_MenuTop.cshtml" />
+    <Content Include="Areas\Search\Views\History\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\New.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\_MenuTile.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\_MenuTile.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\_ReceivePaymentSummary.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\_SupplierPaymentSummary.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_CommercialsDetail.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\Export.cshtml" />
+    <Content Include="Areas\Documents\Views\Document\_PDFCommand.cshtml" />
+    <Content Include="Areas\Tasks\Views\MyTasks\Home.cshtml" />
+    <Content Include="Areas\Tasks\Views\MyTasks\PartialGridViewTasks.cshtml" />
+    <Content Include="Areas\Tasks\Views\MyTasks\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\PaymentRetentions\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\PaymentRetentions\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\PaymentRetentions\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_AvaliableCommercials.cshtml" />
+    <Content Include="Areas\Suppliers\Views\SupplierPayment\_Commercials.cshtml" />
+    <Content Include="Areas\Accounting\Views\Ledgers\_Menu.cshtml" />
+    <Content Include="Areas\Employees\Views\Payments\PartialGridView.cshtml" />
+    <Content Include="Areas\Employees\Views\Payments\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\Payments\_MenuTop.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentType\Payments.cshtml" />
+    <Content Include="Areas\Employees\Views\PaymentType\PartialGridViewPayments.cshtml" />
+    <Content Include="Areas\Items\Views\Item\COSG.cshtml" />
+    <Content Include="Areas\Items\Views\Item\PartialGridViewCOSG.cshtml" />
+    <Content Include="Areas\Customers\Views\Orders\PartialGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\Orders\_MenuTop.cshtml" />
+    <Content Include="Areas\Customers\Views\Orders\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Orders\PartialGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Orders\_MenuTop.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Orders\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchases\ExportSummary.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroups\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroups\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroups\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroup\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroup\_MenuTop.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroup\PartialGridView.cshtml" />
+    <Content Include="Areas\Financial\Views\RetentionGroup\Export.cshtml" />
+    <Content Include="Areas\Customers\Views\Quote\ExportGuest.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYear\_Current_Balance.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssets\Export.cshtml" />
+    <Content Include="Areas\Customers\Views\Orders\Items.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_Project_Detail.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Orders\Items.cshtml" />
+    <Content Include="Areas\Locations\Views\web.config" />
+    <Content Include="Areas\Locations\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Locations\Views\DashBoard\Home.cshtml" />
+    <Content Include="Areas\Locations\Views\Location\_Location.cshtml" />
+    <Content Include="Areas\Locations\Views\Location\Home.cshtml" />
+    <Content Include="Areas\Locations\Views\Location\_Edit.cshtml" />
+    <Content Include="Areas\Locations\Views\DashBoard\_MenuTop.cshtml" />
+    <Content Include="Areas\DashBoard\Views\Home\_Top.cshtml" />
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\bit.advancemaker.com.pubxml" />
+    <None Include="Properties\PublishProfiles\erp.advancemaker.com.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
+    <Content Include="Scripts\globalize.min.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\currency.min.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\date.min.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\message.min.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\number.min.js" />
+    <Content Include="Scripts\jquery-2.2.0.js" />
+    <Content Include="Scripts\jquery-2.2.0.min.js" />
+    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jszip.js" />
+    <Content Include="Scripts\jszip.min.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
+    <Content Include="Scripts\jquery-2.2.0.min.map" />
+    <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\localization\dx.messages.cs.js" />
+    <Content Include="Scripts\localization\dx.messages.de.js" />
+    <Content Include="Scripts\localization\dx.messages.en.js" />
+    <Content Include="Scripts\localization\dx.messages.es.js" />
+    <Content Include="Scripts\localization\dx.messages.fi.js" />
+    <Content Include="Scripts\localization\dx.messages.fr.js" />
+    <Content Include="Scripts\localization\dx.messages.it.js" />
+    <Content Include="Scripts\localization\dx.messages.ja.js" />
+    <Content Include="Scripts\localization\dx.messages.nl.js" />
+    <Content Include="Scripts\localization\dx.messages.pt.js" />
+    <Content Include="Scripts\localization\dx.messages.ru.js" />
+    <Content Include="Scripts\localization\dx.messages.sv.js" />
+    <Content Include="Scripts\localization\dx.messages.zh.js" />
+    <Content Include="Scripts\vectormap-data\africa.js" />
+    <Content Include="Scripts\vectormap-data\canada.js" />
+    <Content Include="Scripts\vectormap-data\eurasia.js" />
+    <Content Include="Scripts\vectormap-data\europe.js" />
+    <Content Include="Scripts\vectormap-data\usa.js" />
+    <Content Include="Scripts\vectormap-data\world.js" />
+    <Content Include="Scripts\vectormap-utils\dx.vectormaputils.debug.js" />
+    <Content Include="Scripts\vectormap-utils\dx.vectormaputils.js" />
+    <Content Include="Scripts\vectormap-utils\dx.vectormaputils.node.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web01.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Financial\Views\AssetAccount\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchases\_Chart.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchases\PartialGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchase\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Purchases\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Addresses\_Addresses.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_Profile.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\_Detail.cshtml" />
+    <Content Include="Areas\Profiles\Views\Address\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Address\_AddressForm.cshtml" />
+    <Content Include="Areas\Profiles\Views\BankAccount\_Form.cshtml" />
+    <Content Include="Areas\Profiles\Views\BankAccount\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profile\Home.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\PartialGridView.cshtml" />
+    <Content Include="Areas\Profiles\Views\Profiles\Home.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivities\PartialGridView.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivity\_Form.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivity\Home.cshtml" />
+    <Content Include="Areas\Investors\Views\CapitalActivities\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\Positions\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_Edit.cshtml" />
+    <Content Include="Areas\Accounting\Views\ChartOfAccount\_Menu.cshtml" />
+    <Content Include="Areas\Accounting\Views\ChartOfAccount\_ComboBox.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\ChartOfAccount\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\NewAccount.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\_Menu.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\DashBoard.cshtml" />
+    <Content Include="Areas\Customers\Views\Customers\Home.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetTypes\PartialGridView.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetTypes\Home.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetType\_Detail.cshtml" />
+    <Content Include="Areas\Assets\Views\FixedAssetType\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\Employee\Home.cshtml" />
+    <Content Include="Areas\Employees\Views\Employees\Home.cshtml" />
+    <Content Include="Areas\Documents\Views\Documents\Home.cshtml" />
+    <Content Include="Areas\Documents\Views\Documents\SummaryList.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYears\PartialGridView.cshtml" />
+    <Content Include="Areas\Accounting\Views\FiscalYears\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfer\_Form.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfer\Home.cshtml" />
+    <Content Include="Areas\Financial\Views\FundTransfers\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\_Chart.cshtml" />
+    <Content Include="Areas\Accounting\Views\AccountItem\PartialGridViewLedger.cshtml" />
+    <Content Include="Areas\Accounting\Views\Ledgers\Home.cshtml" />
+    <None Include="Areas\Accounting\Views\AccountItem\Ledgers.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\_Chart.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\Home.cshtml" />
+    <Content Include="Areas\Customers\Views\Sale\ExportSale.cshtml" />
+    <Content Include="Areas\Customers\Views\Sales\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Item\_Detail.cshtml" />
+    <Content Include="Areas\Items\Views\Item\Home.cshtml" />
+    <Content Include="Areas\Items\Views\Item\History.cshtml" />
+    <Content Include="Areas\Items\Views\Items\Home.cshtml" />
+    <Content Include="Areas\Accounting\Views\Ledgers\DashBoard.cshtml" />
+    <Content Include="Areas\Investors\Views\Investors\PartialGridViewInvestor.cshtml" />
+    <Content Include="Areas\Investors\Views\Investor\Home.cshtml" />
+    <Content Include="Areas\Investors\Views\Investors\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\_ActionMenu.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Supplier\Home.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Suppliers\PartialGridView.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Suppliers\DashBoard.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Suppliers\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCode\_DetailForm.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCodes\PartialGridViewTaxCodes.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCode\PartialGridViewTaxRate.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCode\Home.cshtml" />
+    <Content Include="Areas\Taxes\Views\TaxCodes\Home.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_Detail.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\PartialGridViewItems.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_Profile_Detail.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_UploadFile.cshtml" />
+    <Content Include="Areas\Commercials\Views\CommercialItems\_AddItem.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_CommercialItems.cshtml" />
+    <Content Include="Areas\Commercials\Views\CommercialItems\Partial_ComboBoxItems.cshtml" />
+    <Content Include="Areas\Commercials\Views\Commercial\_JournalGridView.cshtml" />
+    <Content Include="Areas\Customers\Views\Customer\PartialGridViewSalesHistory.cshtml" />
+    <Content Include="Views\Shared\_HeaderGuest.cshtml" />
+    <Content Include="Views\Shared\_UserTopMenu.cshtml" />
+    <Content Include="Views\Shared\_HeaderSearch.cshtml" />
+    <Content Include="Views\Shared\_HeaderJewel.cshtml" />
+    <Content Include="Areas\DashBoard\Views\Shared\_Dash.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="Web01.Debug.config">
+      <DependentUpon>Web01.config</DependentUpon>
+    </None>
+    <None Include="Web01.Release.config">
+      <DependentUpon>Web01.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\DevExtremeBundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Accounting\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\DefaultAccountItemController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\JournalEntryTypeController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\JournalEntryTypesController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\DefaultAccountsController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\ReportsController.cs" />
+    <Compile Include="Areas\Accounting\ChartOfAccountAreaRegistration.cs" />
+    <Compile Include="Areas\Advertising\AdvertisingAreaRegistration.cs" />
+    <Compile Include="Areas\Advertising\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Assets\Controllers\DeprecateSchedulesController.cs" />
+    <Compile Include="Areas\Authen\Controllers\UnAuthorizeController.cs" />
+    <Compile Include="Areas\COGS\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Customers\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\DashBoard\Controllers\ProjectsController.cs" />
+    <Compile Include="Areas\Employees\Controllers\Payments.cs" />
+    <Compile Include="Areas\Financial\Controllers\RetentionGroupsController.cs" />
+    <Compile Include="Areas\Financial\Controllers\PaymentRetentionsController.cs" />
+    <Compile Include="Areas\Financial\Controllers\RetentionGroupController.cs" />
+    <Compile Include="Areas\Items\Controllers\COSGController.cs" />
+    <Compile Include="Areas\Customers\Controllers\PublicSaleController.cs" />
+    <Compile Include="Areas\DashBoard\Controllers\CurrentUserController.cs" />
+    <Compile Include="Areas\Authen\Controllers\SignInController.cs" />
+    <Compile Include="Areas\Authen\Controllers\SignOutController.cs" />
+    <Compile Include="Areas\Authen\AuthenticationAreaRegistration.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentPeriodsController.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentPeriod.cs" />
+    <Compile Include="Areas\Financial\Controllers\LiabilityAccountController.cs" />
+    <Compile Include="Areas\Financial\Controllers\LiabilityAccountsController.cs" />
+    <Compile Include="Areas\Financial\Controllers\GeneralPaymentController.cs" />
+    <Compile Include="Areas\Financial\Controllers\LiabilityPaymentController.cs" />
+    <Compile Include="Areas\Financial\Controllers\LiabilityPaymentsController.cs" />
+    <Compile Include="Areas\Help\HelpAreaRegistration.cs" />
+    <Compile Include="Areas\Items\Controllers\GroupsController.cs" />
+    <Compile Include="Areas\Items\Controllers\GroupController.cs" />
+    <Compile Include="Areas\Items\Controllers\CommercialItemController.cs" />
+    <Compile Include="Areas\Items\Controllers\ParameterTypesController.cs" />
+    <Compile Include="Areas\Items\Reports\ItemTag.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Locations\Controllers\LocationsController.cs" />
+    <Compile Include="Areas\Locations\Controllers\LocationController.cs" />
+    <Compile Include="Areas\Locations\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Locations\LocationsAreaRegistration.cs" />
+    <Compile Include="Areas\Search\Controllers\HistoryController.cs" />
+    <Compile Include="Areas\BusinessDirectory\BusinessDirectoryAreaRegistration.cs" />
+    <Compile Include="Areas\BusinessDirectory\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Commercials\CommercialsAreaRegistration.cs" />
+    <Compile Include="Areas\Commercials\Controllers\CommercialItemController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\AccountItemController.cs" />
+    <Compile Include="Areas\Customers\Controllers\QuotesController.cs" />
+    <Compile Include="Areas\Customers\Controllers\QuoteController.cs" />
+    <Compile Include="Areas\Customers\Controllers\SaleHistory.cs" />
+    <Compile Include="Areas\Documents\Controllers\GroupsController.cs" />
+    <Compile Include="Areas\Documents\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Documents\Models\PdfPageModel.cs" />
+    <Compile Include="Areas\Financial\Controllers\LendController.cs" />
+    <Compile Include="Areas\Financial\Controllers\LoanController.cs" />
+    <Compile Include="Areas\Financial\Controllers\LendsController.cs" />
+    <Compile Include="Areas\Financial\Controllers\LoansController.cs" />
+    <Compile Include="Areas\Menu\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
+    <Compile Include="Areas\Profiles\Controllers\PermissionsController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\SupplierPaymentsController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\SupplierPaymentController.cs" />
+    <Compile Include="Areas\Customers\Controllers\ReceivePaymentController.cs" />
+    <Compile Include="Areas\Customers\Controllers\ReceivePaymentsController.cs" />
+    <Compile Include="Areas\HelpCenter\HelpCenterAreaRegistration.cs" />
+    <Compile Include="Areas\Projects\Controllers\ProjectsController.cs" />
+    <Compile Include="Areas\Projects\Controllers\ProjectController.cs" />
+    <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
+    <Compile Include="Areas\Projects\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Tasks\Controllers\TaskController.cs" />
+    <Compile Include="Areas\Tasks\Controllers\MyTasksController.cs" />
+    <Compile Include="Areas\Tasks\Controllers\TasksController.cs" />
+    <Compile Include="Areas\Items\Controllers\BrandController.cs" />
+    <Compile Include="Areas\Items\Controllers\BrandsController.cs" />
+    <Compile Include="Areas\Items\Reports\ItemCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Employees\Controllers\EmployeesController.cs" />
+    <Compile Include="Areas\Documents\Controllers\DocumentController.cs" />
+    <Compile Include="Areas\Financial\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Financial\FinancialAreaRegistration.cs" />
+    <Compile Include="Areas\Financial\Controllers\AssetAccountController.cs" />
+    <Compile Include="Areas\Financial\Controllers\FundTransferController.cs" />
+    <Compile Include="Areas\Financial\Controllers\RetentionTypeController.cs" />
+    <Compile Include="Areas\Financial\Controllers\RetentionTypesController.cs" />
+    <Compile Include="Areas\Financial\Reports\FundTransfer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Assets\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Items\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Items\ItemsAreaRegistration.cs" />
+    <Compile Include="Areas\Investors\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Profiles\Controllers\BankAccountController.cs" />
+    <Compile Include="Areas\Profiles\Controllers\BankAccountsController.cs" />
+    <Compile Include="Areas\Profiles\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Setting\Controllers\UpgradeController.cs" />
+    <Compile Include="Areas\Setting\Controllers\PermissionsController.cs" />
+    <Compile Include="Areas\Initial\Controllers\ActivateController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\QuoteController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\QuotesController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\PurchaseController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\PurchasesController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\SupplierController.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\SuppliersController.cs" />
+    <Compile Include="Areas\NewsFeed\Controllers\HomeController.cs" />
+    <Compile Include="Areas\NewsFeed\NewsFeedAreaRegistration.cs" />
+    <Compile Include="Areas\Tasks\TasksAreaRegistration.cs" />
+    <Compile Include="Areas\Taxes\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\IncomeTaxController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\TaxPeriodController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\IncomeTaxesController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\CommercialTaxesController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\TaxPeriodsController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\JournalEntryController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\JournalEntriesController.cs" />
+    <Compile Include="Areas\Customers\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Customers\Controllers\SaleController.cs" />
+    <Compile Include="Areas\DashBoard\Controllers\HomeController.cs" />
+    <Compile Include="Areas\DashBoard\DashBoardAreaRegistration.cs" />
+    <Compile Include="Areas\Employees\Controllers\PositionController.cs" />
+    <Compile Include="Areas\Employees\Controllers\PositionsController.cs" />
+    <Compile Include="Areas\Assets\AssetsAreaRegistration.cs" />
+    <Compile Include="Areas\Profiles\Controllers\AddressController.cs" />
+    <Compile Include="Areas\Profiles\Controllers\AddressesController.cs" />
+    <Compile Include="Areas\Profiles\ProfilesAreaRegistration.cs" />
+    <Compile Include="Areas\Profiles\Reports\LetterFront.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Search\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Search\SearchAreaRegistration.cs" />
+    <Compile Include="Areas\Setting\Controllers\LanguageController.cs" />
+    <Compile Include="Areas\Customers\CustomersAreaRegistration.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentController.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentTypeController.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentTemplateController.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentTemplatesController.cs" />
+    <Compile Include="Areas\Employees\Controllers\PaymentTypesController.cs" />
+    <Compile Include="Areas\Employees\EmployeesAreaRegistration.cs" />
+    <Compile Include="Areas\Documents\FilesAreaRegistration.cs" />
+    <Compile Include="Areas\Documents\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Investors\Controllers\CapitalInvestmetController.cs" />
+    <Compile Include="Areas\Investors\Controllers\InvestorController.cs" />
+    <Compile Include="Areas\Investors\Controllers\InvestorsController.cs" />
+    <Compile Include="Areas\Investors\InvestorsAreaRegistration.cs" />
+    <Compile Include="Areas\Accounting\Controllers\FiscalYearController.cs" />
+    <Compile Include="Areas\Setting\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Setting\Controllers\PaymentTermsController.cs" />
+    <Compile Include="Areas\Setting\Controllers\PaymentTermController.cs" />
+    <Compile Include="Areas\Setting\Controllers\ShippingMethodsController.cs" />
+    <Compile Include="Areas\Setting\Controllers\ShippingMethodController.cs" />
+    <Compile Include="Areas\Setting\Controllers\ShippingTermsController.cs" />
+    <Compile Include="Areas\Setting\Controllers\ShippingTermController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\TaxCodeController.cs" />
+    <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
+    <Compile Include="Areas\Initial\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Initial\SetupAreaRegistration.cs" />
+    <Compile Include="Areas\Suppliers\SuppliersAreaRegistration.cs" />
+    <Compile Include="Areas\Taxes\TaxesAreaRegistration.cs" />
+    <Compile Include="Areas\Transactions\Controllers\TransactionController.cs" />
+    <Compile Include="Areas\Transactions\TransactionsAreaRegistration.cs" />
+    <Compile Include="Areas\Financial\Controllers\AssetAccountsController.cs" />
+    <Compile Include="Areas\Profiles\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\Profiles\Controllers\ProfilesController.cs" />
+    <Compile Include="Areas\Investors\Controllers\CapitalInvestmetsController.cs" />
+    <Compile Include="Areas\Employees\Controllers\CareersController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\ChartOfAccountController.cs" />
+    <Compile Include="Areas\Customers\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Customers\Controllers\CustomersController.cs" />
+    <Compile Include="Authorize\ERPAuthorize.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Authorize\ApplicationUser.cs" />
+    <Compile Include="Controllers\_DefaultNodeController.cs" />
+    <Compile Include="Areas\Assets\Controllers\FixedAssetTypesController.cs" />
+    <Compile Include="Areas\Assets\Controllers\FixedAssetTypeController.cs" />
+    <Compile Include="Areas\Employees\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Employees\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Documents\Controllers\DocumentsController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\FiscalYearsController.cs" />
+    <Compile Include="Areas\Assets\Controllers\FixedAssetController.cs" />
+    <Compile Include="Areas\Assets\Controllers\FixedAssetsController.cs" />
+    <Compile Include="Areas\Financial\Controllers\FundTransfersController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\LedgersController.cs" />
+    <Compile Include="Areas\Items\Controllers\InventoryItemsController.cs" />
+    <Compile Include="Areas\Customers\Controllers\SalesController.cs" />
+    <Compile Include="Areas\Items\Controllers\ItemController.cs" />
+    <Compile Include="Areas\Items\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\Accounting\Controllers\JournalItemsController.cs" />
+    <Compile Include="Areas\Taxes\Controllers\TaxCodesController.cs" />
+    <Compile Include="Areas\Commercials\Controllers\CommercialController.cs" />
+    <Compile Include="Areas\Commercials\Controllers\CommercialItemsController.cs" />
+    <Compile Include="Areas\Commercials\Controllers\CommercialsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ApplicationConfig.cs" />
+    <Compile Include="Library\DateTimeModelBinder.cs" />
+    <Compile Include="Library\AppViewPage.cs" />
+    <Compile Include="Extensions\QRCode.cs" />
+    <Compile Include="Models\LogInModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Lang.th.Designer.cs">
+      <DependentUpon>Lang.th.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Lang.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lang.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WriteFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_GlobalResources\" />
+    <Folder Include="Areas\Accounting\Models\" />
+    <Folder Include="Areas\Accounting\Views\Charts\" />
+    <Folder Include="Areas\Accounting\Views\ClosingAccount\" />
+    <Folder Include="Areas\Accounting\Views\Shared\" />
+    <Folder Include="Areas\Accounting\Views\Summary\" />
+    <Folder Include="Areas\Advertising\Models\" />
+    <Folder Include="Areas\Advertising\Views\Default\" />
+    <Folder Include="Areas\Advertising\Views\Shared\" />
+    <Folder Include="Areas\Assets\Models\" />
+    <Folder Include="Areas\Authen\Models\" />
+    <Folder Include="Areas\Authen\Views\Shared\" />
+    <Folder Include="Areas\BusinessDirectory\Models\" />
+    <Folder Include="Areas\BusinessDirectory\Views\Shared\" />
+    <Folder Include="Areas\COGS\Views\Shared\" />
+    <Folder Include="Areas\Commercials\Models\" />
+    <Folder Include="Areas\Commercials\Views\Shared\" />
+    <Folder Include="Areas\Customers\Models\" />
+    <Folder Include="Areas\Customers\Views\Charts\" />
+    <Folder Include="Areas\Customers\Views\Shared\" />
+    <Folder Include="Areas\DashBoard\Models\" />
+    <Folder Include="Areas\Documents\Views\Home\" />
+    <Folder Include="Areas\Documents\Views\Shared\" />
+    <Folder Include="Areas\Employees\Models\" />
+    <Folder Include="Areas\Employees\Views\Shared\" />
+    <Folder Include="Areas\Financial\Models\" />
+    <Folder Include="Areas\Financial\Views\Shared\" />
+    <Folder Include="Areas\HelpCenter\Controllers\" />
+    <Folder Include="Areas\HelpCenter\Models\" />
+    <Folder Include="Areas\HelpCenter\Views\Shared\" />
+    <Folder Include="Areas\Help\Controllers\" />
+    <Folder Include="Areas\Help\Models\" />
+    <Folder Include="Areas\Help\Views\Shared\" />
+    <Folder Include="Areas\Initial\Views\Shared\" />
+    <Folder Include="Areas\Investors\Models\" />
+    <Folder Include="Areas\Items\Models\" />
+    <Folder Include="Areas\Items\Views\Shared\" />
+    <Folder Include="Areas\Locations\Data\" />
+    <Folder Include="Areas\Locations\Views\Shared\" />
+    <Folder Include="Areas\Menu\Models\" />
+    <Folder Include="Areas\Menu\Views\Shared\" />
+    <Folder Include="Areas\NewsFeed\Models\" />
+    <Folder Include="Areas\NewsFeed\Views\Shared\" />
+    <Folder Include="Areas\Profiles\Models\" />
+    <Folder Include="Areas\Profiles\Views\Shared\" />
+    <Folder Include="Areas\Projects\Models\" />
+    <Folder Include="Areas\Projects\Views\Shared\" />
+    <Folder Include="Areas\Search\Models\" />
+    <Folder Include="Areas\Search\Views\Search\" />
+    <Folder Include="Areas\Search\Views\Shared\" />
+    <Folder Include="Areas\Setting\Models\" />
+    <Folder Include="Areas\Setting\Views\Permissions\" />
+    <Folder Include="Areas\Setting\Views\Shared\" />
+    <Folder Include="Areas\Suppliers\Models\" />
+    <Folder Include="Areas\Suppliers\Views\Charts\" />
+    <Folder Include="Areas\Suppliers\Views\Shared\" />
+    <Folder Include="Areas\Tasks\Models\" />
+    <Folder Include="Areas\Tasks\Views\Shared\" />
+    <Folder Include="Areas\Taxes\Models\" />
+    <Folder Include="Areas\Taxes\Views\Shared\" />
+    <Folder Include="Areas\Transactions\Models\" />
+    <Folder Include="Areas\Transactions\Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Items\Reports\ItemTag.resx">
+      <DependentUpon>ItemTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Items\Reports\ItemCatalog.resx">
+      <DependentUpon>ItemCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Financial\Reports\FundTransfer.resx">
+      <DependentUpon>FundTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Profiles\Reports\LetterFront.resx">
+      <DependentUpon>LetterFront.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Resources\Lang.th.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang.th.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Lang.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ErpKeeper\ERPKeeper.csproj">
+      <Project>{ac35ed10-074b-4337-8d49-9f331692230e}</Project>
+      <Name>ERPKeeper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1448</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44370/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+</Project>

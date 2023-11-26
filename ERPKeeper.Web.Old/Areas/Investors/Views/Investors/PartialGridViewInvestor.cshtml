@@ -1,0 +1,47 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Investors", Action = "PartialGridViewInvestor",Area = "Investors" };
+        settings.KeyFieldName = "Uid";
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "StockTotal").DisplayFormat = "N0";
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.TaxNumber";
+            column.Caption = Lang.TaxID;
+            column.Width = 130;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.Name";
+            column.Caption = "Name";
+            
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string profileUid = DataBinder.Eval(t.DataItem, "ProfileUid").ToString();
+                string profileName = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(profileName, "Home", "Investor", new { id = profileUid }, null));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StockAmount";
+            column.Caption = "Stocks";
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "StockAmount").DisplayFormat = "N0";
+
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowFooter = true;
+    });
+}
+@grid.Bind(Model).GetHtml()

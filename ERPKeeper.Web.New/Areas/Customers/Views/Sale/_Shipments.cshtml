@@ -1,0 +1,36 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+
+
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.CommercialShipment>()
+    .ID("gridList")
+    .Editing(editing => {
+        editing.Mode(GridEditMode.Row);
+        editing.AllowAdding(true);
+        editing.AllowDeleting(true);
+        editing.AllowUpdating(true);
+    })
+    .DataSource(d => d.RemoteController().Key("Uid")
+        .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/All")
+        .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/Update")
+        .UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/Delete")
+        .DeleteMethod("Post")
+    )
+    .RowAlternationEnabled(true)
+    .KeyExpr("Uid")
+    .ShowRowLines(false)
+    .ShowBorders(false)
+    .ColumnAutoWidth(false)
+    .Columns(columns => {
+    columns.AddFor(m=>m.Shipdate).DataType(GridColumnDataType.DateTime).SortOrder(SortOrder.Desc).SortIndex(1).Width(200);
+    columns.AddFor(m=>m.Method);
+    columns.AddFor(m=>m.TrackingNo);
+
+    })
+    )
+</div>
+

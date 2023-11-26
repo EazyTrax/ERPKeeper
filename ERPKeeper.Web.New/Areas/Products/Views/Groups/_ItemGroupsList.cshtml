@@ -1,0 +1,132 @@
+﻿@{
+    var itemGroups = Organization
+                                                .ErpNodeDBContext
+                                                .GroupItems
+                                                .ToList()
+                                                .Select(i => new
+                                                {
+                                                    i.Uid,
+                                                    i.Name,
+                                                    i.ParentUid,
+                                                    ItemCount = i.Items.Count()
+                                                }).ToList();
+
+}
+
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+@{
+    var locationsTree = Html.DevExtreme().TreeList<ERPKeeper.Node.Models.Items.GroupItem>()
+                                                                                                    .ID("treeList")
+                                                                                                    .DataSource(itemGroups)
+                                                                                                    .RootValue(null)
+                                                                                                    .KeyExpr("Uid")
+                                                                                                    .ParentIdExpr("ParentUid")
+                                                                                    .ShowRowLines(true)
+                                                                                            .ShowBorders(false)
+    @*  .SearchPanel(searchPanel => searchPanel.Visible(true))*@
+    .HeaderFilter(headerFilter => headerFilter.AllowSearch(true).Visible(true))
+            .ColumnAutoWidth(false)
+    .AutoExpandAll(false)
+    .StateStoring(s => s
+        .Enabled(true)
+        .Type(StateStoringType.LocalStorage)
+        .StorageKey("ItemGroupsTreeListStorage")
+    )
+    .RowAlternationEnabled(true)
+    .RowDragging(rd => rd
+            .AllowDropInsideItem(true)
+            .AllowReordering(false)
+            .OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)
+        )
+     .Editing(editing => editing
+            .Mode(GridEditMode.Row)
+            .AllowUpdating(true)
+            //.AllowDeleting(true)
+            .AllowAdding(true)
+        )
+ .Columns(columns =>
+ {
+     columns.Add().DataField("Name").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/@CompanyId/Products/Groups/<%= data.Uid %>/"><%= data.Name %></a></text>);
+     columns.Add().DataField("ItemCount").HeaderCellTemplate(@<text>Assets#</text>);
+ });
+}
+
+
+
+<div id="treeListDemo" class="mb-3">
+    @locationsTree
+</div>
+
+<script>
+    function onDragChange(e) {
+        var treeList = e.component,
+            visibleRows = treeList.getVisibleRows(),
+            sourceNode = treeList.getNodeByKey(e.itemData.Id),
+            targetNode = visibleRows[e.toIndex].node;
+
+        while (targetNode && targetNode.data) {
+            if (targetNode.data.Id === sourceNode.data.Id) {
+                e.cancel = true;
+                break;
+            }
+            targetNode = targetNode.parent;
+        }
+    }
+    function onDragEnd(e) {
+        var treeList = e.component,
+            visibleRows = treeList.getVisibleRows(),
+            sourceNode = treeList.getNodeByKey(e.itemData.Id),
+            targetNode = visibleRows[e.toIndex].node;
+
+        if (e.dropInsideItem) {
+            console.info("onDragEnd=>" + e.dropInsideItem + "   fromIndex=>" + e.fromIndex + "   itemData=>" + e.itemData.Id + "   toData=>" + targetNode.data.Id);
+
+            var updatedUrl = "/Products/Groups/UpdateTree?selectedNodeId=" + e.itemData.Id + "&targetNodeId=" + targetNode.data.Id;
+            $.get(updatedUrl , function (data) {
+                console.info(data);
+                treeList.refresh();
+            });
+        }
+    }
+
+    //function onReorder(e) {
+    //    var treeList = e.component,
+    //        visibleRows = treeList.getVisibleRows(),
+    //        sourceData = e.itemData,
+    //        targetData = visibleRows[e.toIndex].node.data;
+
+    //    if (e.dropInsideItem) {
+    //        e.itemData.ParentId = targetData.Id;
+    //    } else {
+    //        var sourceIndex = employees.indexOf(sourceData),
+    //            targetIndex = employees.indexOf(targetData);
+
+    //        if (sourceData.ParentId !== targetData.ParentId) {
+    //            sourceData.ParentId = targetData.ParentId;
+    //            if (e.toIndex > e.fromIndex) {
+    //                targetIndex++;
+    //            }
+    //        }
+
+    //        employees.splice(sourceIndex, 1);
+    //        employees.splice(targetIndex, 0, sourceData);
+    //    }
+
+    //    treeList.refresh();
+    //}
+
+    function getTreeList() {
+        return $("#treeList").dxTreeList("instance");
+    }
+</script>
+
+
+
+

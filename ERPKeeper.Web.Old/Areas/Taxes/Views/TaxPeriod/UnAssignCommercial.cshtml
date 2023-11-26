@@ -1,0 +1,51 @@
+﻿@model ERPKeeper.Node.Models.Taxes.TaxPeriod
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop", Model)
+            @*<div class="p-2 mb-1 bg-fb1">
+                <strong>Assignable Commercials</strong>
+            </div>*@
+            <script type="text/javascript">
+                function SelectionChanged(s, e) {
+                    s.GetSelectedFieldValues("Uid", GetSelectedFieldValuesCallback);
+                    $("#count").html("Assign " + gridViewUnAssignCommercial.GetSelectedRowCount() + " Selected");
+                }
+
+                function GetSelectedFieldValuesCallback(values) {
+                    //Capture all selected keys
+                    selectedUids = "";
+                    for (var index = 0; index < values.length; index++) {
+                        selectedUids += values[index] + ",";
+                    }
+                    if (selectedUids.length > 0)
+                        selectedUids = selectedUids.substring(0, selectedUids.length - 1);
+
+                    $("#selectedUids").val(selectedUids);
+
+                }
+            </script>
+
+            <div class="bg-fb2 p-2 mb-1" style="width:200px;">
+                @using (Html.BeginForm("AssignCommercial", "TaxPeriod", new { id = Model.Uid }, FormMethod.Post, new { @id = "SaveForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:;" id="count" onclick="parentNode.submit();">Assign 0 Selected</a>
+                    <input type="hidden" id="selectedUids" name="selectedUids">
+                }
+            </div>
+
+            @Html.Action("PartialGridViewUnAssignCommercial", new { id = Model.Uid })
+
+        </div>
+        <div class="col-3 col-Right pr-0">
+            @Html.Partial("_RightSummary", Model)
+        </div>
+
+
+    </div>
+</div>

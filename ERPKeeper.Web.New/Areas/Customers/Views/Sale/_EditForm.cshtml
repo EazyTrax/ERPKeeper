@@ -1,0 +1,88 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+
+<form id="EditForm" action="/Customers/Sales/@Model.Uid/Update" method="post">
+    <div class="">
+        <div class="row">
+
+            <div class="col-6 p-0 border">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+
+                    <div class="row">
+                        <div class="col-10 p-0">
+                            <div class="mb-3 font-weight-600">Customer</div>
+                        </div>
+                        <div class="col-2 p-0 text-right">
+                            <a href="/Profiles/@Model.ProfileGuid">
+                                <span class="material-icons-outlined">
+                                    badge
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.ProfileAddress.AddressLine).Label("Address").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+
+                </div>
+            </div>
+
+            <div class="col-6 p-0 border">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+                    <div class="mb-3 font-weight-600">General</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().DateBoxFor(m=>m.TrnDate).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">
+                        @(Html.DevExtreme().SelectBoxFor(m=>m.TaxCodeId)
+                        .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Uid, t.Name }).ToList())
+                        .Placeholder("Choose Tax Code")
+                        .DisplayExpr("Name")
+                        .ValueExpr("Uid")
+                        .Label("Tax")
+                        .ShowClearButton(true)
+                        .LabelMode(EditorLabelMode.Static)
+                        .Disabled(true)
+                        )
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 p-0 border">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+
+                    <div class="mb-2">
+                        <div class="mb-3 font-weight-600">Projects</div>
+
+                        @(Html.DevExtreme().SelectBoxFor(m=>m.ProjectGuid)
+                        .DataSource(Organization.Projects.ListAll().Select(t => new { t.Uid, t.Name }).ToList())
+                        .Placeholder("Choose Projects")
+                        .DisplayExpr("Name")
+                        .ValueExpr("Uid")
+                        .ShowClearButton(true)
+                        .LabelMode(EditorLabelMode.Static)
+                        )
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 p-0">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+                    <div class="mb-3 font-weight-600">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6 p-0">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+                    <div class="mb-3 font-weight-600">Memo</div>
+                    <div class="mb-2">@Html.DevExtreme().TextAreaFor(m=>m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+        Save
+    </button>
+</form>

@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<b></b>
+
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Taxes"})">@Lang.Taxes</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "CommercialTaxes",new { Area = "Taxes"})">@Lang.CommercialTaxes</a>
+            </li>
+
+            @if (ViewBag.TaxDirection != null)
+            {
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    @ViewBag.TaxDirection
+                </li>
+            }
+        </ol>
+    </div>
+
+
+
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+       settings.Items.Add("ReOrder").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ReOrder" });
+       settings.Items.Add("Update").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Update" });
+   }).GetHtml()
+    </div>
+</div>
+<div class="mb-2">
+    <a href="@Url.Action("Home",new { id = ERPKeeper.Node.Models.Taxes.Enums.TaxDirection.Input})">
+        <span class="badge badge-light">Input Tax</span>
+    </a> ·
+    <a href="@Url.Action("Home",new { id = ERPKeeper.Node.Models.Taxes.Enums.TaxDirection.Output})">
+        <span class="badge badge-light">Output Tax</span>
+    </a> ·
+    <a href="@Url.Action("Assigable",new {})">
+        <span class="badge badge-light">Assigable</span>
+    </a> ·
+    <a href="@Url.Action("NonRecovery",new {})">
+        <span class="badge badge-light">Non-Recovery</span>
+    </a>
+</div>

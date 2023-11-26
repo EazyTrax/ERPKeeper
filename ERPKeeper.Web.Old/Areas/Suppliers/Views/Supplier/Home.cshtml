@@ -1,0 +1,31 @@
+﻿@model ERPKeeper.Node.Models.Suppliers.Supplier
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_ActionMenu")
+
+           
+            <div class="bg-fb2 p-1 border">
+                @Html.Partial("_Form")
+            </div>
+        </div>
+    
+        <div class="col col-3 col-Right pr-0">
+            <div class="row">
+                <div class="col p-2 mb-1 mr-2 bg-fb2">
+                    <b>@((Model.SumPurchaseBalance).ToString("N2"))</b><br />
+                    Total Purchase
+                </div>
+                <div class="col p-2 mb-2 bg-fb2 mh-50 mh-80">
+                    <b>@(erpNodeDBContext.Purchases.Where(t => t.ProfileGuid == Model.ProfileUid).ToList().Select(t => t.TotalBalance).DefaultIfEmpty(0).Sum().ToString("N2"))</b><br />
+                    Total  Balance
+                </div>
+            </div>
+            @Html.Action("_ChartExpense", new { Id = Model.ProfileUid })
+        </div>
+    </div>
+</div>

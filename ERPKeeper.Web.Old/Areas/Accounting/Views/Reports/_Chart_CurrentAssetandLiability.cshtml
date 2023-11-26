@@ -1,0 +1,111 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+@using ERPKeeper.Node.Models.Accounting
+
+@{
+    decimal width = 250;
+    var assetValue = Organization.ChartOfAccount.AssetAccounts.Sum(i => i.CurrentBalance);
+    var liabilityValue = Organization.ChartOfAccount.LiabilityAccounts.Sum(i => i.CurrentBalance);
+    var capitalValue = assetValue - liabilityValue;
+
+    decimal maxValue = assetValue;
+
+    if (liabilityValue >= assetValue)
+    {
+        maxValue = liabilityValue;
+    }
+    if (maxValue == 0)
+    {
+        maxValue = 10;
+    }
+
+
+    int assetWidth = (int)(width * assetValue / maxValue) + 20;
+    int liabilityWidth = (int)(width * liabilityValue / maxValue) + 20;
+    int equityWidth = (int)(width * capitalValue / maxValue) + 20;
+}
+
+<div class="row p-2 mb-1 bg-fb2 rounded">
+    <div class="col-6 p-0">
+        <strong>@Lang.BalanceSheet.ToUpper()</strong>
+    </div>
+    <div class="col-6 p-0 text-right">
+        <a href="@DevExpressHelper.GetUrl(new { Area = "Accounting", Controller = "ChartOfAccount", Action = "UpdateBalance" })">
+            <i class="fas fa-sync-alt fa-lg text-light"></i>
+        </a>
+    </div>
+    <div class="col-12 p-0">
+        <div class="bg-fb2 pt-2 mb-2">
+            <div class="mb-2">
+                <a href="@DevExpressHelper.GetUrl(new { Area = "Accounting", Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Asset })">
+                    <div class="float-left p-1 bg-info text-white" style="width:@(assetWidth)px;">
+                        @Lang.Assets
+                    </div>
+                    <div class="float-left ml-2 mt-1">
+                        @assetValue.ToString("N0")
+                    </div>
+                    <div style="clear:both;"></div>
+                </a>
+            </div>
+
+            <div>
+                <a href="@DevExpressHelper.GetUrl(new { Area = "Accounting", Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Liability })">
+                    <div class="mb-2">
+                        <div class="float-left p-1 bg-danger text-white" style="width:@(liabilityWidth)px;">
+                            @Lang.Liability
+                        </div>
+                        <div class="float-left ml-2 mt-1">
+                            @liabilityValue.ToString("N0")
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div>
+                <a href="@DevExpressHelper.GetUrl(new { Area = "Accounting", Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Capital })">
+                    <div class="mb-0">
+                        <div class="float-left p-1 bg-success text-white" style="width:@(equityWidth)px;">
+                            @Lang.Capital
+                        </div>
+                        <div class="float-left ml-2 mt-1">
+                            @capitalValue.ToString("N0")
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col mr-1 bg-light p-2">
+                <b>A/E</b>
+                <br />
+                @{ string assetToEquityRatio = (capitalValue == 0) ? "NaN" : (assetValue / capitalValue).ToString("N3");}
+                @assetToEquityRatio
+            </div>
+            <div class="col mr-1 bg-light p-2">
+                @*<b>D/A</b>
+                    <br />
+                    @{ string debtToAssetRatio = (liabilityValue / assetValue).ToString("N2");}
+                    @debtToAssetRatio*@
+            </div>
+            <div class="col mr-1 bg-light p-2">
+                @*<b>D/A</b>
+                    <br />
+                    @{ string debtToAssetRatio2 = (liabilityValue / assetValue).ToString("N2");}
+                    @debtToAssetRatio*@
+            </div>
+            <div class="col mr-1 bg-light p-2">
+                <b>D/A</b>
+                <br />
+                @{ string debtToAssetRatio = (assetValue == 0) ? "NaN" : (liabilityValue / assetValue).ToString("N3");}
+                @debtToAssetRatio
+            </div>
+            <div class="col mr-0 bg-light p-2">
+                <b>D/C</b>
+                <br />
+                @{ string debtToEquityRatio = (capitalValue == 0) ? "NaN" : (liabilityValue / capitalValue).ToString("N3");}
+                @debtToEquityRatio
+            </div>
+        </div>
+    </div>
+</div>

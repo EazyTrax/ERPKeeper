@@ -1,0 +1,37 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-9">
+            <span style="font-size:16px;" class="font-weight-bold  bg-light px-1 rounded">@User.Identity.Name</span>
+        </div>
+        <div class="col p-0 text-right">
+            <span class="bg-light px-1 pt-1 rounded mr-2">
+                @Html.Partial("~/Areas/Tasks/Views/Tasks/_PopUpNewTask.cshtml")
+            </span>
+            <span class="bg-light px-1 pt-1 rounded">
+
+                <span id="MenuKeyImage">
+                    <i class="fas fa-bars fa-lg"></i>
+                </span>
+            </span>
+
+            @Html.DevExpress().PopupMenu(settings =>
+               {
+                   settings.Name = "PopupMenuSecurity";
+                   settings.PopupElementID = "MenuKeyImage";
+                   settings.ShowPopOutImages = DefaultBoolean.True;
+                   settings.PopupAction = PopupAction.LeftMouseClick;
+
+                   settings.Items.Add("Sign Out").NavigateUrl = Url.Action("Home", "SignOut", new { Area = "Authen" });
+
+                        settings.Items.Add(subAdvance =>
+                   {
+                       subAdvance.Text = "Advance";
+                       subAdvance.Items.Add("Enable Drag And Drop").NavigateUrl = Url.Action("AllowDragAndDropAble", "Self", new { Area = "Profiles", id = CurrentUser.ProfileUid });
+                       subAdvance.Items.Add("Enable Row Filter").NavigateUrl = Url.Action("EnableRowFilter", "Self", new { Area = "Profiles", id = CurrentUser.ProfileUid });
+                       subAdvance.Items.Add("Enable Grouping").NavigateUrl = Url.Action("EnableGrouping", "Self", new { Area = "Profiles", id = CurrentUser.ProfileUid });
+                   });
+               }).GetHtml()
+        </div>
+    </div>
+}

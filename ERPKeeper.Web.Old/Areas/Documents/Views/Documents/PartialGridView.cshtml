@@ -1,0 +1,84 @@
+
+<div>
+    @{
+        var grid = Html.DevExpress().GridView(settings =>
+        {
+            settings.Name = "GridView";
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+            settings.CallbackRouteValues = new { Area = "Documents", Controller = "Documents", Action = "PartialGridView", id = ViewBag.Id };
+            settings.KeyFieldName = "Uid";
+
+            settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+
+
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Name";
+
+                column.SetDataItemTemplateContent(t =>
+                {
+                    string uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                    string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "NA").ToString();
+
+                    var linkTag = Html.ActionLink(Name, "Home", "Document", new { id = uid }, null);
+                    ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:250px;'>{0}</div>", linkTag));
+
+                });
+            });
+
+
+
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "ContentType";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DocumentDate";
+                column.Caption = "Date";
+                column.SortIndex = 1;
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "PageCount";
+                column.Caption = "Pages";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Creator";
+                column.Caption = "Creator";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Size";
+                column.Caption = "size";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(t =>
+                {
+                    string uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                    string url = Url.Action("Download", "Document", new { id = uid });
+                    ViewContext.Writer.Write($"<a href='{url}' target = '_blank'><i class='fas fa-cloud-download-alt'></i></a>");
+                });
+            });
+
+
+            settings.EnableTheming = true;
+
+            settings.Styles.Header.Font.Bold = true;
+            settings.Width = Unit.Percentage(100);
+
+        });
+    }
+    @grid.Bind(Model).GetHtml()
+</div>

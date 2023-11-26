@@ -1,0 +1,36 @@
+﻿@model ERPKeeper.Node.Models.Estimations.Quote
+
+@using (Html.BeginForm("AddItem", "Quote", new { id = Model.Uid, Area = "Customers" }, FormMethod.Post, new { @id = "AddItemForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div style="float:left;padding-right:10px;">
+        @Html.Action("Partial_ComboBoxItems")
+    </div>
+    <div style="float:left;padding-right:10px;">
+        @Html.DevExpress().SpinEdit(settings =>
+   {
+       settings.Name = "Amount";
+       settings.Width = Unit.Pixel(80);
+       settings.Properties.MinValue = 1;
+       settings.Properties.MaxValue = 1000;
+       settings.Properties.AllowNull = false;
+       settings.Number = 1;
+   }).GetHtml()
+    </div>
+    <div style="float:left;padding-right:10px;">
+        <script type="text/javascript">
+            function OnClick(sender, args) {
+                document.getElementById('AddItemForm').submit();
+            }
+        </script>
+
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "btmClickMe";
+            settings.Text = "Add";
+            settings.UseSubmitBehavior = false;
+            settings.ClientSideEvents.Click = "OnClick";
+        }).GetHtml()
+    </div>
+    <div style="clear:both;"></div>
+}

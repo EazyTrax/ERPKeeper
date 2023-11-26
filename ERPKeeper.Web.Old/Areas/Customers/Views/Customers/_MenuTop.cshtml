@@ -1,0 +1,46 @@
+﻿@using ERPKeeper.Node.Models.Customers.Enums
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Customers",new { Area = "Customers"})">Customers</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <a href="@Url.Action("Home", "Profiles",new { Area = "Profiles"})">
+            <i class="fas fa-plus-circle fa-lg text-muted"></i>
+        </a>
+
+        <a href="@Url.Action("Home", "Customers",new { Area = "Customers"})">
+            <i class="fas fa-chart-pie fa-lg text-muted"></i>
+        </a>
+
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "Report";
+           item.Items.Add("Charts").NavigateUrl = DevExpressHelper.GetUrl(new {Controller= "Customers", Action = "Top" });
+           item.Items.Add("Update Sum").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customers", Action = "UpdateAmount" });
+       });
+
+   }).GetHtml()
+    </div>
+    <div class="col-12 p-1">
+        @Html.Partial("_MenuTile")
+    </div>
+</div>

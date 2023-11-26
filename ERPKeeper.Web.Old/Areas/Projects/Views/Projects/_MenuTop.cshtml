@@ -1,0 +1,72 @@
+﻿@{
+    var OpenCount = erpNodeDBContext.Projects.Where(i => i.Status == ERPKeeper.Node.Models.Projects.Enums.ProjectStatus.Active).Count().ToString();
+    var pendingCount = erpNodeDBContext.Projects.Where(i => i.Status == ERPKeeper.Node.Models.Projects.Enums.ProjectStatus.Pending).Count().ToString();
+}
+
+<div class="row bg-fb2 p-2 mb-2">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase ">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Projects",new { Area = "Projects"})">Projects</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right">
+        <a href="@Url.Action("Home", "Projects", new { })">
+            <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+        </a>
+        <span id="ImageMenuAction" style="cursor:pointer">
+            <i class="fab fa-chrome fa-lg text-muted"></i>
+        </span>
+        <span id="ImageMenuChart" style="cursor:pointer">
+            <i class="fas fa-chart-pie fa-lg text-muted"></i>
+        </span>
+    </div>
+</div>
+
+
+
+<div class="row mb-2">
+    <div class="col bg-light mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Action = "Home", ProjectStatus =   ERPKeeper.Node.Models.Projects.Enums.ProjectStatus.Active })">
+            Active
+            <div class="text-right mt-3 mx-3">
+                <span class="font-weight-bold">@OpenCount</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col bg-light mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Action = "Home", ProjectStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Pending })">
+            Pending
+            <div class="text-right mt-3 mx-3">
+                <span class="font-weight-bold">@pendingCount</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col bg-light mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Action = "Home", ProjectStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Close })">
+            Close
+            <div class="text-right mt-3 mx-3">
+                <span class="font-weight-bold"></span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col bg-light mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Action = "Home", ProjectStatus = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Void })">
+            Void
+            <div class="text-right mt-3 mx-3">
+                <span class="font-weight-bold"></span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col bg-light p-0">
+        @Html.Action("_New")
+    </div>
+</div>

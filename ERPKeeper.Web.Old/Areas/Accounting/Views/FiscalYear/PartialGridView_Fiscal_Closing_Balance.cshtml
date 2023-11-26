@@ -1,0 +1,221 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "FiscalYear", Action = "PartialGridView_Fiscal_Closing_Balance", id = Model.Uid };
+        settings.KeyFieldName = "Uid";
+        settings.EncodeHtml = false;
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+        settings.Styles.Footer.Font.Bold = true;
+        settings.Styles.Footer.ForeColor = System.Drawing.Color.DarkBlue;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.GroupFooter.ForeColor = System.Drawing.Color.DarkRed;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+
+        };
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Type";
+            column.Caption = "Acc Type";
+            column.SortIndex = 1;
+            column.GroupIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.SubEnumType";
+            column.Caption = "Sub Type";
+
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.Visible = false;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.No";
+            column.Caption = "Acc No";
+            column.SortIndex = 2;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.CellStyle.BackColor = System.Drawing.Color.LightGray;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string AccountGuid = DataBinder.Eval(t.DataItem, "Account.Uid").ToString();
+                string Number = (DataBinder.Eval(t.DataItem, "Account.No") ?? "N?A").ToString();
+
+
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "AccountItem", new { id = AccountGuid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Name";
+            column.Caption = "Acc";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "Account.Uid").ToString();
+                string Name = DataBinder.Eval(t.DataItem, "Account.Name").ToString();
+                string SpanBadge = (DataBinder.Eval(t.DataItem, "Account.SpanBadge") ?? " ").ToString() + " ";
+                ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OpeningDebit";
+            column.Caption = "OPN DR.";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OpeningCredit";
+            column.Caption = "OPN CR.";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            column.CellStyle.BackColor = System.Drawing.Color.LightGray;
+
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.Caption = "CUR DR.";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.Caption = "CUR CR.";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            column.CellStyle.BackColor = System.Drawing.Color.LightGray;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ClosingDebit";
+            column.Caption = "CSI DR.";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ClosingCredit";
+            column.Caption = "CSI CR.";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            column.CellStyle.BackColor = System.Drawing.Color.LightGray;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ClosedDebit";
+            column.Caption = "DEBIT";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ClosedCredit";
+            column.Caption = "CREDIT";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+            column.CellStyle.BackColor = System.Drawing.Color.LightGray;
+        });
+
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningDebit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningCredit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosingDebit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosingCredit").DisplayFormat = "N2";
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosedDebit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosedCredit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+        var OpeningDebitGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningDebit");
+        OpeningDebitGroup.ShowInGroupFooterColumn = "OpeningDebit";
+        OpeningDebitGroup.DisplayFormat = "N2";
+
+        var OpeningCreditGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningCredit");
+        OpeningCreditGroup.ShowInGroupFooterColumn = "OpeningCredit";
+        OpeningCreditGroup.DisplayFormat = "N2";
+
+        var DebitGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        DebitGroup.ShowInGroupFooterColumn = "Debit";
+        DebitGroup.DisplayFormat = "N2";
+
+        var CreditGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        CreditGroup.ShowInGroupFooterColumn = "Credit";
+        CreditGroup.DisplayFormat = "N2";
+
+        var ClosingDebitGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosingDebit");
+        ClosingDebitGroup.ShowInGroupFooterColumn = "ClosingDebit";
+        ClosingDebitGroup.DisplayFormat = "N2";
+
+        var ClosingCreditGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosingCredit");
+        ClosingCreditGroup.ShowInGroupFooterColumn = "ClosingCredit";
+        ClosingCreditGroup.DisplayFormat = "N2";
+
+        var TotalDebitGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosedDebit");
+        TotalDebitGroup.ShowInGroupFooterColumn = "ClosedDebit";
+        TotalDebitGroup.DisplayFormat = "N2";
+
+        var TotalCreditGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ClosedCredit");
+        TotalCreditGroup.ShowInGroupFooterColumn = "ClosedCredit";
+        TotalCreditGroup.DisplayFormat = "N2";
+
+    });
+}
+@grid.Bind(Model.PeriodAccountBalances.ToList()).GetHtml()

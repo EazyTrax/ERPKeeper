@@ -1,0 +1,21 @@
+﻿@model ERPKeeper.Node.Models.Estimations.PurchaseQuote
+
+
+
+<div class="row">
+    <div class="col-2 col-Left pl-0">
+        @Html.Action("_Main", "Default", new { Area = "Menu" })
+    </div>
+    <div class="col col-Middle p-0">
+        @Html.Partial("_MenuTop")
+        @Html.Partial("_Items", Model)
+    </div>
+    <div class="col-3 col-Right pr-0">
+        <div class="mh-50 font-weight-bold text-right p-2 mb-2 bg-fb2">
+            @Model.Status
+        </div>
+
+        @Html.Partial("_SummaryCallbackPanel")
+    </div>
+
+</div>

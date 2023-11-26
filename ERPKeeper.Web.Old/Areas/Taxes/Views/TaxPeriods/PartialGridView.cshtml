@@ -1,0 +1,150 @@
+
+@model IList<ERPKeeper.Node.Models.Taxes.TaxPeriod>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.CallbackRouteValues = new { Controller = "TaxPeriods", Action = "PartialGridView", Id = ViewBag.taxDirection };
+
+        settings.KeyFieldName = "Uid";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.Styles.Header.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.WhiteSmoke;
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 400;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.MinWidth = 300;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+                return;
+
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Period";
+            column.SortIndex = 1;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string No = (DataBinder.Eval(t.DataItem, "Name") ?? "NA").ToString();
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                ViewContext.Writer.Write(Html.ActionLink(No, "Home", "TaxPeriod", new { id = Uid }, null));
+            });
+        });
+
+
+
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "TrnDate";
+        //    column.Caption = "Trn Date";
+        //    column.SortIndex = 1;
+        //    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        //    column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        //});
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OutputBalance";
+            column.Caption = "Output";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OutputTaxBalance";
+            column.Caption = "Output Tax";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "InputBalance";
+            column.Caption = "Input";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "InputTaxBalance";
+            column.Caption = "Input Tax";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputTaxBalance").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputTaxBalance").DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ClosingAmount";
+            column.Caption = "Amount";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CloseToAccount.Name";
+            column.Caption = "Close Account";
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "CloseToAccount.Uid") ?? " ").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "CloseToAccount.Name") ?? " ").ToString();
+                string SpanBadge = (DataBinder.Eval(t.DataItem, "CloseToAccount.SpanBadge") ?? " ").ToString() + "  ";
+                ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus";;
+            column.Caption = " ";
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+
+
+
+
+
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowFooter = true;
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

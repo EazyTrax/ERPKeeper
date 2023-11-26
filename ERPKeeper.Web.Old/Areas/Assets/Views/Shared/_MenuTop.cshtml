@@ -1,0 +1,99 @@
+﻿@using ERPKeeper.Node.Models.Accounting
+@using ERPKeeper.Node.Models.Assets.Enums
+
+@{
+    var openFixAssetsCount = Organization.FixedAssets.Query().Where(i => i.Status == ERPKeeper.Node.Models.Assets.Enums.FixedAssetStatus.Open).Count().ToString();
+    var closeFixAssetsCount = Organization.FixedAssets.Query().Where(i => i.Status == ERPKeeper.Node.Models.Assets.Enums.FixedAssetStatus.Closed).Count().ToString();
+}
+
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <span class="bg-dark px-2 mt-2 mr-3 text-white">
+            @Lang.FixedAssets
+        </span>
+    </div>
+    <div class="col text-right">
+
+        <span id="ImageMenuPlus" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuCore";
+    settings.PopupElementID = "ImageMenuAction";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+    settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+    settings.Items.Add("ReOrder").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Assets", Action = "ReOrder" });
+    settings.Items.Add("UpdateStatus").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Assets", Action = "UpdateStatus" });
+    settings.Items.Add("CreateSchedule").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Assets", Action = "CreateSchedule" });
+}).GetHtml()
+        @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuPlus";
+    settings.PopupElementID = "ImageMenuPlus";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+    settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+    settings.Items.Add(subSetting =>
+    {
+        subSetting.Text = "Add New";
+
+        erpNodeDBContext.FixedAssetTypes.ToList().ForEach(basis =>
+        {
+            subSetting.Items.Add(basis.Name).NavigateUrl = DevExpressHelper.GetUrl(
+                new
+                {
+                    Action = "New",
+                    Controller = "FixedAsset",
+                    depreciationBasisGuid = basis.Uid
+                });
+        });
+
+    });
+}).GetHtml()
+    </div>
+</div>
+
+
+
+<div class="row mb-3">
+    <div class="col mh-50 bg-fb2 mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Controller = "Assets", Action = "Home", Status = FixedAssetStatus.Open })">
+            @Lang.Open
+            <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@openFixAssetsCount</span></div>
+        </a>
+    </div>
+
+    <div class="col mh-50 bg-fb2 mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Controller = "Assets", Action = "Home", Status = FixedAssetStatus.Closed })">
+            @Lang.Close
+            <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@closeFixAssetsCount</span></div>
+        </a>
+    </div>
+
+    <div class="col mh-50 bg-fb2 mr-2 p-2">
+        <a href="@DevExpressHelper.GetUrl(new { Controller = "Assets", Action = "Home", Status = FixedAssetStatus.Retried })">
+            Retried
+            <div class="text-right mt-3 mx-3"><span class="font-weight-bold"></span></div>
+        </a>
+    </div>
+
+    <div class="col mh-50 bg-fb2 mr-2 p-2">
+
+    </div>
+
+    <div class="col mh-50 bg-fb2 p-2">
+
+    </div>
+</div>
+
+
+
+
+
+
+

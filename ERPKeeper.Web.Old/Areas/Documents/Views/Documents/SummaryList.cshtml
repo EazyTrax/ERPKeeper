@@ -1,0 +1,12 @@
+﻿@model IList<ERPKeeper.Node.Models.Documents.Document>
+
+
+@foreach (var file in Model)
+{
+    <a href="@Url.Action("Home","Documents", new  {Id = file.GroupGuid })">
+        <span>@file.Name</span>
+    </a>
+    <br />
+
+}
+<i class="fas fa-plus-circle fa-lg text-muted"></i>

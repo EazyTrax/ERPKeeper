@@ -1,0 +1,127 @@
+@model ERPKeeper.Node.Models.Accounting.AccountItem
+@using ERPKeeper.Node.Models.Accounting
+
+@{
+  var AssetCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Asset).Count().ToString();
+  var LiabilityCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Liability).Count().ToString();
+  var EquityCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Capital).Count().ToString();
+  var IncomeCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Income).Count().ToString();
+  var ExpenseCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Expense).Count().ToString();
+}
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+  <div class="col-4">
+    <Strong>
+      Chart Of Account
+    </Strong>
+  </div>
+  <div class="col-4">
+
+  </div>
+  <div class="col-4 text-right">
+    <div class="">
+      <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+      <span id="ImageMenuPlus" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+    </div>
+
+
+    @Html.DevExpress().PopupMenu(settings =>
+{
+  settings.Name = "PopupMenuCreate";
+  settings.PopupElementID = "ImageMenuPlus";
+  settings.ShowPopOutImages = DefaultBoolean.True;
+  settings.PopupAction = PopupAction.LeftMouseClick;
+
+  settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+  settings.Items.Add(groupSetting =>
+  {
+    groupSetting.Text = "Create New";
+    groupSetting.Items.Add("Account").NavigateUrl = @Url.Action("NewAccount", "AccountItem", new { });
+
+    groupSetting.Items.Add(subGroupSetting =>
+    {
+      subGroupSetting.Text = "Group";
+      subGroupSetting.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Asset).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Asset });
+      subGroupSetting.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Liability).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Liability });
+      subGroupSetting.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Capital).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Capital });
+      subGroupSetting.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Income).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Income });
+      subGroupSetting.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Expense).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Expense });
+    });
+  });
+
+
+}).GetHtml()
+
+    @Html.DevExpress().PopupMenu(settings =>
+{
+  settings.Name = "PopupMenuAction";
+  settings.PopupElementID = "ImageMenuAction";
+  settings.ShowPopOutImages = DefaultBoolean.True;
+  settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+  settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+  settings.Items.Add("Update Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "UpdateBalance" });
+  settings.Items.Add("Update History Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "UpdateHistoryBalance" });
+  settings.Items.Add("ReAssign Number").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "ReAssignNumber" });
+}).GetHtml()
+
+
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col mh-80 bg-fb2 mr-2 p-2">
+    @Lang.Asset
+    <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@AssetCount</span></div>
+  </div>
+  <div class="col mh-80 bg-fb2 mr-2 p-2">
+    @Lang.Liability
+    <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@LiabilityCount</span></div>
+  </div>
+  <div class="col mh-80 bg-fb2 mr-2 p-2">
+    @Lang.Capital
+    <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@EquityCount</span></div>
+  </div>
+  <div class="col mh-80 bg-fb2 mr-2 p-2">
+    @Lang.Income
+    <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@IncomeCount</span></div>
+  </div>
+  <div class="col mh-80 bg-fb2 p-2">
+    @Lang.Expense
+    <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@ExpenseCount</span></div>
+  </div>
+</div>
+
+
+<div class="row mb-3">
+  <div class="col-12">
+    @Html.DevExpress().Menu(
+      settings =>
+      {
+        settings.Name = "mFeaturesAcc";
+        settings.AllowSelectItem = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowPopOutImages = DefaultBoolean.True;
+        settings.EncodeHtml = false;
+        settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+        settings.Styles.Item.BackColor = System.Drawing.Color.White;
+        settings.Styles.Item.SelectedStyle.Font.Bold = true;
+        settings.Styles.Item.HoverStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#007294");
+        settings.Styles.Item.HoverStyle.ForeColor = System.Drawing.Color.White;
+        settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+
+
+
+
+        settings.Items.Add(ERPKeeper.Helpers.Badge.Info(AssetCount) + Lang.Asset).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Asset });
+        settings.Items.Add(ERPKeeper.Helpers.Badge.Info(LiabilityCount) + Lang.Liability).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Liability });
+        settings.Items.Add(ERPKeeper.Helpers.Badge.Info(EquityCount) + Lang.Capital).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Capital });
+        settings.Items.Add(ERPKeeper.Helpers.Badge.Info(IncomeCount) + Lang.Income).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Income });
+        settings.Items.Add(ERPKeeper.Helpers.Badge.Danger(ExpenseCount) + Lang.Expense).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "Home", id = AccountTypes.Expense });
+
+      }).GetHtml()
+
+  </div>
+
+</div>

@@ -1,0 +1,37 @@
+﻿@model ERPKeeper.Node.Models.Estimations.PurchaseQuote
+
+
+
+<div style="width:300px;">
+    <a href="@Url.Action("Home", "Profile", new { id = @Model.Profile.Uid, Area = "Profiles" })">
+        <b>@Model.Profile.Name</b>
+    </a><br />
+    หมายเลขผู้เสียภาษี @Model.Profile.TaxNumber  <br /><br />
+    สาขาที่ @Model.Profile.PrimaryAddress.Number <span id="ChangeAddress" style="color:#efb328;font-size:80%"> (Change)</span><br />
+    <div style="">@Html.Encode(Model.Profile.PrimaryAddress.AddressLine)</div>
+</div>
+
+
+
+@Html.DevExpress().PopupMenu(
+        settings =>
+        {
+            settings.Name = "PopupMenuChangeAddress";
+            settings.PopupElementID = "ChangeAddress";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+
+            foreach (var address in Model.Profile.Addresses.OrderBy(a => a.Number).ToList())
+            {
+                settings.Items.Add(item =>
+                {
+                    item.Text = address.Number;
+                    item.Name = address.AddressGuid.ToString();
+                    item.NavigateUrl = Url.Action("ChangeAddress", "Quote", new { Area = "Sales", id = Model.Uid, addressGuid = address.AddressGuid });
+                });
+            }
+
+            settings.PopupAction = PopupAction.LeftMouseClick;
+        }
+    ).GetHtml()
+
+

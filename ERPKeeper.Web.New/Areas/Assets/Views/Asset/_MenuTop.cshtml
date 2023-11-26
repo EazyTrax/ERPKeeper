@@ -1,0 +1,16 @@
+﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+
+<div class="row bg-fb1 p-2 mb-2 rounded">
+    <div class="col-8 p-0 font-weight-600">
+        <a href="/@CompanyId/Assets">Assets</a>
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Assets/Assets">Assets</a>
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Assets/AssetTypes/@Model.FixedAssetTypeUid">@Model.FixedAssetType.Name</a>
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Assets/Assets/@Model.Uid">@Model.Name</a>
+
+    </div>
+    <div class="col-4 p-0 text-right">
+    </div>
+</div>

@@ -1,0 +1,146 @@
+@model ERPKeeper.Node.Models.Accounting.AccountTypes?
+@using ERPKeeper.Node.Models.Accounting
+
+
+
+@{
+    var AssetCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Asset).Count().ToString();
+    var LiabilityCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Liability).Count().ToString();
+    var EquityCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Capital).Count().ToString();
+    var IncomeCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Income).Count().ToString();
+    var ExpenseCount = erpNodeDBContext.AccountItems.Where(i => i.Type == AccountTypes.Expense).Count().ToString();
+}
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "ChartOfAccount",new { Area = "Accounting"})">Chart Of Account</a>
+            </li>
+
+            @{
+                if (Model != null)
+                {
+                    <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                        <a href="@Url.Action(Model.ToString(), "ChartOfAccount",new { Area = "Accounting"})">@Model.ToString()</a>
+                    </li>
+                }
+            }
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <div class="">
+            <span id="ImageMenuAction" style="cursor:pointer">
+                <i class="fab fa-chrome fa-lg text-muted"></i>
+            </span>
+            <span id="ImageMenuPlus" style="cursor:pointer">
+                <i class="fas fa-plus-circle fa-lg text-muted"></i>
+            </span>
+        </div>
+
+
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuCreate";
+       settings.PopupElementID = "ImageMenuPlus";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+       settings.Items.Add(groupSetting =>
+       {
+           groupSetting.Text = "Account";
+           groupSetting.NavigateUrl = @Url.Action("NewAccount", "AccountItem", new { });
+       });
+       settings.Items.Add(subGroupSetting =>
+       {
+           subGroupSetting.Text = "Group";
+           subGroupSetting.Items.Add(Lang.Asset).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Asset });
+           subGroupSetting.Items.Add(Lang.Liability).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Liability });
+           subGroupSetting.Items.Add(Lang.Capital).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Capital });
+           subGroupSetting.Items.Add(Lang.Income).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Income });
+           subGroupSetting.Items.Add(Lang.Expense).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountGroup", Action = "New", id = AccountTypes.Expense });
+       });
+   }).GetHtml()
+
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+       settings.Items.Add("Update Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "UpdateBalance" });
+       settings.Items.Add("Update History Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "UpdateHistoryBalance" });
+       settings.Items.Add("ReAssign Number").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ChartOfAccount", Action = "ReAssignNumber" });
+   }).GetHtml()
+    </div>
+
+    <div class="col-12 p-1">
+        <div class="row">
+            <div class="col mh-81 bg-light mr-2 p-1 rounded">
+                <a href="@DevExpressHelper.GetUrl(new { Controller="ChartOfAccount", Action=AccountTypes.Asset.ToString() })">
+                    <div class="row">
+                        <div class="col-9 p-0">@Lang.Asset</div>
+                        <div class="col-3 text-right">@AssetCount</div>
+                    </div>
+                    <div class="mt-3" style="font-size:21px;font-weight:bold;">
+                        @Organization.ChartOfAccount.ItemsBalance(AccountTypes.Asset).ToString("N0")
+                    </div>
+
+                </a>
+            </div>
+            <div class="col mh-81 bg-light mr-2 p-1 rounded">
+                <a href="@DevExpressHelper.GetUrl(new {Controller="ChartOfAccount",   Action=AccountTypes.Liability.ToString() })">
+                    <div class="row">
+                        <div class="col-9 p-0">@Lang.Liability</div>
+                        <div class="col-3 text-right">@LiabilityCount</div>
+                    </div>
+                    <div class="mt-3" style="font-size:21px;font-weight:bold;">
+                        @Organization.ChartOfAccount.ItemsBalance(AccountTypes.Liability).ToString("N0")
+                    </div>
+
+                </a>
+            </div>
+            <div class="col mh-81 bg-light mr-2 p-1 rounded">
+                <a href="@DevExpressHelper.GetUrl(new {Controller="ChartOfAccount",   Action=AccountTypes.Capital.ToString() })">
+                    <div class="row">
+                        <div class="col-9 p-0">@Lang.Capital</div>
+                        <div class="col-3 text-right">@EquityCount</div>
+                    </div>
+                    <div class="mt-3" style="font-size:21px;font-weight:bold;">
+                        @Organization.ChartOfAccount.ItemsBalance(AccountTypes.Capital).ToString("N0")
+                    </div>
+                </a>
+            </div>
+            <div class="col mh-81 bg-light mr-2 p-1 rounded">
+                <a href="@DevExpressHelper.GetUrl(new {Controller="ChartOfAccount",   Action=AccountTypes.Income.ToString() })">
+                    <div class="row">
+                        <div class="col-9 p-0">@Lang.Income</div>
+                        <div class="col-3 text-right">@IncomeCount</div>
+                    </div>
+                    <div class="mt-3" style="font-size:21px;font-weight:bold;">
+                        @Organization.ChartOfAccount.ItemsBalance(AccountTypes.Income).ToString("N0")
+                    </div>
+
+                </a>
+            </div>
+            <div class="col mh-81 bg-light p-1">
+                <a href="@DevExpressHelper.GetUrl(new {Controller="ChartOfAccount",   Action=AccountTypes.Expense.ToString() })">
+                    <div class="row">
+                        <div class="col-9 p-0">@Lang.Expense</div>
+                        <div class="col-3 text-right">@ExpenseCount</div>
+                    </div>
+                    <div class="mt-3" style="font-size:21px;font-weight:bold;">
+                        @Organization.ChartOfAccount.ItemsBalance(AccountTypes.Expense).ToString("N0")
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

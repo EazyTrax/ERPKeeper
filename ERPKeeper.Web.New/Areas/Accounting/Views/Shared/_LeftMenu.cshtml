@@ -1,0 +1,72 @@
+﻿@{
+    bool checkCurrentController(string controllerName)
+    {
+        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+        return currentControllerName == controllerName;
+    }
+
+    void Template(string display, string controller, int? count = null)
+    {
+        <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
+            <div class="col p-0">
+                <a href="/@CompanyId/Accounting/@controller" class="">
+                    @SharedLocalizer.GetLocalizedHtmlString(display)
+                </a>
+            </div>
+            <div class="col-2 p-0 text-right">
+                <span class="badge badge-light text-dark">@count</span>
+            </div>
+        </div>
+    }
+}
+
+<div>
+    <div class="font-weight-600 ">
+        <a href="/@CompanyId/Accounting">Accounting</a>
+    </div>
+    <div class="mb-2">
+        @{
+
+        }
+    </div>
+</div>
+
+
+
+@{
+    void MenuTemplate(int level, string displayName, string url, int? count = null)
+    {
+        <div class="">
+            <div class="row e-r">
+                <div class="col-10 p-l@(level)">
+                    <a href="@url">
+                        @if (level > 0)
+                        {
+                            <i class="fa-solid fa-l"></i>
+                        }
+                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
+                    </a>
+                </div>
+                <div class="col-2 text-right p-0">
+                    <span class="menuCount">@count</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div class="lh-12 ">
+    @{
+        MenuTemplate(0, CompanyId.ToUpper(), $"/{CompanyId}/DashBoard");
+        MenuTemplate(1, "Accounting", $"/{CompanyId}/Accounting");
+        MenuTemplate(2, "Accounts", $"/{CompanyId}/Accounting/Accounts");
+        MenuTemplate(2, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears");
+        MenuTemplate(2, "Journal Entries", $"/{CompanyId}/Accounting/JournalEntries");
+        MenuTemplate(2, "Journal Entry Types", $"/{CompanyId}/Accounting/JournalEntryTypes");
+        MenuTemplate(2, "Journals", $"/{CompanyId}/Accounting/Journals");
+        MenuTemplate(2, "Opening Balances", $"/{CompanyId}/Accounting/OpeningBalances");
+        MenuTemplate(2, "System Accounts", $"/{CompanyId}/Accounting/SystemAccounts");
+        MenuTemplate(1, "Assets", $"/{CompanyId}/Assets");
+
+    }
+</div>

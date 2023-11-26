@@ -1,0 +1,130 @@
+﻿@{
+    // int colWidth = (int)Math.Round((decimal)ViewBag.Width);
+    int colWidth = 350;
+}
+@using ERPKeeper.Helpers.Enums
+
+<script type="text/javascript">
+    function Load_ChartIncome(duration) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("_ChartIncome", "DashBoard", new { Area = "Customers" })"+ "?duration="+ duration,
+                        success: function(response) {
+                            $("#ChartPartialIncomeDiv").html(response);
+                        }
+                    });
+                }
+</script>
+
+<div class="mb-2 bg-fb2 p-2 rounded" id="ChartPartialIncomeDiv">
+    <div class="row">
+        <div class="col font-weight-bold">
+            @Lang.Sales.ToUpper()
+        </div>
+        <div class="col text-right">
+            <span onclick="Load_ChartIncome(90)" class="">90</span> ·
+            <span onclick="Load_ChartIncome(365)" class="">365</span> ·
+            <a href="@Url.Action("UpdateDailyBalance","Sales",new{ Area = "Customers" })">
+                <i class="fas fa-sync-alt fa-lg text-light"></i>
+            </a>
+        </div>
+        <div class="col-12 p-0">
+            <div class="mb-1">
+                @Html.DevExpress().Chart(settings =>
+                {
+                    settings.Name = "IncomeChart";
+                    settings.Width = colWidth;
+                    settings.Height = 150;
+                    settings.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+
+                    settings.Titles.Add(new ChartTitle()
+                    {
+                        Font = new System.Drawing.Font("Tahoma", 12),
+                        Text = ""
+                    });
+
+                    settings.BorderOptions.Visibility = DefaultBoolean.False;
+                    settings.Legend.Visibility = DefaultBoolean.False;
+
+                    Series IncomeChartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Bar);
+                    IncomeChartSeries.ArgumentDataMember = "TrnDate";
+                    IncomeChartSeries.ValueDataMembers[0] = "Balance";
+                    IncomeChartSeries.CrosshairEnabled = DefaultBoolean.True;
+                    IncomeChartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+                    settings.Series.Add(IncomeChartSeries);
+
+
+                    ((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+                    ((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+                    ((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+                    ((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+                    ((XYDiagram)settings.Diagram).Margins.Left = 0;
+                    ((XYDiagram)settings.Diagram).Margins.Right = 0;
+
+
+                }).Bind(Model).GetHtml()
+            </div>
+            <div>
+
+                @{
+                    var expDate = DateTime.Now.AddDays(-30);
+                    decimal openSaleAmount = Organization.Sales.OpenBalance;
+                    decimal overDueSaleAmount = Organization.Sales.OverDueBalance;
+
+                    decimal nonOverdueSalesAmount = openSaleAmount - overDueSaleAmount;
+                    int nonOverDuePercent = (int)((colWidth - 1) * 99 / 100);
+
+                    if (openSaleAmount > 0)
+                    {
+                        nonOverDuePercent = (int)((colWidth - 1) * nonOverdueSalesAmount / openSaleAmount);
+                    }
+
+                    int overduePercent = ((colWidth - 1) - nonOverDuePercent);
+
+
+                    var openCount = Organization.Sales.OpenCount;
+                    var overdueCount = Organization.Sales.OverDueCount;
+                    var nonOverDueCount = openCount - overdueCount;
+                }
+
+
+
+                <div class="row ">
+                    <div class="col p-1" style="float:left;width:50%;" title="@overdueCount OverDue Sale">
+                        <a href="@Url.Action(EnumCommercialViewType.OverDue.ToString(), "Sales", new { Area = "Customers" })">
+                            <b>@overdueCount @Lang.Due</b><br />
+                            @overDueSaleAmount.ToString("N0")
+                        </a>
+                    </div>
+
+
+                    <div class="col  p-1 text-right" style="float:left;width:50%;text-align:right;" title="@nonOverDueCount Open Sale">
+                        <a href="@Url.Action(EnumCommercialViewType.Open.ToString(), "Sales", new { Area = "Customers" })">
+                            <b>@nonOverDueCount @Lang.NotDue</b><br />
+                            @nonOverdueSalesAmount.ToString("N0")
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="float:left;width:@(overduePercent)px;" title="@overdueCount OverDue Sale">
+                        <a href="@Url.Action(EnumCommercialViewType.OverDue.ToString(), "Sales", new { Area = "Customers" })">
+                            <div style="background-color: #355088;height:20px;padding:0px;color:white;">
+
+                            </div>
+                        </a>
+                    </div>
+                    <div style="float:left;width:@(nonOverDuePercent)px;text-align:right;" title="@nonOverDueCount Open Sale">
+                        <a href="@Url.Action( EnumCommercialViewType.Open.ToString(), "Sales", new { Area = "Customers", id = EnumCommercialViewType.Open })">
+                            <div style="background-color: #efb328;height:20px;padding:0px;">
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+</div>

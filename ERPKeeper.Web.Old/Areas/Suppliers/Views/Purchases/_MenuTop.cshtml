@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+
+    int openPurchasesCount = Organization.Purchases.OpenCount;
+    decimal openPurchasesBalance = Organization.Purchases.OpenBalance;
+
+    int allPurchasesCount = erpNodeDBContext.Purchases.Count();
+    decimal allPurchasesBalance = erpNodeDBContext.Purchases.Sum(s => s.Total);
+
+    int paidPurchasesCount = allPurchasesCount - openPurchasesCount;
+    decimal paidPurchasesBalance = allPurchasesBalance - openPurchasesBalance;
+}
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Suppliers"})">Suppliers</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Purchases",new { Area = "Suppliers"})">@Lang.Purchases</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        <span id="ImageMenuChart" style="cursor:pointer"><i class="fas fa-chart-pie fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "By Period";
+           item.Items.Add("This Month").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Controller = "Purchases", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.ThisMonth });
+           item.Items.Add("Last Month").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Controller = "Purchases", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.LastMonth });
+           item.Items.Add("This Year").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Controller = "Purchases", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.ThisYear });
+           item.Items.Add("Last Year").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Controller = "Purchases", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.LastYear });
+       });
+       settings.Items.Add(item =>
+       {
+           item.Text = "Action";
+           item.Items.Add("PostLedger").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "PostLedger", Controller = "Purchases" });
+           item.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UnPost", Controller = "Purchases" });
+           item.Items.Add("ReOrder Number").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ReOrder", Controller = "Purchases" });
+       });
+       settings.Items.Add(item =>
+       {
+           item.Text = "Export";
+           item.Items.Add("Last Month").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Export", Controller = "Purchases", id = "LastMonth" });
+           item.Items.Add("Last Year").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Export", Controller = "Purchases", id = "LastYear" });
+           item.Items.Add("Last Year (Opening)").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Export", Controller = "Purchases", id = "LastYearOpening" });
+           item.Items.Add("Summary").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ExportSummary", Controller = "Purchases" });
+
+
+
+       });
+       settings.Items.Add("Update Payments").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdatePayments", Controller = "Purchases" });
+       settings.Items.Add("Update ProfilesCache").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateProfilesCache", Controller = "Purchases" });
+   }).GetHtml()
+        @Html.DevExpress().PopupMenu(settings =>
+        {
+        settings.Name = "PopupMenuChart";
+        settings.PopupElementID = "ImageMenuChart";
+        settings.ShowPopOutImages = DefaultBoolean.True;
+        settings.PopupAction = PopupAction.LeftMouseClick;
+        settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+        settings.Items.Add("Chart").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Chart", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.All });
+        }).GetHtml()
+    </div>
+
+    <div class="col-12 p-0">
+        <div class="row mb-1">
+            <div class="col mh-50 bg-fb1 mr-2 p-2">
+                <a href="@Url.Action("Open")">
+                    <div class="row no-gutters">
+                        <div class="col-8">
+                            @ERPKeeper.Node.Models.Transactions.CommercialStatus.Open.ToString()
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+                                @openPurchasesCount.ToString("N0")
+                            </span>
+                        </div>
+                        <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                            @openPurchasesBalance.ToString("N0")
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col mh-50 bg-fb1 mr-2 p-2">
+                <a href="@Url.Action("OverDue",new {  })">
+                    <div class="row no-gutters">
+                        <div class="col-8">
+                            OverDue
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+                                @Organization.Purchases.OverDueCount
+                            </span>
+                        </div>
+                        <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                            @Organization.Purchases.OverDueBalance.ToString("N0")
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col mh-50 bg-fb1 mr-2 p-2">
+                <a href="@Url.Action("Paid",new {  })">
+                    <div class="row no-gutters">
+                        <div class="col-8">
+                            @ERPKeeper.Node.Models.Transactions.CommercialStatus.Paid.ToString()
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+                                @paidPurchasesCount.ToString("N0")
+                            </span>
+                        </div>
+                        <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                            @paidPurchasesBalance.ToString("N0")
+                        </div>
+                    </div>
+
+
+                </a>
+            </div>
+            <div class="col mh-50 bg-fb1 mr-2 p-2">
+                <a href="@Url.Action("All",new { })">
+                    <div class="row no-gutters">
+                        <div class="col-8">
+                            All Purchases
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+                                @allPurchasesCount.ToString("N0")
+                            </span>
+                        </div>
+                        <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                            @allPurchasesBalance.ToString("N0")
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col mh-50 bg-fb1 p-2">
+                <a href="@Url.Action("LastFiscal",new { })">
+                    <div class="row no-gutters">
+                        <div class="col-8">
+                            LastFiscals
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+
+                            </span>
+                        </div>
+                        <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

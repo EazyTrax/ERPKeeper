@@ -1,0 +1,17 @@
+using System.Web;
+using System.Web.Mvc;
+
+namespace ERPKeeper.WebFrontEnd
+{
+    public class FilterConfig
+    {
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+            filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthorizeAttribute());
+
+            if (!HttpContext.Current.IsDebuggingEnabled)
+                filters.Add(new RequireHttpsAttribute());
+        }
+    }
+}

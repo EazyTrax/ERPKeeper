@@ -1,0 +1,40 @@
+﻿<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            
+        </div>
+
+        <div class="col col-Middle p-0">
+
+            <div class="MiddleSubLeftColContainer">
+                <div class="bg-fb2 p-2 mb-2 mh-50">
+                    <div class="appIconStyle" >
+                        
+                        <div style="float:left;padding-top:5px;">New Profiles</div>
+                    </div>
+                </div>
+
+                <div class="boxBlue" style="width:110px;">
+                    @Html.ActionLink("Organization", "Create", new { Type = ERPKeeper.Node.Models.Profiles.ProfileType.Organization }, new { @style = "color:#ffffff;" })
+                </div>
+
+                <div class="boxBlue" style="width:110px;">
+                    @Html.ActionLink("Person", "Create", new { Type = ERPKeeper.Node.Models.Profiles.ProfileType.People }, new { @style = "color:#ffffff;" })
+                </div>
+
+                <div class="boxBlue" style="width:110px;">
+                    @Html.ActionLink("Search Directory", "Home", "Home", new { Area = "Directory" }, new { @style = "color:#ffffff;" })
+                </div>
+
+            </div>
+
+            <div class="MiddleSubRightColContainer">
+                <div class="p-2 mb-2 bg-fb2 mh-50">
+                    <a href="javascript:document.getElementById('SaveForm').submit();">Save</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

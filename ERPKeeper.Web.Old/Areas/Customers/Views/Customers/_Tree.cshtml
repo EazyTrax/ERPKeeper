@@ -1,0 +1,68 @@
+
+
+
+@Html.DevExpress().TreeList(settings =>
+{
+    settings.Name = "TreeProfile";
+    settings.CallbackRouteValues = new { Controller = "Customers", Action = "_Tree", id = ViewBag.id };
+
+    settings.Width = Unit.Percentage(100);
+
+    settings.AutoGenerateColumns = false;
+
+    settings.KeyFieldName = "Uid";
+    settings.ParentFieldName = "ParentGuid";
+    settings.Theme = "Default";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Both;
+    settings.Settings.ShowTreeLines = true;
+    settings.EnableTheming = true;
+    settings.Styles.Header.Font.Bold = true;
+    settings.SettingsPager.Visible = false;
+
+    settings.SettingsBehavior.AutoExpandAllNodes = true;
+    settings.Styles.Header.BackColor = System.Drawing.Color.White;
+
+
+
+
+
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Name";
+        column.Caption = "Name";
+
+
+        column.SetDataCellTemplateContent(t =>
+        {
+            string CustomerProfileGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+
+            var linkTag = Html.ActionLink(Name, "Home", "Customer", new { id = CustomerProfileGuid }, null);
+            ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:300px;'>{0}</div>", linkTag));
+
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TaxNumber";
+        column.Caption = Lang.TaxID;
+        column.Width = 130;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "SumSaleBalance";
+        column.Caption = "Total Bought";
+
+        column.PropertiesEdit.DisplayFormatString = "N2";
+        column.Width = 100;
+        column.SortIndex = 1;
+        column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+    });
+
+
+}).Bind(Model).GetHtml()

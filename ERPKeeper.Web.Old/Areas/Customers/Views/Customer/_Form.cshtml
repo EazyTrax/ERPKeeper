@@ -1,0 +1,38 @@
+﻿
+@model ERPKeeper.Node.Models.Customers.Customer
+
+
+
+@using (Html.BeginForm("Save", "Customer", FormMethod.Post, new { @id = "SaveForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ProfileUid)
+
+
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "Payment";
+    settings.EncodeHtml = false;
+
+    settings.ColCount = 1;
+
+
+    settings.Items.Add(item =>
+    {
+        item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+        item.ShowCaption = DefaultBoolean.False;
+        item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        var button = (ButtonSettings)item.NestedExtensionSettings;
+        button.Name = "SaveBt";
+        button.Text = "Save";
+        button.UseSubmitBehavior = true;
+
+    });
+
+
+
+
+
+}).GetHtml()
+
+}

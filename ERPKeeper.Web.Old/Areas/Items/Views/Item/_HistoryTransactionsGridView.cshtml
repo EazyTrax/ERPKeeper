@@ -1,0 +1,163 @@
+
+@model IList<ERPKeeper.Node.Models.Transactions.CommercialItem>
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "_HistoryTransactionsGridView", id = ViewBag.Id, Type = ViewBag.Type };
+        settings.KeyFieldName = "Uid";
+        settings.Width = Unit.Percentage(100);
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Settings.ShowFooter = true;
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.EncodeHtml = false;
+
+        settings.Styles.Header.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.WhiteSmoke;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.TransactionGuid";
+            column.Visible = false;
+            column.Caption = "Tr Type";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.TransactionType";
+            column.Visible = true;
+
+            column.Width = 100;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.TrnDate";
+            column.Width = 100;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+            column.SortIndex = 1;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.No";
+            column.Visible = false;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ItemPartNumber";
+            column.Caption = "PartNumber";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Uid";
+            column.Visible = false;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.No";
+            column.Caption = "No";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string TransactionGuid = (DataBinder.Eval(t.DataItem, "Commercial.Uid") ?? "NA").ToString();
+                string No = (DataBinder.Eval(t.DataItem, "Commercial.No") ?? "NA").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(No, "Redirect", "Commercial", new { id = TransactionGuid, Area = "Commercials" }, null));
+            });
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.ProfileGuid";
+            column.Caption = "Profile";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string TransactionGuid = (DataBinder.Eval(t.DataItem, "Commercial.ProfileGuid") ?? "NA").ToString();
+                string No = (DataBinder.Eval(t.DataItem, "Commercial.Profile.Name") ?? "NA").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(No, "Home", "Profile", new { id = TransactionGuid, Area = "Profiles" }, null));
+            });
+
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Amount";
+            column.Width = 60;
+
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+        });
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "N2";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UnitPrice";
+            column.Caption = "UnitPrice";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.Width = 100;
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Uid";
+            column.Caption = " ";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                //string TransactionGuid = (DataBinder.Eval(t.DataItem, "Commercial.ProfileGuid") ?? "NA").ToString();
+   
+
+                string CommercialUid = (DataBinder.Eval(t.DataItem, "Uid") ?? "NA").ToString();
+                //ViewContext.Writer.Write(Html.ActionLink(No, "Home", "Profile", new { id = TransactionGuid, Area = "Profiles" }, null));
+                ViewContext.Writer.Write($"<a href=\"/items/CommercialItem/{CommercialUid}/CreateNewPartNumber\"><i class=\"fas fa-plus-circle\"></i></a>");
+            });
+
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

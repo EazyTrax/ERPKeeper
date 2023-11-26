@@ -1,0 +1,118 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "TaxCodes", Action = "PartialGridViewTaxCodes" };
+        settings.KeyFieldName = "Uid";
+        settings.EncodeHtml = false;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TaxDirection";
+            column.Caption = "Direction";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Uid";
+            column.Caption = "Name";
+            column.Width = 130;
+            column.ColumnType = MVCxGridViewColumnType.HyperLink;
+            ((HyperLinkProperties)column.PropertiesEdit).TextField = "Name";
+            ((HyperLinkProperties)column.PropertiesEdit).NavigateUrlFormatString = Url.Action("Home", "TaxCode", null) + "/{0}";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Code";
+            column.Caption = "Code";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CommercialCount";
+            column.Caption = "Commercial";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TaxAccount.Name";
+            column.Caption = "Account";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "TaxAccount.Uid") ?? " ").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "TaxAccount.Name") ?? " ").ToString();
+                string SpanBadge = (DataBinder.Eval(t.DataItem, "TaxAccount.SpanBadge") ?? " ").ToString() + "  ";
+                ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "InputTaxAccount.Name";
+//    column.Caption = "InputTax";
+
+//    column.SetDataItemTemplateContent(t =>
+//    {
+//        string accountUid = (DataBinder.Eval(t.DataItem, "InputTaxAccountGuid") ?? " ").ToString();
+//        string Name = (DataBinder.Eval(t.DataItem, "InputTaxAccount.Name") ?? " ").ToString();
+
+//        string SpanBadge = (DataBinder.Eval(t.DataItem, "InputTaxAccount.SpanBadge") ?? " ").ToString() + "  ";
+//        ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+//    });
+//});
+
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "OutputTaxAccount.Name";
+//    column.Caption = "OutputTax";
+
+//    column.SetDataItemTemplateContent(t =>
+//    {
+//        string accountUid = (DataBinder.Eval(t.DataItem, "OutputTaxAccount.Uid") ?? " ").ToString();
+//        string Name = (DataBinder.Eval(t.DataItem, "OutputTaxAccount.Name") ?? " ").ToString();
+//        string SpanBadge = (DataBinder.Eval(t.DataItem, "OutputTaxAccount.SpanBadge") ?? " ").ToString() + "  ";
+//        ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+//    });
+//});
+
+settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SumSaleBalance").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

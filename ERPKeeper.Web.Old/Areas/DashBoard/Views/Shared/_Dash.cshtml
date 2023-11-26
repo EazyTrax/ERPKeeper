@@ -1,0 +1,10 @@
+﻿@model ERPKeeper.Node.Models.Profiles.Profile
+
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <a href="@Url.Action("Home", "Profile", new { Area = "Profiles", Id = Model.Uid })">
+        @Model.Name<br />
+        @Model.TaxNumber<br />
+        @Model.PrimaryAddress.AddressLine
+    </a>
+</div>

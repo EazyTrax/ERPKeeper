@@ -1,0 +1,97 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+@model IList<ERPKeeper.Node.Models.Tasks.Task>
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "GridViewTasks";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+    settings.CallbackRouteValues = new
+    {
+        Controller = "Employee",
+        Action = "GridViewTasks",
+        id = ViewBag.id
+    };
+
+    settings.KeyFieldName = "Uid";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Name";
+        column.SetDataItemTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+            var linkTag = Html.ActionLink(Name, "Home", "Task", new { id = Uid }, null);
+            ViewContext.Writer.Write(string.Format("{0}", linkTag));
+        });
+    });
+
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "CreatedDate";
+    //    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+    //    column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+    //});
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Age";
+        column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+        column.SortIndex = 1;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Title";
+        column.SetDataItemTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string Title = (DataBinder.Eval(t.DataItem, "Title") ?? "N/A").ToString();
+            var linkTag = Html.ActionLink(Title, "Home", "Task", new { id = Uid }, null);
+            ViewContext.Writer.Write(string.Format("{0}", linkTag));
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Status";
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ResponsibleMember.Name";
+        column.Caption = Lang.Responsible;
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string ResponsibleUid = (DataBinder.Eval(t.DataItem, "ResponsibleMemberUid") ?? Guid.Empty).ToString();
+            var Name = DataBinder.Eval(t.DataItem, "ResponsibleMember.Name")?.ToString() ?? string.Empty;
+
+            if (Name != string.Empty)
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Tasks", "Profile", new { Area = "Profiles", id = ResponsibleUid }, null));
+            else
+                ViewContext.Writer.Write(string.Empty);
+        });
+    });
+
+
+    settings.Width = Unit.Percentage(100);
+    settings.EnableTheming = true;
+    settings.Styles.Header.Font.Bold = true;
+
+    settings.CommandColumn.CellStyle.BackColor = System.Drawing.Color.Transparent;
+    settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+    settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+    settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+}).Bind(Model).GetHtml()
+

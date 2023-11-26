@@ -1,0 +1,79 @@
+﻿@model  ERPKeeper.Node.Models.Profiles.ProfileViewType
+
+@{
+    Layout = null;
+    var OrganizationCount = erpNodeDBContext.Profiles.Where(i => i.ProfileType == ERPKeeper.Node.Models.Profiles.ProfileType.Organization).Count().ToString();
+    var PeopleCount = erpNodeDBContext.Profiles.Where(i => i.ProfileType == ERPKeeper.Node.Models.Profiles.ProfileType.People).Count().ToString();
+}
+
+@using ERPKeeper.Node.Models.Profiles
+
+
+<div class="row bg-fb2 p-1 mb-2 rounded border">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Profiles"})">Profiles</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Profiles",new { Area = "Profiles" , id= Model.ToString() })">@Model.ToString()</a>
+            </li>
+        </ol>
+    </div>
+
+    <div class="col text-right p-2">
+
+        <span id="ImageMenuPlus"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+
+        @Html.DevExpress().PopupMenu(settings =>
+    {
+        settings.Name = "PopupMenuAdd";
+        settings.PopupElementID = "ImageMenuPlus";
+        settings.ShowPopOutImages = DefaultBoolean.True;
+
+        settings.Items.Add("Organizarion").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profiles", Action = "Create", Type = ERPKeeper.Node.Models.Profiles.ProfileType.Organization });
+        settings.Items.Add("Person").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profiles", Action = "Create", Type = ERPKeeper.Node.Models.Profiles.ProfileType.People });
+        settings.Items.Add("Search From RD").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profiles", Action = "SearchFromRD" });
+
+        settings.PopupAction = PopupAction.LeftMouseClick;
+    }).GetHtml()
+    </div>
+
+    <div class="col-12 p-0">
+        <div class="row">
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action("People", "Profiles")">
+                    @Lang.Persons
+                    <div class="text-right "><span class="font-weight-bold">@PeopleCount</span></div>
+                </a>
+            </div>
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action("Organizations", "Profiles")">
+                    @Lang.Organizations
+                    <div class="text-right "><span class="font-weight-bold">@OrganizationCount</span></div>
+                </a>
+            </div>
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action("Active", "Profiles")">
+                    Active
+                    <div class="text-right "><span class="font-weight-bold"></span></div>
+                </a>
+            </div>
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action("Inactive", "Profiles")">
+                    In Active
+                    <div class="text-right "><span class="font-weight-bold"></span></div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

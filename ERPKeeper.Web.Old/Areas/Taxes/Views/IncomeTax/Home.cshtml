@@ -1,0 +1,35 @@
+﻿
+@model ERPKeeper.Node.Models.Taxes.IncomeTax
+
+@{
+    ViewBag.Title = "Income Tax";
+}
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col">
+            @Html.Partial("_MenuTop")
+            @Html.Partial("_DetailForm")
+        </div>
+        <div class="col ">
+            @{
+                if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Uid })
+                }
+            }
+
+        </div>
+        <div class="col-3 col-Rigth">
+            @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+                @Html.Action("_summaryLedger", "ledgers", new { area = "Accounting", id = Model.Uid })
+            }
+
+        </div>
+    </div>
+</div>

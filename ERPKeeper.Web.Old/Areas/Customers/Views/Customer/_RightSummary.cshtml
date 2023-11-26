@@ -1,0 +1,35 @@
+﻿@model ERPKeeper.Node.Models.Customers.Customer
+
+<div class="bg-fb2 mb-1 p-2 rounded">
+    Incomes
+</div>
+
+@Html.Action("_ChartIncome", "Customer", new { })
+
+<div class="row mb-2 bg-fb2 rounded p-1">
+
+    <div class="col-6 font-weight-bold pt-1">
+        <b>TAX ID</b>
+    </div>
+    <div class="col-6 text-right">
+        @Model.Profile.TaxNumber
+    </div>
+
+    <div class="col-6 font-weight-bold pt-1">
+        <b>Sold</b>
+    </div>
+    <div class="col-6 text-right">
+      @*  @((Model.SumSaleBalance).ToString("N2"))*@
+        @erpNodeDBContext.Sales.Where(t => t.ProfileGuid == Model.ProfileUid).ToList().Select(t => t.TotalBalance).DefaultIfEmpty(0).Sum().ToString("N2")
+    </div>
+
+
+    <div class="col-6 font-weight-bold pt-1">
+        Balance
+    </div>
+    <div class="col-6 text-right">
+        @erpNodeDBContext.Sales.Where(t => t.ProfileGuid == Model.ProfileUid && t.Status== ERPKeeper.Node.Models.Transactions.CommercialStatus.Open).ToList().Select(t => t.TotalBalance).DefaultIfEmpty(0).Sum().ToString("N2")
+    </div>
+
+
+</div>

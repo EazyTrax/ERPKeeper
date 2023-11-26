@@ -1,0 +1,138 @@
+@model List<ERPKeeper.Node.Models.Equity.CapitalActivity>
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewABC" + ViewData["Type"];
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "CapitalActivities", Action = "PartialGridView", Type = ViewData["Type"] };
+        settings.KeyFieldName = "Uid";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "No";
+            column.Caption = "No";
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = 40;
+            column.SortIndex = 1;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Number = (DataBinder.Eval(t.DataItem, "No") == null ? "N/A" : DataBinder.Eval(t.DataItem, "No")).ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "CapitalActivity", new { id = id }, null));
+            });
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Type";
+            column.Caption = "Status";
+            column.Width = 100;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Status";
+            column.Caption = "Status";
+            column.Width = 100;
+        });
+
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StockAmount";
+            column.Caption = "Amount";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "StockAmount").DisplayFormat = "N0";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TotalStockParValue";
+            column.Caption = "Total";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalStockParValue").DisplayFormat = "N0";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TotalStockPremiumValue";
+            column.Caption = "Total Premium";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalStockPremiumValue").DisplayFormat = "N0";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus";;
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+
+
+
+
+
+
+        settings.Settings.ShowFooter = true;
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()
+

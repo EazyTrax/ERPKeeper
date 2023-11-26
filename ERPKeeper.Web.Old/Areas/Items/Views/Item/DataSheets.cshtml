@@ -1,0 +1,33 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            <div class="mb-1 bg-fb2 p-2 mh-200">
+                @foreach (var dataSheet in Model.DataSheets)
+                {
+                    @Html.ActionLink(dataSheet.FileName, "DataSheet", new { id = dataSheet.Uid })
+                    @Html.ActionLink(" [-]", "RemoveDataSheet", new { id = dataSheet.Uid })<br />
+                }
+            </div>
+
+            <div class="mb-1 bg-fb2 p-2 mh-50">
+                @using (Html.BeginForm("AddDataSheet", "Item", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Uid)
+                    <input type="file" name="userDocuments" />
+                    <input type="submit" />
+                }
+            </div>
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>
+

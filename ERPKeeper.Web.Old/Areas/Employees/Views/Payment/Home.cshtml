@@ -1,0 +1,40 @@
+﻿@model ERPKeeper.Node.Models.Employees.EmployeePayment
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_ActionMenu")
+            @Html.Partial("_Form")
+            @Html.Partial("_AddStub", Model)    
+            
+            <script>
+                function OnRowDblClick(s, e) {
+                    s.StartEditRow(e.visibleIndex);
+                }
+            </script>
+
+            @Html.Action("PartialGridViewPaymentItem", "Payment", new { EmployeePaymentGuid = Model.Uid })
+        </div>
+        <div class="col-3 col-Right pr-0">
+            <div class="mb-2 p-2 bg-fb2 mh-50 rounded">
+                @Html.ActionLink(Model.Employee.Profile.Name, "Home", "Employee", new { id = Model.EmployeeUid }, null)
+            </div>
+
+            @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+                <div class="mb-2 bg-fb2 rounded">
+                    @Html.Action("_summaryLedger", "ledgers", new { area = "Accounting", id = Model.Uid })
+
+                    <div class="row p-2">
+                        <div class="col p-0 font-weight-bold text-right">
+                            <a href="@Url.Action("UnPost",new { id = Model.Uid })">UnPost</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

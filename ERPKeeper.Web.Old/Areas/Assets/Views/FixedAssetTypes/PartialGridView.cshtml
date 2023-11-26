@@ -1,0 +1,146 @@
+﻿@{
+
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewABC";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "FixedAssets", Action = "PartialGridView", Type = ViewData["Type"] };
+        settings.KeyFieldName = "Uid";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CodePrefix";
+            column.Caption = "Code";
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Basis Name";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = (DataBinder.Eval(t.DataItem, "Uid") ?? Guid.Empty).ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? " ").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAssetType", new { id = id }, null));
+            });
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetAccount.Name";
+            column.Caption = "Asset Account";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetCount";
+            column.Caption = "Asset#";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = (DataBinder.Eval(t.DataItem, "Uid") ?? Guid.Empty).ToString();
+                string AssetCount = (DataBinder.Eval(t.DataItem, "AssetCount") ?? " ").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(AssetCount, "ListFixedAssets", "FixedAssetType", new { id = id }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetValue";
+            column.Caption = "Values";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UseFulLifeYear";
+            column.Caption = "Life";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string UseFulLifeYear = DataBinder.Eval(t.DataItem, "UseFulLifeYear").ToString();
+                ViewContext.Writer.Write(UseFulLifeYear + "Y");
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "DepreciationMethod";
+            column.Caption = "Method";
+        });
+
+
+
+
+
+
+
+
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "AwaitDeprecateAccount.Name";
+//    column.Caption = "Asset Awaiting";
+//});
+
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "AmortizeExpenseAccount.Name";
+//    column.Caption = "Expense Account";
+//});
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "AccumulateDeprecateAcc.Name";
+//    column.Caption = "Accumulate Account";
+//});
+
+settings.Settings.ShowFooter = true;
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//settings.HtmlRowPrepared = (sender, e) =>
+//{
+//    if (e.RowType != GridViewRowType.Data) return;
+//    if (e.GetValue("Status").ToString() == "OPEN")
+//    {
+//        e.Row.BackColor = System.Drawing.ColorTranslator.FromHtml("#EECECE");
+//    }
+//    else
+//    {
+//        e.Row.BackColor = System.Drawing.Color.Transparent;
+//    }
+//};
+
+
+});
+}
+@grid.Bind(Model).GetHtml()
+

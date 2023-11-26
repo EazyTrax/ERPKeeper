@@ -1,0 +1,19 @@
+﻿@model ERPKeeper.Node.Models.Documents.Document
+
+
+<div class="mb-1 p-2 bg-fb2 mh-40 font-weight-bold rounded">
+    <a href="/">Home </a> / <a href="/Documents">Documents</a> /  @Model.Uid.ToString()
+</div>
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "nbERPCustomers";
+    settings.Styles.Item.CssClass = "px-1";
+
+    settings.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Document", Action = "Home",  id = ViewBag.id });
+    settings.Items.Add("PDF View").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Document", Action = "PDFViewer", id = ViewBag.id });
+    settings.Items.Add("").Enabled = false;
+    settings.Items.Add("Download").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Document", Action = "Download", id = ViewBag.id });
+    settings.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Document", Action = "Delete", id = ViewBag.id });
+}).GetHtml()
+</div>

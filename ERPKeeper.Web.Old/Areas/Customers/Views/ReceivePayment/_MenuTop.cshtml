@@ -1,0 +1,66 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.ReceivePayment
+
+<div class="mb-2">
+    <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase">
+                    <a href="@Url.Action("Home", "Customers",new { Area = "DashBoard"})">Customers</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "ReceivePayments",new { Area = "Customers"})">Receive Payments</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "ReceivePayment",new { Area = "Customers" , id= Model.Uid})">@Model.Name</a>
+                </li>
+            </ol>
+        </div>
+
+
+        <div class="col text-right p-2">
+            <span id="ImageMenuLock" style="cursor:pointer">
+                <i class="fas fa-globe-asia fa-lg text-muted"></i>
+            </span>
+
+            @Html.DevExpress().PopupMenu(settings =>
+               {
+                   settings.Name = "PopupMenuLock";
+                   settings.PopupElementID = "ImageMenuLock";
+                   settings.ShowPopOutImages = DefaultBoolean.True;
+                   settings.PopupAction = PopupAction.LeftMouseClick;
+                   settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+                   if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+                   {
+                      // settings.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReceivePayment", Action = "Delete",  id = Model.Uid });
+                   }
+                   else
+                   {
+                         settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReceivePayment", Action = "UnPost", id = Model.Uid });
+                   }
+               }).GetHtml()
+        </div>
+    </div>
+</div>
+
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+    {
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Styles.Item.CssClass = "px-1";
+
+
+    settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReceivePayment", Action = "Home", id = Model.Uid });
+    settings.Items.Add("Documents").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReceivePayment", Action = "Documents", id = Model.Uid });
+    settings.Items.Add("Export").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReceivePayment", Action = "Export", id = Model.Uid, DocumentType = @"ใบเสร็จรับเงิน" });
+
+    }).GetHtml()
+
+</div>

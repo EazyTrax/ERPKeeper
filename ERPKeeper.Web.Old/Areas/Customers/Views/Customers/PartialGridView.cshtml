@@ -1,0 +1,82 @@
+@model IQueryable<ERPKeeper.Node.Models.Customers.Customer>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.KeyFieldName = "Uid";
+
+        settings.Settings.ShowFilterRow = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.Styles.Header.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        //settings.Styles.Cell.Font.Size = FontUnit.Small;
+        settings.Settings.ShowFooter = true;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Customers", Action = "PartialGridView", id = ViewBag.id };
+
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.ShotName";
+            column.Caption = "SN";
+            column.Width = Unit.Pixel(30);
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.Name";
+            column.Caption = "Name";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string CustomerProfileGuid = DataBinder.Eval(t.DataItem, "ProfileUid").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+                var linkTag = Html.ActionLink(Name, "Home", "Customer", new { id = CustomerProfileGuid }, null);
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:280px;'>{0}</div>", linkTag));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.TaxNumber";
+            column.Caption = Lang.TaxID;
+            column.Width = 130;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TotalBalance";
+            column.Caption = "Balance";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SumSaleBalance";
+            column.Caption = "Sales";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.Width = 100;
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SumSaleBalance").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalBalance").DisplayFormat = "N2";
+    });
+}
+
+@grid.BindToLINQ("", "", (s, e) =>
+{
+    e.KeyExpression = "ProfileUid";
+    e.QueryableSource = Model;
+}).GetHtml()

@@ -1,0 +1,91 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+@using ERPKeeper.Node.Models.Accounting
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col-8 p-0 col-Middle">
+            @Html.Partial("_MenuTop")
+
+
+            <div class="p-2 border">
+                <div class="">
+                    <div class="row mb-1">
+                        <div class="col-12 p-0">
+                            <strong class="mb-1">@Lang.Asset</strong>
+                        </div>
+                        <div class="col-12 ">
+                            <div class=""> Current</div>
+                            @Html.Action("PartialGridView_Balance", new { id = Model.Uid, IsLiquidity = true, accountType = AccountTypes.Asset })
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="col-12">
+                            <div class=""> Non-Current</div>
+                            @Html.Action("PartialGridView_Balance", new { id = Model.Uid, IsLiquidity = false, accountType = AccountTypes.Asset })
+                        </div>
+
+                        <div class="row mb-1 mt-3">
+                            <div class="col-3"></div>
+                            <div class="col-6"></div>
+                            <div class="col text-right font-weight-bold"><text>@Model.AssetBalance.ToString("N2")</text></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="row mb-2">
+                        <div class="col p-0"><strong class="mb-1">@Lang.Liability</strong></div>
+                    </div>
+                    @Html.Action("PartialGridView_Balance", new { id = Model.Uid, accountType = AccountTypes.Liability })
+
+                    <div class="row mb-2">
+                        <div class="col-7 p-0"><strong class="mb-1">@Lang.Capital</strong></div>
+                    </div>
+                    @Html.Action("PartialGridView_Balance", new { id = Model.Uid, accountType = AccountTypes.Capital })
+
+
+                    @{decimal _totalCapital = 0; }
+
+                    @if (Model.Status == ERPKeeper.Node.Models.Accounting.EnumFiscalYearStatus.Open)
+                    {
+                        _totalCapital = Model.EquityBalance + Model.Profit;
+
+                        <div class="row mt-3 mb-1">
+                            <div class="col-3 p-0"></div>
+                            <div class="col-6 p-0">@Lang.Profit@@FY @Model.Name</div>
+                            <div class="col p-0 text-right"><text>@Model.Profit.ToString("N2")</text></div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-3 p-0"></div>
+                            <div class="col-6 p-0"><strong class="mb-1"></strong></div>
+                            <div class="col p-0 text-right font-weight-bold">
+                                @_totalCapital.ToString("N2")
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        _totalCapital = Model.EquityBalance;
+                    }
+
+                    <div class="row">
+                        <div class="col-9 p-1"><strong class="mb-1"></strong></div>
+                        <div class="col p-1 text-right font-weight-bold">
+                            @{
+                                Decimal rightBalance = _totalCapital + Model.LiabilityBalance;
+                            }
+                            @((rightBalance).ToString("N2"))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model ERPKeeper.Node.Models.Taxes.TaxPeriod
+
+
+<div class="row mb-2 p-2 mh-80 bg-fb2 rounded">
+    <div class="col-6 ">
+        <span>@Model.InputCommercialCount Input Tax</span>
+    </div>
+    <div class="col-6 text-right">
+        @Model.InputTaxBalance.ToString("N2")
+    </div>
+    <div class="col-6 ">
+        <span>@Model.OutputCommercialCount Output Tax</span>
+    </div>
+    <div class="col-6 text-right">
+        (@Model.OutputTaxBalance.ToString("N2"))
+    </div>
+
+    <div class="col-8 ">
+        <span class="ml-3">@(Model.CloseToAccount?.Name ?? "Unknow ACC")</span>
+    </div>
+    <div class="col-4 text-right">
+        @Model.ClosingAmount.ToString("N2")
+    </div>
+</div>

@@ -1,0 +1,111 @@
+@model IList<ERPKeeper.Node.Models.Profiles.Profile>
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.Width = Unit.Percentage(100);
+
+     //   settings.SettingsSearchPanel.Visible = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.EncodeHtml = false;
+
+
+        settings.CallbackRouteValues = new { Controller = "Profiles", Action = "PartialGridView", ProfileViewType = ViewBag.ProfileViewType };
+        settings.KeyFieldName = "Uid";
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+
+        settings.SettingsPager.PageSize = 500;
+
+
+        if (Model.Count > 500)
+        {
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.Position = PagerPosition.Bottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "500", "1000" };
+            settings.Settings.ShowGroupPanel = false;
+            settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+            settings.SettingsBehavior.AutoExpandAllGroups = true;
+        }
+
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+                return;
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ShotName";
+            column.Caption = "SN";
+            column.CellStyle.VerticalAlign = VerticalAlign.Top;
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Name";
+            column.SortIndex = 1;
+            column.SortAscending();
+            column.CellStyle.VerticalAlign = VerticalAlign.Top;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string ProfileGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string DisplayName = (DataBinder.Eval(t.DataItem, "DisplayName") ?? "N/A").ToString();
+                var linkTag = Html.ActionLink(DisplayName, "Home", "Profile", new { Area = "Profiles", id = ProfileGuid }, null);
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:350px;'>{0}</div>", linkTag));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TaxNumber";
+            column.Caption = Lang.TaxID;
+            column.CellStyle.VerticalAlign = VerticalAlign.Top;
+        });
+
+
+
+        settings.HtmlDataCellPrepared = (s, e) =>
+        {
+            if (e.DataColumn.FieldName == "AccessLevel")
+            {
+                if (e.GetValue("AccessLevel").ToString() == "None")
+                {
+                    e.Cell.Text = "";
+                }
+            }
+        };
+
+        settings.EnableTheming = true;
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

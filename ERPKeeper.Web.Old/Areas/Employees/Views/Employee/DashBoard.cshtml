@@ -1,0 +1,17 @@
+﻿@model ERPKeeper.Node.Models.Profiles.Profile
+
+<div class="row">
+    <div class="col-2 col-Left pl-0">
+        @Html.Partial("_ActionMenu")
+    </div>
+    <div class="col col-Middle p-0">
+        <div class="bg-fb2 p-2 mb-2 mh-50">
+            <b>@Model.Name</b>
+        </div>
+        <div class="col col-Middle p-0">
+            <div class="bg-gray p-2 mb-1">
+                @Html.Action("_Tasks", "Home", new { profileGUid = Model.Uid, Area = "DashBoard" })
+            </div>
+        </div>
+    </div>
+</div>

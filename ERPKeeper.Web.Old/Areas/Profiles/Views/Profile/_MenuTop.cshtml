@@ -1,0 +1,86 @@
+﻿@model ERPKeeper.Node.Models.Profiles.Profile
+
+    <div class="row bg-fb2 p-2 mb-1 mh-50">
+        <div class="col-9 p-0">
+
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase " aria-current="page">
+                    <a href="@Url.Action("Home", "DashBoard",new { Area = "Profiles"})">Profiles</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase " aria-current="page">
+                    <a href="@Url.Action("Home", "Profiles",new { Area = "Profiles" , id= Model.ProfileType.ToString() })">@Model.ProfileType.ToString()</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase " aria-current="page">
+                    <a href="@Url.Action("Home", "Profile",new { Area = "Profiles" , id= Model.Uid })">@Model.Name</a>
+                </li>
+            </ol>
+        </div>
+        <div class="col-3 text-right">
+            <a href="@Url.Action("Home", "Profiles" , new { id = Model.ProfileType})">
+                <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+            </a>
+            <span id="ImageMenuCore" style="cursor:pointer">
+                <i class="fab fa-chrome fa-lg text-muted"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="mb-2">
+        @Html.DevExpress().Menu(settings =>
+   {
+       settings.Name = "mTopMenuProfiles";
+       settings.AllowSelectItem = true;
+       settings.EnableHotTrack = true;
+       settings.EnableAnimation = true;
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.EncodeHtml = false;
+       settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+       settings.Styles.Item.CssClass = "px-1";
+
+
+       settings.Items.Add(Lang.Detail).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "Home", id = Model.Uid });
+
+       int addressCount = Model.Addresses.Count();
+       settings.Items.Add(Lang.Addresses).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "Addresses", id = Model.Uid });
+
+       int bankAccountCount = Model.BankAccounts.Count();
+       settings.Items.Add(Lang.BankAccounts).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "BankAccounts", id = Model.Uid });
+       settings.Items.Add(Lang.History).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "History", id = Model.Uid });
+       settings.Items.Add("Icon").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "Icon", id = Model.Uid });
+       settings.Items.Add(Lang.Tasks).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "Tasks", id = Model.Uid });
+       settings.Items.Add(Lang.Documents).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "Documents", id = Model.Uid });
+
+
+
+   }).GetHtml()
+    </div>
+
+  
+    @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuLock";
+    settings.PopupElementID = "ImageMenuCore";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+    settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "RD Update";
+        item.Items.Add("Titile & Name").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "UpdateRd", id = Model.Uid });
+        item.Items.Add("Address").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Profile", Action = "UpdateRdAddresses", id = Model.Uid });
+    });
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "Assign Role";
+        item.Items.Add("Investor").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Investors", Controller = "Investor", Action = "Add", id = Model.Uid });
+        item.Items.Add("Employee").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Employees", Controller = "Employee", Action = "Add", id = Model.Uid });
+        item.Items.Add("Customer").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Customers", Controller = "Customers", Action = "Add", id = Model.Uid });
+        item.Items.Add("Supplier").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Suppliers", Controller = "Supplier", Action = "Add", id = Model.Uid });
+        item.Items.Add("Member").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Securities", Controller = "Members", Action = "Add", id = Model.Uid });
+    });
+}).GetHtml()

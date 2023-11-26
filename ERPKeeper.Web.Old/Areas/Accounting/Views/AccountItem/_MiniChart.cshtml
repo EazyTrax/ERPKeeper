@@ -1,0 +1,72 @@
+@{
+    var account = (ERPKeeper.Node.Models.Accounting.AccountItem)ViewBag.AccountItem;
+}
+
+
+<div class="mb-2">
+    <div class="p-2 bg-fb2 mh-50 mb-1 rounded">
+        <div class="row">
+            <div class="col-2 p-0">
+                @account.Code
+            </div>
+            <div class="col-10 p-0 text-right">
+                <a href="@Url.Action( "Home", "AccountItem", new { Area = "Accounting", Id = account.Uid })">
+                    <b>@account.Name</b>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="p-0 mb-1 border">
+        @Html.DevExpress().Chart(settings =>
+      {
+        settings.Name = "Chart_" + account.Uid;
+        Series chartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.StepArea);
+        chartSeries.ArgumentDataMember = "TrnDate";
+        chartSeries.ValueDataMembers[0] = "Balance";
+
+
+
+        settings.Legend.Visibility = DefaultBoolean.False;
+        settings.Width = 305;
+        settings.Height = 150;
+        settings.BorderOptions.Visibility = DefaultBoolean.False;
+
+        settings.Titles.Add(new ChartTitle()
+        {
+          Font = new System.Drawing.Font("Tahoma", 12),
+          Text = ""
+        });
+
+        settings.Series.Add(chartSeries);
+        ((StepAreaSeriesView)chartSeries.View).MarkerVisibility = DefaultBoolean.False;
+        ((StepAreaSeriesView)chartSeries.View).Color = System.Drawing.Color.Gray;
+
+        chartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+        chartSeries.CrosshairLabelVisibility = DefaultBoolean.False;
+
+
+
+        ((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+        ((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+        ((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+        ((XYDiagram)settings.Diagram).AxisX.Label.Visible = false;
+        ((XYDiagram)settings.Diagram).Margins.Left = 0;
+        ((XYDiagram)settings.Diagram).Margins.Right = 0;
+        ((XYDiagram)settings.Diagram).EnableAxisXScrolling = false;
+
+      }).Bind(Model).GetHtml()
+    </div>
+
+    <div class="row bg-fb2 p-2 mb-2 rounded">
+        <div class="col-8 p-0">
+            <strong class="">@account.CurrentBalance.ToString("N2")</strong>
+            @Html.Raw(ERPKeeper.Helpers.Badge.Danger(((DateTime)(account.CurrentBalanceRecordDate ?? DateTime.Now)).ToString("dd-MMM-yy")))
+        </div>
+        <div class="col-4 p-0 text-right">
+            <a href="@DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "UpdateHistoryBalance", Area = "Accounting", id = account.Uid })">
+                <i class="fas fa-sync-alt fa-lg text-light"></i>
+            </a>
+        </div>
+    </div>
+</div>

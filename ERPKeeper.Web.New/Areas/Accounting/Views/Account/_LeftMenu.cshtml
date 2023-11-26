@@ -1,0 +1,53 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+@{
+    bool checkCurrentController(string controllerName)
+    {
+        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+        return currentControllerName == controllerName;
+    }
+
+    void Template(string display, string controller, int? count = null)
+    {
+        <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
+            <div class="col p-0">
+                <a href="/@CompanyId/Accounting/@controller" class="text-fs-16">
+                    @SharedLocalizer.GetLocalizedHtmlString(display)
+                </a>
+            </div>
+            <div class="col-2 p-0 text-right">
+                <span class="badge badge-light text-dark">@count</span>
+            </div>
+        </div>
+    }
+}
+
+<div>
+    <div class="font-weight-600 mb-3 ">
+        <a href="/@CompanyId/Accounting">Accounting</a>
+    </div>
+    @{
+        Template("Chart Of Accounts", "Accounts");
+    }
+    <div class="pl-2">
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Uid" class="text-fs-16">
+            Account @Model.Code
+        </a>
+    </div>
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Uid/Ledgers" class="text-fs-16">
+            Ledgers
+        </a>
+    </div>
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Uid/Balances" class="text-fs-16">
+            Balances
+        </a>
+    </div>
+    <div class="pl-3">
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Uid/Balances" class="text-fs-16">
+            Charts
+        </a>
+    </div>
+</div>
+

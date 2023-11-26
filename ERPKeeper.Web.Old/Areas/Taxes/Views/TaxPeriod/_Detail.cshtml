@@ -1,0 +1,176 @@
+﻿@model ERPKeeper.Node.Models.Taxes.TaxPeriod
+
+
+<div class="bg-fb2">
+    @using (Html.BeginForm("Save", "TaxPeriod", new { }, FormMethod.Post, new { @id = "SaveForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => Model.Uid)
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "Home";
+       settings.EncodeHtml = false;
+
+       settings.Width = Unit.Percentage(100);
+       settings.ColCount = 1;
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = Model.PeriodName;
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+           groupSettings.ColCount = 1;
+
+           groupSettings.Items.Add(m => m.PeriodName, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+               TextBoxSettings tbs = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+               itemSettings.ColSpan = 1;
+               tbs.ReadOnly = true;
+           });
+
+
+
+
+
+           groupSettings.Items.Add(m => m.PeriodStartDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Start Date";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+               DateEditSettings ds = (DateEditSettings)itemSettings.NestedExtensionSettings;
+               ds.ReadOnly = true;
+               ds.Enabled = false;
+           });
+
+           groupSettings.Items.Add(m => m.TrnDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "End Date";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+           });
+
+       });
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Balance";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+           groupSettings.ColCount = 1;
+
+
+
+           groupSettings.Items.Add(m => m.InputBalance, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Input";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               spinSetting.ReadOnly = true;
+
+               spinSetting.Properties.DisplayFormatString = "N2";
+               spinSetting.Properties.DisplayFormatInEditMode = true;
+           });
+
+
+
+
+           groupSettings.Items.Add(m => m.InputTaxBalance, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "InputTax";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               spinSetting.ReadOnly = true;
+
+               spinSetting.Properties.DisplayFormatString = "N2";
+               spinSetting.Properties.DisplayFormatInEditMode = true;
+               spinSetting.ControlStyle.CssClass = "mb-3";
+           });
+
+
+
+
+           groupSettings.Items.Add(m => m.OutputBalance, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Output";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               spinSetting.ReadOnly = true;
+
+               spinSetting.Properties.DisplayFormatString = "N2";
+               spinSetting.Properties.DisplayFormatInEditMode = true;
+           });
+
+
+           groupSettings.Items.Add(m => m.OutputTaxBalance, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "OutputTax";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               spinSetting.ReadOnly = true;
+
+               spinSetting.Properties.DisplayFormatString = "N2";
+               spinSetting.Properties.DisplayFormatInEditMode = true;
+               spinSetting.ControlStyle.CssClass = "mb-3";
+           });
+
+
+           groupSettings.Items.Add(m => m.ClosingAmount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Close Amount";
+
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               spinSetting.ReadOnly = true;
+               spinSetting.Enabled = false;
+           });
+
+
+           groupSettings.Items.Add(m => m.CloseToAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("TaxPayable", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.TaxClosingAccount;
+           });
+
+
+
+
+
+       });
+       if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+       {
+
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Action";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+               groupSettings.Items.Add(item =>
+               {
+                   item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                   item.ShowCaption = DefaultBoolean.False;
+                   item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                   var button = (ButtonSettings)item.NestedExtensionSettings;
+                   button.Name = "SaveButton";
+                   button.Text = "Save";
+                   button.UseSubmitBehavior = true;
+               });
+           });
+
+       }
+   }).GetHtml()
+    }
+</div>

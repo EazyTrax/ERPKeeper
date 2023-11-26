@@ -1,0 +1,45 @@
+﻿@using ERPKeeper.Node.Models.Items.Enums
+
+<div class="row">
+    <div class="col bg-light mr-2 p-2 ">
+        <a href="/Items/Items/@ItemTypes.NonInventory.ToString()">
+            <div class="">
+                <div class="">@ItemTypes.NonInventory.ToString()</div>
+                <div class="text-right">@Organization.Items.AmountNonInventory</div>
+            </div>
+        </a>
+    </div>
+    <div class="col bg-light mr-2 p-2">
+        <a href="/Items/Items/@ItemTypes.Inventory.ToString()">
+            <div class="">
+                <div class="">@ItemTypes.Inventory.ToString()</div>
+                <div class="text-right">@Organization.Items.AmountInventory</div>
+            </div>
+        </a>
+
+    </div>
+    <div class="col bg-light mr-2 p-2">
+        <a href="/Items/Items/@ItemTypes.Service.ToString()">
+            <div class="">
+                <div class="">@ItemTypes.Service.ToString()</div>
+                <div class="text-right">@Organization.Items.AmountService</div>
+            </div>
+        </a>
+    </div>
+    <div class="col bg-light mr-2 p-2 ">
+        <a href="/Items/Items/@ItemTypes.Expense.ToString()">
+            <div class="">
+                <div class="">@ItemTypes.Expense.ToString()</div>
+                <div class="text-right">@Organization.Items.AmountExpense</div>
+            </div>
+        </a>
+    </div>
+    <div class="col bg-light p-2 ">
+        <a href="/Items/Items/@ItemTypes.Asset.ToString()">
+            <div class="">
+                <div class="">@ItemTypes.Asset.ToString()</div>
+                <div class="text-right">@Organization.Items.AmountAsset</div>
+            </div>
+        </a>
+    </div>
+</div>

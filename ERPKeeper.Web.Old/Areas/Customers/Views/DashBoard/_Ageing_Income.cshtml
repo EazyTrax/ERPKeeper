@@ -1,0 +1,45 @@
+
+@{
+    var OpenSale = erpNodeDBContext.Sales.Where(b => b.Status == ERPKeeper.Node.Models.Transactions.CommercialStatus.Open);
+
+    DateTime exp30Date = DateTime.Now.AddDays(-30);
+    DateTime exp60Date = DateTime.Now.AddDays(-60);
+    DateTime exp90Date = DateTime.Now.AddDays(-90);
+    DateTime exp120Date = DateTime.Now.AddDays(-120);
+
+    decimal exp30Amount = OpenSale.Where(b => b.TrnDate < exp30Date).Select(i => i.Total).DefaultIfEmpty(0).Sum();
+    decimal exp60Amount = OpenSale.Where(b => b.TrnDate < exp60Date).Select(i => i.Total).DefaultIfEmpty(0).Sum();
+    decimal exp90Amount = OpenSale.Where(b => b.TrnDate < exp90Date).Select(i => i.Total).DefaultIfEmpty(0).Sum();
+
+}
+
+
+
+<div style="padding:0px;margin-bottom:10px;margin-top:0px;">
+    <a href="@Url.Action("Home", "Sales", new { Area = "Customers", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.Open })">
+        <div style="float:left;width:130px;" title="0 Sale" >
+            <div style="background-color: #efb328;height:40px;padding:5px;">
+                <b>30 Days</b><br />
+                @exp30Amount.ToString("N0")
+            </div>
+        </div>
+    </a>
+
+    <a href="@Url.Action("Home", "Sales", new { Area = "Customers", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.OverDue })">
+        <div style="float:left;width:100px;" title="0 Sale">
+            <div style="background-color: #e33d43;height:40px;padding:5px;color:white;">
+                <b>60 Days</b><br />
+                @exp60Amount.ToString("N0")
+            </div>
+        </div>
+    </a>
+
+    <div style="float:left;width:90px;">
+        <div style="background-color: #efb328;height:40px;padding:5px;"  title="0 Sale">
+            <b>90 Days</b><br />
+            @exp90Amount.ToString("N0")
+        </div>
+    </div>
+
+    <div style="clear:both;"></div>
+</div>

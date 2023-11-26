@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+
+<span id="ImageMenuNewTask" style="cursor:pointer">
+    <i class="fas fa-tasks fa-lg"></i>
+</span>
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "MenuNewTask" + DateTime.Now.Ticks.ToString();
+    settings.PopupElementID = "ImageMenuNewTask";
+    settings.PopupAction = PopupAction.LeftMouseClick;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+    settings.PopupVerticalAlign = PopupVerticalAlign.Below;
+    settings.Height = 70;
+    settings.Width = 300;
+    settings.ShowHeader = false;
+    settings.Styles.Content.BackColor = System.Drawing.Color.LightGray;
+
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("~/Areas/Tasks/Views/Tasks/_NewTask.cshtml",new ERPKeeper.Node.Models.Projects.NewTask());
+    });
+}).GetHtml()

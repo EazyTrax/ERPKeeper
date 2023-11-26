@@ -1,0 +1,44 @@
+﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+
+<div class="row bg-fb2 p-2 mb-1 mh-80">
+    <div class="col-9 p-0">
+        <b>@Model.Name</b><br />
+        @Model.Status
+    </div>
+    <div class="col p-0">
+
+        <div class="">
+            <a href="@Url.Action("Home", "FixedAssets", new { id = Model.Status })">
+                <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+            </a>
+            <i class="fab fa-chrome fa-lg text-muted" id="ImageMenuCore" style="cursor:pointer">
+
+            </i>
+
+            @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+                <i class="fas fa-globe-asia fa-lg text-muted" id="ImageMenuLock" style="cursor:pointer"></i>
+                @Html.DevExpress().PopupMenu(settings =>
+           {
+               settings.Name = "PopupMenuLock";
+               settings.PopupElementID = "ImageMenuLock";
+               settings.ShowPopOutImages = DefaultBoolean.True;
+               settings.PopupAction = PopupAction.LeftMouseClick;
+               settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+               settings.Items.Add("Export").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FixedAsset", Action = "Export", id = Model.Uid });
+               settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FixedAsset", Action = "UnPost", id = Model.Uid });
+           }).GetHtml()
+            }
+        </div>
+
+        @Html.DevExpress().PopupMenu(settings =>
+        {
+            settings.Name = "PopupMenuCore";
+            settings.PopupElementID = "ImageMenuCore";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+            settings.PopupAction = PopupAction.LeftMouseClick;
+            settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+            settings.Items.Add("Create Schedule").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FixedAsset", Action = "CreateSchedule", id = Model.Uid });
+        }).GetHtml()
+    </div>
+</div>

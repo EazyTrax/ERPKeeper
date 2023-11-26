@@ -1,0 +1,155 @@
+@model ERPKeeper.Node.Models.Projects.Project
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "GridView";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+    settings.CallbackRouteValues = new { Area = "Projects", Controller = "Project", Action = "PartialGridViewCommercials", id = ViewBag.id };
+    settings.KeyFieldName = "Uid";
+    settings.Width = Unit.Percentage(100);
+
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+    settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        if (ViewBag.GroupedColumns == null)
+        {
+            return;
+        }
+
+
+        MVCxGridView gridNew = (MVCxGridView)sender;
+        string[] columnNames = ViewBag.GroupedColumns.Split(';');
+        gridNew.ClearSort();
+
+        foreach (string name in columnNames)
+        {
+            gridNew.GroupBy(gridNew.Columns[name]);
+        }
+        gridNew.ExpandAll();
+    };
+
+    var TotalFooter = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+    TotalFooter.ShowInGroupFooterColumn = "Total";
+    TotalFooter.DisplayFormat = "N2";
+
+
+    var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+    TotalGroup.ShowInGroupFooterColumn = "Total";
+    TotalGroup.DisplayFormat = "N2";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TransactionType";
+        column.Caption = "Type";
+        column.Visible = true;
+        column.SortIndex = 1;
+
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Name";
+        column.Caption = "Name";
+        column.Visible = true;
+        column.SortIndex = 2;
+        column.Width = 40;
+        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string _Number = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+            ViewContext.Writer.Write(Html.ActionLink(_Number, "Redirect", "Commercial", new { id = Uid, Area = "Commercials" }, null));
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Status";
+        column.Width = 40;
+        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TrnDate";
+        column.Width = 100;
+        column.SortIndex = 3;
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Age";
+        column.Width = 40;
+
+        column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Reference";
+        column.Visible = true;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Tax";
+        column.Width = 100;
+        column.PropertiesEdit.DisplayFormatString = "N2";
+        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Total";
+        column.Width = 100;
+        column.PropertiesEdit.DisplayFormatString = "N2";
+        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TotalBalance";
+        column.Caption = "Balance";
+        column.Width = 100;
+        column.PropertiesEdit.DisplayFormatString = "N2";
+        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+
+
+
+    settings.EnableTheming = true;
+
+    settings.Styles.Header.Font.Bold = true;
+
+    settings.HtmlDataCellPrepared = (s, e) =>
+    {
+        if (e.DataColumn.FieldName == "Status")
+        {
+            string transactionStatus = e.GetValue("Status").ToString();
+            if (transactionStatus == "Open")
+            {
+
+                e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#EBF5FB");
+            }
+
+        }
+    };
+
+}).Bind(Model.Commercials.ToList()).GetHtml()

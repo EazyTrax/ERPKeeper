@@ -1,0 +1,37 @@
+﻿@{
+
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Profiles.ProfileAddress
+
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div style="font-weight: 600;">@Model.Profile.Name</div>
+</div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mTopMenuProfiles";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Vertical;
+    settings.Width = 200;
+    settings.Styles.Item.CssClass = "px-1";
+
+    settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Addresses).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Addresses",Controller= "profile", id = Model.ProfileGuid });
+
+
+
+
+
+}).GetHtml()
+
+<div class="mt-3">
+    <a href="@Url.Action("Home", "Profile" , new { id = Model.ProfileGuid})">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+</div>

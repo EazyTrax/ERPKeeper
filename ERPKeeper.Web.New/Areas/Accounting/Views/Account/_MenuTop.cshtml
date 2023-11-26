@@ -1,0 +1,30 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+<div class="row bg-fb1  p-1 border-bottom border-2">
+    <div class="col-6 p-0 font-weight-600">
+        <a href="/@CompanyId/Accounting">Accounting</a>
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Accounting/Accounts">Accounts</a>
+
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Uid">@Model.Code @Model.Name</a>
+    </div>
+    <div class="col-3 p-0">
+    </div>
+    <div class="col-3 p-0 text-right">
+        <div class="btn-group">
+            <a class="btn btn-outline-light border btn-sm dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-calculator"></i>
+            </a>
+            <ul class="dropdown-menu p-2">
+                <li>
+                    <a href="/@CompanyId/Accounting/Accounts/@Model.Uid/Update/CurrentBalance">Current Balance</a>
+                </li>
+                <li>
+                    <a href="/@CompanyId/Accounting/Accounts/@Model.Uid/Update/History Balance">History Balance</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

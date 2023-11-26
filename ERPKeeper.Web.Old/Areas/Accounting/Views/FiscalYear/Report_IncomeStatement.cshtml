@@ -1,0 +1,65 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+
+            <div class="mt-2" style="width:450px;">
+                <div class="mb-2">
+                    <div class="row mb-1">
+                        <div class="col-7 p-0"><strong class="mb-1">รายได้</strong></div>
+                        <div class="col p-1 text-right"> </div>
+                    </div>
+
+                    @{ 
+                        var incomesBalance = Model.PeriodAccountBalances.Where(p => p.Account.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Income).ToList();
+                    }
+
+                    @Html.Partial("_Current_Balance", incomesBalance)
+                </div>
+                <div class="mb-2">
+                    <div class="row mb-1">
+                        <div class="col-7 p-0"><strong class="mb-1">รายจ่าย</strong></div>
+                        <div class="col p-1 text-right"> </div>
+                    </div>
+
+                    @{
+                        var expensesBalance = Model.PeriodAccountBalances
+                            .Where(p => p.Account.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Expense)
+                            .Where(p => p.Account.SubEnumType != ERPKeeper.Node.Models.Accounting.AccountSubTypes.IncomeTaxExpense)
+                            .ToList();
+
+                        var incomesTaxBalance = Model.PeriodAccountBalances
+                           .Where(p => p.Account.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Expense)
+                           .Where(p => p.Account.SubEnumType == ERPKeeper.Node.Models.Accounting.AccountSubTypes.IncomeTaxExpense)
+                           .ToList();
+
+                    }
+
+                    @Html.Partial("_Current_Balance", expensesBalance)
+
+                    <div class="row mb-1">
+                        <div class="col-8 p-0"><strong class="mb-1">กำไร(ขาดทุน) ก่อนภาษีเงินได้</strong></div>
+                        <div class="col p-1 text-right"><b>@Model.Profit.ToString("N2")</b></div>
+                    </div>
+
+                    @Html.Partial("_Current_Balance", incomesTaxBalance)
+
+
+                    <div class="row mb-1">
+                        <div class="col-8 p-0"><strong class="mb-1">กำไร(ขาดทุน) สุทธิ</strong></div>
+                        <div class="col p-1 text-right"><b>@Model.Profit.ToString("N2")</b></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>

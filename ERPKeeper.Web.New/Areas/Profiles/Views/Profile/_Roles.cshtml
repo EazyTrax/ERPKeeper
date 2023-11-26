@@ -1,0 +1,47 @@
+﻿@model ERPKeeper.Node.Models.Profiles.Profile
+
+
+
+
+<div class="mb-3">
+    <div id="treeListDemo" class=" mb-2">
+        @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Profiles.ProfileRole>()
+        .ID("GridList")
+
+        .RowAlternationEnabled(true)
+        .DataSource(d =>
+        d.RemoteController()
+        .Key("Id")
+        .LoadUrl($"/api/Profiles/{Model.Uid}/Roles/All")
+        .InsertUrl($"/api/Profiles/{Model.Uid}/Roles/Insert")
+        .UpdateUrl($"/api/Profiles/{Model.Uid}/Roles/Update")
+        .UpdateMethod("Post")
+        .DeleteUrl($"/api/Profiles/{Model.Uid}/Roles/Delete")
+        .DeleteMethod("Post")
+        )
+        .Editing(editing => {
+        editing.Mode(GridEditMode.Popup);
+        editing.AllowAdding(true);
+        editing.AllowDeleting(true);
+        editing.AllowUpdating(true);
+        editing.UseIcons(true);
+        editing.Form(f=>f.ColCount(1).Width(500));
+        })
+        .KeyExpr("Id")
+        .ShowRowLines(false)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(100))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .ColumnAutoWidth(false)
+        .Columns(columns => {
+
+        columns.AddFor(m=>m.Role).Width(120).Lookup(lookup => lookup
+        .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Profiles.Role>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+        .DisplayExpr("Text")
+        .ValueExpr("Value")
+        );
+        })
+        )
+    </div>
+</div>

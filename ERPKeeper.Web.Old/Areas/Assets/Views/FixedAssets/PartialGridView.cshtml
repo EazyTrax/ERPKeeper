@@ -1,0 +1,179 @@
+
+
+@model IList<ERPKeeper.Node.Models.Assets.FixedAsset>
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewDeprecatedAsset";
+
+        settings.CallbackRouteValues = new { Controller = "FixedAssets", Action = "PartialGridView", Status = ViewBag.Status };
+        settings.KeyFieldName = "Uid";
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+
+        settings.Settings.ShowFooter = true;
+        settings.Styles.Footer.Font.Bold = true;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+        //settings.SettingsExport.EnableClientSideExportAPI = true;
+        //settings.SettingsExport.Landscape = true;
+        //settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+        //settings.SettingsExport.RightMargin = 0;
+        //settings.Toolbars.Add(t =>
+        //{
+        //    t.EnableAdaptivity = true;
+        //    t.Items.Add(GridViewToolbarCommand.ExportToPdf);
+        //    t.Items.Add(GridViewToolbarCommand.ExportToXls);
+        //    t.Items.Add(GridViewToolbarCommand.ExportToXlsx);
+        //});
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetCode";
+            column.Caption = "Code";
+            column.Width = 150;
+            column.SortIndex = 2;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string AssetCode = DataBinder.Eval(t.DataItem, "AssetCode").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(AssetCode, "Home", "FixedAsset", new { id = Uid }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StartDeprecationDate";
+            column.Caption = "Start Date";
+            column.Width = 100;
+            column.SortIndex = 1;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Asset Name";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = DataBinder.Eval(t.DataItem, "Name").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAsset", new { id = Uid }, null));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FixedAssetType.Name";
+            column.Caption = "Type";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = (DataBinder.Eval(t.DataItem, "FixedAssetType.Uid") ?? Guid.Empty).ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "FixedAssetType.Name") ?? " ").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAssetType", new { id = id }, null));
+            });
+
+            //column.GroupIndex = 1;
+        });
+
+
+
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "EndDeprecationDate";
+        //    column.Caption = "End Date";
+        //    column.Width = 100;
+        //    column.SortIndex = 1;
+        //    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        //    column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        //});
+
+
+
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "RemainAgeDay";
+        //    column.Caption = "Exp In";
+        //    column.Width = 40;
+        //    column.PropertiesEdit.DisplayFormatString = "N0";
+        //});
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetValue";
+            column.Caption = "Value";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+
+        var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AssetValue");
+        TotalGroup.ShowInGroupFooterColumn = "AssetValue";
+        TotalGroup.DisplayFormat = "N2";
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AssetValue").DisplayFormat = "N2";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus"; ;
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+            column.Settings.AllowHeaderFilter = DefaultBoolean.False;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RetirementDate";
+            column.Caption = "Retire Date";
+            column.Width = 100;
+            column.SortIndex = 1;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RetirementPostStatus"; ;
+            column.Caption = "RP";
+            column.CellStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+            column.Settings.AllowHeaderFilter = DefaultBoolean.False;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "RetirementPostStatus")));
+            });
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

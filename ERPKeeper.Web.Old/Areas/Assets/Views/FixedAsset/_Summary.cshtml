@@ -1,0 +1,23 @@
+﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+
+@*<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>Asset Value : </b>
+    @Model.AssetValue.ToString("N2")<br />
+    <b>Current Value : </b>
+    @Model.CurrentAssetValue.ToString("N2")<br />
+    <b>DEP/Year : </b>
+    @Model.DeprecatePerYear.ToString("N2")
+</div>
+
+@{
+    var currentSchedule = Model.GetNearestSchedules(Organization.FiscalYears.CurrentPeriod);
+
+    if (currentSchedule != null)
+    {
+        <div class="p-2 mb-2 bg-fb2 mh-50">
+            <b>Asset Value Detail</b><br />
+            <b>YEAR:</b> @currentSchedule.FiscalYear.Name<br />
+            <b>VALUE:</b>  @currentSchedule.RemainValue.ToString("N2")
+        </div>
+    }
+}*@

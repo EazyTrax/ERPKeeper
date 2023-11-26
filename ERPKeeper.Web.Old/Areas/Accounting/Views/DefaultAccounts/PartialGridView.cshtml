@@ -1,0 +1,67 @@
+@model IList<ERPKeeper.Node.Models.Accounting.DefaultAccountItem>
+
+@Html.DevExpress().GridView(settings =>
+{
+  settings.Name = "GridViewABC";
+
+  settings.CallbackRouteValues = new { Controller = "DefaultAccounts", Action = "PartialGridView" };
+  settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DefaultAccounts", Action = "PartialGridViewUpdate" };
+  settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+  settings.KeyFieldName = "AccountType";
+  settings.Settings.ShowFooter = false;
+  settings.EnableTheming = true;
+  settings.Styles.Header.Font.Bold = true;
+
+  settings.ClientSideEvents.RowDblClick = "OnRowDblClick";
+  settings.SettingsEditing.Mode = GridViewEditingMode.EditForm;
+  settings.SettingsEditing.EditFormColumnCount = 1;
+  settings.Width = Unit.Percentage(100);
+
+
+  settings.Styles.Header.BackColor = System.Drawing.Color.WhiteSmoke;
+  settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.WhiteSmoke;
+
+
+  settings.Columns.Add(column =>
+  {
+    column.FieldName = "AccountType";
+    column.Caption = "Account Type";
+    column.Width = 40;
+    column.SortIndex = 1;
+    column.ReadOnly = true;
+  });
+
+  settings.Columns.Add(column =>
+  {
+    column.FieldName = "AccountItem.Type";
+    column.Caption = "Type";
+  });
+  settings.Columns.Add(column =>
+  {
+    column.FieldName = "AccountItem.SubEnumType";
+    column.Caption = "SubType";
+  });
+
+
+  settings.Columns.Add(column =>
+  {
+    column.FieldName = "AccountItemUid";
+    column.Caption = "Account Item";
+    column.SetDataItemTemplateContent(t =>
+    {
+      string AccountItemUid = (DataBinder.Eval(t.DataItem, "AccountItemUid") ?? "N/A").ToString();
+      string Name = (DataBinder.Eval(t.DataItem, "AccountItem.Name") ?? " ").ToString();
+      string SpanBadge = (DataBinder.Eval(t.DataItem, "AccountItem.SpanBadge") ?? " ").ToString();
+      ViewContext.Writer.Write(SpanBadge + " " + Html.ActionLink(Name, "Home", "AccountItem", new { id = AccountItemUid, Area = "Accounting" }, null));
+    });
+
+    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+    comboBoxProperties.DataSource = Organization.ChartOfAccount.GetAccountsList();
+    comboBoxProperties.TextField = "Name";
+    comboBoxProperties.ValueField = "Uid";
+    comboBoxProperties.ValueType = typeof(Guid);
+    comboBoxProperties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+  });
+
+}).Bind(Model).GetHtml()

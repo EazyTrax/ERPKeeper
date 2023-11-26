@@ -1,0 +1,35 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+<div class="globalContainer">
+  <div class="row">
+    <div class="col-2 col-Left pl-0">
+      @Html.Action("_Main", "Default", new { Area = "Menu" })
+    </div>
+    <div class="col-10 colRightFull pr-0">
+      @Html.Partial("_MenuTop")
+
+
+
+      <div class="row bg-fb1 mb-3 p-2">
+        @{
+          var values = Enum.GetValues(typeof(ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType));
+
+          foreach (var trTypr in values)
+          {
+            <div class="col-3 col-Right pr-0">
+               @Html.ActionLink(trTypr.ToString(), "Report_TransactionsLedger", new { id = Model.Uid, TrType = trTypr.ToString() })
+            </div>
+          }
+        }
+      </div>
+
+
+
+
+      @Html.DevExpress().WebDocumentViewer(settings =>
+        {
+          settings.Name = "documentViewer";
+        }).Bind(ViewBag.Report).GetHtml()
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+﻿@model ERPKeeper.Node.Models.Accounting.PreviewAccount
+
+@if (Model != null)
+{
+  <div class="bg-fb2 p-2 mb-2 mh-50">
+    @Html.ActionLink("RemoveFrom Preview", "RemoveFromPreview", new { Id = Model.PreviewAccountGuid })
+  </div>
+}

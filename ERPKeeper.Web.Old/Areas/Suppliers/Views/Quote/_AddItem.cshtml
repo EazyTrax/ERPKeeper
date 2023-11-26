@@ -1,0 +1,101 @@
+﻿@model ERPKeeper.Node.Models.Estimations.PurchaseQuote
+
+@{
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("AddItem", "Quote", new { id = Model.Uid, Area = "Suppliers" }, FormMethod.Post, new { @id = "AddItemForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div style="float:left;padding-right:10px;">
+        @Html.Action("Partial_ComboBoxItems" , new { })
+    </div>
+    <div style="float:left;padding-right:10px;">
+        @Html.DevExpress().SpinEdit(settings =>
+   {
+       settings.Name = "Amount";
+       settings.Width = Unit.Pixel(80);
+       settings.Properties.MinValue = 1;
+       settings.Properties.MaxValue = 1000;
+       settings.Properties.AllowNull = false;
+       settings.Number = 1;
+   }).GetHtml()
+    </div>
+    <div style="float:left;padding-right:10px;">
+        <script type="text/javascript">
+            function OnClick(sender, args) {
+                document.getElementById('AddItemForm').submit();
+            }
+        </script>
+
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "btmClickMe";
+            settings.Text = "Add";
+            settings.UseSubmitBehavior = false;
+            settings.ClientSideEvents.Click = "OnClick";
+        }).GetHtml()
+    </div>
+    <div style="float:left;padding-right:10px;">
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "ImageMenuPlus";
+            settings.Text = "New";
+            settings.UseSubmitBehavior = false;
+        }).GetHtml()
+
+    </div>
+    <div style="clear:both;"></div>
+}
+
+
+
+@Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuAdd";
+    settings.PopupElementID = "ImageMenuPlus";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+
+    settings.Items.Add(forUseItem =>
+    {
+        forUseItem.Text = "For Internal Use";
+        forUseItem.Items.Add(new MVCxMenuItem()
+        {
+            Text = "Expense",
+            Target = "_blank",
+            NavigateUrl = DevExpressHelper.GetUrl(new
+            {
+                Controller = "Item",
+                Action = "New",
+                Area = "Items",
+                itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Expense
+            })
+        });
+
+        forUseItem.Items.Add(new MVCxMenuItem()
+        {
+            Text = "Fixed Asset",
+            Target = "_blank",
+            NavigateUrl = DevExpressHelper.GetUrl(new
+            {
+                Controller = "Item",
+                Action = "New",
+                Area = "Items",
+                itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Asset
+            })
+        });
+    });
+
+    settings.Items.Add(forSalesItem =>
+    {
+        forSalesItem.Text = "For Sales";
+        forSalesItem.Items.Add("Service").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Controller = "Item", Action = "New", itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service });
+        forSalesItem.Items.Add("Non-Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Controller = "Item", Action = "New", itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory });
+        forSalesItem.Items.Add("Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Controller = "Item", Action = "New", itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory });
+    });
+
+}).GetHtml()

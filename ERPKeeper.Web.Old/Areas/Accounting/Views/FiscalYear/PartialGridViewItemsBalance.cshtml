@@ -1,0 +1,122 @@
+@{
+  var grid = Html.DevExpress().GridView(settings =>
+  {
+    settings.Name = "GridView";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+    settings.Styles.SearchPanel.BorderBottom.BorderWidth = Unit.Pixel(5);
+    settings.Styles.SearchPanel.BorderBottom.BorderColor = System.Drawing.Color.White;
+    settings.Styles.SearchPanel.HorizontalAlign = HorizontalAlign.Right;
+
+    settings.CallbackRouteValues = new { Controller = "FiscalYear", Action = "PartialGridViewCosting", id = ViewBag.id };
+
+
+    settings.KeyFieldName = "Uid";
+    settings.Width = Unit.Percentage(100);
+    settings.EncodeHtml = false;
+
+
+    settings.Columns.Add(column =>
+    {
+      column.FieldName = "Item.PartNumber";
+      column.Visible = false;
+    });
+
+    settings.Columns.Add(column =>
+    {
+      column.Caption = "PartNumber";
+      column.FieldName = "Item.Uid";
+      column.ColumnType = MVCxGridViewColumnType.HyperLink;
+      ((HyperLinkProperties)column.PropertiesEdit).TextField = "Item.PartNumber";
+      ((HyperLinkProperties)column.PropertiesEdit).NavigateUrlFormatString = Url.Action("Costing", "Item", new { Area = "Items" }) + "/{0}";
+    });
+
+    settings.Columns.Add(column =>
+    {
+      column.Caption = "Last Active";
+      column.FieldName = "Commercial.TrnDate";
+      column.Width = 100;
+      column.SortIndex = 1;
+      column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+    });
+
+    //settings.Columns.Add(column =>
+    //{
+    //  column.Caption = "Tr.tpye";
+    //  column.FieldName = "Commercial.TransactionType";
+
+    //  column.SortIndex = 2;
+    //});
+
+    //settings.Columns.Add(column =>
+    //{
+    //  column.Caption = "Tr.No";
+    //  column.FieldName = "Commercial.No";
+    //  column.SortIndex = 3;
+
+    //  column.SetDataItemTemplateContent(t =>
+    //  {
+    //    string TransactionGuid = DataBinder.Eval(t.DataItem, "TransactionGuid").ToString();
+    //    string _Number = (DataBinder.Eval(t.DataItem, "Commercial.No") ?? "N/A").ToString();
+    //    string Type = (DataBinder.Eval(t.DataItem, "Commercial.TransactionType") ?? "N/A").ToString();
+    //    ViewContext.Writer.Write(Html.ActionLink(_Number, "Redirect", "Commercial", new { id = TransactionGuid, Area = "Commercials", Type = Type }, null));
+    //  });
+
+    //});
+
+
+
+    //settings.Columns.Add(column =>
+    //{
+    //  column.Caption = "FIFOUsage";
+    //  column.FieldName = "FIFOUsage";
+
+    //  column.SetDataItemTemplateContent(t =>
+    //  {
+    //    string FIFOUsage = (DataBinder.Eval(t.DataItem, "FIFOUsage") ?? " ").ToString();
+
+    //    ViewContext.Writer.Write(FIFOUsage.ToString().Replace("\n", "<br />\n"));
+    //  });
+
+    //});
+
+    //settings.Columns.Add(column =>
+    //{
+    //  column.Caption = "COSG";
+    //  column.FieldName = "FIFOSaleCost";
+    //  column.PropertiesEdit.DisplayFormatString = "N2";
+    //});
+
+
+    //settings.Columns.Add(column =>
+    //{
+    //  column.Caption = "LINE COGS";
+    //  column.FieldName = "FIFOSaleCostLine";
+    //  column.PropertiesEdit.DisplayFormatString = "N2";
+
+    //});
+
+    settings.Columns.Add(column =>
+    {
+      column.Caption = "Remain";
+      column.FieldName = "StockRemain";
+    });
+
+    settings.Columns.Add(column =>
+    {
+      column.Caption = "Stock Value";
+      column.FieldName = "StockRemainValue";
+    });
+
+    
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "StockRemainValue").DisplayFormat = "N2";
+
+
+    settings.Settings.ShowFooter = true;
+    settings.Width = Unit.Percentage(100);
+    settings.EnableTheming = true;
+    settings.Styles.Header.Font.Bold = true;
+
+
+  });
+}
+@grid.Bind(Model).GetHtml()

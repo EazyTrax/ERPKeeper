@@ -1,0 +1,52 @@
+﻿@model ERPKeeper.Node.Models.Projects.Project
+
+<form id="EditForm" action="/Customers/Projects/@Model.Uid/Update" method="post">
+    <div class="m-1m">
+        <div class="row">
+            <div class="col-6 p-1">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+                    <div class="mb-3 font-weight-600">General</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("Name").LabelMode(EditorLabelMode.Floating)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Code).Label("Code").LabelMode(EditorLabelMode.Floating)</div>
+                    
+                </div>
+            </div>
+            <div class="col-6 p-1">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+                    <div class="mb-2">
+                        <div class="mb-3 font-weight-600">Dates</div>
+                        <div class="mb-2">@Html.DevExtreme().DateBoxFor(m=>m.CreatedDate).Label("CreatedDate").LabelMode(EditorLabelMode.Floating)</div>
+                     </div>
+                </div>
+            </div>
+            <div class="col-6 p-1">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+
+                    <div class="mb-2">
+                        <div class="mb-3 font-weight-600">Customers</div>
+
+                        @(Html.DevExtreme().SelectBoxFor(m=>m.CustomerProfileGuid)
+                        .DataSource(Organization.Customers.GetAll().Select(t => new { t.ProfileUid, Name = t.Profile.Name }).ToList())
+                        .Placeholder("Choose Projects")
+                        .DisplayExpr("Name")
+                        .ValueExpr("Uid")
+                        .ShowClearButton(true)
+                        .LabelMode(EditorLabelMode.Floating)
+                        )
+                    </div>
+                </div>
+            </div>
+
+        
+            <div class="col-6 p-1">
+                <div class=" bg-fb1 p-2 mb-2 rounded">
+                    <div class="mb-3 font-weight-600">Memo</div>
+                    <div class="mb-2">@Html.DevExtreme().TextAreaFor(m=>m.Detail).Height(150).Label("Detail").LabelMode(EditorLabelMode.Floating)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+        Save
+    </button>
+</form>

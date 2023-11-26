@@ -1,0 +1,37 @@
+﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Assets.DeprecateSchedule>()
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Uid")
+        .LoadUrl($"/API/{CompanyId}/Assets/{Model.Uid}/DeprecateSchedules/All")
+        )
+        .KeyExpr("Uid")
+        .Width("100%")
+        .RowAlternationEnabled(true)
+
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+        .RowDragging(rd => rd
+        .AllowDropInsideItem(false)
+        .AllowReordering(false)
+     
+        )
+            .Columns(columns =>
+            {
+            columns.AddFor(m => m.StartDate).Width(100).HeaderCellTemplate(@<text>Start</text>).SortOrder(SortOrder.Asc).SortIndex(1);
+            columns.AddFor(m => m.EndDate).Width(100).HeaderCellTemplate(@<text>End</text>).SortOrder(SortOrder.Asc).SortIndex(1);
+            columns.AddFor(m => m.TotalDays).Width(100).Format("##0").HeaderCellTemplate(@<text>Days</text>);
+            columns.AddFor(m => m.DepreciationValue).Format(",##0.00").Width(120).HeaderCellTemplate(@<text>Value</text>);
+            columns.AddFor(m => m.DepreciateAccumulation).Format(",##0.00").Width(120).HeaderCellTemplate(@<text>Value</text>);
+            columns.AddFor(m => m.RemainValue).Format(",##0.00").Width(120).HeaderCellTemplate(@<text>Value</text>);
+            columns.AddFor(m => m.Uid).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+          
+        })
+        )
+</div>
+
+

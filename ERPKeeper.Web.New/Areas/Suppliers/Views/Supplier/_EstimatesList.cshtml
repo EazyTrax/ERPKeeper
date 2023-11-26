@@ -1,0 +1,89 @@
+﻿
+
+@model ERPKeeper.Node.Models.Suppliers.Supplier
+
+
+
+@{
+     var Quotes = Organization
+        .ErpNodeDBContext
+        .SaleEstimates
+        .Include("Profile")
+        .Where(c => c.ProfileGuid == Model.ProfileUid)
+        .Select(i => new
+                                {
+                                    i.Uid,
+                                    i.TrnDate,
+                                    i.Name,
+                                    i.Status,
+                                    ProfileUid = i.ProfileGuid,
+                                    ShotName = i.Profile.ShotName,
+                                    ProfileName = i.Profile.Name,
+                                    i.Reference,
+                                    i.Total,
+                                })
+        .ToList();
+
+
+}
+
+
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Estimations.SaleQuote>()
+    .ID("gridList")
+    .DataSource(Quotes)
+        .RowAlternationEnabled(true)
+    .KeyExpr("Uid")
+    
+        @*.ExpandedRowKeys(new[] { 1 })*@
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Paging(paging => paging.PageSize(100))
+
+    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .Columns(columns => {
+
+
+
+    columns.AddFor(m=>m.TrnDate).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.AddFor(m=>m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
+    .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+    .DisplayExpr("Text")
+    .ValueExpr("Value")
+    );
+    columns.Add().DataField("Name")
+    .Width(130)
+    .CellTemplate(@<text>
+            <a href="/Sales/Estimate/<%= data.Uid %>/">
+                <%= data.Name %>
+            </a>
+        </text>);
+
+  
+
+    columns.Add().DataField("Reference");
+    columns.Add().DataField("Total").Format(Format.FixedPoint);
+    //columns.Add().DataField("Id");
+    })
+    )
+</div>
+

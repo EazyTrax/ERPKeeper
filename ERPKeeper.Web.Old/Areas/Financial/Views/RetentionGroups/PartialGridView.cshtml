@@ -1,0 +1,123 @@
+@model IList<ERPKeeper.Node.Models.Financial.Payments.RetentionGroup>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewRetentionGroups";
+
+        settings.CallbackRouteValues = new { Controller = "RetentionGroups", Action = "PartialGridView", id = ViewBag.id };
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.KeyFieldName = "Uid";
+        settings.Settings.ShowFooter = true;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 400;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.EncodeHtml = false;
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "N2";
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "No";
+            column.Caption = "No";
+
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Id = DataBinder.Eval(t.DataItem, "Id").ToString();
+                string ProfileName = DataBinder.Eval(t.DataItem, "No").ToString();
+                var linkTag = Html.ActionLink(ProfileName, "Home", "RetentionGroup", new { Area = "Financial", id = Id }, null);
+                ViewContext.Writer.Write(string.Format("{0}", linkTag));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+            column.SortIndex = 2;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.GroupIndex = 1;
+        });
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "Profile.Uid";
+//    column.Caption = "Account Name";
+//    column.SetDataItemTemplateContent(t =>
+//    {
+//        string ProfileGuid = (DataBinder.Eval(t.DataItem, "Profile.Uid") ?? "N/A").ToString();
+//        string ProfileName = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+//        var linkTag = Html.ActionLink(ProfileName, "Home", "Profile", new { Area = "Profiles", id = ProfileGuid }, null);
+//        ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:250px;'>{0}</div>", linkTag));
+//    });
+//});
+
+//settings.Columns.Add(column =>
+//{
+//    column.FieldName = "Name";
+//    column.Caption = "Payment";
+
+//    column.SetDataItemTemplateContent(t =>
+//    {
+//        string id = (DataBinder.Eval(t.DataItem, "Uid") ?? "N/A").ToString();
+//        string Name = (DataBinder.Eval(t.DataItem, "Name") ?? " ").ToString();
+//        ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "GeneralPayment", new { id = id, Area = "Financial" }, null));
+//    });
+//});
+
+
+settings.Columns.Add(column =>
+        {
+            column.FieldName = "RetentionType.Name";
+            column.Caption = "Retention";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string RetentionTypeId = (DataBinder.Eval(t.DataItem, "RetentionTypeId") ?? "N/A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "RetentionType.Name") ?? " ").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "RetentionType", new { id = RetentionTypeId, Area = "Financial" }, null));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Count";
+            column.Caption = "Count";
+
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AmountCommercial";
+            column.Caption = "Commercial";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AmountRetention";
+            column.Caption = "Retention";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

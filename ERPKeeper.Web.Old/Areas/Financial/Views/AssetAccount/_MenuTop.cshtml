@@ -1,0 +1,39 @@
+﻿@{
+
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div style="font-weight: 600;margin-bottom:10px;">@Model.Name</div>
+</div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+    //settings.Items.Add("Service").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Type = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service });
+    //settings.Items.Add("NonInventory").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Type = ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory });
+    //settings.Items.Add("Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Type = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory });
+    //settings.Items.Add("EmployeeBenefit").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Type = ERPKeeper.Node.Models.Items.Enums.ItemTypes.EmployeeBenefit });
+
+    //settings.Items.Add(item =>
+    //{
+    //    item.Text = "Action";
+    //    //item.Items.Add("New Bank Account").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Company", Controller = "AccountItem", Action = "New", accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.Bank });
+    //});
+
+}).GetHtml()
+
+<div class="mt-3">
+    <a href="@Url.Action("Home", "AssetAccounts", new {  })">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+
+   
+</div>

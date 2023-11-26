@@ -1,0 +1,26 @@
+﻿
+
+<div class="row mb-1 mh-50">
+    <div class="col-11">
+        <div class="">
+            <b>TAX CODE</b><br />
+        </div>
+
+    </div>
+    <div class="col-1 text-right">
+        <span id="ImageMenuPlus"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+        {
+            settings.Name = "PopupMenuAdd";
+            settings.PopupElementID = "ImageMenuPlus";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+
+            settings.Items.Add("Input Tax").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "New", Controller = "TaxCode", Direction = ERPKeeper.Node.Models.Taxes.Enums.TaxDirection.Input });
+            settings.Items.Add("Output Tax").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "New", Controller = "TaxCode", Direction = ERPKeeper.Node.Models.Taxes.Enums.TaxDirection.Output });
+            settings.PopupAction = PopupAction.LeftMouseClick;
+        }).GetHtml()
+    </div>
+</div>
+
+
+

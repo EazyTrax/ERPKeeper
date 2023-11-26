@@ -1,0 +1,39 @@
+﻿@{
+
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div style="font-weight: 600;margin-bottom:10px;">@Model.Name</div>
+</div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+
+    settings.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = Model.Uid });
+    settings.Items.Add("Payments").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Payments", id = Model.Uid });
+
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "New";
+        item.Items.Add("Payment").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "liabilityPayments", Action = "New", id = Model.Uid });
+    });
+
+}).GetHtml()
+
+<div class="mt-3">
+    <a href="@Url.Action("Home", "liabilityaccounts", new {  })">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+
+
+</div>

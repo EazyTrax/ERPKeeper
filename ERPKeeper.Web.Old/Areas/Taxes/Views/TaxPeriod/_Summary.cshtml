@@ -1,0 +1,17 @@
+﻿@model ERPKeeper.Node.Models.Taxes.TaxPeriod
+
+<style>
+    .LeftTdColumn {
+        width: 100px;
+        height: 25px;
+    }
+</style>
+
+<script>
+
+    function CalculateTax(s, e) {
+        AmountTaxDue.SetText(AmountOutPutTax.GetText() - AmountInputTax.GetText());
+    }
+</script>
+
+

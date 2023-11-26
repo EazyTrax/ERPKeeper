@@ -1,0 +1,83 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewPayments";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.KeyFieldName = "Uid";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RetentionDirection";
+            column.Caption = "Type";
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+
+            column.Caption = "Name";
+            column.SortIndex = 1;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "RetentionType", new { id = Uid }, null));
+            });
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PaymentType";
+            column.Caption = "Type";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Rate";
+            column.Caption = "Rate";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RetentionToAccount.Name";
+            column.Caption = "บัญชีที่รับ";
+        });
+
+
+        settings.Settings.ShowFooter = true;
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Styles.GroupRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#CCCCCC");
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.Footer.Font.Bold = true;
+
+        settings.CommandColumn.CellStyle.BackColor = System.Drawing.Color.Transparent;
+        settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+        settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+    });
+}
+@grid.Bind(Model).GetHtml()
+

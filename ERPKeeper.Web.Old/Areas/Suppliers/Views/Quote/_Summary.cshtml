@@ -1,0 +1,40 @@
+﻿@model ERPKeeper.Node.Models.Estimations.PurchaseQuote
+
+<div class="p-2 mb-2 bg-fb2 rounded">
+    <div id="_Summary">
+        <style type="text/css">
+            table.summary {
+            }
+
+                table.summary td {
+                    border: 1px solid #C0C0C0;
+                    padding: 3px;
+                }
+        </style>
+
+        <div style="float:right;">
+            <table class="summary">
+                <tr>
+                    <td style="width: 180px;">Lines Total</td>
+                    <td style="text-align:right;width: 86px;">@Model.LinesTotal.ToString("N2")</td>
+                </tr>
+
+                @(Model.TaxCode?.Name)
+                @if (Model.TaxCode != null)
+                {
+                    <tr>
+                        <td style="width: 180px;">Sales Tax , @(Model.TaxCode?.Name)</td>
+                        <td style="text-align:right;">@Model.Tax.ToString("N2")</td>
+                    </tr>
+                }
+
+                <tr>
+                    <td style="width: 180px;">Total</td>
+                    <td style="text-align:right;">@Model.Total.ToString("N2")</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+

@@ -1,0 +1,332 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+<div class="bg-fb2">
+
+    @using (Html.BeginForm("Save", "Item"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+        @Html.HiddenFor(model => model.ItemType)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "Item";
+       settings.ColCount = 2;
+       settings.EncodeHtml = false;
+       settings.Width = Unit.Percentage(100);
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = Model.PartNumber ?? "Item Detail";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+           groupSettings.Height = Unit.Pixel(360);
+
+           groupSettings.Items.Add(m => m.PartNumber, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+               var textBoxSetting = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+               textBoxSetting.Properties.NullText = "Enter part number";
+           });
+
+           groupSettings.Items.Add(m => m.UPC, itemSettings =>
+           {
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+
+
+           groupSettings.Items.Add(m => m.Description, itemSettings =>
+           {
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               MemoSettings memoSetting = (MemoSettings)itemSettings.NestedExtensionSettings;
+               memoSetting.Width = Unit.Percentage(100);
+               memoSetting.Height = Unit.Pixel(150);
+
+               itemSettings.ParentContainerStyle.Paddings.PaddingBottom = Unit.Pixel(20);
+           });
+
+
+
+
+           groupSettings.Items.Add(m => m.Status, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+           });
+
+           groupSettings.Items.Add(m => m.BrandGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Brand", "", "Brands", new { Area = "Items" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.Brands.ToList();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
+           });
+
+           groupSettings.Items.Add(m => m.ParentUid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Group", "", "Groups", new { Area = "Items" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "PartNumber";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = erpNodeDBContext.Items.Where(i=>i.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Group).ToList();
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
+           });
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Specification";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+           groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+           groupSettings.ColumnSpan = 1;
+           groupSettings.Height = Unit.Pixel(360);
+
+
+           groupSettings.Items.Add(m => m.Specification, itemSettings =>
+           {
+               itemSettings.ShowCaption = DefaultBoolean.False;
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+
+               MemoSettings memoSetting = (MemoSettings)itemSettings.NestedExtensionSettings;
+               memoSetting.Width = Unit.Percentage(100);
+               memoSetting.Height = Unit.Pixel(250);
+           });
+       });
+
+
+       //Sale Section
+       switch (Model.ItemType)
+       {
+           case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service:
+           case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory:
+           case ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory:
+
+               settings.Items.AddGroupItem(groupSettings =>
+               {
+                   groupSettings.Caption = "Sale Information";
+                   groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+                   groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+                   groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+                   groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+                   groupSettings.Items.Add(m => m.UnitPrice, itemSettings =>
+                   {
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                       var spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                       spinSetting.Properties.DisplayFormatString = "N2";
+                       spinSetting.Properties.DisplayFormatInEditMode = true;
+
+                   });
+
+                   groupSettings.Items.Add(m => m.PriceRangeUid, itemSettings =>
+                   {
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                       itemSettings.Caption = Html.ActionLink("Price Range", "Home", "PriceRanges", new { Area = "Items" }, null).ToHtmlString();
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+                       ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                       cb.Properties.TextField = "Name";
+                       cb.Properties.ValueField = "Uid";
+                       cb.Properties.ValueType = typeof(Guid);
+                       cb.Properties.DataSource = erpNodeDBContext.PriceRanges.ToList();
+                   });
+                   groupSettings.Items.Add(m => m.IncomeAccountUid, itemSettings =>
+                   {
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                       itemSettings.Caption = Html.ActionLink("Income Account", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+                       ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                       cb.Properties.TextField = "Name";
+                       cb.Properties.ValueField = "Uid";
+                       cb.Properties.ValueType = typeof(Guid);
+                       cb.Properties.DataSource = Organization.ChartOfAccount.IncomeAccounts;
+                   });
+                   groupSettings.Items.Add(m => m.OnlineSale, itemSettings =>
+                   {
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.CheckBox;
+                   });
+               });
+               break;
+       }
+
+       //Purchase Section
+       switch (Model.ItemType)
+       {
+           //case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service:
+           case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Expense:
+           case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory:
+           case ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory:
+
+               settings.Items.AddGroupItem(groupSettings =>
+               {
+                   groupSettings.Caption = "Purchase Information";
+                   groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+                   groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+                   groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+                   groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+                   groupSettings.Items.Add(m => m.PurchasePrice, itemSettings =>
+                   {
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                       var spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                       spinSetting.Properties.DisplayFormatString = "N2";
+                       spinSetting.Properties.DisplayFormatInEditMode = true;
+                   });
+
+                   groupSettings.Items.Add(m => m.PurchaseAccountUid, itemSettings =>
+                   {
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                       itemSettings.Caption = Html.ActionLink("Purchase Account", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+
+                       ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                       cb.Properties.TextField = "Name";
+                       cb.Properties.ValueField = "Uid";
+                       cb.Properties.ValueType = typeof(Guid);
+
+                       if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Expense)
+                           cb.Properties.DataSource = Organization.ChartOfAccount.ExpenseAccounts;
+                       else if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory)
+                           cb.Properties.DataSource = Organization.ChartOfAccount.GetCOGSExpenseAccounts();
+                       else if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory)
+                           cb.Properties.DataSource = Organization.ChartOfAccount.InventoryAssetAccounts;
+
+                   });
+
+                   groupSettings.Items.Add(m => m.HarmonizedCode, itemSettings =>
+                   {
+                       itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                       itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   });
+               });
+               break;
+       }
+
+       //Asset
+       if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Asset)
+       {
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Fix Asset Information";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+               groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+               groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+               groupSettings.Items.Add(m => m.FixedAssetTypeUid, itemSettings =>
+               {
+                   itemSettings.Caption = Html.ActionLink("FixedAssetType", "Home", "FixedAssetTypes", new { Area = "Assets" }, null).ToHtmlString();
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                   ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                   cb.Properties.TextField = "Name";
+                   cb.Properties.ValueField = "Uid";
+                   cb.Properties.ValueType = typeof(Guid);
+                   cb.Properties.DataSource = erpNodeDBContext.FixedAssetTypes.ToList();
+               });
+           });
+       }
+
+       //Inventory Section
+       if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory)
+       {
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Inventory Information";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+               groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+               groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+               groupSettings.Items.Add(m => m.OpeningPurchaseCost, itemSettings =>
+               {
+                   itemSettings.Caption = "Opening Cost";
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                   var spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                   spinSetting.Properties.DisplayFormatString = "N2";
+                   spinSetting.Properties.DisplayFormatInEditMode = true;
+               });
+               groupSettings.Items.Add(m => m.OpeningPurchaseAmount, itemSettings =>
+               {
+                   itemSettings.Caption = "Opening Amount";
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                   var spinSetting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                   spinSetting.Properties.DisplayFormatString = "N0";
+                   spinSetting.Properties.DisplayFormatInEditMode = true;
+               });
+
+
+               groupSettings.Items.Add(m => m.CostingMethod, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+               });
+
+               groupSettings.Items.Add(m => m.COGSAccountGuid, itemSettings =>
+               {
+
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.Caption = Html.ActionLink("COSG Account", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                   ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                   cb.Properties.TextField = "Name";
+                   cb.Properties.ValueField = "Uid";
+                   cb.Properties.ValueType = typeof(Guid);
+                   cb.Properties.DataSource = Organization.ChartOfAccount.GetCOGSExpenseAccounts();
+               });
+
+               groupSettings.Items.Add(m => m.AmountReorder, itemSettings =>
+               {
+                   itemSettings.Caption = "Reorder Amount";
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               });
+           });
+
+       }
+
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+
+       });
+
+   }).GetHtml()
+    }
+</div>

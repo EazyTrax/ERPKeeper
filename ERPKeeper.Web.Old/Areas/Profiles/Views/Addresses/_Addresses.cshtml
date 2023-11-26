@@ -1,0 +1,96 @@
+﻿
+@model ERPKeeper.Node.Models.Profiles.Profile
+
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewAddresses";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.KeyFieldName = "AddressGuid";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Number";
+            column.Caption = "Number";
+            column.SortIndex = 1;
+            column.Width = 100;
+            column.SortAscending();
+            column.SetDataItemTemplateContent(t =>
+            {
+                string AddressGuid = DataBinder.Eval(t.DataItem, "AddressGuid").ToString();
+                string Number = (DataBinder.Eval(t.DataItem, "Number") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "Address", new { id = AddressGuid }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AddressLine";
+            column.Caption = "AddressLine";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PhoneNumber";
+            column.Caption = "PhoneNumber";
+
+        });
+
+
+
+
+
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+
+
+
+
+
+
+
+        settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+        settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model.Addresses).GetHtml()

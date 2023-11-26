@@ -1,0 +1,14 @@
+﻿@model ERPKeeper.Node.Models.Items.GroupItem
+
+
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>Add Item</b><br /><br />
+    @using (Html.BeginForm("AddItem", "Group", new { id = Model.Uid }, FormMethod.Post, new { @id = "SaveForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Action("Partial_ComboBoxItems", "Items", new { Area = "Items"})<br />
+        <input type="submit" /><br />
+    }
+</div>

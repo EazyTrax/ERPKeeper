@@ -1,0 +1,79 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+<div class="mh-80 mb-2">
+    <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Dashboard",new { Area = "Suppliers"})">@Lang.Suppliers</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Purchases",new { Area = "Suppliers"})">@Lang.Purchases</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Purchase",new { Area = "Suppliers", id = Model.Uid})">
+                        @Model.Name
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="col text-right p-2">
+            <span id="ImageMenuLock" style="cursor:pointer"><i class="fas fa-globe-asia fa-lg text-muted"></i></span>
+
+            @Html.DevExpress().PopupMenu(settings =>
+        {
+            settings.Name = "PopupMenuLock";
+            settings.PopupElementID = "ImageMenuLock";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+            settings.PopupAction = PopupAction.LeftMouseClick;
+            settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+            if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+                settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UnPost", Controller = "Purchase", id = Model.Uid });
+            }
+
+            settings.Items.Add(item =>
+            {
+                item.Text = "Advance";
+                item.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Delete", Controller = "Purchase", id = Model.Uid });
+                item.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Copy", Controller = "Purchase", id = Model.Uid });
+            });
+
+        }).GetHtml()
+
+        </div>
+    </div>
+    <div>
+        @Html.DevExpress().Menu(settings =>
+   {
+       settings.Name = "mFeatures";
+       settings.AllowSelectItem = true;
+       settings.EnableHotTrack = true;
+       settings.EnableAnimation = true;
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+       settings.EncodeHtml = false;
+       settings.Styles.Item.CssClass = "px-1";
+
+       settings.Styles.Item.SelectedStyle.Font.Bold = true;
+       settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Controller="Purchase", id = Model.Uid });
+       settings.Items.Add(Lang.Items).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Items", Controller="Purchase", id = Model.Uid });
+
+       settings.Items.Add("Payments").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Payments", Controller="Purchase", id = Model.Uid });
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "Export";
+           item.Items.Add("เอกสารซื้อ").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Export", Controller="Purchase", id = Model.Uid, DocumentType = "เอกสารซื้อ" });
+       });
+
+       settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Documents).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Documents", Controller = "Purchase", id = Model.Uid });
+
+
+   }).GetHtml()
+    </div>
+</div>

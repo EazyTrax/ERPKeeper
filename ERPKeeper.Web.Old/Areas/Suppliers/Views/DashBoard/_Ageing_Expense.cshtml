@@ -1,0 +1,45 @@
+
+@{
+    var OpenPurchase = erpNodeDBContext.Purchases.Where(b => b.Status == ERPKeeper.Node.Models.Transactions.CommercialStatus.Open);
+
+    DateTime exp30Date = DateTime.Today.AddDays(-30);
+    DateTime exp60Date = DateTime.Today.AddDays(-60);
+    DateTime exp90Date = DateTime.Today.AddDays(-90);
+    DateTime exp120Date = DateTime.Today.AddDays(-120);
+
+    decimal exp30Amount = OpenPurchase.Where(b => b.TrnDate < exp30Date).Select(i => i.Total).DefaultIfEmpty(0).Sum();
+    decimal exp60Amount = OpenPurchase.Where(b => b.TrnDate < exp60Date).Select(i => i.Total).DefaultIfEmpty(0).Sum();
+    decimal exp90Amount = OpenPurchase.Where(b => b.TrnDate < exp90Date).Select(i => i.Total).DefaultIfEmpty(0).Sum();
+
+}
+
+
+
+<div style="padding:0px;margin-bottom:10px;margin-top:0px;">
+    <a href="@Url.Action("Home", "Purchases", new { Area = "Suppliers", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.Open })">
+        <div style="float:left;width:160px;" title="0 Purchase" >
+            <div style="background-color: #efb328;padding:5px;">
+                <b>30 Days</b><br />
+                @exp30Amount.ToString("N2")
+            </div>
+        </div>
+    </a>
+
+    <a href="@Url.Action("Home", "Purchases", new { Area = "Suppliers", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.OverDue })">
+        <div style="float:left;width:120px;" title="0 Purchase">
+            <div style="background-color: #e33d43;padding:5px;color:white;">
+                <b>60 Days</b><br />
+                @exp60Amount.ToString("N2")
+            </div>
+        </div>
+    </a>
+
+    <div style="float:left;width:90px;">
+        <div style="background-color: #efb328;padding:5px;"  title="0 Purchase">
+            <b>90 Days</b><br />
+            @exp90Amount.ToString("N2")
+        </div>
+    </div>
+
+    <div style="clear:both;"></div>
+</div>

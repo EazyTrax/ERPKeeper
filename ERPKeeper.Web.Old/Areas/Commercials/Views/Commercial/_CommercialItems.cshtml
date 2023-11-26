@@ -1,0 +1,21 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+@using ERPKeeper.Node.Models.Accounting.Enums;
+
+<div class="mb-2">
+    @if (Model.PostStatus != LedgerPostStatus.Locked)
+    {
+        @Html.Partial("~/Areas/Commercials/Views/CommercialItems/_AddItem.cshtml", Model)
+    }
+</div>
+
+<script>
+    function OnRowDblClick(s, e) {
+        s.StartEditRow(e.visibleIndex);
+    }
+
+    function OnEndCallback(s, e) {
+        cbpExample.PerformCallback();
+    }
+</script>
+
+@Html.Partial("~/Areas/Commercials/Views/Commercial/PartialGridViewItems.cshtml", Model)

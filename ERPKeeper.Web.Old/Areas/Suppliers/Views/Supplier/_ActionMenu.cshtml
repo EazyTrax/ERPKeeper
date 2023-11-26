@@ -1,0 +1,75 @@
+﻿@model ERPKeeper.Node.Models.Suppliers.Supplier
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Suppliers",new { Area = "Suppliers"})">Suppliers</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Supplier",new { Area = "Suppliers", id = Model.ProfileUid})">
+                    @Model.Profile.Name
+                </a>
+            </li>
+        </ol>
+    </div>
+
+
+    <div class="col-3 text-right p-2">
+        <span id="ImageMenuPlus" style="cursor:pointer">
+            <i class="fas fa-plus-circle fa-lg text-muted"></i>
+        </span>
+        <span id="ImageMenuAction" style="cursor:pointer">
+            <i class="fab fa-chrome fa-lg text-muted"></i>
+        </span>
+        <a href="@Url.Action("Home", "Profile", new { Area= "Profiles", id = Model.ProfileUid})">
+            <i class="fas fa-user-circle fa-lg text-muted"></i>
+        </a>
+
+
+
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+       if (Model.Status == ERPKeeper.Node.Models.Suppliers.Enums.SupplierStatus.Active)
+       {
+           settings.Items.Add("Mark Inactive").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "MarkInactive", Controller = "Supplier", Id = Model.ProfileUid });
+       }
+       else
+       {
+           settings.Items.Add("Mark Active").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "MarkActive", Controller = "Supplier", Id = Model.ProfileUid });
+       }
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "Report";
+           item.Items.Add("Charts").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Top", Controller = "Supplier", id = Model.ProfileUid });
+           item.Items.Add("Update Sum").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateAmount", Controller = "Supplier", id = Model.ProfileUid });
+       });
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "New Transaction";
+           item.Items.Add("1-Quote").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "NewQuote", Controller = "Supplier", id = Model.ProfileUid});
+           item.Items.Add("2-Purchase").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "newpurchase", Controller = "Supplier", id = Model.ProfileUid });
+           item.Items.Add("3-Payment").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "NewSupplierPayment", Controller = "Supplier", id = Model.ProfileUid });
+
+       });
+   }).GetHtml()
+
+    </div>
+</div>
+
+
+<div class="bg-fb2 p-2 mb-1 mh-40">
+    @Html.ActionLink("Home", "Home", new { id = Model.ProfileUid }) ·
+    @Html.ActionLink("Purchases", "Purchases", new { id = Model.ProfileUid }) ·
+    @Html.ActionLink("Purchase Quotes", "PurchaseQuotes", new { id = Model.ProfileUid })
+</div>

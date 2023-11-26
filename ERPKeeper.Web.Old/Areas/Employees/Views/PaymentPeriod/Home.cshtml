@@ -1,0 +1,29 @@
+﻿@model ERPKeeper.Node.Models.Employees.EmployeePaymentPeriod
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop", Model)
+            @Html.Partial("_Form", Model)
+
+
+
+            @Html.Action("PartialGridView", new { Id = Model.Uid })
+        </div>
+        <div class="col-3 col-Middle pr-0">
+            <div class="row p-2 mb-2 bg-fb2 rounded">
+                <div class="col p-0">
+                    <string>Earning</string> <br />
+                    @Model.TotalEarning
+                </div>
+                <div class="col p-0 border-left border-white">
+                    <string>Deduction</string> <br />
+                    @Model.TotalDeduction
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

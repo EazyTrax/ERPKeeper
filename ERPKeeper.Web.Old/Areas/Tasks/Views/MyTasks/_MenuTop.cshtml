@@ -1,0 +1,87 @@
+﻿
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase ">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Tasks",new { Area = "Tasks"})">Tasks</a>
+            </li>
+        </ol>
+    </div>
+
+    <div class="col-2 text-right">
+        @*<span id="ImageMenuNewTask" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupControl(settings =>
+           {
+               settings.Name = "MenuNewTask";
+               settings.PopupElementID = "ImageMenuNewTask";
+               settings.PopupAction = PopupAction.LeftMouseClick;
+               settings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+               settings.PopupVerticalAlign = PopupVerticalAlign.Below;
+               settings.Height = 70;
+               settings.Width = 300;
+               settings.ShowHeader = false;
+               settings.Styles.Content.BackColor = System.Drawing.Color.LightGray;
+
+               settings.SetContent(() =>
+               {
+                   Html.RenderAction("_NewTask");
+               });
+           }).GetHtml()*@
+    </div>
+
+    <div class="col-12 p-0">
+        <div class="row ">
+            <div class="col bg-light mr-2 p-2">
+                <a href="@DevExpressHelper.GetUrl(new { Action = "Home", id = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Open })">
+                    <div class="row">
+                        <div class="col-8">
+                            Open
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+                                @erpNodeDBContext.Tasks.Where(i => i.Status == ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Open).Count()
+                            </span>
+                        </div>
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col bg-light mr-2 p-2">
+                <a href="@DevExpressHelper.GetUrl(new { Action = "Home", id = ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Close })">
+                    <div class="row">
+                        <div class="col-8">
+                            Close
+                        </div>
+                        <div class="col-4 text-right">
+                            <span class="font-weight-bold">
+                                @erpNodeDBContext.Tasks.Where(i => i.Status == ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Close).Count()
+                            </span>
+                        </div>
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col bg-light mr-2 p-2">
+                <div class="text-right mt-3 mx-3"><span class="font-weight-bold"></span></div>
+            </div>
+            <div class="col bg-light p-2">
+                <div class="text-right mt-3 mx-3"><span class="font-weight-bold"></span></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

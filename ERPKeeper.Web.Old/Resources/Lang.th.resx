@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Financial" xml:space="preserve">
+    <value>ธนาคาร และ การเงิน</value>
+  </data>
+  <data name="ChartOfAccount" xml:space="preserve">
+    <value>ผังบัญชี</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>บริษัท</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>ลูกค้า</value>
+  </data>
+  <data name="EarnestReceives" xml:space="preserve">
+    <value>เงินมัดจำรับ</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>พนักงาน</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>รายจ่าย</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>แฟ้มข้อมูล</value>
+  </data>
+  <data name="Ledgers" xml:space="preserve">
+    <value>บัญชีแยกประเภททั่วไป</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>รายละเอียด</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>รายรับ</value>
+  </data>
+  <data name="OverDue" xml:space="preserve">
+    <value>อายุเกิน</value>
+  </data>
+  <data name="Investors" xml:space="preserve">
+    <value>เจ้าของ</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>รายงาน</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>คู่ค้า, ผู้ผลิต</value>
+  </data>
+  <data name="UnPaid" xml:space="preserve">
+    <value>ค้างชำระ</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>กิจกรรม</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>หน่วยงาน</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>โครงการ</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>งาน</value>
+  </data>
+  <data name="Periods" xml:space="preserve">
+    <value>งวดบัญชี</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>ภาษี</value>
+  </data>
+  <data name="BankAccounts" xml:space="preserve">
+    <value>บัญชีธนาคาร</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>รายการขาย</value>
+  </data>
+  <data name="Quotation" xml:space="preserve">
+    <value>ใบเสนอราคา</value>
+  </data>
+  <data name="SalesOrder" xml:space="preserve">
+    <value>ใบสั่งซื้อ</value>
+  </data>
+  <data name="SupplierPayment" xml:space="preserve">
+    <value>รับชำระหนี้</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="FixedAssets" xml:space="preserve">
+    <value>สินทรัพย์ฐาวร</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="DashBoard" xml:space="preserve">
+    <value>กระดานสรุปผล</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>สินค้า และ บริการ</value>
+  </data>
+  <data name="Profiles" xml:space="preserve">
+    <value>โปรไฟล์</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>ภาษี</value>
+  </data>
+  <data name="FiscalYear" xml:space="preserve">
+    <value>ปีบัญชี</value>
+  </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>ซื้อ</value>
+  </data>
+  <data name="Sale" xml:space="preserve">
+    <value>ขาย</value>
+  </data>
+  <data name="Purchases" xml:space="preserve">
+    <value>รายการซื้อ</value>
+  </data>
+  <data name="AccountGroups" xml:space="preserve">
+    <value>กลุ่มบัญชี</value>
+  </data>
+  <data name="CapitalActivity" xml:space="preserve">
+    <value>กิจกรรมเกี่ยวกับทุน</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>บัญชีระบบ</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>ชำระเงิน</value>
+  </data>
+  <data name="Brands" xml:space="preserve">
+    <value>ยีห้อ</value>
+  </data>
+  <data name="Expense1" xml:space="preserve">
+    <value>รายจ่ายน</value>
+  </data>
+  <data name="IncomeTax" xml:space="preserve">
+    <value>ภาษีเงืนได้</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>สินค้านับจำนวน</value>
+  </data>
+  <data name="ItemGroups" xml:space="preserve">
+    <value>กลุ่มสินค้า</value>
+  </data>
+  <data name="NonInventory" xml:space="preserve">
+    <value>สินค้าไม่นับจำนวน</value>
+  </data>
+  <data name="SalesTax" xml:space="preserve">
+    <value>ภาษีขาย</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>บริการ</value>
+  </data>
+  <data name="TaxCodes" xml:space="preserve">
+    <value>รหัสภาษี</value>
+  </data>
+  <data name="Accountants" xml:space="preserve">
+    <value>พนักงานบัญชี</value>
+  </data>
+  <data name="CashAccount" xml:space="preserve">
+    <value>บัญชีเงินสด</value>
+  </data>
+  <data name="PurchaseReturn" xml:space="preserve">
+    <value>คืน</value>
+  </data>
+  <data name="SalesReturn" xml:space="preserve">
+    <value>รับคืน</value>
+  </data>
+  <data name="SalesReturns" xml:space="preserve">
+    <value>รับคืน</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>นิติบุคคล หรือ หน่วยงาน</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>นิติบุคคล หรือ หน่วยงาน</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>บุคลล</value>
+  </data>
+  <data name="Persons" xml:space="preserve">
+    <value>บุคคล</value>
+  </data>
+  <data name="Asset" xml:space="preserve">
+    <value>สินทรัพย์</value>
+  </data>
+  <data name="Assets" xml:space="preserve">
+    <value>สินทรัพย์</value>
+  </data>
+  <data name="AssetTypes" xml:space="preserve">
+    <value>ประเภทสินทรัพย์</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>ตำแหน่งงาน</value>
+  </data>
+  <data name="FinancialAccounts" xml:space="preserve">
+    <value>บัญชีเงินสด</value>
+  </data>
+  <data name="FundTransfers" xml:space="preserve">
+    <value>โอนเงินระหว่างบัญชี</value>
+  </data>
+  <data name="Lend" xml:space="preserve">
+    <value>เงินให้กู้</value>
+  </data>
+  <data name="SupplierPayments" xml:space="preserve">
+    <value>ชำระหนี้</value>
+  </data>
+  <data name="Loans" xml:space="preserve">
+    <value>เงินกู้</value>
+  </data>
+  <data name="PaymentStubs" xml:space="preserve">
+    <value>Payment Stubs (TH)</value>
+  </data>
+  <data name="PaymentTemplate" xml:space="preserve">
+    <value>PaymentTemplate (TH)</value>
+  </data>
+  <data name="ReceivePayments" xml:space="preserve">
+    <value>รับชำระหนี้</value>
+  </data>
+  <data name="RetentionPayments" xml:space="preserve">
+    <value>Retention Payments (TH)</value>
+  </data>
+  <data name="RetentionTypes" xml:space="preserve">
+    <value>Retention Types (TH)</value>
+  </data>
+  <data name="BusinessDirectory" xml:space="preserve">
+    <value>ฐานข้อมูลธุรกิจ</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>ศูนย์ช่วยเหลือ</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>ภาษา</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>อื่น ๆ</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="FixedAssetTypes" xml:space="preserve">
+    <value>ประเภทสิททรัพย์ฐาวร</value>
+  </data>
+  <data name="TrialBalance" xml:space="preserve">
+    <value>งบทดลอง</value>
+  </data>
+  <data name="YourRemainingTasks" xml:space="preserve">
+    <value>งานคงค้างของท่าน</value>
+  </data>
+  <data name="Capital" xml:space="preserve">
+    <value>ส่วนของเจ้าของ</value>
+  </data>
+  <data name="Liability" xml:space="preserve">
+    <value>หนี้สิน</value>
+  </data>
+  <data name="Estimation" xml:space="preserve">
+    <value>ประมาณการ</value>
+  </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>ประมาณการ</value>
+  </data>
+  <data name="LiabilityPaymentTypes" xml:space="preserve">
+    <value>Liability Payment Types (TH)</value>
+  </data>
+  <data name="ReceivePaymentTypes" xml:space="preserve">
+    <value>Receive Payment Types (TH)</value>
+  </data>
+  <data name="ProfitAndLost" xml:space="preserve">
+    <value>กำไรขาดทุน</value>
+  </data>
+  <data name="Addresses" xml:space="preserve">
+    <value>ที่อยู่</value>
+  </data>
+  <data name="AddRole" xml:space="preserve">
+    <value>เพิ่มหน้าที่</value>
+  </data>
+  <data name="Cases" xml:space="preserve">
+    <value>กรณี</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>สร้างใหม่</value>
+  </data>
+  <data name="DocumentGroups" xml:space="preserve">
+    <value>กลุ่มเอกสาร</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>ครบกำหนด</value>
+  </data>
+  <data name="GrossPorfit" xml:space="preserve">
+    <value>กำไรสุทธิ</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>ประวัติการใช้งาน</value>
+  </data>
+  <data name="IncomeStatement" xml:space="preserve">
+    <value>งบกำไรขาดทุน</value>
+  </data>
+  <data name="JournalEntries" xml:space="preserve">
+    <value>รายการบันทึก</value>
+  </data>
+  <data name="JournalEntryTypes" xml:space="preserve">
+    <value>ประเภทรายการบันทึก</value>
+  </data>
+  <data name="NotDue" xml:space="preserve">
+    <value>ยังไม่ครบกำหนด</value>
+  </data>
+  <data name="PartNumber" xml:space="preserve">
+    <value>รหัสสินค้า</value>
+  </data>
+  <data name="Sponsor" xml:space="preserve">
+    <value>ผู้สนับสนุน</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="FixedAsset" xml:space="preserve">
+    <value>สินทรัพย์ฐาวร</value>
+  </data>
+  <data name="NonDeprecatedAsset" xml:space="preserve">
+    <value>สินสรัพย์ไม่ด้อยค่า</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>สมบูรณ์</value>
+  </data>
+  <data name="OpenTask" xml:space="preserve">
+    <value>งานคงค้าง</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>ระงับไว้</value>
+  </data>
+  <data name="YourOpenTask" xml:space="preserve">
+    <value>งานคงค้างของท่าน</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>ยอดยกมา</value>
+  </data>
+  <data name="RelatedAccount" xml:space="preserve">
+    <value>บัญชีที่เกี่ยวข้อง</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>ผู้รับผิดชอบ</value>
+  </data>
+  <data name="TaxID" xml:space="preserve">
+    <value>หมายเลขผู้เสียภาษี</value>
+  </data>
+  <data name="BankAccount" xml:space="preserve">
+    <value>บัญชีธนาคาร</value>
+  </data>
+  <data name="RetainEarning" xml:space="preserve">
+    <value>กำไรสะสม</value>
+  </data>
+  <data name="CostOfGoodsSold" xml:space="preserve">
+    <value>ต้นทุนสินค้าขาย</value>
+  </data>
+  <data name="TaxPeriods" xml:space="preserve">
+    <value>ปิดภาษีขาย</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Incomes" xml:space="preserve">
+    <value>รายรับ</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>รายรับ</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="TrnDate" xml:space="preserve">
+    <value>วันที่ธุรกรรม</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>สิทธิ</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>สิทธิ</value>
+  </data>
+  <data name="AddCommecialRole" xml:space="preserve">
+    <value>เพิ่มหน้าที่การค้า</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>ร่าง</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>ชำระแล้ว</value>
+  </data>
+  <data name="Cancle" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="PartialPaid" xml:space="preserve">
+    <value>บางส่วน</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>การชำระเงิน</value>
+  </data>
+  <data name="AdvancePayment" xml:space="preserve">
+    <value>ชำระเงินขั้นสูง</value>
+  </data>
+  <data name="CashPayment" xml:space="preserve">
+    <value>ชำระแบบง่าย</value>
+  </data>
+  <data name="Costing" xml:space="preserve">
+    <value>ต้นทุนขาย</value>
+  </data>
+  <data name="Estimates" xml:space="preserve">
+    <value>Bills Of Materials</value>
+  </data>
+  <data name="Commercials" xml:space="preserve">
+    <value>Commercials</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>สั่งซื้อ</value>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="LiabilityPayments" xml:space="preserve">
+    <value>ชำระหนี้</value>
+  </data>
+  <data name="AssetAccounts" xml:space="preserve">
+    <value>บัญชี สินทรัพย์</value>
+  </data>
+  <data name="LiabilityAccounts" xml:space="preserve">
+    <value>บัญชี หนี้สิน</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>ความปลอดภัย</value>
+  </data>
+  <data name="BalanceSheet" xml:space="preserve">
+    <value>งบดุล</value>
+  </data>
+  <data name="FavoriteAccount" xml:space="preserve">
+    <value>บัญชีประจำ</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>ผู็ใช้งาน</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>ผู็ใช้งาน</value>
+  </data>
+  <data name="CoperateTax" xml:space="preserve">
+    <value>ภาษ๊เงินได้</value>
+  </data>
+  <data name="CoperateTaxes" xml:space="preserve">
+    <value>ภาษ๊เงินได้</value>
+  </data>
+  <data name="Shipment" xml:space="preserve">
+    <value>ขนส่ง</value>
+  </data>
+  <data name="Shipments" xml:space="preserve">
+    <value>ขนส่ง</value>
+  </data>
+  <data name="Invesment" xml:space="preserve">
+    <value>ลงทุน</value>
+  </data>
+  <data name="Investments" xml:space="preserve">
+    <value>ลงทุน</value>
+  </data>
+  <data name="Lends" xml:space="preserve">
+    <value>เงินให้กู้</value>
+  </data>
+  <data name="Loan" xml:space="preserve">
+    <value>เงินกู้</value>
+  </data>
+  <data name="PurchaseQuote" xml:space="preserve">
+    <value>Purchase Quote-TH</value>
+  </data>
+  <data name="PurchaseQuotes" xml:space="preserve">
+    <value>Purchase Quotes-TH</value>
+  </data>
+  <data name="SaleQuote" xml:space="preserve">
+    <value>Sale Quote-TH</value>
+  </data>
+  <data name="SaleQuotes" xml:space="preserve">
+    <value>Sale Quotes-TH</value>
+  </data>
+  <data name="EstimationItem" xml:space="preserve">
+    <value>Estimation Item-TH</value>
+  </data>
+  <data name="EstimationItems" xml:space="preserve">
+    <value>Estimation Items-TH</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Logs-TH</value>
+  </data>
+  <data name="PaymentPeriod" xml:space="preserve">
+    <value>Payment Period-TH</value>
+  </data>
+  <data name="PaymentPeriods" xml:space="preserve">
+    <value>Payment Periods-TH</value>
+  </data>
+  <data name="CommercialTaxes" xml:space="preserve">
+    <value>Commercials</value>
+  </data>
+  <data name="IncomeTaxes" xml:space="preserve">
+    <value>ภาษีเงินได้ </value>
+  </data>
+  <data name="TaxGroup" xml:space="preserve">
+    <value>กลุ่มภาษี</value>
+  </data>
+  <data name="TaxGroups" xml:space="preserve">
+    <value>กลุ่มภาษี</value>
+  </data>
+  <data name="EventLog" xml:space="preserve">
+    <value>Event Log - TH</value>
+  </data>
+  <data name="EventLogs" xml:space="preserve">
+    <value>Event Logs -TH</value>
+  </data>
+  <data name="Retention" xml:space="preserve">
+    <value>Retention</value>
+  </data>
+  <data name="Retentions" xml:space="preserve">
+    <value>Retentions</value>
+  </data>
+  <data name="PaymentRetentions" xml:space="preserve">
+    <value>Retentions</value>
+  </data>
+  <data name="Deprecation" xml:space="preserve">
+    <value>ค่าเสื่อม</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>รายละเอียด</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>สถานที่</value>
+  </data>
+  <data name="Locations" xml:space="preserve">
+    <value>สถานที่</value>
+  </data>
+</root>

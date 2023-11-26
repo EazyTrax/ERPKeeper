@@ -1,0 +1,29 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+
+            <div class="row">
+                <div class="col">
+                    @Html.Action("_Detail", "Commercial", new { id = Model.Uid, Area = "Commercials" })
+                </div>
+                <div class="col">
+                    <div style="background-color:#F3F5FB;padding:5px;margin-bottom:10px;">
+                        @Html.Partial("_MenuTop", Model)
+                    </div>
+                    <div>
+                        <b>FILEs</b><br />
+                        @Html.Action("SummaryList", "Documents", new { id = Model.Uid, Area = "Documents" })
+                        @Html.Partial("~/Areas/Commercials/Views/Commercial/_UploadFile.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

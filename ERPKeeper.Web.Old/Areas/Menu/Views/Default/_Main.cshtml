@@ -1,0 +1,224 @@
+﻿
+
+
+
+
+<div class="">
+    @Html.DevExpress().NavBar(settings =>
+{
+    settings.Width = Unit.Percentage(100);
+    settings.Name = "nbERPOverview2";
+    settings.AutoCollapse = true;
+    settings.ShowExpandButtons = false;
+    settings.SaveStateToCookies = true;
+    settings.EncodeHtml = false;
+
+    settings.ControlStyle.BackColor = System.Drawing.Color.Transparent;
+    settings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+    settings.Styles.GroupHeaderCollapsed.BackColor = System.Drawing.Color.Transparent;
+    settings.Styles.GroupHeaderCollapsed.ForeColor = System.Drawing.Color.Black;
+    settings.Styles.GroupHeader.BackColor = System.Drawing.Color.Transparent;
+    settings.Styles.GroupHeader.ForeColor = System.Drawing.Color.Black;
+    settings.Styles.GroupHeader.Paddings.Padding = Unit.Pixel(2);
+    settings.Styles.GroupHeaderCollapsed.Paddings.Padding = Unit.Pixel(2);
+    settings.Styles.GroupHeader.Font.Bold = true;
+
+    settings.Styles.GroupHeader.Border.BorderStyle = BorderStyle.None;
+    settings.Styles.GroupContent.Border.BorderStyle = BorderStyle.None;
+    settings.Styles.GroupContent.BackColor = System.Drawing.Color.Transparent;
+    settings.Styles.GroupContent.Paddings.PaddingLeft = Unit.Pixel(10);
+    settings.Styles.GroupContent.Paddings.PaddingTop = Unit.Pixel(5);
+
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(2);
+
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Projects.ToUpper();
+        group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("Home", "DashBoard", new { Area = "Projects" });
+        group.Items.Add(Lang.Projects).NavigateUrl = Url.Action("Home", "Projects", new { Area = "Projects" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Tasks.ToUpper();
+        group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("Home", "DashBoard", new { Area = "Tasks" });
+        group.Items.Add(Lang.Tasks).NavigateUrl = Url.Action("Home", "Tasks", new { Area = "Tasks" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Customers.ToUpper();
+        group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("", "", new { Area = "Customers" });
+        group.Items.Add(Lang.Customers).NavigateUrl = Url.Action("Home", "Customers", new { Area = "Customers" });
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.Quotes).NavigateUrl = Url.Action("Home", "Quotes", new { Area = "Customers" });
+        group.Items.Add(Lang.Orders).NavigateUrl = Url.Action("Home", "Orders", new { Area = "Customers" });
+        group.Items.Add(Lang.Sales).NavigateUrl = Url.Action("Home", "Sales", new { Area = "Customers" });
+        group.Items.Add(Lang.Payments).NavigateUrl = Url.Action("Home", "ReceivePayments", new { Area = "Customers" });
+
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Suppliers.ToUpper();
+        group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("", "", new { Area = "Suppliers" });
+        group.Items.Add(Lang.Suppliers).NavigateUrl = Url.Action("Home", "Suppliers", new { Area = "Suppliers" });
+
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.Quotes).NavigateUrl = Url.Action("Home", "Quotes", new { Area = "Suppliers" });
+        group.Items.Add(Lang.Orders).NavigateUrl = Url.Action("Home", "Orders", new { Area = "Suppliers" });
+        group.Items.Add(Lang.Purchases).NavigateUrl = Url.Action("Home", "Purchases", new { Area = "Suppliers" });
+        group.Items.Add(Lang.Payments).NavigateUrl = Url.Action("Home", "SupplierPayments", new { Area = "Suppliers" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Items.ToUpper();
+        group.Items.Add(Lang.Items).NavigateUrl = DevExpressHelper.GetUrl("/Items");
+        group.Items.Add("Groups").NavigateUrl = Url.Action("Home", "Groups", new { Area = "Items" });
+        group.Items.Add(Lang.Brands).NavigateUrl = Url.Action("Home", "Brands", new { Area = "Items" });
+        //group.Items.Add("Parameter Types").NavigateUrl = Url.Action("Home", "ParameterTypes", new { Area = "Items" });
+        group.Items.Add("COSG").NavigateUrl = Url.Action("Home", "COSG", new { Area = "Items" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Logistic".ToUpper();
+        group.Items.Add("DashBoard").NavigateUrl = Url.Action("Home", "DashBoard", new { Area = "Logistic" });
+        group.Items.Add("Outgoing").NavigateUrl = Url.Action("Home", "Shipment", new { Area = "Logistic" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Employees.ToUpper();
+        //group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("", "", new { Area = "Employees" });
+        group.Items.Add(Lang.Employees).NavigateUrl = Url.Action("", "Employees", new { Area = "Employees" });
+        group.Items.Add(Lang.Positions).NavigateUrl = Url.Action("Home", "Positions", new { Area = "Employees" });
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.PaymentPeriods).NavigateUrl = Url.Action("Home", "PaymentPeriods", new { Area = "Employees" });
+        group.Items.Add(Lang.Payments).NavigateUrl = Url.Action("Home", "Payments", new { Area = "Employees" });
+        group.Items.Add(Lang.PaymentStubs).NavigateUrl = Url.Action("Home", "PaymentTypes", new { Area = "Employees" });
+    });
+}).GetHtml()
+</div>
+
+
+
+<div class="mb-2">
+    @Html.DevExpress().NavBar(settings =>
+{
+    settings.Width = Unit.Percentage(100);
+    settings.Name = "nbERPOverview";
+    settings.AutoCollapse = true;
+    settings.ShowExpandButtons = false;
+    settings.SaveStateToCookies = true;
+    settings.EncodeHtml = false;
+
+    settings.ControlStyle.BackColor = System.Drawing.Color.Transparent;
+    settings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+    settings.Styles.GroupHeaderCollapsed.BackColor = System.Drawing.Color.Transparent;
+    settings.Styles.GroupHeaderCollapsed.ForeColor = System.Drawing.Color.Black;
+    settings.Styles.GroupHeader.BackColor = System.Drawing.Color.Transparent;
+    settings.Styles.GroupHeader.ForeColor = System.Drawing.Color.Black;
+    settings.Styles.GroupHeader.Paddings.Padding = Unit.Pixel(2);
+    settings.Styles.GroupHeaderCollapsed.Paddings.Padding = Unit.Pixel(2);
+    settings.Styles.GroupHeader.Font.Bold = true;
+
+    settings.Styles.GroupHeader.Border.BorderStyle = BorderStyle.None;
+    settings.Styles.GroupContent.Border.BorderStyle = BorderStyle.None;
+    settings.Styles.GroupContent.BackColor = System.Drawing.Color.Transparent;
+    settings.Styles.GroupContent.Paddings.PaddingLeft = Unit.Pixel(10);
+    settings.Styles.GroupContent.Paddings.PaddingTop = Unit.Pixel(5);
+
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(2);
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Locations.ToUpper();
+        group.Items.Add(Lang.Locations).NavigateUrl = Url.Action("Home", "Dashboard", new { Area = "Locations" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Accounting.ToUpper();
+        group.Items.Add(Lang.ChartOfAccount).NavigateUrl = Url.Action("Home", "ChartOfAccount", new { Area = "Accounting" });
+        group.Items.Add(Lang.SystemAccount).NavigateUrl = Url.Action("Home", "DefaultAccounts", new { Area = "Accounting" });
+        group.Items.Add(Lang.FiscalYear).NavigateUrl = Url.Action("Home", "FiscalYears", new { Area = "Accounting" });
+        group.Items.Add(Lang.JournalEntries).NavigateUrl = Url.Action("Home", "JournalEntries", new { Area = "Accounting" });
+        group.Items.Add(Lang.Reports).NavigateUrl = Url.Action("Home", "Reports", new { Area = "Accounting" });
+        group.Items.Add(Lang.Ledgers).NavigateUrl = Url.Action("DashBoard", "Ledgers", new { Area = "Accounting" });
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.FixedAssets.ToUpper();
+        group.Items.Add(Lang.FixedAssetTypes).NavigateUrl = Url.Action("Home", "FixedAssetTypes", new { Area = "Assets" });
+        group.Items.Add(Lang.FixedAssets).NavigateUrl = Url.Action("Home", "FixedAssets", new { Area = "Assets" });
+        group.Items.Add(Lang.Deprecation).NavigateUrl = Url.Action("Home", "DeprecateSchedules", new { Area = "Assets" });
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Profiles.ToUpper();
+        //group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("Home", "DashBoard", new { Area = "Profiles" });
+        group.Items.Add(Lang.Organizations).NavigateUrl = Url.Action("Organizations", "Profiles", new { Area = "Profiles" });
+        group.Items.Add(Lang.Persons).NavigateUrl = Url.Action("People", "Profiles", new { Area = "Profiles" });
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Investors.ToUpper();
+        //group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("Home", "DashBoard", new { Area = "Investors" });
+        group.Items.Add(Lang.Investors).NavigateUrl = Url.Action("Home", "Investors", new { Area = "Investors" });
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.CapitalActivity).NavigateUrl = Url.Action("Home", "CapitalActivities", new { Area = "Investors" });
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Financial.ToUpper();
+
+        //  group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("", "", new { Area = "Financial" });
+        group.Items.Add(Lang.AssetAccounts).NavigateUrl = Url.Action("Home", "AssetAccounts", new { Area = "Financial" });
+        group.Items.Add(Lang.LiabilityAccounts).NavigateUrl = Url.Action("Home", "LiabilityAccounts", new { Area = "Financial" });
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.FundTransfers).NavigateUrl = Url.Action("Home", "FundTransfers", new { Area = "Financial" });
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.LiabilityPayments).NavigateUrl = Url.Action("Home", "LiabilityPayments", new { Area = "Financial" });
+        // group.Items.Add(Lang.ReceivePayments).NavigateUrl = Url.Action("Home", "ReceivePayments", new { Area = "Financial" });
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.Loans).NavigateUrl = Url.Action("Home", "Loans", new { Area = "Financial" });
+        group.Items.Add(Lang.Lends).NavigateUrl = Url.Action("Home", "Lends", new { Area = "Financial" });
+
+        group.Items.Add("").Enabled = false;
+        group.Items.Add("Retention Groups").NavigateUrl = Url.Action("Home", "RetentionGroups", new { Area = "Financial" });
+        group.Items.Add(Lang.PaymentRetentions).NavigateUrl = Url.Action("Home", "PaymentRetentions", new { Area = "Financial" });
+        group.Items.Add(Lang.RetentionTypes).NavigateUrl = Url.Action("Home", "RetentionTypes", new { Area = "Financial" });
+    });
+
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Taxes.ToUpper();
+
+        group.Items.Add(Lang.Periods).NavigateUrl = Url.Action("Home", "TaxPeriods", new { Area = "Taxes" });
+        group.Items.Add(Lang.CommercialTaxes).NavigateUrl = Url.Action("Home", "CommercialTaxes", new { Area = "Taxes" });
+        group.Items.Add(Lang.IncomeTaxes).NavigateUrl = Url.Action("Home", "IncomeTaxes", new { Area = "Taxes" });
+        group.Items.Add("").Enabled = false;
+        group.Items.Add(Lang.TaxGroups).NavigateUrl = Url.Action("Home", "TaxGroups", new { Area = "Taxes" });
+        group.Items.Add(Lang.TaxCodes).NavigateUrl = Url.Action("Home", "TaxCodes", new { Area = "Taxes" });
+    });
+
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = Lang.Documents.ToUpper();
+        group.Items.Add(Lang.DashBoard).NavigateUrl = Url.Action("Home", "Documents", new { Area = "Documents" });
+    });
+
+
+}).GetHtml()
+</div>

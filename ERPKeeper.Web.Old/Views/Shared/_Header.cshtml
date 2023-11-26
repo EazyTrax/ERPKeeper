@@ -1,0 +1,31 @@
+﻿<div class="navbar fixed-top p-0 ">
+    <div class="container-non-responsive p-1 rounded-bottom">
+        <div class="row mh-50 ">
+            <div class="col-2 p-1 mt-2">
+                @if (CurrentUser.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Home", "Home", new { Area = "DashBoard" })">
+                        <span class="font-weight-bold " style="font-size:16px;"> @Organization.SelfProfile.DisplayName.Replace("บริษัท", "").Replace("จำกัด", "")</span>
+                    </a>
+                }
+            </div>
+            <div class="col-3 p-0 mt-2">
+                @if (CurrentUser.Identity.IsAuthenticated && ViewBag.nodeName != null)
+                {
+                    @Html.Action("_SearchBox", "Home", new { Area = "Search" })
+                }
+            </div>
+            <div class="col p-0 mt-2 text-right">
+                @if (CurrentUser.Identity.IsAuthenticated)
+                {
+                    <span style="font-size:16px;" class="font-weight-bold  bg-light px-1 rounded">
+                        @WorkingDate.ToShortDateString()
+                    </span>
+                }
+            </div>
+            <div class="col-3 mt-2 p-0">
+                @Html.Partial("_UserTopMenu")
+            </div>
+        </div>
+    </div>
+</div>

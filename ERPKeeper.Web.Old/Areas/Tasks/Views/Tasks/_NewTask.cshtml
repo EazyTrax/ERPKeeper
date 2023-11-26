@@ -1,0 +1,25 @@
+﻿@model ERPKeeper.Node.Models.Projects.NewTask
+
+
+<div class="p-0 m-0">
+    <div class="row mb-1">
+        <div class="col text-left">
+            @DateTime.Today.ToString("dd-MMM-yy")
+        </div>
+        <div class="col text-right">
+            <strong>New Task</strong>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("AddNewTask", "Tasks", new { Area = "Tasks" }, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.TextBoxFor(m => m.Title)
+
+        <br />
+        <br />
+        <button type="submit" value="Submit">Add</button>
+    }
+
+</div>

@@ -1,0 +1,119 @@
+@model IList<ERPKeeper.Node.Models.Transactions.Commercial>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gridViewUnAssignCommercial";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "TaxPeriod", Action = "PartialGridViewUnAssignCommercial", id = ViewBag.id };
+        settings.KeyFieldName = "Uid";
+
+
+
+        var LinesTotalGroup = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "LinesTotal");
+        LinesTotalGroup.ShowInGroupFooterColumn = "LinesTotal";
+        LinesTotalGroup.DisplayFormat = "N2";
+
+        var TotalGroup = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Tax");
+        TotalGroup.ShowInGroupFooterColumn = "Tax";
+        TotalGroup.DisplayFormat = "N2";
+
+        var BalanceGroup = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+        BalanceGroup.ShowInGroupFooterColumn = "Total";
+        BalanceGroup.DisplayFormat = "N2";
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.Page;
+        settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TransactionType";
+            column.Caption = "Type";
+            column.SortIndex = 0;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "DOC";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string TransactionGuid = (DataBinder.Eval(t.DataItem, "Uid") ?? "N/A").ToString();
+                string TransactionNo = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                string TransactionType = (DataBinder.Eval(t.DataItem, "TransactionType") ?? "N/A").ToString();
+
+                ViewContext.Writer.Write(Html.ActionLink(TransactionNo, "Redirect", "Commercial", new { Area = "Commercials", id = TransactionGuid, Type = TransactionType }, null));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.Name";
+            column.Caption = "Accout Name"; ;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string ProfileGuid = (DataBinder.Eval(t.DataItem, "Profile.Uid") ?? "N/A").ToString();
+                string ProfileName = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+
+                var linkTag = Html.ActionLink(ProfileName, "Home", "Profile", new { Area = "Profiles", id = ProfileGuid }, null);
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:180px;'>{0}</div>", linkTag));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.TaxNumber";
+            column.Caption = Lang.TaxID;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+            
+                string taxId = (DataBinder.Eval(t.DataItem, "Profile.TaxNumber") ?? "N/A").ToString();
+                ViewContext.Writer.Write(taxId);
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "LinesTotal";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Tax";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+    });
+}
+@grid.Bind(Model).GetHtml()

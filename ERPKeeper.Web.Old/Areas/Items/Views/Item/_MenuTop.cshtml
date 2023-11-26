@@ -1,0 +1,135 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+
+
+
+<div class="mb-2">
+    <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase " aria-current="page">
+                    <a href="@Url.Action("Home", "DashBoard",new { Area = "Items"})">Items</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase " aria-current="page">
+                    <a href="@Url.Action("Home", "Items",new { Area = "Items" , id = Model.ItemType.ToString()})">@Model.ItemType.ToString()</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase " aria-current="page">
+                    <a href="@Url.Action("Home", "Item",new { Area = "Items" , id = Model.Uid.ToString()})">@Model.PartNumber</a>
+                </li>
+            </ol>
+        </div>
+
+        <div class="col text-right p-2">
+            <div class="">
+                <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+                <span id="ImageMenuChart" style="cursor:pointer"><i class="fas fa-chart-pie fa-lg text-muted"></i></span>
+                @Html.DevExpress().PopupMenu(settings =>
+                {
+                    settings.Name = "PopupMenuAction";
+                    settings.PopupElementID = "ImageMenuAction";
+                    settings.ShowPopOutImages = DefaultBoolean.True;
+                    settings.PopupAction = PopupAction.LeftMouseClick;
+
+                    settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+                    if (CurrentUser.CheckAccessLevelAuthorize(ERPKeeper.Node.Models.Security.Enums.AccessLevel.Accountant))
+                    {
+                        settings.Items.Add("Mark Inactive").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "MarkInactive", id = Model.Uid });
+                        settings.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "Copy", id = Model.Uid });
+
+                        settings.Items.Add(advItem =>
+                        {
+                            advItem.Text = "Advance";
+                            advItem.Items.Add(newItem =>
+                            {
+                                newItem.Text = "Chage Type";
+                                switch (Model.ItemType)
+                                {
+                                    case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service:
+                                    case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory:
+                                    case ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory:
+                                        newItem.Items.Add("Non-Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ChangeType", id = Model.Uid, itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory });
+                                        newItem.Items.Add("Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ChangeType", id = Model.Uid, itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory });
+                                        newItem.Items.Add("Service").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ChangeType", id = Model.Uid, itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service });
+
+                                        break;
+                                    case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Expense:
+                                    case ERPKeeper.Node.Models.Items.Enums.ItemTypes.Asset:
+                                        newItem.Items.Add("Expense").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ChangeType", id = Model.Uid, itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Expense });
+                                        newItem.Items.Add("Deprecated Asset").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ChangeType", id = Model.Uid, itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Asset });
+                                        newItem.Items.Add("Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ChangeType", id = Model.Uid, itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory });
+                                        break;
+                                }
+                            });
+                            advItem.Items.Add(newItem =>
+                            {
+                                newItem.Text = "Merge With";
+
+                                erpNodeDBContext.Items.Where(i => i.ItemType == Model.ItemType).Where(i => i.Uid != Model.Uid).OrderBy(i => i.PartNumber).ToList().ForEach(i =>
+                                {
+                                    newItem.Items.Add(i.PartNumber).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "Merge", id = Model.Uid, mergeToItemId = i.Uid });
+                                });
+
+                            });
+                        });
+                    }
+                }).GetHtml()
+            </div>
+        </div>
+    </div>
+    <div>
+        @if (Model.Uid != Guid.Empty)
+        {
+            @Html.DevExpress().Menu(settings =>
+       {
+           settings.Name = "mFeatures";
+           settings.AllowSelectItem = true;
+           settings.EnableHotTrack = true;
+           settings.EnableAnimation = true;
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.EncodeHtml = false;
+
+           settings.Styles.Item.CssClass = "px-1";
+           settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+           settings.Width = 200;
+           settings.Styles.Item.SelectedStyle.Font.Bold = true;
+
+
+           settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "Home", id = Model.Uid });
+           settings.Items.Add("Parameters").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "Parameters", id = Model.Uid });
+
+
+           if (Model != null && Model.Images != null)
+           {
+               settings.Items.Add("Images").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "Images", id = Model.Uid });
+               settings.Items.Add("DataSheets").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "DataSheets", id = Model.Uid });
+           }
+
+           settings.Items.Add("History").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "History", id = Model.Uid });
+
+           settings.Items.Add(item =>
+           {
+               item.Text = "Export";
+               item.Items.Add("Tag").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "ExportTag", id = Model.Uid, qty = "1" });
+           });
+
+           if (Model != null && Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory)
+           {
+               settings.Items.Add(item =>
+               {
+                   item.Text = "COSG";
+                   item.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Item", Action = "COSG", id = Model.Uid });
+                   item.Items.Add("Update").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Costing", Action = "Update", id = Model.Uid });
+               });
+           }
+
+       }).GetHtml()
+        }
+    </div>
+</div>
+
+

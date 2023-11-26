@@ -1,0 +1,10 @@
+﻿@model ERPKeeper.Node.Models.Taxes.IncomeTax
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <b>Income Tax</b><br />
+    @if (Model?.FiscalYear != null)
+    {
+        <span>Period : @(Model.FiscalYear?.Name)</span>
+    }
+    <br />
+</div>

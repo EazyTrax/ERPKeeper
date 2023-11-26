@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "IncomeTaxes",new { Area = "Taxes"})">@Lang.IncomeTaxes</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+       settings.Items.Add("ReOrder").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ReOrder" });
+       settings.Items.Add("Update").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Update" });
+       settings.Items.Add("Create New").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Create" });
+   }).GetHtml()
+    </div>
+</div>

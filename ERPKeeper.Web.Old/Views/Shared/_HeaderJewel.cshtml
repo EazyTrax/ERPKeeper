@@ -1,0 +1,23 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    <style>
+        .badge-notify {
+            background: red;
+            position: relative;
+            top: -30px;
+            right:-20px;
+        }
+    </style>
+    <div class="row mt-2">
+        <div class="col">
+            <i class="fas fa-globe fa-lg text-muted"></i>
+            <span class="badge badge-notify">4</span>
+        </div>
+
+        <div class="col">
+            <i class="fab fa-facebook-messenger fa-lg text-muted"></i>
+            <span class="badge badge-notify">4</span>
+        </div>
+    </div>
+}

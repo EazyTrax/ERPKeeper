@@ -1,0 +1,37 @@
+﻿
+@model ERPKeeper.Node.Models.Accounting.AccountTypes?
+
+
+<div class="row">
+    <div class="col-2 col-Left pl-0">
+        @Html.Action("_Main", "Default", new { Area = "Menu" })
+    </div>
+    <div class="col col-Middle p-0">
+        @Html.Partial("_Menu")
+
+        @if (Model != null)
+        {
+            <div class="p-2 rounded bg-fb2">
+                @Html.Action("_Tree", new { Id = Model })
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-6 p-0">
+                    <div class="mb-2" id="DivCurrentAssetandLiability">
+                        @Html.Action("_Chart_CurrentAssetandLiability", "Reports", new { Area = "Accounting" })
+                    </div>
+                </div>
+                <div class="col-6 pr-0">
+                    <div class="mb-2" id='DivProfitAndLostSummary'>
+                        @Html.Action("_Chart_ProfitAndLostSummary", "Reports", new { Area = "Accounting" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-3 col-Right pr-0">
+        <Div class="bg-fb2 mh-80"></Div>
+    </div>
+</div>

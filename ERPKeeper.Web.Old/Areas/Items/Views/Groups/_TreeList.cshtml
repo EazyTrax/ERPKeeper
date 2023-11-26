@@ -1,0 +1,46 @@
+@Html.DevExpress().TreeList(settings =>
+{
+    settings.Name = "TreeListItemGroups";
+    settings.CallbackRouteValues = new { Controller = "Groups", Action = "_TreeList" };
+
+    settings.AutoGenerateColumns = true;
+    settings.KeyFieldName = "Uid";
+    settings.ParentFieldName = "ParentUid";
+    settings.SettingsBehavior.AutoExpandAllNodes = true;
+    settings.Width = Unit.Percentage(100);
+
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Both;
+
+    settings.EnableTheming = false;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Name";
+        column.Caption = "Name";
+
+        column.Width = 250;
+        column.SetDataCellTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+            ViewContext.Writer.Write(Html.ActionLink(name, "Home", "Group", new { id = Uid }, null));
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Detail";
+        column.Caption = "Detail";
+    });
+
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ItemsCount";
+        column.Caption = "Items#";
+        column.Width = 50;
+    });
+
+}).Bind(Model).GetHtml()

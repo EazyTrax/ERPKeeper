@@ -1,0 +1,61 @@
+﻿@model IList<ERPKeeper.Node.Models.Tasks.Task>
+
+<div>
+    <div style="padding-bottom:10px;font-size: 15px;background-color:#EEEEEE;padding:10px;margin-bottom:3px;min-height:300px;">
+        <div style="position:absolute;right:10px;bottom:10px;">
+            <a href="@Url.Action("Home", "Tasks",new { Area ="Tasks"})">
+                <span id="ImageMenuPlus"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+            </a>
+        </div>
+        <div style="margin-top:10px;">
+            @Html.DevExpress().GridView(settings =>
+       {
+           settings.Name = "GridViewTasks";
+           settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+           settings.Settings.ShowColumnHeaders = false;
+           settings.Theme = "Default";
+           settings.Width = Unit.Percentage(100);
+           settings.EnableTheming = true;
+           settings.Styles.Header.Font.Bold = true;
+           settings.EncodeHtml = false;
+           settings.CommandColumn.CellStyle.BackColor = System.Drawing.Color.Transparent;
+           settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+           settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+           settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+           settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 0;
+           settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+           settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+           settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 0;
+
+
+           settings.CallbackRouteValues = new
+           {
+               Controller = "Employee",
+               Action = "GridViewTasks",
+               id = ViewBag.id
+           };
+
+           settings.KeyFieldName = "Uid";
+
+
+
+           settings.Columns.Add(column =>
+           {
+               column.FieldName = "Title";
+
+
+               column.SetDataItemTemplateContent(t =>
+               {
+                   string Age = DataBinder.Eval(t.DataItem, "Age").ToString();
+                   string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                   string Title = (DataBinder.Eval(t.DataItem, "Title") ?? "N/A").ToString();
+                   var linkTag = Html.ActionLink(Title, "Home", "Task", new { id = Uid }, null);
+                   ViewContext.Writer.Write(ERPKeeper.Helpers.Badge.Info(Age) + linkTag);
+
+               });
+           });
+
+       }).Bind(Model).GetHtml()
+        </div>
+    </div>
+</div>

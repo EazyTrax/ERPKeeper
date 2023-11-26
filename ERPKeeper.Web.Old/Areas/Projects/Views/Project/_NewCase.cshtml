@@ -1,0 +1,31 @@
+﻿@model ERPKeeper.Node.Models.Projects.NewCaseModel
+
+@{
+
+    Layout = null;
+}
+
+
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div style="font-weight: 600;text-transform:uppercase;margin-bottom:10px;">
+        NEW CASE
+    </div>
+
+
+    @using (Html.BeginForm("AddNewCase", "Cases", new { Area = "Projects"  }, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ProfileGuid)
+        @Html.HiddenFor(model => model.ProjectGuid)
+        @Html.DevExpress().TextBoxFor(m => m.Title, settings =>
+        {
+            settings.Width = Unit.Percentage(100);
+        }).GetHtml()
+
+        <br />
+        <br />
+        <button type="submit" value="Submit">Add</button>
+    }
+
+</div>

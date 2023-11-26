@@ -1,0 +1,16 @@
+﻿@Html.DevExpress().ComboBox(
+            settings =>
+            {
+              settings.Name = "AccountUid";
+              settings.Width = Unit.Percentage(90);
+              settings.SelectedIndex = 0;
+              settings.CallbackRouteValues = new { Controller = "ChartOfAccount", Action = "_ComboBox" };
+              settings.Properties.CallbackPageSize = 15;
+              settings.Properties.TextField = "Name";
+              settings.Properties.ValueField = "Uid";
+              settings.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+
+              settings.Properties.Columns.Add("Type", "Type");
+              settings.Properties.Columns.Add("Name", "Name");
+            }
+).BindList(Organization.ChartOfAccount.Accounts).GetHtml()

@@ -1,0 +1,69 @@
+﻿@using ERPKeeper.Node.Models.Items.Enums
+@model ERPKeeper.Node.Models.Items.Enums.ItemTypes?
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Items"})">Items</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Item",new { Area = "Items" , id = Model.ToString()})">@Model.ToString()</a>
+            </li>
+        </ol>
+    </div>
+
+    <div class="col text-right p-2">
+
+        <span id="ImageMenuPlus" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+
+
+        @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuPlus";
+    settings.PopupElementID = "ImageMenuPlus";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+
+    settings.Items.Add(forUseItem =>
+    {
+        forUseItem.Text = "For Use";
+        forUseItem.Items.Add("Expense").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "New", itemType = ItemTypes.Expense });
+        forUseItem.Items.Add("Asset").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "New", itemType = ItemTypes.Asset });
+    });
+
+    settings.Items.Add(forSalesItem =>
+    {
+        forSalesItem.Text = "For Sales";
+        forSalesItem.Items.Add("Service").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "New", itemType = ItemTypes.Service });
+        forSalesItem.Items.Add("Non-Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "New", itemType = ItemTypes.NonInventory });
+        forSalesItem.Items.Add("Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "New", itemType = ItemTypes.Inventory });
+    });
+
+}).GetHtml()
+        @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuAction";
+    settings.PopupElementID = "ImageMenuAction";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+    settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+    settings.Items.Add("Update Stock").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "UpdateStockAmount" });
+    settings.Items.Add("Export").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "Export" });
+    settings.Items.Add("ExportTag").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Items", Action = "ExportTag" });
+
+
+}).GetHtml()
+    </div>
+
+    <div class="col-12 p-1">
+        @Html.Partial("_MenuTile")
+    </div>
+</div>
+

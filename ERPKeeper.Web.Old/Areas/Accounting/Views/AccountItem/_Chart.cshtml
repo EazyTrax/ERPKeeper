@@ -1,0 +1,36 @@
+@Html.DevExpress().Chart(settings =>
+{
+  settings.Name = "Chart";
+  Series chartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.StepArea);
+  chartSeries.ArgumentDataMember = "TrnDate";
+  chartSeries.ValueDataMembers[0] = "Balance";
+
+
+
+  settings.Legend.Visibility = DefaultBoolean.False;
+  settings.Width = 750;
+  settings.Height = 500;
+  settings.BorderOptions.Visibility = DefaultBoolean.False;
+
+  settings.Titles.Add(new ChartTitle()
+  {
+    Font = new System.Drawing.Font("Tahoma", 12),
+    Text = ""
+  });
+
+
+
+  settings.Series.Add(chartSeries);
+
+  chartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+
+  ((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = true;
+  ((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = true;
+  ((XYDiagram)settings.Diagram).AxisY.Label.Visible = true;
+  ((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+  ((XYDiagram)settings.Diagram).Margins.Left = 0;
+  ((XYDiagram)settings.Diagram).Margins.Right = 0;
+  ((XYDiagram)settings.Diagram).EnableAxisXScrolling = true;
+
+  
+}).Bind(Model).GetHtml()

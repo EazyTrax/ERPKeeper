@@ -1,0 +1,40 @@
+﻿<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+                <div class="col-9 p-1">
+                    <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                        <li class="breadcrumb-item text-uppercase">
+                            <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                        </li>
+                        <li class="breadcrumb-item text-uppercase " aria-current="page">
+                            <a href="@Url.Action("Home", "DashBoard",new { Area = "Items"})">Items</a>
+                        </li>
+                        <li class="breadcrumb-item text-uppercase " aria-current="page">
+                            Groups
+                        </li>
+                    </ol>
+                </div>
+
+
+                <div class="col text-right p-2">
+                    <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+                    <a href="@Url.Action("Home", "Refresh",new {Controller="Groups", Area = "Items"})">Refresh</a>
+                </div>
+            </div>
+            @Html.Action("_TreeList")
+        </div>
+
+        <div class="col-3 col-Right pr-0">
+            <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+
+            </div>
+            @Html.Partial("_New")
+        </div>
+    </div>
+</div>
+
+

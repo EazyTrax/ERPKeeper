@@ -1,0 +1,204 @@
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewDeprecatedAsset";
+
+        settings.CallbackRouteValues = new { Controller = "DeprecateSchedules", Action = "PartialGridView", Id = ViewBag.Id };
+        settings.KeyFieldName = "Uid";
+        settings.Settings.ShowFooter = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.Styles.Footer.Font.Bold = true;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        settings.SettingsExport.EnableClientSideExportAPI = true;
+        settings.SettingsExport.Landscape = true;
+        settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+        settings.SettingsExport.RightMargin = 0;
+        settings.Toolbars.Add(t =>
+        {
+            t.EnableAdaptivity = true;
+            t.Items.Add(GridViewToolbarCommand.ExportToPdf);
+            t.Items.Add(GridViewToolbarCommand.ExportToXls);
+            t.Items.Add(GridViewToolbarCommand.ExportToXlsx);
+        });
+
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+
+
+        };
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FiscalYear.Name";
+            column.Caption = "Period";
+            column.SortIndex = 2;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = (DataBinder.Eval(t.DataItem, "FiscalYear.Uid") ?? Guid.Empty).ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "FiscalYear.Name") ?? "Pre").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", new { id = Uid }));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "EndDate";
+            column.Caption = "End Date";
+            column.SortIndex = 1;
+            column.Width = 100;
+
+            column.Visible = true;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FixedAsset.FixedAssetType.Name";
+            column.Caption = "Depreciation Basis";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FixedAsset.No";
+            column.Caption = "Code";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = DataBinder.Eval(t.DataItem, "FixedAsset.Uid").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "FixedAsset.AssetCode") ??"NA").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAsset", new { id = Uid }, null));
+            });
+
+
+            column.SortIndex = 2;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FixedAsset.Name";
+            column.Caption = "Asset Name";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = DataBinder.Eval(t.DataItem, "FixedAsset.Uid").ToString();
+                string Name = DataBinder.Eval(t.DataItem, "FixedAsset.Name").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAsset", new { id = Uid }, null));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FixedAsset.AssetValue";
+            column.Caption = "AssetValue";
+
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+        var DeprecatedAssetAssetValueGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "FixedAsset.AssetValue");
+        DeprecatedAssetAssetValueGroup.ShowInGroupFooterColumn = "FixedAsset.AssetValue";
+        DeprecatedAssetAssetValueGroup.DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "FixedAsset.AssetValue").DisplayFormat = "N2";
+
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OpeningValue";
+            column.Caption = "Open";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+        var OpenValueGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningValue");
+        OpenValueGroup.ShowInGroupFooterColumn = "OpeningValue";
+        OpenValueGroup.DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningValue").DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "DepreciationValue";
+            column.Caption = "Depre";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+        var TotalDepreciationValueGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "DepreciationValue");
+        TotalDepreciationValueGroup.ShowInGroupFooterColumn = "DepreciationValue";
+        TotalDepreciationValueGroup.DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "DepreciationValue").DisplayFormat = "N2";
+
+
+
+
+        var TotalDepreciateAccumulationGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "DepreciateAccumulation");
+        TotalDepreciateAccumulationGroup.ShowInGroupFooterColumn = "DepreciateAccumulation";
+        TotalDepreciateAccumulationGroup.DisplayFormat = "N2";
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "DepreciateAccumulation").DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RemainValue";
+            column.Caption = "Remain";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+        var TotalRemainValueGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RemainValue");
+        TotalRemainValueGroup.ShowInGroupFooterColumn = "RemainValue";
+        TotalRemainValueGroup.DisplayFormat = "N2";
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RemainValue").DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus";;
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

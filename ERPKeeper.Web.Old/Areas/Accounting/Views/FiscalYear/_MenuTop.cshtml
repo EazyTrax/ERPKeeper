@@ -1,0 +1,92 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-10 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Accounting"})">Accounting</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "FiscalYears",new { Area = "Accounting"})">Fiscal Years</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "FiscalYear",new { Area = "Accounting" , id= Model.Uid})">
+                    FY @Model.Name
+                </a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+           {
+               settings.Name = "PopupMenuAction";
+               settings.PopupElementID = "ImageMenuAction";
+               settings.ShowPopOutImages = DefaultBoolean.True;
+               settings.PopupAction = PopupAction.LeftMouseClick;
+               settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+               if (Model.Status == ERPKeeper.Node.Models.Accounting.EnumFiscalYearStatus.Open)
+                   settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Close).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Close", id = Model.Uid });
+               else
+                   settings.Items.Add("Re-Open").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "ReOpen", id = Model.Uid });
+
+                   settings.Items.Add("Update Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "UpdateBalance", id = Model.Uid });
+
+           }).GetHtml()
+        @{
+            if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+                <div class="col-2">
+                    <a href="@DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Ledger", id = Model.Uid })"><i class="fas fa-calculator text-fb3 fa-lg text-muted"></i></a>
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="mb-1 bg-fb2">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "menuPeriod";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+    settings.Styles.Item.CssClass = "px-1";
+
+
+    settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Home", id = Model.Uid });
+    settings.Items.Add(Lang.Income).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Balance_Incomes", id = Model.Uid });
+    settings.Items.Add(Lang.Expense).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Balance_Expenses", id = Model.Uid });
+
+    settings.Items.Add("Closing").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Balance_Closing", id = Model.Uid });
+
+    settings.Items.Add(subItem =>
+    {
+        subItem.Text = "Reports";
+
+        subItem.Items.Add("COGS").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_COGS", id = Model.Uid });
+        subItem.Items.Add("Asset Deprecations").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_AssetDeprecations", id = Model.Uid });
+        subItem.Items.Add("Balance Periods").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_Balance_Period", id = Model.Uid });
+        subItem.Items.Add("งบแสดงฐานะทางการเงิน").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_BalanceSheet", id = Model.Uid });
+        subItem.Items.Add("งบกำไรขาดทุน").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_IncomeStatement", id = Model.Uid });
+        subItem.Items.Add("สมุดรายวัน").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_TransactionsLedger", id = Model.Uid, TrType = 0 });
+        subItem.Items.Add("บัญชีแยกประเภท").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_AccountsLedger", id = Model.Uid, TrType = 0 });
+    });
+    settings.Items.Add(subItem =>
+    {
+        subItem.Text = "Export";
+        subItem.Items.Add("COGS").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Report_COGS", id = Model.Uid });
+        subItem.Items.Add("สมุดรายวัน").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Export_TransactionsLedger", id = Model.Uid, TrType = 0 });
+        subItem.Items.Add("บัญชีแยกประเภท").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "Export_AccountsLedger", id = Model.Uid, TrType = 0 });
+    });
+
+
+
+
+}).GetHtml()
+</div>

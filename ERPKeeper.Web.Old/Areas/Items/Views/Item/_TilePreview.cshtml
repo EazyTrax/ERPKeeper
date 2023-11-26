@@ -1,0 +1,23 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+<a href="@Url.Action("Home", "Item", new { id = Model.Uid })">
+    <div class="border p-2 mb-2">
+        <div class="col-12 mb-1 text-right">
+            <img src="@Url.Action("GetImage","Item",new {Area="Items", id= Model.Uid})" width="150" height="150" />
+        </div>
+        <div class="col-12">
+            <div>
+                <b>@Model.PartNumber</b>
+                <br />
+                <div class="text-danger mt-4">
+                    @Model.UnitPrice.ToString("N2") THB
+                </div>
+            </div>
+            <div style="">
+                <text>
+                    @Model.Description
+                </text>
+            </div>
+        </div>
+    </div>
+</a>

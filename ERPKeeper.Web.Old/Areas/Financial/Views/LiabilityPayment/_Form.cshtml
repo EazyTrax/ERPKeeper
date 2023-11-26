@@ -1,0 +1,185 @@
+﻿
+@model ERPKeeper.Node.Models.Financial.Payments.LiabilityPayment
+
+<div class="bg-fb2 mb-3">
+
+    @using (Html.BeginForm("Save", "LiabilityPayment"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "Payment";
+       settings.Width = Unit.Percentage(100);
+       settings.EncodeHtml = false;
+       settings.ColCount = 1;
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Payable";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.TrnDate, itemSettings =>
+           {
+               itemSettings.Caption = "Trn Date";
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+
+           });
+
+           groupSettings.Items.Add(m => m.Reference, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Reference";
+           });
+
+           groupSettings.Items.Add(m => m.LiabilityAccountUid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Liability Acc", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.LiabilityAccounts;
+           });
+
+           groupSettings.Items.Add(m => m.LiabilityAmount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Liability Amount";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings ses = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               ses.Properties.DisplayFormatString = "N2";
+           });
+
+           groupSettings.Items.Add(m => m.DiscountAmount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Discount Amount";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings ses = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               ses.Properties.DisplayFormatString = "N2";
+           });
+       });
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Pay From";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.Items.Add(m => m.OptionalAssetAccountUid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Optional Account", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetCashOrBankAccounts();
+           });
+           groupSettings.Items.Add(m => m.AmountPayFromOptionalAcc, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = " + Amount ";
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings ses = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               ses.Properties.DisplayFormatString = "N2";
+
+           });
+           groupSettings.Items.Add(m => m.AssetAccountUid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Primary Acc", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetCashOrBankAccounts();
+           });
+           groupSettings.Items.Add(m => m.AmountPayFromPrimaryAcc, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = " + Amount ";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings ses = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               ses.Properties.DisplayFormatString = "N2";
+               ses.Enabled = false;
+           });
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Fee";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.BankFeeAmount, itemSettings =>
+           {
+               itemSettings.Caption = "Bank Fee";
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+               SpinEditSettings ses = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+               ses.Properties.DisplayFormatString = "N2";
+           });
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Memo";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.Memo, itemSettings =>
+           {
+               itemSettings.Caption = "Memo";
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.ShowCaption = DefaultBoolean.False;
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+               MemoSettings ses = (MemoSettings)itemSettings.NestedExtensionSettings;
+               ses.Width = Unit.Percentage(100);
+               itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+           });
+       });
+
+      
+
+
+
+
+
+
+       if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+       {
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Action";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+               groupSettings.Items.Add(item =>
+               {
+                   item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                   item.ShowCaption = DefaultBoolean.False;
+                   item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                   var button = (ButtonSettings)item.NestedExtensionSettings;
+                   button.Name = "SaveButton";
+                   button.Text = "Save";
+                   button.UseSubmitBehavior = true;
+               });
+           });
+       }
+
+   }).GetHtml()
+
+    }
+
+</div>

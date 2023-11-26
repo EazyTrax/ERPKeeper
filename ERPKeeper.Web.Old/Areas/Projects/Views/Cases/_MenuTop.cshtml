@@ -1,0 +1,45 @@
+﻿@{
+
+    Layout = null;
+}
+
+
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <b>CASES</b>
+</div>
+
+
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.EncodeHtml = false;
+
+    settings.Styles.Item.CssClass = "px-1";
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Vertical;
+    settings.Width = Unit.Pixel(200);
+
+
+    var OpenCount = erpNodeDBContext.Cases.Where(i => i.Status == ERPKeeper.Node.Models.Projects.Enums.CaseStatus.Plan).Count().ToString();
+
+
+
+    settings.Items.Add(ERPKeeper.Helpers.Badge.Info(OpenCount) +  ERPKeeper.WebFrontEnd.Resources.Lang.Open ).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = ERPKeeper.Node.Models.Projects.Enums.CaseStatus.Plan });
+    settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Close).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = ERPKeeper.Node.Models.Projects.Enums.CaseStatus.Close });
+    settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Close).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = ERPKeeper.Node.Models.Projects.Enums.CaseStatus.Pending });
+
+
+
+}).GetHtml()
+
+
+<div class="mt-3">
+    <a href="@Url.Action("Home", "DashBoard", new { })">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+</div>

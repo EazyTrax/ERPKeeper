@@ -1,0 +1,25 @@
+﻿
+<div class="col p-0">
+    <div class="p-1 mb-2 bg-fb2 mh-50">
+        <span style="font-weight: 600;">
+            Stock Shotage
+        </span>
+    </div>
+
+    @{
+        var reodersitems = erpNodeDBContext.Items.ToList().Where(i => i.ReorderRequiredAmount > 0).ToList();
+    }
+
+    @foreach (var item in reodersitems)
+    {
+        <div class="row bg-fb1">
+            <div class="col-10 p-1 overflow-hidden">
+                <span class="flex-nowrap">@Html.ActionLink(item.PartNumber, "detail", "item", new { id = item.Uid }, null)</span><br />
+            </div>
+
+            <div class="col p-1 text-right">
+                <span>@item.ReorderRequiredAmount</span><br />
+            </div>
+        </div>
+    }
+</div>

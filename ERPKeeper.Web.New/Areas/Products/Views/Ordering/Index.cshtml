@@ -1,0 +1,45 @@
+﻿@using ERPKeeper.Node.Models.Items.Enums
+
+<div class="row">
+    <div class="col-9 pl-0 col-left">
+        
+        @*
+            <div class="row mb-2">
+                <div class="col  px-1">
+                    <a href="/@CompanyId/Products/Inventory">
+                        <div class="bg-fb1 p-2">
+                            @ItemTypes.Inventory.ToString()<br />
+                            @Organization.Items.Count(ItemTypes.Inventory)
+                        </div>
+                    </a>
+                </div>
+                <div class="col  px-1">
+                    <div class="bg-fb1 p-2">
+                        @ItemTypes.NonInventory.ToString()<br />
+                        @Organization.Items.Count(ItemTypes.NonInventory)
+                    </div>
+                </div>
+                <div class="col  px-1">
+                    <div class="bg-fb1 p-2">
+                        @ItemTypes.Asset.ToString()<br />
+                        @Organization.Items.Count(ItemTypes.Asset)
+                    </div>
+                </div>
+                <div class="col  px-1">
+                    <div class="bg-fb1 p-2">
+                        @ItemTypes.Service.ToString()<br />
+                        @Organization.Items.Count(ItemTypes.Service)
+                    </div>
+                </div>
+                <div class="col  px-1">
+                    <div class="bg-fb1 p-2">
+                        @ItemTypes.Expense.ToString()<br />
+                        @Organization.Items.Count(ItemTypes.Expense)
+                    </div>
+                </div>
+            </div>
+        *@
+        <partial name="_ItemsList" />
+    </div>
+</div>
+

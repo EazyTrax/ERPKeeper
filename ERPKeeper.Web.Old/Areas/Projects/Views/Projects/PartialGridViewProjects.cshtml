@@ -1,0 +1,110 @@
+﻿@model IList<ERPKeeper.Node.Models.Projects.Project>
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "GridViewProjects";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+    settings.CallbackRouteValues = new
+    {
+        Controller = "Projects",
+        Action = "PartialGridViewProjects",
+        Area = "Projects"
+    };
+
+    settings.KeyFieldName = "Uid";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Status";
+        column.Caption = " ";
+        column.CellStyle.VerticalAlign = VerticalAlign.Top;
+
+    });
+
+
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "CreatedDate";
+    //    column.Caption = Lang.TrnDate;
+    //    //column.SortIndex = 2;
+    //    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+    //    column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+    //});
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Age";
+    });
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "Type";
+    //});
+
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "Code";
+        column.FieldName = "Code";
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string Code = (DataBinder.Eval(t.DataItem, "Code") ?? " ").ToString();
+            var linkTag = Html.ActionLink(Code, "Home", "Project", new { id = Uid }, null);
+            ViewContext.Writer.Write(string.Format("{0}", linkTag));
+        });
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "Title";
+        column.FieldName = "Name";
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string Title = (DataBinder.Eval(t.DataItem, "Name") ?? " ").ToString();
+            var linkTag = Html.ActionLink(Title, "Home", "Project", new { id = Uid }, null);
+            ViewContext.Writer.Write(string.Format("{0}", linkTag));
+        });
+    });
+
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CustomerProfileGuid";
+        column.Caption = "Name";
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string ProfileGuid = (DataBinder.Eval(t.DataItem, "CustomerProfileGuid") ?? " ").ToString();
+            string ProfileName = (DataBinder.Eval(t.DataItem, "Customer.Name") ?? " ").ToString();
+            var linkTag = Html.ActionLink(ProfileName, "Home", "Customer", new { Area = "Customers", id = ProfileGuid }, null);
+            ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:200px;'>{0}</div>", linkTag));
+        });
+    });
+
+
+
+
+
+    settings.Width = Unit.Percentage(100);
+    settings.EnableTheming = true;
+    settings.Styles.Header.Font.Bold = true;
+
+    settings.CommandColumn.CellStyle.BackColor = System.Drawing.Color.Transparent;
+    settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+    settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+    settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+}).Bind(Model).GetHtml()
+

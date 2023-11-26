@@ -1,0 +1,19 @@
+﻿@{
+
+    Layout = null;
+    var openPositions = erpNodeDBContext.EmployeePositions.ToList();
+}
+
+@if (openPositions.Count() > 0)
+{
+    <div class="p-2   mb-1 bg-fb2"  style="min-height:250px;">
+        <b> @openPositions.Count() ตำแหน่งงานว่าง</b><br />
+
+
+        @foreach (var openPosition in openPositions)
+        {
+            <span>@openPosition.Title</span><br />
+        }
+    </div>
+
+}

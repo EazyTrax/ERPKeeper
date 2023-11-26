@@ -1,0 +1,54 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.GeneralPayment
+
+<div id="DivPayFrom">
+    <div class="row p-2 mb-2 bg-fb2 mh-50">
+        <div class="col">
+            Pay From Accounts
+        </div>
+        <div class="col-3 text-right pt-2">
+            @if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+
+                <span id="ImageMenuAddPayFrom" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+                @Html.DevExpress().PopupMenu(settings =>
+           {
+               settings.Name = "PopupMenuAddPayFrom";
+               settings.PopupElementID = "ImageMenuAddPayFrom";
+               settings.ShowPopOutImages = DefaultBoolean.True;
+               settings.PopupAction = PopupAction.LeftMouseClick;
+               settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+               Organization.ChartOfAccount.GetCashEquivalentAccounts().OrderBy(a => a.CodeName).ToList().ForEach(a =>
+               {
+                   settings.Items.Add(a.Name).NavigateUrl = DevExpressHelper.GetUrl(new
+                   {
+                       Area = "Financial",
+                       Controller = "GeneralPayment",
+                       Action = "AddPayFromAccount",
+                       id = Model.Uid,
+                       PayFromAccountUid = a.Uid
+                   });
+               });
+           }).GetHtml()
+
+            }
+        </div>
+    </div>
+    <div class="mb-2">
+
+
+        @if (Model.PaymentFromAccounts.Count != 0)
+        {
+            <script>
+                function OnRowDblClick(s, e) {
+                    s.StartEditRow(e.visibleIndex);
+                }
+                function OnEndCallback(s, e) {
+                    // cbpExample.PerformCallback();
+                }
+            </script>
+
+            @Html.Partial("~/Areas/Financial/Views/GeneralPayment/PartialGridViewPayFrom.cshtml")
+        }
+    </div>
+</div>

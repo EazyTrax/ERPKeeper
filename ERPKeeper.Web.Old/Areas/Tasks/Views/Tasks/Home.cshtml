@@ -1,0 +1,47 @@
+﻿@model IList<ERPKeeper.Node.Models.Tasks.Task>
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+
+            @{
+                foreach (var task in Model.OrderBy(t=>t.Age))
+                {
+                    <a href="/Tasks/Task/@task.Uid/Home">
+                        <div class="row mb-2 bg-fb2 py-2">
+                            <div class="col-10">
+                                <span class="font-weight-bold">@task.Title</span><br />
+                                <div class="mb-2" style="font-size:12px;">@(task.ResponsibleMember?.Name)</div>
+                                @task.Detail
+                            </div>
+                            <div class="col-2 text-right">
+                                @if (task.DueDate != null)
+                                {
+                                    <span class="btn btn-sm btn-danger">
+                                        @task.Age
+                                    </span>
+                                }
+
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+
+
+
+
+
+            @Html.Partial("PartialGridViewTasks")
+        </div>
+        <div class="col-3 col-Right pr-0">
+            <div class="bg-fb2 mgh-400">
+
+            </div>
+        </div>
+    </div>
+</div>

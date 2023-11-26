@@ -1,0 +1,124 @@
+@model IList<ERPKeeper.Node.Models.Financial.Payments.ReceivePayment>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewCommecialPayments";
+        settings.CallbackRouteValues = new { Controller = "ReceivePayments", Action = "PartialGridView", id = ViewBag.id };
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSize = 200;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "200", "500", "1000" };
+
+        settings.SettingsPager.PageSize = 100;
+        settings.KeyFieldName = "Uid";
+        settings.Settings.ShowFooter = true;
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 400;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+
+
+
+        settings.EncodeHtml = false;
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "N2";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "No";
+            column.Width = 120;
+            column.SortIndex = 1;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "ReceivePayment", new { id = Uid }, null));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.Name";
+            column.Caption = "Accout Name";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string ProfileGuid = (DataBinder.Eval(t.DataItem, "Profile.Uid") ?? "N/A").ToString();
+                string ProfileName = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+                var linkTag = Html.ActionLink(ProfileName, "Home", "Customer", new { Area = "Customers", id = ProfileGuid }, null);
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:250px;'>{0}</div>", linkTag));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Amount";
+            column.Caption = "Amount";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AmountRetention";
+            column.Caption = "Reten";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00); ";
+        });
+
+         settings.Columns.Add(column =>
+        {
+            column.FieldName = "AmountRetentionRate";
+            column.Caption = "Ret%";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00); ";
+        });
+        
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "AssetAccount.Name";
+        //    column.Caption = "Asset Account";
+        //    column.SetDataItemTemplateContent(t =>
+        //    {
+        //        string AccountItemUid = (DataBinder.Eval(t.DataItem, "AssetAccountUid") ?? "N/A").ToString();
+        //        string Name = (DataBinder.Eval(t.DataItem, "AssetAccount.Name") ?? " ").ToString();
+        //        string SpanBadge = (DataBinder.Eval(t.DataItem, "AssetAccount.SpanBadge") ?? " ").ToString() + "  ";
+        //        ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = AccountItemUid, Area = "Accounting" }, null));
+        //    });
+        //});
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus"; ;
+            column.Caption = " ";
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

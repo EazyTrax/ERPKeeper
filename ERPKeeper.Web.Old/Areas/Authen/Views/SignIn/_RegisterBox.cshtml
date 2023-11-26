@@ -1,0 +1,39 @@
+﻿@model ERPKeeper.Node.Models.Security.LogInModel
+
+
+
+@using (Html.BeginForm("Authen", "SignIn", new { Area = "Authen" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(Model => Model.ReturnUrl)
+    <div class="row bg-fb1  p-2 mt-4">
+        <div class="col-12">
+            <strong>Login ID</strong>
+        </div>
+        <div class="col-12 pt-1">
+            @Html.TextBoxFor(Model => Model.Email, new { style = "width:230px;" })<br />
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="col-12 pt-3">
+            <strong>Password</strong><br />
+        </div>
+        <div class="col-8 pt-1">
+            @Html.DevExpress().TextBoxFor(m => m.Pin,
+                           settings =>
+                           {
+                               settings.Properties.Password = true;
+                               settings.Properties.NullText = "Pin";
+                               settings.Width = 180;
+                           }).GetHtml()
+
+            @Html.ValidationMessageFor(x => x.Pin)
+        </div>
+        <div class="col-4 py-1 ">
+            <button type="submit" class="btn btn-primary py-0 px-2 btn-sm">Log In</button>
+            <a href="@Url.Action("FacebookLogin","Oauth")">  <i class="fab fa-facebook fa-lg text-muted"></i></a> <br />
+            @Html.ValidationMessage("CustomError")
+        </div>
+    </div>
+}
+
+

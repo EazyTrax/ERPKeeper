@@ -1,0 +1,20 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")   @Html.DevExpress().WebDocumentViewer(settings =>
+{
+settings.Name = "documentViewer";
+settings.Height = 800;
+}).Bind(ViewBag.Report).GetHtml()
+        </div>
+        <div class="col-3 col-Right pr-0">
+            <div class="p-2 mb-2 bg-fb2 mh-50">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@model ERPKeeper.Node.Models.Employees.Employee
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div class="row">
+        <div class="col p-0">
+            <h6>@Model.Profile.Name</h6>
+            @(Model.Position?.Title)
+        </div>
+        <div class="col-3 p-0 text-right">
+            <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuAction";
+           settings.PopupElementID = "ImageMenuAction";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+           settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+
+           if (Model.Status == ERPKeeper.Node.Models.Employees.EmployeeStatus.Active)
+                settings.Items.Add("Mark InActive").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "MarkInactive", Id = Model.ProfileUid });
+            else
+               settings.Items.Add("Mark Active").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "MarkActive", Id = Model.ProfileUid });
+
+
+           settings.Items.Add("New Payment").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "NewPayment", id = Model.ProfileUid });
+
+       }).GetHtml()
+        </div>
+    </div>
+</div>
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+    settings.Styles.Item.Paddings.PaddingLeft = 10;
+    settings.Styles.Item.Paddings.PaddingRight = 10;
+
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "Home";
+        item.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "Home", id = Model.ProfileUid });
+    });
+    settings.Items.Add(item =>
+    {
+        item.Text = "Payments";
+        item.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "Payments", id = Model.ProfileUid });
+    });
+    settings.Items.Add(item =>
+    {
+        item.Text = "Leaves";
+        item.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "Leaves", id = Model.ProfileUid });
+    });
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "Tasks";
+        item.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Employee", Action = "Tasks", id = Model.ProfileUid });
+    });
+
+
+}).GetHtml()
+</div>

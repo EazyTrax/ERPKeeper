@@ -1,0 +1,37 @@
+﻿<link href="/Content/Css/TimeLine.css" rel="stylesheet" />
+
+<div class="mb-2 bg-fb2 rounded border" style="min-height:252px;">
+    <div class="row p-2 mb-1 ">
+        <div class="col p-0 font-weight-bold text-uppercase">
+            @Lang.OpenTask.ToUpper()
+        </div>
+        <div class="col p-0 text-right text-muted">
+            @*@Html.Partial("~/Areas/Tasks/Views/Tasks/_PopUpNewTask.cshtml")*@
+        </div>
+
+
+        <div class="col-12 p-0 my-2">
+            @{
+                var tasks = erpNodeDBContext.Tasks
+                    .Where(t => t.Status != ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Close)
+                    .OrderBy(t => t.CreatedDate)
+                    .ToList();
+
+                foreach (var task in tasks)
+                {
+                    <a href="@Url.Action("Home", "Task", new { Area = "Tasks", id = task.Uid })">
+                        <div class="row border-top border-white p-1" style="overflow:hidden;">
+
+                            <div class="col-10 p-0 overflow-hidden text-nowrap">
+                                <span>@task.Title</span>
+                            </div>
+                            <div class="col-2 p-0 overflow-hidden text-right text-nowrap">
+                                <span class="">{@task.Age}</span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+</div>

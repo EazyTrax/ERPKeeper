@@ -1,0 +1,29 @@
+﻿@model ERPKeeper.Node.Models.Employees.PaymentTemplate
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            
+        </div>
+        <div class="col col-Middle p-0">
+            <div class="MiddleSubLeftColContainer">
+                <div class="MiddleColBox">
+                    @Html.Partial("_Form", Model)
+                </div>
+
+                @if (Model.Items != null)
+                {
+                    @Html.Partial("PartialGridView", Model.Items.ToList())
+                }
+            </div>
+            <div class="MiddleSubRightColContainer">
+                <div class="p-2 mb-2 bg-fb2 mh-50">
+
+                </div>
+                <div class="p-2 mb-2 bg-fb2 mh-50">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

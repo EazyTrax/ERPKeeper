@@ -1,0 +1,16 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+
+@if (Model.ItemType == ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory)
+{
+    <div class="p-2 mb-2 bg-fb2">
+        <b>Sold</b> @(Model.AmountSold)  Units<br />
+        <b>Stock</b> @(Model.AmountOnHand)  Units<br />
+        <b>Purchase</b> @Model.AmountPurchase<br />
+        @if ((Model.AmountReorder ?? 0) > 0)
+        {
+            <b>ReOrder</b> @(Model.AmountReorder ?? 0) <span>Units <br /></span>
+        }
+    </div>
+}
+

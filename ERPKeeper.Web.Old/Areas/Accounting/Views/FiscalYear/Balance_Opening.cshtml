@@ -1,0 +1,34 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col-7 colRightFull pr-0">
+            @Html.Partial("_MenuTop")
+
+            @{
+                if (Model.PreviousFiscal != null)
+                {
+                    <div class="row p-2 bg-fb1 mb-1">
+                        <div class="col-9 p-1">
+                            <b>
+                                Previus Fiscal,
+                                <a href="@Url.Action("Home",new { Id= Model.PreviousFiscalUid })"> @Model.PreviousFiscal.Name @Model.Status</a>
+
+                            </b>
+                        </div>
+                        <div class="col-3 text-right">
+                            <a href="@DevExpressHelper.GetUrl(new { Controller = "FiscalYear", Action = "UpdateOpeningBalance", id = Model.Uid })">
+                                <i class="fas fa-sync-alt fa-lg text-light"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+
+            @Html.Action("PartialGridView_Balance_Opening", new { id = Model.Uid })
+        </div>
+    </div>
+</div>

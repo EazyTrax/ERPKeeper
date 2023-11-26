@@ -1,0 +1,101 @@
+﻿@model ERPKeeper.Node.Models.Taxes.TaxPeriod
+@using ERPKeeper.Node.Models.Taxes.Enums
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Taxes"})">@Lang.Taxes</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "TaxPeriods",new { Area = "Taxes"})">@Lang.Periods</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "TaxPeriod",new { Area = "Taxes", id= Model.Uid})">@Model.PeriodName</a>
+            </li>
+        </ol>
+    </div>
+
+
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+       if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+       {
+           settings.Items.Add("Update").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Update", id = Model.Uid });
+           settings.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Delete", id = Model.Uid });
+       }
+       else
+           settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UnPost", id = Model.Uid });
+
+   }).GetHtml()
+
+        @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+        {
+            @Html.DevExpress().PopupMenu(settings =>
+            {
+                settings.Name = "PopupMenuLock";
+                settings.PopupElementID = "ImageMenuLock";
+                settings.ShowPopOutImages = DefaultBoolean.True;
+                settings.PopupAction = PopupAction.LeftMouseClick;
+                settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+                settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UnPost", id = Model.Uid });
+                settings.Items.Add("Validate").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Validate", id = Model.Uid });
+            }).GetHtml()
+        }
+    </div>
+</div>
+
+
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.EncodeHtml = false;
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+    settings.Width = 200;
+    settings.Styles.Item.CssClass = "px-1";
+
+    settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = Model.Uid });
+    settings.Items.Add($"Input Tax {Model.InputCommercialCount}").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Commercial", id = Model.Uid, taxDirection = TaxDirection.Input });
+    settings.Items.Add($"Output Tax {Model.OutputCommercialCount}").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Commercial", id = Model.Uid, taxDirection = TaxDirection.Output });
+    if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+        settings.Items.Add("Unassign Tax").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "unassigncommercial", id = Model.Uid });
+    settings.Items.Add("Documents").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Documents", id = Model.Uid });
+
+
+        settings.Items.Add(item =>
+        {
+            item.Text = "Report";
+            item.Items.Add(subItem =>
+            {
+                subItem.Text = "Export";
+                subItem.Items.Add("Input Tax").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ExportInputTax", id = Model.Uid });
+                subItem.Items.Add("Output Tax").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ExportOutputTax", id = Model.Uid });
+                subItem.Items.Add("Revenue Dep").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ExportRd", id = Model.Uid });
+                subItem.Items.Add("Download PDF").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Download", id = Model.Uid });
+            });
+        });
+
+
+}).GetHtml()
+</div>

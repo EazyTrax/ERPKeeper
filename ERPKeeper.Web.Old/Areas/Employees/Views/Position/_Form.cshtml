@@ -1,0 +1,51 @@
+﻿
+@model ERPKeeper.Node.Models.Employees.Position
+
+
+<div class="bg-fb2">
+    @using (Html.BeginForm("Save", "Position"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "Position";
+       settings.Width = Unit.Percentage(100);
+
+
+
+       settings.Items.Add(m => m.Title, itemSettings =>
+       {
+           itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+           
+       });
+
+       settings.Items.Add(m => m.Description, itemSettings =>
+       {
+           itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+           
+       });
+
+
+       
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+       });
+
+
+   }).GetHtml()
+
+    }
+
+</div>

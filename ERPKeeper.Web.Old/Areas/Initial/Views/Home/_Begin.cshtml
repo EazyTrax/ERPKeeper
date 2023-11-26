@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Company.NewCompanyModel
+
+<div class="signInBox">
+    @using (Html.BeginForm("CreateCompany", "QuickStart"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "NewCompany";
+       settings.Width = Unit.Pixel(400);
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+           groupSettings.Caption = "setup";
+
+           groupSettings.Items.Add(m => m.Name, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+
+           });
+           groupSettings.Items.Add(m => m.TaxID, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+
+           });
+           groupSettings.Items.Add(m => m.FirstDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+               DateEditSettings dateEditSetting = (DateEditSettings)itemSettings.NestedExtensionSettings;
+
+               dateEditSetting.Properties.MaxDate = new DateTime(DateTime.Now.Year, 12, 31);
+               dateEditSetting.Properties.MinDate = new DateTime(DateTime.Now.Year, 1, 1);
+
+           });
+       });
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+           groupSettings.Items.Add(item =>
+           {
+               item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+               item.ShowCaption = DefaultBoolean.False;
+               item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+               var button = (ButtonSettings)item.NestedExtensionSettings;
+               button.Name = "SaveButton";
+               button.Text = "Next Step";
+               button.UseSubmitBehavior = true;
+           });
+       });
+
+   }).GetHtml()
+    }
+</div>

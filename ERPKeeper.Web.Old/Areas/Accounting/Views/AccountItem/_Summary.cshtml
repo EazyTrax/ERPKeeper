@@ -1,0 +1,7 @@
+@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+
+<div class="bg-fb2 p-2  mt-2">
+  <span style="font-weight:bold;">@Model.CurrentBalance.ToString("N2") THB</span> <br />
+  <span style="font-size:smaller;color:brown">@(((DateTime)(Model.CurrentBalanceRecordDate ?? DateTime.Now)).ToString("dd-MMM-yy"))</span>
+</div>

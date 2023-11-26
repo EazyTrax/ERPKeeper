@@ -1,0 +1,28 @@
+﻿@model ERPKeeper.Node.Models.Documents.Document
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            @if (Model.ContentType == "application/pdf")
+            {
+                <div class="border">
+                    @Html.Action("_PDFViewer", new { id = Model.Uid })
+                </div>
+            }
+
+        </div>
+        <div class="col-3 col-Left pl-0">
+            @if (Model.ContentType == "application/pdf")
+            {
+                @Html.Partial("_PDFCommand")
+            }
+
+            @Html.Partial("_Detail", Model)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Careers";
+    Layout = null;
+
+    var bankAccountsCount = erpNodeDBContext.AccountItems.Where(account => account.SubEnumType == ERPKeeper.Node.Models.Accounting.AccountSubTypes.Bank).Count().ToString("N0");
+    var cashAccountsCount = erpNodeDBContext.AccountItems.Where(account => account.SubEnumType == ERPKeeper.Node.Models.Accounting.AccountSubTypes.Cash).Count().ToString("N0");
+}
+
+
+
+
+
+<div>
+    <a href="@Url.Action("Home","BankAccounts")">
+        <div class="rcorners3">
+            <span style="font-size:24px;font-weight:600;">@cashAccountsCount</span><br /><br />
+            Cash Accounts
+        </div>
+    </a>
+
+    <a href="@Url.Action("Home","BankAccounts")">
+        <div class="rcorners3">
+            <span style="font-size:24px;font-weight:600;">@cashAccountsCount</span><br /><br />
+            Bank Accounts
+        </div>
+    </a>
+
+</div>

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Careers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="globalContainer">
+    <div id="contentCol">
+        <div class="leftColContainer">
+             
+            @Html.Partial("_MenuERP")
+        </div>
+        <div class="rightColContainer">
+            <div class="leftSubColContainer">
+                @Html.Action("_GridViewPartial")
+            </div>
+            <div class="rightSubColContainer">
+               
+            </div>
+        </div>
+    </div>
+</div>
+

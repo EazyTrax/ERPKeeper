@@ -1,0 +1,57 @@
+﻿@model ERPKeeper.Node.Models.Accounting.DefaultAccountItem
+
+
+@using (Html.BeginForm("Save", "DefaultAccountItem"))
+{
+  @Html.AntiForgeryToken()
+  @Html.HiddenFor(model => model.AccountType)
+
+@Html.DevExpress().FormLayout(settings =>
+{
+  settings.Name = "ChartOfAccount";
+
+
+  settings.Width = Unit.Pixel(370);
+
+  settings.Items.AddGroupItem(groupSettings =>
+  {
+    groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+
+    groupSettings.ParentContainerStyle.Paddings.Padding = 0;
+    groupSettings.CellStyle.Paddings.Padding = 0;
+
+    groupSettings.Items.Add(m => m.AccountItemUid, itemSettings =>
+    {
+      itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+      itemSettings.Caption = "Account";
+
+      itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+      ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+      cb.Properties.TextField = "Name";
+      cb.Properties.ValueField = "Uid";
+      cb.Properties.ValueType = typeof(Guid);
+      cb.Properties.DataSource = Organization.ChartOfAccount.GetAccountsList();
+
+    });
+
+
+
+    groupSettings.Items.Add(item =>
+    {
+      item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+      item.ShowCaption = DefaultBoolean.False;
+      item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+      var button = (ButtonSettings)item.NestedExtensionSettings;
+      button.Name = "SaveButton";
+      button.Text = "Save";
+      button.UseSubmitBehavior = true;
+    });
+
+  });
+
+}).GetHtml()
+
+
+
+}

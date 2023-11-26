@@ -1,0 +1,119 @@
+﻿@model ERPKeeper.Node.Models.Financial.Loans.Loan
+
+
+<div class="MiddleColContainerBox">
+    @using (Html.BeginForm("Save", "Loan", FormMethod.Post, new { @id = "SavePaymentForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "LoanFormLayout";
+       settings.Width = Unit.Percentage(50);
+       settings.ColCount = 1;
+
+
+       settings.EncodeHtml = false;
+
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "LOAN DETAIL";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.ColCount = 1;
+
+
+           groupSettings.Items.Add(m => m.TrnDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+               
+
+               DateEditSettings cb = (DateEditSettings)itemSettings.NestedExtensionSettings;
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+           });
+
+           groupSettings.Items.Add(m => m.LiabilityAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "บัญชีหนี้สิน";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.LiabilityAccounts;
+           });
+
+           groupSettings.Items.Add(m => m.Amount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Liability Amount";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+           });
+
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "DEPOSIT TO";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.ColCount = 1;
+
+           groupSettings.Items.Add(m => m.AssetAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "DEPOSIT ACCOUNT";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetCashEquivalentAccounts();
+           });
+       });
+
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Other Detail";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+
+           groupSettings.Items.Add(m => m.Detail, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = "Home";
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+
+           });
+
+
+
+       });
+
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+
+       });
+
+   }).GetHtml()
+    }
+   
+</div>

@@ -1,0 +1,27 @@
+﻿@using ERPKeeper.Node.Models.Reports.CompanyandFinancial
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col-10 col-Middle pr-0">
+            <div class="bg-fb2 p-2 mb-2 mh-50">
+                <b>@Lang.Reports.ToUpper()</b>
+            </div>
+            <div class="p-2 bg-fb1 mb-1">
+                · @Html.ActionLink("All", "TrialBalance", new { Type = enumTrialBalaceViewType.Default }, null)
+                · @Html.ActionLink("Today", "TrialBalance", new { Type = enumTrialBalaceViewType.Today }, null)
+                · @Html.ActionLink("Last 7 Day", "TrialBalance", new { Type = enumTrialBalaceViewType.Last7Day }, null)
+                · @Html.ActionLink("Last Week", "TrialBalance", new { Type = enumTrialBalaceViewType.LastWeek }, null)
+                · @Html.ActionLink("Last 30 Month", "TrialBalance", new { Type = enumTrialBalaceViewType.Last30Day }, null)
+                · @Html.ActionLink("Last Month", "TrialBalance", new { Type = enumTrialBalaceViewType.LastMonth }, null)
+                · @Html.ActionLink("Year to date", "TrialBalance", new { Type = enumTrialBalaceViewType.Yeartodate }, null)
+                · @Html.ActionLink("Last year", "TrialBalance", new { Type = enumTrialBalaceViewType.Lastyear }, null)
+            </div>
+            @Html.Action("PartialGridViewTrialBalance", new { type = ViewBag.Type })
+        </div>
+    </div>
+</div>
+
+

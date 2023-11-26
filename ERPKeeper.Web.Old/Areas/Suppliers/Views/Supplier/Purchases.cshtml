@@ -1,0 +1,17 @@
+﻿@model ERPKeeper.Node.Models.Suppliers.Supplier
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_ActionMenu")
+            @Html.Action("PartialGridViewPurchaseHistory", new { id = Model.ProfileUid })
+        </div>
+        <div class="col-3 col-Right pr-0">
+            @Html.Action("_ChartExpense", new { Id = Model.ProfileUid })
+        </div>
+    </div>
+</div>

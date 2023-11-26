@@ -1,0 +1,51 @@
+﻿
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-11 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Accounting"})">Accounting</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "FiscalYears",new { Area = "Accounting"})">Fiscal Years</a>
+            </li>
+        </ol>
+    </div>
+
+
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+      {
+        settings.Name = "PopupMenuAction";
+        settings.PopupElementID = "ImageMenuAction";
+        settings.ShowPopOutImages = DefaultBoolean.True;
+        settings.PopupAction = PopupAction.LeftMouseClick;
+        settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+        settings.Items.Add(subItem =>
+        {
+          subItem.Text = "New Fiscal";
+          subItem.Items.Add("AutoCreate").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYears", Action = "AutoCreate" });
+          subItem.Items.Add("Previus Fiscal").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYears", Action = "CreatePrevius" });
+          subItem.Items.Add("UpdateFirstDate").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "FiscalYears", Action = "UpdateFirstDate" });
+        });
+      }).GetHtml()
+    </div>
+</div>
+
+
+
+<div class="row m-0 b-2">
+    @Html.DevExpress().Menu(settings =>
+  {
+    settings.Name = "menuPeriod";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+  }).GetHtml()
+</div>

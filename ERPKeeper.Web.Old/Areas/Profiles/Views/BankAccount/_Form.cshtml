@@ -1,0 +1,74 @@
+﻿@model ERPKeeper.Node.Models.Profiles.BankAccount
+
+
+
+
+<div class="bg-fb2">
+    @using (Html.BeginForm("Save", "BankAccount"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.BankAccountGuid)
+        @Html.HiddenFor(model => model.ProfileGuid)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "BankAccount";
+       settings.Width = 500;
+
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Bank Account";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+           groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+
+           groupSettings.Items.Add(m => m.Name, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+               
+           });
+
+
+
+           groupSettings.Items.Add(m => m.BankName, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+           groupSettings.Items.Add(m => m.Number, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+
+           groupSettings.Items.Add(m => m.Type, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+
+
+       });
+
+
+
+
+
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+
+       });
+
+   }).GetHtml()
+    }
+</div>

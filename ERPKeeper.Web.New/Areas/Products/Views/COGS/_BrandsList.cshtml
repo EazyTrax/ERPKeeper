@@ -1,0 +1,69 @@
+﻿
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Items.Item>()
+    .ID("gridList")
+    .DataSource(Organization.ItemBrands.ListAll()
+    .Select(i=> new{
+    i.Uid ,
+    i.Name,
+    i.ShotName ,
+    i.Description ,
+    i.ItemsCount ,
+    })
+
+
+        @*   d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/All")
+            .InsertUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Insert")
+            .UpdateUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Update")
+            .UpdateMethod("Post")
+            .DeleteUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Delete")
+            .DeleteMethod("Post")*@
+
+    )
+    .KeyExpr("Uid")
+    
+        @*.ExpandedRowKeys(new[] { 1 })*@
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)@*
+            .AllowDeleting(true)*@
+    .AllowAdding(true)
+    )
+    .Paging(pagging=> pagging.PageSize(100))
+    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+
+
+    .Columns(columns => {
+    columns.Add().DataField("Name").Width(250)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Products/Brand/<%= data.Uid %>">
+                <%= data.Name %>
+            </a>
+        </text>);
+         columns.Add().DataField("Description").Format(Format.FixedPoint);
+    columns.Add().DataField("ItemsCount").Format(Format.FixedPoint);
+    })
+    )
+</div>
+
+

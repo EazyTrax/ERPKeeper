@@ -1,0 +1,19 @@
+﻿@model ERPKeeper.Node.Models.Employees.Employee
+
+
+<div class="row mb-2 font-weight-600">
+    <div class="col-6 p-2">
+        <a href="/@CompanyId/Employees">Employees</a>
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Employees/Employees"> Employees</a>
+        <i class="fa-solid fa-caret-right"></i>
+        <a href="/@CompanyId/Employees/Employees/@Model.ProfileUid"> @Model.Profile.Name</a>
+    </div>
+    <div class="col-6 text-right p-2">
+        <a href="/@CompanyId/Employees/Employees/@Model.ProfileUid">Overview</a>  ·
+        <a href="/Profiles/@Model.ProfileUid">Profile</a>  ·
+        <a href="/@CompanyId/Employees/Employees/@Model.ProfileUid/Payments">Estimates</a>
+    </div>
+</div>
+
+

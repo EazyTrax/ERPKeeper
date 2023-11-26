@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Financial.Transfer.FundTransfer
+
+<div class="bg-fb2 p-2 mb-2 mh-50 ">
+    <b>FUND TRANSFER</b> , @Model.No<br />
+    @Model.Status
+</div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+    settings.Width = 200;
+
+
+    settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = Model.Uid });
+    settings.Items.Add(item =>
+    {
+        item.Text = "Action";
+        item.Items.Add("Open").NavigateUrl = @Url.Action("Open", new { id = Model.Uid });
+        item.Items.Add("Void").NavigateUrl = @Url.Action("Void", new { id = Model.Uid });
+
+        if ((int)CurrentUser.AccessLevel > (int)ERPKeeper.Node.Models.Security.Enums.AccessLevel.TransactionMaker)
+        {
+            item.Items.Add("Delete").NavigateUrl = @Url.Action("Delete",new{ id = Model.Uid });
+            item.Items.Add("Copy").NavigateUrl = @Url.Action("Copy", new { id = Model.Uid });
+        }
+
+        if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            item.Items.Add("UnPost").NavigateUrl = @Url.Action("UnPost", new { id = Model.Uid });
+    });
+
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "Report";
+        item.Items.Add("Export").NavigateUrl = @Url.Action("Report", new { id = Model.Uid });
+    });
+
+    settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Documents).NavigateUrl = @Url.Action("Documents", new { id = Model.Uid });
+}).GetHtml()
+
+<div class="mt-3">
+    <a href="@Url.Action("Home", "FundTransfers", new {  })">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+
+    @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+    {
+        <a href="@Url.Action("Ledger",  new { id = Model.Uid })">
+            <i class="fas fa-globe-asia fa-lg text-muted"></i>
+        </a>
+    }
+</div>

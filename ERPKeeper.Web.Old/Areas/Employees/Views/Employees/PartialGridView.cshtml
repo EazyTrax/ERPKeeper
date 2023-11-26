@@ -1,0 +1,92 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Employees", Action = "PartialGridView" , id = ViewBag.id};
+        settings.KeyFieldName = "Uid";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "EmployeeNumber";
+            column.Caption = "No#";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Employees Name";
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string profileUid = DataBinder.Eval(t.DataItem, "ProfileUid").ToString();
+                string profileName = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(profileName, "Home", "Employee", new { Area = "Employees", id = profileUid }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.TaxNumber";
+            column.Caption = "Tax ID";
+
+
+        });
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Position.Title";
+            column.Caption = "Position";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                var PositionGuid = DataBinder.Eval(t.DataItem, "Position.Uid");
+
+                if (PositionGuid != null)
+                {
+                    string PositionGuidString = (DataBinder.Eval(t.DataItem, "Position.Uid")).ToString();
+                    string Name = (DataBinder.Eval(t.DataItem, "Position.Title")).ToString();
+                    ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "Position", new { id = PositionGuidString }, null));
+                }
+                else
+                {
+                    ViewContext.Writer.Write("&nbsp;");
+                }
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TotalIncome";
+            column.Caption = "Total Income";
+            column.PropertiesEdit.DisplayFormatString = "N0";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Status";
+            column.Caption = "Status";
+        });
+
+      
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+    });
+}
+@grid.Bind(Model).GetHtml()

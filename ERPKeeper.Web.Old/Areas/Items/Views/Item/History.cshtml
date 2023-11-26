@@ -1,0 +1,23 @@
+﻿@using ERPKeeper.Node.Models.Accounting.Enums
+@model ERPKeeper.Node.Models.Items.Item
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            <div class="mb-2 text-right">
+                @Html.ActionLink(ERPObjectType.Purchase.ToString(), "history", new { id = Model.Uid, Type = ERPObjectType.Purchase }) ·
+                @Html.ActionLink(ERPObjectType.Sale.ToString(), "history", new { id = Model.Uid, Type = ERPObjectType.Sale }) ·
+                @Html.ActionLink("All", "history", new { id = Model.Uid })
+            </div>
+            @Html.Action("_HistoryTransactionsGridView", new { Id = Model.Uid })
+
+
+
+        </div>
+    </div>
+</div>

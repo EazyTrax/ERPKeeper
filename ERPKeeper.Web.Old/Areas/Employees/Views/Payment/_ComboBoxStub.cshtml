@@ -1,0 +1,24 @@
+﻿
+
+
+
+@Html.DevExpress().ComboBox(
+            settings =>
+            {
+                settings.Name = "PaymentTypeGuid";
+                settings.CallbackRouteValues = new { Controller = "Payment", Action = "_ComboBoxStub", Area = "Employees" };
+                settings.Width = 250;
+                settings.Properties.ValueField = "Uid";
+                settings.Properties.ValueType = typeof(Guid);
+                settings.SelectedIndex = 0;
+                settings.Properties.TextField = "Name";
+                settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                settings.Properties.CallbackPageSize = 20;
+                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                settings.Properties.TextFormatString = "{0}";
+
+
+                settings.Properties.Columns.Add("Name", "Name", 250);
+                settings.Properties.Columns.Add("PayDirection", "PayDirection", 150);
+            }
+    ).BindList(Organization.EmployeePaymentTypes.GetAll().OrderBy(s=>s.PayDirection).ToList()).GetHtml()

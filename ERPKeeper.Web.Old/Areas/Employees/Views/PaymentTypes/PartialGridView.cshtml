@@ -1,0 +1,104 @@
+﻿
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewPayments";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new
+        {
+            Controller = "VendorPayments",
+            Action = "PartialGridView"
+        };
+
+        settings.KeyFieldName = "Uid";
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = DataBinder.Eval(t.DataItem, "Uid").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "PaymentType", new { id = Uid }, null));
+            });
+
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PayDirection";
+            column.SortIndex = 0;
+            column.SortAscending();
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Name";
+            column.Caption = "Account Name";
+
+            column.SortIndex = 1;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "Account.Uid") ?? "N/A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "Account.Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { Area = "Accounting", id = accountUid }, null));
+            });
+
+        });
+
+
+
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalEarning").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalDeduction").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+
+
+
+        settings.Width = Unit.Percentage(100);
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        settings.CommandColumn.CellStyle.BackColor = System.Drawing.Color.Transparent;
+        settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+        settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+    });
+}
+@grid.Bind(Model).GetHtml()
+

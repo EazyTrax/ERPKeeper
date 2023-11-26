@@ -1,0 +1,35 @@
+﻿@model ERPKeeper.Node.Models.Employees.EmployeePayment
+
+@if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+{
+    <div class="mb-2 bg-fb2 p-2 rounded">
+        @using (Html.BeginForm("AddPayItem", "Payment", new { id = Model.Uid, Area = "Employees" }, FormMethod.Post, new { @id = "AddStub" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row p-0">
+                <div class="col-5 p-1;">
+                    <b>Pay Type: </b><br />
+                    @Html.Action("_ComboBoxStub", "Payment", new { Area = "Employees" })
+                </div>
+                <div class="col-4 p-1;">
+                    <b>Amount: </b><br />
+                    @Html.DevExpress().TextBox(
+                        settings =>
+                        {
+                            settings.Name = "Amount";
+                            settings.Width = 170;
+                            settings.Properties.NullText = "Amount";
+                        }
+                    ).GetHtml()
+                </div>
+                <div class="col p-1">
+                    <a href="javascript:document.getElementById('AddStub').submit();">
+                        <i class="fas fa-plus-circle fa-lg "></i>
+                    </a>
+                </div>
+            </div>
+        }
+
+        <div style="clear:both"></div>
+    </div>
+}

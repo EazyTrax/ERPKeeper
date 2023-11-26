@@ -1,0 +1,37 @@
+﻿@model ERPKeeper.Node.Models.Items.GroupItem
+
+<div class="mb-2 mh-80">
+    <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+        <div class="col p-2">
+            <b>@Model.PartNumber </b>
+        </div>
+
+        <div class="col text-right">
+            <a href="@Url.Action("Home","Groups",new { })">
+                <i class="fas fa-bars"></i>
+            </a>
+            @if (Model.ParentUid != null)
+            {
+                <a href="@Url.Action("Home",new { id= Model.ParentUid})">
+                    <i class="fas fa-sort-amount-up"></i>
+                </a>
+            }
+
+        </div>
+    </div>
+
+    <div class="">
+        @Html.DevExpress().Menu(settings =>
+        {
+            settings.Name = "nbERPItems";
+            settings.Styles.Item.CssClass = "px-1";
+
+            settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Action = "Home", Controller = "Group", id = Model.Uid });
+            settings.Items.Add("Items").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Action = "Items", Controller = "Group", id = Model.Uid });
+            settings.Items.Add("Parameters").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Action = "Parameters", Controller = "Group", id = Model.Uid });
+
+        }).GetHtml()
+
+
+    </div>
+</div>

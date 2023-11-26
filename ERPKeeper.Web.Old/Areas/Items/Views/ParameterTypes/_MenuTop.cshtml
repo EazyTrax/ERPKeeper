@@ -1,0 +1,35 @@
+﻿
+<div class="mb-2 mh-80">
+    <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+        <div class="col-9 p-1">
+            <span class="bg-dark px-2 mt-2 mr-3 text-white">
+                Parameters
+            </span>
+        </div>
+        <div class="col text-right">
+            <span id="ImageMenuPlus" style="cursor:pointer"><i class="fas fa-plus-circle fa-lg text-muted"></i></span>
+            <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        </div>
+    </div>
+
+    <div>
+        @Html.DevExpress().Menu(settings =>
+        {
+            settings.Name = "mFeatures";
+            settings.AllowSelectItem = true;
+            settings.EnableHotTrack = true;
+            settings.EnableAnimation = true;
+            settings.ShowPopOutImages = DefaultBoolean.True;
+
+            settings.Items.Add("Service").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", Type = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service });
+
+            settings.Items.Add(item =>
+            {
+                item.Text = "Action";
+                item.Items.Add("Count").NavigateUrl = DevExpressHelper.GetUrl(new {  Action = "Count" });
+            });
+
+        }).GetHtml()
+    </div>
+
+</div>

@@ -1,0 +1,67 @@
+﻿using ERPKeeper.Node.Models;
+using ERPKeeper.Node.Models.Datum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace ERPKeeper.Node.DAL.Company
+{
+    public class DataItems : ERPNodeDalRepository
+    {
+
+        public DataItems(Organization organization) : base(organization)
+        {
+           
+        }
+        public String OrganizationName => Get(DataItemKey.OrganizationName);
+        public String OrganizationHeader => Get(DataItemKey.OrganizationHeader);
+        public String TaxID => Get(Models.Datum.DataItemKey.TaxId);
+        public DateTime FirstDate
+        {
+            get
+            {
+                var firstDateString = this.Get(Models.Datum.DataItemKey.FirstDate);
+
+                if (firstDateString != null)
+                    return DateTime.Parse(firstDateString, System.Globalization.CultureInfo.InvariantCulture);
+                else
+                    return new DateTime(DateTime.Now.Year, 1, 1);
+            }
+
+            set
+            {
+                Set(Models.Datum.DataItemKey.FirstDate, value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                erpNodeDBContext.SaveChanges();
+            }
+        }
+
+        public List<DataItem> GetAll()
+        {
+            return erpNodeDBContext.DataItems.ToList();
+        }
+
+        public DataItem Get(Guid Uid) => erpNodeDBContext.DataItems.Find(Uid);
+        public String Get(DataItemKey key) => erpNodeDBContext.DataItems.Where(dt => dt.Key == key).FirstOrDefault()?.Value;
+
+        public void Set(Models.Datum.DataItemKey key, string value)
+        {
+            var dataItem = erpNodeDBContext.DataItems.Where(dt => dt.Key == key).FirstOrDefault();
+            if (dataItem != null)
+            {
+                dataItem.Value = value;
+            }
+            else
+            {
+                dataItem = new Models.Datum.DataItem()
+                {
+                    Uid = Guid.NewGuid(),
+                    Key = key,
+                    Value = value
+                };
+                erpNodeDBContext.DataItems.Add(dataItem);
+            }
+            erpNodeDBContext.SaveChanges();
+        }
+    }
+}

@@ -1,0 +1,11 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+
+<div class="row">
+    <div class="col-8 p-0 col-center  mh-100v border-right border-2">
+        <partial name="_EditForm" />
+    </div>
+    <div class="col-4 pr-0">
+        @await Component.InvokeAsync("_Journal_Accounting",new{companyId = CompanyId, journalId = Model.Uid})
+    </div>
+</div>
+

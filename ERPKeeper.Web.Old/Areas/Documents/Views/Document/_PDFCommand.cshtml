@@ -1,0 +1,41 @@
+﻿@model ERPKeeper.Node.Models.Documents.Document
+
+
+<div class="mb-2">
+    <script type="text/javascript">
+                        function Extract() {
+                            var url = "/Documents/Document/Extract/@Model.Uid?pageCount=" + DocumentView01.GetPageIndex();
+                            if (DocumentView01.GetPageIndex() == 0)
+                                return;
+
+                            //alert(url);
+                            window.location.href = url;
+
+                        }
+                function RemovePage() {
+                    var pageNo = DocumentView01.GetPageIndex() + 1;
+                    var url = "/Documents/Document/RemovePage/@Model.Uid?pageNo=" + pageNo;
+                    //alert(url);
+                    window.location.href = url;
+                        }
+    </script>
+
+    <div class="btn-group w-100" role="group" aria-label="Button group with nested dropdown ">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="Extract()">
+            Extract
+        </button>
+
+        <button type="button" class="btn btn-danger" onclick="RemovePage()">
+            Remove Page
+        </button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Advance
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDropAdvance">
+                <a class="dropdown-item" href="#">Delete</a>
+                <a class="dropdown-item" onclick="alert(DocumentView01.GetPageIndex());" href="#">Get CurryentPage</a>
+            </div>
+        </div>
+    </div>
+</div>

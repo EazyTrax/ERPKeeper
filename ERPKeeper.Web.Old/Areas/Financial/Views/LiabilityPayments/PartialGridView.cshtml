@@ -1,0 +1,142 @@
+@{ Layout = null;}
+@model IList<ERPKeeper.Node.Models.Financial.Payments.LiabilityPayment>
+
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewLiabilityPayments";
+
+        settings.CallbackRouteValues = new { Controller = "LiabilityPayments", Action = "PartialGridView", id = ViewBag.id };
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.KeyFieldName = "Uid";
+        settings.Settings.ShowFooter = true;
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 400;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.EncodeHtml = false;
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "N2";
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+            column.SortIndex = 0;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "GroupName";
+            column.Caption = "Group";
+            // column.GroupIndex = 0;
+
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "No";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            column.Width = 120;
+            column.SortIndex = 1;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "LiabilityPayment", new { id = Uid }, null));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "LiabilityAccount.Name";
+            column.Caption = "Liability Account";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string AccountItemUid = (DataBinder.Eval(t.DataItem, "LiabilityAccountUid") ?? "N/A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "LiabilityAccount.Name") ?? " ").ToString();
+                string SpanBadge = (DataBinder.Eval(t.DataItem, "LiabilityAccount.SpanBadge") ?? " ").ToString() + "  ";
+                ViewContext.Writer.Write(SpanBadge + Html.ActionLink(Name, "Home", "AccountItem", new { id = AccountItemUid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Amount";
+            column.Caption = "Amount";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "AssetAccount.Name";
+        //    column.Caption = "Asset Account";
+
+        //    column.SetDataItemTemplateContent(t =>
+        //    {
+        //        string AccountItemUid = (DataBinder.Eval(t.DataItem, "AssetAccountUid") ?? "N/A").ToString();
+        //        string Name = (DataBinder.Eval(t.DataItem, "AssetAccount.Name") ?? " ").ToString();
+        //        ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = AccountItemUid, Area = "Accounting" }, null));
+        //    });
+        //});
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "RetentionTypeGuid";
+            column.Caption = "Retention";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string RetentionTypeGuid = (DataBinder.Eval(t.DataItem, "RetentionTypeGuid") ?? "N/A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "RetentionType.Name") ?? " ").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "RetentionType", new { id = RetentionTypeGuid, Area = "Financial" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Reference";
+            column.Caption = "Reference";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus"; ;
+            column.Caption = " ";
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+            });
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

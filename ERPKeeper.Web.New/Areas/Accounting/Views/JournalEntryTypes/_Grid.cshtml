@@ -1,0 +1,40 @@
+﻿<div class="mb-2 border-top">
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Accounting.JournalEntryType>()
+        .ID("AssetsTreeList")
+        .KeyExpr("Uid")
+        .DataSource(d => d.RemoteController()
+        .Key("Uid")
+        .LoadUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/All")
+        .InsertUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/Insert")
+        .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/Update")
+        .UpdateMethod("Post"))
+        .AllowColumnReordering(true)
+        .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
+        .ShowColumnLines(true)
+        .ShowBorders(false)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+        .ColumnAutoWidth(false)
+        .Paging(pagging => pagging.PageSize(100))
+         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        @*  .AllowColumnResizing(true)*@
+
+        .Columns(columns =>
+        {
+
+            columns.AddFor(m => m.Name).Width(300).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.Uid %>/"><%= data.Name %></a> </div></text>);
+            columns.AddFor(m => m.Detail).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.Uid %>/"><%= data.Memo %></a></div></text>);
+
+        })
+        )
+</div>
+
+
+
+
+
+
+
+
+
+

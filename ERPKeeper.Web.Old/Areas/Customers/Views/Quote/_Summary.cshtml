@@ -1,0 +1,37 @@
+﻿@model ERPKeeper.Node.Models.Estimations.SaleQuote
+
+<div class="p-2 mb-2 bg-fb2 rounded">
+    <div class="row px-2 py-1 mb-1 border-bottom">
+        <div class="col-6 p-0">Lines Total</div>
+        <div class="col p-0 text-right">
+            @Model.LinesTotal.ToString("N2")
+        </div>
+        <div class="col-1 "></div>
+    </div>
+
+
+
+
+    @if (Model.TaxCode != null)
+    {
+        <div class="row px-2 py-1 mb-1 border-bottom">
+            <div class="col-6 p-0">@Lang.Tax, @(Model.TaxCode?.Name)</div>
+            <div class="col p-0 text-right">@Model.Tax.ToString("N2")</div>
+            <div class="col-1 "></div>
+        </div>
+    }
+
+    <div class="row px-2 py-1 mb-2 border-bottom">
+        <div class="col-6 p-0">Total</div>
+        <div class="col p-0 text-right">@Model.Total.ToString("N2")</div>
+        <div class="col-1 ">
+            <a href="@Url.Action("Recalculate",new { id = Model.Uid})">
+                <i class="fas fa-sync-alt"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+

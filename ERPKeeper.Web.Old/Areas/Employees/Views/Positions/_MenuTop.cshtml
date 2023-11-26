@@ -1,0 +1,34 @@
+﻿@{
+
+    Layout = null;
+}
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <b>@Lang.Positions</b>
+</div>
+
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+    settings.Width = 200;
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+
+    //settings.Items.Add("All Position").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home" });
+    //settings.Items.Add("Over Position").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home" });
+    //settings.Items.Add("On Recurite").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home" });
+
+
+}).GetHtml()
+
+<div class="">
+    <a href="@Url.Action("New", "Position")">
+        <i class="fas fa-plus-circle fa-lg text-muted"></i>
+    </a>
+</div>

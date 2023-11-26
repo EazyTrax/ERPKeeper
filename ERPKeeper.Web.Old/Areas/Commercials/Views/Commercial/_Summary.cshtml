@@ -1,0 +1,82 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+<div class="p-2 mb-2 bg-fb2 rounded">
+    <div class="row mb-1 border-bottom">
+        <div class="col-5 p-0">Sub Total</div>
+        <div class="col p-0 text-right">
+            @Model.LinesTotal.ToString("N2")
+        </div>
+        <div class="col-2 p-0 text-right">
+            @*<span id="MenuTaxIcon" style="cursor:pointer">
+                <i class="fas fa-plus-circle  text-secondary"></i>
+            </span>
+            @Html.DevExpress().PopupMenu(settings =>
+            {
+                settings.Name = "PopupMenuTAxIcon";
+                settings.PopupElementID = "MenuTaxIcon";
+                settings.ShowPopOutImages = DefaultBoolean.True;
+                settings.PopupAction = PopupAction.LeftMouseClick;
+
+                var commercialType = Model.TransactionType;
+                var taxCodes = Organization.TaxCodes.GetList(commercialType);
+
+
+                settings.Items.Add(subItemSetting =>
+                {
+                    subItemSetting.Text = "Add Tax";
+
+                    foreach (var taxCode in taxCodes)
+                    {
+                          subItemSetting.Items.Add(taxCode.Name.ToLower()).NavigateUrl = Url.Action("AddCommercialTax", "Commercial", new { Area = "Commercials", id = Model.Uid, taxCodeid = taxCode.Uid });
+                    }
+                });
+
+                settings.Items.Add("Re-check").NavigateUrl = Url.Action("Recalculate", "Commercial", new { Area = "Commercials", id = Model.Uid });
+            }).GetHtml()*@
+
+        </div>
+    </div>
+
+    @if (Model.TaxCode != null)
+    {
+        <div class="row mb-1 border-bottom">
+            <div class="col-5 p-0">@Lang.Tax, @(Model.TaxCode?.Name)</div>
+            <div class="col p-0 text-right">@Model.Tax.ToString("N2")</div>
+            <div class="col-2 p-0 text-right">
+                <a href="@Url.Action("RemoveCommercialTax",new { id = Model.Uid})">
+                    <i class="fas fa-minus-circle text-secondary"></i>
+                </a>
+
+                @if (Model.TaxPeriodId != null)
+                {
+                    <a href="/Taxes/TaxPeriod/Home/@Model.TaxPeriodId">
+                        <i class="fas fa-info-circle text-secondary"></i>
+                    </a>
+                }
+
+            </div>
+        </div>
+    }
+
+    <div class="row mb-3 border-bottom">
+        <div class="col-5 p-0">Total</div>
+        <div class="col p-0 text-right">@Model.Total.ToString("N2")</div>
+        <div class="col-2 p-0 text-right">
+            <a href="@Url.Action("Recalculate",new { id = Model.Uid})">
+                <i class="fas fa-sync-alt text-secondary"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row mt-3 mb-1 border-bottom">
+        <div class="col-5 p-0">Payment</div>
+        <div class="col p-0 text-right">@Model.TotalPayment.ToString("N2")</div>
+        <div class="col-2 p-0"></div>
+    </div>
+    <div class="row mb-1 border-bottom">
+        <div class="col-5 p-0">Balance</div>
+        <div class="col p-0 text-right">@Model.TotalBalance.ToString("N2")</div>
+        <div class="col-2 p-0 text-right">
+
+        </div>
+    </div>
+</div>

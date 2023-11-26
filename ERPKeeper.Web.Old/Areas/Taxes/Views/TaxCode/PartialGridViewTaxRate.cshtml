@@ -1,0 +1,57 @@
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "TaxCodes", Action = "PartialGridView" };
+        settings.KeyFieldName = "TaxRateGuid";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AsOf";
+            column.SortIndex = 0;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Rate";
+        });
+
+
+
+
+        settings.EnableTheming = true;
+        
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = 250;
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SumSaleBalance").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = false;
+
+        
+        
+        
+
+        
+        
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+
+    });
+}
+
+
+
+    @grid.Bind(Model).GetHtml()

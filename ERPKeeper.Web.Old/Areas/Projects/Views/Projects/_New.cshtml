@@ -1,0 +1,20 @@
+﻿@model ERPKeeper.Node.Models.Projects.NewProjectModel
+
+<div class="bg-fb2 p-2">
+
+    @using (Html.BeginForm("AddNew", "Projects"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ProfileGuid)
+        <div>
+            @Html.DevExpress().TextBoxFor(m => m.Name, settings =>
+               {
+                   settings.Properties.NullText = "New Project Name";
+                   settings.Width = Unit.Percentage(100);
+               }).GetHtml()
+        </div>
+        <div>
+            <button type="submit" value="Submit">Add</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+
+@model IList<ERPKeeper.Node.Models.Items.Item>
+
+
+
+@Html.DevExpress().CardView(settings =>
+{
+    settings.Name = "CardView";
+    settings.CallbackRouteValues = new { Controller = "Items", Action = "_GridTileItems", Area = "Items", id = ViewBag.Id };
+    settings.Width = Unit.Pixel(600);
+
+    settings.SettingsPager.Position = PagerPosition.Top;
+    settings.Styles.PagerTopPanel.Paddings.PaddingBottom = Unit.Pixel(15);
+    settings.SettingsPager.NumericButtonCount = 6;
+    settings.SettingsPager.SettingsTableLayout.ColumnCount = 5;
+    settings.SettingsPager.SettingsTableLayout.RowsPerPage = 8;
+
+    settings.SetCardTemplateContent(c =>
+    {
+        var item = Model[c.ItemIndex];
+        ViewContext.Writer.Write(Html.Partial(@"~/Areas/Items/Views/Item/_TilePreview.cshtml", item).ToHtmlString());
+
+    });
+}).Bind(Model).GetHtml()
+

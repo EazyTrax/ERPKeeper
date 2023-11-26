@@ -1,0 +1,221 @@
+@model IList<ERPKeeper.Node.Models.Accounting.FiscalYears.PeriodItemCOGS>
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Styles.SearchPanel.BorderBottom.BorderWidth = Unit.Pixel(5);
+        settings.Styles.SearchPanel.BorderBottom.BorderColor = System.Drawing.Color.White;
+        settings.Styles.SearchPanel.HorizontalAlign = HorizontalAlign.Right;
+        settings.SettingsExport.EnableClientSideExportAPI = true;
+        settings.SettingsExport.Landscape = true;
+        settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+
+        settings.SettingsExport.RightMargin = 0;
+
+        settings.Toolbars.Add(t =>
+        {
+            t.EnableAdaptivity = true;
+            t.Items.Add(GridViewToolbarCommand.ExportToPdf);
+            t.Items.Add(GridViewToolbarCommand.ExportToXls);
+            t.Items.Add(GridViewToolbarCommand.ExportToXlsx);
+        });
+
+        settings.CallbackRouteValues = new
+        {
+            Controller = "COSG",
+            Action = "PartialGridView",
+            Area = "Items",
+            id = ViewBag.id
+        };
+
+
+        settings.KeyFieldName = "Uid";
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        //settings.Styles.Cell.Font.Size = FontUnit.Point(9);
+        settings.EncodeHtml = false;
+
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FiscalYear.Name";
+            column.Caption = "Fiscal";
+            column.SortIndex = 1;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Open";
+            column.FieldName = "OpeningAmount";
+            column.Settings.ShowFilterRowMenu = DefaultBoolean.False;
+            column.CellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningAmount").DisplayFormat = "N0";
+
+        var OpeningAmountGroupSummary = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningAmount");
+        OpeningAmountGroupSummary.ShowInGroupFooterColumn = "OpeningAmount";
+        OpeningAmountGroupSummary.DisplayFormat = "N0";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "$";
+            column.FieldName = "OpeningValue";
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.CellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+
+        });
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningValue").DisplayFormat = "N0";
+
+        var OpeningCostGroupSummary = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningValue");
+        OpeningCostGroupSummary.ShowInGroupFooterColumn = "OpeningValue";
+        OpeningCostGroupSummary.DisplayFormat = "N0";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "In";
+            column.FieldName = "InputAmount";
+            column.CellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputAmount").DisplayFormat = "N0";
+
+        var InputAmountGroupSummary = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputAmount");
+        InputAmountGroupSummary.ShowInGroupFooterColumn = "InputAmount";
+        InputAmountGroupSummary.DisplayFormat = "N0";
+
+
+
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "$";
+            column.FieldName = "InputValue";
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.CellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+        });
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputValue").DisplayFormat = "N0";
+
+        var InputCostGroupSummary = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputValue");
+        InputCostGroupSummary.ShowInGroupFooterColumn = "InputValue";
+        InputCostGroupSummary.DisplayFormat = "N0";
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Out";
+            column.FieldName = "OutputAmount";
+            column.CellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputAmount").DisplayFormat = "N0";
+
+        var OutputAmountGroupSummary = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputAmount");
+        OutputAmountGroupSummary.ShowInGroupFooterColumn = "OutputAmount";
+        OutputAmountGroupSummary.DisplayFormat = "N0";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "$";
+            column.FieldName = "OutputCost";
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.CellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+        });
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputCost").DisplayFormat = "N0";
+
+        var OutputCostGroupSummary = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputCost");
+        OutputCostGroupSummary.ShowInGroupFooterColumn = "OutputCost";
+        OutputCostGroupSummary.DisplayFormat = "N0";
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Rem";
+            column.FieldName = "RemainAmount";
+
+
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RemainAmount").DisplayFormat = "N0";
+        var RemainAmount = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RemainAmount");
+        RemainAmount.ShowInGroupFooterColumn = "RemainAmount";
+        RemainAmount.DisplayFormat = "N0";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "$";
+            column.FieldName = "RemainValue";
+            column.PropertiesEdit.DisplayFormatString = "N0";
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RemainValue").DisplayFormat = "N0";
+        var RemainValue = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RemainValue");
+        RemainValue.ShowInGroupFooterColumn = "RemainValue";
+        RemainValue.DisplayFormat = "N0";
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "QtyCurrent").DisplayFormat = "N0";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "FIFOSaleCostLine").DisplayFormat = "N0";
+
+        settings.Settings.ShowFooter = true;
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

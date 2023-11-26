@@ -1,0 +1,145 @@
+﻿@model ERPKeeper.Node.Models.Projects.Project
+
+<div class="row">
+    <div class="col-6 p-1 bg-fb2 ">
+        @using (Html.BeginForm("Save", "Project", new { Area = "Projects" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Uid)
+
+
+            @Html.DevExpress().FormLayout(settings =>
+       {
+           settings.Name = "ProjectForm";
+
+           settings.Width = Unit.Percentage(100);
+           settings.EncodeHtml = false;
+           settings.ColCount = 1;
+           settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+
+           settings.Items.AddGroupItem(groupSetting =>
+           {
+               groupSetting.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSetting.Caption = "Project Info";
+
+               groupSetting.Items.Add(m => m.Name, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+
+                   TextBoxSettings tbs = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+                   tbs.Width = Unit.Pixel(150);
+
+               });
+               groupSetting.Items.Add(m => m.Code, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+
+                   TextBoxSettings textSetting = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+                   textSetting.Properties.MaxLength = 30;
+
+               });
+               groupSetting.Items.Add(m => m.CreatedDate, itemSettings =>
+               {
+                   itemSettings.Caption = "Trn Date";
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+                   DateEditSettings s = (DateEditSettings)itemSettings.NestedExtensionSettings;
+                   s.Properties.DisplayFormatString = "dd MMMM yyyy";
+               });
+
+               groupSetting.Items.Add(m => m.Type, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+               });
+
+           });
+
+           settings.Items.AddGroupItem(groupSetting =>
+           {
+               groupSetting.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSetting.Caption = "Customer Info";
+
+               groupSetting.Items.Add(m => m.CustomerProfileGuid, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.Caption = "Customer";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+
+                   ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                   cb.Width = Unit.Pixel(150);
+                   cb.Properties.TextField = "DisplayName";
+                   cb.Properties.ValueField = "Uid";
+                   cb.Properties.ValueType = typeof(Guid);
+                   cb.Properties.DataSource = erpNodeDBContext.Profiles.ToList();
+               });
+
+
+               groupSetting.Items.Add(m => m.Detail, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+
+                   MemoSettings memoSetting = (MemoSettings)itemSettings.NestedExtensionSettings;
+                   memoSetting.Width = Unit.Pixel(150);
+
+               });
+
+               groupSetting.Items.Add(m => m.ParentGuid, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.Caption = "Parent Project";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+
+                   ComboBoxSettings tbs = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                   tbs.Width = Unit.Pixel(150);
+
+                   ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                   cb.Properties.TextField = "Name";
+                   cb.Properties.ValueField = "Uid";
+                   cb.Properties.ValueType = typeof(Guid);
+                   cb.Properties.DataSource = erpNodeDBContext.Projects.Where(p => p.Uid != Model.Uid).ToList();
+               });
+           });
+
+           settings.Items.AddGroupItem(groupSetting =>
+           {
+               groupSetting.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSetting.Caption = "Responsible";
+               groupSetting.Items.Add(m => m.ResponsibleProfile.Name, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.Caption = "Responsible";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                   TextBoxSettings tbs = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+                   tbs.Width = Unit.Pixel(150);
+
+               });
+           });
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Action";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+               groupSettings.Items.Add(item =>
+               {
+                   item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                   item.ShowCaption = DefaultBoolean.False;
+                   item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                   var button = (ButtonSettings)item.NestedExtensionSettings;
+                   button.Name = "SaveButton";
+                   button.Text = "Save";
+                   button.UseSubmitBehavior = true;
+               });
+           });
+
+       }).GetHtml()
+
+        }
+    </div>
+    <div class="col-6"></div>
+</div>

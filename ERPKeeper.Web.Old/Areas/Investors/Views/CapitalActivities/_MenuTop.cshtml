@@ -1,0 +1,24 @@
+﻿
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-4">
+        <b>CAPITAL INVESTMENTS</b><br />
+    </div>
+    <div class="col-4">
+
+    </div>
+    <div class="col-4 text-right">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+        {
+            settings.Name = "PopupMenuAction";
+            settings.PopupElementID = "ImageMenuAction";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+            settings.PopupAction = PopupAction.LeftMouseClick;
+            settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+            settings.EncodeHtml = false;
+            settings.Items.Add("ReOrder Number").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "ReOrder" });
+        }).GetHtml()
+    </div>
+</div>
+

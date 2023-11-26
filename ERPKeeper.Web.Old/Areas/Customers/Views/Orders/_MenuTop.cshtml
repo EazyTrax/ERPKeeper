@@ -1,0 +1,94 @@
+﻿@using ERPKeeper.Node.Models.Estimations.Enums
+
+@{
+    var quoteCount = erpNodeDBContext.SaleEstimates.Where(e => e.Status == QuoteStatus.Quote).Count();
+    var orderedCount = erpNodeDBContext.SaleEstimates.Where(e => e.Status == QuoteStatus.Ordered).Count();
+    var closeCount = erpNodeDBContext.SaleEstimates.Where(e => e.Status == QuoteStatus.Close).Count();
+    var voidCount = erpNodeDBContext.SaleEstimates.Where(e => e.Status == QuoteStatus.Void).Count();
+}
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Customers"})">DashBoard</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Customers",new { Area = "Customers"})">Customers</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Orders",new { Area = "Customers"})">@Lang.Orders</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+    </div>
+
+
+
+    <div class="col-12 p-1">
+        <div class="row ">
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action(QuoteStatus.Ordered.ToString(), "Orders")">
+                    <div class="mh-50">
+                        @QuoteStatus.Ordered.ToString()
+                        <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@orderedCount</span></div>
+                    </div>
+                </a>
+            </div>
+
+            @*<div class="col mh-50 bg-light mr-2 p-2">
+                    <a href="@Url.Action(QuoteStatus.Ordered.ToString(), "Orders")">
+                        <div class="mh-50">
+                            @QuoteStatus.Ordered.ToString()
+                            <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@orderedCount</span></div>
+                        </div>
+                    </a>
+                </div>*@
+
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action(QuoteStatus.Close.ToString(), "Orders")">
+                    <div class="mh-50">
+                        @QuoteStatus.Close.ToString()
+                        <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@closeCount</span></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col mh-50 bg-light mr-2 p-2">
+                <a href="@Url.Action(QuoteStatus.Void.ToString(), "Orders")">
+                    <div class="mh-50">
+                        @QuoteStatus.Void.ToString()
+                        <div class="text-right mt-3 mx-3">
+                            <span class="font-weight-bold"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col mh-50 bg-light p-2">
+                <a href="@Url.Action("Items", "Orders")">
+                    <div class="mh-50">
+                        <i class="fas fa-cubes fa-2x"></i> Items
+                        <div class="text-right mt-3 mx-3"><span class="font-weight-bold">@voidCount</span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+           settings.Items.Add("Void Expired").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customers", Action = "VoidExpired" });
+
+   }).GetHtml()

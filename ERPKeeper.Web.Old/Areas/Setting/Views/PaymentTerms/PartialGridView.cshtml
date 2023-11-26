@@ -1,0 +1,58 @@
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "PaymentTerms", Action = "PartialGridView" };
+        settings.KeyFieldName = "Uid";
+
+
+
+        settings.Columns.Add(column =>
+        {
+
+
+            column.Width = 130;
+            column.FieldName = "Uid";
+            column.Caption = "Name";
+            column.Width = 130;
+            column.ColumnType = MVCxGridViewColumnType.HyperLink;
+            ((HyperLinkProperties)column.PropertiesEdit).TextField = "Name";
+            ((HyperLinkProperties)column.PropertiesEdit).NavigateUrlFormatString = Url.Action("Home", "PaymentTerm", null) + "/{0}";
+        });
+
+
+
+
+
+
+        settings.EnableTheming = true;
+        
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SumSaleBalance").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+        
+        
+        
+
+        
+        
+        
+
+        
+        
+        
+
+
+        
+        
+        
+
+    });
+}
+@grid.Bind(Model).GetHtml()

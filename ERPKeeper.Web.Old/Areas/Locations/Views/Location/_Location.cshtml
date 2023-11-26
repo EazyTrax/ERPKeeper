@@ -1,0 +1,30 @@
+﻿@model ERPKeeper.Node.Models.Location
+
+
+<div class="p-2 bg-fb2 mb-2 rounded">
+    <div class="row">
+        <div class="col-8 p-0 font-weight-bold">
+            <a href="/Locations/Location/@Model.Uid/Home">
+                @Model.Name
+            </a>
+        </div>
+        <div class="col-4 text-right">
+            <a href="/Locations/Location/@Model.Uid/NewChild">
+                <i class="fas fa-plus-circle"></i> Child
+            </a>
+        </div>
+    </div>
+    <div class="mb-2 pl-2">
+        @foreach (var child in Model.Child.ToList())
+        {
+        <div>
+            <a href="/Locations/Location/@child.Uid/Home">
+                @child.Name
+            </a>
+        </div>
+        }
+    </div>
+    <div class="pl-2">
+       
+    </div>
+</div>

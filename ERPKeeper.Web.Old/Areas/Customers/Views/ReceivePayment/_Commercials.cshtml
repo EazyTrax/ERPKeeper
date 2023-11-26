@@ -1,0 +1,35 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.ReceivePayment
+<div class="mb-2 p-2 mh-100 bg-fb2 rounded">
+    <div class="row ">
+        <div class="col-8 p-0 mb-2 font-weight-bold">
+            @Model.Commercials.Count Commercials
+        </div>
+        <div class="col-3 p-0 mb-2 text-right font-weight-bold">
+            @Model.Amount.ToString("N2")
+        </div>
+        <div class="col-1 p-0 mb-1 text-right">
+        </div>
+
+        @foreach (var commercial in Model.Commercials)
+        {
+            <div class="col-8 p-0 mb-1 font-weight-bold">
+                @Html.ActionLink(commercial.Name, "Home", "Sale", new { id = commercial.Uid }, null)
+            </div>
+            <div class="col-3 p-0 mb-1 text-right">
+                @commercial.Total.ToString("N2")
+            </div>
+            <div class="col-1 p-0 mb-1 text-right">
+                @if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+                {
+                    <a href="@Url.Action("RemoveCommercial", new { id = Model.Uid, commercialUid = commercial.Uid })">
+                        <i class="fas fa-minus-circle text-secondary"></i>
+                    </a>
+                }
+            </div>
+            <div class="col-12 p-0 mb-3">
+                <span>@commercial.Reference</span>
+            </div>
+        }
+    </div>
+    @Html.Partial("_AvaliableCommercials")
+</div>

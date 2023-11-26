@@ -1,0 +1,57 @@
+
+<div>
+    <div>
+        <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+            <div class="col">
+                <b>AGING PURCHASES</b>
+            </div>
+            <div class="col text-right">
+                30  ?  365 
+            </div>
+        </div>
+        
+
+
+        @Html.DevExpress().Chart(settings =>
+   {
+       settings.Name = "ExpenseChartAge";
+
+       settings.Width = 320;
+       settings.Height = 150;
+       settings.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+
+       settings.Titles.Add(new ChartTitle()
+       {
+           Font = new System.Drawing.Font("Tahoma", 12),
+           Text = ""
+       });
+       settings.BorderOptions.Visibility = DefaultBoolean.False;
+       settings.Legend.Visibility = DefaultBoolean.False;
+
+       Series ExpenseChartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Area);
+       ExpenseChartSeries.ArgumentDataMember = "TrnDate";
+       ExpenseChartSeries.ValueDataMembers[0] = "TotalAmount";
+
+
+
+       ExpenseChartSeries.CrosshairEnabled = DefaultBoolean.True;
+       ExpenseChartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+
+
+       ((AreaSeriesView)ExpenseChartSeries.View).MarkerVisibility = DefaultBoolean.False;
+        settings.Series.Add(ExpenseChartSeries);
+
+
+       ((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+       ((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+       ((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+       ((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+       ((XYDiagram)settings.Diagram).Margins.Left = 0;
+       ((XYDiagram)settings.Diagram).Margins.Right = 0;
+
+
+   }).Bind(Model).GetHtml()
+    </div>
+
+    @Html.Partial("~/Areas/Suppliers/Views/DashBoard/_Ageing_Expense.cshtml")
+</div>

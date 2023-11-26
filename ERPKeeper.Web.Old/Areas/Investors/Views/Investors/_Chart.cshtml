@@ -1,0 +1,44 @@
+
+@model IList<ERPKeeper.Node.Models.Equity.Investor>
+
+
+
+<div class="mb-1 mr-2 text-right">
+    @Html.DevExpress().Chart(settings =>
+{
+    settings.Name = "IncomeChart";
+
+    settings.Width = 300;
+    settings.Height = 300;
+    settings.BorderOptions.Visibility = DefaultBoolean.False;
+    settings.ControlStyle.BackColor = System.Drawing.Color.Transparent;
+
+    settings.Titles.Add(new ChartTitle()
+    {
+        Font = new System.Drawing.Font("Tahoma", 12),
+        Text = ""
+    });
+    //settings.BorderOptions.Visibility = DefaultBoolean.False;
+    settings.Legend.Visibility = DefaultBoolean.False;
+
+    Series IncomeChartSeries = new Series("Series", DevExpress.XtraCharts.ViewType.Pie);
+    IncomeChartSeries.ArgumentDataMember = "Profile.Name";
+    IncomeChartSeries.ValueDataMembers[0] = "StockAmount";
+
+    //IncomeChartSeries.CrosshairEnabled = DefaultBoolean.True;
+    //IncomeChartSeries.CrosshairLabelPattern = "{A:dd-MMM-yy} : {V:N0}";
+    IncomeChartSeries.Label.TextPattern = "{A}";
+    settings.Series.Add(IncomeChartSeries);
+
+    // ((PieSeriesLabel)IncomeChartSeries.Label).Position = PieSeriesLabelPosition.Inside;
+
+    //((XYDiagram)settings.Diagram).AxisY.Tickmarks.Visible = false;
+    //((XYDiagram)settings.Diagram).AxisY.Tickmarks.MinorVisible = false;
+    //((XYDiagram)settings.Diagram).AxisY.Label.Visible = false;
+    //((XYDiagram)settings.Diagram).AxisX.Label.Visible = true;
+    //((XYDiagram)settings.Diagram).Margins.Left = 0;
+    //((XYDiagram)settings.Diagram).Margins.Right = 0;
+
+
+}).Bind(Model).GetHtml()
+</div>

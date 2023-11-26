@@ -1,0 +1,73 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewProfileAddresses";
+        settings.Styles.SearchPanel.BorderBottom.BorderWidth = Unit.Pixel(5);
+        settings.Styles.SearchPanel.BorderBottom.BorderColor = System.Drawing.Color.White;
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Addresses", Action = "PartialGridView" };
+        settings.KeyFieldName = "AddressGuid";
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Number";
+            column.Caption = "Number";
+            column.SortIndex = 1;
+            column.SortAscending();
+            column.SetDataItemTemplateContent(t =>
+            {
+                string AddressGuid = DataBinder.Eval(t.DataItem, "AddressGuid").ToString();
+                string Number = (DataBinder.Eval(t.DataItem, "Number") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "Address", new { id = AddressGuid }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Title";
+            column.Caption = "Title";
+        });
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "Profile.Uid";
+        //    column.Caption = "Title";
+        //    column.SortIndex = 1;
+        //    column.SortAscending();
+        //    column.SetDataItemTemplateContent(t =>
+        //    {
+        //        string ProfileGuid = (DataBinder.Eval(t.DataItem, "Profile.Uid")??"N/A").ToString();
+        //        string Name = DataBinder.Eval(t.DataItem, "Profile.Name").ToString();
+        //        ViewContext.Writer.Write(  Html.ActionLink(Name, "Home", "Profile", new { id = ProfileGuid }, null));
+        //    });
+        //});
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AddressLine";
+            column.Caption = "AddressLine";
+        });
+
+
+
+
+
+        settings.EnableTheming = true;
+
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

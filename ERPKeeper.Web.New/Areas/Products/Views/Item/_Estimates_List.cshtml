@@ -1,0 +1,81 @@
+﻿@model ERPKeeper.Node.Models.Items.Item
+
+@{
+    var Quotes = Organization
+                                              .ErpNodeDBContext
+                                              .EstimateItems
+                                              .Include("Quote")
+                                              .Where(i=>i.ItemGuid == Model.Uid && i.QuoteId!=null)
+                                              .ToList()
+                                              .Select(i => new
+                                              {
+                                                  i.Uid,
+                                                  Quote = new
+                                                  {
+                                                      i.Quote.Uid,
+                                                      i.Quote.TrnDate,
+                                                      i.Quote.Status,
+                                                      i.Quote.Reference,
+
+                                                      Profile = new
+                                                      {
+                                                          i.Quote.Profile.Uid,
+                                                          i.Quote.Profile.Name
+                                                      },
+
+                                                  },
+                                                  i.Amount,
+                                                  i.UnitPrice,
+                                                  i.LineTotal,
+
+                                              }).ToList();
+
+
+}
+
+
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Estimations.QuoteItem>()
+    .ID("gridList")
+    .DataSource(Quotes)
+    .RowAlternationEnabled(true)
+    .KeyExpr("Uid")
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Paging(paging => paging.PageSize(100))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .ColumnAutoWidth(false)
+    .Columns(columns => {
+    columns.AddFor(m=>m.Quote.TrnDate).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.AddFor(m=>m.Quote.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
+    .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+    .DisplayExpr("Text")
+    .ValueExpr("Value")
+    );
+   
+
+    columns.AddFor(m=>m.Quote.Profile.Name)
+
+    .CellTemplate(@<text>
+            <a href="/Sales/Customers/<%= data.Quote.Profile.Uid %>/">
+                <%= data.Quote.Profile.Name %>
+            </a>
+        </text>);
+
+    columns.AddFor(m=>m.Quote.Reference);
+        columns.AddFor(m=>m.Amount).Format(Format.FixedPoint);
+          columns.AddFor(m=>m.UnitPrice).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.LineTotal).Format(Format.FixedPoint);
+    //columns.Add().DataField("Id");
+    })
+    )
+</div>
+

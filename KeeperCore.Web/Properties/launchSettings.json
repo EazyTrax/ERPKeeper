@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KeeperCore.Web": {
+      "commandName": "Project",
+      "launchBrowser": true
+    }
+  }
+}

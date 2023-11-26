@@ -1,0 +1,43 @@
+﻿@{
+    bool checkCurrentController(string controllerName)
+    {
+        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+        return currentControllerName == controllerName;
+    }
+
+    void Template(string display, string controller, string area, int? count = null)
+    {
+        <div class="row e pl-3 @(checkCurrentController(controller) ? "font-weight-600" : "")">
+            <div class="col p-0">
+                <a href="/@area/@controller">
+                    @SharedLocalizer.GetLocalizedHtmlString(display)
+                </a>
+            </div>
+            <div class="col-2 p-0 text-right">
+                <span class="badge badge-light text-dark">@count</span>
+            </div>
+        </div>
+    }
+}
+
+
+<div class="row m-1m">
+    <div class="col-4 p-1">
+        @await Component.InvokeAsync("_Partial_Menu_Customers", new { })
+    </div>
+    <div class="col-4 p-1">
+        @await Component.InvokeAsync("_Partial_Menu_Suppliers", new { })
+    </div>
+    <div class="col-4 p-1">
+        @await Component.InvokeAsync("_Partial_Menu_Products", new { })
+    </div>
+    <div class="col-4 p-1">
+        @await Component.InvokeAsync("_Partial_Menu_Accounting", new { })
+    </div>
+    <div class="col-4 p-1">
+        @await Component.InvokeAsync("_Partial_Menu_Employees", new { })
+    </div>
+      <div class="col-4 p-1">
+        @await Component.InvokeAsync("_Partial_Menu_Profiles", new { })
+    </div>
+</div>

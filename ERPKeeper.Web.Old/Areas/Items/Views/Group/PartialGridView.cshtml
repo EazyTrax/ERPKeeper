@@ -1,0 +1,64 @@
+
+@model ERPKeeper.Node.Models.Items.GroupItem
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Items", Action = "PartialGridView", Id = ViewBag.Id };
+        settings.KeyFieldName = "Uid";
+
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Styles.Header.BackColor = System.Drawing.Color.White;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PartNumber";
+            column.Caption = Lang.PartNumber;
+
+            column.Width = 150;
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string itemGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string partNumber = (DataBinder.Eval(t.DataItem, "PartNumber") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(partNumber, "Redirect", "Item", new { id = itemGuid }, null).ToString().Replace(Environment.NewLine, "<br />"));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ItemType";
+            column.Caption = "Type";
+            column.Width = 100;
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Description";
+            column.Caption = "Description";
+
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UnitPrice";
+            column.Caption = "UnitPrice";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+        });
+    });
+}
+@grid.Bind(Model.Child).GetHtml()

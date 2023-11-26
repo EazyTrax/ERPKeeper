@@ -1,0 +1,25 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+@using ERPKeeper.Node.Models.Transactions
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            @Html.Partial("_ReceivePaymentSummary")
+
+        </div>
+        <div class="col-3 col-Right pr-0">
+            <div class="bg-fb1 p-2 rounded mh-50 mb-2">
+                <a href="https://newerp.advancemaker.com/Incomes/Sales/@Model.Uid/payments">
+                    > NEW ERP
+                </a>
+            </div>
+            @Html.Partial("_Age")
+            @Html.Action("_SummaryCallbackPanel", "Commercial", new { id = Model.Uid, Area = "Commercials" })
+        </div>
+    </div>
+</div>

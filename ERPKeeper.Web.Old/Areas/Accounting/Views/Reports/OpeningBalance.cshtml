@@ -1,0 +1,17 @@
+﻿@using ERPKeeper.Node.Models.Reports.CompanyandFinancial
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col-10 col-Middle pr-0">
+            <div class="bg-fb2 p-2 mb-2 mh-50">
+                <b>@Lang.Reports.ToUpper()</b><br />
+                Opening Balance @Organization.FirstDate.ToString("dd-MMM-yy")
+            </div>
+            @Html.Action("PartialGridViewOpeningBalance", new { type = ViewBag.Type })
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,20 @@
+﻿@model ERPKeeper.Node.Models.Items.GroupItem
+
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>New Child</b>
+    @using (Html.BeginForm("New", "Groups"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().TextBox(
+                settings =>
+                {
+                    settings.Name = "GroupName";
+                }
+            ).GetHtml()
+
+        @Html.Hidden("ParentUid", Model.Uid)
+        <br />
+        <input type="submit" />
+    }
+</div>

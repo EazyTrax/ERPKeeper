@@ -1,0 +1,22 @@
+﻿
+@model IList<ERPKeeper.Node.Models.Accounting.AccountItem>
+
+    @Html.DevExpress().ComboBox(
+        settings =>
+        {
+            settings.Name = "accountUid";
+            settings.CallbackRouteValues = new { Controller = "JournalEntry", Action = "_ComboBoxAccount", Area = "Accounting" };
+            settings.Width = 250;
+            settings.Properties.ValueField = "Uid";
+            settings.Properties.ValueType = typeof(Guid);
+            settings.SelectedIndex = 0;
+            settings.Properties.TextField = "Name";
+            settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            settings.Properties.CallbackPageSize = 20;
+            settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            settings.Properties.TextFormatString = "{0}";
+            settings.Properties.Columns.Add("Name", "Name", 150);
+            settings.Properties.Columns.Add("Type", "Type", 150);
+            settings.Properties.Columns.Add("SubEnumType", "SubEnumType", 150);  
+        }
+).BindList(Model).GetHtml()

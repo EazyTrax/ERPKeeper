@@ -1,0 +1,112 @@
+﻿@model ERPKeeper.Node.Models.Accounting.FiscalYear
+@using ERPKeeper.Node.Models.Accounting
+
+@{
+    var expenseAccounts = Model.PeriodAccountBalances
+      .Where(a => a.Account.Type == AccountTypes.Income)
+      .ToList();
+    var expenseCurrentBalance = expenseAccounts.Sum(a => a.CurrentBalance);
+}
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "GridView";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+    settings.CallbackRouteValues = new { Controller = "FiscalYear", Action = "PartialGridView_Incomes", id = Model.Uid };
+    settings.KeyFieldName = "Uid";
+    settings.EncodeHtml = false;
+    settings.EnableTheming = true;
+    settings.Styles.Header.Font.Bold = true;
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowFooter = true;
+
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+    settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.SettingsPopup.HeaderFilter.Height = 300;
+    settings.SettingsPopup.HeaderFilter.Width = 300;
+    settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+    settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Account.Parent.Name";
+        column.Caption = "Group";
+        column.GroupIndex = 1;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Account.No";
+        column.Caption = "Acc No.";
+
+        column.SortIndex = 2;
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string AccountGuid = DataBinder.Eval(t.DataItem, "Account.Uid").ToString();
+            string Number = (DataBinder.Eval(t.DataItem, "Account.No") ?? "N?A").ToString();
+            ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "AccountItem", new { id = AccountGuid, Area = "Accounting" }, null));
+        });
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Account.Name";
+        column.Caption = "Account Name.";
+
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string accountUid = DataBinder.Eval(t.DataItem, "Account.Uid").ToString();
+            string Name = DataBinder.Eval(t.DataItem, "Account.Name").ToString();
+            ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CurrentBalance";
+        column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+    });
+
+    settings.Styles.Footer.Font.Bold = true;
+      settings.Styles.Footer.ForeColor = System.Drawing.Color.DarkBlue;
+        settings.Styles.GroupFooter.Font.Bold = true;
+    settings.Styles.GroupFooter.ForeColor = System.Drawing.Color.DarkRed;
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance").DisplayFormat = "N2";
+
+    var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance");
+    TotalGroup.ShowInGroupFooterColumn = "CurrentBalance";
+    TotalGroup.DisplayFormat = "N2";
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "CurrentBalance";
+
+        c.Width = Unit.Pixel(325);
+
+        c.SetDataItemTemplateContent(container =>
+        {
+            var percent = (100 * Convert.ToDecimal(DataBinder.Eval(container.DataItem, "CurrentBalance")) / expenseCurrentBalance);
+
+
+            ViewContext.Writer.Write(HttpUtility.HtmlEncode(percent.ToString("N2")) + "% &nbsp;");
+
+            Html.DevExpress().ProgressBar(pb =>
+            {
+                pb.Name = "CurrentBalance" + container.VisibleIndex;
+                pb.Width = Unit.Percentage(75);
+                pb.Position = 3;
+                pb.Properties.ShowPosition = true;
+
+
+            }).Bind(percent).Render();
+        });
+    });
+
+}).Bind(expenseAccounts).GetHtml()

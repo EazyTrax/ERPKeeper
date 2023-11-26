@@ -1,0 +1,64 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+
+
+<div id="treeListDemo" class="mb-3">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.CommercialItem>()
+    .ID("gridList")
+    .KeyExpr("Uid")
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Paging(paging => paging.PageSize(100))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .Width("100%")
+    .ColumnAutoWidth(false)
+    .DataSource(d =>
+    d.RemoteController()
+    .Key("Uid")
+    .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/Update")
+    .UpdateMethod("Post")
+    .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/Delete")
+    .DeleteMethod("Post")
+    )
+
+    .KeyExpr("Uid")
+    .Editing(editing => {
+    editing.Mode(GridEditMode.Popup);
+    editing.AllowAdding(Model.PostStatus== ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable);
+    editing.AllowDeleting(Model.PostStatus== ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable);
+    editing.AllowUpdating(Model.PostStatus== ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable);
+    editing.UseIcons(true);
+    editing.Form(f=>f.ColCount(1).Width(500));
+    })
+
+    .Columns(columns => {
+
+    columns.AddFor(m=>m.ItemGuid).Width(150)
+    .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
+    .Lookup(lookup => lookup
+    .DataSource(Organization.ErpNodeDBContext.Items.Select(t => new { t.Uid, t.PartNumber }).ToList())
+    .DisplayExpr("PartNumber")
+    .ValueExpr("Uid")
+    );
+
+    columns.AddFor(m=>m.ItemBrandId)
+    .Width(150)
+    .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
+    .Lookup(lookup => lookup
+    .DataSource(Organization.ErpNodeDBContext.Brands.Select(t => new { t.Uid, t.Name }).ToList())
+    .DisplayExpr("Name")
+    .ValueExpr("Uid")
+    );
+
+
+    columns.AddFor(m=>m.ItemDescription).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+    columns.AddFor(m=>m.UnitPrice).Width(100).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.Amount).Width(100).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.LineTotal).Width(100).Format(Format.FixedPoint).FormItem(i=>i.Visible(false));
+    columns.AddFor(m=>m.SerialNumber).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+    })
+    .OnInitNewRow("function(e) { e.data.UnitPrice = 0;e.data.Amount = 1; }")
+    )
+</div>

@@ -1,0 +1,87 @@
+﻿@using ERPKeeper.Node.Models.Projects.Enums
+@model ERPKeeper.Node.Models.Projects.Project
+
+    <div class="row bg-fb2 p-2 mb-2 mh-50">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase ">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Projects",new { Area = "Projects"})">Projects</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Project",new { Area = "Projects", id = Model.Uid})">
+                        @Model.Name
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="col text-right">
+            <a href="@Url.Action("Home", "Projects", new { })">
+                <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+            </a>
+            <span id="ImageMenuAction" style="cursor:pointer">
+                <i class="fab fa-chrome fa-lg text-muted"></i>
+            </span>
+            <span id="ImageMenuChart" style="cursor:pointer">
+                <i class="fas fa-chart-pie fa-lg text-muted"></i>
+            </span>
+
+
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuAction";
+           settings.PopupElementID = "ImageMenuAction";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+
+           settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+           settings.Items.Add(item =>
+           {
+               item.Text = "Set Status";
+               item.Items.Add("Active").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ProjectStatus.Active });
+               item.Items.Add("Pending").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ProjectStatus.Pending });
+               item.Items.Add("Close").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ProjectStatus.Close });
+               item.Items.Add("Void").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UpdateStatus", id = Model.Uid, newStatus = ProjectStatus.Void });
+
+           });
+       }).GetHtml()
+
+            @Html.DevExpress().PopupMenu(settings =>
+            {
+                settings.Name = "PopupMenuChart";
+                settings.PopupElementID = "ImageMenuChart";
+                settings.ShowPopOutImages = DefaultBoolean.True;
+                settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+                settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+                settings.Items.Add("Chart").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Chart", Type = ERPKeeper.Helpers.Enums.EnumCommercialViewType.All });
+            }).GetHtml()
+        </div>
+
+    </div>
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+    {
+        settings.Name = "mFeatures";
+        settings.AllowSelectItem = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowPopOutImages = DefaultBoolean.True;
+
+
+        settings.Styles.Item.CssClass = "px-1";
+        settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+
+
+        settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = Model.Uid });
+        settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Items).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Items", id = Model.Uid });
+        settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Quotes).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Quotes", id = Model.Uid });
+        settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Commercials).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Commercials", id = Model.Uid });
+        settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Tasks).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Tasks", id = Model.Uid });
+    }).GetHtml()
+</div>

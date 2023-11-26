@@ -1,0 +1,59 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+
+
+<div class="p-0">
+    <div class="mb-0">
+        <a href="@Url.Action("Home", "Profile", new { id = @Model.Profile.Uid, Area = "Profiles" })">
+            <span class="font-weight-bold">@Model.Profile.Name</span>
+        </a>
+    </div>
+    <div class="mb-2">
+        <div class="mb-2">
+            <span class="" style="font-size:10pt;">
+                @Model.Profile.TaxNumber
+
+                @if (Model.ProfileAddress != null)
+                {
+                    <span>สาขาที่ @Model.ProfileAddress.Number</span>
+                }
+                @if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+                {
+                    <i class="far fa-caret-square-down " id="ChangeAddressImage"></i>
+                }
+
+            </span>
+        </div>
+        <div>
+            @if (Model.ProfileAddress != null)
+            {
+                @Html.Encode(Model.ProfileAddress.AddressLine)
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@Html.DevExpress().PopupMenu(
+        settings =>
+        {
+            settings.Name = "PopupMenuChangeAddress";
+            settings.PopupElementID = "ChangeAddressImage";
+            settings.ShowPopOutImages = DefaultBoolean.True;
+
+            foreach (var address in Model.Profile.Addresses.OrderBy(a => a.Number).ToList())
+            {
+                settings.Items.Add(item =>
+                {
+                    item.Text = address.Number;
+                    item.Name = address.AddressGuid.ToString();
+                    item.NavigateUrl = Url.Action("ChangeAddress", "Commercial", new { Area = "Commercials", id = Model.Uid, addressGuid = address.AddressGuid });
+                });
+            }
+
+            settings.PopupAction = PopupAction.LeftMouseClick;
+        }
+    ).GetHtml()
+
+

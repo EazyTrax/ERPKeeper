@@ -1,0 +1,88 @@
+﻿
+@model ERPKeeper.Node.Models.Taxes.IncomeTax
+
+<div class="bg-fb2">
+    @using (Html.BeginForm("Save", "IncomeTax", new { Area = "Taxes" }, FormMethod.Post, new { @id = "SaveForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "IncomeTaxForm";
+
+
+       settings.EncodeHtml = false;
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Tax Code";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.TrDate, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+           groupSettings.Items.Add(m => m.ProfitAmount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+           groupSettings.Items.Add(m => m.TaxAmount, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+
+       });
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Tax Account";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+
+           groupSettings.Items.Add(m => m.IncomeTaxExpenseAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Expense Account", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetItemBySubType(ERPKeeper.Node.Models.Accounting.AccountSubTypes.IncomeTaxExpense);
+           });
+
+
+
+           groupSettings.Items.Add(m => m.LiabilityAccountGuid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Liabilty Account", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetItemBySubType(ERPKeeper.Node.Models.Accounting.AccountSubTypes.TaxPayable);
+           });
+
+       });
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+
+       });
+   }).GetHtml()
+
+    }
+
+</div>

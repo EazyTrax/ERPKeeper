@@ -1,0 +1,203 @@
+@model IQueryable<ERPKeeper.Node.Models.Transactions.Commercials.Purchase>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Purchases", Action = "PartialGridView", id = ViewBag.Id };
+
+        settings.KeyFieldName = "Uid";
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+        settings.EncodeHtml = false;
+        //settings.Styles.Cell.Font.Size = FontUnit.Small;
+        settings.SettingsExport.EnableClientSideExportAPI = true;
+        settings.SettingsExport.ExcelExportMode = DevExpress.Export.ExportType.WYSIWYG;
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 400;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.MinWidth = 300;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+        };
+
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSize = 200;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "200", "500", "1000" };
+
+
+        var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+        TotalGroup.ShowInGroupFooterColumn = "Total";
+        TotalGroup.DisplayFormat = "N2";
+
+        var BalanceGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Balance");
+        BalanceGroup.ShowInGroupFooterColumn = "Balance";
+        BalanceGroup.DisplayFormat = "N2";
+
+        settings.Styles.Header.BackColor = System.Drawing.Color.WhiteSmoke;
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.WhiteSmoke;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Uid";
+            column.Caption = " ";
+            column.CellStyle.VerticalAlign = VerticalAlign.Top;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string AgeBadge = DataBinder.Eval(t.DataItem, "AgeBadge").ToString();
+                ViewContext.Writer.Write(string.Format("{0}", AgeBadge));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "No";
+            column.Caption = "No";
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "NA").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "Purchase", new { id = Uid }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Status";
+            column.Caption = "Status";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 130;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+           // column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ProfileName";
+            column.Caption = "Name";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string ProfileGuid = (DataBinder.Eval(t.DataItem, "ProfileGuid") ?? "N/A").ToString();
+                string ProfileName = (DataBinder.Eval(t.DataItem, "ProfileName") ?? "N/A").ToString();
+                var linkTag = Html.ActionLink(ProfileName, "Home", "Supplier", new { Area = "Suppliers", id = ProfileGuid }, null);
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:200px;'>{0}</div>", linkTag));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Reference";
+            column.Caption = "Reference";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Reference = (DataBinder.Eval(t.DataItem, "Reference") ?? " ").ToString();
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:140px;'>{0}</div>", Reference));
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Tax";
+            column.Caption = "Tax";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Total";
+            column.Caption = "Total";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+
+
+settings.Columns.Add(column =>
+        {
+            column.FieldName = "PostStatus"; ;
+            column.Caption = " ";
+            column.SetDataItemTemplateContent(t =>
+            {
+                ViewContext.Writer.Write(ERPKeeper.Node.Helpers.Status.LedgerStatus(DataBinder.Eval(t.DataItem, "PostStatus")));
+
+            });
+        });
+
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Balance").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+
+        settings.Styles.GroupRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#CCCCCC");
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.Footer.Font.Bold = true;
+
+
+        settings.HtmlDataCellPrepared = (s, e) =>
+        {
+            if (e.DataColumn.FieldName == "Status")
+            {
+                string transactionStatus = e.GetValue("Status").ToString();
+                if (transactionStatus == "Open")
+                {
+
+                    e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#EBF5FB");
+                }
+
+            }
+        };
+    });
+}
+
+@grid.Bind(Model.ToList()).GetHtml()
+

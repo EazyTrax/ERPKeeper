@@ -1,0 +1,8 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+@using (Html.BeginForm("uploadFile", "Commercial", new { id = Model.Uid, Area = "Commercials" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <input type="file" name="file" />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}

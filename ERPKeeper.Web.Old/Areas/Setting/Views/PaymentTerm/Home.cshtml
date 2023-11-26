@@ -1,0 +1,25 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.PaymentTerm
+
+
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            
+        </div>
+        <div class="col col-Middle p-0">
+
+            <div class="MiddleColBoxContent">
+                <b>@Model.Name</b>
+            </div>
+            <div class="MiddleColBoxContent">
+                @Html.Partial("_Form");
+            </div>
+
+
+            @Html.ActionLink("Payment Term", "Home", "PaymentTerms")
+
+        </div>
+    </div>
+</div>

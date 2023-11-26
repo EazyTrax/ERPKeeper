@@ -1,0 +1,20 @@
+﻿@model ERPKeeper.Node.Models.Taxes.TaxPeriod
+@using ERPKeeper.Node.Models.Taxes.Enums
+
+
+
+<div class="row bg-fb1 p-2 mb-1">
+
+
+    <div class="col-2">
+        <span class="badge badge-dark"> @Model.GetInputTaxCommercials().Count()</span>  @Html.ActionLink(TaxDirection.Input.ToString(), "Commercial", new { id = Model.Uid, taxDirection = TaxDirection.Input })
+    </div>
+    <div class="col-2">
+        <span class="badge badge-dark"> @Model.GetOutputTaxCommercials().Count()</span>  @Html.ActionLink(TaxDirection.Output.ToString(), "Commercial", new { id = Model.Uid, taxDirection = TaxDirection.Output })
+    </div>
+    <div class="col-3 col-Right pr-0">
+        @Html.ActionLink("Un-Assign", "unassigncommercial", new { id = Model.Uid })
+    </div>
+</div>
+
+

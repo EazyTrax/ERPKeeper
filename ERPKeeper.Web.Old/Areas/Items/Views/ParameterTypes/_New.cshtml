@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = null;
+}
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>NEW Parameter Type</b><br /><br />
+    @using (Html.BeginForm("New", "ParameterTypes"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().TextBox(
+                            settings =>
+                            {
+                                settings.Name = "Name";
+                            }
+                        ).GetHtml()
+
+        <br />
+                    <input type="submit" />
+    }
+</div>
+

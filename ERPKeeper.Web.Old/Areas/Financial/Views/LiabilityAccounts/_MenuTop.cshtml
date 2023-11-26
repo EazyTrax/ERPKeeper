@@ -1,0 +1,21 @@
+﻿@{
+
+    Layout = null;
+}
+
+
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <div style="font-weight: 600;margin-bottom:10px;">@Lang.LiabilityAccounts</div>
+</div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+}).GetHtml()
+

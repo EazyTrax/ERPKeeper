@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>@ViewBag.Title </title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Prompt:400,600">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+    <link rel="stylesheet" href="https://advancemaker.com/font-awesome-pro-v6-6/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/Css/Style.css" />
+    <link rel="stylesheet" href="/Css/FixDevexpressStyle.css" />
+
+    @Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList, Theme = "Default" },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionType = ExtensionType.UploadControl }
+)
+    @Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.Editors },
+    new Script { ExtensionType = ExtensionType.NavBar },
+    new Script { ExtensionType = ExtensionType.Calendar },
+    new Script { ExtensionType = ExtensionType.FormLayout },
+    new Script { ExtensionType = ExtensionType.PopupMenu },
+    new Script { ExtensionType = ExtensionType.Chart },
+    new Script { ExtensionType = ExtensionType.GridView },
+    new Script { ExtensionType = ExtensionType.DataView },
+    new Script { ExtensionType = ExtensionType.UploadControl }
+)
+
+    @*@Styles.Render("~/Content/DevExtremeBundle")
+        @Scripts.Render("~/Scripts/DevExtremeBundle")*@
+</head>
+<body class="">
+    @Html.Partial("_Header")
+    <div class="container-non-responsive mh-500" style="margin-top:65px; margin-bottom:60px;">
+        @RenderBody()
+    </div>
+    @Html.Partial("_Footer")
+</body>
+</html>

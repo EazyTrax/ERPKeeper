@@ -1,0 +1,82 @@
+﻿@model ERPKeeper.Node.Models.Customers.Customer
+
+<div class="row bg-fb2 p-1 mb-1 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase ">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Customers",new { Area = "Customers"})">Customers</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home", "Customer",new { Area = "Customers", id = Model.ProfileUid})">
+                    @Model.Profile.Name
+                </a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right">
+        <div class="p-2">
+            <span id="ImageMenuPlus" style="cursor:pointer">
+                <i class="fas fa-plus-circle fa-lg text-muted"></i>
+            </span>
+            <span id="ImageMenuAction" style="cursor:pointer">
+                <i class="fab fa-chrome fa-lg text-muted"></i>
+            </span>
+            <a href="@Url.Action("Home", "Profile", new { Area= "Profiles", id = Model.ProfileUid})">
+                <i class="fas fa-user-circle fa-lg text-muted"></i>
+            </a>
+
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuAdd";
+           settings.PopupElementID = "ImageMenuPlus";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+
+
+
+           settings.Items.Add("Quote").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customer", Action = "NewQuote", id = Model.ProfileUid });
+
+           settings.Items.Add(item =>
+           {
+               item.Text = "Commercial";
+               item.Items.Add("Sale").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customer", Action = "NewSale", id = Model.ProfileUid });
+               item.Items.Add("Sales Return").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customer", Action = "NewSalesReturn", status = ERPKeeper.Node.Models.Transactions.CommercialStatus.Open, id = Model.ProfileUid });
+           });
+           settings.Items.Add(item =>
+           {
+               item.Text = "Financial";
+               item.Items.Add("Receive Payment").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customer", Action = "NewReceivePayment", id = Model.ProfileUid });
+           });
+           settings.PopupAction = PopupAction.LeftMouseClick;
+       }).GetHtml()
+            @Html.DevExpress().PopupMenu(settings =>
+            {
+                settings.Name = "PopupMenuAction";
+                settings.PopupElementID = "ImageMenuAction";
+                settings.ShowPopOutImages = DefaultBoolean.True;
+                settings.PopupAction = PopupAction.LeftMouseClick;
+                settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+                if (Model.Status == ERPKeeper.Node.Models.Customers.Enums.CustomerStatus.Active)
+                {
+                    settings.Items.Add("Mark Inactive").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customer", Action = "MarkInactive", Id = Model.ProfileUid });
+                }
+                else
+                {
+                    settings.Items.Add("Mark Active").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Customer", Action = "MarkActive", Id = Model.ProfileUid });
+                }
+
+
+            }).GetHtml()
+        </div>
+    </div>
+</div>
+
+<div class="bg-fb2 p-2 mb-1">
+    @Html.ActionLink("Home", "Home", new { Controller = "Customer", id = Model.ProfileUid }) ·
+    @Html.ActionLink("Sales", "Sales", new { Controller = "Customer", id = Model.ProfileUid }) ·
+    @Html.ActionLink("Quotes", "SaleQuotes", new { Controller = "Customer", id = Model.ProfileUid })
+</div>

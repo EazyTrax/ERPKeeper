@@ -1,0 +1,15 @@
+
+@model IList<ERPKeeper.Node.Models.Accounting.JournalEntryType>
+
+
+<div class="row bg-fb2 round p-2">
+    <strong class="">Entries Type</strong>
+
+    @{
+        foreach (var journalEntryType in Model)
+        {
+            <div class="col-9 p-1">@journalEntryType.Name</div>
+            <div class="col-3 col-Right pr-0">@Html.Raw(ERPKeeper.Helpers.Badge.Danger(journalEntryType.EntryCount))</div>
+        }
+    }
+</div>

@@ -1,0 +1,33 @@
+@model List<ERPKeeper.Node.Models.Items.AssistItem>
+
+
+<div class="bg-fb2 mb-1 p-2 rounded">
+    <div class="row mb-1">
+        <div class="col-10 p-0 mb-2">
+            @Model.Count assist Items
+        </div>
+        <div class="col p-0 text-right">
+            <a href="@Url.Action("UpdateAssistItems", "Commercial", new { area = "Commercials", id = @ViewBag.CommercialId })">
+                <i class="fas fa-sync-alt text-secondary"></i>
+            </a>
+        </div>
+
+        @foreach (var assistItem in Model.OrderByDescending(i => i.Chance).ToList())
+        {
+            <div class="col-9  p-0 mb-1">
+                <a href="@Url.Action("Home","Item",new { Area = "Items", id = assistItem.ItemId})">
+                    @assistItem.ItemPartNumber
+                </a>
+            </div>
+
+            <div class="col-2 p-0  mb-1">
+                @assistItem.Chance.ToString("N0")%
+            </div>
+            <div class="col-1 p-0  mb-1">
+                <a href="@Url.Action("AddItem", "Commercial", new { area = "Commercials", id = @ViewBag.CommercialId , itemUid = assistItem.ItemId })">
+                    <i class="fas fa-plus-circle text-secondary"></i>
+                </a>
+            </div>
+        }
+    </div>
+</div>

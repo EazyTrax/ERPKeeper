@@ -1,0 +1,28 @@
+﻿@model ERPKeeper.Node.Models.Employees.EmployeePosition
+
+
+
+    <div class="bg-fb2 p-2 mb-2 mh-50">
+        <b>@Model.Title</b><br />
+        @Model.AllEmployees?.Count() Staffs
+    </div>
+    @Html.DevExpress().Menu(settings =>
+    {
+        settings.Name = "mFeatures";
+        settings.AllowSelectItem = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowPopOutImages = DefaultBoolean.True;
+        settings.Orientation = System.Web.UI.WebControls.Orientation.Vertical;
+        settings.Width = 200;
+        settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+
+        settings.Items.Add("Home").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Position", Action = "Home", id = Model.Uid });
+        settings.Items.Add("Employees").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Position", Action = "employees", id = Model.Uid });
+    }).GetHtml()
+
+    <div class="mt-3">
+        <a href="@Url.Action("Home", "Positions")">
+            <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+        </a>
+    </div>

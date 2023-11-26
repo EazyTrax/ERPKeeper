@@ -1,0 +1,98 @@
+
+@model IList<ERPKeeper.Node.Models.Transactions.CommercialItem>
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "PartialGridView", id = ViewData["id"], Type = ViewBag.Type };
+        settings.KeyFieldName = "Uid";
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Settings.ShowFooter = true;
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TransactionType";
+            column.Caption = "TR Type";
+            column.Visible = true;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Commercial.TrnDate";
+            column.Caption = "Trn Date";
+            column.SortIndex = 1;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "InputAmount";
+            column.Caption = "In#";
+            column.PropertiesEdit.DisplayFormatString = "#,##0;(#,##0);-";
+        });
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputAmount").DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UnitPrice";
+            column.Caption = "In$";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "InputValue";
+            column.Caption = "In Total";
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+
+
+        });
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "InputLineCost").DisplayFormat = "N2";
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OutputAmount";
+            column.Caption = "Out#";
+            column.Width = 60;
+            column.PropertiesEdit.DisplayFormatString = "#,##0;(#,##0);-";
+
+        });
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputAmount").DisplayFormat = "N2";
+
+      
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OutputCost").DisplayFormat = "N2";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Memo";
+            column.Caption = "Memo";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string memo = (DataBinder.Eval(t.DataItem, "Memo") ?? "-").ToString();
+
+                ViewContext.Writer.Write(memo.Replace("\n", "<br />"));
+            });
+
+        });
+
+    });
+}
+@grid.Bind(Model).GetHtml()

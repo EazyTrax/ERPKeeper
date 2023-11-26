@@ -1,0 +1,28 @@
+﻿@{
+
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Items.Item
+
+
+@if (Model.Parent != null)
+{
+    <div class="p-2   bg-fb1 mb-1">
+        @Html.ActionLink(Model.Parent.PartNumber.ToUpper(), "Home", "ItemGroup", new { id = Model.itemGroupUid }, new { @style = "font-weight:600;" }) <br />
+
+        <div class="row mt-2">
+            @foreach (var item in Model.Parent.Child.ToList())
+            {
+                <div class="col-9 mb-1">
+                    @Html.Raw(item.SpanBadge.Trim())<span class="mx-1">@Html.ActionLink(item.PartNumber, "Home", "Item", new { id = item.Uid}, null) </span> <br />
+                </div>
+                <div class="col-3 text-right mb-1">
+                    @item.UnitPrice.ToString("N2")
+                </div>
+            }
+        </div>
+    </div>
+
+
+}

@@ -1,0 +1,16 @@
+﻿
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            @Html.Action("PartialGridView")
+        </div>
+        <div class="col">
+            <div class="mh-350 bg-fb1"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+
+@model ERPKeeper.Node.Models.Accounting.JournalEntry
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewABC";
+
+        settings.CallbackRouteValues = new { Controller = "JournalEntry", Action = "PartialGridView", id = Model.Uid, Type = "Hey" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "JournalEntry", Action = "PartialGridViewUpdate", id = Model.Uid, Type = "Hey" };
+
+        settings.KeyFieldName = "JournalEntryItemId";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountUid";
+            column.Caption = "Account";
+            column.Visible = false;
+
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.DataSource = Organization.ChartOfAccount.GetAccountsList();
+            comboBoxProperties.TextField = "Name";
+            comboBoxProperties.ValueField = "Uid";
+            comboBoxProperties.ValueType = typeof(Guid);
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Name";
+            column.Caption = "Account";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.Type";
+            column.Caption = "Type";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Account.SubEnumType";
+            column.Caption = "SubEnum";
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Memo";
+            column.Caption = "Memo";
+
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.Caption = "Debit";
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.Caption = "Credit";
+            column.Width = 100;
+        });
+
+        settings.Settings.ShowFooter = true;
+
+        settings.ClientSideEvents.RowDblClick = "OnRowDblClick";
+
+
+        if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.EditFormLayoutProperties.ColCount = 2;
+        settings.EditFormLayoutProperties.Items.Add("AccountUid");
+        settings.EditFormLayoutProperties.Items.Add("Debit");
+        settings.EditFormLayoutProperties.Items.Add("Credit");
+        settings.EditFormLayoutProperties.Items.Add("Memo");
+
+        settings.EditFormLayoutProperties.Items.AddCommandItem(i =>
+        {
+            i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        });
+
+
+        var sumDebit = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        sumDebit.ShowInColumn = "Debit";
+        sumDebit.DisplayFormat = "N2";
+
+
+
+        var sumCredit = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        sumCredit.ShowInColumn = "Credit";
+        sumCredit.DisplayFormat = "N2";
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+    });
+}
+@grid.Bind(Model.Items).GetHtml()

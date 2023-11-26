@@ -1,0 +1,16 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Purchase
+
+
+
+<div class="row p-2 bg-fb1 mb-2">
+    <div class="col-6 p-0">
+        @Model.Name
+    </div>
+
+    <div class="col-6">
+        @Model.Reference
+    </div>
+    <div class="col-6 p-0">
+        @Model.TrnDate.ToString("dd-MMMM-yyyy")
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Projects.Case
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Save", "task", new { Area = "Projects" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="bg-fb2 p-2 mb-2 mh-50">
+        <span style="font-size: 120%;font-weight:600">
+            @Html.DevExpress().TextBoxFor(m => m.Title, settings =>
+               {
+                   settings.ControlStyle.Font.Size = FontUnit.Point(18);
+                   settings.ControlStyle.Font.Bold = true;
+                   settings.Width = Unit.Pixel(700);
+                   settings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+                   settings.ControlStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F5F5F5");
+               }).GetHtml()
+        </span>
+        <div style="padding-left:5px;">
+            @Html.ActionLink(Model.ResponsibleProfile.Name, "Home", "Employee", new { Area = "Employees", id = Model.ResponsibleProfile.Uid }, null)
+        </div>
+    </div>
+    <div class="bg-fb2 p-2 mb-2 mh-50">
+        @Html.HiddenFor(m => m.Uid)
+        @Html.HiddenFor(m => m.Title)
+
+        @Html.DevExpress().MemoFor(m => m.Detail, settings =>
+        {
+            settings.Width = Unit.Pixel(700);
+            settings.ControlStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F5F5F5");
+        }).GetHtml()
+        <br />
+        <br />
+        <b>Due Date</b>
+        @*@Html.DevExpress().DateEditFor(m => m.DueDate, settings =>
+        {
+            settings.Width = Unit.Pixel(200);
+            settings.ControlStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F5F5F5");
+        }).GetHtml()
+
+        <br />
+        <br />
+        <b>Close Date</b>
+        @Html.DevExpress().DateEditFor(m => m.CloseDate, settings =>
+        {
+            settings.Width = Unit.Pixel(200);
+            settings.ControlStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F5F5F5");
+        }).GetHtml()*@
+
+
+        <br /><br />
+        <button type="submit" value="Submit">Submit</button>
+
+    </div>
+}

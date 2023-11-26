@@ -1,0 +1,46 @@
+﻿@model ERPKeeper.Node.Models.Transactions.CommercialItem
+
+
+<div>
+    @using (Html.BeginForm("Save", "CommercialItem"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "CommercialItem";
+       settings.ColCount = 1;
+       settings.EncodeHtml = false;
+       settings.Width = 780;
+
+
+       settings.Items.Add(m => m.Memo, itemSettings =>
+       {
+           itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+           
+       });
+
+       settings.Items.Add(m => m.SerialNumber, itemSettings =>
+       {
+           itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+           
+       });
+
+    
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+
+       });
+
+   }).GetHtml()
+    }
+</div>

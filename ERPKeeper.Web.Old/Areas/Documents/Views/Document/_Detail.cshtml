@@ -1,0 +1,45 @@
+﻿@model ERPKeeper.Node.Models.Documents.Document
+
+<div class="row mb-2 rounded">
+    <div class="col-12 p-0 bg-fb1 ">
+        @using (Html.BeginForm("Save", "Document"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Uid)
+
+            @Html.DevExpress().FormLayout(settings =>
+       {
+           settings.Name = "TaskForm";
+           settings.Width = Unit.Percentage(100);
+           settings.ColCount = 1;
+
+           settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+
+           settings.Items.Add(m => m.Name, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+           settings.Items.Add(m => m.ObjectName, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+           settings.Items.Add(m => m.TotalValue, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+           });
+           settings.Items.Add(item =>
+           {
+               item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+               item.ShowCaption = DefaultBoolean.False;
+               item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+               var button = (ButtonSettings)item.NestedExtensionSettings;
+               button.Name = "SaveButton";
+               button.Text = "Save";
+               button.UseSubmitBehavior = true;
+           });
+       }).GetHtml()
+        }
+
+    </div>
+
+</div>

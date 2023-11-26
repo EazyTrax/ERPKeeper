@@ -1,0 +1,31 @@
+﻿<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+                <div class="col-9 p-1">
+                    <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                        <li class="breadcrumb-item text-uppercase">
+                            <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                        </li>
+                        <li class="breadcrumb-item text-uppercase " aria-current="page">
+                            <a href="@Url.Action("Home", "DashBoard",new { Area = "Accounting"})">Accounting</a>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col text-right p-2">
+                </div>
+            </div>
+            <div class="p-2 mb-2 bg-fb2 mh-500">
+                <b>YOUR Accounting Firm</b><br /><br />
+                <span>Genius Accounting</span> <br />
+                053-142-123
+            </div>
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>

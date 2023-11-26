@@ -1,0 +1,74 @@
+﻿
+@{
+    
+    Layout = null;
+}
+
+@model IList<ERPKeeper.Node.Models.Projects.Case>
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "GridViewCases";
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+    settings.CallbackRouteValues = new
+    {
+        Controller = "Employee",
+        Action = "GridViewCases",
+        id = ViewBag.id
+    };
+
+    settings.KeyFieldName = "Uid";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Status";
+    });
+
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CreatedDate";
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Age";
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Title";
+
+
+        column.SetDataItemTemplateContent(t =>
+        {
+            string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+            string Title = (DataBinder.Eval(t.DataItem, "Title") ?? "N/A").ToString();
+            var linkTag = Html.ActionLink(Title, "Home", "Case", new { id = Uid }, null);
+            ViewContext.Writer.Write(string.Format("{0}", linkTag));
+
+        });
+    });
+
+
+
+
+   
+
+    settings.Width = Unit.Percentage(100);
+    settings.EnableTheming = true;
+    settings.Styles.Header.Font.Bold = true;
+
+    settings.CommandColumn.CellStyle.BackColor = System.Drawing.Color.Transparent;
+    settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+    settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+    settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+}).Bind(Model).GetHtml()
+

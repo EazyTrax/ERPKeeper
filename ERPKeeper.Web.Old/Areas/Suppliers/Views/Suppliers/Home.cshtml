@@ -1,0 +1,29 @@
+﻿@model IList<ERPKeeper.Node.Models.Profiles.Profile>
+
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+
+            <div id='DivGrid'>
+                <div class="p-3 text-center mb-1 bg-fb1">
+                    <img src="~/Content/Images/load80.gif" /><br />
+                    Loading Grid
+                </div>
+                <script type="text/javascript">
+                    $("#DivGrid").delay(1000).load("@Url.Action("PartialGridView", new { Id = ViewBag.Id })");
+                </script>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+
+            </div>
+           
+        </div>
+    </div>
+</div>

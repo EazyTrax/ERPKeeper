@@ -1,0 +1,107 @@
+﻿@using ERPKeeper.Helpers.Enums
+@using ERPKeeper.Node.Models.Transactions
+
+@{
+    int openSalesCount = Organization.Sales.OpenCount;
+    decimal openSalesBalance = Organization.Sales.OpenBalance;
+
+    int allSalesCount = erpNodeDBContext.Sales.Count();
+    decimal allSalesBalance = erpNodeDBContext.Sales.Sum(s => s.Total);
+
+    int paidSalesCount = allSalesCount - openSalesCount;
+    decimal paidSalesBalance = allSalesBalance - openSalesBalance;
+}
+
+<div class="row">
+    <div class="col  bg-light mr-2 p-2">
+        <a href="@Url.Action("Open")">
+            <div class="row">
+                <div class="col-8">
+                    @ERPKeeper.Node.Models.Transactions.CommercialStatus.Open.ToString()
+                </div>
+                <div class="col-4 text-right">
+                    <span class="font-weight-bold">
+                        @openSalesCount.ToString("N0")
+                    </span>
+                </div>
+
+                <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                    @openSalesBalance.ToString("N0")
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col  bg-light mr-2 p-2">
+        <a href="@Url.Action("OverDue",new {  })">
+            <div class="row">
+                <div class="col-8">
+                    OverDue
+                </div>
+                <div class="col-4 text-right">
+                    <span class="font-weight-bold">
+                        @Organization.Sales.OverDueCount
+                    </span>
+                </div>
+                <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                    @Organization.Sales.OverDueBalance.ToString("N0")
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col  bg-light mr-2 p-2">
+        <a href="@Url.Action("Paid",new {  })">
+            <div class="row">
+                <div class="col-8">
+                    @ERPKeeper.Node.Models.Transactions.CommercialStatus.Paid.ToString()
+                </div>
+                <div class="col-4 text-right">
+                    <span class="font-weight-bold">
+                        @paidSalesCount.ToString("N0")
+                    </span>
+                </div>
+                <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                    @paidSalesBalance.ToString("N0")
+                </div>
+            </div>
+
+
+        </a>
+    </div>
+    <div class="col  bg-light mr-2 p-2">
+        <a href="@Url.Action("All",new { })">
+            <div class="row">
+                <div class="col-8">
+                    All Sales
+                </div>
+                <div class="col-4 text-right">
+                    <span class="font-weight-bold">
+                        @allSalesCount.ToString("N0")
+                    </span>
+                </div>
+                <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+                    @allSalesBalance.ToString("N0")
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col  bg-light p-2">
+        <a href="@Url.Action("LastFiscal",new { })">
+            <div class="row">
+                <div class="col-8">
+                    LastFiscals
+                </div>
+                <div class="col-4 text-right">
+                    <span class="font-weight-bold">
+
+                    </span>
+                </div>
+                <div class="col-12 mt-2" style="font-size:21px;font-weight:bold;">
+
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>

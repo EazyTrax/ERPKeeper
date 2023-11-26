@@ -1,0 +1,42 @@
+﻿@model ERPKeeper.Node.Models.Tasks.Task
+
+<div class="row">
+    <div class="col-2 p-0 col-left">
+        @await Component.InvokeAsync("_Partial_Menu_Operation", new { })
+    </div>
+    <div class="col-8 pl-0 col-center">
+        
+        <partial name="_EditForm" />
+    </div>
+    <div class="col-4 pr-0 col-right">
+
+
+        <div class="row bg-fb1 p-2 mb-2 rounded">
+            <div class="col-8 p-0 font-weight-600">
+            </div>
+            <div class="col-4 p-0 text-right">
+
+
+
+
+                @{
+                    if (Model.Status == ERPKeeper.Node.Models.Tasks.Enums.TaskStatus.Open)
+                    {
+                        <a href="/Operation/Tasks/@Model.Uid/close" class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;">
+                            Close
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Operation/Tasks/@Model.Uid/open" class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;">
+                            Re-Open
+                        </a>
+                    }
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

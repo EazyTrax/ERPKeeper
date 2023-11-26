@@ -1,0 +1,34 @@
+﻿
+
+@{
+    void TraverseChildGroups(ERPKeeper.Node.Models.Items.GroupItem group, int deep = 1)
+    {
+
+        <div class="col-@(deep) p-0">
+
+        </div>
+        <div class="col-@(11-deep) p-0">
+            <a href="/@CompanyId/Products/Groups/@group.Uid">
+                -  <span>  @group.Name</span>
+            </a>
+        </div>
+        <div class="col-1 p-0">
+            <div class="text-right">
+                @group.ItemsCount
+            </div>
+        </div>
+
+        deep++;
+        @foreach (var childGroup in group.Child)
+        {
+            TraverseChildGroups(childGroup, deep);
+        }
+    }
+}
+
+<div class="row bg-fb1 pl-0 pr-2 py-2 rounded">
+    @foreach (var group in Organization.GroupItems.GetRoot())
+    {
+        TraverseChildGroups(group, 1);
+    }
+</div>

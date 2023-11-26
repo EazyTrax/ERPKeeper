@@ -1,0 +1,9 @@
+﻿<div id='DivOpenTaskSummary'>
+    <div class="p-3 text-center mb-1 bg-fb1">
+        <img src="~/Content/Images/load80.gif" /><br />
+        OpenTaskSummary
+    </div>
+</div>
+<script type="text/javascript">
+            $("#DivOpenTaskSummary").load("@Url.Action("_OpenTaskSummary", "Tasks", new { Area = "Tasks" })");
+</script>

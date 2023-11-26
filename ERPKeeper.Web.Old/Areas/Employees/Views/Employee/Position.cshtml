@@ -1,0 +1,18 @@
+﻿@model ERPKeeper.Node.Models.Employees.Employee
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            <div class="col-2 col-Left pl-0">
+                @Html.Action("_Main", "Default", new { Area = "Menu" })
+            </div>
+            <div class="col">
+                @Html.Partial("_ActionMenu")
+                @Html.Partial("_JobPosition", Model)
+            </div>
+            <div class="col-3 col-Right pr-0">
+
+            </div>
+        </div>
+    </div>
+</div>

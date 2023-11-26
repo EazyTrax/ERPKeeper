@@ -1,0 +1,71 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-11 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action(Model.Type.ToString(), "ChartOfAccount",new { Area = "Accounting"})">@Model.Type.ToString()</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                <a href="@Url.Action("Home","AccountItem",new { Area = "Accounting", id=Model.Uid})"><b>@(Model.No ?? "NA") </b> @Model.Name</a>
+            </li>
+
+        </ol>
+    </div>
+
+
+    <div class="col text-right p-2">
+        <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuAction";
+       settings.PopupElementID = "ImageMenuAction";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+       settings.Items.Add("Update Balance").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "UpdateBalance",  id = Model.Uid });
+
+       settings.Items.Add("Update History").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "UpdateHistoryBalance",  id = Model.Uid });
+       settings.Items.Add("Add To Favorite").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "AddToMyFavoriteAccount",  id = Model.Uid });
+       // settings.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new {Controller = "AccountItem", Action = "Delete",  id = Model.Uid });
+
+       if (Model.Type == ERPKeeper.Node.Models.Accounting.AccountTypes.Liability)
+           settings.Items.Add("Create Payment").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "LiabilityPayment", Area = "Financial", Action = "New", id = Model.Uid });
+
+
+   }).GetHtml()
+
+    </div>
+
+</div>
+<div class="mb-2">
+    @Html.DevExpress().Menu(
+          settings =>
+          {
+            settings.Name = "mFeatures";
+            settings.AllowSelectItem = true;
+            settings.EnableHotTrack = true;
+            settings.EnableAnimation = true;
+            settings.ShowPopOutImages = DefaultBoolean.True;
+            settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+
+
+            //settings.Styles.Item.BackColor = System.Drawing.Color.White;
+            settings.Styles.Item.SelectedStyle.Font.Bold = true;
+            //settings.Styles.Item.HoverStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#007294");
+            //settings.Styles.Item.HoverStyle.ForeColor = System.Drawing.Color.White;
+            settings.Width = Unit.Percentage(100);
+
+            settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "Home", id = Model.Uid });
+            settings.Items.Add("Ledger").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "Ledger", id = Model.Uid });
+            settings.Items.Add("Chart").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "Chart", id = Model.Uid });
+            settings.Items.Add("History").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "AccountItem", Action = "History", id = Model.Uid });
+
+          }).GetHtml()
+</div>

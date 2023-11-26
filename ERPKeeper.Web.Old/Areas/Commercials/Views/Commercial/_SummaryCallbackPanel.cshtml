@@ -1,0 +1,15 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+@Html.DevExpress().CallbackPanel(
+    settings =>
+    {
+        settings.Name = "cbpExample";
+        settings.CallbackRouteValues = new {Area = "Commercials", Controller = "Commercial", Action = "_SummaryCallbackPanel", id = Model.Uid };
+        settings.Width = Unit.Percentage(100);
+      
+
+        settings.SetContent(Html.Partial("_Summary", Model).ToHtmlString());
+    }
+).GetHtml()
+
+

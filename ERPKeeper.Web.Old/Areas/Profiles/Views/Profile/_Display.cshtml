@@ -1,0 +1,84 @@
+﻿
+@model ERPKeeper.Node.Models.Profiles.Profile
+
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "Profile";
+    settings.Width = 500;
+
+
+    settings.Items.AddGroupItem(groupSettings =>
+    {
+
+        groupSettings.Caption = Model.Name;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+        groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+        groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+        groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+
+
+        groupSettings.Items.Add(m => m.Name, itemSettings =>
+        {
+            itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+            itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            
+        });
+
+        groupSettings.Items.Add(m => m.TaxNumber, itemSettings =>
+        {
+            itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+            itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            
+        });
+
+        groupSettings.Items.Add(m => m.PrimaryAddress, itemSettings =>
+        {
+            itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+            itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+
+            
+        });
+
+
+        groupSettings.Items.Add(m => m.PhoneNumber, itemSettings =>
+        {
+            itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+            itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            
+        });
+
+        
+
+        
+
+    });
+}).GetHtml()
+
+<div class="MiddleColContainerBox">
+    <a href="@Url.Action("Home", "Profile", new { id = @Model.Uid, Area = "Profiles" })">
+        <div>
+            <b>@Model.Name</b><br />
+            @Model.TaxNumber<br />
+            @Html.Raw(Html.Encode(Model.PrimaryAddress).Replace("\n", "<br />"))
+            @Model.PhoneNumber
+        </div>
+    </a>
+    <div style="position:absolute;top:10px;right:5px;">
+
+        <div class="boxBlue" style="width:15px;height:15px;">
+            C
+        </div>
+        <div class="boxBlue" style="width:15px;height:15px;">
+            S
+        </div>
+        <div class="boxBlue" style="width:15px;height:15px;">
+            E
+        </div>
+        <div class="boxBlue" style="width:15px;height:15px;">
+            F
+        </div>
+    </div>
+</div>

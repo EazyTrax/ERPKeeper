@@ -1,0 +1,23 @@
+﻿@model ERPKeeper.Node.Models.Equity.Investor
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Partial("_MenuTop")
+        </div>
+        <div class="col-4">
+            <div style="background-color:#EEEEEE;padding:10px;">
+                @Html.Partial("~/Areas/Profiles/Views/Profile/_Detail.cshtml", Model.Profile)
+            </div>
+        </div>
+        <div class="col-3 col-Right pr-0">
+            
+        </div>
+        <div class="col-3 col-Right pr-0">
+        
+            <div class="p-2 mb-2 bg-fb2 mh-50">
+                @Model.CapitalActivities.ToList().Sum(c => c.StockAmount) Stocks.
+            </div>
+        </div>
+    </div>
+</div>

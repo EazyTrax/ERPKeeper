@@ -1,0 +1,84 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercial
+
+<div class="mh-80 mb-2">
+    <div class="row mb-1">
+        <div class="col-9 p-1">
+            <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+                <li class="breadcrumb-item text-uppercase">
+                    <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Customers",new { Area = "Customers"})">
+                        @Lang.Customers
+                    </a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Sales",new { Area = "Customers"})">Sales</a>
+                </li>
+                <li class="breadcrumb-item text-uppercase active" aria-current="page">
+                    <a href="@Url.Action("Home", "Sale",new { Area = "Sales", id = Model.Uid})">
+                        @Model.Name
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="col text-right p-2">
+            <span id="ImageMenuLock" style="cursor:pointer"><i class="fas fa-globe-asia fa-lg text-muted"></i></span>
+
+            @Html.DevExpress().PopupMenu(settings =>
+       {
+           settings.Name = "PopupMenuLock";
+           settings.PopupElementID = "ImageMenuLock";
+           settings.ShowPopOutImages = DefaultBoolean.True;
+           settings.PopupAction = PopupAction.LeftMouseClick;
+           settings.Styles.Item.CssClass = "px-1";
+           settings.ControlStyle.SeparatorHeight = Unit.Pixel(35);
+
+
+           settings.Items.Add(item =>
+           {
+               item.Text = "Advance";
+               item.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Delete", id = Model.Uid });
+               item.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Copy", id = Model.Uid });
+               item.Items.Add("Void").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Void", id = Model.Uid });
+
+           });
+       }).GetHtml()
+
+        </div>
+    </div>
+    <div class="mb-2">
+        @Html.DevExpress().Menu(settings =>
+   {
+       settings.Name = "mFeatures";
+       settings.AllowSelectItem = true;
+       settings.EnableHotTrack = true;
+       settings.EnableAnimation = true;
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+
+       settings.Styles.Item.CssClass = "px-1";
+       settings.Styles.Item.SelectedStyle.Font.Bold = true;
+       settings.EncodeHtml = false;
+
+       settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Home", id = Model.Uid });
+       settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Items).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Items", id = Model.Uid });
+       settings.Items.Add("Payments").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Payments", id = Model.Uid });
+       settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Shipments).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Shipments", id = Model.Uid });
+       settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Documents).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "Documents", id = Model.Uid });
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "Export";
+           item.Items.Add("ใบกำกับภาษี").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "ExportSale", id = Model.Uid, DocumentType = @"ใบกำกับภาษี/ใบวางบิล" });
+           item.Items.Add("(สำเนา)ใบกำกับภาษี").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "ExportSale", id = Model.Uid, DocumentType = @"(สำเนา)ใบกำกับภาษี/ใบวางบิล" });
+           item.Items.Add("ใบส่งของ").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "ExportSale", id = Model.Uid, DocumentType = @"ใบส่งของ" });
+
+
+           // item.Items.Add("ใบเสร็จรับเงิน").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "ExportReceipt", id = Model.Uid, DocumentType = "ใบเสร็จรับเงิน" });
+           item.Items.Add("Shipping Label").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Sale", Action = "ExportShippingLabel", id = Model.Uid, DocumentType = "ShippingLabel" });
+
+       });
+   }).GetHtml()
+    </div>
+</div>

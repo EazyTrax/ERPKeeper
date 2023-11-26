@@ -1,0 +1,18 @@
+﻿@model List<ERPKeeper.Node.Models.Accounting.FiscalYears.PeriodAccountBalance>
+
+
+@{
+    foreach (var accountBalance in Model.OrderBy(a => a.Account.SubEnumType).ThenBy(a => a.Account.No).ToList())
+    {
+        <div class="row">
+            <div class="col-3 p-0">@accountBalance.Account.Code</div>
+            <div class="col-6 p-0 overflow-hidden" style="white-space:nowrap;">@accountBalance.Account.Name</div>
+            <div class="col p-0 text-right">@accountBalance.CurrentBalance.ToString("N2")</div>
+        </div>
+    }
+}
+
+    <div class="row mb-3">
+        <div class="col-9  p-0"></div>
+        <div class="col p-0 text-right"><b>@Model.Sum(a => a.CurrentBalance).ToString("N2")</b></div>
+    </div>

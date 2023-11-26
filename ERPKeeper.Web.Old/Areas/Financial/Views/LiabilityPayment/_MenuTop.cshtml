@@ -1,0 +1,49 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.LiabilityPayment
+<div class="mb-2">
+    <div class="row bg-fb2 mh-50 p-2 mb-2">
+            <div class="col">
+                <b>@Model.Name</b>
+                @Html.Raw(ERPKeeper.Helpers.Badge.Success(Model.PaymentMethod.ToString()))
+
+            </div>
+            <div class="col-3 text-right">
+
+                @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+                {
+                    <span id="ImageMenuLock" style="cursor:pointer"><i class="fas fa-globe-asia fa-lg text-muted"></i></span>
+                    @Html.DevExpress().PopupMenu(settings =>
+               {
+                   settings.Name = "PopupMenuLock";
+                   settings.PopupElementID = "ImageMenuLock";
+                   settings.ShowPopOutImages = DefaultBoolean.True;
+                   settings.PopupAction = PopupAction.LeftMouseClick;
+                   settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+                   settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "LiabilityPayment", Action = "UnPost", id = Model.Uid });
+
+                   if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+                       settings.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "LiabilityPayment", Action = "Remove", id = Model.Uid });
+                   settings.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "LiabilityPayment", Action = "Copy", id = Model.Uid });
+
+
+               }).GetHtml()
+                }
+            </div>
+        </div>
+   
+
+
+    @Html.DevExpress().Menu(settings =>
+    {
+        settings.Name = "mFeatures";
+        settings.AllowSelectItem = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowPopOutImages = DefaultBoolean.True;
+        settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+        settings.Styles.Item.CssClass = "px-1";
+
+        settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "LiabilityPayment", Action = "Home", id = Model.Uid });
+        settings.Items.Add("Documents").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "LiabilityPayment", Action = "Documents", id = Model.Uid });
+    }).GetHtml()
+</div>

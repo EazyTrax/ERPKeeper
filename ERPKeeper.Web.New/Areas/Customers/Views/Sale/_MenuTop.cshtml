@@ -1,0 +1,24 @@
+﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+
+<div class="row mb-2 font-weight-600">
+    <div class="p-2">
+        <a href="/">ERP</a>
+        <a href="/@CompanyId/Customers">> Customers</a>
+        <a href="/@CompanyId/Customers/Sales">> Sales</a>
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid">> @Model.Name</a>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-12 p-0 text-right">
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid/">Detail</a>  ·
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid/Items">Items</a>  ·
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid/Payments">Payments</a>  ·
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid/Shipments">Shipments</a>  ·
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid/Shipments">Documents</a>  ·
+        <a href="/@CompanyId/Customers/Sales/@Model.Uid/Shipments">Export</a>  ·
+        <a href="https://erp.advancemaker.com/Customers/Sale/@Model.Uid">
+            Old
+        </a>
+    </div>
+</div>

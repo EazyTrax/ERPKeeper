@@ -1,0 +1,98 @@
+@model IList<ERPKeeper.Node.Models.Transactions.Commercial>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gridViewUnAssignCommercial";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "CommercialTaxes", Action = "PartialGridView", id = ViewBag.id };
+        settings.KeyFieldName = "Uid";
+       ////settings.Styles.Cell.Font.Size = FontUnit.Small;
+
+
+        var LinesTotalGroup = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "LinesTotal");
+        LinesTotalGroup.ShowInGroupFooterColumn = "LinesTotal";
+        LinesTotalGroup.DisplayFormat = "N2";
+
+        var TotalGroup = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Tax");
+        TotalGroup.ShowInGroupFooterColumn = "Tax";
+        TotalGroup.DisplayFormat = "N2";
+
+        var BalanceGroup = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+        BalanceGroup.ShowInGroupFooterColumn = "Total";
+        BalanceGroup.DisplayFormat = "N2";
+
+
+
+
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = "Trn Date";
+            column.SortIndex = 2;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Tran#";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.Name";
+            column.Caption = "Profile";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string ProfileName = (DataBinder.Eval(t.DataItem, "Profile.Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:300px;'>{0}</div>", ProfileName));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Profile.TaxNumber";
+            column.Caption = "Tax Id";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Tax";
+            column.Caption = "Tax";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TaxCode.Name";
+            column.Caption = "Tax Code";
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TaxCode.Direction";
+            column.Caption = "Direction";
+            column.SortIndex = 1;
+        });
+
+
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+    });
+}
+@grid.Bind(Model).GetHtml()

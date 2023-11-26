@@ -1,0 +1,12 @@
+﻿@model ERPKeeper.Node.Models.Items.Brand
+
+
+<div class="bg-fb2 p-2 mb-1 mh-200">
+    @using (Html.BeginForm("UploadImage", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+        <input type="file" name="image" enctype="multipart/form-data" />
+        <input type="submit" />
+    }
+</div>

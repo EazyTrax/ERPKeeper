@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims;
+
+
+<div class="p-1">
+    <div class="row">
+        <div class="col-11 p-0 font-weight-600">
+            <a href="/My"> @User.Identity.Name</a>
+        </div>
+        <div class="col-1 px-0 pt-1 text-right">
+            <div class="text-danger font-weight-normal">
+                <div class="text-right">
+                    <a class="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="offcanvas offcanvas-top" style="height:220px !important" data-bs-scroll="true" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-body">
+        <a href="#" data-bs-dismiss="offcanvas" aria-label="Close"></a>
+        <partial name="_CollapseMenu" />
+    </div>
+</div>

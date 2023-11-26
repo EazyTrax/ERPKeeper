@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model ERPKeeper.Node.Models.Profiles.Profile
+
+<div style="padding:10px;background-color:#EEEEEE;">
+
+    @using (Html.BeginForm("SearchFromRD", "Profiles", new { Area = "Profiles" }, FormMethod.Post, new { @id = "SearchByTaxForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <b>Search by TAX</b><br /><br />
+        </div>
+
+        <div style="">
+            <div style="float:left;margin-right:10px;">
+                @Html.DevExpress().TextBox(
+                settings =>
+                {
+                    settings.Name = "TaxId";
+                    settings.Width = 170;
+                    settings.Properties.NullText = "#-####-#####-##-#";
+                }
+            ).GetHtml()
+
+            </div>
+            <div style="float:left;margin-right:10px;">
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "btmClickMe";
+                    settings.Text = "Search";
+                    settings.UseSubmitBehavior = true;
+                }).GetHtml()
+
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    }
+</div>
+
+@if (Model != null)
+{  <div style="padding:10px;background-color:#EEEEEE;">
+        <b>@Model.Name</b><br />
+        <span>@Model.TaxNumber</span>
+        <br /><br />
+        <a href="@Url.Action("CreateByTax", new { TaxId = Model.TaxNumber })">
+            <img src="/Content/Icon/Create.png" width="25" id="ImageMenuPlus">
+        </a>
+    </div>
+}

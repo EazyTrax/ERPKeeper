@@ -1,0 +1,105 @@
+
+@model IList<ERPKeeper.Node.Models.Accounting.HistoryBalanceItem>
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "AccountItem", Action = "PartialGridViewHistory", id = ViewBag.id };
+        settings.KeyFieldName = "JournalItemId";
+
+
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 300;
+        settings.SettingsPopup.HeaderFilter.Width = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinWidth = 300;
+
+        var TotalCredit = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        TotalCredit.ShowInGroupFooterColumn = "Credit";
+        TotalCredit.DisplayFormat = "N2";
+
+        var TotalDebit = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        TotalDebit.ShowInGroupFooterColumn = "Debit";
+        TotalDebit.DisplayFormat = "N2";
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.SortIndex = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.Width = 130;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.Width = 130;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Balance";
+            column.Width = 130;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = "Count";
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = 60;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+
+                string Date = ((DateTime)DataBinder.Eval(t.DataItem, "TrnDate")).ToString("dd-MMM-yy");
+                string LedgerCount = (DataBinder.Eval(t.DataItem, "Count") ?? "0").ToString();
+
+                ViewContext.Writer.Write(Html.ActionLink(LedgerCount, "Ledger", "AccountItem", new { id = ViewBag.id, Area = "Accounting", Date = Date }, new { target = "_blank" }));
+            });
+        });
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+        settings.HtmlRowPrepared = (sender, e) =>
+        {
+            if (e.RowType == GridViewRowType.Data)
+                if (Convert.ToDecimal(e.GetValue("Balance")) == 0)
+                    e.Row.BackColor = System.Drawing.Color.Yellow;
+
+        };
+
+    });
+}
+@grid.Bind(Model).GetHtml()

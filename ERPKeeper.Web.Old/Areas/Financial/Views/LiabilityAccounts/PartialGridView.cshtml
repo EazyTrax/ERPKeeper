@@ -1,0 +1,56 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "LiabilityAccounts", Action = "PartialGridView" };
+        settings.KeyFieldName = "Uid";
+        settings.Width = Unit.Percentage(100);
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SubEnumType";
+            column.Caption = "Type";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Name";
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = (DataBinder.Eval(t.DataItem, "Name") ?? "N/A").ToString();
+                string Code = (DataBinder.Eval(t.DataItem, "Code") ?? " ").ToString() + "  ";
+                ViewContext.Writer.Write(Code + Html.ActionLink(Name, "Home", "LiabilityAccount", new { id = Uid, Area = "Financial" }, null));
+            });
+        });
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "BankAccountBankName";
+        //    column.Caption = "Bank Name";
+        //});
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "BankAccountNumber";
+        //    column.Caption = "No";
+        //    column.Caption = "Account Number";
+        //});
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CurrentBalance";
+            column.Caption = "Balance";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Settings.ShowFooter = true;
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance").DisplayFormat = "N2";
+
+    });
+}
+@grid.Bind(Model).GetHtml()

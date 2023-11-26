@@ -1,0 +1,65 @@
+﻿@model ERPKeeper.Node.Models.Projects.Project
+
+<div class="MiddleColBoxContent">
+    @using (Html.BeginForm("AddItem", "Project", new { id = Model.Uid, Area = "Projects" }, FormMethod.Post, new { @id = "AddItemForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div style="float:left;padding-right:10px;">
+            @Html.Action("Partial_ComboBoxItems", "Project", new { Area = "Projects" })
+        </div>
+        <div style="float:left;padding-right:10px;">
+            @Html.DevExpress().SpinEdit(settings =>
+   {
+       settings.Name = "Amount";
+       settings.Width = Unit.Pixel(80);
+       settings.Properties.MinValue = 1;
+       settings.Properties.MaxValue = 1000;
+       settings.Properties.AllowNull = false;
+       settings.Number = 1;
+   }).GetHtml()
+        </div>
+        <div style="float:left;padding-right:10px;">
+            <script type="text/javascript">
+                function OnClick(sender, args) {
+                    document.getElementById('AddItemForm').submit();
+                }
+            </script>
+
+            @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "btmClickMe";
+            settings.Text = "Add";
+            settings.UseSubmitBehavior = false;
+            settings.ClientSideEvents.Click = "OnClick";
+        }).GetHtml()
+        </div>
+        <div style="float:left;padding-right:10px;">
+            @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "ImageMenuPlus";
+            settings.Text = "New";
+            settings.UseSubmitBehavior = false;
+        }).GetHtml()
+
+        </div>
+        <div style="clear:both;"></div>
+    }
+
+
+
+    @Html.DevExpress().PopupMenu(settings =>
+{
+    settings.Name = "PopupMenuAdd";
+    settings.PopupElementID = "ImageMenuPlus";
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+
+
+
+    settings.Items.Add("Service").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Controller = "Item", Action = "New", itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Service });
+    settings.Items.Add("Non-Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Controller = "Item", Action = "New", itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.NonInventory });
+    settings.Items.Add("Inventory").NavigateUrl = DevExpressHelper.GetUrl(new { Area = "Items", Controller = "Item", Action = "New", itemType = ERPKeeper.Node.Models.Items.Enums.ItemTypes.Inventory });
+
+
+}).GetHtml()
+</div>

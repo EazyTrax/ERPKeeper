@@ -1,0 +1,198 @@
+@model IList<ERPKeeper.Node.Models.Accounting.Ledger>
+
+
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Area = "Accounting", Controller = "Ledgers", Action = "PartialGridViewLedger", id = ViewBag.id };
+        settings.KeyFieldName = "JournalItemId";
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 400;
+        settings.SettingsPopup.HeaderFilter.SettingsAdaptivity.MinHeight = 300;
+        settings.SettingsPopup.HeaderFilter.MinWidth = 300;
+
+
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+
+        };
+
+
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSize = 2000;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "500", "2000" };
+
+
+
+        var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit");
+        TotalGroup.ShowInGroupFooterColumn = "Debit";
+        TotalGroup.DisplayFormat = "N2";
+
+        var BalanceGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit");
+        BalanceGroup.ShowInGroupFooterColumn = "Credit";
+        BalanceGroup.DisplayFormat = "N2";
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TransactionType";
+            column.Caption = "Type";
+            column.SortIndex = 1;
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "transactionNo";
+            column.Caption = "TR No.";
+            column.SortIndex = 2;
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string TransactionGuid = (DataBinder.Eval(t.DataItem, "TransactionGuid") ?? "N/A").ToString();
+                string TransactionNo = (DataBinder.Eval(t.DataItem, "transactionNo") ?? "N/A").ToString();
+                string TransactionType = (DataBinder.Eval(t.DataItem, "TransactionType") ?? "N/A").ToString();
+
+                ViewContext.Writer.Write(Html.ActionLink(TransactionNo, "Redirect", "Transaction", new { Area = "Transactions", id = TransactionGuid, Type = TransactionType }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.Type";
+            column.Caption = "Acc Type.";
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "AccountItem.Uid").ToString();
+                string Name = DataBinder.Eval(t.DataItem, "AccountItem.Type").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.No";
+            column.Caption = "Acc No.";
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "AccountItem.Uid").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "AccountItem.No") ?? "N/A").ToString();
+
+                ViewContext.Writer.Write(Html.ActionLink("# " + Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.Name";
+            column.Caption = "Account";
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "AccountItem.Uid").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "AccountItem.Name") ?? "N?A").ToString();
+                string SpanBadge = DataBinder.Eval(t.DataItem, "AccountItem.SpanBadge").ToString();
+                ViewContext.Writer.Write(SpanBadge + " " + Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.SortIndex = 3;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+
+    });
+}
+
+
+
+@if (ViewBag.id != null)
+{
+    Guid id = (Guid)ViewBag.id;
+    var generalLedgerItems = erpNodeDBContext.Ledgers.Where(gl => gl.TransactionGuid == id);
+    @grid.BindToLINQ(string.Empty, string.Empty, (s, e) =>
+        {
+            e.QueryableSource = generalLedgerItems;
+            e.KeyExpression = "Uid";
+        }).GetHtml()
+
+}
+else
+{
+    @grid.Bind(Model).GetHtml()
+
+    @*var generalLedgerItems = erpNodeDBContext.Ledgers;
+        @grid.BindToLINQ(string.Empty, string.Empty, (s, e) =>
+                {
+                    e.QueryableSource = generalLedgerItems;
+                    e.KeyExpression = "Uid";
+                }).GetHtml()*@
+}

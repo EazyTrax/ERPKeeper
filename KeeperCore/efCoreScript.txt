@@ -1,0 +1,57 @@
+﻿###############
+ADD 
+###############
+
+@await Component.InvokeAsync("Advertise")
+
+Add-Migration DB-Init -Context ERPCoreDbContext -OutputDir Migrations
+
+
+
+
+
+###############
+return Redirect(Request.Headers["Referer"].ToString());
+################
+displayValue
+##############
+https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#cellTemplate
+###############
+  <span class="material-icons-outlined">table_rows</span>
+  <span class="material-icons">grid_view</span>
+###############
+Resetting all migrations
+
+Remove-Migration  -Context CoreDbContext -Force
+Remove-Migration  -Context MakerDbContext -Force
+Remove-Migration  -Context UserDbContext -Force
+
+###############
+REF# http://www.mortenanderson.net/reset-entity-framework-migrations
+
+##############################
+REF# https://stackoverflow.com/questions/38192450/how-to-unapply-a-migration-in-asp-net-core-with-ef-core
+dotnet ef database update LastGoodMigrationName
+or
+PM> Update-Database -Migration LastGoodMigrationName
+
+############
+To unapply all migrations:
+PM> Update-Database -Migration 0
+
+############
+To remove last migration:
+PM> Remove-Migration
+
+############
+To remove all migrations:
+just remove Migrations folder.
+
+To remove last few migrations (not all):
+There is no a command to remove a bunch of migrations and we can't just remove these few migrations and their *.designer.cs files since we need to keep the snapshot file in the consistent state. We need to remove migrations one by one (see To remove last migration above).
+
+            return Redirect(Request.Headers["Referer"].ToString());
+
+                            <div class="dropdown-divider"></div>
+
+                            https://nemi-chand.github.io/creating-sub-areas-in-aspnet-core-mvc/

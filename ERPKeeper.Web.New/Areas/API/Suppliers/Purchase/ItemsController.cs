@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
+namespace ERPKeeper.Web.New.API.Suppliers.Purchases.Purchase
+{
+    public class ItemsController : _PurchaseBaseController
+    {
+
+        public object All(DataSourceLoadOptions loadOptions)
+        {
+            var returnModel = Organization.ErpNodeDBContext.CommercialItems
+                .Where(r => r.TransactionGuid == PurchaseId)
+                .ToList();
+
+            return DataSourceLoader.Load(returnModel, loadOptions);
+        }
+
+
+        [HttpPost]
+        public IActionResult Insert(string values)
+        {
+            var model = new ERPKeeper.Node.Models.Transactions.CommercialItem();
+            JsonConvert.PopulateObject(values, model);
+
+            //if (!TryValidateModel(RequirementType))
+            //    return BadRequest(ModelState.GetFullErrorMessage());
+
+            model.TransactionGuid = PurchaseId;
+            Organization.ErpNodeDBContext.CommercialItems.Add(model);
+            Organization.ErpNodeDBContext.SaveChanges();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public IActionResult Update(Guid key, string values)
+        {
+            var model = Organization.ErpNodeDBContext.CommercialItems.First(a => a.Uid == key);
+            JsonConvert.PopulateObject(values, model);
+            Organization.ErpNodeDBContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost]
+        public void Delete(Guid key)
+        {
+            var model = Organization.ErpNodeDBContext.CommercialItems.First(a => a.Uid == key);
+            Organization.ErpNodeDBContext.CommercialItems.Remove(model);
+            Organization.ErpNodeDBContext.SaveChanges();
+        }
+    }
+}

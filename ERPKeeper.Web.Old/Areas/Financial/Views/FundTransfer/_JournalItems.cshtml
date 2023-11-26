@@ -1,0 +1,92 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Journal", Action = "PartialGridView" };
+        settings.KeyFieldName = "Uid";
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.No";
+            column.Caption = "Account No.";
+
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "AccountItem.Uid").ToString();
+                string Number = (DataBinder.Eval(t.DataItem, "AccountItem.No") ?? "N?A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AccountItem.Name";
+
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = DataBinder.Eval(t.DataItem, "AccountItem.Uid").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "AccountItem.Name") ?? "N?A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Debit";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Credit";
+            column.PropertiesEdit.DisplayFormatString = "N2";
+
+        });
+
+
+
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Debit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Credit").DisplayFormat = "N2";
+        settings.Settings.ShowFooter = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

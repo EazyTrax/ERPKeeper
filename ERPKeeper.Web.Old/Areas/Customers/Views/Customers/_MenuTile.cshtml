@@ -1,0 +1,32 @@
+﻿@using ERPKeeper.Node.Models.Customers.Enums
+@using ERPKeeper.Node.Models.Profiles
+@{
+    var ActiveCustomerCount = erpNodeDBContext.Customers.Where(c => c.Status == CustomerStatus.Active).Count().ToString();
+    var InActiveCustomerCount = erpNodeDBContext.Customers.Where(c => c.Status == CustomerStatus.InActive).Count().ToString();
+}
+
+<div class="row">
+    <div class="col  bg-light mr-2 p-2">
+        <a href="@Url.Action("Home","Customers",new{ id = ProfileQueryType.Active })">
+            Active
+            <div class="text-right mx-3">
+                <span class="font-weight-bold">@ActiveCustomerCount</span>
+            </div>
+        </a>
+    </div>
+    <div class="col  bg-light mr-2 p-2">
+        <a href="@Url.Action("Home","Customers",new{ id = ProfileQueryType.InActive })">
+            In Active
+            <div class="text-right mx-3"><span class="font-weight-bold">@InActiveCustomerCount</span></div>
+        </a>
+    </div>
+    <div class="col  bg-light mr-2 p-2">
+
+    </div>
+    <div class="col  bg-light mr-2 p-2">
+
+    </div>
+    <div class="col  bg-light p-2">
+
+    </div>
+</div>

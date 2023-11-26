@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="p-2 mb-2 bg-fb2 mh-50">
+    <b>Invester</b>
+</div>
+
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "nbERPCustomers";
+    settings.EncodeHtml = false;
+
+
+    var currentCount = erpNodeDBContext.Investors.Where(i => i.Status == ERPKeeper.Node.Models.Equity.Enums.InvestorStatus.Active).Count().ToString();
+    settings.Items.Add(ERPKeeper.Helpers.Badge.Info(currentCount) + "Current", null, null, DevExpressHelper.GetUrl(new { Action = "Home", Status = ERPKeeper.Node.Models.Equity.Enums.InvestorStatus.Active }));
+
+    var alumnaiCount = erpNodeDBContext.Investors.Where(i => i.Status == ERPKeeper.Node.Models.Equity.Enums.InvestorStatus.InActive).Count().ToString();
+    settings.Items.Add(ERPKeeper.Helpers.Badge.Info(alumnaiCount) + "Alumnai", null, null, DevExpressHelper.GetUrl(new { Action = "Home", Status = ERPKeeper.Node.Models.Equity.Enums.InvestorStatus.InActive }));
+}).GetHtml()
+</div>

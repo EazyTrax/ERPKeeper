@@ -1,0 +1,44 @@
+﻿
+
+@model ERPKeeper.Node.Models.Suppliers.Supplier
+
+
+@{
+    var items = Organization
+        .ErpNodeDBContext
+        .CommercialItems
+        .Include("Item")
+        .Where(c => c.Commercial.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase)
+        .Where(c => c.Commercial.ProfileGuid == Model.ProfileUid)
+        .GroupBy(g => g.ItemGuid)
+        .Select(g => new { ItemGuid = g.Key, Item = g.FirstOrDefault().Item, CommercialItems = g.ToList(), count = g.Count() , amount = g.Sum(i=>i.Amount)})
+        .ToList();
+}
+
+
+@foreach (var item in items)
+{
+    <div class="row bg-fb1 py-2 border-bottom border-white">
+
+        <div class="col-8 mb-2">
+            <a href="/@CompanyId/Products/@item.ItemGuid">
+                <b>  @item.Item.PartNumber</b><br />
+                @item.Item.Description
+            </a>
+        </div>
+        <div class="col-4">
+            <div class="text-right">
+                @item.count Orders / @item.amount Units
+            </div>
+        </div>
+
+        <div class="col-12">
+            @foreach (var commercialItem in item.CommercialItems)
+            {
+                <div class=" px-2 bg-white">
+                    @commercialItem.Amount x @commercialItem.UnitPrice.ToString("N2")
+                </div>
+            }
+        </div>
+    </div>
+}

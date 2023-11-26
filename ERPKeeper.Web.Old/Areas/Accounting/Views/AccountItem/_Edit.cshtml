@@ -1,0 +1,182 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+
+
+<div class="row bg-light">
+    @using (Html.BeginForm("Save", "AccountItem"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "ChartOfAccount";
+
+       settings.ColCount = 2;
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "Account Info";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+           groupSettings.Width = Unit.Pixel(360);
+
+           groupSettings.Items.Add(m => m.Name, itemSettings =>
+           {
+
+
+           });
+
+           groupSettings.Items.Add(m => m.No, itemSettings =>
+           {
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+
+           });
+
+           groupSettings.Items.Add(model => model.Type, itemSettings =>
+           {
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+
+               ((TextBoxSettings)itemSettings.NestedExtensionSettings).ReadOnly = true;
+           });
+
+
+           groupSettings.Items.Add(m => m.SubEnumType, itemSettings =>
+           {
+
+               itemSettings.Caption = "Sub Type";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               cb.Properties.DataSource = ViewBag.AccountSubTypes;
+           });
+
+
+           groupSettings.Items.Add(m => m.ReportGroup, itemSettings =>
+           {
+
+               itemSettings.Caption = "ReportGroup";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+               cb.Properties.DataSource = ViewBag.AccountReportGroups;
+           });
+
+
+
+           groupSettings.Items.Add(model => model.IsLiquidity, itemSettings =>
+           {
+
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.CheckBox;
+           });
+       });
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = Lang.ChartOfAccount;
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+
+           groupSettings.Items.Add(m => m.Description, itemSettings =>
+           {
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+               itemSettings.NestedExtensionSettings.Height = 50;
+               itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+
+
+               MemoSettings cb = (MemoSettings)itemSettings.NestedExtensionSettings;
+               cb.Width = Unit.Percentage(100);
+               cb.Height = Unit.Pixel(100);
+           });
+
+
+           groupSettings.Items.Add(m => m.IsCashEquivalent, itemSettings =>
+           {
+               itemSettings.Caption = "Cash Equivalent";
+           });
+
+
+           groupSettings.Items.Add(m => m.IsFocus, itemSettings =>
+           {
+               itemSettings.Caption = "Is Preview";
+           });
+       });
+
+       settings.Items.AddGroupItem(TopgroupSettings =>
+       {
+           TopgroupSettings.ParentContainerStyle.Paddings.Padding = 0;
+           TopgroupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+
+
+           TopgroupSettings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = Lang.OpeningBalance;
+               groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+               groupSettings.ColCount = 1;
+
+
+
+
+               groupSettings.Items.Add(m => m.OpeningDebitBalance, itemSettings =>
+               {
+                   itemSettings.Caption = "Debit";
+
+
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                   SpinEditSettings spinEditSettings = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                   spinEditSettings.Properties.DisplayFormatInEditMode = true;
+                   spinEditSettings.Properties.DisplayFormatString = "N2";
+
+               });
+
+
+               groupSettings.Items.Add(m => m.OpeningCreditBalance, itemSettings =>
+               {
+                   itemSettings.Caption = "Credit";
+
+
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                   SpinEditSettings spinEditSettings = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                   spinEditSettings.Properties.DisplayFormatInEditMode = true;
+                   spinEditSettings.Properties.DisplayFormatString = "N2";
+
+               });
+
+
+               groupSettings.Items.Add(m => m.OpeningBalance, itemSettings =>
+               {
+                   itemSettings.Caption = "Balance";
+
+
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                   SpinEditSettings spinEditSettings = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                   spinEditSettings.Properties.DisplayFormatInEditMode = true;
+                   spinEditSettings.Properties.DisplayFormatString = "N2";
+               });
+           });
+
+
+
+
+
+
+       });
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+
+       });
+   }).GetHtml()
+    }
+</div>

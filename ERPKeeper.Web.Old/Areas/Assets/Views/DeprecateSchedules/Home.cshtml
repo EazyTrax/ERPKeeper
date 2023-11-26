@@ -1,0 +1,46 @@
+﻿<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+
+        </div>
+        <div class="col colRightFull pr-0">
+            <div class="row bg-fb2 p-2 mb-2 mh-50">
+                <div class="col-9 p-0">
+                    <strong class="text-uppercase">Depreciation Schedules</strong>
+                    <div class="mt-3">
+                        @Html.ActionLink("All", "Home", new { Controller = "DepreciateSchedules", id = "All" }) ·
+                        @Html.ActionLink("Current", "Home", new { Controller = "DepreciateSchedules", id = "Current" }) ·
+                        @Html.ActionLink("History", "Home", new { Controller = "DepreciateSchedules", id = "History" })
+                    </div>
+                </div>
+
+                <div class="col-3 p-1 text-right">
+
+                    <span id="ImageMenuAction" style="cursor:pointer"><i class="fab fa-chrome fa-lg text-muted"></i></span>
+                    @Html.DevExpress().PopupMenu(settings =>
+            {
+                settings.Name = "PopupMenuCore";
+                settings.PopupElementID = "ImageMenuAction";
+                settings.ShowPopOutImages = DefaultBoolean.True;
+                settings.PopupAction = PopupAction.LeftMouseClick;
+                settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+                settings.Items.Add("Post").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "DepreciateSchedules", Action = "Post" });
+                settings.Items.Add("Un-Post").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "DepreciateSchedules", Action = "UnPost" });
+            }).GetHtml()
+
+                </div>
+            </div>
+
+
+            @*@using (Html.BeginForm("ExportTo"))
+            {
+                @Html.Action("PartialGridView", new { Controller = "DepreciateSchedules", Id = ViewBag.id })
+            }*@
+        </div>
+        <div class="col-3 col-Right pr-0">
+
+        </div>
+    </div>
+</div>

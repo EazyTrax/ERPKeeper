@@ -1,0 +1,58 @@
+﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
+@using ERPKeeper.Node.Models.Accounting
+@model AccountItem
+
+<div class="globalContainer">
+  <div class="row">
+    <div class="col-2 col-Left pl-0">
+      @Html.Action("_Main", "Default", new { Area = "Menu" })
+    </div>
+    <div class="col-10 col-Middle pr-0">
+      <div class="p-2 mb-2 bg-fb2 mh-50"></div>
+      <div class="row">
+        <div class="col p-2 mb-2 bg-fb2 mh-50 mr-2">
+          <b>Income</b><br /><br />
+          @Html.ActionLink(Lang.Income, "New", new { accountType = AccountTypes.Income })<br />
+          @Html.ActionLink("OtherIncome", "New", new { accountType = AccountTypes.Income })<br />
+        </div>
+        <div class="col p-2 mb-2 bg-fb2 mh-50 mr-2">
+          <b>Expense</b><br /><br />
+          @Html.ActionLink(Lang.Expense, "New", new { accountType = AccountTypes.Expense })<br />
+          @Html.ActionLink(Lang.CostOfGoodsSold, "New", new { accountType = AccountTypes.Expense, accountSubType = AccountSubTypes.CostOfGoodsSold })<br />
+          @Html.ActionLink("Asset Depreciation", "New", new { accountType = AccountTypes.Expense, accountSubType = AccountSubTypes.AccumulateExpense })<br />
+          @Html.ActionLink("Tax Expense", "New", new { accountType = AccountTypes.Expense, accountSubType = AccountSubTypes.TaxExpense })<br />
+          @Html.ActionLink("Income Tax", "New", new { accountType = AccountTypes.Expense, accountSubType = AccountSubTypes.IncomeTax })<br />
+        </div>
+        <div class="col p-2 mb-2 bg-fb2 mh-50 mr-2">
+          <b>Asset</b><br /><br />
+          @Html.ActionLink(Lang.CashAccount, "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.Cash })<br />
+          @Html.ActionLink(Lang.BankAccount, "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.Bank })<br />
+          @Html.ActionLink("Other current asset", "New", new { accountType = AccountTypes.Asset })<br /><br />
+          @Html.ActionLink("Inventory asset", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.Inventory })<br />
+          @Html.ActionLink("Other asset", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.OtherAsset })<br /><br />
+
+          @Html.ActionLink("Awaiting Deprecated Asset", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.AwaitingDepreciation })<br />
+          @Html.ActionLink("Deprecated Asset", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.FixedAsset })<br />
+          @Html.ActionLink("Accumulate Depreciation", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.AccDepreciation })<br />
+
+          @Html.ActionLink("Input Tax", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.TaxInput })<br />
+          @Html.ActionLink("Tax Receivable", "New", new { accountType = AccountTypes.Asset, accountSubType = AccountSubTypes.TaxReceivable })<br />
+        </div>
+        <div class="col p-2 mb-2 bg-fb2 mh-50 mr-2">
+          <b>Liability</b><br /><br />
+          @Html.ActionLink("Credit Card/Line of Credit", "New", new { accountType = AccountTypes.Liability })<br />
+          @Html.ActionLink("Payroll liability", "New", new { accountType = AccountTypes.Liability, accountSubType = AccountSubTypes.PayrollLiability })<br />
+          @Html.ActionLink("Current liability", "New", new { accountType = AccountTypes.Liability, accountSubType = AccountSubTypes.CurrentLiability })<br />
+          @Html.ActionLink("OutPut Tax", "New", new { accountType = AccountTypes.Liability, accountSubType = AccountSubTypes.TaxOutput })<br />
+          @Html.ActionLink("Tax Payable", "New", new { accountType = AccountTypes.Liability, accountSubType = AccountSubTypes.TaxPayable })<br />
+          @Html.ActionLink("Long-term liability", "New", new { accountType = AccountTypes.Liability, accountSubType = AccountSubTypes.LongTermLiability })<br /><br /><br /><br />
+        </div>
+        <div class="col p-2 mb-2 bg-fb2 mh-50 mr-2">
+          <b>Equity</b><br /><br />
+          @Html.ActionLink(Lang.CapitalActivity, "New", new { accountType = AccountTypes.Capital, accountSubType = AccountSubTypes.Stock })<br />
+          @Html.ActionLink(Lang.RetainEarning, "New", new { accountType = AccountTypes.Capital, accountSubType = AccountSubTypes.RetainEarning })<br />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

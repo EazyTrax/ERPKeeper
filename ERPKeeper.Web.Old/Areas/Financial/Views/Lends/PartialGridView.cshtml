@@ -1,0 +1,137 @@
+
+@model IList<ERPKeeper.Node.Models.Financial.Lends.Lend>
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewABC";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "FundTransfers", Action = "PartialGridView", LendStatus = ViewBag.LendStatus };
+        settings.KeyFieldName = "Uid";
+
+
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+
+        };
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "No";
+            column.Caption = "No";
+
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = 40;
+            column.SortIndex = 2;
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Number = (DataBinder.Eval(t.DataItem, "No") == null ? "N/A" : DataBinder.Eval(t.DataItem, "No")).ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Number, "Home", "Lend", new { id = id }, null));
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TrnDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+
+            column.SortIndex = 1;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Amount";
+            column.Width = 40;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetAccount.Name";
+            column.Caption = "Pay From";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string accountUid = (DataBinder.Eval(t.DataItem, "AssetAccountGuid") ?? "N/A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "AssetAccount.Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = accountUid, Area = "Accounting" }, null));
+            });
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "LendingAssetAccount.Name";
+            column.Caption = "Lending Account";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string LendingAssetAccountGuid = (DataBinder.Eval(t.DataItem, "LendingAssetAccountGuid") ?? "N/A").ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "LendingAssetAccount.Name") ?? "N/A").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "AccountItem", new { id = LendingAssetAccountGuid, Area = "Accounting" }, null));
+            });
+        });
+
+
+
+
+
+
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountDeposit").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountFee").DisplayFormat = "N2";
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountwithDraw").DisplayFormat = "N2";
+
+
+
+        settings.Settings.ShowFooter = true;
+
+        settings.EnableTheming = true;
+
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Styles.Header.BackColor = System.Drawing.Color.Transparent;
+        settings.Styles.GroupRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#CCCCCC");
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+        settings.Styles.Footer.Font.Bold = true;
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()
+

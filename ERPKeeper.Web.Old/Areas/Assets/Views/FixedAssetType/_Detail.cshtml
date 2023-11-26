@@ -1,0 +1,173 @@
+﻿@model ERPKeeper.Node.Models.Assets.FixedAssetType
+
+
+<div class="bg-fb2">
+    @using (Html.BeginForm("Save", "FixedAssetType"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Uid)
+
+
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "FixedAssetType";
+       settings.Width = Unit.Percentage(100);
+       settings.EncodeHtml = false;
+       settings.ColCount = 1;
+
+       settings.Items.AddGroupItem(groupSettings =>
+       {
+           groupSettings.Caption = "DETAIL";
+           groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+           groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+           groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+           groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+
+           groupSettings.Items.Add(m => m.Name, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+           });
+           groupSettings.Items.Add(m => m.CodePrefix, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+           });
+
+           groupSettings.Items.Add(m => m.PurchaseAccUid, itemSettings =>
+           {
+               itemSettings.Caption = Html.ActionLink("Purchase Acc", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+
+               var assetAcquireAccounts= Organization.ChartOfAccount.GetItemBySubType(ERPKeeper.Node.Models.Accounting.AccountSubTypes.PurchaseAsset);
+               assetAcquireAccounts.AddRange(Organization.ChartOfAccount.GetCashOrBankAccounts());
+               cb.Properties.DataSource = assetAcquireAccounts;
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
+           });
+
+           groupSettings.Items.Add(m => m.AwaitDeprecateAccUid, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.Caption = Html.ActionLink("Asset Acc", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+               ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+               cb.Properties.TextField = "Name";
+               cb.Properties.ValueField = "Uid";
+               cb.Properties.ValueType = typeof(Guid);
+               cb.Properties.DataSource = Organization.ChartOfAccount.GetItemBySubType(ERPKeeper.Node.Models.Accounting.AccountSubTypes.FixedAsset);
+               cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
+
+           });
+
+
+           groupSettings.Items.Add(m => m.DeprecatedAble, itemSettings =>
+           {
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.CheckBox;
+           });
+
+
+
+
+
+
+
+           groupSettings.Items.Add(m => m.Description, itemSettings =>
+           {
+               itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+               itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+               itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+
+               MemoSettings memoSetting = (MemoSettings)itemSettings.NestedExtensionSettings;
+               memoSetting.Width = Unit.Percentage(100);
+
+           });
+       });
+
+
+       if (Model != null && Model.DeprecatedAble )
+       {
+           settings.Items.AddGroupItem(groupSettings =>
+           {
+               groupSettings.Caption = "Deprecation";
+               groupSettings.GroupBoxDecoration = GroupBoxDecoration.Box;
+               groupSettings.GroupBoxStyle.Caption.BackColor = System.Drawing.ColorTranslator.FromHtml("#EEEEEE");
+               groupSettings.GroupBoxStyle.Caption.Font.Bold = true;
+               groupSettings.GroupBoxStyle.Caption.ForeColor = System.Drawing.Color.Black;
+
+
+
+               groupSettings.Items.Add(m => m.UseFulLifeYear, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                   SpinEditSettings setting = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                   if (Model.DeprecatedAble)
+                       setting.Enabled = true;
+                   else
+                       setting.Enabled = false;
+               });
+
+
+               groupSettings.Items.Add(m => m.AccumulateDeprecateAccUid, itemSettings =>
+               {
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.Caption = Html.ActionLink("Accumulate Depreciation", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+                   ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                   cb.Properties.TextField = "Name";
+                   cb.Properties.ValueField = "Uid";
+                   cb.Properties.ValueType = typeof(Guid);
+                   cb.Properties.DataSource = Organization.ChartOfAccount.GetItemBySubType(ERPKeeper.Node.Models.Accounting.AccountSubTypes.AccDepreciation);
+                   cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
+               });
+
+
+
+
+               groupSettings.Items.Add(m => m.AmortizeExpenseAccUid, itemSettings =>
+               {
+
+                   itemSettings.Caption = Html.ActionLink("Amortization Expense", "Home", "ChartOfAccount", new { Area = "Accounting" }, null).ToHtmlString();
+                   itemSettings.CaptionCellStyle.CssClass = "CaptionWidth";
+                   itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+
+                   ComboBoxSettings cb = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+
+                   cb.Properties.TextField = "Name";
+                   cb.Properties.ValueField = "Uid";
+                   cb.Properties.ValueType = typeof(Guid);
+                   cb.Properties.DataSource = Organization.ChartOfAccount.GetItemBySubType(ERPKeeper.Node.Models.Accounting.AccountSubTypes.AmortizeExpense);
+                   cb.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
+               });
+
+
+           });
+       }
+
+       settings.Items.Add(item =>
+       {
+           item.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+           item.ShowCaption = DefaultBoolean.False;
+           item.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+           var button = (ButtonSettings)item.NestedExtensionSettings;
+           button.Name = "SaveButton";
+           button.Text = "Save";
+           button.UseSubmitBehavior = true;
+       });
+   }).GetHtml()
+    }
+</div>

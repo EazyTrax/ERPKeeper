@@ -1,0 +1,78 @@
+﻿@model ERPKeeper.Node.Models.Employees.EmployeePayment
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-10">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home",new { Area = "DashBoard"})">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "DashBoard",new { Area = "Employees"})">Employees</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "PaymentPeriods",new { Area = "Employees" })">Payment Periods</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "PaymentPeriod",new { Area = "Employees" , Id= Model.EmployeePaymentPeriod?.Uid })"> @(Model.EmployeePaymentPeriod?.Name) </a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Payment",new { Area = "Employees" , Id= Model.Uid })"> @Model.Name </a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right">
+        <span id="ImageMenuCore" style="cursor:pointer">
+            <i class="fab fa-chrome fa-lg text-muted"></i>
+        </span>
+        @Html.Raw(ERPKeeper.Node.Helpers.Status.LedgerStatus(Model.PostStatus))
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuCore";
+       settings.PopupElementID = "ImageMenuCore";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+       if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+           settings.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new {Controller="Payment", Action = "Delete", id = Model.Uid });
+
+       settings.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payment", Action = "Copy", id = Model.Uid });
+
+       if (Model.EmployeePaymentPeriodUid == null)
+           settings.Items.Add("Auto Assign Period").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payment", Action = "AutoAssignPeriod", id = Model.Uid });
+
+       if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+       {
+           settings.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payment", Action = "UnPost", id = Model.Uid });
+       }
+   }).GetHtml()
+    </div>
+</div>
+
+<div class="mb-2">
+    @Html.DevExpress().Menu(settings =>
+    {
+        settings.Name = "mFeatures";
+        settings.AllowSelectItem = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowPopOutImages = DefaultBoolean.True;
+
+
+        settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+        settings.Width = 200;
+        settings.Styles.Item.CssClass = "px-1";
+
+        settings.Items.Add(item =>
+        {
+            item.Text = "Home";
+            item.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payment", Action = "Home", id = Model.Uid });
+        });
+
+        settings.Items.Add(item =>
+        {
+            item.Text = "Export";
+            item.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Payment", Action = "Export", id = Model.Uid });
+        });
+    }).GetHtml()
+</div>

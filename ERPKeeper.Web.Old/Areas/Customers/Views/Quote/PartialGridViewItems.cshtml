@@ -1,0 +1,147 @@
+@model ERPKeeper.Node.Models.Estimations.SaleQuote
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.CallbackRouteValues = new { Controller = "Quote", Action = "PartialGridViewItems", id = Model.Uid, Area = "Customers" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Quote", Action = "PartialGridViewItemsUpdate", id = Model.Uid, Area = "Customers" };
+
+        settings.KeyFieldName = "Uid";
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.Width = 30;
+        settings.CommandColumn.ShowEditButton = false;
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+
+
+        settings.CommandColumn.ButtonRenderMode = GridCommandButtonRenderMode.Button;
+        settings.SettingsCommandButton.CancelButton.RenderMode = GridCommandButtonRenderMode.Button;
+        settings.SettingsCommandButton.UpdateButton.RenderMode = GridCommandButtonRenderMode.Button;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Order";
+            column.Caption = "#";
+            column.Width = 20;
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            column.SortIndex = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ItemPartNumber";
+            column.Caption = "PartNumber";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.Visible = false;
+
+        });
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ItemDescription";
+            column.Caption = "Description";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.ColumnType = MVCxGridViewColumnType.Memo;
+
+            ((MemoProperties)column.PropertiesEdit).Height = 200;
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string itemGuid = DataBinder.Eval(t.DataItem, "Item.Uid").ToString();
+                string partNumber = ((DataBinder.Eval(t.DataItem, "ItemPartNumber") ?? "N/A").ToString() + Environment.NewLine).Replace("\n", "<br />\n");
+                string ItemDescription = ((DataBinder.Eval(t.DataItem, "ItemDescription") ?? "N/A").ToString()).Replace("\n", "<br />\n");
+                string ItemUrl = Url.Action("Home", "item", new { Area = "items", Id = itemGuid });
+
+                ViewContext.Writer.Write($"<a href='{ItemUrl}'><b>{partNumber}</b></a>{ItemDescription}");
+            });
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UnitPrice";
+            column.Width = 60;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Amount";
+            column.Width = 40;
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "LineTotal";
+            column.Caption = "Line Total";
+            column.Width = 90;
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+
+        settings.EditFormLayoutProperties.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+        settings.EditFormLayoutProperties.ColCount = 3;
+        settings.EditFormLayoutProperties.Items.Add("ItemPartNumber");
+        settings.EditFormLayoutProperties.Items.Add("Amount");
+        settings.EditFormLayoutProperties.Items.Add("UnitPrice");
+        settings.EditFormLayoutProperties.Items.Add("ItemDescription").ColumnSpan = 3;
+        settings.EditFormLayoutProperties.Items.Add("Order");
+
+
+
+        settings.EditFormLayoutProperties.Items.AddCommandItem(i =>
+        {
+            i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        });
+
+        var sumItem = settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "LineTotal");
+        sumItem.ShowInColumn = "LineTotal";
+        sumItem.DisplayFormat = "N2";
+
+        settings.Settings.ShowFooter = true;
+        settings.Width = Unit.Percentage(100);
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.CommandColumn.CellStyle.VerticalAlign = VerticalAlign.Top;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderBottom.BorderWidth = 3;
+
+        settings.CommandColumn.CellStyle.BorderRight.BorderColor = System.Drawing.Color.White;
+        settings.CommandColumn.CellStyle.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.CommandColumn.CellStyle.BorderRight.BorderWidth = 3;
+
+
+
+
+        settings.ClientSideEvents.EndCallback = "OnEndCallback";
+        settings.ClientSideEvents.RowDblClick = "OnRowDblClick";
+
+
+    });
+}
+@if (Model != null)
+{
+    @grid.Bind(Model.Items.ToList()).GetHtml()
+}
+
+@if (ViewData["EditError"] != null)
+{
+    grid.SetEditErrorText((string)ViewData["EditError"]);
+}

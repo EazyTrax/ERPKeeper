@@ -1,0 +1,768 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC35ED10-074B-4337-8D49-9F331692230E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERPKeeper</RootNamespace>
+    <AssemblyName>ERPKeeper</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Dashboard.v23.1.Web.Mvc5, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Drawing.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Docs.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v23.1.Drawing, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v23.1.Export, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v23.1.Wizard, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v23.1.Core, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v23.1.UI, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v23.1.Extensions, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v23.1, Version=23.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=110.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.110.2.0\lib\net471\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.7.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.7.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Thread" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Node\DAL\Accounting\ChartOfAccounts.cs" />
+    <Compile Include="Node\DAL\Accounting\ChartOfAccountTemplate.cs" />
+    <Compile Include="Node\DAL\Accounting\FiscalYears.cs" />
+    <Compile Include="Node\DAL\Accounting\JournalEntryItems.cs" />
+    <Compile Include="Node\DAL\Accounting\JournalEntryTypes.cs" />
+    <Compile Include="Node\DAL\Accounting\JournalEntries.cs" />
+    <Compile Include="Node\DAL\Accounting\TransactionLedgers.cs" />
+    <Compile Include="Node\DAL\Accounting\Ledgers.cs" />
+    <Compile Include="Node\DAL\Accounting\OpeningEntries.cs" />
+    <Compile Include="Node\DAL\Accounting\PreviewAccounts.cs" />
+    <Compile Include="Node\DAL\Accounting\SystemAccounts.cs" />
+    <Compile Include="Node\DAL\Company\Locations.cs" />
+    <Compile Include="Node\DAL\Company\ExternalData.cs" />
+    <Compile Include="Node\DAL\Documents\Documents.cs" />
+    <Compile Include="Node\DAL\Employees\EmployeePaymentLines.cs" />
+    <Compile Include="Node\DAL\Employees\EmployeePaymentTemplates.cs" />
+    <Compile Include="Node\DAL\Employees\EmployeePaymentPeriods.cs" />
+    <Compile Include="Node\DAL\Employees\EmployeePositions.cs" />
+    <Compile Include="Node\DAL\Employees\EmployeePaymentTypes.cs" />
+    <Compile Include="Node\DAL\Financial\Payments\RetentionGroups.cs" />
+    <Compile Include="Node\DAL\Estimates\EstimateItems.cs" />
+    <Compile Include="Node\DAL\Financial\Payments\GeneralPayments.cs" />
+    <Compile Include="Node\DAL\Financial\Payments\ReceivePayments.cs" />
+    <Compile Include="Node\DAL\Financial\RetentionTypes.cs" />
+    <Compile Include="Node\DAL\FixedAssets\RetirementFixedAssets.cs" />
+    <Compile Include="Node\DAL\FixedAssets\FixedAssetTypes.cs" />
+    <Compile Include="Node\DAL\FixedAssets\FixedAssets.cs" />
+    <Compile Include="Node\DAL\FixedAssets\DeprecateSchedules.cs" />
+    <Compile Include="Node\DAL\BaseRepository.cs" />
+    <Compile Include="Node\DAL\Items\ItemImages.cs" />
+    <Compile Include="Node\DAL\Items\ItemParameters.cs" />
+    <Compile Include="Node\DAL\Items\ItemParameterTypes.cs" />
+    <Compile Include="Node\DAL\Items\DataSheets.cs" />
+    <Compile Include="Node\DAL\Items\Brands.cs" />
+    <Compile Include="Node\DAL\Items\AssistItems.cs" />
+    <Compile Include="Node\DAL\Loggging\EventLogs.cs" />
+    <Compile Include="Node\DAL\Organization.cs" />
+    <Compile Include="Node\DAL\Company\DataItems.cs" />
+    <Compile Include="Node\DAL\Customers\Customers.cs" />
+    <Compile Include="Node\DAL\Employees\EmployeePayments.cs" />
+    <Compile Include="Node\DAL\Employees\Employees.cs" />
+    <Compile Include="Node\DAL\Estimates\PurchaseEstimates.cs" />
+    <Compile Include="Node\DAL\Estimates\SaleEstimates.cs" />
+    <Compile Include="Node\DAL\Financial\Payments\LiabilityPayments.cs" />
+    <Compile Include="Node\DAL\Financial\Payments\SupplierPayments.cs" />
+    <Compile Include="Node\DAL\Financial\FundTransfers.cs" />
+    <Compile Include="Node\DAL\Financial\Lends.cs" />
+    <Compile Include="Node\DAL\Financial\Loans.cs" />
+    <Compile Include="Node\DAL\Investors\CapitalInvestments.cs" />
+    <Compile Include="Node\DAL\Investors\Oweners.cs" />
+    <Compile Include="Node\DAL\Items\InventoryItems.cs" />
+    <Compile Include="Node\DAL\Items\GroupItems.cs" />
+    <Compile Include="Node\DAL\Items\Items.cs" />
+    <Compile Include="Node\DAL\Items\PeriodItemsCOSG.cs" />
+    <Compile Include="Node\DAL\Online\ShoppingCarts.cs" />
+    <Compile Include="Node\DAL\Profiles\EnumProfilesQueryType.cs" />
+    <Compile Include="Node\DAL\Profiles\ProfileBankAccounts.cs" />
+    <Compile Include="Node\DAL\Profiles\ProfileAddresses.cs" />
+    <Compile Include="Node\DAL\Profiles\Profiles.cs" />
+    <Compile Include="Node\DAL\Projects\Projects.cs" />
+    <Compile Include="Node\DAL\Projects\Tasks.cs" />
+    <Compile Include="Node\DAL\Supplyiers\Supplyiers.cs" />
+    <Compile Include="Node\DAL\Taxes\TaxCodes.cs" />
+    <Compile Include="Node\DAL\Taxes\IncomeTaxes.cs" />
+    <Compile Include="Node\DAL\Taxes\CommercialTaxes.cs" />
+    <Compile Include="Node\DAL\Taxes\TaxPeriods.cs" />
+    <Compile Include="Node\DAL\Transactions\CommercialShipments.cs" />
+    <Compile Include="Node\DAL\Transactions\CommercialItems.cs" />
+    <Compile Include="Node\DAL\Transactions\Commercials.cs" />
+    <Compile Include="Node\DAL\Transactions\Purchases.cs" />
+    <Compile Include="Node\DAL\Transactions\QueryRange.cs" />
+    <Compile Include="Node\DAL\Transactions\Sales.cs" />
+    <Compile Include="Node\DAL\Transactions\Terms\ShippingMethod.cs" />
+    <Compile Include="Node\DAL\Transactions\Terms\ShippingTerms.cs" />
+    <Compile Include="Node\DAL\Transactions\Terms\PaymentTerms.cs" />
+    <Compile Include="Node\DAL\Loggging\WriteFile.cs" />
+    <Compile Include="Node\DBContext\DatabaseNotFoundException.cs" />
+    <Compile Include="Node\DBContext\ERPDbContext.cs" />
+    <Compile Include="Node\Helpers\Badge.cs" />
+    <Compile Include="Node\Helpers\ProgressBar.cs" />
+    <Compile Include="Node\Helpers\TimeAgo.cs" />
+    <Compile Include="Node\Helpers\Status.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\EnumAccountReportGroup.cs" />
+    <Compile Include="Node\Models\Accounting\FinancialBalance.cs" />
+    <Compile Include="Node\Models\Accounting\FiscalYears\MonthlyPeriod.cs" />
+    <Compile Include="Node\Models\Accounting\TransactionLedger.cs" />
+    <Compile Include="Node\Helpers\QueryByTime.cs" />
+    <Compile Include="Node\Models\Company\Location.cs" />
+    <Compile Include="Node\Models\Employees\EmployeeLeave.cs" />
+    <Compile Include="Node\Models\Employees\PaymentPeriod.cs" />
+    <Compile Include="Node\Helpers\Enums\EnumCommercialViewType.cs" />
+    <Compile Include="Node\DBContext\ConfigurationERPDbContext.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\EnumFiscalYearStatus.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\LedgerPostingStatus.cs" />
+    <Compile Include="Node\Models\Enums\ObjectTypes.cs" />
+    <Compile Include="Node\Models\Accounting\FiscalYears\FiscalYear.cs" />
+    <Compile Include="Node\Models\Financial\Payments\LiabilityPayment.cs" />
+    <Compile Include="Node\Models\Financial\Payments\RetentionGroup.cs" />
+    <Compile Include="Node\Models\Items\GroupItem.cs" />
+    <Compile Include="Node\Models\Items\ItemSerialNumber.cs" />
+    <Compile Include="Node\Models\Items\PeriodItemCOGS.cs" />
+    <Compile Include="Node\Models\Accounting\FiscalYears\PeriodAccountBalance.cs" />
+    <Compile Include="Node\Models\Accounting\Reports\BalanceSheet.cs" />
+    <Compile Include="Node\Models\Accounting\Reports\IncomeStatement.cs" />
+    <Compile Include="Node\Models\FixedAssets\FixedAsset.cs" />
+    <Compile Include="Node\Models\FixedAssets\FixedAssetType.cs" />
+    <Compile Include="Node\Models\FixedAssets\DepreciationSchedule.cs" />
+    <Compile Include="Node\Models\FixedAssets\Enums\AssetStatus.cs" />
+    <Compile Include="Node\Models\FixedAssets\Enums\DeprecatedAssetStatus.cs" />
+    <Compile Include="Node\Models\FixedAssets\Enums\DepreciationMethods.cs" />
+    <Compile Include="Node\Models\Accounting\BankAccountType.cs" />
+    <Compile Include="Node\Models\Employees\Career.cs" />
+    <Compile Include="Node\Models\Accounting\AccountItem.cs" />
+    <Compile Include="Node\Models\Accounting\DefaultAccountItem.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\DefaultAccountType.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\EnumChartOfAccountSubType.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\EnumChartOfAccountType.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\EnumItemFolderType.cs" />
+    <Compile Include="Node\Models\Accounting\Enums\EnumItemStatus.cs" />
+    <Compile Include="Node\Models\Accounting\HistoryBalanceItem.cs" />
+    <Compile Include="Node\Models\Accounting\NewChartOfAccountTemplateModel.cs" />
+    <Compile Include="Node\Models\Accounting\PreviewAccount.cs" />
+    <Compile Include="Node\Models\Accounting\TrialBalanceAccountItem.cs" />
+    <Compile Include="Node\Models\Company\Department.cs" />
+    <Compile Include="Node\Models\Company\Enums\RuleType.cs" />
+    <Compile Include="Node\Models\Company\NewCompany.cs" />
+    <Compile Include="Node\Models\Employees\Enums\EmployeePaymentStatus.cs" />
+    <Compile Include="Node\Models\Financial\Payments\Enums\PaymentStatus.cs" />
+    <Compile Include="Node\Models\Financial\Transfer\FundTransferStatus.cs" />
+    <Compile Include="Node\Models\Items\AssistItem.cs" />
+    <Compile Include="Node\Models\Items\ItemParameterType.cs" />
+    <Compile Include="Node\Models\Items\ItemParameter.cs" />
+    <Compile Include="Node\Models\Items\Group.cs" />
+    <Compile Include="Node\Models\Logging\Event.cs" />
+    <Compile Include="Node\Models\Profiles\ProfileRole.cs" />
+    <Compile Include="Node\Models\Profiles\ProfileBankAccount.cs" />
+    <Compile Include="Node\Models\Profiles\ProfileContact.cs" />
+    <Compile Include="Node\Models\Security\LogInModel.cs" />
+    <Compile Include="Node\Models\Projects\Material.cs" />
+    <Compile Include="Node\Models\Security\Member.cs" />
+    <Compile Include="Node\Models\Suppliers\Supplier.cs" />
+    <Compile Include="Node\Models\Suppliers\Enums\SupplierStatus.cs" />
+    <Compile Include="Node\Models\Customers\Customer.cs" />
+    <Compile Include="Node\Models\Customers\Enums\CustomerStatus.cs" />
+    <Compile Include="Node\Models\Datum\DataItem.cs" />
+    <Compile Include="Node\Models\Datum\DataItemKey.cs" />
+    <Compile Include="Node\Models\Documents\Document.cs" />
+    <Compile Include="Node\Models\Documents\DocumentGroup.cs" />
+    <Compile Include="Node\Models\Documents\ReferenceTypes.cs" />
+    <Compile Include="Node\Models\Employees\Employee.cs" />
+    <Compile Include="Node\Models\Employees\EmployeePayment.cs" />
+    <Compile Include="Node\Models\Employees\EmployeePaymentItem.cs" />
+    <Compile Include="Node\Models\Employees\Enums\EmployeeStatus.cs" />
+    <Compile Include="Node\Models\Employees\Enums\PayDirection.cs" />
+    <Compile Include="Node\Models\Employees\PaymentType.cs" />
+    <Compile Include="Node\Models\Employees\StubPaymentTemplate.cs" />
+    <Compile Include="Node\Models\Employees\StubPaymentTemplateItem.cs" />
+    <Compile Include="Node\Models\Equity\CapitalInvestment.cs" />
+    <Compile Include="Node\Models\Equity\Enums\CapitalActivityType.cs" />
+    <Compile Include="Node\Models\Equity\Enums\InvestorStatus.cs" />
+    <Compile Include="Node\Models\Estimations\Enums\EstimationStatus.cs" />
+    <Compile Include="Node\Models\Estimations\Enums\EstimationType.cs" />
+    <Compile Include="Node\Models\Estimations\Quote.cs" />
+    <Compile Include="Node\Models\Estimations\QuoteItem.cs" />
+    <Compile Include="Node\Models\Estimations\PurchaseQuote.cs" />
+    <Compile Include="Node\Models\Estimations\SaleQuote.cs" />
+    <Compile Include="Node\Models\Financial\Enum.cs" />
+    <Compile Include="Node\Models\Financial\Lends\Lend.cs" />
+    <Compile Include="Node\Models\Financial\Lends\LendPayment.cs" />
+    <Compile Include="Node\Models\Financial\Loans\Loan.cs" />
+    <Compile Include="Node\Models\Financial\Loans\LoanPayment.cs" />
+    <Compile Include="Node\Models\Financial\Payments\Enums\PaymentMethods.cs" />
+    <Compile Include="Node\Models\Financial\Payments\Enums\RetentionDirections.cs" />
+    <Compile Include="Node\Models\Financial\Payments\GeneralPayment.cs" />
+    <Compile Include="Node\Models\Financial\Payments\SupplierPayment.cs" />
+    <Compile Include="Node\Models\Financial\Payments\ReceivePayment.cs" />
+    <Compile Include="Node\Models\Financial\Payments\RetentionType.cs" />
+    <Compile Include="Node\Models\Financial\Transfer\FundTransfer.cs" />
+    <Compile Include="Node\Models\Items\Brand.cs" />
+    <Compile Include="Node\Models\Items\Enums\EnumCostingType.cs" />
+    <Compile Include="Node\Models\Items\Enums\EnumItemGroupType.cs" />
+    <Compile Include="Node\Models\Items\Enums\EnumItemType.cs" />
+    <Compile Include="Node\Models\Items\Enums\FlowType.cs" />
+    <Compile Include="Node\Models\Items\ItemGroup.cs" />
+    <Compile Include="Node\Models\Items\DataSheet.cs" />
+    <Compile Include="Node\Models\Items\DepricatedAsset.cs" />
+    <Compile Include="Node\Models\Items\InventoryItem.cs" />
+    <Compile Include="Node\Models\Items\Item.cs" />
+    <Compile Include="Node\Models\Items\ItemImage.cs" />
+    <Compile Include="Node\Models\Items\Kit.cs" />
+    <Compile Include="Node\Models\Items\KitMember.cs" />
+    <Compile Include="Node\Models\Items\PriceRange.cs" />
+    <Compile Include="Node\Models\Items\PriceRangeItem.cs" />
+    <Compile Include="Node\Models\JournalEntries\JournalEntry.cs" />
+    <Compile Include="Node\Models\JournalEntries\JournalEntryItem.cs" />
+    <Compile Include="Node\Models\JournalEntries\JournalEntryType.cs" />
+    <Compile Include="Node\Models\Accounting\Ledger.cs" />
+    <Compile Include="Node\Helpers\Currency\THB.cs" />
+    <Compile Include="Node\Models\Notes\Note.cs" />
+    <Compile Include="Node\Models\Online\ShoppingCartItem.cs" />
+    <Compile Include="Node\Models\Organizations\NewOrganizationModel.cs" />
+    <Compile Include="Node\Models\Equity\Investor.cs" />
+    <Compile Include="Node\Models\Profiles\ProfileAddress.cs" />
+    <Compile Include="Node\Models\Security\Enums\AccessLevel.cs" />
+    <Compile Include="Node\Models\Profiles\Enums\Enums.cs" />
+    <Compile Include="Node\Models\Profiles\HistoryItem.cs" />
+    <Compile Include="Node\Models\Profiles\NewPassword.cs" />
+    <Compile Include="Node\Models\Profiles\Profile.cs" />
+    <Compile Include="Node\Models\Projects\Enums\CaseStatus.cs" />
+    <Compile Include="Node\Models\Projects\Enums\ProjectStatus.cs" />
+    <Compile Include="Node\Models\Tasks\Enums\TaskStatus.cs" />
+    <Compile Include="Node\Models\Projects\NewProjectModel.cs" />
+    <Compile Include="Node\Models\Tasks\NewTaskModel.cs" />
+    <Compile Include="Node\Models\Projects\Project.cs" />
+    <Compile Include="Node\Models\Tasks\Task.cs" />
+    <Compile Include="Node\Models\Reports\CompanyandFinancial\enumTrialBalaceViewType.cs" />
+    <Compile Include="Node\Models\Search\SearchQuery.cs" />
+    <Compile Include="Node\Models\Taxes\Enums\TaxDirection.cs" />
+    <Compile Include="Node\Models\Taxes\IncomeTax.cs" />
+    <Compile Include="Node\Models\Taxes\TaxGroup.cs" />
+    <Compile Include="Node\Models\Taxes\TaxPeriod.cs" />
+    <Compile Include="Node\Models\Taxes\TaxCode.cs" />
+    <Compile Include="Node\Models\Taxes\TaxRate.cs" />
+    <Compile Include="Node\Models\Accounting\TempClosingEntry.cs" />
+    <Compile Include="Node\Models\Transactions\Commercials\Commercial.cs" />
+    <Compile Include="Node\Models\Transactions\Commercials\CommercialHistory.cs" />
+    <Compile Include="Node\Models\Transactions\Commercials\CommercialShipment.cs" />
+    <Compile Include="Node\Models\Transactions\Commercials\CommercialItem.cs" />
+    <Compile Include="Node\Models\Transactions\Commercials\Purchase.cs" />
+    <Compile Include="Node\Models\Transactions\Commercials\Sale.cs" />
+    <Compile Include="Node\Models\Transactions\Enums\PaymentTypes.cs" />
+    <Compile Include="Node\Models\Transactions\Enums\PurchasePurposes.cs" />
+    <Compile Include="Node\Models\Transactions\Enums\CommercialStatus.cs" />
+    <Compile Include="Node\Models\Transactions\Enums\TransactionQueryType.cs" />
+    <Compile Include="Node\Models\Transactions\Terms\PaymentTerm.cs" />
+    <Compile Include="Node\Models\Transactions\Terms\ShippingMethod.cs" />
+    <Compile Include="Node\Models\Transactions\Terms\ShippingTerm.cs" />
+    <Compile Include="Node\Helpers\TransactionHelper.cs" />
+    <Compile Include="Node\Reports\Accounting\AccountGroupLedgers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Accounting\AccountLedgers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Accounting\BalanceSheet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Accounting\IncomeStatement.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Accounting\TransactionLedgers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Assets\Asset.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Assets\Asset.Designer.cs">
+      <DependentUpon>Asset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Node\Reports\Assets\DeprecateSchedule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Assets\DeprecateSchedule.Designer.cs">
+      <DependentUpon>DeprecateSchedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\Quote.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\Receipt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\ReceiptPayment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\Sale.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\SaleDotmetrix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\SaleReturn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Customers\ShippingLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Employees\PaymentGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Employees\Payment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Financial\RetentionGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\CashPurchase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\MonthlyPurchase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\Quote.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\Ledger.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\PaymentVoucher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\PurchaseOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\PurchaseReturn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\Purchase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Suppliers\SupplierPayment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Taxes\OutputTax.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Taxes\InputTax.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Node\Reports\Transactions\Commercial\ShippingLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RdVat\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Service References\RdVat\Social.Core.ERP.RdVat.ServiceArrResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RdVat\Social.Core.ERP.RdVat.ServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RdVat\Social.Core.ERP.RdVat.vat.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RdVat\vatserviceRD3.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Node\Helpers\Currency\Thai\" />
+    <Folder Include="Node\Models\Items\Inventory\" />
+    <Folder Include="Node\Models\Items\Item\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RdVat\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RdVat\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RdVat\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RdVat\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Node\Reports\Accounting\AccountGroupLedgers.resx">
+      <DependentUpon>AccountGroupLedgers.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Accounting\AccountLedgers.resx">
+      <DependentUpon>AccountLedgers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Accounting\BalanceSheet.resx">
+      <DependentUpon>BalanceSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Accounting\IncomeStatement.resx">
+      <DependentUpon>IncomeStatement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Accounting\TransactionLedgers.resx">
+      <DependentUpon>TransactionLedgers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Assets\Asset.resx">
+      <DependentUpon>Asset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Assets\DeprecateSchedule.resx">
+      <DependentUpon>DeprecateSchedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\Quote.resx">
+      <DependentUpon>Quote.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\Receipt.resx">
+      <DependentUpon>Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\ReceiptPayment.resx">
+      <DependentUpon>ReceiptPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\Sale.resx">
+      <DependentUpon>Sale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\SaleDotmetrix.resx">
+      <DependentUpon>SaleDotmetrix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\SaleReturn.resx">
+      <DependentUpon>SaleReturn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Customers\ShippingLabel.resx">
+      <DependentUpon>ShippingLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Employees\PaymentGroup.resx">
+      <DependentUpon>PaymentGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Employees\Payment.resx">
+      <DependentUpon>Payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Financial\RetentionGroup.resx">
+      <DependentUpon>RetentionGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\CashPurchase.resx">
+      <DependentUpon>CashPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\MonthlyPurchase.resx">
+      <DependentUpon>MonthlyPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\Quote.resx">
+      <DependentUpon>Quote.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\Ledger.resx">
+      <DependentUpon>Ledger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\PaymentVoucher.resx">
+      <DependentUpon>PaymentVoucher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\PurchaseOrder.resx">
+      <DependentUpon>PurchaseOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\PurchaseReturn.resx">
+      <DependentUpon>PurchaseReturn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\Purchase.resx">
+      <DependentUpon>Purchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Suppliers\SupplierPayment.resx">
+      <DependentUpon>SupplierPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Taxes\OutputTax.resx">
+      <DependentUpon>OutputTax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Taxes\InputTax.resx">
+      <DependentUpon>InputTax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node\Reports\Transactions\Commercial\ShippingLabel.resx">
+      <DependentUpon>ShippingLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

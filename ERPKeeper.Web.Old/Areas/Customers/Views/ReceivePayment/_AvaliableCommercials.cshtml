@@ -1,0 +1,45 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.ReceivePayment
+@using ERPKeeper.Node.Models.Transactions
+
+
+@{
+    var sales = Organization.ErpNodeDBContext.Sales
+              .Where(s => s.ProfileGuid == Model.ProfileGuid && s.Status != CommercialStatus.Void && s.GeneralPaymentUid == null)
+              // .Where(s => s.TrnDate <= Model.TrnDate)
+              .ToList();
+}
+
+@if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+{
+    <div class="bg-light mt-3 mb-2 p-2 rounded">
+        <div class="mb-2  font-weight-bold">
+            Avaliable
+        </div>
+
+        @foreach (var commercial in sales.OrderBy(s => s.Name).ToList())
+        {
+            <div class="row">
+                <div class="col p-0 mb-1 font-weight-bold">
+                    @Html.ActionLink(commercial.Name, "Home", "Sale", new { id = commercial.Uid }, null)
+                </div>
+                <div class="col-3 p-0 ">
+                    @commercial.TrnDate.ToString("dd-MMM-yy")
+                </div>
+                <div class="col-3 p-0 mb-1 text-right">
+                    @commercial.Total.ToString("N0")
+                </div>
+                <div class="col-1 p-0 mb-1 text-right">
+                    @if (Model.PostStatus != ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+                    {
+                        <a href="@Url.Action("AddCommercial", new { id = Model.Uid, commercialUid = commercial.Uid })">
+                            <i class="fas fa-plus-circle text-secondary"></i>
+                        </a>
+                    }
+                </div>
+                <div class="col-12 p-0 mb-3">
+                    <span>@commercial.Reference</span>
+                </div>
+            </div>
+        }
+    </div>
+}

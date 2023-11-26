@@ -1,0 +1,19 @@
+﻿
+<div class="py-2">
+    <div class="row">
+        <div class="col-9 p-0">
+            <partial name="_MenuTop" />
+        </div>
+        <div class="col-3 pr-0">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <partial name="_Header_UnAuthenticated" />
+            }
+            else
+            {
+                <partial name="_Header_Authenticated" />
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿
+@using Newtonsoft.Json
+<div class="row">
+    <div class="col-2 col-Left pl-0">
+        <div class="bg-gray">
+        </div>
+    </div>
+    <div class="col col-Middle p-0">
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                <div class="mb-4">
+                    <span>Facebook Authen</span><br />
+                    <span>Name:</span> @User.Identity.Name<br />
+                    <span>Email : </span> @CurrentUser.Email<br />
+                </div>
+
+                @*var jsonstr = Newtonsoft.Json.JsonConvert.SerializeObject(User, Newtonsoft.Json.Formatting.Indented,
+                                        new JsonSerializerSettings()
+                                        {
+                                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                        });
+                    @Html.Raw(jsonstr) *@
+
+
+                <div class="mb-4">
+                    <a href="/" class=""><i class="fas fa-home fa-lg"></i> Home</a>
+                </div>
+
+            }
+        }
+    </div>
+    <div class="col-3 rightCol0">
+
+    </div>
+</div>

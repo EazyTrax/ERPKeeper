@@ -1,0 +1,25 @@
+﻿@model ERPKeeper.Node.Models.Financial.Payments.LiabilityPayment
+
+<div class="globalContainer">
+    <div class="row">
+        <div class="col-2 col-Left pl-0">
+            @Html.Action("_Main", "Default", new { Area = "Menu" })
+        </div>
+        <div class="col col-Middle p-0">
+            @Html.Partial("_MenuTop")
+            @Html.Partial("_Form")
+            @*@Html.Action("_DivRetentions", "GeneralPayment", new { Area = "Financial", id = Model.Uid })*@
+        </div>
+        <div class="col-3 col-Right pr-0">
+            <div class="mh-80 mb-1"></div>
+            @Html.Partial("_Summary")
+
+            @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            {
+                @Html.Action("_summaryLedger", "ledgers", new { area = "Accounting", id = Model.Uid })
+            }
+
+
+        </div>
+    </div>
+</div>

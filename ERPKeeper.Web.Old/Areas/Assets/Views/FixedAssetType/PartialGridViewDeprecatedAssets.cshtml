@@ -1,0 +1,119 @@
+@model IList<ERPKeeper.Node.Models.Assets.FixedAsset>
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewDeprecatedAsset";
+
+        settings.CallbackRouteValues = new { Controller = "FixedAssetType", Action = "PartialGridViewFixedAssets", Type = ViewBag.id };
+        settings.KeyFieldName = "Uid";
+
+// settings.Settings.ShowGroupPanel = true;
+settings.Settings.ShowGroupFooter = GridViewGroupFooterMode.VisibleIfExpanded;
+        settings.SettingsBehavior.AutoExpandAllGroups = true;
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+
+            if (ViewBag.GroupedColumns == null)
+            {
+                return;
+            }
+
+
+            MVCxGridView gridNew = (MVCxGridView)sender;
+            string[] columnNames = ViewBag.GroupedColumns.Split(';');
+            gridNew.ClearSort();
+
+            foreach (string name in columnNames)
+            {
+                gridNew.GroupBy(gridNew.Columns[name]);
+            }
+            gridNew.ExpandAll();
+
+
+        };
+
+
+        settings.Settings.ShowFooter = true;
+        settings.Styles.Footer.Font.Bold = true;
+
+
+
+        settings.EnableTheming = true;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Styles.GroupRow.Font.Bold = true;
+        settings.Styles.GroupFooter.Font.Bold = true;
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StartDeprecationDate";
+            column.Caption = Lang.TrnDate;
+            column.Width = 100;
+            column.SortIndex = 1;
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "dd-MMM-yy";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Status";
+            column.Width = 40;
+        });
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string Uid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
+                string Name = DataBinder.Eval(t.DataItem, "Name").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAsset", new { id = Uid }, null));
+            });
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FixedAssetType.Name";
+            column.Caption = "Depreciation Basis";
+
+            column.SetDataItemTemplateContent(t =>
+            {
+                string id = (DataBinder.Eval(t.DataItem, "FixedAssetType.Uid") ?? Guid.Empty).ToString();
+                string Name = (DataBinder.Eval(t.DataItem, "FixedAssetType.Name") ?? " ").ToString();
+                ViewContext.Writer.Write(Html.ActionLink(Name, "Home", "FixedAssetType", new { id = id }, null));
+            });
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AssetValue";
+
+            column.PropertiesEdit.DisplayFormatString = "N2";
+            column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+        });
+
+
+
+
+
+
+
+    });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,59 @@
+﻿@model ERPKeeper.Node.Models.Financial.Lends.Lend
+
+
+<div class="bg-fb2 p-2 mb-2 mh-50">
+    <span style="font-weight: 600;">Lend @Model.No </span><br />
+    @Model.PostStatus
+</div>
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "mFeatures";
+    settings.AllowSelectItem = true;
+    settings.EnableHotTrack = true;
+    settings.EnableAnimation = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+
+
+
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Vertical;
+    settings.Width = 200;
+    settings.Styles.Item.Paddings.Padding = Unit.Pixel(5);
+
+
+
+    settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Home", id = Model.Uid });
+
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "Action";
+
+        if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+            item.Items.Add("UnPost").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "UnPost", id = Model.Uid });
+
+        item.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Delete", id = Model.Uid });
+    });
+
+
+    settings.Items.Add(item =>
+    {
+        item.Text = "Report";
+        item.Items.Add("Ledger").NavigateUrl = DevExpressHelper.GetUrl(new { Action = "Ledger", id = Model.Uid });
+    });
+
+}).GetHtml()
+
+
+<div class="mt-3">
+    <a href="@Url.Action("Home", "Lends", new {  })">
+        <i class="fas fa-arrow-alt-circle-left fa-lg text-muted"></i>
+    </a>
+
+    @if (Model.PostStatus == ERPKeeper.Node.Models.Accounting.Enums.LedgerPostStatus.Locked)
+    {
+        <a href="@Url.Action("Ledger",  new { id = Model.Uid })">
+            <i class="fas fa-globe-asia fa-lg text-muted"></i>
+        </a>
+    }
+</div>

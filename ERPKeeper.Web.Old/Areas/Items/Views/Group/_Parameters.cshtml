@@ -1,0 +1,20 @@
+@model ERPKeeper.Node.Models.Items.GroupItem
+
+
+<div class="bg-fb2">
+    <div class="row mb-1 p-1">
+        <div class="col  font-weight-bold">Parameter</div>
+        <div class="col  font-weight-bold">Value</div>
+    </div>
+    @{
+                    var parameters = Model.GetParametersList();
+
+                    foreach (var parameter in parameters)
+                    {
+                        <div class="row mb-1 border-top border-white p-1">
+                            <div class="col">@parameter.ParameterType.Name</div>
+                            <div class="col">@parameter.Value</div>
+                        </div>
+                    }
+    }
+</div>

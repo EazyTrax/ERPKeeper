@@ -1,0 +1,33 @@
+﻿@{
+    void MenuTemplate(int level, string displayName, string url, int? count = null)
+    {
+        <div class="">
+            <div class="row e-r">
+                <div class="col-10 p-l@(level)">
+                    <a href="@url">
+                        @if (level > 0)
+                        {
+                            <i class="fa-solid fa-l"></i>
+                        }
+                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
+                    </a>
+                </div>
+                <div class="col-2 text-right p-0">
+                    <span class="menuCount">@count</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<div class="lh-12 ">
+    @{
+        MenuTemplate(0, CompanyId.ToUpper(), $"/{CompanyId}/DashBoard");
+        MenuTemplate(1, "Products", $"/{CompanyId}/Products");
+        MenuTemplate(2, "Brands", $"/{CompanyId}/Products/Brands");
+        MenuTemplate(2, "Items", $"/{CompanyId}/Products/Items");
+        MenuTemplate(3, "Inventory", $"/{CompanyId}/Products/Inventory");
+        MenuTemplate(2, "Groups", $"/{CompanyId}/Products/Groups");
+    }
+</div>

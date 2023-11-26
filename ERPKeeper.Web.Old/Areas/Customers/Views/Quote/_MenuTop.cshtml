@@ -1,0 +1,89 @@
+﻿@model ERPKeeper.Node.Models.Estimations.SaleQuote
+@using ERPKeeper.Node.Models.Estimations.Enums
+
+<div class="row bg-fb2 p-1 mb-2 mh-50 rounded">
+    <div class="col-9 p-1">
+        <ol class="breadcrumb mb-0 font-weight-bold bg-none p-0">
+            <li class="breadcrumb-item text-uppercase">
+                <a href="@Url.Action("Home", "Home" ,new { Area="DashBoard" })">HOME</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Customers" ,new { Area="Customers" })">Customers</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Quotes" ,new { Area="Customers" })">@Lang.Quotes</a>
+            </li>
+            <li class="breadcrumb-item text-uppercase " aria-current="page">
+                <a href="@Url.Action("Home", "Quote" ,new { Area="Customers" , id=Model.Uid.ToString() })">@Model.Name </a>
+            </li>
+        </ol>
+    </div>
+    <div class="col text-right p-2">
+        <span id="ImageMenuLock" style="cursor:pointer">
+            <i class="fas fa-globe-asia fa-lg text-muted"></i>
+        </span>
+
+        @Html.DevExpress().PopupMenu(settings =>
+   {
+       settings.Name = "PopupMenuLock";
+       settings.PopupElementID = "ImageMenuLock";
+       settings.ShowPopOutImages = DefaultBoolean.True;
+       settings.PopupAction = PopupAction.LeftMouseClick;
+       settings.Styles.Item.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+
+
+       if (Model.Status == QuoteStatus.Ordered)
+           settings.Items.Add("Convert To Sale").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "ConvertToSale", id = Model.Uid });
+
+       else if (Model.Status == QuoteStatus.Quote)
+           settings.Items.Add("Receive Order").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "ConvertToOrder", id = Model.Uid });
+
+
+       settings.Items.Add(item =>
+       {
+           item.Text = "Advance";
+
+           if (Model.Status == QuoteStatus.Quote)
+               item.Items.Add(ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus.Void.ToString()).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "ConvertToVoid", id = Model.Uid });
+           if (Model.Status == QuoteStatus.Void || Model.Status == QuoteStatus.Ordered || Model.Status == QuoteStatus.Close)
+               item.Items.Add("Re-Open").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "ConvertToOpen", id = Model.Uid });
+
+           item.Items.Add("Delete").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Delete", id = Model.Uid });
+           item.Items.Add("Copy").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Copy", id = Model.Uid });
+       });
+   }).GetHtml()
+
+
+
+    </div>
+</div>
+
+<div class="mb-2">
+
+    @Html.DevExpress().Menu(
+    settings =>
+    {
+        settings.Name = "mFeatures";
+        settings.AllowSelectItem = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowPopOutImages = DefaultBoolean.True;
+        settings.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+        settings.Styles.Item.CssClass = "px-1";
+
+        settings.Items.Add(Lang.Home).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Home", id = Model.Uid });
+        settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Items).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Items", id = Model.Uid });
+        settings.Items.Add(ERPKeeper.WebFrontEnd.Resources.Lang.Documents).NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Documents", id = Model.Uid });
+
+
+        settings.Items.Add(subMenu =>
+        {
+            subMenu.Text = "Export";
+            subMenu.Items.Add("ใบเสนอราคา / Quatation").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Export", id = Model.Uid, DocumentType = "ใบเสนอราคา" });
+            subMenu.Items.Add("(Guest) Quatation").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "ExportGuest", id = Model.Uid, DocumentType = "ใบเสนอราคา" });
+            subMenu.Items.Add("ใบแจ้งหนี้ / Invoice").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Quote", Action = "Export", id = Model.Uid, DocumentType = "ใบแจ้งหนี้" });
+        });
+    }).GetHtml()
+
+</div>
+

@@ -1,0 +1,49 @@
+﻿@model ERPKeeper.Node.Models.Profiles.Profile
+
+
+
+
+<div class="mb-3">
+    <div id="treeListDemo" class=" mb-2">
+        @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Profiles.ProfileContact>()
+        .ID("AddressesGridList")
+     
+        .RowAlternationEnabled(true)
+        .DataSource(d =>
+        d.RemoteController()
+        .Key("Id")
+        .LoadUrl($"/api/Profiles/{Model.Uid}/Contacts/All")
+        .InsertUrl($"/api/Profiles/{Model.Uid}/Contacts/Insert")
+        .UpdateUrl($"/api/Profiles/{Model.Uid}/Contacts/Update")
+        .UpdateMethod("Post")
+        .DeleteUrl($"/api/Profiles/{Model.Uid}/Contacts/Delete")
+        .DeleteMethod("Post")
+        )
+        .Editing(editing => {
+        editing.Mode(GridEditMode.Popup);
+        editing.AllowAdding(true);
+        editing.AllowDeleting(true);
+        editing.AllowUpdating(true);
+        editing.UseIcons(true);
+        editing.Form(f=>f.ColCount(1).Width(500));
+        })
+        .KeyExpr("Id")
+        .ShowRowLines(false)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(100))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .ColumnAutoWidth(false)
+        .Columns(columns => {
+        columns.AddFor(m=>m.Name);
+        columns.AddFor(m=>m.Email).Width(300);
+        columns.AddFor(m=>m.MobilePhone).Width(120);
+        columns.AddFor(m=>m.OfficePhone).Width(120);
+        columns.AddFor(m=>m.Note).Visible(false);
+        columns.AddFor(m=>m.ShippingNote).Visible(false);
+        })
+        )
+    </div>
+
+
+</div>
