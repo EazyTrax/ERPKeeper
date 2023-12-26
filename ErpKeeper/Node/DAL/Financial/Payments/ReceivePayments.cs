@@ -201,6 +201,7 @@ namespace ERPKeeper.Node.DAL.Financial
         {
             Console.WriteLine("> Un Posting,");
             organization.LedgersDal.RemoveTransaction(financialPayment.Uid);
+
             financialPayment.PostStatus = LedgerPostStatus.Editable;
             erpNodeDBContext.SaveChanges();
         }
