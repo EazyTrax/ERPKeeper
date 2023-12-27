@@ -1,5 +1,7 @@
 ﻿using ERPKeeper.Node.DAL;
+using ERPKeeper.Node.DAL.Accounting;
 using ERPKeeper.Node.Models.Accounting;
+using ERPKeeper.Node.Models.Accounting.Enums;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace ERPKeeper.Cmd
                 Console.WriteLine("###########################################################");
                 Console.WriteLine(enterpriseDB);
                 //UnPost(enterpriseDB);
-               // Post(enterpriseDB);
+                // Post(enterpriseDB);
                 BasicProcess(enterpriseDB);
                 //UpdateTransactionLedger(enterpriseDB);
                 Console.WriteLine(">{0} Complete", DateTime.Now.ToLongTimeString());
@@ -32,55 +34,22 @@ namespace ERPKeeper.Cmd
         }
 
 
-        public static void CloneItems()
-        {
-            var tec = new Node.DAL.Organization("tec");
-            var sourceItems = tec.ErpNodeDBContext.Items
-                .Where(i => i.BrandGuid != null)
-                .Where(i => i.Brand.Name == "Azsic")
-                .ToList();
-
-
-            var bit = new Node.DAL.Organization("bit");
-            sourceItems.ForEach(i =>
-            {
-                var bitItem = bit.Items.FindByPartNumber(i.PartNumber);
-                if (bitItem == null)
-                {
-                    bitItem = new Node.Models.Items.Item()
-                    {
-                        Uid = i.Uid,
-                        PartNumber = i.PartNumber,
-                        Description = i.Description,
-                        PurchasePrice = i.PurchasePrice,
-                        UnitPrice = i.UnitPrice,
-                        ItemType = Node.Models.Items.Enums.ItemTypes.Inventory,
-                        Brand = bit.ItemBrands.Find("Azsic"),
-                        IncomeAccountUid = bit.SystemAccounts.Income.Uid,
-                        PurchaseAccountUid = bit.SystemAccounts.COSG.Uid,
-                    };
-                    Console.WriteLine(i.PartNumber);
-
-                    bit.ErpNodeDBContext.Items.Add(bitItem);
-
-                }
-                else
-                {
-                    bitItem.ItemType = Node.Models.Items.Enums.ItemTypes.Inventory;
-                }
-
-                bit.ErpNodeDBContext.SaveChanges();
-
-            });
-
-
-        }
 
         private static void BasicProcess(string profileDB)
         {
             using (var organization = new Node.DAL.Organization(profileDB, true))
             {
-                organization.Items.GetAll();
+                organization.ReceivePayments.UnPost();
+                organization.Sales.UnPost();
+
+                organization.ErpNodeDBContext.Sales.OrderBy(f => f.TrnDate)
+                    .ToList()
+                    .ForEach(rp =>
+                    {
+                        rp.PostStatus = LedgerPostStatus.Editable;
+
+                    });
+
                 organization.SaveChanges();
             }
         }
@@ -125,7 +94,7 @@ namespace ERPKeeper.Cmd
             {
                 organization.LedgersDal.PostLedgers();
                 organization.ChartOfAccount.UpdateBalance();
-               // organization.ChartOfAccount.GenerateHistoryBalance();
+                // organization.ChartOfAccount.GenerateHistoryBalance();
             }
         }
         private static void UnPost(string profileDB)

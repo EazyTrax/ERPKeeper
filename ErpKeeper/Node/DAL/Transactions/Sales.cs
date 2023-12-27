@@ -412,7 +412,7 @@ namespace ERPKeeper.Node.DAL.Transactions
                 this.SaveChanges();
             }
         }
-        public void Unpost()
+        public void UnPost()
         {
             organization.LedgersDal.UnPost(this.transactionType);
 
@@ -421,5 +421,7 @@ namespace ERPKeeper.Node.DAL.Transactions
             erpNodeDBContext.Database.ExecuteSqlCommand(sqlCommand);
 
         }
+
+     
     }
 }

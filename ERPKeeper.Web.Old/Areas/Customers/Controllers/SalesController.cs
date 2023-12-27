@@ -151,7 +151,7 @@ namespace ERPKeeper.WebFrontEnd.Areas.Customers.Controllers
         }
         public ActionResult UnPost()
         {
-            Organization.Sales.Unpost();
+            Organization.Sales.UnPost();
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
         public ActionResult UpdatePayments()

@@ -125,7 +125,7 @@ namespace ERPKeeper.Node.DAL.Accounting
 
 
             organization.Purchases.UnPost();
-            organization.Sales.Unpost();
+            organization.Sales.UnPost();
 
 
             organization.ReceivePayments.UnPost();
