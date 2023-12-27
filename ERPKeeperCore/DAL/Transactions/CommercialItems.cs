@@ -1,0 +1,53 @@
+﻿using KeeperCore.ERPNode.Models.Transactions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using KeeperCore.ERPNode.Models.Items.Enums;
+
+namespace KeeperCore.ERPNode.DAL.Transactions
+{
+    public class CommercialItems : ERPNodeDalRepository
+    {
+        public CommercialItems(Organization organization) : base(organization)
+        {
+        }
+
+        public List<TransactionItem> All() => erpNodeDBContext.CommercialItems.ToList();
+
+        public IQueryable<TransactionItem> Query() => erpNodeDBContext.CommercialItems;
+
+        internal void RemoveUnAssign()
+        {
+            var removedUnreferenceCommercails = erpNodeDBContext.CommercialItems
+                .Where(ci => ci.TransactionId == null)
+                .ToList();
+
+            erpNodeDBContext.CommercialItems
+                .RemoveRange(removedUnreferenceCommercails);
+
+            this.SaveChanges();
+        }
+
+        public TransactionItem Find(Guid id) => erpNodeDBContext.CommercialItems.Find(id);
+
+        public List<TransactionItem> Get(ItemTypes inventory)
+        {
+            return erpNodeDBContext
+                    .CommercialItems
+                    .Where(c => c.Item.ItemType == KeeperCore.ERPNode.Models.Items.Enums.ItemTypes.Inventory)
+                    .ToList();
+        }
+
+        public List<TransactionItem> Get(ItemTypes inventory, Guid fiscalId)
+        {
+            var fiscal = erpNodeDBContext.FiscalYears.Find(fiscalId);
+            var startDate = fiscal.StartDate;
+            var endDate = fiscal.EndDate;
+
+            return erpNodeDBContext.CommercialItems
+           .Where(c => c.Item.ItemType == ItemTypes.Inventory)
+           .Where(c => c.Transaction.TrnDate >= startDate && c.Transaction.TrnDate <= endDate)
+           .ToList();
+        }
+    }
+}
