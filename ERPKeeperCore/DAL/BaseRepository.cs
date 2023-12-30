@@ -12,12 +12,10 @@ namespace KeeperCore.ERPNode.DAL
     {
         public Organization organization { get; private set; }
         protected ERPCoreDbContext erpNodeDBContext { get; set; }
-        public Models.Accounting.Enums.ERPObjectType transactionType { get; set; }
-        public string trString => this.transactionType.ToString();
         public ERPNodeDalRepository(Organization organization)
         {
             this.organization = organization;
-            this.erpNodeDBContext = organization.ErpNodeDBContext;
+            this.erpNodeDBContext = organization.ErpCOREDBContext;
         }
 
         public void SaveChanges()

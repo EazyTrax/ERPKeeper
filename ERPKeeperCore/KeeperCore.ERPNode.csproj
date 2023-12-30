@@ -8,14 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="ERPNode\**" />
-    <Compile Remove="Models\Items\inventory\**" />
-    <Compile Remove="Models\Items\item\**" />
     <EmbeddedResource Remove="ERPNode\**" />
-    <EmbeddedResource Remove="Models\Items\inventory\**" />
-    <EmbeddedResource Remove="Models\Items\item\**" />
     <None Remove="ERPNode\**" />
-    <None Remove="Models\Items\inventory\**" />
-    <None Remove="Models\Items\item\**" />
   </ItemGroup>
 
   <ItemGroup>

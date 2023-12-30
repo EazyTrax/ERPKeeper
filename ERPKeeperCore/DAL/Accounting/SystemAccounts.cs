@@ -1,9 +1,9 @@
-﻿using KeeperCore.ERPNode.Models.Projects;
+﻿using KeeperCore.ERPNode.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using KeeperCore.ERPNode.Models.Accounting.Enums;
-using KeeperCore.ERPNode.Models.Accounting;
+using KeeperCore.ERPNode.Models;
+using KeeperCore.ERPNode.Models.Enums;
 
 namespace KeeperCore.ERPNode.DAL.Accounting
 {
@@ -19,14 +19,14 @@ namespace KeeperCore.ERPNode.DAL.Accounting
             return erpNodeDBContext.SystemAccounts.ToList();
         }
 
-        public Account Cash => this.GetAccount(SystemAccountType.Cash);
-        public Account BankFee => this.GetAccount(SystemAccountType.BankFee);
-        public Account COSG => this.GetAccount(SystemAccountType.CostOfGoodSold);
-        public Account OverPayment => this.GetAccount(SystemAccountType.OverRecivePayment);
-        public Account RetainedEarning => this.GetAccount(SystemAccountType.RetainedEarning);
-        public Account AccountPayable => this.GetAccount(SystemAccountType.AccountPayable);
-        public Account AccountReceivable => this.GetAccount(SystemAccountType.AccountReceivable);
-        public Account OpeningBalanceEquity => this.GetAccount(SystemAccountType.OpeningBalanceEquity);
+        public Account Cash => this.GetAccount(DefaultAccountType.Cash);
+        public Account BankFee => this.GetAccount(DefaultAccountType.BankFee);
+        public Account COSG => this.GetAccount(DefaultAccountType.CostOfGoodSold);
+        public Account OverPayment => this.GetAccount(DefaultAccountType.OverRecivePayment);
+        public Account RetainedEarning => this.GetAccount(DefaultAccountType.RetainedEarning);
+        public Account AccountPayable => this.GetAccount(DefaultAccountType.AccountPayable);
+        public Account AccountReceivable => this.GetAccount(DefaultAccountType.AccountReceivable);
+        public Account OpeningBalanceEquity => this.GetAccount(DefaultAccountType.OpeningBalanceEquity);
 
         public void Add(DefaultAccount defaultAccountItem)
         {
@@ -34,13 +34,13 @@ namespace KeeperCore.ERPNode.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
 
-        public Account EquityStock => this.GetAccount(SystemAccountType.EquityStock);
-        public Account DiscountGiven => this.GetAccount(SystemAccountType.DiscountGiven);
-        public Account DiscountTaken => this.GetAccount(SystemAccountType.DiscountTaken);
-        public Account Income => this.GetAccount(SystemAccountType.Income);
-        public Account Expense => this.GetAccount(SystemAccountType.Expense);
+        public Account EquityStock => this.GetAccount(DefaultAccountType.EquityStock);
+        public Account DiscountGiven => this.GetAccount(DefaultAccountType.DiscountGiven);
+        public Account DiscountTaken => this.GetAccount(DefaultAccountType.DiscountTaken);
+        public Account Income => this.GetAccount(DefaultAccountType.Income);
+        public Account Expense => this.GetAccount(DefaultAccountType.Expense);
 
-        public Account GetAccount(SystemAccountType type)
+        public Account GetAccount(DefaultAccountType type)
         {
             var defaultAccountItem = erpNodeDBContext.SystemAccounts.Find(type);
             if (defaultAccountItem != null)
@@ -49,11 +49,11 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                 return null;
         }
 
-        public DefaultAccount Find(SystemAccountType type) => erpNodeDBContext.SystemAccounts.Find(type);
+        public DefaultAccount Find(DefaultAccountType type) => erpNodeDBContext.SystemAccounts.Find(type);
 
 
 
-        public void SetIfUnAssign(SystemAccountType defaultAccountType, Account accountItem)
+        public void SetIfUnAssign(DefaultAccountType defaultAccountType, Account accountItem)
         {
             if (this.GetAccount(defaultAccountType) == null)
             {
@@ -61,7 +61,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
             }
         }
 
-        public void Set(SystemAccountType defaultAccountType, Account accountItem)
+        public void Set(DefaultAccountType defaultAccountType, Account accountItem)
         {
             if (accountItem != null)
             {
@@ -77,7 +77,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                 {
                     defaultAccountItem = new DefaultAccount()
                     {
-                        AccountType = defaultAccountType,
+                        Type = defaultAccountType,
                         AccountItem = accountItem,
                         AccountItemId = accountItem.Id,
                         LastUpdate = DateTime.Now
@@ -89,7 +89,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         }
 
-        public void Create(SystemAccountType accountType)
+        public void Create(DefaultAccountType accountType)
         {
             var defaultAccountItem = erpNodeDBContext.SystemAccounts.Find(accountType);
 
@@ -97,7 +97,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
             {
                 defaultAccountItem = new DefaultAccount()
                 {
-                    AccountType = accountType,
+                    Type = accountType,
                     LastUpdate = DateTime.Now
                 };
 
@@ -115,23 +115,23 @@ namespace KeeperCore.ERPNode.DAL.Accounting
             Console.WriteLine("=> Auto Assign System Account");
             var accounts = erpNodeDBContext.AccountItems.Where(i => i.IsFolder == false).ToList();
 
-            this.SetIfUnAssign(SystemAccountType.Income, accounts.Where(i => i.Type == AccountTypes.Income).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.Cash, accounts.Where(i => i.SubType == AccountSubTypes.Cash).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.AccountPayable, accounts.Where(i => i.SubType == AccountSubTypes.AccountPayable).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.Expense, accounts.Where(i => i.SubType == AccountSubTypes.Expense).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.RetainedEarning, accounts.Where(i => i.SubType == AccountSubTypes.RetainEarning).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.EquityStock, accounts.Where(i => i.SubType == AccountSubTypes.Stock).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.OpeningBalanceEquity, accounts.Where(i => i.SubType == AccountSubTypes.OpeningBalance).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.DiscountGiven, accounts.Where(i => i.SubType == AccountSubTypes.DiscountGiven).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.DiscountTaken, accounts.Where(i => i.Type == AccountTypes.Income && i.SubType == AccountSubTypes.DiscountTaken).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.Inventory, accounts.Where(i => i.SubType == AccountSubTypes.Inventory).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.AccountReceivable, accounts.Where(i => i.SubType == AccountSubTypes.AccountReceivable).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.EarnestAsset, accounts.Where(i => i.SubType == AccountSubTypes.EarnestPayment).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.EarnestLiability, accounts.Where(i => i.SubType == AccountSubTypes.EarnestReceive).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.BankFee, accounts.Where(i => i.SubType == AccountSubTypes.BankFee).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.EquityPremiumStock, accounts.Where(i => i.SubType == AccountSubTypes.OverStockValue).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.CostOfGoodSold, accounts.Where(i => i.SubType == AccountSubTypes.CostOfGoodsSold).FirstOrDefault());
-            this.SetIfUnAssign(SystemAccountType.OverRecivePayment, accounts.Where(i => i.SubType == AccountSubTypes.OverReceivePayment).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Income, accounts.Where(i => i.Type == AccountTypes.Income).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Cash, accounts.Where(i => i.SubType == AccountSubTypes.Cash).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.AccountPayable, accounts.Where(i => i.SubType == AccountSubTypes.AccountPayable).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Expense, accounts.Where(i => i.SubType == AccountSubTypes.Expense).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.RetainedEarning, accounts.Where(i => i.SubType == AccountSubTypes.RetainEarning).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.EquityStock, accounts.Where(i => i.SubType == AccountSubTypes.Stock).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.OpeningBalanceEquity, accounts.Where(i => i.SubType == AccountSubTypes.OpeningBalance).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.DiscountGiven, accounts.Where(i => i.SubType == AccountSubTypes.DiscountGiven).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.DiscountTaken, accounts.Where(i => i.Type == AccountTypes.Income && i.SubType == AccountSubTypes.DiscountTaken).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Inventory, accounts.Where(i => i.SubType == AccountSubTypes.Inventory).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.AccountReceivable, accounts.Where(i => i.SubType == AccountSubTypes.AccountReceivable).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.EarnestAsset, accounts.Where(i => i.SubType == AccountSubTypes.EarnestPayment).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.EarnestLiability, accounts.Where(i => i.SubType == AccountSubTypes.EarnestReceive).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.BankFee, accounts.Where(i => i.SubType == AccountSubTypes.BankFee).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.EquityPremiumStock, accounts.Where(i => i.SubType == AccountSubTypes.OverStockValue).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.CostOfGoodSold, accounts.Where(i => i.SubType == AccountSubTypes.CostOfGoodsSold).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.OverRecivePayment, accounts.Where(i => i.SubType == AccountSubTypes.OverReceivePayment).FirstOrDefault());
 
 
 
@@ -141,7 +141,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         public void AutoCreateSystemAccount()
         {
-            var systemAccountTypeList = Enum.GetValues(typeof(SystemAccountType)).Cast<SystemAccountType>();
+            var systemAccountTypeList = Enum.GetValues(typeof(DefaultAccountType)).Cast<DefaultAccountType>();
 
             systemAccountTypeList.ToList().ForEach(t =>
             {

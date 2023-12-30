@@ -1,5 +1,4 @@
-﻿
-using KeeperCore.ERPNode.Models.Accounting.Enums;
+﻿using KeeperCore.ERPNode.Models.Enums;
 using System;
 
 namespace KeeperCore.ERPNode.Helpers
