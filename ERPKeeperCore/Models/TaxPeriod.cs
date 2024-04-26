@@ -19,7 +19,7 @@ namespace KeeperCore.ERPNode.Models
         [Key]
         public Guid Id { get; set; }
         public int? No { get; set; }
-       public Guid? FiscalYearId { get; set; }
+        public Guid? FiscalYearId { get; set; }
         public DateTime PeriodStartDate => new(TrnDate.Year, TrnDate.Month, 1);
         public DateTime TrnDate { get; set; }
         public string Name => "TP-" + this.TrnDate.ToString("yyyy/MM");
@@ -33,9 +33,9 @@ namespace KeeperCore.ERPNode.Models
 
         public String Memo { get; set; }
         public LedgerPostStatus PostStatus { get; set; }
-        public virtual ICollection<Transaction> Commercials { get; set; }
+        public virtual ICollection<Sale> Commercials { get; set; }
 
-    
+
         public int CommercialsCount => InputCommercialCount + OutputCommercialCount;
         public int InputCommercialCount { get; private set; }
         public decimal InputBalance { get; private set; }
@@ -49,14 +49,14 @@ namespace KeeperCore.ERPNode.Models
         public decimal ClosingAmount => this.InputTaxBalance - this.OutputTaxBalance;
 
 
-        public List<Transaction> GetCommercials(TaxDirection taxDirection) =>
+        public List<Sale> GetCommercials(TaxDirection taxDirection) =>
             this.Commercials
                 .Where(c => c.TaxCodeId != null && c.TaxCode.TaxDirection == taxDirection)
                 .ToList();
 
 
 
-  
+
         public void ReCalculate()
         {
             var InputCommercial = this.GetCommercials(TaxDirection.Input);
@@ -69,6 +69,6 @@ namespace KeeperCore.ERPNode.Models
             this.OutputBalance = OutputCommercial.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
             this.OutputCommercialCount = OutputCommercial.Count;
 
-      }
+        }
     }
 }

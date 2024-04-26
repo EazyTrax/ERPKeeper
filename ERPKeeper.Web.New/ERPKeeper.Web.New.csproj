@@ -128,8 +128,8 @@
     <None Include="wwwroot\js\qrcode.min.js" />
     <None Include="wwwroot\js\stringify.js" />
     <None Include="wwwroot\js\vendor.js" />
-    <PackageReference Include="DevExtreme.AspNet.Core" Version="23.1.6" />
-    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.9.2" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="23.2.4" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Areas\Authen\Views\_ViewImports.cshtml">

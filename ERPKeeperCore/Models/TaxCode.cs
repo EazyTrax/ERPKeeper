@@ -8,26 +8,24 @@ using System.Web;
 
 namespace KeeperCore.ERPNode.Models
 {
-    [Table("ERP_Taxes_TaxCode")]
     public class TaxCode
     {
         [Key]
-        [Column("Id")]
+        
         public Guid Id { get; set; }
         public Guid? TaxGroupId { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }
         public Enums.TaxDirection TaxDirection { get; set; }
-        public bool isDefault
-        { get; set; }
+        public bool isDefault { get; set; }
         public bool isRecoverable { get; set; }
 
-        [Column("TaxRate")]
         public Decimal TaxRate { get; set; }
 
         public Guid? TaxAccountId { get; set; }
         [ForeignKey("TaxAccountId")]
         public virtual Account TaxAccount { get; set; }
+
 
         public Guid? OutputTaxAccountId { get; set; }
         [ForeignKey("OutputTaxAccountId")]
@@ -51,11 +49,11 @@ namespace KeeperCore.ERPNode.Models
 
 
 
-     //   public virtual ICollection<Transactions.Commercial> Commercials { get; set; }
+
 
         public void Refresh()
         {
-         //   this.CommercialCount = this.Commercials?.Count() ?? 0;
+      
         }
 
 

@@ -18,13 +18,11 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         }
 
-        public List<Account> OpeningItemList() => this.erpNodeDBContext.AccountItems
-                .Where(a => a.OpeningCreditBalance != 0 || a.OpeningDebitBalance != 0)
-                .ToList();
 
 
-        public List<Account> ListRelatedAccounts(Account accountItem) => this.erpNodeDBContext.AccountItems
-             .Where(i => i.IsFolder == false)
+
+        public List<Account> ListRelatedAccounts(Account accountItem) => 
+            this.erpNodeDBContext.AccountItems
              .Where(i => i.Type == accountItem.Type && i.SubType == accountItem.SubType)
              .ToList();
 
@@ -74,63 +72,6 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         }
         public Account Find(Guid AccountId) => erpNodeDBContext.AccountItems.Find(AccountId);
         
-
-        public Account newFolder(AccountTypes type, AccountSubTypes subType, string codeName, string name, string nameEnglish)
-        {
-            Account item = new()
-            {
-                Type = type,
-                SubType = subType,
-                IsFolder = true,
-                Name = name
-            };
-
-            erpNodeDBContext.AccountItems.Add(item);
-            return item;
-        }
-        public Account newGroup(AccountTypes accountType)
-        {
-            var newGroup = new Account()
-            {
-                Id = Guid.NewGuid(),
-                Type = accountType,
-                IsFolder = true
-            };
-
-
-            erpNodeDBContext.AccountItems.Add(newGroup);
-            erpNodeDBContext.SaveChanges();
-
-            return newGroup;
-        }
-        public Account newItem(AccountTypes accountType, AccountSubTypes accountSubType)
-        {
-            var newItem = new Account()
-            {
-                Type = accountType,
-                SubType = accountSubType,
-            };
-
-            return newItem;
-        }
-        public Account newItem(AccountTypes type, AccountSubTypes subType, string codeName, string name, string englishName)
-        {
-            Account item = new()
-            {
-                Type = type,
-                SubType = subType,
-                IsFolder = false,
-                Name = name,
-                EnglishName = englishName
-            };
-
-
-
-
-            erpNodeDBContext.AccountItems.Add(item);
-            return item;
-        }
-
         public Account Update(Account accountItem)
         {
             var exist = erpNodeDBContext.AccountItems.Find(accountItem.Id);
@@ -145,20 +86,14 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                 exist.No = accountItem.No;
                 exist.Name = accountItem.Name;
                 exist.IsLiquidity = accountItem.IsLiquidity;
-                exist.ParentId = accountItem.ParentId;
                 exist.SubType = accountItem.SubType;
                 exist.Description = accountItem.Description;
-                exist.IsFocus = accountItem.IsFocus;
                 exist.IsCashEquivalent = accountItem.IsCashEquivalent;
-                exist.OpeningDebitBalance = accountItem.OpeningDebitBalance;
-                exist.OpeningCreditBalance = accountItem.OpeningCreditBalance;
-
             }
 
 
             if (exist.SubType == AccountSubTypes.Cash || exist.SubType == AccountSubTypes.Bank)
                 exist.IsCashEquivalent = true;
-
 
 
             erpNodeDBContext.SaveChanges();
@@ -167,8 +102,6 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         }
        
       
-
-    
         public List<Account> GetByType(AccountTypes accountType)
         {
             return erpNodeDBContext.AccountItems
@@ -189,7 +122,6 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                 .ToList();
         public IEnumerable<Account> GetFocusAccount(AccountTypes? accountType) => erpNodeDBContext.AccountItems
                 .Where(account => accountType == null || account.Type == accountType)
-                .Where(account => account.IsFocus)
                 .OrderBy(i => i.No)
                 .ToList();
 

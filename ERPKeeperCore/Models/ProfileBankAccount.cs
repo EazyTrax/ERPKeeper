@@ -9,7 +9,7 @@ namespace KeeperCore.ERPNode.Models
     public class ProfileBankAccount
     {
         [Key]
-        [Column("Id")]
+        
         public Guid BankAccountId { get; set; }
 
         [Column("ProfileId")] 

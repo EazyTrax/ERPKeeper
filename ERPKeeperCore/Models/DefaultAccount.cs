@@ -11,9 +11,9 @@ namespace KeeperCore.ERPNode.Models
         [Key]
         public DefaultAccountType Type { get; set; }
 
-        public Guid? AccountItemId { get; set; }
-        [ForeignKey("AccountItemId")]
-        public virtual Account AccountItem { get; set; }
+        public Guid? AccountId { get; set; }
+        [ForeignKey("AccountId")]
+        public virtual Account Account { get; set; }
 
         public DateTime LastUpdate { get; set; }
     }

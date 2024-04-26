@@ -14,16 +14,9 @@ namespace KeeperCore.ERPNode.Models
     {
         [Key]
         public Guid Id { get; set; }
-
-        public Guid? PreviousFiscalId { get; set; }
-        [ForeignKey("PreviousFiscalId")]
-        public virtual FiscalYear PreviousFiscal { get; set; }
-
         public string Name => string.Format("{0}", EndDate.Year.ToString());
 
-        
         public DateTime StartDate { get; set; }
-        
         public DateTime EndDate => StartDate.AddYears(1).AddDays(-1);
         public EnumFiscalYearStatus Status { get; set; }
 

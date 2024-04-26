@@ -50,12 +50,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
             return fiscalYear;
         }
-        public void UpdatePreviousFiscalYear(FiscalYear fy)
-        {
-            var previousFiscal = this.Find(fy.StartDate.AddDays(-1));
-            fy.PreviousFiscal = previousFiscal;
-            this.SaveChanges();
-        }
+
         public FiscalYear Create(DateTime date)
         {
             if (date < organization.DataItems.FirstDate)

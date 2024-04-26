@@ -44,7 +44,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         {
             var defaultAccountItem = erpNodeDBContext.SystemAccounts.Find(type);
             if (defaultAccountItem != null)
-                return defaultAccountItem.AccountItem;
+                return defaultAccountItem.Account;
             else
                 return null;
         }
@@ -69,8 +69,8 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
                 if (defaultAccountItem != null)
                 {
-                    defaultAccountItem.AccountItemId = accountItem.Id;
-                    defaultAccountItem.AccountItem = accountItem;
+                    defaultAccountItem.AccountId = accountItem.Id;
+                    defaultAccountItem.Account = accountItem;
                     defaultAccountItem.LastUpdate = DateTime.Now;
                 }
                 else
@@ -78,8 +78,8 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                     defaultAccountItem = new DefaultAccount()
                     {
                         Type = defaultAccountType,
-                        AccountItem = accountItem,
-                        AccountItemId = accountItem.Id,
+                        Account = accountItem,
+                        AccountId = accountItem.Id,
                         LastUpdate = DateTime.Now
                     };
                     erpNodeDBContext.SystemAccounts.Add(defaultAccountItem);

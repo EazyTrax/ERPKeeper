@@ -10,7 +10,7 @@ namespace KeeperCore.ERPNode.Models
     public class ProfileAddress
     {
         [Key]
-        [Column("Id")]
+        
         public Guid AddressId { get; set; }
 
         [Column("ProfileId")]

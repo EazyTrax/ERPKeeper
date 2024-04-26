@@ -43,47 +43,37 @@ namespace KeeperCore.ERPNode.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
 
         }
 
 
 
         public DbSet<DataItem> DataItems { get; set; }
-      
+
         public DbSet<CapitalActivity> CapitalActivities { get; set; }
 
 
-   
+
         public DbSet<Models.Items.Item> Items { get; set; }
-    
+
         public DbSet<Models.Items.ItemGroup> ItemGroups { get; set; }
         public DbSet<Models.Items.Brand> Brands { get; set; }
-     
+
         public DbSet<FiscalYear> FiscalYears { get; set; }
-     public DbSet<Account> AccountItems { get; set; }
+        public DbSet<Account> AccountItems { get; set; }
         public DbSet<DefaultAccount> SystemAccounts { get; set; }
-
-        public DbSet<AccountBalance> HistoryBalanceItems { get; set; }
-
         public DbSet<Models.Profile> Profiles { get; set; }
         public DbSet<Models.ProfileRole> ProfileRoles { get; set; }
         public DbSet<Models.ProfileBankAccount> ProfileBankAccounts { get; set; }
         public DbSet<Models.ProfileAddress> ProfileAddresses { get; set; }
         public DbSet<Models.ProfileContact> ProfileContacts { get; set; }
-   
-
-
-
-
-
-
-        public DbSet<Transaction> Commercials { get; set; }
-     
+        public DbSet<Models.Sale> Sales { get; set; }
+        public DbSet<Models.Purchase> Purchases { get; set; }
         public DbSet<PaymentTerm> PaymentTerms { get; set; }
-    public DbSet<TransactionLine> CommercialItems { get; set; }
+        public DbSet<SaleItem> CommercialItems { get; set; }
 
-     
+
 
 
         public DbSet<Models.Project> Projects { get; set; }
@@ -97,7 +87,7 @@ namespace KeeperCore.ERPNode.DBContext
 
 
 
-      
+
 
 
 
@@ -112,7 +102,7 @@ namespace KeeperCore.ERPNode.DBContext
 
 
 
-        
+
 
 
     }

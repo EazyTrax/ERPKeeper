@@ -9,11 +9,9 @@ using System.Web;
 
 namespace KeeperCore.ERPNode.Models
 {
-    [Table("ERP_Projects")]
     public class Project
     {
         [Key]
-        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public Guid? ParentId { get; set; }
@@ -23,6 +21,8 @@ namespace KeeperCore.ERPNode.Models
 
         [MaxLength(30)]
         public String Code { get; set; }
+
+        [MaxLength(30)]
         public String Name { get; set; }
         public Enums.ProjectStatus Status { get; set; }
 
@@ -33,10 +33,8 @@ namespace KeeperCore.ERPNode.Models
         public Enums.ProjectType Type { get; set; }
         public decimal Value { get; set; }
 
-
         public virtual ICollection<Project> Childs { get; set; }
-        public virtual ICollection<Transaction> Commercials { get; set; }
-
+        public virtual ICollection<Sale> Commercials { get; set; }
 
         public void ChangeStatus(ProjectStatus close)
         {

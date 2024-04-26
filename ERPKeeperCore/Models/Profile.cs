@@ -40,14 +40,10 @@ namespace KeeperCore.ERPNode.Models
         public DateTime? CreatedDate { get; set; }
         public string Pin { get; set; }
 
-        public virtual ICollection<ProfileContact> ProfileContacts { get; set; }
+        public virtual ICollection<ProfileContact> Contacts { get; set; }
         public virtual ICollection<ProfileAddress> Addresses { get; set; }
         public virtual ICollection<ProfileBankAccount> BankAccounts { get; set; }
         public virtual ICollection<ProfileRole> ProfileRoles { get; set; }
-
-        [InverseProperty("Profile")]
-        public virtual ICollection<Transaction> Commercials { get; set; }
-
 
         public Profile()
         {

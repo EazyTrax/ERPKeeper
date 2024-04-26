@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace KeeperCore.ERPNode.Models.Items
 {
-    [Table("ERP_Items_Brands")]
     public class Brand
     {
         [Key]
