@@ -22,7 +22,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
                     DbFunctions.TruncateTime(j.TrnDate) >= DbFunctions.TruncateTime(fiscalYear.StartDate) &&
                     DbFunctions.TruncateTime(j.TrnDate) <= DbFunctions.TruncateTime(fiscalYear.EndDate)
                 )
-                //.Where(m=>m.FiscalYearUid == FiscalYearId)
+                //.Where(m=>m.FiscalYearId == FiscalYearId)
                 ;
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

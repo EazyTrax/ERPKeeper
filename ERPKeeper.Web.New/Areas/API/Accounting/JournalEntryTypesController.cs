@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.API.Accounting
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType();
             JsonConvert.PopulateObject(values, model);
-            model.Uid = Guid.NewGuid();
+            
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());

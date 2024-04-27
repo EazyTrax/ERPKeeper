@@ -50,7 +50,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         {
             var jourmalEntryItem = new JournalEntryItem()
             {
-                AccountUid = accountUid,
+                AccountId = accountUid,
                 Debit = debit,
                 Credit = credit
             };

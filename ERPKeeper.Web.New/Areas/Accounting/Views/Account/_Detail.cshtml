@@ -1,24 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Account
 @using ERPKeeperCore.Enterprise.Models.Accounting
 
-@{
-    var item = new
-    {
-        Model.Id,
-        Model.Name,
-        Model.Description,
-        Model.No,
-        Model.Type,
-        Model.SubEnumType,
-        Model.IsCashEquivalent,
-        Model.IsLiquidity,
-        Model.OpeningCreditBalance,
-        Model.OpeningDebitBalance,
-        Model.TotalDebit,
-        Model.TotalCredit,
-        Model.IsFocus
-    };
-}
 
 
 <div class="mb-3 p-1">
@@ -28,7 +10,7 @@
                 <div class="p-1">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_0")
-                        .FormData(item)
+                        .FormData(Model)
                         .LabelMode(FormLabelMode.Static)
                         .LabelLocation(FormLabelLocation.Left)
                         .MinColWidth(300)
@@ -46,14 +28,14 @@
                             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));
 
-                            items.AddSimpleFor(m => m.SubEnumType).Editor(e => e.SelectBox()
+                            items.AddSimpleFor(m => m.SubType).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
                             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.IsLiquidity);
                             items.AddSimpleFor(m => m.IsCashEquivalent);
-                            items.AddSimpleFor(m => m.IsFocus);
+                    
                         })
                         )
 

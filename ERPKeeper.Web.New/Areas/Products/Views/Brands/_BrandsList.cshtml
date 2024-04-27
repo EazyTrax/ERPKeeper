@@ -42,8 +42,8 @@
 
         .Columns(columns =>
         {
-            columns.Add().DataField("Name").Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.Uid %>"><%= data.Name %></a></text>);
-            columns.AddFor(m=>m.WebSite).Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.Uid %>"><%= data.Name %></a></text>);
+            columns.Add().DataField("Name").Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.Id %>"><%= data.Name %></a></text>);
+            columns.AddFor(m=>m.WebSite).Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.Id %>"><%= data.Name %></a></text>);
             columns.Add().DataField("Description").Format(Format.FixedPoint);
             columns.Add().DataField("ItemsCount").Format(Format.FixedPoint);
         })

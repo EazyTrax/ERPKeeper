@@ -1,4 +1,10 @@
-﻿<div class="mb-2 border-top">
+﻿
+
+
+
+
+
+<div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccountItem>()
         .ID("DataGridDefaultAccountItem")
         .KeyExpr("AccountType")
@@ -21,7 +27,7 @@
             @*  
             columns.AddFor(m => m.AccountType).CellTemplate(@<text>
                 <div>
-                    <a href="/@CompanyId/Accounting/DefaultAccounts/<%= data.Uid %>/"><%= data.Name %></a>
+                    <a href="/@CompanyId/Accounting/DefaultAccounts/<%= data.Id %>/"><%= data.Name %></a>
                 </div>
             </text>);
             *@
@@ -33,11 +39,11 @@
             .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.DefaultAccountType>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
 
 
-            columns.AddFor(m => m.AccountItemUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            columns.AddFor(m => m.AccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Account</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountItemUid %>/"><%= displayValue %></a></text>); ;
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>); ;
 
             
             })

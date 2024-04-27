@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.API.Products
             JsonConvert.PopulateObject(values, model);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
-            model.Uid = Guid.NewGuid();
+            
             Organization.ErpCOREDBContext.Brands.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();

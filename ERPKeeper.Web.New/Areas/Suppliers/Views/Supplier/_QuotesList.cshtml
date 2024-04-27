@@ -44,7 +44,7 @@
     columns.Add().DataField("Name")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/Sales/Estimate/<%= data.Uid %>/">
+            <a href="/Sales/Estimate/<%= data.Id %>/">
                 <%= data.Name %>
             </a>
         </text>);

@@ -47,7 +47,7 @@
     .Width(150)
     .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
     .Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Uid, t.Name }).ToList())
+    .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
     .DisplayExpr("Name")
     .ValueExpr("Id")
     );

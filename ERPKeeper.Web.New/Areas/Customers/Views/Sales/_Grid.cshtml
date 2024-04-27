@@ -1,4 +1,4 @@
-﻿@using ERPKeeperCore.Enterprise.Models.Transactions
+﻿
 
 
 
@@ -49,11 +49,11 @@
     );
 
     columns.Add().DataField("Name").Width(130)
-    .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Uid %>/"><%= data.Name %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
     columns.AddFor(m=>m.ProfileGuid).Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.Name}))
+    .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
     .DisplayExpr("Text")
     .ValueExpr("Value"))
     .AllowEditing(false)
@@ -63,7 +63,7 @@
     columns.Add().DataField("Reference").Width(180);
     columns.Add().DataField("LinesTotal").Width(100).Format(Format.FixedPoint);
     columns.Add().DataField("Total").Width(100).Format(Format.FixedPoint);
-                columns.AddFor(m => m.PostStatus).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+    columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
     })
     )
 </div>

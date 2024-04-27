@@ -45,10 +45,10 @@
     columns.AddFor(m=>m.Name)
     .SortOrder(SortOrder.Asc)
     .SortIndex(1)
-    .CellTemplate(@<text><a href="/Customers/Projects/<%= data.Uid %>/"><%= data.Name %></a></text>);
+    .CellTemplate(@<text><a href="/Customers/Projects/<%= data.Id %>/"><%= data.Name %></a></text>);
      
     columns.AddFor(m=>m.CustomerProfileGuid).Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.Name}))
+    .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
     .DisplayExpr("Text")
     .ValueExpr("Value"))
     .AllowEditing(false)

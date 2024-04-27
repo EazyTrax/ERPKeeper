@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
     {
         [Key]
         public Guid Id { get; set; }
-
+        public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }

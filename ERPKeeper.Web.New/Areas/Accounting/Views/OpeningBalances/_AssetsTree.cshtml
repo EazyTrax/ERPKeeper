@@ -21,7 +21,7 @@
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).UseIcons(true))
         .Columns(columns =>
             {
-                columns.AddFor(m => m.Code).Width(100).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Uid %>/"><%= data.Code %></a></text>);
+                columns.AddFor(m => m.Code).Width(100).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Code %></a></text>);
 
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
@@ -31,7 +31,7 @@
     .ValueExpr("Value")
     );
 
-  columns.AddFor(m => m.SubEnumType)
+  columns.AddFor(m => m.SubType)
   .HeaderCellTemplate("SubType").Width(200).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
@@ -39,16 +39,16 @@
     );
 
 
-                columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Uid %>/"><%= data.Name %></a></text>);
+                columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a></text>);
 
-                columns.AddFor(m => m.OpeningDebitBalance).HeaderCellTemplate(@<text>Debit</text>).Width(100).Format(Format.FixedPoint);
-                columns.AddFor(m => m.OpeningCreditBalance).HeaderCellTemplate(@<text>Credit</text>).Width(100).Format(Format.FixedPoint);
+                columns.AddFor(m => m.OpeningDebit).HeaderCellTemplate(@<text>Debit</text>).Width(100).Format(Format.FixedPoint);
+                columns.AddFor(m => m.OpeningCredit).HeaderCellTemplate(@<text>Credit</text>).Width(100).Format(Format.FixedPoint);
 
             })
         .Summary(s =>
             s.TotalItems(items => {
-            items.AddFor(m => m.OpeningDebitBalance).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.OpeningCreditBalance).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
         
             })
     )

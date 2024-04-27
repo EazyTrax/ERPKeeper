@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Web.API.Accounting
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.AccountItems;
+            var returnModel = Organization.ErpCOREDBContext.Accounts;
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
@@ -24,11 +24,11 @@ namespace ERPKeeperCore.Web.API.Accounting
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.Account();
             JsonConvert.PopulateObject(values, model);
-            model.Uid = Guid.NewGuid();
+            
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpCOREDBContext.AccountItems.Add(model);
+            Organization.ErpCOREDBContext.Accounts.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -38,7 +38,7 @@ namespace ERPKeeperCore.Web.API.Accounting
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.AccountItems.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.Accounts.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -47,8 +47,8 @@ namespace ERPKeeperCore.Web.API.Accounting
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.AccountItems.First(a => a.Id == key);
-            Organization.ErpCOREDBContext.AccountItems.Remove(model);
+            var model = Organization.ErpCOREDBContext.Accounts.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.Accounts.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
     }

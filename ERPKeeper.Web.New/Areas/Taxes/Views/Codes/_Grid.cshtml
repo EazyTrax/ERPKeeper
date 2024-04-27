@@ -45,21 +45,21 @@
             columns.AddFor(m => m.CodePrefix).Width(80).HeaderCellTemplate(@<text>Purchased</text>).SortOrder(SortOrder.Asc).SortIndex(1);
 
 
-            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Uid %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Assets</text>);
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
             
             columns.AddFor(m => m.PurchaseAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200).HeaderCellTemplate(@<text>Asset Acc</text>);
 
             columns.AddFor(m => m.AmortizeExpenseAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes.AmortizeExpense).Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes.AmortizeExpense).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200).HeaderCellTemplate(@<text>Amortize Acc</text>);
 
              columns.AddFor(m => m.AccumulateDeprecateAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes.AccDepreciation).Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes.AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200).HeaderCellTemplate(@<text>Accumulate Acc</text>);
 
 

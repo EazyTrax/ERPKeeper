@@ -72,7 +72,7 @@
     .SortIndex(1)
     .Width(200)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Uid %>/">
+            <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
                 <span class="font-weight-600"><%= data.PartNumber %></span>
             </a>
         </text>);
@@ -80,7 +80,7 @@
     columns.Add().DataField("Description")
             .Width(430)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Uid %>/">
+            <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
                 <%= data.Description %>
             </a>
         </text>);

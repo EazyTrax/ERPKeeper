@@ -39,7 +39,7 @@
 
 
 
-    var avaliableAddresses = Organization.ErpCOREDBContext.ProfileAddresses.Where(a=>a.ProfileGuid == Model.ProfileGuid);
+    var avaliableAddresses = Organization.ErpCOREDBContext.ProfileAddresses.Where(a=>a.ProfileGuid == Model.CustomerId);
     columns.AddFor(m=>m.ProfileAddressId).Width(150)
     .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
     .Lookup(lookup => lookup
@@ -49,7 +49,7 @@
     .FormItem(i=>i.Label(l=>l.Text("Address")));
 
 
-    var avaliablecontacts = Organization.ErpCOREDBContext.ProfileContacts.Where(a=>a.ProfileId == Model.ProfileGuid);
+    var avaliablecontacts = Organization.ErpCOREDBContext.ProfileContacts.Where(a=>a.ProfileId == Model.CustomerId);
     columns.AddFor(m=>m.ProfileContactId).Width(150)
     .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
     .Lookup(lookup => lookup
@@ -69,7 +69,7 @@
                 ).Visible(false);
 
     columns.Add().DataField("Id").Width(100).AllowEditing(false)
-    .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Uid %>/Export">Export</a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/Export">Export</a></text>);
 
     })
     .OnInitNewRow("function(e) { e.data.Shipdate = new Date(); }")

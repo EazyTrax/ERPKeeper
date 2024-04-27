@@ -34,7 +34,7 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote>()
     .ID("gridList")
-    .DataSource(Quotes)
+    
 
     .KeyExpr("Id")
     
@@ -69,7 +69,7 @@
     columns.Add().DataField("Name")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Suppliers/Estimate/<%= data.Uid %>/">
+            <a href="/@CompanyId/Suppliers/Estimate/<%= data.Id %>/">
                 <%= data.Name %>
             </a>
         </text>);

@@ -29,7 +29,7 @@
                 columns.Add().DataField("TaxNumber").Width(150);
 
                 columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc).SortIndex(1)
-            .CellTemplate(@<text><a href="/Profiles/<%= data.Uid %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Profiles/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.Add().DataField("ShotName").Width(100);
 

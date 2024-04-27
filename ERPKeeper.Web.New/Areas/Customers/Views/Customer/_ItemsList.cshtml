@@ -7,7 +7,7 @@
                                         .CommercialItems
                                         .Include("Item")
                                         .Where(c => c.Commercial.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Sale)
-                                        .Where(c => c.Commercial.ProfileGuid == Model.ProfileUid)
+                                        .Where(c => c.Commercial.ProfileGuid == Model.ProfileId)
                                         .ToList()
                                         .Select(i =>
                                             new

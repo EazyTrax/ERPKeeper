@@ -40,17 +40,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
 
 
-        [Route("/{CompanyId}/{area}/Sales/{TransactionId:Guid}/Shipments/{ShipmentId:Guid}/Export")]
-        public IActionResult ExportShipment(Guid shipmentId)
-        {
-            var transcation = EnterpriseRepo.CommercialShipments.Find(shipmentId);
-            var ms = EnterpriseRepo.CommercialShipments.ExportPDF(shipmentId);
-            ms.Position = 0;
-
-            return File(fileStream: ms, contentType: "application/pdf", fileDownloadName: $"Shipment_{shipmentId}.pdf");
-        }
-
-
         public IActionResult Documents()
         {
             var transcation = EnterpriseRepo.Sales.Find(TransactionId);

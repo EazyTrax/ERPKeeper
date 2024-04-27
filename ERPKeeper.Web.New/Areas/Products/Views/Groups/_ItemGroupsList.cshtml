@@ -52,7 +52,7 @@
         )
  .Columns(columns =>
  {
-     columns.Add().DataField("Name").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/@CompanyId/Products/Groups/<%= data.Uid %>/"><%= data.Name %></a></text>);
+     columns.Add().DataField("Name").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/@CompanyId/Products/Groups/<%= data.Id %>/"><%= data.Name %></a></text>);
      columns.Add().DataField("ItemCount").HeaderCellTemplate(@<text>Assets#</text>);
  });
 }

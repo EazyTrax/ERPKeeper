@@ -30,7 +30,7 @@
 
         .Columns(columns =>
             {
-                columns.AddFor(m => m.Code).Width(100).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Uid %>/"><%= data.Code %></a></text>);
+            columns.AddFor(m => m.No).Width(100).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);
 
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
@@ -40,26 +40,21 @@
     .ValueExpr("Value")
     );
 
-  columns.AddFor(m => m.SubEnumType)
+  columns.AddFor(m => m.SubType)
   .HeaderCellTemplate("SubType").SortOrder(SortOrder.Asc).SortIndex(2).Width(200).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );
 
-            columns.AddFor(m => m.ReportGroup)
-        .HeaderCellTemplate("ReportGroup").SortOrder(SortOrder.Asc).SortIndex(2).Width(250).Lookup(lookup => lookup
-        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountReportGroup>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-        .DisplayExpr("Text")
-        .ValueExpr("Value")
-        );
+   
 
 
 
                 columns.AddFor(m => m.Name).CellTemplate(
             @<text>
                 <div>
-                    <a href="/@CompanyId/Accounting/Accounts/<%= data.Uid %>/"><%= data.Name %></a>
+                    <a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a>
                 </div>
             </text>
         );

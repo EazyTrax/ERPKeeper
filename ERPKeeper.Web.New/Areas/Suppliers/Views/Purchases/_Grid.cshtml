@@ -1,4 +1,4 @@
-﻿@using ERPKeeperCore.Enterprise.Models.Transactions
+﻿
 
 
 <div id="treeListDemo" class="mb-3">
@@ -49,7 +49,7 @@
     columns.Add().DataField("Name")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Suppliers/Purchases/<%= data.Uid %>/">
+            <a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/">
                 <%= data.Name %>
             </a>
         </text>);
@@ -65,7 +65,7 @@
     columns.Add().DataField("Reference");
         columns.Add().DataField("LinesTotal").Format(Format.FixedPoint);
     columns.Add().DataField("Total").Format(Format.FixedPoint);
-                columns.AddFor(m => m.PostStatus).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
     })
     )
 </div>

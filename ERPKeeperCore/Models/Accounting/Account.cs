@@ -17,6 +17,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
         public String? No { get; set; }
+        public String? Code => No;
 
         [MaxLength(256)]
         public String? Name { get; set; }
@@ -53,13 +54,13 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public DateTime? BalanceCalulatedDate { get; set; }
 
-
+        public Decimal OpeningCredit { get; set; } = 0;
+        public Decimal OpeningDebit { get; set; } = 0;
         public Decimal CurentCredit { get; set; } = 0;
-
-
         public Decimal CurrentDebit { get; set; } = 0;
 
-
+        public Decimal TotalDebit { get { return Math.Max(CurrentDebit - CurentCredit, 0); } }
+        public Decimal TotalCredit { get { return Math.Max(CurentCredit - CurrentDebit, 0); } }
 
 
     }

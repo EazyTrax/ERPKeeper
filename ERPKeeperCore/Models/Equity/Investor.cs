@@ -21,6 +21,7 @@ namespace ERPKeeperCore.Enterprise.Models.Equity
 
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
+        public Guid ProfileId => Profile.Id;
 
         public String? Code { get; set; }
         public CustomerStatus Status { get; set; }

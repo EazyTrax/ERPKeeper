@@ -9,7 +9,7 @@
         .CommercialItems
         .Include("Item")
         .Where(c => c.Commercial.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Purchase)
-        .Where(c => c.Commercial.ProfileGuid == Model.ProfileUid)
+        .Where(c => c.Commercial.ProfileGuid == Model.ProfileId)
         .GroupBy(g => g.ItemGuid)
         .Select(g => new { ItemGuid = g.Key, Item = g.FirstOrDefault().Item, CommercialItems = g.ToList(), count = g.Count() , amount = g.Sum(i=>i.Amount)})
         .ToList();

@@ -20,15 +20,13 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
+        public Guid ProfileId => Profile.Id;
         public String? Code { get; set; }
         public SupplierStatus Status { get; set; }
-
 
         public Guid? DefaultTaxCodeUid { get; set; }
         [ForeignKey("DefaultTaxCodeUid")]
         public virtual Taxes.TaxCode DefaultTaxCode { get; set; }
-
-
 
         public int CountPurchases { get; set; }
         public Decimal SumPurchaseBalance { get; set; }
@@ -36,9 +34,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
 
         public int CountBalance { get; internal set; }
-
         public Decimal CreditLimit { get; set; }
         public int CreditAgeLimit { get; set; }
+
+
+        public virtual ICollection<Purchase> Purchases { get; set; }
 
 
         public void SetActive()

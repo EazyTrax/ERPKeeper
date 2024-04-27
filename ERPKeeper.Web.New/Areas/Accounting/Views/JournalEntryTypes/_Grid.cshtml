@@ -22,8 +22,8 @@
         .Columns(columns =>
         {
 
-            columns.AddFor(m => m.Name).Width(300).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.Uid %>/"><%= data.Name %></a> </div></text>);
-            columns.AddFor(m => m.Detail).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.Uid %>/"><%= data.Memo %></a></div></text>);
+            columns.AddFor(m => m.Name).Width(300).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
+            columns.AddFor(m => m.Detail).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
 
         })
         )

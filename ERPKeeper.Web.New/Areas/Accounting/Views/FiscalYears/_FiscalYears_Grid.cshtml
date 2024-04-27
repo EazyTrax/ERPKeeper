@@ -20,7 +20,7 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc).CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.Uid %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc).CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.StartDate).Format(Format.ShortDate);
             columns.AddFor(m => m.EndDate).Format(Format.ShortDate);
             columns.AddFor(m => m.DayCount);
@@ -35,7 +35,7 @@
             columns.AddFor(m => m.IncomeBalance).Width(100).Format(Format.FixedPoint);
             columns.AddFor(m => m.ExpenseBalance).Width(100).Format(Format.FixedPoint);
             columns.AddFor(m => m.ProfitBalance).Width(100).Format(Format.FixedPoint);
-            columns.AddFor(m => m.PostStatus).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
         })
         .Summary(s => s.TotalItems(items =>
         {

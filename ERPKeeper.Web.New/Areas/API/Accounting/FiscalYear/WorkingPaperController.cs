@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.PeriodAccountsBalances
-                .Where(m => m.FiscalYearUid == FiscalYearId)
+                .Where(m => m.FiscalYearId == FiscalYearId)
                 .Include(m => m.Account)
                 .ToList()
                 .Select(m => new
@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
                     m.Account.Name,
                     m.Account.Code,
                     type = m.Account.Type.ToString(),
-                    subType = m.Account.SubEnumType.ToString(),
+                    subType = m.Account.SubType.ToString(),
                     m.OpeningDebit,
                     m.OpeningCredit,
                     m.Debit,

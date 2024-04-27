@@ -12,7 +12,7 @@
                             <div class="mb-3 font-weight-600">Customer</div>
                         </div>
                         <div class="col-2 p-0 text-right">
-                            <a href="/Profiles/@Model.ProfileGuid">
+                            <a href="/Profiles/@Model.CustomerId">
                                 <span class="material-icons-outlined">
                                     badge
                                 </span>
@@ -37,7 +37,7 @@
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m=>m.TaxCodeId)
-                        .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Uid, t.Name }).ToList())
+                        .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
                         .Placeholder("Choose Tax Code")
                         .DisplayExpr("Name")
                         .ValueExpr("Id")
@@ -56,7 +56,7 @@
                         <div class="mb-3 font-weight-600">Projects</div>
 
                         @(Html.DevExtreme().SelectBoxFor(m=>m.ProjectGuid)
-                        .DataSource(Organization.Projects.ListAll().Select(t => new { t.Uid, t.Name }).ToList())
+                        .DataSource(Organization.Projects.ListAll().Select(t => new { t.Id, t.Name }).ToList())
                         .Placeholder("Choose Projects")
                         .DisplayExpr("Name")
                         .ValueExpr("Id")

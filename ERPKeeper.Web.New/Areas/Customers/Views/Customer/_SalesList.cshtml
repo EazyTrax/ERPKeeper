@@ -8,9 +8,9 @@
     .ID("gridList")
     .KeyExpr("Id")
     .DataSource(d => d.RemoteController().Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Sales/All")
-    .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Sales/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Sales/Update")
+    .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/Update")
     .UpdateMethod("Post")
     )
     .ShowRowLines(true)
@@ -40,7 +40,7 @@
     columns.Add().DataField("Name")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Customers/Sales/<%= data.Uid %>/"><%= data.Name %></a>
+            <a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a>
         </text>);
 
 

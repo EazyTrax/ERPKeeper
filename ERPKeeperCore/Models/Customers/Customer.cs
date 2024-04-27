@@ -22,6 +22,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
 
+        public Guid ProfileId => Profile.Id;
+
         public String? Code { get; set; }
         public CustomerStatus Status { get; set; }
 
@@ -31,7 +33,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public Decimal CountBalance { get; set; }
         public int CountSales { get; set; }
-
+        public virtual ICollection<Sale> Sales { get; set; }
         public void Update(Customer customer)
         {
 

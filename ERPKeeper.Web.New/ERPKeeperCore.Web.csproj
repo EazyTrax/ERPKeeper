@@ -109,6 +109,7 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Accounting\Views\Shared\Components\" />
     <Folder Include="Areas\API\Accounting\ChartOfAccount\" />
     <Folder Include="Areas\API\Accounting\Ledgers\" />
     <Folder Include="Areas\API\Accounting\DefaultAccounts\" />

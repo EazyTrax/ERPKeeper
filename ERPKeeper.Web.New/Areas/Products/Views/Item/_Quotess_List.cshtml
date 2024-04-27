@@ -1,37 +1,5 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
 
-@{
-    var Quotes = Organization
-                                              .ErpNodeDBContext
-                                              .EstimateItems
-                                              .Include("Quote")
-                                              .Where(i=>i.ItemGuid == Model.Id && i.QuoteId!=null)
-                                              .ToList()
-                                              .Select(i => new
-                                              {
-                                                  i.Uid,
-                                                  Quote = new
-                                                  {
-                                                      i.Quote.Uid,
-                                                      i.Quote.TrnDate,
-                                                      i.Quote.Status,
-                                                      i.Quote.Reference,
-
-                                                      Profile = new
-                                                      {
-                                                          i.Quote.Profile.Uid,
-                                                          i.Quote.Profile.Name
-                                                      },
-
-                                                  },
-                                                  i.Amount,
-                                                  i.UnitPrice,
-                                                  i.LineTotal,
-
-                                              }).ToList();
-
-
-}
 
 
 <style>
@@ -45,7 +13,7 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
-    .DataSource(Quotes)
+    
     .RowAlternationEnabled(true)
     .KeyExpr("Id")
     .ShowRowLines(true)

@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 
 <div class="mb-2 border-top">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYears.PeriodAccountBalance>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYearAccountBalance>()
             .ID("LedgerList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/Incomes/All"))
@@ -22,14 +22,14 @@
                 .ValueExpr("Value")
                 );
 
-                columns.AddFor(m => m.Account.SubEnumType).SortOrder(SortOrder.Asc).SortIndex(2)
+                columns.AddFor(m => m.Account.SubType).SortOrder(SortOrder.Asc).SortIndex(2)
                 .HeaderCellTemplate("SubType").Width(200).Lookup(lookup => lookup
                 .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                 .DisplayExpr("Text")
                 .ValueExpr("Value")
                 );
                 columns.AddFor(m => m.AccountGuid)
-                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .HeaderCellTemplate(@<text>Account</text>);
 
                 columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);

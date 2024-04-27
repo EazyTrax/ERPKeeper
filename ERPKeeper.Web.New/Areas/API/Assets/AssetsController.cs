@@ -46,7 +46,7 @@ namespace ERPKeeperCore.Web.API.Assets
         {
             var model = Organization.ErpCOREDBContext.Assets.Find(key);
 
-            if (model.PostStatus == Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+            if (!model.IsPosted)
             {
                 JsonConvert.PopulateObject(values, model);
                 Organization.ErpCOREDBContext.SaveChanges();

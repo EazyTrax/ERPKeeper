@@ -33,6 +33,25 @@ namespace ERPKeeperCore.Enterprise.DAL
         private DAL.Items _Items;
 
 
+        public DAL.Sales Sales;
+        public DAL.Purchases Purchases;
+
+        public DAL.Customers Customers;
+        public DAL.Suppliers Suppliers;
+        public DAL.Employees Employees;
+        public DAL.Investors Investors;
+
+        public EnterpriseRepo()
+        {
+            Sales = new Sales(this);
+            Purchases = new Purchases(this);
+            Customers = new Customers(this);
+            Suppliers = new Suppliers(this);
+            Employees = new Employees(this);
+            Investors = new Investors(this);
+
+        }
+
 
         public DAL.Accounting.ChartOfAccounts ChartOfAccount
         {

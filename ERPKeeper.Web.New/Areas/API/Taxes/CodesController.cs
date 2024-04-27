@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.API.Taxes
             JsonConvert.PopulateObject(values, model);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
-            model.Uid = Guid.NewGuid();
+            
             Organization.ErpCOREDBContext.TaxCodes.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();

@@ -11,6 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Projects;
 using ERPKeeperCore.Enterprise.Models.Financial;
+using ERPKeeperCore.Enterprise.Models.Employment;
 
 namespace ERPKeeperCore.Enterprise.DBContext
 {
@@ -76,19 +77,20 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Models.Items.Brand> Brands { get; set; }
 
         public DbSet<FiscalYear> FiscalYears { get; set; }
+        public DbSet<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
+
         public DbSet<Account> Accounts { get; set; }
 
 
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<JournalEntryItem> JournalEntryItems { get; set; }
         public DbSet<JournalEntryType> JournalEntryTypes { get; set; }
-
         public DbSet<DefaultAccount> DefaultAccounts { get; set; }
 
 
 
         public DbSet<Transaction> Transactions { get; set; }
-
+        public DbSet<TransactionLedger> TransactionLedgers { get; set; }
 
 
 
@@ -112,7 +114,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
 
         public DbSet<Models.PaymentTerm> PaymentTerms { get; set; }
-        public DbSet<Models.Equity.Investor> Investers { get; set; }
+        public DbSet<Models.Equity.Investor> Investors { get; set; }
 
         public DbSet<Purchase> Purchases { get; set; }
 
@@ -130,6 +132,14 @@ namespace ERPKeeperCore.Enterprise.DBContext
         #endregion
 
 
+
+        #region Financial
+        public DbSet<Employee > Employees { get; set; }
+        public DbSet<EmployeePayment> EmployeePayments { get; set; }
+        public DbSet<EmployeePaymentItem> EmployeePaymentItems { get; set; }
+        public DbSet<EmployeePaymentPeriod> EmployeePaymentPeriods { get; set; }
+        public DbSet<EmployeePaymentType> EmployeePaymentTypes { get; set; }
+        #endregion
 
 
 

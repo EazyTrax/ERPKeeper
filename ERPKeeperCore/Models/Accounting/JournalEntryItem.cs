@@ -21,8 +21,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Models.Accounting.JournalEntry JournalEntry { get; set; }
 
 
-        public Guid AccountUid { get; set; }
-        [ForeignKey("AccountUid")]
+        public Guid AccountId { get; set; }
+        [ForeignKey("AccountId")]
         public virtual Accounting.Account Account { get; set; }
 
         public Decimal? Debit { get; set; }
@@ -37,7 +37,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public void Update(JournalEntryItem item)
         {
-            this.AccountUid = item.AccountUid;
+            this.AccountId = item.AccountId;
             this.Debit = item.Debit;
             this.Credit = item.Credit;
             this.Memo = item.Memo;

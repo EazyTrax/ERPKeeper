@@ -1,4 +1,6 @@
-﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+﻿
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Employment.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -21,9 +23,9 @@ namespace ERPKeeperCore.Enterprise.Models.Employment
 
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
-
+        public Guid ProfileId => Profile.Id;
         public String? Code { get; set; }
-        public CustomerStatus Status { get; set; }
+        public EmployeeStatus Status { get; set; }
 
 
 

@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.API.Assets.Asset
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.DeprecateSchedules
-                .Where(m => m.AssetUid == AssetId);
+                .Where(m => m.AssetId == AssetId);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

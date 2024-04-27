@@ -5,11 +5,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Estimates/All")
-    .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Estimates/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Estimates/Update")
+    .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Estimates/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Estimates/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Estimates/Update")
     .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Estimates/Delete")
+    .DeleteUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Estimates/Delete")
     .DeleteMethod("Post")
     )
     .RowAlternationEnabled(true)
@@ -43,7 +43,7 @@
     columns.Add().DataField("Name")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Customers/Estimates/<%= data.Uid %>/">
+            <a href="/@CompanyId/Customers/Estimates/<%= data.Id %>/">
                 <%= data.Name %>
             </a>
         </text>);

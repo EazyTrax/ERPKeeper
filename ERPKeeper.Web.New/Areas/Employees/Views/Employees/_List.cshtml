@@ -1,7 +1,7 @@
 ﻿<div id="treeListDemo" class="mb-3">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employment.Employee>()
     .ID("gridList")
-    .DataSource(d => d.RemoteController().Key("ProfileUid")
+    .DataSource(d => d.RemoteController().Key("Id")
     .LoadUrl($"/API/Employment/Employees/All")
     .InsertUrl($"/API/Employment/Employees/Insert")
     .UpdateUrl($"/API/Employment/Employees/Update")
@@ -9,7 +9,7 @@
     .DeleteUrl($"/API/Employment/Employees/Delete")
     .DeleteMethod("Post")
     )
-    .KeyExpr("ProfileUid")
+    .KeyExpr("Id")
     .RowAlternationEnabled(true)
     .ShowRowLines(true)
     .ShowBorders(false)
@@ -41,18 +41,18 @@
     .ValueExpr("Value")
     );
 
-         columns.AddFor(m=>m.ProfileUid).Width(150)
+         columns.AddFor(m=>m.ProfileId).Width(150)
     .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.TaxNumber}))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX Id</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
 
-    columns.AddFor(m=>m.ProfileUid).Width(80)
+    columns.AddFor(m=>m.ProfileId).Width(80)
     .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.ShotName}))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -60,8 +60,8 @@
             .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
 
         
-    columns.AddFor(m=>m.ProfileUid).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.Name}))
+    columns.AddFor(m=>m.ProfileId).Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -70,7 +70,7 @@
 
     columns.AddFor(m=>m.PositionGuid)
     .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Uid, Text = i.Title}))
+            .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Id, Text = i.Title}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TAX Id</text>)

@@ -25,6 +25,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.Customers.ToList();
         }
 
+        public int Count() => erpNodeDBContext.Customers.Count();
 
 
         public Customer? Find(Guid Id) => erpNodeDBContext.Customers.Find(Id);

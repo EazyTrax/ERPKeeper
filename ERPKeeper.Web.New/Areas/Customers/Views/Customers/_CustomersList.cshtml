@@ -2,7 +2,7 @@
 <div id="treeListDemo" class="mb-3">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Customer>()
     .ID("gridList")
-    .DataSource(d => d.RemoteController().Key("ProfileUid")
+    .DataSource(d => d.RemoteController().Key("Id")
     .LoadUrl($"/API/{CompanyId}/Customers/Customers/All")
   @*  .InsertUrl($"/API/{CompanyId}/Customers/Customers/Insert")
     .UpdateUrl($"/API/{CompanyId}/Customers/Customers/Update")
@@ -10,7 +10,7 @@
     .DeleteUrl($"/API/{CompanyId}/Customers/Customers/Delete")
     .DeleteMethod("Post")*@
     )
-    .KeyExpr("ProfileUid")
+    .KeyExpr("Id")
     .RowAlternationEnabled(true)
     
         @*.ExpandedRowKeys(new[] { 1 })*@
@@ -38,18 +38,18 @@
             .ShowDragIcons(false)*@
     )
     .Columns(columns => {
-    columns.AddFor(m=>m.ProfileUid).Width(150)
+    columns.AddFor(m=>m.ProfileId).Width(150)
     .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.TaxNumber}))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
 
-    columns.AddFor(m=>m.ProfileUid).Width(80)
+    columns.AddFor(m=>m.ProfileId).Width(80)
     .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.ShotName}))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -57,8 +57,8 @@
             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
 
         
-    columns.AddFor(m=>m.ProfileUid).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Uid, Text = i.Name}))
+    columns.AddFor(m=>m.ProfileId).Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)

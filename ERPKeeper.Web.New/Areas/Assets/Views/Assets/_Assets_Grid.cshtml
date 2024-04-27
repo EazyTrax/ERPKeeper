@@ -42,12 +42,12 @@
             );
 
             columns.AddFor(m => m.StartDeprecationDate).Width(100).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
-            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Uid %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
 
             columns.AddFor(m => m.AssetTypeId)
             .HeaderCellTemplate(@<text>Type</text>)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Uid, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
@@ -55,7 +55,7 @@
             columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
 
             columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
-            columns.AddFor(m => m.PostStatus).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
         
             })
         .Summary(s => s.TotalItems(items =>

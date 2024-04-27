@@ -31,7 +31,7 @@
                     items.AddSimpleFor(m=>m.BrandGuid)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
-                    .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Uid, t.Name }).ToList())
+                    .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
                     .DisplayExpr("Name").ValueExpr("Id"));
 
                     items.AddSimpleFor(m=>m.Status).Editor(e=>e.SelectBox()
@@ -84,7 +84,7 @@
                     items.AddSimpleFor(m=>m.IncomeAccountUid)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
-                    .DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Uid, t.Name }).ToList())
+                    .DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).ToList())
                     .DisplayExpr("Name").ValueExpr("Id"));
 
 
@@ -111,7 +111,7 @@
                     items.AddSimpleFor(m=>m.PurchaseAccountUid)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
-                    .DataSource(Organization.ChartOfAccount.GetAccountsList().OrderBy(m=>m.Name).Select(t => new {t.Type, t.Uid, t.Name }).ToList())
+                    .DataSource(Organization.ChartOfAccount.GetAccountsList().OrderBy(m=>m.Name).Select(t => new {t.Type, t.Id, t.Name }).ToList())
                     .DataSourceOptions(o => o.Group("Type"))
                     .Grouped(true)
                     .GroupTemplate(@<text><div class="custom-icon"><span class="dx-icon-box icon"></span><%- key %></div></text>)

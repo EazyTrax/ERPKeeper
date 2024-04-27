@@ -15,6 +15,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
     {
         [Key]
         public Guid Id { get; set; }
+        public bool IsPosted { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
         public String? Code { get; set; }

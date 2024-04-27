@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.API.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Customers.First(a => a.ProfileId == key);
+            var model = Organization.ErpCOREDBContext.Customers.Find(key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -49,7 +49,7 @@ namespace ERPKeeperCore.Web.API.Customers
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.Customers.First(a => a.ProfileId == key);
+            var model = Organization.ErpCOREDBContext.Customers.Find(key);
             Organization.ErpCOREDBContext.Customers.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }

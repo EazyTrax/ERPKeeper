@@ -18,8 +18,8 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.PeriodAccountsBalances
-                .Where(m => m.FiscalYearUid == FiscalYearId)
+            var returnModel = Organization.ErpCOREDBContext.FiscalYearAccountBalances
+                .Where(m => m.FiscalYearId == FiscalYearId)
                 .Include(m => m.Account);
 
             return DataSourceLoader.Load(returnModel, loadOptions);

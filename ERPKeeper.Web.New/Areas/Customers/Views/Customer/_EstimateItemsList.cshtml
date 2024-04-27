@@ -7,7 +7,7 @@
                                         .EstimateItems
                                         .Include("Item")
                                         .Where(c => c.Quote.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.SaleQuote)
-                                        .Where(c => c.Quote.ProfileGuid == Model.ProfileUid)
+                                        .Where(c => c.Quote.ProfileGuid == Model.ProfileId)
                                         .ToList()
                                         .Select(i =>
                                             new
@@ -43,7 +43,7 @@
 
 
 <div id="treeListDemo" class="mb-3">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
     .ID("gridList")
     .DataSource(items)
     .KeyExpr("Id")
