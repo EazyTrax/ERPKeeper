@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Profiles.Controllers
+namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
 {
     [Route("/Profiles/{ProfileUid:Guid}/{action=Index}")]
     public class ProfileController : Base_ProfilesController
@@ -15,37 +15,37 @@ namespace ERPKeeper.Web.New.Areas.Profiles.Controllers
 
         public IActionResult Index()
         {
-            var customer = Organization.Profiles.Find(ProfileUid);
+            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Addresses()
         {
-            var customer = Organization.Profiles.Find(ProfileUid);
+            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Contacts()
         {
-            var customer = Organization.Profiles.Find(ProfileUid);
+            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Roles()
         {
-            var customer = Organization.Profiles.Find(ProfileUid);
+            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
             return View(customer);
         }
 
 
         [HttpPost]
-        public IActionResult Update(ERPKeeper.Node.Models.Profiles.Profile model)
+        public IActionResult Update(ERPKeeperCore.Enterprise.Models.Profiles.Profile model)
         {
-            var profile = Organization.Profiles.Find(ProfileUid);
+            var profile = EnterpriseRepo.Profiles.Find(ProfileUid);
 
             profile.Name = model.Name;
             profile.ShotName = model.ShotName;
             profile.TaxNumber = model.TaxNumber;
             profile.WebSite = model.WebSite;
             profile.PhoneNumber = model.PhoneNumber;
-            Organization.SaveChanges();
+            EnterpriseRepo.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

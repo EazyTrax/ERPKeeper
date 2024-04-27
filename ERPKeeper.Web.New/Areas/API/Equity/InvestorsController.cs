@@ -7,13 +7,13 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Equity
+namespace ERPKeeperCore.Web.API.Equity
 {
-    public class InvestorsController : BaseController
+    public class InvestorsController : API_Equity_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.Investors
+            var returnModel = Organization.ErpCOREDBContext.Investors
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -23,14 +23,14 @@ namespace ERPKeeper.Web.New.API.Equity
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Equity.Investor();
+            var model = new ERPKeeperCore.Enterprise.Models.Equity.Investor();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpNodeDBContext.Investors.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.Investors.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -39,18 +39,18 @@ namespace ERPKeeper.Web.New.API.Equity
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.Investors.First(a => a.ProfileUid == key);
+            var model = Organization.ErpCOREDBContext.Investors.First(a => a.ProfileId == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.Investors.First(a => a.ProfileUid == key);
-            Organization.ErpNodeDBContext.Investors.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.Investors.First(a => a.ProfileId == key);
+            Organization.ErpCOREDBContext.Investors.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

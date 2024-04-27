@@ -1,5 +1,5 @@
-﻿using ERPKeeper.Node.Models.Accounting;
-using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
+namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
     [Route("/{CompanyId}/{area}/JournalEntryTypes/{JournalEntryTypeId:Guid}/{action=Index}")]
     public class JournalEntryTypeController : AccountingBaseController
@@ -20,7 +20,7 @@ namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = Organization.JournalEntryTypes.Find(JournalEntryTypeId);
+            var model = EnterpriseRepo.JournalEntryTypes.Find(JournalEntryTypeId);
             return View(model);
         }
 

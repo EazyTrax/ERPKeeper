@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Assets.Controllers
+namespace ERPKeeperCore.Web.Areas.Assets.Controllers
 {
     [Area("Assets")]
     public class Base_AssetsController : BaseNodeController

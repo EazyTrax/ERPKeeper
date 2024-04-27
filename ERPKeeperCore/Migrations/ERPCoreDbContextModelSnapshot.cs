@@ -89,7 +89,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("ERP_Accounting_Default_Account");
+                    b.ToTable("DefaultAccounts");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear", b =>
@@ -113,7 +113,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ERP_Fiscal_Years");
+                    b.ToTable("FiscalYears");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.FiscalYearAccountBalance", b =>
@@ -164,15 +164,43 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostStatus")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalCredit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalDebit")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransactionId");
+
+                    b.ToTable("TransactionLedger");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.Asset", b =>
@@ -501,7 +529,90 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ERP_Datum");
+                    b.ToTable("DataItems");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("AmountFee")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AmountwithDraw")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("BankFeeAccountGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DepositAccountGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("No")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalCredit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalDebit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("WithDrawAccountGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankFeeAccountGuid");
+
+                    b.HasIndex("DepositAccountGuid");
+
+                    b.HasIndex("WithDrawAccountGuid");
+
+                    b.ToTable("FundTransfers");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransferItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("CreditAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("DebitAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid>("FundTransferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("FundTransferId");
+
+                    b.ToTable("FundTransferItems");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Items.Brand", b =>
@@ -738,7 +849,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("ERP_Profiles_Addresses");
+                    b.ToTable("ProfileAddresses");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Profiles.ProfileBankAccount", b =>
@@ -767,7 +878,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("ERP_Profiles_BankAccount");
+                    b.ToTable("ProfileBankAccounts");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Profiles.ProfileContact", b =>
@@ -801,7 +912,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("ERP_Profiles_ContactPerson");
+                    b.ToTable("ProfileContacts");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Profiles.ProfileRole", b =>
@@ -823,7 +934,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("ERP_Profile_Roles");
+                    b.ToTable("ProfileRoles");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Projects.Project", b =>
@@ -868,6 +979,35 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Security.Member", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastLogin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Members");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
                 {
                     b.Property<Guid>("Id")
@@ -892,10 +1032,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("SupplyerAddressId")
+                    b.Property<Guid?>("SupplierAddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SupplyerId")
+                    b.Property<Guid?>("SupplierId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Tax")
@@ -910,11 +1050,18 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.HasIndex("TaxCodeId");
 
                     b.HasIndex("TaxPeriodId");
+
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("Purchases");
                 });
@@ -1149,6 +1296,25 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithMany("Ledgers")
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Transaction");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.Asset", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Assets.AssetType", "AssetType")
@@ -1264,6 +1430,46 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Sale");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "BankFeeAccount")
+                        .WithMany()
+                        .HasForeignKey("BankFeeAccountGuid");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "DepositAccount")
+                        .WithMany()
+                        .HasForeignKey("DepositAccountGuid");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "WithDrawAccount")
+                        .WithMany()
+                        .HasForeignKey("WithDrawAccountGuid");
+
+                    b.Navigation("BankFeeAccount");
+
+                    b.Navigation("DepositAccount");
+
+                    b.Navigation("WithDrawAccount");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransferItem", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "FundTransfer")
+                        .WithMany("Items")
+                        .HasForeignKey("FundTransferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("FundTransfer");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Items.Item", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Items.Brand", "Brand")
@@ -1338,6 +1544,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
                 {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxCode", "TaxCode")
                         .WithMany()
                         .HasForeignKey("TaxCodeId");
@@ -1346,9 +1556,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("TaxPeriodId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
+
+                    b.Navigation("Supplier");
+
                     b.Navigation("TaxCode");
 
                     b.Navigation("TaxPeriod");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseItem", b =>
@@ -1438,6 +1656,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("FiscalYearAccountBalances");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
+                {
+                    b.Navigation("Ledgers");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.Asset", b =>
                 {
                     b.Navigation("DepreciationSchedules");
@@ -1449,6 +1672,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Customers.Sale", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
                 {
                     b.Navigation("Items");
                 });

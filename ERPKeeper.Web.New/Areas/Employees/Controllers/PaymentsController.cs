@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Employees.Controllers
+namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 {
 
     public class PaymentsController : Base_EmployeesController
@@ -14,9 +14,9 @@ namespace ERPKeeper.Web.New.Areas.Employees.Controllers
         public IActionResult Index() => View();
         public ActionResult Refresh()
         {
-            foreach (var payment in Organization.ErpNodeDBContext.EmployeePayments.ToList())
+            foreach (var payment in EnterpriseRepo.ErpCOREDBContext.EmployeePayments.ToList())
                 payment.Calculate();
-            Organization.SaveChanges();
+            EnterpriseRepo.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

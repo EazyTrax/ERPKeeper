@@ -8,15 +8,15 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Accounting.FiscalYear
+namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
 {
     public class JournalsController : FiscalYearBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var fiscalYear = Organization.ErpNodeDBContext.FiscalYears.First(a => a.Uid == FiscalYearId);
+            var fiscalYear = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Uid == FiscalYearId);
 
-            var returnModel = Organization.ErpNodeDBContext
+            var returnModel = Organization.ErpCOREDBContext
                 .TransactionLedgers
                 .Where(j =>
                     DbFunctions.TruncateTime(j.TrnDate) >= DbFunctions.TruncateTime(fiscalYear.StartDate) &&
@@ -31,9 +31,9 @@ namespace ERPKeeper.Web.New.API.Accounting.FiscalYear
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.TransactionLedgers.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.TransactionLedgers.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 

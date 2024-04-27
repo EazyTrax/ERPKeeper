@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Accounting
+namespace ERPKeeperCore.Web.API.Accounting
 {
-    public class FiscalYearsController : AccountingBaseController
+    public class FiscalYearsController : API_Accounting_BaseController
     {
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.FiscalYears;
+            var returnModel = Organization.ErpCOREDBContext.FiscalYears;
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
@@ -24,14 +24,14 @@ namespace ERPKeeper.Web.New.API.Accounting
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Accounting.FiscalYear();
+            var model = new ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear();
             JsonConvert.PopulateObject(values, model);
             model.Uid = Guid.NewGuid();
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpNodeDBContext.FiscalYears.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.FiscalYears.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -40,18 +40,18 @@ namespace ERPKeeper.Web.New.API.Accounting
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.FiscalYears.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.FiscalYears.First(a => a.Uid == key);
-            Organization.ErpNodeDBContext.FiscalYears.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.FiscalYears.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

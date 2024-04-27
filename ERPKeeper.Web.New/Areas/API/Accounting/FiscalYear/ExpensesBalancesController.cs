@@ -5,18 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using ERPKeeper.Web.New.API.Accounting;
-using ERPKeeper.Web.New.API.Accounting.FiscalYear;
+using ERPKeeperCore.Web.API.Accounting;
+using ERPKeeperCore.Web.API.Accounting.FiscalYear;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Accounting.FiscalYear
+namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
 {
     public class ExpensesController : FiscalYearBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.PeriodAccountsBalances
+            var returnModel = Organization.ErpCOREDBContext.PeriodAccountsBalances
                 .Where(m => m.FiscalYearUid == FiscalYearId && m.Account.Type == Node.Models.Accounting.AccountTypes.Expense)
                 .Include(m => m.Account);
 

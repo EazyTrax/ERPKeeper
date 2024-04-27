@@ -7,14 +7,14 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Taxes
+namespace ERPKeeperCore.Web.API.Taxes
 {
 
-    public class CodesController : IncomeTaxes_BaseController
+    public class CodesController : API_Taxes_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.TaxCodes;
+            var returnModel = Organization.ErpCOREDBContext.TaxCodes;
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
@@ -22,13 +22,13 @@ namespace ERPKeeper.Web.New.API.Taxes
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Taxes.TaxCode();
+            var model = new ERPKeeperCore.Enterprise.Models.Taxes.TaxCode();
             JsonConvert.PopulateObject(values, model);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
             model.Uid = Guid.NewGuid();
-            Organization.ErpNodeDBContext.TaxCodes.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.TaxCodes.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
@@ -36,9 +36,9 @@ namespace ERPKeeper.Web.New.API.Taxes
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.TaxCodes.Find(key);
+            var model = Organization.ErpCOREDBContext.TaxCodes.Find(key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
@@ -47,9 +47,9 @@ namespace ERPKeeper.Web.New.API.Taxes
         {
             try
             {
-                var model = Organization.ErpNodeDBContext.TaxCodes.Find(key);
-                Organization.ErpNodeDBContext.TaxCodes.Remove(model);
-                Organization.ErpNodeDBContext.SaveChanges();
+                var model = Organization.ErpCOREDBContext.TaxCodes.Find(key);
+                Organization.ErpCOREDBContext.TaxCodes.Remove(model);
+                Organization.ErpCOREDBContext.SaveChanges();
 
             }
             catch (Exception) { }

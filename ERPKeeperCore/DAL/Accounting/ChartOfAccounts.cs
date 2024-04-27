@@ -1,5 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Accounting;
-using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;

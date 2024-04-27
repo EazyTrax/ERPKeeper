@@ -1,10 +1,10 @@
-﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
 
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.CommercialShipment>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialShipment>()
     .ID("gridList")
     .Editing(editing => {
         editing.Mode(GridEditMode.Row);

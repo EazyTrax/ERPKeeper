@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Customers.Controllers
+namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     [Area("Customers")]
     public class Base_CustomersController : BaseNodeController

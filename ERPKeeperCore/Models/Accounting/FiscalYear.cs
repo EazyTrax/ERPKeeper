@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
-    [Table("ERP_Fiscal_Years")]
     public class FiscalYear
     {
         [Key]

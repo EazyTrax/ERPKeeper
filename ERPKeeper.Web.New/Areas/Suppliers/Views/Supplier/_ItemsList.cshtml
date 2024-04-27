@@ -1,6 +1,6 @@
 ﻿
 
-@model ERPKeeper.Node.Models.Suppliers.Supplier
+@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
 
 @{
@@ -8,7 +8,7 @@
         .ErpNodeDBContext
         .CommercialItems
         .Include("Item")
-        .Where(c => c.Commercial.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase)
+        .Where(c => c.Commercial.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Purchase)
         .Where(c => c.Commercial.ProfileGuid == Model.ProfileUid)
         .GroupBy(g => g.ItemGuid)
         .Select(g => new { ItemGuid = g.Key, Item = g.FirstOrDefault().Item, CommercialItems = g.ToList(), count = g.Count() , amount = g.Sum(i=>i.Amount)})

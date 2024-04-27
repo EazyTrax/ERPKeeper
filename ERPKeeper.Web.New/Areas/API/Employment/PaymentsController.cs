@@ -7,13 +7,13 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Employment
+namespace ERPKeeperCore.Web.API.Employment
 {
-    public class PaymentsController : BaseController
+    public class PaymentsController : API_Employment_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.EmployeePayments
+            var returnModel = Organization.ErpCOREDBContext.EmployeePayments
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -23,14 +23,14 @@ namespace ERPKeeper.Web.New.API.Employment
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Employees.EmployeePayment();
+            var model = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpNodeDBContext.EmployeePayments.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.EmployeePayments.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -39,18 +39,18 @@ namespace ERPKeeper.Web.New.API.Employment
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.EmployeePayments.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.EmployeePayments.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.EmployeePayments.First(a => a.Uid == key);
-            Organization.ErpNodeDBContext.EmployeePayments.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.EmployeePayments.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.EmployeePayments.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

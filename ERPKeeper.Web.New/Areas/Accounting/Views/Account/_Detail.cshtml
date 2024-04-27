@@ -1,5 +1,5 @@
-﻿@model ERPKeeper.Node.Models.Accounting.AccountItem
-@using ERPKeeper.Node.Models.Accounting
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Account
+@using ERPKeeperCore.Enterprise.Models.Accounting
 
 @{
     var item = new
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-6 p-1 mb-2">
                 <div class="p-1">
-                    @(Html.DevExtreme().Form<ERPKeeper.Node.Models.Accounting.AccountItem>()
+                    @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_0")
                         .FormData(item)
                         .LabelMode(FormLabelMode.Static)
@@ -43,12 +43,12 @@
 
                             items.AddSimpleFor(m => m.Type).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
-                            .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.SubEnumType).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
-                            .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.IsLiquidity);
@@ -63,7 +63,7 @@
             </div>
             <div class="col-6 p-1 mb-2">
                 <div class="p-1">
-                    @(Html.DevExtreme().Form<ERPKeeper.Node.Models.Accounting.AccountItem>()
+                    @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_1")
                         .FormData(item)
                         .LabelMode(FormLabelMode.Static)

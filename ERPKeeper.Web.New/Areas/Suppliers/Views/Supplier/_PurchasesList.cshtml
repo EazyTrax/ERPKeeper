@@ -1,6 +1,6 @@
 ﻿
 
-@model ERPKeeper.Node.Models.Suppliers.Supplier
+@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
 
 
@@ -10,7 +10,7 @@
                                 .Commercials
                                 .Include("Profile")
                                 .Where(c => c.ProfileGuid == Model.ProfileUid)
-                                .Where(c => c.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase)
+                                .Where(c => c.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Purchase)
                                 .OrderByDescending(c => c.TrnDate)
                                 .Select(i => new
                                 {
@@ -36,7 +36,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.Commercials.Purchase>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.Commercials.Purchase>()
     .ID("gridList")
     .DataSource(Purchases)
 
@@ -65,7 +65,7 @@
 
     columns.AddFor(m=>m.TrnDate).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
     columns.AddFor(m=>m.Status).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeper.Node.Models.Transactions.CommercialStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Transactions.CommercialStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );

@@ -1,6 +1,6 @@
 using System;
 
-namespace ERPKeeper.Web.New.Models
+namespace ERPKeeperCore.Web.Models
 {
     public class ErrorViewModel
     {

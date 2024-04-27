@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERPKeeper.Web.New.API.Operation
+namespace ERPKeeperCore.Web.API.Operation
 {
     [Route("/API/Operations/{controller}/{action=Index}")]
-    public class BaseController : APIBaseController
+    public class API_Operations_BaseController : API_BaseController
     {
  
 

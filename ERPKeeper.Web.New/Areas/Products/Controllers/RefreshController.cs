@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Products.Controllers
+namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
 
     [Route("/{CompanyId}/{area}/{controller=Home}/{action=Index}")]
@@ -14,8 +14,8 @@ namespace ERPKeeper.Web.New.Areas.Products.Controllers
     {
         public IActionResult Stock()
         {
-            Organization.InventoryItemsDal.UpdateStockAmount();
-            Organization.InventoryItemsDal.UpdateEstimateAmount();
+            EnterpriseRepo.InventoryItemsDal.UpdateStockAmount();
+            EnterpriseRepo.InventoryItemsDal.UpdateEstimateAmount();
 
 
             return Redirect(Request.Headers["Referer"].ToString());

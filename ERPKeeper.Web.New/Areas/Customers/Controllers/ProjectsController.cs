@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace ERPKeeper.Web.New.Areas.Customers.Controllers
+namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
     public class ProjectsController : Base_CustomersController
@@ -17,9 +17,9 @@ namespace ERPKeeper.Web.New.Areas.Customers.Controllers
         }
         public IActionResult Create()
         {
-            var Project = Organization.Projects.Create("New Project", "N/A");
+            var Project = EnterpriseRepo.Projects.Create("New Project", "N/A");
          
-            Organization.SaveChanges();
+            EnterpriseRepo.SaveChanges();
 
             return Redirect($"/Customers/Projects/{Project.Uid}");
         }

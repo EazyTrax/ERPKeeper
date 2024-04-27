@@ -1,0 +1,253 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <StartupObject>ERPKeeper.Web.New.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Areas\API\Accounting - Copy\**" />
+    <Compile Remove="Areas\API\Accounting\FiscalYears\**" />
+    <Compile Remove="Areas\API\Accounting\JournalEntries\**" />
+    <Compile Remove="Areas\API\Expenses\**" />
+    <Compile Remove="Areas\API\Financial\**" />
+    <Compile Remove="Areas\API\Taxex\**" />
+    <Compile Remove="Areas\DashBoard\Data\**" />
+    <Compile Remove="Areas\DashBoard\Models\**" />
+    <Compile Remove="Areas\DashBoard\Views\Shared\Components\**" />
+    <Compile Remove="Areas\Documents\**" />
+    <Compile Remove="Areas\Portal\Data\**" />
+    <Compile Remove="Areas\Portal\Models\**" />
+    <Compile Remove="Areas\Portal\Views\Shared\Components\**" />
+    <Compile Remove="Areas\Products\Data\**" />
+    <Compile Remove="Areas\Products\Models\**" />
+    <Compile Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <Content Remove="Areas\API\Accounting - Copy\**" />
+    <Content Remove="Areas\API\Accounting\FiscalYears\**" />
+    <Content Remove="Areas\API\Accounting\JournalEntries\**" />
+    <Content Remove="Areas\API\Expenses\**" />
+    <Content Remove="Areas\API\Financial\**" />
+    <Content Remove="Areas\API\Taxex\**" />
+    <Content Remove="Areas\DashBoard\Data\**" />
+    <Content Remove="Areas\DashBoard\Models\**" />
+    <Content Remove="Areas\DashBoard\Views\Shared\Components\**" />
+    <Content Remove="Areas\Documents\**" />
+    <Content Remove="Areas\Portal\Data\**" />
+    <Content Remove="Areas\Portal\Models\**" />
+    <Content Remove="Areas\Portal\Views\Shared\Components\**" />
+    <Content Remove="Areas\Products\Data\**" />
+    <Content Remove="Areas\Products\Models\**" />
+    <Content Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <EmbeddedResource Remove="Areas\API\Accounting - Copy\**" />
+    <EmbeddedResource Remove="Areas\API\Accounting\FiscalYears\**" />
+    <EmbeddedResource Remove="Areas\API\Accounting\JournalEntries\**" />
+    <EmbeddedResource Remove="Areas\API\Expenses\**" />
+    <EmbeddedResource Remove="Areas\API\Financial\**" />
+    <EmbeddedResource Remove="Areas\API\Taxex\**" />
+    <EmbeddedResource Remove="Areas\DashBoard\Data\**" />
+    <EmbeddedResource Remove="Areas\DashBoard\Models\**" />
+    <EmbeddedResource Remove="Areas\DashBoard\Views\Shared\Components\**" />
+    <EmbeddedResource Remove="Areas\Documents\**" />
+    <EmbeddedResource Remove="Areas\Portal\Data\**" />
+    <EmbeddedResource Remove="Areas\Portal\Models\**" />
+    <EmbeddedResource Remove="Areas\Portal\Views\Shared\Components\**" />
+    <EmbeddedResource Remove="Areas\Products\Data\**" />
+    <EmbeddedResource Remove="Areas\Products\Models\**" />
+    <EmbeddedResource Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <None Remove="Areas\API\Accounting - Copy\**" />
+    <None Remove="Areas\API\Accounting\FiscalYears\**" />
+    <None Remove="Areas\API\Accounting\JournalEntries\**" />
+    <None Remove="Areas\API\Expenses\**" />
+    <None Remove="Areas\API\Financial\**" />
+    <None Remove="Areas\API\Taxex\**" />
+    <None Remove="Areas\DashBoard\Data\**" />
+    <None Remove="Areas\DashBoard\Models\**" />
+    <None Remove="Areas\DashBoard\Views\Shared\Components\**" />
+    <None Remove="Areas\Documents\**" />
+    <None Remove="Areas\Portal\Data\**" />
+    <None Remove="Areas\Portal\Models\**" />
+    <None Remove="Areas\Portal\Views\Shared\Components\**" />
+    <None Remove="Areas\Products\Data\**" />
+    <None Remove="Areas\Products\Models\**" />
+    <None Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+    <Content Remove="packages.config" />
+    <Content Remove="wwwroot\js\autogrow.min.js" />
+    <Content Remove="wwwroot\js\html5-qrcode-scanner.js" />
+    <Content Remove="wwwroot\js\html5-qrcode.js" />
+    <Content Remove="wwwroot\js\html5-qrcode.min.js" />
+    <Content Remove="wwwroot\js\jquery.qrcode.min.js" />
+    <Content Remove="wwwroot\js\qrcode.js" />
+    <Content Remove="wwwroot\js\qrcode.min.js" />
+    <Content Remove="wwwroot\js\stringify.js" />
+    <Content Remove="wwwroot\js\vendor.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\Less\BackGrounds.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Less\Borders.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Less\DevExtremeFix.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Less\Texts.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Site.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Site.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Site.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\API\Accounting\ChartOfAccount\" />
+    <Folder Include="Areas\API\Accounting\Ledgers\" />
+    <Folder Include="Areas\API\Accounting\DefaultAccounts\" />
+    <Folder Include="Areas\Authen\Data\" />
+    <Folder Include="Areas\Authen\Models\" />
+    <Folder Include="Areas\Authen\Views\Shared\Components\" />
+    <Folder Include="Areas\Employees\Views\Payment Stubs\" />
+    <Folder Include="Areas\Employees\Views\Position\" />
+    <Folder Include="Areas\Employees\Views\PaymentPeriod\" />
+    <Folder Include="Areas\Employees\Views\Payment\" />
+    <Folder Include="Areas\Suppliers\Data\" />
+    <Folder Include="Areas\Suppliers\Models\" />
+    <Folder Include="wwwroot\js\jquery-ui-1.13.1\" />
+    <None Include="Areas\Products\Views\Shared\Components\_Items_Groups\Default.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="packages.config" />
+    <None Include="wwwroot\js\autogrow.min.js" />
+    <None Include="wwwroot\js\html5-qrcode-scanner.js" />
+    <None Include="wwwroot\js\html5-qrcode.js" />
+    <None Include="wwwroot\js\html5-qrcode.min.js" />
+    <None Include="wwwroot\js\jquery.qrcode.min.js" />
+    <None Include="wwwroot\js\qrcode.js" />
+    <None Include="wwwroot\js\qrcode.min.js" />
+    <None Include="wwwroot\js\stringify.js" />
+    <None Include="wwwroot\js\vendor.js" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="23.2.4" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ERPKeeperCore\ERPKeeperCore.Enterprise.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Areas\Authen\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Authen\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Employees\Views\Home\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Employees\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Employees\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\Home\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\Home\_General.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\Home\_MenuTop.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\Home\_Tile.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\Shared\_LeftMenu.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\DashBoard\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\BackGrounds.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\Borders.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\DevExtremeFix.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\Height.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\Image.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\Layout.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\SiteCSS.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\Texts.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Less\Tile.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Site.less">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Site.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\sitecss.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jquery-ui.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\popper.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -7,14 +7,14 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Customers.Estimates.Estimate
+namespace ERPKeeperCore.Web.API.Customers.Estimates.Estimate
 {
     public class ItemsController : _EstimateBaseController
     {
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.EstimateItems
+            var returnModel = Organization.ErpCOREDBContext.EstimateItems
                 .Where(r => r.QuoteId == EstimateId)
                 .ToList();
 
@@ -25,15 +25,15 @@ namespace ERPKeeper.Web.New.API.Customers.Estimates.Estimate
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Estimations.QuoteItem();
+            var model = new ERPKeeperCore.Enterprise.Models.Estimations.QuoteItem();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
             model.QuoteId = EstimateId;
-            Organization.ErpNodeDBContext.EstimateItems.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.EstimateItems.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -42,18 +42,18 @@ namespace ERPKeeper.Web.New.API.Customers.Estimates.Estimate
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.EstimateItems.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.EstimateItems.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.EstimateItems.First(a => a.Uid == key);
-            Organization.ErpNodeDBContext.EstimateItems.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.EstimateItems.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.EstimateItems.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

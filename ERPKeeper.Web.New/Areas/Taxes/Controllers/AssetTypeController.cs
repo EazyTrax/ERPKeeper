@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,22 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace ERPKeeper.Web.New.Areas.Taxes.Controllers
+namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 {
     [Route("/{CompanyId}/{area}/AssetTypes/{AssetTypeId:Guid}/{action=Index}/{id?}")]
     public class AssetTypeController : Base_TaxesController
     {
         public IActionResult Index(Guid AssetTypeId)
         {
-            var AssetType = Organization.FixedAssetTypes.Find(AssetTypeId);
+            var AssetType = EnterpriseRepo.AssetTypes.Find(AssetTypeId);
             return View(AssetType);
         }
 
      
         [HttpPost]
-        public IActionResult Update(Guid AssetTypeId, ERPKeeper.Node.Models.Assets.FixedAssetType model)
+        public IActionResult Update(Guid AssetTypeId, ERPKeeperCore.Enterprise.Models.Assets.AssetType model)
         {
-            var AssetType = Organization.FixedAssetTypes.Find(AssetTypeId);
+            var AssetType = EnterpriseRepo.AssetTypes.Find(AssetTypeId);
 
             if (AssetType != null)
             {
@@ -34,7 +34,7 @@ namespace ERPKeeper.Web.New.Areas.Taxes.Controllers
                 //AssetType.ProjectUid = model.ProjectUid;
                 //AssetType.Detail = model.Detail;
 
-                Organization.SaveChanges();
+                EnterpriseRepo.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

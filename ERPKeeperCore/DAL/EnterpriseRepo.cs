@@ -8,6 +8,8 @@ using System.Linq;
 
 
 using ERPKeeperCore.Enterprise.Models;
+using ERPKeeperCore.Enterprise.Models.Assets;
+using ERPKeeperCore.Enterprise.Models.Items;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {
@@ -19,6 +21,15 @@ namespace ERPKeeperCore.Enterprise.DAL
         private DAL.Accounting.SystemAccounts _systemAccountsDal;
         private DAL.Accounting.FiscalYears _fiscalYearsDal;
         private DAL.Company.DataItems _DataItems;
+
+        private DAL.Projects _Projects;
+        private DAL.Assets _Assets;
+        private DAL.AssetTypes _AssetTypes;
+
+
+        private DAL.Members _Members;
+        private DAL.Items _Items;
+
 
 
         public DAL.Accounting.ChartOfAccounts ChartOfAccount
@@ -48,6 +59,56 @@ namespace ERPKeeperCore.Enterprise.DAL
                 return _DataItems;
             }
         }
+        public DAL.Projects Projects
+        {
+            get
+            {
+                if (this._Projects == null)
+                    this._Projects = new Projects(this);
+                return _Projects;
+            }
+        }
+        public DAL.Assets Assets
+        {
+            get
+            {
+                if (this._Assets == null)
+                    this._Assets = new Assets(this);
+                return _Assets;
+            }
+        }
+        public DAL.AssetTypes AssetTypes
+        {
+            get
+            {
+                if (this._AssetTypes == null)
+                    this._AssetTypes = new AssetTypes(this);
+                return _AssetTypes;
+            }
+        }
+
+
+        public DAL.Members Members
+        {
+            get
+            {
+                if (this._Members == null)
+                    this._Members = new Members(this);
+                return _Members;
+            }
+        }
+
+
+        public DAL.Items Items
+        {
+            get
+            {
+                if (this._Items == null)
+                    this._Items = new Items(this);
+                return _Items;
+            }
+        }
+
 
 
         public String? DatabaseName { get; private set; }
@@ -66,7 +127,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             this.ErpCOREDBContext = new ERPCoreDbContext(dbName, migratedDB);
         }
 
-     
+
         private void CreateSystemAccounts()
         {
             Console.WriteLine("> Create System Accounts");

@@ -10,6 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Projects;
+using ERPKeeperCore.Enterprise.Models.Financial;
 
 namespace ERPKeeperCore.Enterprise.DBContext
 {
@@ -77,6 +78,11 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<FiscalYear> FiscalYears { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<DefaultAccount> DefaultAccounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+
+
+
+
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<ProfileRole> ProfileRoles { get; set; }
         public DbSet<ProfileBankAccount> ProfileBankAccounts { get; set; }
@@ -111,7 +117,10 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
 
-
+        #region Financial
+        public DbSet<FundTransfer> FundTransfers { get; set; }
+        public DbSet<FundTransferItem> FundTransferItems { get; set; }
+        #endregion
 
 
 
@@ -126,7 +135,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
 
-
+        public DbSet<Models.Security.Member> Members { get; set; }
 
 
 

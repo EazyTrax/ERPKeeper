@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Products.Controllers
+namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
     [Route("/{CompanyId}/{area}/Items/{ItemUid:Guid}/{action=Index}")]
     public class ItemController : Base_ProductsController
     {
         public Guid ItemUid => Guid.Parse(RouteData.Values["ItemUid"].ToString());
-        public Node.Models.Items.Item Item => Organization.Items.Find(ItemUid);
+        public Enterprise.Models.Items.Item Item => EnterpriseRepo.Items.Find(ItemUid);
 
         public IActionResult Index() => View(Item);
         public IActionResult Estimates() => View(Item);
@@ -21,30 +21,30 @@ namespace ERPKeeper.Web.New.Areas.Products.Controllers
         public IActionResult Sales() => View(Item);
 
         [HttpPost]
-        public IActionResult Update(ERPKeeper.Node.Models.Items.Item model)
+        public IActionResult Update(ERPKeeperCore.Enterprise.Models.Items.Item model)
         {
-            Item.UpdateFromNewERP(model);
-            Organization.SaveChanges();
+
+            EnterpriseRepo.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public ActionResult Copy()
         {
-            var item = Organization.Items.Find(ItemUid);
-            var cloneItem = Organization.Items.Copy(item);
+            var item = EnterpriseRepo.Items.Find(ItemUid);
+            var cloneItem = EnterpriseRepo.Items.Copy(item);
             return Redirect($"/{CompanyId}/Products/Items/{cloneItem.Uid}");
         }
         public ActionResult Delete()
         {
-            var item = Organization.Items.Find(ItemUid);
-            Organization.Items.Delete(item.Uid);
+            var item = EnterpriseRepo.Items.Find(ItemUid);
+            EnterpriseRepo.Items.Delete(item.Uid);
 
             return Redirect($"/{CompanyId}/Products/Items/");
         }
 
         public IActionResult UpdateStock()
         {
-            Organization.InventoryItemsDal.UpdateStockAmount();
+            EnterpriseRepo.InventoryItemsDal.UpdateStockAmount();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

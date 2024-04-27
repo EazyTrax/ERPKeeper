@@ -1,4 +1,4 @@
-﻿@model ERPKeeper.Node.Models.Security.LogInModel
+﻿@model ERPKeeperCore.Enterprise.Models.Security.LogInModel
 
 
 <div id="AdvanbrandLoginForm" class="p-2">
@@ -14,8 +14,8 @@
         </div>
         <div class="row mt-2">
             <div class="col p-0 mb-2">
-                @Html.DevExtreme().TextBoxFor(m => m.Pin).Mode(TextBoxMode.Password)
-                <span asp-validation-for="Pin"></span>
+                @Html.DevExtreme().TextBoxFor(m => m.Password).Mode(TextBoxMode.Password)
+                <span asp-validation-for="Password"></span>
             </div>
         </div>
         <div class="row p-0 text-danger text-center">

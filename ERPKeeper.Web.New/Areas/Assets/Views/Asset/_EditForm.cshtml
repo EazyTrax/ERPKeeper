@@ -1,4 +1,4 @@
-﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+﻿@model ERPKeeperCore.Enterprise.Models.Assets.Asset
 
 <form id="EditForm" action="/@CompanyId/Assets/Assets/@Model.Uid/Update" method="post">
     <div class="row p-1 border-bottom border-2">
@@ -11,8 +11,8 @@
         <div class="col-6 p-1 mb-2 rounded">
             <div class="mb-2">
                 <div class="mb-3 font-weight-600">Type</div>
-                @(Html.DevExtreme().SelectBoxFor(m => m.FixedAssetTypeUid)
-                    .DataSource(Organization.FixedAssetTypes.All().Select(t => new { t.Uid, t.Name }).ToList())
+                @(Html.DevExtreme().SelectBoxFor(m => m.AssetTypeId)
+                    .DataSource(Organization.AssetTypes.All().Select(t => new { t.Uid, t.Name }).ToList())
                     .Placeholder("Choose Projects")
                     .DisplayExpr("Name")
                     .ValueExpr("Uid")

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERPKeeper.Web.New.Areas.Authen.Controllers
+namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
     [AllowAnonymous]
     public class SignOutController : BaseController

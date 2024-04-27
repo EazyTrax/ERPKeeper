@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERPKeeper.Web.New.API.Profiles.Profile
+namespace ERPKeeperCore.Web.API.Profiles.Profile
 {
     [Route("/API/Profiles/{ProfileId:Guid}/{controller}/{action=Index}")]
-    public class _ProfileBaseController : APIBaseController
+    public class _ProfileBaseController : API_BaseController
     {
  
         public Guid ProfileId => Guid.Parse(RouteData.Values["ProfileId"].ToString());

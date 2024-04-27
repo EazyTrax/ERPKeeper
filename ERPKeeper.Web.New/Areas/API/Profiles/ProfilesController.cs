@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Web.New.API.Profiles;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Profiles
+namespace ERPKeeperCore.Web.API.Profiles
 {
-    public class ProfilesController : _ProfilesBaseController
+    public class ProfilesController : API_Profiles_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.Profiles
+            var returnModel = Organization.ErpCOREDBContext.Profiles
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -23,15 +24,15 @@ namespace ERPKeeper.Web.New.API.Profiles
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Profiles.Profile();
+            var model = new ERPKeeperCore.Enterprise.Models.Profiles.Profile();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
 
-            Organization.ErpNodeDBContext.Profiles.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.Profiles.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -40,9 +41,9 @@ namespace ERPKeeper.Web.New.API.Profiles
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.Profiles.Find(key);
+            var model = Organization.ErpCOREDBContext.Profiles.Find(key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
@@ -51,9 +52,9 @@ namespace ERPKeeper.Web.New.API.Profiles
         {
             try
             {
-                var model = Organization.ErpNodeDBContext.Profiles.Find(key);
-                Organization.ErpNodeDBContext.Profiles.Remove(model);
-                Organization.ErpNodeDBContext.SaveChanges();
+                var model = Organization.ErpCOREDBContext.Profiles.Find(key);
+                Organization.ErpCOREDBContext.Profiles.Remove(model);
+                Organization.ErpCOREDBContext.SaveChanges();
 
             }
             catch (Exception) { }

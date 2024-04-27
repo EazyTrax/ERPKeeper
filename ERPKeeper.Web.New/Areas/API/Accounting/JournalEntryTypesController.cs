@@ -7,13 +7,13 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Accounting
+namespace ERPKeeperCore.Web.API.Accounting
 {
-    public class JournalEntryTypesController : AccountingBaseController
+    public class JournalEntryTypesController : API_Accounting_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.JournalEntryTypes;
+            var returnModel = Organization.ErpCOREDBContext.JournalEntryTypes;
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
@@ -22,15 +22,15 @@ namespace ERPKeeper.Web.New.API.Accounting
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Accounting.JournalEntryType();
+            var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType();
             JsonConvert.PopulateObject(values, model);
             model.Uid = Guid.NewGuid();
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpNodeDBContext.JournalEntryTypes.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.JournalEntryTypes.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -39,18 +39,18 @@ namespace ERPKeeper.Web.New.API.Accounting
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.JournalEntryTypes.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.JournalEntryTypes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.JournalEntryTypes.First(a => a.Uid == key);
-            Organization.ErpNodeDBContext.JournalEntryTypes.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.JournalEntryTypes.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.JournalEntryTypes.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

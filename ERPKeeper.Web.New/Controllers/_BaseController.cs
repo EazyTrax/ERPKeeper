@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace ERPKeeper.Web.New.Controllers
+namespace ERPKeeperCore.Web.Controllers
 {
     [Authorize]
     [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/{action=Index}/{id?}")]
@@ -17,13 +17,13 @@ namespace ERPKeeper.Web.New.Controllers
         public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
 
 
-        private ERPKeeper.Node.DAL.Organization _Organization;
-        public ERPKeeper.Node.DAL.Organization Organization
+        private ERPKeeperCore.Enterprise.DAL.EnterpriseRepo _Organization;
+        public ERPKeeperCore.Enterprise.DAL.EnterpriseRepo EnterpriseRepo
         {
             get
             {
                 if (_Organization == null)
-                    _Organization = new Node.DAL.Organization(CompanyId);
+                    _Organization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(CompanyId);
                 return _Organization;
             }
         }

@@ -1,5 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Accounting;
-using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

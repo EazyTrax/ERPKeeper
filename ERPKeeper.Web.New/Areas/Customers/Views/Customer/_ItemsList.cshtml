@@ -1,4 +1,4 @@
-﻿@model ERPKeeper.Node.Models.Customers.Customer
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
 
 @{
@@ -6,7 +6,7 @@
                                         .ErpNodeDBContext
                                         .CommercialItems
                                         .Include("Item")
-                                        .Where(c => c.Commercial.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Sale)
+                                        .Where(c => c.Commercial.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Sale)
                                         .Where(c => c.Commercial.ProfileGuid == Model.ProfileUid)
                                         .ToList()
                                         .Select(i =>
@@ -42,7 +42,7 @@
 
 
 <div id="treeListDemo" class="mb-3">
-    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.CommercialItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialItem>()
     .ID("gridList")
     .DataSource(items)
     .KeyExpr("Uid")

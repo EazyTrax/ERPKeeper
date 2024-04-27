@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Taxes.Controllers
+namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 {
     [Area("Taxes")]
     public class Base_TaxesController : BaseNodeController

@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Suppliers.Controllers
+namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
 
     public class PurchasesController : Base_SuppliersController

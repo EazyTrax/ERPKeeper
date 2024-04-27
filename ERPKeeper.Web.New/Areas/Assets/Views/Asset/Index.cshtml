@@ -1,11 +1,11 @@
-﻿@model ERPKeeper.Node.Models.Assets.FixedAsset
+﻿@model ERPKeeperCore.Enterprise.Models.Assets.Asset
 
 <div class="row">
     <div class="col-8 p-0 col-center mh-100v border-right border-2">
         <partial name="_MenuTop" />
         <partial name="_EditForm" />
 
-        @if (Model.FixedAssetType.DeprecatedAble)
+        @if (Model.AssetType.DeprecatedAble)
         {
             <partial name="_DeprecateSchedule_Grid" />
         }

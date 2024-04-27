@@ -7,13 +7,13 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Employment
+namespace ERPKeeperCore.Web.API.Employment
 {
-    public class EmployeesController : BaseController
+    public class EmployeesController : API_Employment_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.Employees
+            var returnModel = Organization.ErpCOREDBContext.Employees
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -23,14 +23,14 @@ namespace ERPKeeper.Web.New.API.Employment
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Employees.Employee();
+            var model = new ERPKeeperCore.Enterprise.Models.Employees.Employee();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpNodeDBContext.Employees.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.Employees.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -39,18 +39,18 @@ namespace ERPKeeper.Web.New.API.Employment
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.Employees.First(a => a.ProfileUid == key);
+            var model = Organization.ErpCOREDBContext.Employees.First(a => a.ProfileId == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.Employees.First(a => a.ProfileUid == key);
-            Organization.ErpNodeDBContext.Employees.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.Employees.First(a => a.ProfileId == key);
+            Organization.ErpCOREDBContext.Employees.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

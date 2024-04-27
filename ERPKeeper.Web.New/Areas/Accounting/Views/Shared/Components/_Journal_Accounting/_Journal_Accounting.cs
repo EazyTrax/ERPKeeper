@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Linq;
-using ERPKeeper.Node.DAL;
-using ERPKeeper.Node.DAL.Accounting;
+using ERPKeeperCore.Enterprise.DAL;
+using ERPKeeperCore.Enterprise.DAL.Accounting;
 
-namespace ERPKeeper.Web.New.Area.Accounting.Views.Shared.Components
+namespace ERPKeeperCore.Web.Area.Accounting.Views.Shared.Components
 {
 
     public class _Journal_Accounting : ViewComponent

@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Suppliers.Controllers
+namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
 
     [Route("/{CompanyId}/{area}/Suppliers/{supplierUid:Guid}/{action=Index}")]
@@ -14,23 +14,23 @@ namespace ERPKeeper.Web.New.Areas.Suppliers.Controllers
     {
         public IActionResult Index(Guid supplierUid)
         {
-            var supplier = Organization.Suppliers.Find(supplierUid);
+            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
             return View(supplier);
         }
         public IActionResult Estimates(Guid supplierUid)
         {
-            var supplier = Organization.Suppliers.Find(supplierUid);
+            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
             return View(supplier);
         }
         public IActionResult Purchases(Guid supplierUid)
         {
-            var supplier = Organization.Suppliers.Find(supplierUid);
+            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 
         public IActionResult Items(Guid supplierUid)
         {
-            var supplier = Organization.Suppliers.Find(supplierUid);
+            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 

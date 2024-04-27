@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERPKeeper.Web.New.API.Customers.Sales.Sale
+namespace ERPKeeperCore.Web.API.Customers.Sales.Sale
 {
     [Route("/API/{CompanyId}/Customers/Sales/{SaleId:Guid}/{controller}/{action=Index}")]
-    public class _SaleBaseController : APIBaseController
+    public class _SaleBaseController : API_BaseController
     {
  
         public Guid SaleId => Guid.Parse(RouteData.Values["SaleId"].ToString());

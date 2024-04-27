@@ -7,14 +7,14 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Profiles.Profile
+namespace ERPKeeperCore.Web.API.Profiles.Profile
 {
     public class RolesController : _ProfileBaseController
     {
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.ProfileRoles
+            var returnModel = Organization.ErpCOREDBContext.ProfileRoles
                 .Where(r => r.ProfileId == ProfileId)
                 .ToList();
 
@@ -26,10 +26,10 @@ namespace ERPKeeper.Web.New.API.Profiles.Profile
         public IActionResult Insert(string values)
         {
             var profile = Organization.Profiles.Find(ProfileId);
-            var model = new ERPKeeper.Node.Models.Profiles.ProfileRole();
+            var model = new ERPKeeperCore.Enterprise.Models.Profiles.ProfileRole();
             JsonConvert.PopulateObject(values, model);
 
-            var existRole = Organization.ErpNodeDBContext
+            var existRole = Organization.ErpCOREDBContext
                 .ProfileRoles
                 .Where(r => r.ProfileId == ProfileId && r.Role == model.Role)
                 .FirstOrDefault();
@@ -39,8 +39,8 @@ namespace ERPKeeper.Web.New.API.Profiles.Profile
                 model.Id = Guid.NewGuid();
                 model.Created = DateTime.Now;
                 model.ProfileId = ProfileId;
-                Organization.ErpNodeDBContext.ProfileRoles.Add(model);
-                Organization.ErpNodeDBContext.SaveChanges();
+                Organization.ErpCOREDBContext.ProfileRoles.Add(model);
+                Organization.ErpCOREDBContext.SaveChanges();
 
 
                 switch (model.Role)
@@ -68,18 +68,18 @@ namespace ERPKeeper.Web.New.API.Profiles.Profile
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.ProfileRoles.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.ProfileRoles.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.ProfileRoles.First(a => a.Id == key);
-            Organization.ErpNodeDBContext.ProfileRoles.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.ProfileRoles.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.ProfileRoles.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

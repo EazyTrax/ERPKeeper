@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Products
+namespace ERPKeeperCore.Web.API.Products
 {
 
-    public class GroupsController : ProductsBaseController
+    public class GroupsController : API_Products_BaseController
     {
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.ItemGroups;
+            var returnModel = Organization.ErpCOREDBContext.ItemGroups;
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
@@ -25,15 +25,15 @@ namespace ERPKeeper.Web.New.API.Products
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Items.ItemGroup();
+            var model = new ERPKeeperCore.Enterprise.Models.Items.ItemGroup();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
 
-            Organization.ErpNodeDBContext.ItemGroups.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.ItemGroups.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -42,9 +42,9 @@ namespace ERPKeeper.Web.New.API.Products
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.ItemGroups.Find(key);
+            var model = Organization.ErpCOREDBContext.ItemGroups.Find(key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
@@ -53,9 +53,9 @@ namespace ERPKeeper.Web.New.API.Products
         {
             try
             {
-                var model = Organization.ErpNodeDBContext.ItemGroups.Find(key);
-                Organization.ErpNodeDBContext.ItemGroups.Remove(model);
-                Organization.ErpNodeDBContext.SaveChanges();
+                var model = Organization.ErpCOREDBContext.ItemGroups.Find(key);
+                Organization.ErpCOREDBContext.ItemGroups.Remove(model);
+                Organization.ErpCOREDBContext.SaveChanges();
 
             }
             catch (Exception) { }

@@ -17,6 +17,16 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
     {
         [Key]
         public Guid Id { get; set; }
+
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Accounting.Transaction? Transaction { get; set; }
+
+        public Guid? SupplierId { get; set; }
+        [ForeignKey("SupplierId")]
+        public virtual Suppliers.Supplier? Supplier { get; set; }
+
+
         public PurchaseStatus Status { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
@@ -41,7 +51,10 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Guid? TaxPeriodId { get; set; }
         [ForeignKey("TaxPeriodId")]
         public virtual TaxPeriod? TaxPeriod { get; set; }
-        public Guid? SupplyerId { get; set; }
-        public Guid? SupplyerAddressId { get; set; }
+
+
+
+        public Guid? SupplierAddressId { get; set; }
+
     }
 }

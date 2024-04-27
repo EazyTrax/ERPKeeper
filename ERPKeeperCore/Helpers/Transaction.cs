@@ -10,30 +10,30 @@ namespace ERPKeeperCore.Enterprise.Models.Helpers
 {
     public static class ObjectsHelper
     {
-        public static readonly Dictionary<ObjectType, string> keyValuePairs = new Dictionary<ObjectType, string>()
+        public static readonly Dictionary<ERPObjectType, string> keyValuePairs = new Dictionary<ERPObjectType, string>()
         {
-                {  ObjectType.Sale, "SL" },
-                {  ObjectType.SalesReturn, "SR"},
-                {  ObjectType.SaleQuote, "SE"},
-                {  ObjectType.Purchase, "PU"},
-                {  ObjectType.PurchaseReturn, "PR"},
-                {  ObjectType.PurchaseQuote, "PE"},
-                {  ObjectType.EmployeePayment, "EP"},
-                {  ObjectType.FundTransfer, "FT"},
-                {  ObjectType.SupplierPayment, "BP"},
-                {  ObjectType.ReceivePayment, "RP"},
-                {  ObjectType.CommercialPayment, "CP"},
-                {  ObjectType.LiabilityPayment, "LP"},
-                {  ObjectType.TaxPayment, "TP"},
-                {  ObjectType.Customer, "CUS"},
-                {  ObjectType.Supplier, "SUP"},
-                {  ObjectType.Employee, "EMP"},
-                {  ObjectType.Investor, "INV"},
-                {  ObjectType.Item, "ITM"},
+                {  ERPObjectType.Sale, "SL" },
+                {  ERPObjectType.SalesReturn, "SR"},
+                {  ERPObjectType.SaleQuote, "SE"},
+                {  ERPObjectType.Purchase, "PU"},
+                {  ERPObjectType.PurchaseReturn, "PR"},
+                {  ERPObjectType.PurchaseQuote, "PE"},
+                {  ERPObjectType.EmployeePayment, "EP"},
+                {  ERPObjectType.FundTransfer, "FT"},
+                {  ERPObjectType.SupplierPayment, "BP"},
+                {  ERPObjectType.ReceivePayment, "RP"},
+                {  ERPObjectType.CommercialPayment, "CP"},
+                {  ERPObjectType.LiabilityPayment, "LP"},
+                {  ERPObjectType.TaxPayment, "TP"},
+                {  ERPObjectType.Customer, "CUS"},
+                {  ERPObjectType.Supplier, "SUP"},
+                {  ERPObjectType.Employee, "EMP"},
+                {  ERPObjectType.Investor, "INV"},
+                {  ERPObjectType.Item, "ITM"},
         };
 
 
-        public static string TrCode(ObjectType type)
+        public static string GetDocumentCode(ERPObjectType type)
         {
             var entry = keyValuePairs.Where(e => e.Key == type)
                 .Select(p => (string)p.Value)
@@ -42,10 +42,10 @@ namespace ERPKeeperCore.Enterprise.Models.Helpers
             return entry;
         }
 
-        public static ObjectType LookUp(string searchType)
+        public static ERPObjectType LookUp(string searchType)
         {
             var entry = keyValuePairs.Where(e => e.Value == searchType)
-                .Select(p => (ObjectType)p.Key)
+                .Select(p => (ERPObjectType)p.Key)
                 .FirstOrDefault();
 
             return entry;

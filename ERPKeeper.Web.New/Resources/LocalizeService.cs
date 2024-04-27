@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Resources
+namespace ERPKeeperCore.Web.Resources
 {
     public class LocalizeService
     {

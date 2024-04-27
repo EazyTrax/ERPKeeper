@@ -8,7 +8,6 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 
 namespace ERPKeeperCore.Enterprise.Models
 {
-    [Table("ERP_Datum")]
     public class DataItem
     {
         [Key]

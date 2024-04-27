@@ -5,9 +5,6 @@ using System.Linq;
 
 namespace ERPKeeperCore.Enterprise.Models.Profiles
 {
-
-
-    [Table("ERP_Profile_Roles")]
     public class ProfileRole
     {
         [Key]

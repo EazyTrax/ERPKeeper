@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Customers.Controllers
+namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     [Route("/{CompanyId}/{area}/Estimates/{EstimateId:Guid}/{action=index}")]
     public class EstimateController : Base_CustomersController
@@ -16,19 +16,19 @@ namespace ERPKeeper.Web.New.Areas.Customers.Controllers
 
         public IActionResult Index()
         {
-            var transcation = Organization.SaleEstimates.Find(EstimateId);
+            var transcation = EnterpriseRepo.SaleEstimates.Find(EstimateId);
             return View(transcation);
         }
 
 
         public IActionResult Items()
         {
-            var transcation = Organization.SaleEstimates.Find(EstimateId);
+            var transcation = EnterpriseRepo.SaleEstimates.Find(EstimateId);
             return View(transcation);
         }
         public IActionResult Documents()
         {
-            var transcation = Organization.SaleEstimates.Find(EstimateId);
+            var transcation = EnterpriseRepo.SaleEstimates.Find(EstimateId);
             return View(transcation);
         }
 

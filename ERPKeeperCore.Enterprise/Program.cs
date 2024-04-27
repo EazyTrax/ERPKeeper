@@ -1,8 +1,11 @@
 ﻿using ERPKeeper.Node.DAL;
 using ERPKeeper.Node.Models.Taxes.Enums;
 using ERPKeeperCore.Enterprise.DAL;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Financial;
+using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -26,17 +29,21 @@ namespace ERPKeeperCore.CMD
                 //CopyProfiles(newOrganization, oldOrganization);
                 //CopyBrands(newOrganization, oldOrganization);
                 //CopyItems(newOrganization, oldOrganization);
-                // CopyProjects(newOrganization, oldOrganization);
-                //CopyCustomers(newOrganization, oldOrganization); 
-                // CopySuppliers(newOrganization, oldOrganization);
+                //CopyProjects(newOrganization, oldOrganization);
+                //CopyCustomers(newOrganization, oldOrganization);
+                //CopySuppliers(newOrganization, oldOrganization);
                 //CopyFiscalYear(newOrganization, oldOrganization);
-
-                //  CopyTaxCode(newOrganization, oldOrganization);
-                // CopyTaxPeriod(newOrganization, oldOrganization);
-
-                //CopySales(newOrganization, oldOrganization);
+                //CopyTaxCode(newOrganization, oldOrganization);
+                //CopyTaxPeriod(newOrganization, oldOrganization);
+                // CopySales(newOrganization, oldOrganization);
+                //CopySaleItems(newOrganization, oldOrganization);
                 //CopyPurchases(newOrganization, oldOrganization);
-                CopyPurchaseItems(newOrganization, oldOrganization);
+                //CopyPurchaseItems(newOrganization, oldOrganization);
+
+                // CreateTransactionForSales(newOrganization);
+                // CreateTransactionForPurchases(newOrganization);
+
+                CopyFundTransfers(newOrganization, oldOrganization);
 
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
@@ -44,8 +51,50 @@ namespace ERPKeeperCore.CMD
 
             Console.WriteLine("###########################################################");
 
+        }
 
+        private static void CreateTransactionForSales(EnterpriseRepo newOrganization)
+        {
+            var sales = newOrganization.ErpCOREDBContext.Sales
+                .Where(x => x.TransactionId == null)
+                .OrderBy(x => x.Date)
+                .ToList();
+            sales.ForEach(sale =>
+            {
+                Console.WriteLine($"SALE: {sale.No}-{sale.Name}");
+                var transaction = new ERPKeeperCore.Enterprise.Models.Accounting.Transaction()
+                {
+                    Date = sale.Date,
+                    Type = ERPKeeperCore.Enterprise.Models.Transactions.TransactionType.Sale,
+                };
 
+                newOrganization.ErpCOREDBContext.Transactions.Add(transaction);
+                sale.TransactionId = transaction.Id;
+                newOrganization.ErpCOREDBContext.SaveChanges();
+
+            });
+        }
+        private static void CreateTransactionForPurchases(EnterpriseRepo newOrganization)
+        {
+            var purchases = newOrganization.ErpCOREDBContext.Purchases
+                .Where(x => x.TransactionId == null)
+                .OrderBy(x => x.Date)
+                .ToList();
+
+            purchases.ForEach(purchase =>
+            {
+                Console.WriteLine($"PUR: {purchase.No}-{purchase.Name}");
+                var transaction = new ERPKeeperCore.Enterprise.Models.Accounting.Transaction()
+                {
+                    Date = purchase.Date,
+                    Type = ERPKeeperCore.Enterprise.Models.Transactions.TransactionType.Purchase,
+                };
+
+                newOrganization.ErpCOREDBContext.Transactions.Add(transaction);
+                purchase.TransactionId = transaction.Id;
+                newOrganization.ErpCOREDBContext.SaveChanges();
+
+            });
         }
 
         private static void CopyAccounts(EnterpriseRepo newOrganization, Organization oldOrganization)
@@ -147,13 +196,14 @@ namespace ERPKeeperCore.CMD
 
             oldModels.ForEach(a =>
             {
-                
+
 
                 var exist = newOrganization.ErpCOREDBContext.Items.FirstOrDefault(x => x.Id == a.Uid);
                 var brand = newOrganization.ErpCOREDBContext.Brands.FirstOrDefault(x => x.Id == a.BrandGuid);
 
                 if (exist == null)
-                {   Console.WriteLine($"ITM:{a.Uid}-{a.PartNumber}");
+                {
+                    Console.WriteLine($"ITM:{a.Uid}-{a.PartNumber}");
                     exist = new ERPKeeperCore.Enterprise.Models.Items.Item()
                     {
                         Id = a.Uid,
@@ -179,7 +229,7 @@ namespace ERPKeeperCore.CMD
 
                 }
 
-               
+
             });
         }
         private static void CopyProjects(EnterpriseRepo newOrganization, Organization oldOrganization)
@@ -399,45 +449,72 @@ namespace ERPKeeperCore.CMD
                     };
 
                     newOrganization.ErpCOREDBContext.Sales.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
                 }
                 else
                 {
-                    Console.WriteLine($"> {oldModel.CommercialItems.Count()} Items");
 
-                    oldModel.CommercialItems.ToList().ForEach(oldLineItem =>
-                    {
-                        var existItem = newOrganization.ErpCOREDBContext.SaleItems.FirstOrDefault(x => x.Id == oldLineItem.Uid);
-
-                        if (existItem == null)
-                        {
-                            Console.WriteLine($"> Add {oldLineItem.ItemPartNumber}: {oldLineItem.Amount}:{oldLineItem.UnitPrice}: ");
-
-                            existItem = new ERPKeeperCore.Enterprise.Models.Customers.SaleItem()
-                            {
-                                Id = oldLineItem.Uid,
-                                SaleId = oldModel.Uid,
-                                ItemId = oldLineItem.ItemGuid,
-                                Quantity = oldLineItem.Amount,
-                                Price = oldLineItem.UnitPrice,
-                                PartNumber = oldLineItem.ItemPartNumber,
-                                Description = oldLineItem.ItemDescription,
-                                Memo = oldLineItem.Memo,
-                            };
-
-                            newOrganization.ErpCOREDBContext.SaleItems.Add(existItem);
-                        }
-                    });
-
-                    newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
-                newOrganization.ErpCOREDBContext.SaveChanges();
+
             });
         }
+        private static void CopySaleItems(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.SaleItems
+                .Select(x => x.Id)
+                .ToList();
 
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .CommercialItems
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .Where(i => i.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Sale)
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                var existItem = newOrganization.ErpCOREDBContext
+                .SaleItems
+                .Find(oldModel.Uid);
+
+                if (existItem == null)
+                {
+                    Console.WriteLine($"> Add {oldModel.Uid}: {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
+
+
+                    existItem = new ERPKeeperCore.Enterprise.Models.Customers.SaleItem()
+                    {
+                        Id = oldModel.Uid,
+                        SaleId = oldModel.TransactionGuid,
+                        ItemId = oldModel.ItemGuid,
+                        Quantity = oldModel.Amount,
+                        Price = oldModel.UnitPrice,
+                        PartNumber = oldModel.ItemPartNumber,
+                        Description = oldModel.ItemDescription,
+                        Memo = oldModel.Memo,
+                    };
+
+                    newOrganization.ErpCOREDBContext.SaleItems.Add(existItem);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine($"> Exists {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
+                }
+            });
+
+
+        }
         private static void CopyPurchases(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Purchases.ToList();
+
+            var existModelIds = newOrganization.ErpCOREDBContext.Purchases
+                .Select(x => x.Id)
+                .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.Purchases
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
 
             oldModels.ForEach(oldModel =>
             {
@@ -450,6 +527,34 @@ namespace ERPKeeperCore.CMD
                 if (exist == null)
                 {
                     Console.WriteLine($"> Add {oldModel.Name}");
+                    Console.WriteLine($"> supplier {oldModel.ProfileGuid}");
+
+                    var supplier = newOrganization.ErpCOREDBContext
+                       .Suppliers
+                       .Find(oldModel.ProfileGuid);
+
+
+                    if (supplier == null)
+                    {
+                        var profile = newOrganization.ErpCOREDBContext
+                         .Profiles
+                         .Find(oldModel.ProfileGuid);
+
+                        if (profile != null)
+                        {
+                            Console.WriteLine($"> profile {profile.Name}");
+
+                            supplier = new ERPKeeperCore.Enterprise.Models.Suppliers.Supplier()
+                            {
+                                Id = profile.Id,
+                                Status = Enterprise.Models.Suppliers.Enums.SupplierStatus.Active,
+                            };
+                            newOrganization.ErpCOREDBContext.Suppliers.Add(supplier);
+                            newOrganization.ErpCOREDBContext.SaveChanges();
+
+                        }
+                    }
+
                     exist = new ERPKeeperCore.Enterprise.Models.Suppliers.Purchase()
                     {
                         Id = oldModel.Uid,
@@ -459,24 +564,24 @@ namespace ERPKeeperCore.CMD
                         Memo = oldModel.Memo,
                         Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Invoice,
                         TaxCodeId = oldModel.TaxCodeId,
-                        SupplyerId = oldModel.ProfileGuid,
-                        SupplyerAddressId = oldModel.ProfileAddressGuid,
+                        SupplierId = oldModel.ProfileGuid,
+                        SupplierAddressId = oldModel.ProfileAddressGuid,
                         TaxPeriodId = oldModel.TaxPeriodId,
                         LinesTotal = oldModel.LinesTotal,
                         Tax = oldModel.Tax,
                     };
 
                     newOrganization.ErpCOREDBContext.Purchases.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
                 }
                 else
                 {
 
                 }
 
-                newOrganization.ErpCOREDBContext.SaveChanges();
+
             });
         }
-
         private static void CopyPurchaseItems(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var existModelIds = newOrganization.ErpCOREDBContext.PurchaseItems
@@ -498,7 +603,7 @@ namespace ERPKeeperCore.CMD
                 if (existItem == null)
                 {
                     Console.WriteLine($"> Add {oldModel.Uid}: {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
-          
+
 
                     existItem = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseItem()
                     {
@@ -522,6 +627,57 @@ namespace ERPKeeperCore.CMD
             });
 
 
+        }
+
+        private static void CopyFundTransfers(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.FundTransfers.ToList();
+
+            oldModels.ForEach(a =>
+            {
+
+
+                var exist = newOrganization.ErpCOREDBContext
+                .FundTransfers
+                .Find(a.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"FT:{a.Name}-{a.TrnDate}");
+                    exist = new ERPKeeperCore.Enterprise.Models.Financial.FundTransfer()
+                    {
+                        Id = a.Uid,
+                        Date = a.TrnDate,
+                        Reference = a.Reference,
+                        Status = (ERPKeeperCore.Enterprise.Models.Financial.Enums.FundTransferStatus)a.Status,
+                    };
+
+
+                    if (a.WithDrawAccountGuid != null)
+                        exist.AddCredit((Guid)a.WithDrawAccountGuid, a.AmountwithDraw);
+
+                    if (a.BankFeeAccountGuid != null)
+                        exist.AddDebit((Guid)a.BankFeeAccountGuid, a.AmountFee);
+
+                    if (a.DepositAccountGuid != null)
+                        exist.AddDebit((Guid)a.DepositAccountGuid, a.AmountDeposit);
+
+                    exist.Refresh();
+
+                    newOrganization.ErpCOREDBContext.FundTransfers.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+
+                    Console.WriteLine($">{exist.TotalCredit}-{exist.TotalCredit}");
+
+
+                }
+                else
+                {
+
+                }
+
+                // newOrganization.ErpCOREDBContext.SaveChanges();
+            });
         }
 
     }

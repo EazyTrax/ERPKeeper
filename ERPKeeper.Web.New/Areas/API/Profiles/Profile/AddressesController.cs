@@ -7,14 +7,14 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Profiles.Profile
+namespace ERPKeeperCore.Web.API.Profiles.Profile
 {
     public class AddressesController : _ProfileBaseController
     {
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.ProfileAddresses
+            var returnModel = Organization.ErpCOREDBContext.ProfileAddresses
                 .Where(r => r.ProfileGuid == ProfileId)
                  //.Select(p => new
                  //{
@@ -33,15 +33,15 @@ namespace ERPKeeper.Web.New.API.Profiles.Profile
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Profiles.ProfileAddress();
+            var model = new ERPKeeperCore.Enterprise.Models.Profiles.ProfileAddress();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
             model.ProfileGuid = ProfileId;
-            Organization.ErpNodeDBContext.ProfileAddresses.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.ProfileAddresses.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -50,18 +50,18 @@ namespace ERPKeeper.Web.New.API.Profiles.Profile
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.ProfileAddresses.First(a => a.AddressGuid == key);
+            var model = Organization.ErpCOREDBContext.ProfileAddresses.First(a => a.AddressGuid == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.ProfileAddresses.First(a => a.AddressGuid == key);
-            Organization.ErpNodeDBContext.ProfileAddresses.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.ProfileAddresses.First(a => a.AddressGuid == key);
+            Organization.ErpCOREDBContext.ProfileAddresses.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

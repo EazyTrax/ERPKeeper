@@ -7,14 +7,14 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Suppliers.Purchases.Purchase
+namespace ERPKeeperCore.Web.API.Suppliers.Purchases.Purchase
 {
     public class ShipmentsController : _PurchaseBaseController
     {
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.CommercialShipments
+            var returnModel = Organization.ErpCOREDBContext.CommercialShipments
                 .Where(r => r.TransactionGuid == PurchaseId)
                 .ToList();
 
@@ -25,15 +25,15 @@ namespace ERPKeeper.Web.New.API.Suppliers.Purchases.Purchase
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Transactions.CommercialShipment();
+            var model = new ERPKeeperCore.Enterprise.Models.Transactions.CommercialShipment();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
             model.TransactionGuid = PurchaseId;
-            Organization.ErpNodeDBContext.CommercialShipments.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.CommercialShipments.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -42,18 +42,18 @@ namespace ERPKeeper.Web.New.API.Suppliers.Purchases.Purchase
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.CommercialShipments.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.CommercialShipments.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.CommercialShipments.First(a => a.Uid == key);
-            Organization.ErpNodeDBContext.CommercialShipments.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.CommercialShipments.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.CommercialShipments.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

@@ -8,7 +8,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Items.Item>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
     .ID("gridList")
     .DataSource(Organization.ItemBrands.ListAll()
     .Select(i=> new{

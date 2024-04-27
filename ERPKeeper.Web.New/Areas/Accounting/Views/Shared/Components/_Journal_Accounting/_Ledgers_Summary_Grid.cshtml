@@ -1,4 +1,4 @@
-﻿@model ERPKeeper.Node.Models.Accounting.TransactionLedger
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger
 
 @{
     if (Model != null)
@@ -9,7 +9,7 @@
         </div>
 
         <div class="mb-2 border-top border-bottom">
-            @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Accounting.Ledger>()
+            @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Ledger>()
                 .ID("JournalLedgerList")
                 .KeyExpr("Uid")
                 .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Journals/{Model.Uid}/Ledgers/All"))
@@ -22,7 +22,7 @@
                 .Columns(columns =>
                 {
                     columns.AddFor(m => m.AccountUid)
-                .Lookup(lookup => lookup.DataSource(Organization.ErpNodeDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+                .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
                 .HeaderCellTemplate(@<text>Account</text>)
                 .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountUid %>/"><%= displayValue %></a></text>);
 

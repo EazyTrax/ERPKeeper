@@ -4,7 +4,7 @@ using System;
 using System.Security.Claims;
 using System.Linq;
 
-namespace ERPKeeper.Web.New.Area.Customers.Views.Shared.Components
+namespace ERPKeeperCore.Web.Area.Customers.Views.Shared.Components
 {
 
     public class _Partial_Menu_Customers : ViewComponent

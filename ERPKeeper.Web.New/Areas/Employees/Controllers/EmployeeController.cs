@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Employees.Controllers
+namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 {
     [Route("/{CompanyId}/{area}/Employees/{EmployeeUid:Guid}/{action=Index}")]
     public class EmployeeController : Base_EmployeesController
@@ -14,13 +14,13 @@ namespace ERPKeeper.Web.New.Areas.Employees.Controllers
 
         public IActionResult Index(Guid EmployeeUid)
         {
-            var Employee = Organization.Employees.Find(EmployeeUid);
+            var Employee = EnterpriseRepo.Employees.Find(EmployeeUid);
             return View(Employee);
         }
 
         public IActionResult Payments(Guid EmployeeUid)
         {
-            var Employee = Organization.Employees.Find(EmployeeUid);
+            var Employee = EnterpriseRepo.Employees.Find(EmployeeUid);
             return View(Employee);
         }
 

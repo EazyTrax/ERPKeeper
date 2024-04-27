@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New
+namespace ERPKeeperCore.Web
 {
     public class Program
     {

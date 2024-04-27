@@ -1,11 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
-    [Table("ERP_Accounting_Default_Account")]
     public class DefaultAccount
     {
         [Key]

@@ -4,7 +4,7 @@ using System;
 using System.Security.Claims;
 using System.Linq;
 
-namespace ERPKeeper.Web.New.Areas.Products.Views.Shared.Components
+namespace ERPKeeperCore.Web.Areas.Products.Views.Shared.Components
 {
     public class _Items_Groups : ViewComponent
     {

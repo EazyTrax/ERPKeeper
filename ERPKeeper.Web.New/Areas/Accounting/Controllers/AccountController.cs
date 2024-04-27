@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ERPKeeper.Node;
+using ERPKeeperCore.Enterprise;
 
-namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
+namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
     [Route("/{CompanyId}/{area}/Accounts/{AccountId:Guid}/{action=Index}/{id?}")]
     public class AccountController : AccountingBaseController
@@ -19,37 +19,36 @@ namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = Organization.ChartOfAccount.Find(AccountId);
+            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
             return View(model);
         }
         public IActionResult Ledgers()
         {
-            var model = Organization.ChartOfAccount.Find(AccountId);
+            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
             return View(model);
         }
         public IActionResult Balances()
         {
-            var model = Organization.ChartOfAccount.Find(AccountId);
+            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
             return View(model);
         }
         public IActionResult Chart()
         {
-            var model = Organization.ChartOfAccount.Find(AccountId);
+            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
             return View(model);
         }
 
 
 
-        public IActionResult Update(ERPKeeper.Node.Models.Accounting.AccountItem accountItem)
+        public IActionResult Update(ERPKeeperCore.Enterprise.Models.Accounting.Account accountItem)
         {
-            var model = Organization.ChartOfAccount.Find(AccountId);
+            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
             model.No = accountItem.No;
             model.Name = accountItem.Name;
             model.IsLiquidity = accountItem.IsLiquidity;
             model.IsCashEquivalent = accountItem.IsCashEquivalent;
-            model.IsFocus = accountItem.IsFocus;
 
-            Organization.SaveChanges();
+            EnterpriseRepo.SaveChanges();
 
             return View("Index", model);
         }

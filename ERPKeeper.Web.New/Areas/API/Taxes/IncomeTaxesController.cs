@@ -7,15 +7,15 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Taxes
+namespace ERPKeeperCore.Web.API.Taxes
 {
 
-    public class IncomeTaxesController : IncomeTaxes_BaseController
+    public class IncomeTaxesController : API_Taxes_BaseController
     {
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext
+            var returnModel = Organization.ErpCOREDBContext
                 .IncomeTaxes;
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -25,15 +25,15 @@ namespace ERPKeeper.Web.New.API.Taxes
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Taxes.IncomeTax();
+            var model = new ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax();
             JsonConvert.PopulateObject(values, model);
        
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
 
-            Organization.ErpNodeDBContext.IncomeTaxes.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.IncomeTaxes.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -42,12 +42,12 @@ namespace ERPKeeper.Web.New.API.Taxes
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.IncomeTaxes.Find(key);
+            var model = Organization.ErpCOREDBContext.IncomeTaxes.Find(key);
 
             if (model.PostStatus == Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
             {
                 JsonConvert.PopulateObject(values, model);
-                Organization.ErpNodeDBContext.SaveChanges();
+                Organization.ErpCOREDBContext.SaveChanges();
                 return Ok();
             }
             else

@@ -9,10 +9,10 @@ using System.Web;
 
 
 using System.Globalization;
-using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Taxes

@@ -4,7 +4,7 @@ using System;
 using System.Security.Claims;
 using System.Linq;
 
-namespace ERPKeeper.Web.New.Views.Components
+namespace ERPKeeperCore.Web.Views.Components
 {
     public class _App_Menu : ViewComponent
     {

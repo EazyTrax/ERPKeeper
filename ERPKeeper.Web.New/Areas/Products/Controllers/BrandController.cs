@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ERPKeeper.Web.New.Controllers;
+using ERPKeeperCore.Web.Controllers;
 
-namespace ERPKeeper.Web.New.Areas.Products.Controllers
+namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
 
     [Route("/{CompanyId}/{area}/{controller=Home}/{brandUid:Guid}/{action=Index}")]
@@ -15,7 +15,7 @@ namespace ERPKeeper.Web.New.Areas.Products.Controllers
     {
         public IActionResult Index(Guid brandUid)
         {
-            var i = Organization.ItemBrands.Find(brandUid);
+            var i = EnterpriseRepo.ItemBrands.Find(brandUid);
             return View(i);
         }
     }

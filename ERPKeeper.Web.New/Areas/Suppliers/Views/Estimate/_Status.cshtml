@@ -1,4 +1,4 @@
-﻿@model ERPKeeper.Node.Models.Estimations.PurchaseQuote
+﻿@model ERPKeeperCore.Enterprise.Models.Estimations.PurchaseQuote
 
 <div class="bg-fb1 p-2 mb-2 ">
     <div class="font-weight-600">
@@ -9,7 +9,7 @@
 <div class="bg-fb1 p-2 mb-2 ">
     <div class="font-weight-600">
         <span class="text-fs-1e">
-            @if (Model.Status == ERPKeeper.Node.Models.Estimations.Enums.QuoteStatus.Quote)
+            @if (Model.Status == ERPKeeperCore.Enterprise.Models.Estimations.Enums.QuoteStatus.Quote)
             {
                 <a href="/@CompanyId/Suppliers/Estimate/@Model.Uid/Void">Void</a>
             }

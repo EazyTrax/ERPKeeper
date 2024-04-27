@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
  
-namespace ERPKeeper.Web.New.API.Assets.AssetType
+namespace ERPKeeperCore.Web.API.Assets.AssetType
 {
     [Route("/API/{CompanyId}/AssetTypes/{AssetTypeId:Guid}/{controller}/{action=Index}")]
-    public class AssetType_BaseController : APIBaseController
+    public class AssetType_BaseController : API_BaseController
     {
         public Guid AssetTypeId => Guid.Parse(HttpContext.GetRouteData().Values["AssetTypeId"].ToString());
 

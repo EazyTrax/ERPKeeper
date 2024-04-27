@@ -1,4 +1,4 @@
-﻿using ERPKeeperCore.Enterprise.Models.Enums;
+﻿using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

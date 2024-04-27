@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Web.New.API.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Customers
+namespace ERPKeeperCore.Web.API.Customers
 {
-    public class CustomersController : Base_CustomersController
+    public class CustomersController : API_Customers_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.Customers
+            var returnModel = Organization.ErpCOREDBContext.Customers
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -23,14 +24,14 @@ namespace ERPKeeper.Web.New.API.Customers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Customers.Customer();
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.Customer();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            Organization.ErpNodeDBContext.Customers.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.Customers.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -39,18 +40,18 @@ namespace ERPKeeper.Web.New.API.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.Customers.First(a => a.ProfileUid == key);
+            var model = Organization.ErpCOREDBContext.Customers.First(a => a.ProfileId == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpNodeDBContext.Customers.First(a => a.ProfileUid == key);
-            Organization.ErpNodeDBContext.Customers.Remove(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            var model = Organization.ErpCOREDBContext.Customers.First(a => a.ProfileId == key);
+            Organization.ErpCOREDBContext.Customers.Remove(model);
+            Organization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

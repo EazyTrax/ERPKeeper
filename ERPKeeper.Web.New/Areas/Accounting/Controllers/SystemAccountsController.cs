@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
+namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
 
-    public class SystemAccountsController : AccountingBaseController
+    public class DefaultAccountsController : AccountingBaseController
     {
         public IActionResult Index()
         {

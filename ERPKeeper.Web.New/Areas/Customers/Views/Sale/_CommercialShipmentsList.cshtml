@@ -1,8 +1,8 @@
-﻿@model ERPKeeper.Node.Models.Transactions.Commercials.Sale
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
 
 <div id="treeListDemo" class="mb-3">
-    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Transactions.CommercialShipment>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialShipment>()
     .ID("gridList")
     .KeyExpr("Uid")
     .ShowRowLines(true)
@@ -39,7 +39,7 @@
 
 
 
-    var avaliableAddresses = Organization.ErpNodeDBContext.ProfileAddresses.Where(a=>a.ProfileGuid == Model.ProfileGuid);
+    var avaliableAddresses = Organization.ErpCOREDBContext.ProfileAddresses.Where(a=>a.ProfileGuid == Model.ProfileGuid);
     columns.AddFor(m=>m.ProfileAddressId).Width(150)
     .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
     .Lookup(lookup => lookup
@@ -49,7 +49,7 @@
     .FormItem(i=>i.Label(l=>l.Text("Address")));
 
 
-    var avaliablecontacts = Organization.ErpNodeDBContext.ProfileContacts.Where(a=>a.ProfileId == Model.ProfileGuid);
+    var avaliablecontacts = Organization.ErpCOREDBContext.ProfileContacts.Where(a=>a.ProfileId == Model.ProfileGuid);
     columns.AddFor(m=>m.ProfileContactId).Width(150)
     .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
     .Lookup(lookup => lookup

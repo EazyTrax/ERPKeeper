@@ -1,11 +1,11 @@
-﻿using ERPKeeperCore.Enterprise.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Enterprise.Models.Projects.Enums;
 
 namespace ERPKeeperCore.Enterprise.Models.Projects
 {

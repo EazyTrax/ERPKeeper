@@ -11,14 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 
-namespace ERPKeeper.Web.New.Areas.Authen.Controllers
+namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
     [Area("Authen")]
     [Route("/{area}/{controller=SignIn}/{action=Index}")]
     [AllowAnonymous]
     public class BaseController : Controller
     {
-        protected ERPKeeper.Node.DAL.Organization organizationRepo;
+        protected ERPKeeperCore.Enterprise.DAL.EnterpriseRepo organizationRepo;
 
     }
 }

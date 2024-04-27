@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Customers.Controllers
+namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
     public class CustomersController : Base_CustomersController
@@ -18,7 +18,7 @@ namespace ERPKeeper.Web.New.Areas.Customers.Controllers
 
         public ActionResult Refresh()
         {
-            Organization.Customers.UpdateSalesBalance();
+            EnterpriseRepo.Customers.UpdateSalesBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

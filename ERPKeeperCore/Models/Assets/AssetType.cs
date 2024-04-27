@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 
 namespace ERPKeeperCore.Enterprise.Models.Assets
 {

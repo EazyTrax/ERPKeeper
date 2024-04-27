@@ -6,18 +6,18 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ERPKeeper.Node.Models.Estimations.Enums;
-using ERPKeeper.Node.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Web.New.API.Customers;
 
-namespace ERPKeeper.Web.New.API.Customers
+namespace ERPKeeperCore.Web.API.Customers
 {
-    public class OrdersController : Base_CustomersController
+    public class OrdersController : API_Customers_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.Estimates
-                 .Where(x => x.TransactionType == ERPObjectType.SaleQuote)
-                 .Where(x => x.Status == QuoteStatus.Ordered || x.Status == QuoteStatus.Close)
+            var returnModel = Organization.ErpCOREDBContext.Sales
+                 .Where(x => x.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Order)
                  .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -27,14 +27,12 @@ namespace ERPKeeper.Web.New.API.Customers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Estimations.SaleQuote();
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
+            model.Status = ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Order;
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
-
-            Organization.ErpNodeDBContext.SaleEstimates.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.Sales.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -43,16 +41,16 @@ namespace ERPKeeper.Web.New.API.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.SaleEstimates.First(a => a.Uid == key);
+            var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
         //[HttpPost]
         //public void Delete(Guid key)
         //{
-        //    var model = Organization.erpNodeDBContext.SaleQuotes.First(a => a.Uid == key);
+        //    var model = Organization.erpNodeDBContext.SaleQuotes.First(a => a.Id == key);
         //    Organization.erpNodeDBContext.SaleQuotes.Remove(model);
         //    Organization.erpNodeDBContext.SaveChanges();
         //}

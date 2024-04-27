@@ -1,5 +1,5 @@
-﻿using ERPKeeper.Node.Models.Accounting;
-using ERPKeeper.Web.New.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
+namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
     [Route("/{CompanyId}/{area}/JournalEntries/{JournalEntryId:Guid}/{action=Index}")]
     public class JournalEntryController : AccountingBaseController
@@ -20,29 +20,29 @@ namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = Organization.JournalEntries.Find(JournalEntryId);
+            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
             return View(model);
         }
 
         public IActionResult UpdateBalance()
         {
-            var model = Organization.JournalEntries.Find(JournalEntryId);
+            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
             model.UpdateBalance();
-            Organization.SaveChanges();
+            EnterpriseRepo.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult UnPost()
         {
-            var model = Organization.JournalEntries.Find(JournalEntryId);
-            Organization.JournalEntries.UnPost(model);
-            Organization.SaveChanges();
+            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
+            EnterpriseRepo.JournalEntries.UnPost(model);
+            EnterpriseRepo.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult Clone()
         {
-            var model = Organization.JournalEntries.Find(JournalEntryId);
+            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
             var newModel = new JournalEntry()
             {
                 TrnDate = DateTime.Today,
@@ -50,13 +50,13 @@ namespace ERPKeeper.Web.New.Areas.Accounting.Controllers
                 JournalEntryTypeGuid = model.JournalEntryTypeGuid,
                 Items = new HashSet<JournalEntryItem>()
             };
-            Organization.ErpNodeDBContext.JournalEntries.Add(newModel);
+            EnterpriseRepo.ErpCOREDBContext.JournalEntries.Add(newModel);
 
             model.Items.ToList().ForEach(item =>
             {
                 newModel.AddAcount(item.AccountUid, item.Debit, item.Credit);
             });
-            Organization.SaveChanges();
+            EnterpriseRepo.SaveChanges();
 
             return Redirect($"/{CompanyId}/Accounting/JournalEntries/{model.Uid}/");
         }

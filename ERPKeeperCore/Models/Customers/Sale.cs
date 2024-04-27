@@ -24,9 +24,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
+
+
         public Guid? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
-        public virtual Customers.Customer Customer { get; set; }
+        public virtual Customers.Customer? Customer { get; set; }
 
 
         public String? Memo { get; set; }

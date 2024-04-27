@@ -7,14 +7,14 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Assets
+namespace ERPKeeperCore.Web.API.Assets
 {
 
-    public class AssetTypesController : Assets_BaseController
+    public class AssetTypesController : API_Assets_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.FixedAssetTypes;
+            var returnModel = Organization.ErpCOREDBContext.AssetTypes;
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
@@ -22,13 +22,13 @@ namespace ERPKeeper.Web.New.API.Assets
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeper.Node.Models.Assets.FixedAssetType();
+            var model = new ERPKeeperCore.Enterprise.Models.Assets.AssetType();
             JsonConvert.PopulateObject(values, model);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
             model.Uid = Guid.NewGuid();
-            Organization.ErpNodeDBContext.FixedAssetTypes.Add(model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.AssetTypes.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
@@ -36,9 +36,9 @@ namespace ERPKeeper.Web.New.API.Assets
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpNodeDBContext.FixedAssetTypes.Find(key);
+            var model = Organization.ErpCOREDBContext.AssetTypes.Find(key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpNodeDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
@@ -47,9 +47,9 @@ namespace ERPKeeper.Web.New.API.Assets
         {
             try
             {
-                var model = Organization.ErpNodeDBContext.FixedAssetTypes.Find(key);
-                Organization.ErpNodeDBContext.FixedAssetTypes.Remove(model);
-                Organization.ErpNodeDBContext.SaveChanges();
+                var model = Organization.ErpCOREDBContext.AssetTypes.Find(key);
+                Organization.ErpCOREDBContext.AssetTypes.Remove(model);
+                Organization.ErpCOREDBContext.SaveChanges();
 
             }
             catch (Exception) { }

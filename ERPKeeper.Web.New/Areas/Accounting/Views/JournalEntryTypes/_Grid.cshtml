@@ -1,5 +1,5 @@
 ﻿<div class="mb-2 border-top">
-    @(Html.DevExtreme().DataGrid<ERPKeeper.Node.Models.Accounting.JournalEntryType>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType>()
         .ID("AssetsTreeList")
         .KeyExpr("Uid")
         .DataSource(d => d.RemoteController()

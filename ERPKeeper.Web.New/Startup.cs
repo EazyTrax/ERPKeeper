@@ -1,4 +1,4 @@
-using ERPKeeper.Web.New.Resources;
+using ERPKeeperCore.Web.Resources;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +17,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New
+namespace ERPKeeperCore.Web
 {
     public class Startup
     {

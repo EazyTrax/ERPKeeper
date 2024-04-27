@@ -5,20 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using ERPKeeper.Web.New.API.Accounting;
-using ERPKeeper.Web.New.API.Accounting.JournalEntry;
-using ERPKeeper.Web.New.API.Assets.Asset;
+using ERPKeeperCore.Web.API.Accounting;
+using ERPKeeperCore.Web.API.Accounting.JournalEntry;
+using ERPKeeperCore.Web.API.Assets.Asset;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeper.Web.New.API.Assets.Asset
+namespace ERPKeeperCore.Web.API.Assets.Asset
 {
     public class DeprecateSchedulesController : Asset_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpNodeDBContext.DeprecateSchedules
-                .Where(m => m.FixedAssetUid == AssetId);
+            var returnModel = Organization.ErpCOREDBContext.DeprecateSchedules
+                .Where(m => m.AssetUid == AssetId);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

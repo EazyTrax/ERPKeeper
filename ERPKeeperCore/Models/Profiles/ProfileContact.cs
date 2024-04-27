@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERPKeeperCore.Enterprise.Models.Profiles
 {
-
-    [Table("ERP_Profiles_ContactPerson")]
     public class ProfileContact
     {
         [Key]

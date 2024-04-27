@@ -11,33 +11,19 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
-using ERPKeeper.Node.Models.Security;
+using ERPKeeperCore.Enterprise.Models.Security;
 
-namespace ERPKeeper.Web.New.Areas.Authen.Controllers
+namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
 
     public class SigninController : BaseController
     {
         public SigninController()
         {
-            organizationRepo = new Node.DAL.Organization();
+            organizationRepo = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo();
         }
 
         public IActionResult Index() => View(new LogInModel());
-
-
-        public async Task<IActionResult> UrlAuthen(Guid userId, string password)
-        {
-            if (User.Identity.IsAuthenticated)
-                return Redirect("/Portal");
-
-            var profile = organizationRepo.Profiles.Find(userId);
-
-            if (profile != null)
-                return await this.DoSignIn(profile);
-            else
-                return Content("ERROR !!");
-        }
 
 
         [HttpPost]
@@ -46,10 +32,10 @@ namespace ERPKeeper.Web.New.Areas.Authen.Controllers
             if (User.Identity.IsAuthenticated)
                 return Redirect("/Portal");
 
-            var profile = organizationRepo.Profiles.Authen(logInModel);
+            var member = organizationRepo.Members.Authen(logInModel);
 
-            if (profile != null)
-                return await this.DoSignIn(profile);
+            if (member != null)
+                return await this.DoSignIn(member);
             else
             {
                 logInModel.ErrorMessage = "Error user not found";
@@ -57,13 +43,13 @@ namespace ERPKeeper.Web.New.Areas.Authen.Controllers
             }
         }
 
-        private async Task<IActionResult> DoSignIn(Node.Models.Profiles.Profile profile)
+        private async Task<IActionResult> DoSignIn(ERPKeeperCore.Enterprise.Models.Security.Member member)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,  profile.Name),
-                new Claim(ClaimTypes.Email, profile.Email),
-                new Claim(ClaimTypes.NameIdentifier,profile.Uid.ToString())
+                new Claim(ClaimTypes.Name,  member.Name),
+                new Claim(ClaimTypes.Email, member.Email),
+                new Claim(ClaimTypes.NameIdentifier,member.Id.ToString())
             };
             var modelIdentity = new ClaimsIdentity(claims, "Login");
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Views
+namespace ERPKeeperCore.Web.Views
 {
     public abstract class BasePage<TModel> : RazorPage<TModel>
     {
@@ -17,13 +17,13 @@ namespace ERPKeeper.Web.New.Views
 
         public bool IsOnEditMode = true;
 
-        private ERPKeeper.Node.DAL.Organization _Organization;
-        public ERPKeeper.Node.DAL.Organization Organization
+        private ERPKeeperCore.Enterprise.DAL.EnterpriseRepo _Organization;
+        public ERPKeeperCore.Enterprise.DAL.EnterpriseRepo Organization
         {
             get
             {
                 if (_Organization == null)
-                    _Organization = new Node.DAL.Organization(CompanyId);
+                    _Organization = new Enterprise.DAL.EnterpriseRepo(CompanyId);
                 return _Organization;
             }
         }

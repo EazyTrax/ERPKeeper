@@ -1,4 +1,4 @@
-﻿using ERPKeeper.Web.New.Models;
+﻿using ERPKeeperCore.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeper.Web.New.Controllers
+namespace ERPKeeperCore.Web.Controllers
 {
     [Authorize]
     [Route("{controller=Home}/{action=Index}/{id?}")]

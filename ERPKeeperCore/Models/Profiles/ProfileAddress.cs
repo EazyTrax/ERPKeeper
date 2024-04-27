@@ -6,7 +6,6 @@ using System.Linq;
 namespace ERPKeeperCore.Enterprise.Models.Profiles
 {
 
-    [Table("ERP_Profiles_Addresses")]
     public class ProfileAddress
     {
         [Key]
