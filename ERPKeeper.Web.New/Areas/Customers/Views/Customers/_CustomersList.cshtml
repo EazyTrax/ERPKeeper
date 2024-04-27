@@ -13,7 +13,7 @@
     .KeyExpr("Id")
     .RowAlternationEnabled(true)
     
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
     .ShowRowLines(true)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
@@ -66,8 +66,7 @@
             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
 
     columns.AddFor(m=>m.TotalBalance).Width(100).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.SumSaleBalance).Width(100).HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);
-    //columns.Add().DataField("Id");
+ 
     })
     )
 </div>

@@ -26,14 +26,14 @@
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
                 .Width(100).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );
 
   columns.AddFor(m => m.SubType)
   .HeaderCellTemplate("SubType").Width(200).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );

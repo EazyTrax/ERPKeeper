@@ -28,23 +28,14 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        public ActionResult Copy()
-        {
-            var item = EnterpriseRepo.Items.Find(ItemUid);
-            var cloneItem = EnterpriseRepo.Items.Copy(item);
-            return Redirect($"/{CompanyId}/Products/Items/{cloneItem.Uid}");
-        }
-        public ActionResult Delete()
-        {
-            var item = EnterpriseRepo.Items.Find(ItemUid);
-            EnterpriseRepo.Items.Delete(item.Uid);
+      
 
-            return Redirect($"/{CompanyId}/Products/Items/");
-        }
+
+      
 
         public IActionResult UpdateStock()
         {
-            EnterpriseRepo.InventoryItemsDal.UpdateStockAmount();
+            
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

@@ -134,7 +134,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
         #region Financial
-        public DbSet<Employee > Employees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeePosition> EmployeePositions { get; set; }
         public DbSet<EmployeePayment> EmployeePayments { get; set; }
         public DbSet<EmployeePaymentItem> EmployeePaymentItems { get; set; }
         public DbSet<EmployeePaymentPeriod> EmployeePaymentPeriods { get; set; }
@@ -148,6 +149,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         #region Taxes
         public DbSet<TaxCode> TaxCodes { get; set; }
         public DbSet<TaxPeriod> TaxPeriods { get; set; }
+        public DbSet<IncomeTax> IncomeTaxes { get; set; }
         #endregion
 
 

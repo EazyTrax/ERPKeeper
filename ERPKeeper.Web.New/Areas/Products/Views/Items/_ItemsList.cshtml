@@ -28,7 +28,7 @@
             .RowAlternationEnabled(true)
             .Columns(columns =>
             {
-                columns.AddFor(m => m.BrandGuid).Width(150)
+                columns.AddFor(m => m.BrandId).Width(150)
                 .CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
                 .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
@@ -76,7 +76,7 @@
                 columns.AddFor(m => m.OnlineSale).Visible(false).Width(60).HeaderCellTemplate(@<text>Online</text>);
                 columns.Add().DataField("AmountOnHand").Width(80).HeaderCellTemplate(@<text>Stock</text>);
                 @*   columns.Add().DataField("AmountSold").Width(60).HeaderCellTemplate(@<text>Sold</text>);*@
-                columns.Add().DataField("UnitPrice").Width(100).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
+                columns.Add().DataField("SalePrice").Width(100).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
             })
         )
 </div>

@@ -8,28 +8,26 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
-using ERPKeeperCore.Enterprise.Models.Assets;
-using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {
-    public class AssetTypes : ERPNodeDalRepository
+    public class JournalEntryTypes : ERPNodeDalRepository
     {
-        public AssetTypes(EnterpriseRepo organization) : base(organization)
+        public JournalEntryTypes(EnterpriseRepo organization) : base(organization)
         {
 
         }
 
-        public List<AssetType> GetAll()
+        public List<JournalEntryType> GetAll()
         {
-            return erpNodeDBContext.AssetTypes.ToList();
+            return erpNodeDBContext.JournalEntryTypes.ToList();
         }
 
 
 
-        public AssetType? Find(Guid Id) => erpNodeDBContext.AssetTypes.Find(Id);
+        public JournalEntryType? Find(Guid Id) => erpNodeDBContext.JournalEntryTypes.Find(Id);
 
-        public void Refresh()
+        public void UnPost(JournalEntryType model)
         {
             throw new NotImplementedException();
         }

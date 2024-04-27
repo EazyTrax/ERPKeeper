@@ -14,13 +14,13 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var fiscalYear = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Uid == FiscalYearId);
+            var fiscalYear = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Id == FiscalYearId);
 
             var returnModel = Organization.ErpCOREDBContext
                 .TransactionLedgers
                 .Where(j =>
-                    DbFunctions.TruncateTime(j.TrnDate) >= DbFunctions.TruncateTime(fiscalYear.StartDate) &&
-                    DbFunctions.TruncateTime(j.TrnDate) <= DbFunctions.TruncateTime(fiscalYear.EndDate)
+                    DbFunctions.TruncateTime(j.Date) >= DbFunctions.TruncateTime(fiscalYear.StartDate) &&
+                    DbFunctions.TruncateTime(j.Date) <= DbFunctions.TruncateTime(fiscalYear.EndDate)
                 )
                 //.Where(m=>m.FiscalYearId == FiscalYearId)
                 ;

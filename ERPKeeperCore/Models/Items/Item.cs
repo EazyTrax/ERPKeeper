@@ -37,21 +37,31 @@ namespace ERPKeeperCore.Enterprise.Models.Items
 
         public Guid? BrandId { get; set; }
         [ForeignKey("BrandId")]
-        public virtual Brand Brand { get; set; }
+        public virtual Brand? Brand { get; set; }
 
 
         public Guid? PurchaseAccountId { get; set; }
         [ForeignKey("PurchaseAccountId")]
-        public virtual Account PurchaseAccount { get; set; }
+        public virtual Account? PurchaseAccount { get; set; }
 
 
         [DisplayName("IncomeAccount")]
         public Guid? IncomeAccountId { get; set; }
         [ForeignKey("IncomeAccountId")]
-        public virtual Account IncomeAccount { get; set; }
+        public virtual Account? IncomeAccount { get; set; }
 
 
         public int StockAmount { get; set; }
         public DateTime CreatedDate { get; set; }
+
+
+        public String? BrandName { get; set; }
+        public Guid GroupItemId { get; set; }
+        public int AmountPurchase { get; set; }
+        public int AmountOnHand { get; set; }
+        public int AmountSold { get; set; }
+        public int AmountOnPurchaseOrder { get; set; }
+        public int AmountOnQuotation { get; set; }
+        public int AmountOnSaleOrder { get; set; }
     }
 }

@@ -1,16 +1,4 @@
-﻿@{
-    var itemGroups = Organization.ErpNodeDBContext
-                                                .ItemGroups
-                                                .ToList()
-                                                .Select(i => new
-                                                {
-                                                    i.Uid,
-                                                    i.Name,
-                                                    i.ParentUid,
-                                                    ItemCount = i.Items.Count()
-                                                }).ToList();
-
-}
+﻿
 
 <style>
     .dx-treelist .dx-row > td {
@@ -19,15 +7,16 @@
 </style>
 
 @{
-    var locationsTree = Html.DevExtreme().TreeList<ERPKeeperCore.Enterprise.Models.Items.ItemGroup>()
+    var locationsTree = Html.DevExtreme()
+    .TreeList<ERPKeeperCore.Enterprise.Models.Items.ItemGroup>()
                                                                                                     .ID("treeList")
-                                                                                                    .DataSource(itemGroups)
                                                                                                     .RootValue(null)
                                                                                                     .KeyExpr("Id")
                                                                                                     .ParentIdExpr("ParentUid")
-                                                                                    .ShowRowLines(true)
+
+                                                                                                    .ShowRowLines(true)
                                                                                             .ShowBorders(false)
-    @*  .SearchPanel(searchPanel => searchPanel.Visible(true))*@
+
     .HeaderFilter(headerFilter => headerFilter.AllowSearch(true).Visible(true))
             .ColumnAutoWidth(false)
     .AutoExpandAll(false)
@@ -50,8 +39,8 @@
             //.AllowDeleting(true)
             .AllowAdding(true)
         )
- .Columns(columns =>
- {
+         .Columns(columns =>
+         {
      columns.Add().DataField("Name").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/@CompanyId/Products/Groups/<%= data.Id %>/"><%= data.Name %></a></text>);
      columns.Add().DataField("ItemCount").HeaderCellTemplate(@<text>Assets#</text>);
  });
@@ -88,7 +77,7 @@
             console.info("onDragEnd=>" + e.dropInsideItem + "   fromIndex=>" + e.fromIndex + "   itemData=>" + e.itemData.Id + "   toData=>" + targetNode.data.Id);
 
             var updatedUrl = "/Products/Groups/UpdateTree?selectedNodeId=" + e.itemData.Id + "&targetNodeId=" + targetNode.data.Id;
-            $.get(updatedUrl , function (data) {
+            $.get(updatedUrl, function (data) {
                 console.info(data);
                 treeList.refresh();
             });

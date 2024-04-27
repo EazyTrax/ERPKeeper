@@ -25,12 +25,12 @@
 
                             items.AddSimpleFor(m => m.Type).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
-                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.SubType).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
-                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.IsLiquidity);
@@ -47,7 +47,7 @@
                 <div class="p-1">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_1")
-                        .FormData(item)
+                        .FormData(Model)
                         .LabelMode(FormLabelMode.Static)
                         .LabelLocation(FormLabelLocation.Left)
                         .MinColWidth(300)

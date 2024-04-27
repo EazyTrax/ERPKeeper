@@ -1,37 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
-
 @{
-    var items = Organization
-                                        .ErpNodeDBContext
-                                        .CommercialItems
-                                        .Include("Item")
-                                        .Where(c => c.Commercial.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Sale)
-                                        .Where(c => c.Commercial.ProfileGuid == Model.ProfileId)
-                                        .ToList()
-                                        .Select(i =>
-                                            new
-                                            {
-                                                Commercial = new
-                                                {
-                                                    i.Commercial.Uid,
-                                                    i.Commercial.Name,
-                                                    i.Commercial.TrnDate,
-                                                    i.Commercial.Reference
-                                                },
-
-                                                ItemGuid = i.ItemGuid,
-                                                Item = new
-                                                {
-                                                    i.Item.Uid,
-                                                    i.Item.PartNumber
-                                                },
-                                                i.Amount,
-                                                i.UnitPrice,
-                                                i.LineTotal
-                                            }
-                                        )
-                                .ToList();
+    var items = Organization.ErpCOREDBContext.SaleItems.Where(s=>s.Sale.CustomerId == Model.Id).ToList();
 }
 
 <style>
@@ -40,9 +10,8 @@
     }
 </style>
 
-
 <div id="treeListDemo" class="mb-3">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
     .ID("gridList")
     .DataSource(items)
     .KeyExpr("Id")
@@ -57,11 +26,11 @@
     .AllowReordering(false)
     )
     .Columns(columns => {
-    columns.Add().DataField("Commercial.TrnDate").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.Add().DataField("Commercial.Date").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
     columns.Add().DataField("Item.PartNumber")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/">
+            <a href="/@CompanyId/Products/Items/<%= data.ItemId %>/">
                 <%= data.Item.PartNumber %>
             </a>
         </text>);
@@ -69,7 +38,7 @@
 
     columns.Add().DataField("Commercial.Reference").HeaderCellTemplate(@<text>Reference</text>);
     columns.Add().DataField("Amount").Format(Format.FixedPoint);
-    columns.Add().DataField("UnitPrice").Format(Format.FixedPoint);
+    columns.Add().DataField("SalePrice").Format(Format.FixedPoint);
     columns.Add().DataField("LineTotal").Format(Format.FixedPoint);
 
 

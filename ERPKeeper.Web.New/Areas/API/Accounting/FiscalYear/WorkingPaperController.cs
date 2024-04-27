@@ -22,13 +22,13 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.PeriodAccountsBalances
+            var returnModel = Organization.ErpCOREDBContext.FiscalYearAccountBalances
                 .Where(m => m.FiscalYearId == FiscalYearId)
                 .Include(m => m.Account)
                 .ToList()
                 .Select(m => new
                 {
-                    m.AccountGuid,
+                    m.AccountId,
                     m.Account.Name,
                     m.Account.Code,
                     type = m.Account.Type.ToString(),

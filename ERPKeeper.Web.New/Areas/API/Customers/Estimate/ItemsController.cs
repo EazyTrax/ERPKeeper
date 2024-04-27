@@ -14,8 +14,8 @@ namespace ERPKeeperCore.Web.API.Customers.Estimates.Estimate
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.EstimateItems
-                .Where(r => r.QuoteId == EstimateId)
+            var returnModel = Organization.ErpCOREDBContext.SaleItems
+                .Where(r => r.SaleId == EstimateId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -25,14 +25,14 @@ namespace ERPKeeperCore.Web.API.Customers.Estimates.Estimate
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.SaleItem();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.QuoteId = EstimateId;
-            Organization.ErpCOREDBContext.EstimateItems.Add(model);
+            model.SaleId = EstimateId;
+            Organization.ErpCOREDBContext.SaleItems.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -42,7 +42,7 @@ namespace ERPKeeperCore.Web.API.Customers.Estimates.Estimate
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.EstimateItems.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.SaleItems.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -51,8 +51,8 @@ namespace ERPKeeperCore.Web.API.Customers.Estimates.Estimate
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.EstimateItems.First(a => a.Id == key);
-            Organization.ErpCOREDBContext.EstimateItems.Remove(model);
+            var model = Organization.ErpCOREDBContext.SaleItems.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.SaleItems.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
     }

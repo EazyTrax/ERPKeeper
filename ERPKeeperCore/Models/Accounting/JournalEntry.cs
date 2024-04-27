@@ -16,6 +16,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         [Key]
         public Guid Id { get; set; }
+
+        public bool IsPosted { get; set; }  
         public int No { get; set; }
         public String Name => string.Format("{0}/{1}", this.Date.ToString("yyMM"), this.No.ToString().PadLeft(3, '0'));
 

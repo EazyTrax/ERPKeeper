@@ -15,11 +15,9 @@ namespace ERPKeeperCore.Web.API.Accounting.Account
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Ledgers
-                .Where(m => m.AccountUid == AccountId)
-                .Include(m=>m.accountItem)
-                .Include(m=>m.TransactionLedger);
-
+            var returnModel = Organization.ErpCOREDBContext.TransactionLedgers
+                .Where(m => m.AccountId == AccountId)
+                .Include(m => m.Account);
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
     }

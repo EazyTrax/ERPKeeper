@@ -29,7 +29,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         [Key]
         public Guid Id { get; set; }
-
+        public String Name { get; set; }
+        public String? Reference { get; set; }
         public Guid TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual required Transaction Transaction { get; set; }

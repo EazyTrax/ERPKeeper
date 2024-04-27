@@ -30,7 +30,6 @@ namespace ERPKeeperCore.Web.API
                 if (_Organization == null)
                     _Organization = new Enterprise.DAL.EnterpriseRepo(CompanyId);
 
-                _Organization.ErpCOREDBContext.Configuration.LazyLoadingEnabled = false;
                 return _Organization;
             }
         }

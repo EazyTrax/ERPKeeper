@@ -13,7 +13,7 @@
         .Width("100%")
         .RowAlternationEnabled(true)
 
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
         .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(pagging => pagging.PageSize(100))
@@ -50,16 +50,16 @@
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
             
-            columns.AddFor(m => m.PurchaseAccUid)
+            columns.AddFor(m => m.PurchaseAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200).HeaderCellTemplate(@<text>Asset Acc</text>);
 
-            columns.AddFor(m => m.AmortizeExpenseAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes.AmortizeExpense).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            columns.AddFor(m => m.AmortizeExpenseAccId)
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AmortizeExpense).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200).HeaderCellTemplate(@<text>Amortize Acc</text>);
 
-             columns.AddFor(m => m.AccumulateDeprecateAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes.AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+             columns.AddFor(m => m.AccumulateDeprecateAccId)
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200).HeaderCellTemplate(@<text>Accumulate Acc</text>);
 
 

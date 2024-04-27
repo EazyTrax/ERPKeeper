@@ -27,6 +27,9 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public JournalEntry? Find(Guid Id) => erpNodeDBContext.JournalEntries.Find(Id);
 
-
+        public void UnPost(JournalEntry model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

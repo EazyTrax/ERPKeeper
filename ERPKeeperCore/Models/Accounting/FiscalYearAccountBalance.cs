@@ -37,15 +37,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         }
 
 
-        public Decimal OpeningDebit { get; internal set; }
-
-
-        public Decimal OpeningCredit { get; internal set; }
-
-
-        public Decimal ClosingDebit { get; internal set; }
-
-
-        public Decimal ClosingCredit { get; internal set; }
+        public Decimal OpeningDebit { get; set; }
+        public Decimal OpeningCredit { get; set; }
+        public Decimal ClosingDebit { get; set; }
+        public Decimal ClosingCredit { get; set; }
+        public Decimal ClosedDebit { get; set; }
+        public Decimal ClosedCredit { get; set; }
     }
 }

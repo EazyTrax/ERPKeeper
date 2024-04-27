@@ -19,7 +19,7 @@ namespace ERPKeeperCore.Web.API.Products
         {
             var returnModel = Organization.ErpCOREDBContext
                 .Items
-                .Where(i=>i.ItemType != Node.Models.Items.Enums.ItemTypes.Group);
+                .Where(i=>i.ItemType != Enterprise.Models.Items.Enums.ItemTypes.Group);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.API.Products
         {
             var returnModel = Organization.ErpCOREDBContext
                 .Items
-                .Where(i => i.ItemType != Node.Models.Items.Enums.ItemTypes.Group)
+                .Where(i => i.ItemType != Enterprise.Models.Items.Enums.ItemTypes.Group)
                 .Include(b=>b.Brand);
 
             return DataSourceLoader.Load(returnModel, loadOptions);

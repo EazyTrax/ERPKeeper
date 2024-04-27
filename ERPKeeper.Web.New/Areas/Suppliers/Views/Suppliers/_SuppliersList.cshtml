@@ -2,45 +2,17 @@
 
 
 @{
-    var models = Organization.ErpCOREDBContext.Suppliers.Include("Profile");
+    var models = Organization.ErpCOREDBContext.Suppliers;
 }
 
-<style>
-    .dx-treelist .dx-row > td {
-        padding: 2px !important;
-    }
-</style>
 
 
 <div id="treeListDemo" class="mb-3">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Supplier>()
     .ID("gridList")
-    .DataSource(models
-    .Select(i=> new{
-    Uid = i.ProfileUid,
-    ShotName = i.Profile.ShotName ,
-    Name =i.Profile.Name,
-    TaxNumber = i.Profile.TaxNumber ,
-    TotalPurchase = i.SumPurchaseBalance,
-    TotalBalance=  i.TotalBalance
-
-    })
-
-
-        @*   d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/All")
-            .InsertUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Insert")
-            .UpdateUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Update")
-            .UpdateMethod("Post")
-            .DeleteUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Delete")
-            .DeleteMethod("Post")*@
-
-    )
       .RowAlternationEnabled(true)
     .KeyExpr("Id")
-    
-        @*.ExpandedRowKeys(new[] { 1 })*@
     .ShowRowLines(true)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
@@ -48,13 +20,11 @@
         .Visible(true)
         .ApplyFilter(GridApplyFilterMode.Auto)
     )
-    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)@*
-            .AllowDeleting(true)*@
+    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
     .AllowAdding(true)
     )
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
     .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
-
     .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
     .RowDragging(rd => rd
@@ -69,23 +39,7 @@
     columns.Add().DataField("ShotName").Width(80);
 
 
-    columns.Add().DataField("Name")
-    .SortOrder(SortOrder.Asc)
-    .SortIndex(1)
-    .Width(500)
-    .CellTemplate(@<text>
-            <a href="/@CompanyId/Suppliers/Suppliers/<%= data.Id %>/">
-                <%= data.Name %>
-            </a>
-        </text>);
-
-
-        @*
-            columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
-            .DisplayExpr("Text")
-            .ValueExpr("Value")
-            );*@
+  
         
      columns.Add().DataField("TotalBalance").HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
     columns.Add().DataField("TotalPurchase").HeaderCellTemplate(@<text>Purchase</text>).Format(Format.FixedPoint);

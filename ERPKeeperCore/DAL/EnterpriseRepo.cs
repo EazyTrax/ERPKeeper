@@ -3,10 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
-
-
-
 using ERPKeeperCore.Enterprise.Models;
 using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Items;
@@ -21,8 +17,10 @@ namespace ERPKeeperCore.Enterprise.DAL
         private DAL.Accounting.SystemAccounts _systemAccountsDal;
         private DAL.Accounting.FiscalYears _fiscalYearsDal;
         private DAL.JournalEntries _JournalEntries;
+        private DAL.JournalEntryTypes _JournalEntryTypes;
 
         private DAL.Company.DataItems _DataItems;
+
 
         private DAL.Projects _Projects;
         private DAL.Assets _Assets;
@@ -35,11 +33,21 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public DAL.Sales Sales;
         public DAL.Purchases Purchases;
-
         public DAL.Customers Customers;
         public DAL.Suppliers Suppliers;
         public DAL.Employees Employees;
+        public DAL.EmployeePositions EmployeePositions;
+
+
         public DAL.Investors Investors;
+
+        public DAL.ItemGroups ItemGroups;
+
+        public DAL.Brands Brands;
+        public DAL.Profiles Profiles;
+
+        public DAL.TaxCodes TaxCodes;
+
 
         public EnterpriseRepo()
         {
@@ -48,8 +56,13 @@ namespace ERPKeeperCore.Enterprise.DAL
             Customers = new Customers(this);
             Suppliers = new Suppliers(this);
             Employees = new Employees(this);
+            EmployeePositions = new EmployeePositions(this);
             Investors = new Investors(this);
 
+            Brands = new Brands(this);
+            ItemGroups = new ItemGroups(this);
+            Profiles = new Profiles(this);
+            TaxCodes = new TaxCodes(this);
         }
 
 
@@ -150,7 +163,15 @@ namespace ERPKeeperCore.Enterprise.DAL
                 return _JournalEntries;
             }
         }
-
+        public DAL.JournalEntryTypes JournalEntryTypes
+        {
+            get
+            {
+                if (this._JournalEntryTypes == null)
+                    this._JournalEntryTypes = new JournalEntryTypes(this);
+                return _JournalEntryTypes;
+            }
+        }
         public String? DatabaseName { get; private set; }
 
         public void Dispose()

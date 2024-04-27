@@ -15,14 +15,6 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
         {
             return View();
         }
-        public IActionResult Create()
-        {
-            var task = EnterpriseRepo.Tasks.CreateDefault();
-            task.ResponsibleMemberUid = CurrentMakerId;
-            EnterpriseRepo.SaveChanges();
-
-            return Redirect($"/Assets/Tasks/{task.Uid}");
-        }
-
+     
     }
 }

@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.ProfileGuid = ProfileId;
+            model.ProfileId = ProfileId;
             Organization.ErpCOREDBContext.Purchases.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

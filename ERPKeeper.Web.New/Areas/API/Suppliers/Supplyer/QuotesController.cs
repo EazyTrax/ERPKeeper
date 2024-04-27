@@ -15,8 +15,8 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.PurchaseEstimates
-                .Where(r => r.ProfileGuid == ProfileId)
+            var returnModel = Organization.ErpCOREDBContext.Purchases
+                .Where(r => r.SupplierId == ProfileId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -32,8 +32,8 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.ProfileGuid = ProfileId;
-            Organization.ErpCOREDBContext.PurchaseEstimates.Add(model);
+            model.SupplierId = ProfileId;
+            Organization.ErpCOREDBContext.Purchases.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.PurchaseEstimates.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -52,8 +52,8 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.PurchaseEstimates.First(a => a.Id == key);
-            Organization.ErpCOREDBContext.PurchaseEstimates.Remove(model);
+            var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.Purchases.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
     }

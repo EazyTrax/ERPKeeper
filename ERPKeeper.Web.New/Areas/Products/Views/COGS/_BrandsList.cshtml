@@ -10,28 +10,9 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
     .ID("gridList")
-    .DataSource(Organization.ItemBrands.ListAll()
-    .Select(i=> new{
-    i.Uid ,
-    i.Name,
-    i.ShotName ,
-    i.Description ,
-    i.ItemsCount ,
-    })
-
-
-        @*   d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/All")
-            .InsertUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Insert")
-            .UpdateUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Update")
-            .UpdateMethod("Post")
-            .DeleteUrl($"/API/Enterprise/{enterpriseId}/AssetTypes/Delete")
-            .DeleteMethod("Post")*@
-
-    )
     .KeyExpr("Id")
     
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
     .ShowRowLines(true)
     .ShowBorders(false)
     .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)@*

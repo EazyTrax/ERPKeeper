@@ -22,27 +22,25 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
     .ColumnAutoWidth(false)
     .Columns(columns => {
-    columns.AddFor(m=>m.Quote.TrnDate).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
-    columns.AddFor(m=>m.Quote.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
+    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.AddFor(m=>m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );
    
 
-    columns.AddFor(m=>m.Quote.Profile.Name)
+    columns.AddFor(m=>m.Customer.Profile.Name)
 
     .CellTemplate(@<text>
-            <a href="/Sales/Customers/<%= data.Quote.Profile.Uid %>/">
+            <a href="/Sales/Customers/<%= data.Quote.Profile.Id %>/">
                 <%= data.Quote.Profile.Name %>
             </a>
         </text>);
 
-    columns.AddFor(m=>m.Quote.Reference);
-        columns.AddFor(m=>m.Amount).Format(Format.FixedPoint);
-          columns.AddFor(m=>m.UnitPrice).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.LineTotal).Format(Format.FixedPoint);
-    //columns.Add().DataField("Id");
+    columns.AddFor(m=>m.Reference);
+        columns.AddFor(m=>m.LinesTotal).Format(Format.FixedPoint);
+
     })
     )
 </div>

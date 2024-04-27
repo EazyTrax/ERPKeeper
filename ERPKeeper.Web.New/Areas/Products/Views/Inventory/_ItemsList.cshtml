@@ -6,21 +6,17 @@
     .GetAll()
     .Where(items => items.ItemType == ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes.Inventory)
     .Select(i=> new{
-    i.Uid ,
+    i.Id ,
     i.PartNumber,
     i.Description ,
-    i.UnitPrice ,
+    i.SalePrice ,
     i.ItemType ,
-    
-    i.BrandGuid,
+    i.BrandId,
     i.BrandName,
-    i.GroupItemUid,
-    
+    i.GroupItemId,
     i.AmountPurchase,
     i.AmountOnHand,
     i.AmountSold,
-
-
     i.AmountOnPurchaseOrder,
     i.AmountOnQuotation,
     i.AmountOnSaleOrder,
@@ -85,7 +81,7 @@
             </a>
         </text>);
 
-                columns.Add().DataField("UnitPrice").Width(100).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
+                columns.Add().DataField("SalePrice").Width(100).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
                 columns.AddFor(m=>m.AmountPurchase).Width(60).HeaderCellTemplate(@<text>PU</text>);
                 columns.AddFor(m => m.AmountSold).Width(60).HeaderCellTemplate(@<text>SL</text>);
                 columns.AddFor(m => m.AmountOnHand).Width(60).HeaderCellTemplate(@<text>Stock</text>);

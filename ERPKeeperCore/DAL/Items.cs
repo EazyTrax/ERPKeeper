@@ -29,6 +29,14 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Item? Find(Guid Id) => erpNodeDBContext.Items.Find(Id);
 
+        public object Copy(Item item)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

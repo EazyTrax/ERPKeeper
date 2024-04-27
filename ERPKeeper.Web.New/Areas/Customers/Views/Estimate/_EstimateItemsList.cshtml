@@ -2,7 +2,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
     .ID("gridList")
     .KeyExpr("Id")
     .ShowRowLines(true)
@@ -23,40 +23,24 @@
     )
 
     .KeyExpr("Id")
-    .Editing(editing => {
-    editing.Mode(GridEditMode.Popup);
-    editing.AllowAdding(Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote);
-    editing.AllowDeleting(Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote);
-    editing.AllowUpdating(Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote);
-    editing.UseIcons(true);
-    editing.Form(f=>f.ColCount(1).Width(500));
-    })
-
     .Columns(columns => {
 
-    columns.AddFor(m=>m.ItemGuid).Width(150)
-    .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
+    columns.AddFor(m=>m.ItemId).Width(150)
+    .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= displayValue %></a></text>)
     .Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Uid, t.PartNumber }).ToList())
+    .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Id, t.PartNumber }).ToList())
     .DisplayExpr("PartNumber")
     .ValueExpr("Id")
     );
 
-    columns.AddFor(m=>m.ItemBrandId)
-    .Width(150)
-    .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.ItemGuid %>/"><%= displayValue %></a></text>)
-    .Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
-    .DisplayExpr("Name")
-    .ValueExpr("Id")
-    );
+   
 
 
-    columns.AddFor(m=>m.ItemDescription).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
-    columns.AddFor(m=>m.UnitPrice).Width(100).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.Amount).Width(100).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+    columns.AddFor(m=>m.Price).Width(100).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.Quantity).Width(100).Format(Format.FixedPoint);
     columns.AddFor(m=>m.LineTotal).Width(100).Format(Format.FixedPoint).FormItem(i=>i.Visible(false));
     })
-    .OnInitNewRow("function(e) { e.data.UnitPrice = 0;e.data.Amount = 1; }")
+    .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
     )
 </div>

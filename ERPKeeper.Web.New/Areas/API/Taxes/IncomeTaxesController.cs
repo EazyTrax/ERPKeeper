@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.API.Taxes
         {
             var model = new ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax();
             JsonConvert.PopulateObject(values, model);
-       
+
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
@@ -44,7 +44,7 @@ namespace ERPKeeperCore.Web.API.Taxes
         {
             var model = Organization.ErpCOREDBContext.IncomeTaxes.Find(key);
 
-            if (model.PostStatus == Node.Models.Accounting.Enums.LedgerPostStatus.Editable)
+            if (!model.IsPosted)
             {
                 JsonConvert.PopulateObject(values, model);
                 Organization.ErpCOREDBContext.SaveChanges();
@@ -53,9 +53,9 @@ namespace ERPKeeperCore.Web.API.Taxes
             else
             {
                 return Ok("Cannot Edit");
-            } 
+            }
 
-            
+
         }
 
     }

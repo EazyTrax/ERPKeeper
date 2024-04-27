@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 
 namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
 {
@@ -19,14 +20,14 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.PeriodAccountsBalances
+            var returnModel = Organization.ErpCOREDBContext.FiscalYearAccountBalances
                 .Where(m => m.FiscalYearId == FiscalYearId)
                 .Where(m => m.Account.Type == AccountTypes.Expense || m.Account.Type == AccountTypes.Income)
                 .Include(m => m.Account)
                 .ToList()
                 .Select(m => new
                 {
-                    m.AccountGuid,
+                    m.AccountId,
                     m.Account.Name,
                     m.Account.Code,
                     type = m.Account.Type.ToString(),

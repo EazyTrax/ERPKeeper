@@ -14,14 +14,20 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         [Key]
         public Guid Id { get; set; }
+        public bool IsPosted { get; set; }
         public String Name => string.Format("{0}", EndDate.Year.ToString());
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public FiscalYearStatus Status { get; set; }
-
-        [MaxLength(255)]
         public String? Memo { get; set; }
+
+
+        public decimal IncomeBalance { get; set; }
+
+        public decimal ExpenseBalance { get; set; }
+
+        public decimal ProfitBalance { get; set; }
 
         public Decimal Income => FiscalYearAccountBalances?
                 .Where(a => a.Account.Type == AccountTypes.Income)

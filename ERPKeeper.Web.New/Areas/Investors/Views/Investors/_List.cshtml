@@ -71,7 +71,7 @@
             .CellTemplate(@<text><a href="/@CompanyId/Employees/Investors/<%= data.ProfileUid %>/"><%= displayValue %></a></text>);
 
   @*
-    columns.AddFor(m=>m.PositionGuid)
+    columns.AddFor(m=>m.PositionId)
     .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Id, Text = i.Title}))
             .DisplayExpr("Text")

@@ -18,6 +18,9 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [Key]
         public Guid Id { get; set; }
         public bool IsPosted { get; set; }
+
+
+
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
@@ -26,14 +29,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("SupplierId")]
         public virtual Suppliers.Supplier? Supplier { get; set; }
 
-
+        public String? Reference { get; set; }
         public PurchaseStatus Status { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
-
+ 
         public Decimal LinesTotal { get; set; }
 
 

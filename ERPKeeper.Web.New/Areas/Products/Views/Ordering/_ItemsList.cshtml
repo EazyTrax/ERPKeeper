@@ -14,13 +14,13 @@
     .Where(item => item.AmountOnSaleOrder !=0)
     .Where(items => items.ItemType != ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes.Group)
     .Select(i=> new{
-    i.Uid ,
+    i.Id ,
     i.PartNumber,
     i.Description ,
-    i.UnitPrice ,
+    i.SalePrice ,
     i.ItemType ,
     i.AmountOnHand,
-    i.BrandGuid,
+    i.BrandId,
     i.BrandName,
     i.AmountSold,
     })
@@ -37,7 +37,7 @@
     )
     .KeyExpr("Id")
     
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
     .ShowRowLines(true)
     .ShowBorders(false)
     .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)@*
@@ -105,7 +105,7 @@
     columns.Add().DataField("AmountOnHand").Width(60).HeaderCellTemplate(@<text>Stock</text>);
     columns.Add().DataField("AmountSold").Width(60).HeaderCellTemplate(@<text>Sold</text>);
 
-    columns.Add().DataField("UnitPrice").Width(100).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);
+    columns.Add().DataField("SalePrice").Width(100).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);
     //columns.Add().DataField("Id");
     })
     )

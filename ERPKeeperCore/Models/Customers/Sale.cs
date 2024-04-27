@@ -29,7 +29,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("CustomerId")]
         public virtual Customers.Customer? Customer { get; set; }
 
-
+         public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }

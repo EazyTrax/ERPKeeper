@@ -30,6 +30,9 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Customer? Find(Guid Id) => erpNodeDBContext.Customers.Find(Id);
 
-
+        public void UpdateSalesBalance()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

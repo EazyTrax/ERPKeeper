@@ -16,19 +16,19 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Index()
         {
-            var transcation = EnterpriseRepo.SaleEstimates.Find(EstimateId);
+            var transcation = EnterpriseRepo.Sales.Find(EstimateId);
             return View(transcation);
         }
 
 
         public IActionResult Items()
         {
-            var transcation = EnterpriseRepo.SaleEstimates.Find(EstimateId);
+            var transcation = EnterpriseRepo.Sales.Find(EstimateId);
             return View(transcation);
         }
         public IActionResult Documents()
         {
-            var transcation = EnterpriseRepo.SaleEstimates.Find(EstimateId);
+            var transcation = EnterpriseRepo.Sales.Find(EstimateId);
             return View(transcation);
         }
 

@@ -15,25 +15,14 @@
                 <div class=" bg-fb1 p-2 mb-2 rounded">
                     <div class="mb-2">
                         <div class="mb-3 font-weight-600">Dates</div>
-                        <div class="mb-2">@Html.DevExtreme().DateBoxFor(m=>m.CreatedDate).Label("CreatedDate").LabelMode(EditorLabelMode.Floating)</div>
+                        <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.StartDate).Label("StartDate").LabelMode(EditorLabelMode.Floating)</div>
                      </div>
                 </div>
             </div>
             <div class="col-6 p-1">
                 <div class=" bg-fb1 p-2 mb-2 rounded">
 
-                    <div class="mb-2">
-                        <div class="mb-3 font-weight-600">Customers</div>
-
-                        @(Html.DevExtreme().SelectBoxFor(m=>m.CustomerProfileGuid)
-                        .DataSource(Organization.Customers.GetAll().Select(t => new { t.ProfileUid, Name = t.Profile.Name }).ToList())
-                        .Placeholder("Choose Projects")
-                        .DisplayExpr("Name")
-                        .ValueExpr("Id")
-                        .ShowClearButton(true)
-                        .LabelMode(EditorLabelMode.Floating)
-                        )
-                    </div>
+                  
                 </div>
             </div>
 

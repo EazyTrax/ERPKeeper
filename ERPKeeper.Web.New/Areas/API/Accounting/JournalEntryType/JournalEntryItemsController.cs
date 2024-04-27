@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.API.Accounting.JournalEntryType
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.JournalEntries
-                .Where(m => m.JournalEntryTypeGuid == JournalEntryTypeId);
+                .Where(m => m.JournalEntryTypeId == JournalEntryTypeId);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

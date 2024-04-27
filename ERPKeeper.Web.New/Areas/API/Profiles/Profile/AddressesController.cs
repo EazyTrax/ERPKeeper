@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.ProfileAddresses
-                .Where(r => r.ProfileGuid == ProfileId)
+                .Where(r => r.ProfileId == ProfileId)
                  //.Select(p => new
                  //{
                  //    p.AddressGuid,
@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.ProfileGuid = ProfileId;
+            model.ProfileId = ProfileId;
             Organization.ErpCOREDBContext.ProfileAddresses.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
@@ -50,7 +50,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.ProfileAddresses.First(a => a.AddressGuid == key);
+            var model = Organization.ErpCOREDBContext.ProfileAddresses.Find(key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -59,7 +59,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.ProfileAddresses.First(a => a.AddressGuid == key);
+            var model = Organization.ErpCOREDBContext.ProfileAddresses.Find(key);
             Organization.ErpCOREDBContext.ProfileAddresses.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }

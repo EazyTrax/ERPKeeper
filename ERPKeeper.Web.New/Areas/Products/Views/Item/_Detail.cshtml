@@ -11,7 +11,7 @@
                 <div class="p-1">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Items.Item>()
                     .ID("form_0")
-                    .FormData(item)
+                    .FormData(Model)
                     .LabelMode(FormLabelMode.Static)
                     .LabelLocation(FormLabelLocation.Left)
                     .MinColWidth(300)
@@ -28,7 +28,7 @@
                     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
                     .DisplayExpr("Text").ValueExpr("Value"));
 
-                    items.AddSimpleFor(m=>m.BrandGuid)
+                    items.AddSimpleFor(m=>m.BrandId)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
                     .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -50,7 +50,7 @@
                 <div class="p-1">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Items.Item>()
                     .ID("form_1")
-                    .FormData(item)
+                        .FormData(Model)
                     .LabelMode(FormLabelMode.Static)
                     .LabelLocation(FormLabelLocation.Left)
                     .MinColWidth(300)
@@ -72,7 +72,7 @@
                 <div class="p-0">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Items.Item>()
                     .ID("form_sale")
-                    .FormData(item)
+                        .FormData(Model)
                     .LabelMode(FormLabelMode.Static)
                     .LabelLocation(FormLabelLocation.Left)
                     .MinColWidth(300)
@@ -80,8 +80,8 @@
                     .ShowColonAfterLabel(true)
                     .ColCount(1)
                     .Items(items => {
-                    items.AddSimpleFor(m=>m.UnitPrice).Editor(e=>e.NumberBox());
-                    items.AddSimpleFor(m=>m.IncomeAccountUid)
+                    items.AddSimpleFor(m=>m.SalePrice).Editor(e=>e.NumberBox());
+                    items.AddSimpleFor(m=>m.IncomeAccountId)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
                     .DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).ToList())
@@ -99,7 +99,7 @@
                 <div class="p-0">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Items.Item>()
                     .ID("form_purchase")
-                    .FormData(item)
+                    .FormData(Model)
                     .LabelMode(FormLabelMode.Static)
                     .LabelLocation(FormLabelLocation.Left)
                     .MinColWidth(300)
@@ -108,7 +108,7 @@
                     .ColCount(1)
                     .Items(items => {
 
-                    items.AddSimpleFor(m=>m.PurchaseAccountUid)
+                    items.AddSimpleFor(m=>m.PurchaseAccountId)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
                     .DataSource(Organization.ChartOfAccount.GetAccountsList().OrderBy(m=>m.Name).Select(t => new {t.Type, t.Id, t.Name }).ToList())

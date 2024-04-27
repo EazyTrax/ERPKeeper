@@ -20,22 +20,6 @@ namespace ERPKeeperCore.Web.API.Accounting
 
 
         [HttpPost]
-        public IActionResult Insert(string values)
-        {
-            var model = new ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger();
-            JsonConvert.PopulateObject(values, model);
-            
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
-
-            Organization.ErpCOREDBContext.TransactionLedgers.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
-
-            return Ok();
-        }
-
-
-        [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.TransactionLedgers.First(a => a.Id == key);

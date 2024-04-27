@@ -42,7 +42,7 @@ namespace ERPKeeperCore.Web.API.Accounting.JournalEntry
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.JournalEntryItems.First(a => a.JournalEntryItemId == key);
+            var model = Organization.ErpCOREDBContext.JournalEntryItems.Find(key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
 
@@ -56,7 +56,7 @@ namespace ERPKeeperCore.Web.API.Accounting.JournalEntry
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.JournalEntryItems.First(a => a.JournalEntryItemId == key);
+            var model = Organization.ErpCOREDBContext.JournalEntryItems.Find(key);
             Organization.ErpCOREDBContext.JournalEntryItems.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }

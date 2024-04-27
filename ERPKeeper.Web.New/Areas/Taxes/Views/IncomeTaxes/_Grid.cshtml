@@ -13,7 +13,7 @@
         .Width("100%")
         .RowAlternationEnabled(true)
 
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
         .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
@@ -39,7 +39,6 @@
                             columns.AddFor(m => m.Name);
                             columns.AddFor(m => m.ProfitAmount);
                             columns.AddFor(m => m.TaxAmount);
-                            columns.AddFor(m => m.FiscalYearId);
                              columns.AddFor(m => m.LiabilityAccountGuid);
                             @* columns.AddFor(m => m.Status).Width(100).Lookup(lookup => lookup
                 .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
@@ -61,7 +60,7 @@
             
             columns.AddFor(m=>m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
-            columns.AddFor(m => m.Uid).AllowEditing(false).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-danger"></i></text>);
+            columns.AddFor(m => m.Id).AllowEditing(false).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-danger"></i></text>);
         *@
                 @*
             columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup

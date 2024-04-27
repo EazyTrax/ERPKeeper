@@ -22,9 +22,8 @@
 
 
 
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.ProfileAddress.AddressLine).Label("Address").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
 
                 </div>
             </div>
@@ -33,8 +32,7 @@
                 <div class=" bg-fb1 p-2 mb-2 rounded">
                     <div class="mb-3 font-weight-600">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                    <div class="mb-2">@Html.DevExtreme().DateBoxFor(m=>m.TrnDate).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().DateBoxFor(m=>m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m=>m.TaxCodeId)
                         .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
@@ -55,14 +53,7 @@
                     <div class="mb-2">
                         <div class="mb-3 font-weight-600">Projects</div>
 
-                        @(Html.DevExtreme().SelectBoxFor(m=>m.ProjectGuid)
-                        .DataSource(Organization.Projects.ListAll().Select(t => new { t.Id, t.Name }).ToList())
-                        .Placeholder("Choose Projects")
-                        .DisplayExpr("Name")
-                        .ValueExpr("Id")
-                        .ShowClearButton(true)
-                        .LabelMode(EditorLabelMode.Static)
-                        )
+                   
                     </div>
                 </div>
             </div>

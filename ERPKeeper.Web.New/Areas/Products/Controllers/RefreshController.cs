@@ -14,9 +14,6 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
     {
         public IActionResult Stock()
         {
-            EnterpriseRepo.InventoryItemsDal.UpdateStockAmount();
-            EnterpriseRepo.InventoryItemsDal.UpdateEstimateAmount();
-
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

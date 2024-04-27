@@ -12,11 +12,11 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
     .KeyExpr("Id")
     
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
     .ShowRowLines(true)
     .ShowBorders(false)
     .RowAlternationEnabled(true)
@@ -35,7 +35,7 @@
             .ShowDragIcons(false)*@
     )
     .Columns(columns => {
-    columns.AddFor(m=>m.TrnDate).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.AddFor(m=>m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
     columns.AddFor(m=>m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")

@@ -28,11 +28,11 @@
     .AllowReordering(false)
     )
     .Columns(columns => {
-    columns.Add().DataField("Quote.TrnDate").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.Add().DataField("Quote.Date").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
     columns.Add().DataField("Item.PartNumber")
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.ItemGuid %>/">
+            <a href="/@CompanyId/Products/Items/<%= data.ItemId %>/">
                 <%= data.Item.PartNumber %>
             </a>
         </text>);
@@ -51,7 +51,7 @@
 
     columns.Add().DataField("Quote.Reference").HeaderCellTemplate(@<text>Reference</text>);
     columns.Add().DataField("Amount").Format(Format.FixedPoint);
-    columns.Add().DataField("UnitPrice").Format(Format.FixedPoint);
+    columns.Add().DataField("SalePrice").Format(Format.FixedPoint);
     columns.Add().DataField("LineTotal").Format(Format.FixedPoint);
 
 

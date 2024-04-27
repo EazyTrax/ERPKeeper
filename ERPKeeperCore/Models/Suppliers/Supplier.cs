@@ -30,10 +30,10 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         public int CountPurchases { get; set; }
         public Decimal SumPurchaseBalance { get; set; }
-        public Decimal TotalBalance { get; internal set; }
+        public Decimal TotalBalance { get; set; }
 
 
-        public int CountBalance { get; internal set; }
+        public int CountBalance { get; set; }
         public Decimal CreditLimit { get; set; }
         public int CreditAgeLimit { get; set; }
 

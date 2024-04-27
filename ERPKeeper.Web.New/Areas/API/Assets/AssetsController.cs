@@ -15,9 +15,7 @@ namespace ERPKeeperCore.Web.API.Assets
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext
-                .Assets
-                .Include("AssetType");
+            var returnModel = Organization.ErpCOREDBContext.Assets;
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
@@ -28,7 +26,7 @@ namespace ERPKeeperCore.Web.API.Assets
         {
             var model = new ERPKeeperCore.Enterprise.Models.Assets.Asset();
             JsonConvert.PopulateObject(values, model);
-            model.Status = Node.Models.Assets.Enums.AssetStatus.Draft;
+            model.Status = Enterprise.Models.Assets.Enums.AssetStatus.Active;
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());

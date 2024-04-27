@@ -34,33 +34,6 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
                 .Where(r => r.ProfileId == ProfileId && r.Role == model.Role)
                 .FirstOrDefault();
 
-            if (existRole == null)
-            {
-                model.Id = Guid.NewGuid();
-                model.Created = DateTime.Now;
-                model.ProfileId = ProfileId;
-                Organization.ErpCOREDBContext.ProfileRoles.Add(model);
-                Organization.ErpCOREDBContext.SaveChanges();
-
-
-                switch (model.Role)
-                {
-                    case Node.Models.Profiles.Role.Employee:
-                        Organization.Employees.Create(profile);
-                        break;
-                    case Node.Models.Profiles.Role.Customer:
-                        Organization.Customers.Create(profile);
-                        break;
-                    case Node.Models.Profiles.Role.Supplier:
-                        Organization.Suppliers.Create(profile);
-                        break;
-                    case Node.Models.Profiles.Role.Investor:
-                        Organization.Investors.Create(profile);
-                        break;
-                }
-            }
-
-
             return Ok();
         }
 

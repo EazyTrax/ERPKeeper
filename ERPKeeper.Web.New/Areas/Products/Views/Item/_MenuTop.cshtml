@@ -6,9 +6,9 @@
             <a href="/">ERP</a>
             <a href="/@CompanyId/Products">> Products</a>
             <a href="/@CompanyId/Products/Groups">> Groups</a>
-            @if (Model.GroupItemUid != null)
+            @if (Model.ItemGroupId != null)
             {
-                <a href="/@CompanyId/Products/Groups/@Model.GroupItemUid">> @Model.GroupItem.Name</a>
+                <a href="/@CompanyId/Products/Groups/@Model.ItemGroupId">> @Model.ItemGroup.Name</a>
             }
             <a href="/@CompanyId/Products/Items/@Model.Id">> @Model.PartNumber</a>
         </div>

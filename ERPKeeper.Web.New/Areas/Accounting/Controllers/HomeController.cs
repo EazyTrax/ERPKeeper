@@ -16,11 +16,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             return View();
         }
 
-        public IActionResult Post()
-        {
-            EnterpriseRepo.LedgersDal.PostLedgers();
-            return Redirect(Request.Headers["Referer"].ToString());
-        }
+       
 
     }
 }

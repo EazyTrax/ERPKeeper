@@ -8,28 +8,28 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
-using ERPKeeperCore.Enterprise.Models.Assets;
-using ERPKeeperCore.Enterprise.Models.Assets.Enums;
+using ERPKeeperCore.Enterprise.Models.Items;
+using ERPKeeperCore.Enterprise.Models.Items.Enums;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {
-    public class AssetTypes : ERPNodeDalRepository
+    public class Brands : ERPNodeDalRepository
     {
-        public AssetTypes(EnterpriseRepo organization) : base(organization)
+        public Brands(EnterpriseRepo organization) : base(organization)
         {
 
         }
 
-        public List<AssetType> GetAll()
+        public List<Brand> GetAll()
         {
-            return erpNodeDBContext.AssetTypes.ToList();
+            return erpNodeDBContext.Brands.ToList();
         }
 
 
 
-        public AssetType? Find(Guid Id) => erpNodeDBContext.AssetTypes.Find(Id);
+        public Brand? Find(Guid Id) => erpNodeDBContext.Brands.Find(Id);
 
-        public void Refresh()
+        public void UpdateAmount()
         {
             throw new NotImplementedException();
         }

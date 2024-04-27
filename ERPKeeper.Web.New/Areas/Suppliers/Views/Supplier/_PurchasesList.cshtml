@@ -22,7 +22,7 @@
 
         .KeyExpr("Id")
 
-        @*.ExpandedRowKeys(new[] { 1 })*@
+        
         .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
@@ -44,9 +44,9 @@
 
 
 
-                columns.AddFor(m => m.TrnDate).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+                columns.AddFor(m => m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
                 columns.AddFor(m => m.Status).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Transactions.CommercialStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );

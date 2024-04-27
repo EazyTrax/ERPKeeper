@@ -18,18 +18,18 @@
                 columns.AddFor(m => m.Account.Type)
                 .HeaderCellTemplate("Type")
                 .Width(100).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                 .DisplayExpr("Text")
                 .ValueExpr("Value")
                 );
 
                 columns.AddFor(m => m.Account.SubType).SortOrder(SortOrder.Asc).SortIndex(2)
                 .HeaderCellTemplate("SubType").Width(200).Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                 .DisplayExpr("Text")
                 .ValueExpr("Value")
                 );
-                columns.AddFor(m => m.AccountGuid)
+                columns.AddFor(m => m.AccountId)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .HeaderCellTemplate(@<text>Account</text>);
 

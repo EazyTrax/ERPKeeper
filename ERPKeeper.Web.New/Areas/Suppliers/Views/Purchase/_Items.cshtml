@@ -9,23 +9,7 @@
 
 
 @{
-    var Quotes = Model.CommercialItems.ToList()
-                                              .Select(i => new
-                                              {
-                                                  i.Uid,
-                                                  i.ItemPartNumber,
-                                                  i.ItemDescription,
-                                                  Item = new
-                                                  {
-                                                  i.Item.Uid,
-                                                  i.Item.PartNumber,
-                                                  i.Item.Description
-                                                  },
-                                                  i.Amount,
-                                                  i.UnitPrice,
-                                                  i.LineTotal,
-
-                                              }).ToList();
+    var Quotes = Model.Items.ToList();
 
 
 }
@@ -40,7 +24,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseItem>()
     .ID("gridList")
     
     .RowAlternationEnabled(true)
@@ -57,14 +41,14 @@
     columns.AddFor(m=>m.Item.PartNumber)
 
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Item.Uid %>/">
+            <a href="/@CompanyId/Products/Items/<%= data.Item.Id %>/">
                 <%= data.ItemPartNumber %>
             </a>
         </text>);
 
-         columns.AddFor(m=>m.ItemDescription).Width(300);
-        columns.AddFor(m=>m.Amount).Width(80).Format(Format.FixedPoint);
-          columns.AddFor(m=>m.UnitPrice).Width(80).Format(Format.FixedPoint);
+         columns.AddFor(m=>m.Description).Width(300);
+        columns.AddFor(m=>m.Quantity).Width(80).Format(Format.FixedPoint);
+          columns.AddFor(m=>m.Price).Width(80).Format(Format.FixedPoint);
     columns.AddFor(m=>m.LineTotal).Width(80).Format(Format.FixedPoint);
     //columns.Add().DataField("Id");
     })

@@ -47,18 +47,18 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             {
                 Date = DateTime.Today,
                 Memo = model.Memo,
-                JournalEntryTypeId = model.JournalEntryTypeGuid,
+                JournalEntryTypeId = model.JournalEntryTypeId,
                 JournalEntryItems = new HashSet<JournalEntryItem>()
             };
             EnterpriseRepo.ErpCOREDBContext.JournalEntries.Add(newModel);
 
-            model.Items.ToList().ForEach(item =>
+            model.JournalEntryItems.ToList().ForEach(item =>
             {
-                newModel.AddAcount(item.AccountUid, item.Debit, item.Credit);
+                newModel.AddAcount(item.AccountId, item.Debit, item.Credit);
             });
             EnterpriseRepo.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Accounting/JournalEntries/{model.Uid}/");
+            return Redirect($"/{CompanyId}/Accounting/JournalEntries/{model.Id}/");
         }
     }
 }
