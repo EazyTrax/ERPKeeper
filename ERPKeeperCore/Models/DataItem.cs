@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using KeeperCore.ERPNode.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Enums;
 
-namespace KeeperCore.ERPNode.Models
+namespace ERPKeeperCore.Enterprise.Models
 {
     [Table("ERP_Datum")]
     public class DataItem
@@ -15,7 +15,7 @@ namespace KeeperCore.ERPNode.Models
         
         public Guid Id { get; set; }
         public DataItemKey Key { get; set; }
-        public string Value { get; set; }
+        public String? Value { get; set; }
         public DataItemType DataType { get; set; }
 
     }

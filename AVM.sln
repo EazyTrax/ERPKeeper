@@ -18,9 +18,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERPKeeper.Cmd", "ERPKeeper.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EngineeringCraft.com", "EngineeringCraft.com\EngineeringCraft.com.csproj", "{A5129ECE-D7B9-4670-A8AB-8E8E47F70B7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeeperCore.ERPNode", "ERPKeeperCore\KeeperCore.ERPNode.csproj", "{91AFB5C1-A682-4226-A3F0-E4643729AEF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERPKeeperCore.Enterprise", "ERPKeeperCore\ERPKeeperCore.Enterprise.csproj", "{91AFB5C1-A682-4226-A3F0-E4643729AEF9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ERPKeeperCore", "ERPKeeperCore", "{E058E737-FB15-4F84-9E02-93572717C2E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERPKeeperCore.CMD", "ERPKeeperCore.Enterprise\ERPKeeperCore.CMD.csproj", "{334D1BBD-F6E8-44BA-AF9C-7848369282C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,12 +106,25 @@ Global
 		{91AFB5C1-A682-4226-A3F0-E4643729AEF9}.Release|x64.Build.0 = Release|Any CPU
 		{91AFB5C1-A682-4226-A3F0-E4643729AEF9}.Release|x86.ActiveCfg = Release|Any CPU
 		{91AFB5C1-A682-4226-A3F0-E4643729AEF9}.Release|x86.Build.0 = Release|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Debug|x64.Build.0 = Debug|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Debug|x86.Build.0 = Debug|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Release|x64.ActiveCfg = Release|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Release|x64.Build.0 = Release|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Release|x86.ActiveCfg = Release|Any CPU
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{91AFB5C1-A682-4226-A3F0-E4643729AEF9} = {E058E737-FB15-4F84-9E02-93572717C2E2}
+		{334D1BBD-F6E8-44BA-AF9C-7848369282C9} = {E058E737-FB15-4F84-9E02-93572717C2E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B33A7FB-915F-4C7E-8A53-0649BCB12139}

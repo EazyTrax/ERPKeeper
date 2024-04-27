@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KeeperCore.ERPNode.Models.Enums
+namespace ERPKeeperCore.Enterprise.Models.Enums
 {
     public enum AccountSubTypes
     {

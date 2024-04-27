@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KeeperCore.ERPNode.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Enums;
 
-namespace KeeperCore.ERPNode.Models.Helpers
+namespace ERPKeeperCore.Enterprise.Models.Helpers
 {
     public static class ObjectsHelper
     {

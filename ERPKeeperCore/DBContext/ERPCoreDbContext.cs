@@ -1,17 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.Data.SqlClient;
-using KeeperCore.ERPNode.Models;
+using ERPKeeperCore.Enterprise.Models;
 using System.ComponentModel.DataAnnotations.Schema;
-using KeeperCore.ERPNode.Models;
-using KeeperCore.ERPNode.Models.Transactions.Enums;
+using ERPKeeperCore.Enterprise.Models.Profiles;
+using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Assets;
+using ERPKeeperCore.Enterprise.Models.Taxes;
+using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
+using ERPKeeperCore.Enterprise.Models.Projects;
 
-namespace KeeperCore.ERPNode.DBContext
+namespace ERPKeeperCore.Enterprise.DBContext
 {
     public class ERPCoreDbContext : DbContext
     {
         private readonly bool useLazyLoading;
         string DbName;
+
         public ERPCoreDbContext(string DbName, bool useLazyLoading = true) : base()
         {
             this.DbName = DbName;
@@ -19,11 +25,10 @@ namespace KeeperCore.ERPNode.DBContext
         }
 
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string dbName = $"ERPCore-{DbName}";
-            string dbHost = @"sql-01.advancemaker.com";
+            string dbHost = @"172.19.2.5";
             string userName = "sa";
             string password = "P@ssw0rd@1";
 
@@ -32,7 +37,8 @@ namespace KeeperCore.ERPNode.DBContext
                 InitialCatalog = dbName,
                 DataSource = dbHost,
                 UserID = userName,
-                Password = password
+                Password = password,
+                TrustServerCertificate = true
             };
 
             if (this.useLazyLoading)
@@ -43,7 +49,15 @@ namespace KeeperCore.ERPNode.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+               .SelectMany(t => t.GetProperties())
+               .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                if (string.IsNullOrEmpty(property.GetColumnType()))
+                {
+                    property.SetColumnType("decimal(18, 2)");
+                }
+            }
 
         }
 
@@ -61,27 +75,38 @@ namespace KeeperCore.ERPNode.DBContext
         public DbSet<Models.Items.Brand> Brands { get; set; }
 
         public DbSet<FiscalYear> FiscalYears { get; set; }
-        public DbSet<Account> AccountItems { get; set; }
-        public DbSet<DefaultAccount> SystemAccounts { get; set; }
-        public DbSet<Models.Profile> Profiles { get; set; }
-        public DbSet<Models.ProfileRole> ProfileRoles { get; set; }
-        public DbSet<Models.ProfileBankAccount> ProfileBankAccounts { get; set; }
-        public DbSet<Models.ProfileAddress> ProfileAddresses { get; set; }
-        public DbSet<Models.ProfileContact> ProfileContacts { get; set; }
-        public DbSet<Models.Sale> Sales { get; set; }
-        public DbSet<Models.Purchase> Purchases { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<DefaultAccount> DefaultAccounts { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<ProfileRole> ProfileRoles { get; set; }
+        public DbSet<ProfileBankAccount> ProfileBankAccounts { get; set; }
+        public DbSet<ProfileAddress> ProfileAddresses { get; set; }
+        public DbSet<ProfileContact> ProfileContacts { get; set; }
+
+
+
+
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleItem> SaleItems { get; set; }
+
+
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<PurchaseItem> PurchaseItems { get; set; }
+
         public DbSet<PaymentTerm> PaymentTerms { get; set; }
-        public DbSet<SaleItem> CommercialItems { get; set; }
 
 
 
+        public DbSet<Purchase> Purchases { get; set; }
 
-        public DbSet<Models.Project> Projects { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
 
-        public DbSet<Models.Asset> Assets { get; set; }
-        public DbSet<Models.AssetType> AssetTypes { get; set; }
-        public DbSet<Models.AssetDeprecateSchedule> DeprecateSchedules { get; set; }
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<AssetType> AssetTypes { get; set; }
+        public DbSet<AssetDeprecateSchedule> DeprecateSchedules { get; set; }
 
 
 
@@ -95,8 +120,8 @@ namespace KeeperCore.ERPNode.DBContext
 
 
         #region Taxes
-        public DbSet<Models.TaxCode> TaxCodes { get; set; }
-        public DbSet<Models.TaxPeriod> TaxPeriods { get; set; }
+        public DbSet<TaxCode> TaxCodes { get; set; }
+        public DbSet<TaxPeriod> TaxPeriods { get; set; }
         #endregion
 
 

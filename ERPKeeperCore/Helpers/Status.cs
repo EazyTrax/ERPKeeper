@@ -1,7 +1,7 @@
-﻿using KeeperCore.ERPNode.Models.Enums;
+﻿using ERPKeeperCore.Enterprise.Models.Enums;
 using System;
 
-namespace KeeperCore.ERPNode.Helpers
+namespace ERPKeeperCore.Enterprise.Helpers
 {
     public static class Status
     {

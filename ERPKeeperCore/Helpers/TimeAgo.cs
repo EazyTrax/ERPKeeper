@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeeperCore.ERPNode.Helpers
+namespace ERPKeeperCore.Enterprise.Helpers
 {
     public static class TimeAgo
     {

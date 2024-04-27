@@ -1,22 +1,22 @@
-﻿using KeeperCore.ERPNode.Models;
+﻿using ERPKeeperCore.Enterprise.Models;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KeeperCore.ERPNode.DAL.Company
+namespace ERPKeeperCore.Enterprise.DAL.Company
 {
     public class DataItems : ERPNodeDalRepository
     {
 
-        public DataItems(Organization organization) : base(organization)
+        public DataItems(EnterpriseRepo organization) : base(organization)
         {
            
         }
-        public String OrganizationName => Get(DataItemKey.OrganizationName);
-        public String OrganizationHeader => Get(DataItemKey.OrganizationHeader);
-        public String TaxID => Get(Models.DataItemKey.TaxId);
+        public String? OrganizationName => Get(DataItemKey.OrganizationName);
+        public String? OrganizationHeader => Get(DataItemKey.OrganizationHeader);
+        public String? TaxID => Get(Models.DataItemKey.TaxId);
         public DateTime FirstDate
         {
             get
@@ -42,7 +42,7 @@ namespace KeeperCore.ERPNode.DAL.Company
         }
 
         public DataItem Get(Guid Id) => erpNodeDBContext.DataItems.Find(Id);
-        public String Get(DataItemKey key) => erpNodeDBContext.DataItems.Where(dt => dt.Key == key).FirstOrDefault()?.Value;
+        public String? Get(DataItemKey key) => erpNodeDBContext.DataItems.Where(dt => dt.Key == key).FirstOrDefault()?.Value;
 
         public void Set(Models.DataItemKey key, string value)
         {

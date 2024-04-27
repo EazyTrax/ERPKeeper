@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KeeperCore.ERPNode.Models.Enums
+namespace ERPKeeperCore.Enterprise.Models.Enums
 {
     public enum ProjectStatus
     {

@@ -1,4 +1,4 @@
-﻿namespace KeeperCore.ERPNode.Models.Enums
+﻿namespace ERPKeeperCore.Enterprise.Models.Enums
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeRush", "Type can be moved to separate file")]
     public enum DataItemType

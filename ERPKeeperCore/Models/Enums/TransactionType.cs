@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KeeperCore.ERPNode.Models.Transactions
+namespace ERPKeeperCore.Enterprise.Models.Transactions
 {
     public enum TransactionType
     {
-        All = 0,
-        Lastest100 = 20,
-        Status = 30,
-        Time = 40,
-        Overdue = 50
+        UnKnow = 0,
+        Sale = 20,
+        Purchase = 30,
+        Payment = 40,
+        ReceivePayment = 50,
     }
 }
 

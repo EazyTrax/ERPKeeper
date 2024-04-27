@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace KeeperCore.ERPNode.Helpers
+namespace ERPKeeperCore.Enterprise.Helpers
 {
     public enum QueryPeriod
     {

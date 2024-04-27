@@ -24,7 +24,6 @@ namespace ERPKeeper.Node.Models.Profiles
         public String Number { get; set; }
 
 
-
         public bool IsPrimary { get; set; }
 
         public String AddressLine { get; set; }

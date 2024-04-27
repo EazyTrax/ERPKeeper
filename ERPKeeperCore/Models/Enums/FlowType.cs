@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KeeperCore.ERPNode.Models.Items.Inventory
+namespace ERPKeeperCore.Enterprise.Models.Items.Inventory
 {
     public enum FlowType
     {

@@ -1,19 +1,19 @@
 ﻿
-using KeeperCore.ERPNode.DAL.Company;
-using KeeperCore.ERPNode.DBContext;
+using ERPKeeperCore.Enterprise.DAL.Company;
+using ERPKeeperCore.Enterprise.DBContext;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using KeeperCore.ERPNode.Models;
-using KeeperCore.ERPNode.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting;
 
-namespace KeeperCore.ERPNode.DAL.Accounting
+namespace ERPKeeperCore.Enterprise.DAL.Accounting
 {
     public class FiscalYears : ERPNodeDalRepository
     {
-        public FiscalYears(Organization organization) : base(organization)
+        public FiscalYears(EnterpriseRepo organization) : base(organization)
         {
           
         }
@@ -72,7 +72,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                 fiscalYear = new FiscalYear()
                 {
                     StartDate = tagetFiscalFirstDate,
-                    Status = EnumFiscalYearStatus.Open
+                    Status = FiscalYearStatus.Open
                 };
 
 
@@ -100,7 +100,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         public void Close(FiscalYear fy)
         {
-            fy.Status = EnumFiscalYearStatus.Close;
+            fy.Status = FiscalYearStatus.Close;
             this.UpdateBalance(fy);
             this.erpNodeDBContext.SaveChanges();
         }

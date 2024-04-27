@@ -1,7 +1,6 @@
-﻿
-
-using KeeperCore.ERPNode.Models;
-using KeeperCore.ERPNode.Models.Enums;
+﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,11 +8,11 @@ using System.Diagnostics;
 using System.Linq;
 
 
-namespace KeeperCore.ERPNode.DAL.Accounting
+namespace ERPKeeperCore.Enterprise.DAL.Accounting
 {
     public class ChartOfAccounts : ERPNodeDalRepository
     {
-        public ChartOfAccounts(Organization organization) : base(organization)
+        public ChartOfAccounts(EnterpriseRepo organization) : base(organization)
         {
 
         }
@@ -22,17 +21,17 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
 
         public List<Account> ListRelatedAccounts(Account accountItem) => 
-            this.erpNodeDBContext.AccountItems
+            this.erpNodeDBContext.Accounts
              .Where(i => i.Type == accountItem.Type && i.SubType == accountItem.SubType)
              .ToList();
 
-        public decimal ItemsBalance(AccountTypes type) => this.GetAccountByType(type).Sum(a => a.CurrentBalance);
+        public Decimal ItemsBalance(AccountTypes type) => this.GetAccountByType(type).Sum(a => a.CurrentBalance);
 
 
 
         public void RemoveGroup(Account accountItem)
         {
-            this.erpNodeDBContext.AccountItems.Remove(accountItem);
+            this.erpNodeDBContext.Accounts.Remove(accountItem);
 
             this.SaveChanges();
         }
@@ -67,18 +66,18 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         }
         public void Remove(Account account)
         {
-            erpNodeDBContext.AccountItems.Remove(account);
+            erpNodeDBContext.Accounts.Remove(account);
             erpNodeDBContext.SaveChanges();
         }
-        public Account Find(Guid AccountId) => erpNodeDBContext.AccountItems.Find(AccountId);
+        public Account Find(Guid AccountId) => erpNodeDBContext.Accounts.Find(AccountId);
         
         public Account Update(Account accountItem)
         {
-            var exist = erpNodeDBContext.AccountItems.Find(accountItem.Id);
+            var exist = erpNodeDBContext.Accounts.Find(accountItem.Id);
 
             if (exist == null)
             {
-                erpNodeDBContext.AccountItems.Add(accountItem);
+                erpNodeDBContext.Accounts.Add(accountItem);
                 exist = accountItem;
             }
             else
@@ -104,53 +103,53 @@ namespace KeeperCore.ERPNode.DAL.Accounting
       
         public List<Account> GetByType(AccountTypes accountType)
         {
-            return erpNodeDBContext.AccountItems
+            return erpNodeDBContext.Accounts
             .Where(account => account.Type == accountType)
             .OrderByDescending(i => i.IsFolder)
             .ThenBy(i => i.No)
             .ToList();
         }
      
-        public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.AccountItems
+        public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.Accounts
                 .Where(account => account.SubType == subType)
                 .Where(account => account.IsFolder == false)
                 .ToList();
-        public List<Account> GetAccountByType(AccountTypes accountType) => erpNodeDBContext.AccountItems
+        public List<Account> GetAccountByType(AccountTypes accountType) => erpNodeDBContext.Accounts
                 .Where(account => account.Type == accountType)
                 .Where(account => account.IsFolder == false)
                 .OrderBy(i => i.No)
                 .ToList();
-        public IEnumerable<Account> GetFocusAccount(AccountTypes? accountType) => erpNodeDBContext.AccountItems
+        public IEnumerable<Account> GetFocusAccount(AccountTypes? accountType) => erpNodeDBContext.Accounts
                 .Where(account => accountType == null || account.Type == accountType)
                 .OrderBy(i => i.No)
                 .ToList();
 
 
-        public List<Account> GetAccountsList() => erpNodeDBContext.AccountItems
+        public List<Account> GetAccountsList() => erpNodeDBContext.Accounts
             .Where(i => i.IsFolder == false)
             .ToList();
-        public List<Account> Folders => erpNodeDBContext.AccountItems
+        public List<Account> Folders => erpNodeDBContext.Accounts
             .Where(i => i.IsFolder)
             .ToList();
         public List<Account> AssetAccounts => this.GetAccountByType(AccountTypes.Asset);
-        public List<Account> Assets => erpNodeDBContext.AccountItems.Where(a => a.Type == AccountTypes.Asset).ToList();
+        public List<Account> Assets => erpNodeDBContext.Accounts.Where(a => a.Type == AccountTypes.Asset).ToList();
         public List<Account> AssetAndLiability
         {
             get
             {
-                return erpNodeDBContext.AccountItems
+                return erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset || account.Type == AccountTypes.Liability)
               .Where(account => account.IsFolder == false)
               .Where(account => account.IsFolder == false).ToList();
             }
         }
-        public List<Account> GetCashEquivalentAccounts() => erpNodeDBContext.AccountItems
+        public List<Account> GetCashEquivalentAccounts() => erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset)
               .Where(account => account.IsFolder == false)
               .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
               .OrderBy(account => account.SubType)
               .ToList();
-        public List<Account> GetCashOrBankAccounts() => erpNodeDBContext.AccountItems
+        public List<Account> GetCashOrBankAccounts() => erpNodeDBContext.Accounts
             .Where(account => account.Type == AccountTypes.Asset)
             .Where(account => account.IsFolder == false)
             .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
@@ -159,26 +158,26 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         public List<Account> GetCOGSExpenseAccounts() => this.GetItemBySubType(AccountSubTypes.CostOfGoodsSold);
         public List<Account> EquityAccounts => this.GetAccountByType(AccountTypes.Capital);
         public List<Account> ExpenseAccounts => this.GetAccountByType(AccountTypes.Expense);
-        public List<Account> TaxRelatedAccountItems => erpNodeDBContext.AccountItems
+        public List<Account> TaxRelatedAccountItems => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxOutput || account.SubType == AccountSubTypes.TaxExpense)
                  .Where(account => account.IsFolder == false)
                  .OrderBy(i => i.No)
                  .ToList();
-        public List<Account> TaxClosingAccount => erpNodeDBContext.AccountItems
+        public List<Account> TaxClosingAccount => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxPayable || account.SubType == AccountSubTypes.TaxReceivable)
                  .Where(account => account.IsFolder == false)
                  .OrderBy(i => i.No)
                  .ToList();
-        public List<Account> ListTaxAccounts(Models.Enums.TaxDirection direction)
+        public List<Account> ListTaxAccounts(TaxDirection direction)
         {
 
-            if (direction == Models.Enums.TaxDirection.Input)
-                return erpNodeDBContext.AccountItems.Where(account => account.SubType == AccountSubTypes.TaxInput)
+            if (direction == TaxDirection.Input)
+                return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxInput)
                              .Where(account => account.IsFolder == false)
                              .OrderBy(i => i.No)
                              .ToList();
             else
-                return erpNodeDBContext.AccountItems.Where(account => account.SubType == AccountSubTypes.TaxOutput)
+                return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxOutput)
                                 .Where(account => account.IsFolder == false)
                                 .OrderBy(i => i.No)
                                 .ToList();
@@ -194,7 +193,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         public List<Account> TaxOutputAccounts => this.GetItemBySubType(AccountSubTypes.TaxOutput);
         public List<Account> TaxPayableAccounts => this.GetItemBySubType(AccountSubTypes.TaxPayable);
         public List<Account> TaxReceivableAccounts => this.GetItemBySubType(AccountSubTypes.TaxReceivable);
-        public List<Account> TaxInputAndTaxExpenseAccounts => erpNodeDBContext.AccountItems
+        public List<Account> TaxInputAndTaxExpenseAccounts => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxExpense)
                  .Where(account => account.IsFolder == false)
                  .OrderBy(i => i.No)

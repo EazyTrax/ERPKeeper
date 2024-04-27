@@ -1,22 +1,21 @@
-﻿using KeeperCore.ERPNode.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using KeeperCore.ERPNode.Models;
-using KeeperCore.ERPNode.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting;
 
-namespace KeeperCore.ERPNode.DAL.Accounting
+namespace ERPKeeperCore.Enterprise.DAL.Accounting
 {
     public class SystemAccounts : ERPNodeDalRepository
     {
-        public SystemAccounts(Organization organization) : base(organization)
+        public SystemAccounts(EnterpriseRepo organization) : base(organization)
         {
 
         }
 
         public List<DefaultAccount> GetAll()
         {
-            return erpNodeDBContext.SystemAccounts.ToList();
+            return erpNodeDBContext.DefaultAccounts.ToList();
         }
 
         public Account Cash => this.GetAccount(DefaultAccountType.Cash);
@@ -30,7 +29,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         public void Add(DefaultAccount defaultAccountItem)
         {
-            erpNodeDBContext.SystemAccounts.Add(defaultAccountItem);
+            erpNodeDBContext.DefaultAccounts.Add(defaultAccountItem);
             erpNodeDBContext.SaveChanges();
         }
 
@@ -42,14 +41,14 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         public Account GetAccount(DefaultAccountType type)
         {
-            var defaultAccountItem = erpNodeDBContext.SystemAccounts.Find(type);
+            var defaultAccountItem = erpNodeDBContext.DefaultAccounts.Find(type);
             if (defaultAccountItem != null)
                 return defaultAccountItem.Account;
             else
                 return null;
         }
 
-        public DefaultAccount Find(DefaultAccountType type) => erpNodeDBContext.SystemAccounts.Find(type);
+        public DefaultAccount Find(DefaultAccountType type) => erpNodeDBContext.DefaultAccounts.Find(type);
 
 
 
@@ -65,7 +64,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
         {
             if (accountItem != null)
             {
-                var defaultAccountItem = erpNodeDBContext.SystemAccounts.Find(defaultAccountType);
+                var defaultAccountItem = erpNodeDBContext.DefaultAccounts.Find(defaultAccountType);
 
                 if (defaultAccountItem != null)
                 {
@@ -82,7 +81,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                         AccountId = accountItem.Id,
                         LastUpdate = DateTime.Now
                     };
-                    erpNodeDBContext.SystemAccounts.Add(defaultAccountItem);
+                    erpNodeDBContext.DefaultAccounts.Add(defaultAccountItem);
                 }
             }
             erpNodeDBContext.SaveChanges();
@@ -91,7 +90,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
 
         public void Create(DefaultAccountType accountType)
         {
-            var defaultAccountItem = erpNodeDBContext.SystemAccounts.Find(accountType);
+            var defaultAccountItem = erpNodeDBContext.DefaultAccounts.Find(accountType);
 
             if (defaultAccountItem == null)
             {
@@ -101,7 +100,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
                     LastUpdate = DateTime.Now
                 };
 
-                erpNodeDBContext.SystemAccounts.Add(defaultAccountItem);
+                erpNodeDBContext.DefaultAccounts.Add(defaultAccountItem);
                 erpNodeDBContext.SaveChanges();
             }
         }
@@ -113,7 +112,7 @@ namespace KeeperCore.ERPNode.DAL.Accounting
             this.AutoCreateSystemAccount();
 
             Console.WriteLine("=> Auto Assign System Account");
-            var accounts = erpNodeDBContext.AccountItems.Where(i => i.IsFolder == false).ToList();
+            var accounts = erpNodeDBContext.Accounts.Where(i => i.IsFolder == false).ToList();
 
             this.SetIfUnAssign(DefaultAccountType.Income, accounts.Where(i => i.Type == AccountTypes.Income).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.Cash, accounts.Where(i => i.SubType == AccountSubTypes.Cash).FirstOrDefault());

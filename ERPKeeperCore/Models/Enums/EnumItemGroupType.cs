@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace KeeperCore.ERPNode.Models.Items
+namespace ERPKeeperCore.Enterprise.Models.Items
 {
     public enum EnumItemGroupType
     {

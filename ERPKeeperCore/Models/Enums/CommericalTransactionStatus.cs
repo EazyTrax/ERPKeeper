@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KeeperCore.ERPNode.Models.Transactions
+namespace ERPKeeperCore.Enterprise.Models.Transactions
 {
     public enum CommericalTransactionStatus
     {

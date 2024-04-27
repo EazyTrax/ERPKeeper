@@ -1,4 +1,4 @@
-namespace KeeperCore.ERPNode.Models.Enums
+namespace ERPKeeperCore.Enterprise.Models.Enums
 {
     public enum ItemStatus
     {

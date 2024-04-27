@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeeperCore.ERPNode.Models.Enums
+namespace ERPKeeperCore.Enterprise.Models.Enums
 {
     public enum LedgerPostStatus
     {

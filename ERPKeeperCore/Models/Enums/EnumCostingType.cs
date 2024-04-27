@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KeeperCore.ERPNode.Models.Items.Enums
+namespace ERPKeeperCore.Enterprise.Models.Items.Enums
 {
     public enum CostingMethods
     {

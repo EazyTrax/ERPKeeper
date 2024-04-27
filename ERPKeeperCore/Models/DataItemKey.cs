@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace KeeperCore.ERPNode.Models
+namespace ERPKeeperCore.Enterprise.Models
 {
 
     public enum DataItemKey

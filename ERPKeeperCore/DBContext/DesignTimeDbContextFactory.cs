@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KeeperCore.ERPNode.DBContext
+namespace ERPKeeperCore.Enterprise.DBContext
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ERPCoreDbContext>
     {
