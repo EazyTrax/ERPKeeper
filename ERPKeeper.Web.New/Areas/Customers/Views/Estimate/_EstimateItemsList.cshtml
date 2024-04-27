@@ -25,9 +25,9 @@
     .KeyExpr("Id")
     .Editing(editing => {
     editing.Mode(GridEditMode.Popup);
-    editing.AllowAdding(Model.Status ==  ERPKeeperCore.Enterprise.Models.Estimations.Enums.QuoteStatus.Quote);
-    editing.AllowDeleting(Model.Status ==  ERPKeeperCore.Enterprise.Models.Estimations.Enums.QuoteStatus.Quote);
-    editing.AllowUpdating(Model.Status ==  ERPKeeperCore.Enterprise.Models.Estimations.Enums.QuoteStatus.Quote);
+    editing.AllowAdding(Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote);
+    editing.AllowDeleting(Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote);
+    editing.AllowUpdating(Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote);
     editing.UseIcons(true);
     editing.Form(f=>f.ColCount(1).Width(500));
     })

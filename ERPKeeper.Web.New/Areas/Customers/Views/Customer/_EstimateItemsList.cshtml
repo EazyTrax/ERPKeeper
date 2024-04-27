@@ -2,37 +2,7 @@
 
 
 @{
-    var items = Organization
-                                        .ErpNodeDBContext
-                                        .EstimateItems
-                                        .Include("Item")
-                                        .Where(c => c.Quote.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.SaleQuote)
-                                        .Where(c => c.Quote.ProfileGuid == Model.ProfileId)
-                                        .ToList()
-                                        .Select(i =>
-                                            new
-                                            {
-                                                Quote = new
-                                                {
-                                                    i.Quote.Uid,
-                                                    i.Quote.Name,
-                                                    i.Quote.TrnDate,
-                                                    i.Quote.Reference,
-                                                    i.Quote.Status
-                                                },
-
-                                                ItemGuid = i.ItemGuid,
-                                                Item = new
-                                                {
-                                                    i.Item.Uid,
-                                                    i.Item.PartNumber
-                                                },
-                                                i.Amount,
-                                                i.UnitPrice,
-                                                i.LineTotal
-                                            }
-                                        )
-                                .ToList();
+    var items = Organization.ErpCOREDBContext.SaleItems.Where(i => i.Sale.CustomerId == Model.Id).ToList();
 }
 
 <style>
@@ -73,7 +43,7 @@
     .SortOrder(SortOrder.Desc)
     .SortIndex(2)
     .Lookup(lookup => lookup
-        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Estimations.Enums.QuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
         .DisplayExpr("Text")
         .ValueExpr("Value")
     );
