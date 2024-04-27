@@ -5,7 +5,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.DeprecateSchedule>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Uid")
-        .LoadUrl($"/API/{CompanyId}/Assets/{Model.Uid}/DeprecateSchedules/All")
+        .LoadUrl($"/API/{CompanyId}/Assets/{Model.Id}/DeprecateSchedules/All")
         )
         .KeyExpr("Uid")
         .Width("100%")

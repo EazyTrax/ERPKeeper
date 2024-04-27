@@ -12,7 +12,7 @@
 
     </div>
     <div class="col-4 pr-0 col-right">
-        @await Component.InvokeAsync("_Journal_Accounting",new{companyId = CompanyId, journalId = Model.Uid})
+        @await Component.InvokeAsync("_Journal_Accounting",new{companyId = CompanyId, journalId = Model.Id})
     </div>
 </div>
 

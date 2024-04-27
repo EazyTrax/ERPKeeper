@@ -12,11 +12,11 @@
         .DataSource(d =>
         d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/Profiles/{Model.Uid}/Contacts/All")
-        .InsertUrl($"/api/Profiles/{Model.Uid}/Contacts/Insert")
-        .UpdateUrl($"/api/Profiles/{Model.Uid}/Contacts/Update")
+        .LoadUrl($"/api/Profiles/{Model.Id}/Contacts/All")
+        .InsertUrl($"/api/Profiles/{Model.Id}/Contacts/Insert")
+        .UpdateUrl($"/api/Profiles/{Model.Id}/Contacts/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/api/Profiles/{Model.Uid}/Contacts/Delete")
+        .DeleteUrl($"/api/Profiles/{Model.Id}/Contacts/Delete")
         .DeleteMethod("Post")
         )
         .Editing(editing => {

@@ -77,8 +77,18 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
         public DbSet<FiscalYear> FiscalYears { get; set; }
         public DbSet<Account> Accounts { get; set; }
+
+
+        public DbSet<JournalEntry> JournalEntries { get; set; }
+        public DbSet<JournalEntryItem> JournalEntryItems { get; set; }
+        public DbSet<JournalEntryType> JournalEntryTypes { get; set; }
+
         public DbSet<DefaultAccount> DefaultAccounts { get; set; }
+
+
+
         public DbSet<Transaction> Transactions { get; set; }
+
 
 
 
@@ -101,15 +111,12 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
 
-        public DbSet<PaymentTerm> PaymentTerms { get; set; }
-
-
+        public DbSet<Models.PaymentTerm> PaymentTerms { get; set; }
+        public DbSet<Models.Equity.Investor> Investers { get; set; }
 
         public DbSet<Purchase> Purchases { get; set; }
 
         public DbSet<Project> Projects { get; set; }
-
-
         public DbSet<Asset> Assets { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
         public DbSet<AssetDeprecateSchedule> DeprecateSchedules { get; set; }

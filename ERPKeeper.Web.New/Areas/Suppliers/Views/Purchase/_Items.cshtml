@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Transactions.Commercials.Purchase
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
 
 
@@ -40,7 +40,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.QuoteItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
     .DataSource(Quotes)
     .RowAlternationEnabled(true)

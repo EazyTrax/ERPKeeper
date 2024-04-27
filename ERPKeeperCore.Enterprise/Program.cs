@@ -1,10 +1,8 @@
 ﻿using ERPKeeper.Node.DAL;
-using ERPKeeper.Node.Models.Taxes.Enums;
 using ERPKeeperCore.Enterprise.DAL;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
-using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,7 +41,7 @@ namespace ERPKeeperCore.CMD
                 // CreateTransactionForSales(newOrganization);
                 // CreateTransactionForPurchases(newOrganization);
 
-                CopyFundTransfers(newOrganization, oldOrganization);
+                //CopyFundTransfers(newOrganization, oldOrganization);
 
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);

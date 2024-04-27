@@ -10,7 +10,7 @@
     .ID("gridList")
     .DataSource(Organization.Items
     .GetAll()
-    .Where(item => item.ItemType != ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes.Group && item.BrandGuid == Model.Uid)
+    .Where(item => item.ItemType != ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes.Group && item.BrandGuid == Model.Id)
 
     .Select(i=> new{
     i.Uid ,

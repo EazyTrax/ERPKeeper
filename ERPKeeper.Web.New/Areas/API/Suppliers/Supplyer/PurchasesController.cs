@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Transactions.Commercials.Purchase();
+            var model = new ERPKeeperCore.Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))

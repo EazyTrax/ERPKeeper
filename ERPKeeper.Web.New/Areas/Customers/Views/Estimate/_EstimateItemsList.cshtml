@@ -1,8 +1,8 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.QuoteItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
     .KeyExpr("Uid")
     .ShowRowLines(true)
@@ -14,11 +14,11 @@
     .DataSource(d =>
     d.RemoteController()
     .Key("Uid")
-    .LoadUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Uid}/Products/All")
-    .InsertUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Uid}/Products/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Uid}/Products/Update")
+    .LoadUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/Update")
     .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Uid}/Products/Delete")
+    .DeleteUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/Delete")
     .DeleteMethod("Post")
     )
 

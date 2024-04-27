@@ -5,14 +5,14 @@
     {
 
         <div class="border-top border-bottom mt-1">
-            @Model.Uid
+            @Model.Id
         </div>
 
         <div class="mb-2 border-top border-bottom">
             @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Ledger>()
                 .ID("JournalLedgerList")
                 .KeyExpr("Uid")
-                .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Journals/{Model.Uid}/Ledgers/All"))
+                .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Journals/{Model.Id}/Ledgers/All"))
                 .AllowColumnReordering(true)
                 .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
                 .ShowColumnLines(true)

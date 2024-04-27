@@ -1,7 +1,6 @@
 ﻿@{
-    var itemGroups = Organization
-                                                .ErpNodeDBContext
-                                                .GroupItems
+    var itemGroups = Organization.ErpNodeDBContext
+                                                .ItemGroups
                                                 .ToList()
                                                 .Select(i => new
                                                 {
@@ -20,7 +19,7 @@
 </style>
 
 @{
-    var locationsTree = Html.DevExtreme().TreeList<ERPKeeperCore.Enterprise.Models.Items.GroupItem>()
+    var locationsTree = Html.DevExtreme().TreeList<ERPKeeperCore.Enterprise.Models.Items.ItemGroup>()
                                                                                                     .ID("treeList")
                                                                                                     .DataSource(itemGroups)
                                                                                                     .RootValue(null)

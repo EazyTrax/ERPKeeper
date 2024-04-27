@@ -1,26 +1,8 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
 
 
-@{
-    var item = new
-    {
-        Model.Uid,
-        Model.ItemType,
-        Model.Status,
-        Model.GroupItemUid,
-        Model.PartNumber,
-        Model.BrandGuid,
-        Model.Description,
-        Model.Specification,
-        Model.UnitPrice,
-        Model.IncomeAccountUid,
-        Model.PurchaseAccountUid,
-    };
-}
-
-
 <div class="mb-3">
-    <form id="EditForm" method="post" action="/@CompanyId/Products/Items/@Model.Uid/Update">
+    <form id="EditForm" method="post" action="/@CompanyId/Products/Items/@Model.Id/Update">
         <div class="row">
             <div class="col-12 p-2 font-weight-600">
                 General Section

@@ -4,7 +4,7 @@
 @{
     var item = new
     {
-        Model.Uid,
+        Model.Id,
         Model.Name,
         Model.Description,
         Model.No,
@@ -22,7 +22,7 @@
 
 
 <div class="mb-3 p-1">
-    <form id="EditForm" method="post" action="/@CompanyId/Accounting/Accounts/@Model.Uid/Update">
+    <form id="EditForm" method="post" action="/@CompanyId/Accounting/Accounts/@Model.Id/Update">
         <div class="row">
             <div class="col-6 p-1 mb-2">
                 <div class="p-1">

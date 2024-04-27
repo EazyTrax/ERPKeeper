@@ -20,6 +20,8 @@ namespace ERPKeeperCore.Enterprise.DAL
         private DAL.Accounting.ChartOfAccounts _chartOfAccountDal;
         private DAL.Accounting.SystemAccounts _systemAccountsDal;
         private DAL.Accounting.FiscalYears _fiscalYearsDal;
+        private DAL.JournalEntries _JournalEntries;
+
         private DAL.Company.DataItems _DataItems;
 
         private DAL.Projects _Projects;
@@ -109,7 +111,26 @@ namespace ERPKeeperCore.Enterprise.DAL
             }
         }
 
+        public DAL.Accounting.FiscalYears FiscalYears
+        {
+            get
+            {
+                if (this._fiscalYearsDal == null)
+                    this._fiscalYearsDal = new Accounting.FiscalYears(this);
+                return _fiscalYearsDal;
+            }
+        }
 
+
+        public DAL.JournalEntries JournalEntries
+        {
+            get
+            {
+                if (this._JournalEntries == null)
+                    this._JournalEntries = new JournalEntries(this);
+                return _JournalEntries;
+            }
+        }
 
         public String? DatabaseName { get; private set; }
 

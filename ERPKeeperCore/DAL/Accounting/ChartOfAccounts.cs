@@ -183,6 +183,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                                 .ToList();
         }
 
+        public void UpdateBalance()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GenerateHistoryBalance()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Account> IncomeAccounts => this.GetAccountByType(AccountTypes.Income);
         public List<Account> InventoryAssetAccounts => this.GetItemBySubType(AccountSubTypes.Inventory);
         public List<Account> LiabilityAccounts => this.GetAccountByType(AccountTypes.Liability);

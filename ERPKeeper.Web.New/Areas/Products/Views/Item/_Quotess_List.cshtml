@@ -5,7 +5,7 @@
                                               .ErpNodeDBContext
                                               .EstimateItems
                                               .Include("Quote")
-                                              .Where(i=>i.ItemGuid == Model.Uid && i.QuoteId!=null)
+                                              .Where(i=>i.ItemGuid == Model.Id && i.QuoteId!=null)
                                               .ToList()
                                               .Select(i => new
                                               {
@@ -43,7 +43,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.QuoteItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
     .DataSource(Quotes)
     .RowAlternationEnabled(true)

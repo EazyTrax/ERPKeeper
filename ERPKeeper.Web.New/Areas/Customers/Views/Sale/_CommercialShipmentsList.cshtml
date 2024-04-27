@@ -14,11 +14,11 @@
     .DataSource(d =>
     d.RemoteController()
     .Key("Uid")
-    .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/All")
-    .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/Update")
+    .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Update")
     .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Shipments/Delete")
+    .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Delete")
     .DeleteMethod("Post")
     )
     .KeyExpr("Uid")
@@ -69,7 +69,7 @@
                 ).Visible(false);
 
     columns.Add().DataField("Id").Width(100).AllowEditing(false)
-    .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/@Model.Uid/Shipments/<%= data.Uid %>/Export">Export</a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Uid %>/Export">Export</a></text>);
 
     })
     .OnInitNewRow("function(e) { e.data.Shipdate = new Date(); }")

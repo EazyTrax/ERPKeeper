@@ -4,7 +4,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYears.PeriodAccountBalance>()
             .ID("LedgerList")
             .KeyExpr("Uid")
-            .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Uid}/Expenses/All"))
+            .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/Expenses/All"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
             .ShowColumnLines(true)

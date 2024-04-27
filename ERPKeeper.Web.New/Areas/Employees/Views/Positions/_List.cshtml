@@ -2,7 +2,7 @@
 
 <div id="treeListDemo" class="mb-3">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employment.EmployeePosition>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Uid")
     .LoadUrl($"/API/Employment/Positions/All")

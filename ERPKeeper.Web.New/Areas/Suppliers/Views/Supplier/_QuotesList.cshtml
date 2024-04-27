@@ -1,31 +1,4 @@
-﻿
-
-@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
-
-
-
-@{
-     var Quotes = Organization
-        .ErpNodeDBContext
-        .SaleEstimates
-        .Include("Profile")
-        .Where(c => c.ProfileGuid == Model.ProfileUid)
-        .Select(i => new
-                                {
-                                    i.Uid,
-                                    i.TrnDate,
-                                    i.Name,
-                                    i.Status,
-                                    ProfileUid = i.ProfileGuid,
-                                    ShotName = i.Profile.ShotName,
-                                    ProfileName = i.Profile.Name,
-                                    i.Reference,
-                                    i.Total,
-                                })
-        .ToList();
-
-
-}
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
 
 <style>
@@ -36,10 +9,8 @@
 
 
 <div id="treeListDemo" class="mb-3">
-
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
     .ID("gridList")
-    .DataSource(Quotes)
         .RowAlternationEnabled(true)
     .KeyExpr("Uid")
     

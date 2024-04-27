@@ -6,7 +6,7 @@
                                         .ErpNodeDBContext
                                         .CommercialItems
                                         .Include("Commercial")
-                                        .Where(c => c.ItemGuid == Model.Uid)
+                                        .Where(c => c.ItemGuid == Model.Id)
                                         .Where(c => c.TransactionType == ERPKeeperCore.Enterprise.Models.Accounting.Enums.ERPObjectType.Purchase)
                                         .ToList()
                                         .Select(i => new

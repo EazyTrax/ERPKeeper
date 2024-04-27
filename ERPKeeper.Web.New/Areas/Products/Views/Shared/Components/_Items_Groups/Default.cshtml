@@ -1,7 +1,7 @@
 ﻿
 
 @{
-    void TraverseChildGroups(ERPKeeperCore.Enterprise.Models.Items.GroupItem group, int deep = 1)
+    void TraverseChildGroups(ERPKeeperCore.Enterprise.Models.Items.ItemGroup group, int deep = 1)
     {
 
         <div class="col-@(deep) p-0">
@@ -27,7 +27,7 @@
 }
 
 <div class="row bg-fb1 pl-0 pr-2 py-2 rounded">
-    @foreach (var group in Organization.GroupItems.GetRoot())
+    @foreach (var group in Organization.ItemGroups.GetRoot())
     {
         TraverseChildGroups(group, 1);
     }

@@ -15,11 +15,11 @@
     .DataSource(d =>
     d.RemoteController()
     .Key("Uid")
-    .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/All")
-    .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/Update")
+    .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Products/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Products/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Products/Update")
     .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Uid}/Products/Delete")
+    .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Products/Delete")
     .DeleteMethod("Post")
     )
 

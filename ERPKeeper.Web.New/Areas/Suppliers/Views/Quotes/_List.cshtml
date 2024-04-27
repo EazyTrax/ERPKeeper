@@ -1,26 +1,6 @@
 ﻿
 
 
-@{
-    var Quotes = Organization
-              .ErpNodeDBContext
-              .PurchaseEstimates
-              .Include("Profile")
-              .Select(i => new
-              {
-                  i.Uid,
-                  i.TrnDate,
-                  i.Name,
-                  i.Status,
-                  ProfileUid = i.ProfileGuid,
-                  ShotName = i.Profile.ShotName,
-                  ProfileName = i.Profile.Name,
-                  i.Reference,
-                  i.Total,
-                  i.LinesTotal
-              })
-              .ToList();
-}
 
 
 <style>
@@ -34,8 +14,6 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote>()
     .ID("gridList")
-    .DataSource(Quotes)
-
     .KeyExpr("Uid")
     
         @*.ExpandedRowKeys(new[] { 1 })*@

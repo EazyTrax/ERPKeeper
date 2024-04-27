@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.API.Accounting.JournalEntryType
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry();
             JsonConvert.PopulateObject(values, model);
-            model.JournalEntryTypeGuid = JournalEntryTypeId;
+            model.JournalEntryTypeId = JournalEntryTypeId;
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 

@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Web.API.Customers.Customers.Customer
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.ProfileGuid = ProfileId;
+            model.CustomerId = ProfileId;
             Organization.ErpCOREDBContext.Sales.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

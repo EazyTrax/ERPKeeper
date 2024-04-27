@@ -7,11 +7,11 @@
         .DataSource(d =>
         d.RemoteController()
         .Key("AddressGuid")
-        .LoadUrl($"/api/Profiles/{Model.Uid}/Addresses/All")
-        .InsertUrl($"/api/Profiles/{Model.Uid}/Addresses/Insert")
-        .UpdateUrl($"/api/Profiles/{Model.Uid}/Addresses/Update")
+        .LoadUrl($"/api/Profiles/{Model.Id}/Addresses/All")
+        .InsertUrl($"/api/Profiles/{Model.Id}/Addresses/Insert")
+        .UpdateUrl($"/api/Profiles/{Model.Id}/Addresses/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/api/Profiles/{Model.Uid}/Addresses/Delete")
+        .DeleteUrl($"/api/Profiles/{Model.Id}/Addresses/Delete")
         .DeleteMethod("Post")
         )
        

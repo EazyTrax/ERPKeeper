@@ -155,6 +155,88 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("FiscalYearAccountBalance");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("JournalEntryTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("No")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JournalEntryTypeId");
+
+                    b.ToTable("JournalEntries");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountUid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal?>("Credit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("Debit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid>("JournalEntryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountUid");
+
+                    b.HasIndex("JournalEntryId");
+
+                    b.ToTable("JournalEntryItems");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JournalEntryType");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1296,6 +1378,34 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType", "JournalEntryType")
+                        .WithMany("JournalEntries")
+                        .HasForeignKey("JournalEntryTypeId");
+
+                    b.Navigation("JournalEntryType");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountUid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry", "JournalEntry")
+                        .WithMany("JournalEntryItems")
+                        .HasForeignKey("JournalEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("JournalEntry");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
@@ -1654,6 +1764,16 @@ namespace ERPKeeperCore.Enterprise.Migrations
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear", b =>
                 {
                     b.Navigation("FiscalYearAccountBalances");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry", b =>
+                {
+                    b.Navigation("JournalEntryItems");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType", b =>
+                {
+                    b.Navigation("JournalEntries");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>

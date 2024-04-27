@@ -45,10 +45,10 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
             var newModel = new JournalEntry()
             {
-                TrnDate = DateTime.Today,
+                Date = DateTime.Today,
                 Memo = model.Memo,
-                JournalEntryTypeGuid = model.JournalEntryTypeGuid,
-                Items = new HashSet<JournalEntryItem>()
+                JournalEntryTypeId = model.JournalEntryTypeGuid,
+                JournalEntryItems = new HashSet<JournalEntryItem>()
             };
             EnterpriseRepo.ErpCOREDBContext.JournalEntries.Add(newModel);
 

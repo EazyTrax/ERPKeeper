@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API.Employment
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod();
+            var model = new ERPKeeperCore.Enterprise.Models.Employment.EmployeePaymentPeriod();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))

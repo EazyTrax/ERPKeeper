@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Web.API.Customers.Estimates.Estimate
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Estimations.QuoteItem();
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))
