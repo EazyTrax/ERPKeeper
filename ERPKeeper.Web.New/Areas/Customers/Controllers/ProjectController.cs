@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Open(Guid ProjectId)
         {
             var Project = EnterpriseRepo.Projects.Find(ProjectId);
-            Project.ChangeStatus(Enterprise.Models.Projects.Enums.ProjectStatus.Active);
+            Project.ChangeStatus(Enterprise.Models.Projects.Enums.ProjectStatus.Open);
             EnterpriseRepo.SaveChanges();
             return View(Project);
         }

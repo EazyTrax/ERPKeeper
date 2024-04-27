@@ -29,6 +29,9 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Project? Find(Guid Id) => erpNodeDBContext.Projects.Find(Id);
 
-
+        public object Create(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

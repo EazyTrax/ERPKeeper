@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Purchases
-                .Where(r => r.ProfileGuid == ProfileId)
+                .Where(r => r.SupplierId == ProfileId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.API.Suppliers.Suppliers.Supplyer
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.ProfileId = ProfileId;
+            model.SupplierId = ProfileId;
             Organization.ErpCOREDBContext.Purchases.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

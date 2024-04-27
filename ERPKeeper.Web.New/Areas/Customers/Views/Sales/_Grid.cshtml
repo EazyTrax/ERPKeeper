@@ -52,7 +52,7 @@
     .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-    columns.AddFor(m=>m.ProfileGuid).Lookup(lookup => lookup
+    columns.AddFor(m=>m.CustomerId).Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
     .DisplayExpr("Text")
     .ValueExpr("Value"))

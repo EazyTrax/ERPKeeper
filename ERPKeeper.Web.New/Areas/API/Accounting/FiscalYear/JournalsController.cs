@@ -17,13 +17,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
             var fiscalYear = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Id == FiscalYearId);
 
             var returnModel = Organization.ErpCOREDBContext
-                .TransactionLedgers
-                .Where(j =>
-                    DbFunctions.TruncateTime(j.Date) >= DbFunctions.TruncateTime(fiscalYear.StartDate) &&
-                    DbFunctions.TruncateTime(j.Date) <= DbFunctions.TruncateTime(fiscalYear.EndDate)
-                )
-                //.Where(m=>m.FiscalYearId == FiscalYearId)
-                ;
+                .TransactionLedgers;
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 

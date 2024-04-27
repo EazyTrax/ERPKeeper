@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public ActionResult Refresh()
         {
-            EnterpriseRepo.Purchases.UpdatePurchasingBalance();
+       
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

@@ -15,14 +15,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             return View();
         }
-        public IActionResult Create()
-        {
-            var Project = EnterpriseRepo.Projects.Create("New Project", "N/A");
+        //public IActionResult Create()
+        //{
+        //    var Project = EnterpriseRepo.Projects.Create("New Project", "N/A");
          
-            EnterpriseRepo.SaveChanges();
+        //    EnterpriseRepo.SaveChanges();
 
-            return Redirect($"/Customers/Projects/{Project.Id}");
-        }
+        //    return Redirect($"/Customers/Projects/{Project.Id}");
+        //}
 
     }
 }
