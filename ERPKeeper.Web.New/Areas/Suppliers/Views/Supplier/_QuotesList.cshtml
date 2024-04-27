@@ -12,7 +12,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
     .ID("gridList")
         .RowAlternationEnabled(true)
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     
         @*.ExpandedRowKeys(new[] { 1 })*@
     .ShowRowLines(true)

@@ -10,13 +10,13 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Brand>()
         .ID("gridList")
-        .DataSource(d => d.RemoteController().Key("Uid")
+        .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/api/{CompanyId}/Products/Brands/All")
         .InsertUrl($"/api/{CompanyId}/Products/Brands/Insert")
         .UpdateUrl($"/api/{CompanyId}/Products/Brands/Update")
         .UpdateMethod("Post")
         )
-        .KeyExpr("Uid")
+        .KeyExpr("Id")
 
         @*.ExpandedRowKeys(new[] { 1 })*@
         .ShowRowLines(true)

@@ -4,7 +4,7 @@
 <div id="treeListDemo" class="mb-3">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialShipment>()
     .ID("gridList")
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .ShowRowLines(true)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
@@ -13,7 +13,7 @@
     .ColumnAutoWidth(false)
     .DataSource(d =>
     d.RemoteController()
-    .Key("Uid")
+    .Key("Id")
     .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/All")
     .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Insert")
     .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Update")
@@ -21,7 +21,7 @@
     .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Delete")
     .DeleteMethod("Post")
     )
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .Editing(editing => {
     editing.Mode(GridEditMode.Popup);
     editing.AllowAdding(true);

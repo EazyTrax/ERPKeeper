@@ -4,7 +4,7 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employment.EmployeePosition>()
     .ID("gridList")
-    .DataSource(d => d.RemoteController().Key("Uid")
+    .DataSource(d => d.RemoteController().Key("Id")
     .LoadUrl($"/API/Employment/Positions/All")
     .InsertUrl($"/API/Employment/Positions/Insert")
     .UpdateUrl($"/API/Employment/Positions/Update")
@@ -12,7 +12,7 @@
     .DeleteUrl($"/API/Employment/Positions/Delete")
     .DeleteMethod("Post")
     )
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .RowAlternationEnabled(true)
     .ShowRowLines(true)
     .ShowBorders(false)

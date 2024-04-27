@@ -45,7 +45,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Transactions.CommercialItem>()
     .ID("gridList")
     .DataSource(items)
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .ShowRowLines(true)
     .ShowBorders(false)
     .GroupPanel(groupPanel => groupPanel.Visible(true))

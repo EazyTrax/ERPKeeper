@@ -1,9 +1,9 @@
 ﻿<div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear>()
         .ID("AssetsTreeList")
-        .KeyExpr("Uid")
+        .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
-        .Key("Uid")
+        .Key("Id")
         .LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/All")
         .UpdateUrl($"/api/{CompanyId}/Accounting/FiscalYears/Update")
         .UpdateMethod("Post"))

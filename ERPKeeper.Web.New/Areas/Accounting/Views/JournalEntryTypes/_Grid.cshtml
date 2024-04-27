@@ -1,9 +1,9 @@
 ﻿<div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType>()
         .ID("AssetsTreeList")
-        .KeyExpr("Uid")
+        .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
-        .Key("Uid")
+        .Key("Id")
         .LoadUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/All")
         .InsertUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/Insert")
         .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/Update")

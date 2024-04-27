@@ -3,13 +3,13 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprisse.Models.Assets.AssetType>()
         .ID("gridList")
-        .DataSource(d => d.RemoteController().Key("Uid")
+        .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/API/{CompanyId}/Assets/AssetTypes/All")
         .InsertUrl($"/API/{CompanyId}/Assets/AssetTypes/Insert")
         .UpdateUrl($"/API/{CompanyId}/Assets/AssetTypes/Update")
         .UpdateMethod("Post")
         )
-        .KeyExpr("Uid")
+        .KeyExpr("Id")
         .Width("100%")
         .RowAlternationEnabled(true)
 
@@ -50,20 +50,20 @@
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
             
             columns.AddFor(m => m.PurchaseAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Purchase Acc</text>);
 
             columns.AddFor(m => m.AwaitDeprecateAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>AwaitDep Acc</text>);
 
 
             columns.AddFor(m => m.AmortizeExpenseAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprisse.Models.Accounting.AccountSubTypes.AmortizeExpense).Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprisse.Models.Accounting.AccountSubTypes.AmortizeExpense).Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Amortize Acc</text>);
 
              columns.AddFor(m => m.AccumulateDeprecateAccUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprisse.Models.Accounting.AccountSubTypes.AccDepreciation).Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprisse.Models.Accounting.AccountSubTypes.AccDepreciation).Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Accumulate Acc</text>);
 
 

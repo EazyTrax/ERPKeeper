@@ -12,7 +12,7 @@
         editing.AllowDeleting(true);
         editing.AllowUpdating(true);
     })
-    .DataSource(d => d.RemoteController().Key("Uid")
+    .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/All")
         .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Insert")
         .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Update")
@@ -21,7 +21,7 @@
         .DeleteMethod("Post")
     )
     .RowAlternationEnabled(true)
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .ShowRowLines(false)
     .ShowBorders(false)
     .ColumnAutoWidth(false)

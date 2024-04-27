@@ -1,9 +1,9 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Account
 
 <div class="mb-2 border-top">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Ledger>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger>()
             .ID("LedgerList")
-            .KeyExpr("Uid")
+            .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Accounts/{Model.Id}/Ledgers/All"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)

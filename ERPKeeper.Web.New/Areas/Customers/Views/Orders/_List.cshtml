@@ -5,7 +5,7 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Estimations.SaleQuote>()
     .ID("gridList")
-   .DataSource(d => d.RemoteController().Key("Uid")
+   .DataSource(d => d.RemoteController().Key("Id")
     .LoadUrl($"/API/{CompanyId}/Customers/Orders/All")
   @*  .InsertUrl($"/API/{CompanyId}/Customers/Estimates/Insert")
     .UpdateUrl($"/API/{CompanyId}/Customers/Estimates/Update")
@@ -13,7 +13,7 @@
     .DeleteUrl($"/API/{CompanyId}/Customers/Estimates/Delete")
     .DeleteMethod("Post")*@
     )
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .RowAlternationEnabled(true)
     .ShowRowLines(false)
     .ShowBorders(false)

@@ -3,7 +3,7 @@
 <div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYears.PeriodAccountBalance>()
             .ID("LedgerList")
-            .KeyExpr("Uid")
+            .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/Incomes/All"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
@@ -29,7 +29,7 @@
                 .ValueExpr("Value")
                 );
                 columns.AddFor(m => m.AccountGuid)
-                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .HeaderCellTemplate(@<text>Account</text>);
 
                 columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);

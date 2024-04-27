@@ -4,7 +4,7 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .ShowRowLines(true)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
@@ -13,7 +13,7 @@
     .ColumnAutoWidth(false)
     .DataSource(d =>
     d.RemoteController()
-    .Key("Uid")
+    .Key("Id")
     .LoadUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/All")
     .InsertUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/Insert")
     .UpdateUrl($"/API/{CompanyId}/Customers/Estimates/{Model.Id}/Products/Update")
@@ -22,7 +22,7 @@
     .DeleteMethod("Post")
     )
 
-    .KeyExpr("Uid")
+    .KeyExpr("Id")
     .Editing(editing => {
     editing.Mode(GridEditMode.Popup);
     editing.AllowAdding(Model.Status ==  ERPKeeperCore.Enterprise.Models.Estimations.Enums.QuoteStatus.Quote);
@@ -39,7 +39,7 @@
     .Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Uid, t.PartNumber }).ToList())
     .DisplayExpr("PartNumber")
-    .ValueExpr("Uid")
+    .ValueExpr("Id")
     );
 
     columns.AddFor(m=>m.ItemBrandId)
@@ -48,7 +48,7 @@
     .Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Uid, t.Name }).ToList())
     .DisplayExpr("Name")
-    .ValueExpr("Uid")
+    .ValueExpr("Id")
     );
 
 

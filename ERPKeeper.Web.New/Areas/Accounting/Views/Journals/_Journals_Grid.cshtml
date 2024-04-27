@@ -1,7 +1,7 @@
 ﻿<div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger>()
         .ID("AssetsTreeList")
-        .KeyExpr("Uid")
+        .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
         .LoadUrl($"/api/{CompanyId}/Accounting/Journals/All")
         .InsertUrl($"/api/{CompanyId}/Accounting/Journals/Insert")
@@ -31,7 +31,7 @@
 
          
             columns.AddFor(m => m.FiscalYearUid)
-            .Lookup(lookup => lookup.DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/All")).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/All")).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Fiscal</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.FiscalYearUid %>/"><%= displayValue %></a></text>);
         })

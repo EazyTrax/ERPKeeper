@@ -6,8 +6,8 @@
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
-    .KeyExpr("Uid")
-    .DataSource(d => d.RemoteController().Key("Uid")
+    .KeyExpr("Id")
+    .DataSource(d => d.RemoteController().Key("Id")
     .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Sales/All")
     .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Sales/Insert")
     .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileUid}/Sales/Update")

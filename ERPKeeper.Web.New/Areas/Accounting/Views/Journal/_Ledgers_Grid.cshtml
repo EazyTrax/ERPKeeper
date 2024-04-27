@@ -1,9 +1,9 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger
 
 <div class="mb-2 border-top">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Ledger>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger>()
             .ID("LedgerList")
-            .KeyExpr("Uid")
+            .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Journals/{Model.Id}/Ledgers/All"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
@@ -14,7 +14,7 @@
             .Columns(columns =>
             {
                 columns.AddFor(m => m.AccountUid)
-                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(200).HeaderCellTemplate(@<text>Account</text>);
                 columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntries/<%= data.Uid %>/"><%= data.Memo %></a></text>);
                 columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);

@@ -29,7 +29,7 @@
                         .DataSource(Organization.Customers.GetAll().Select(t => new { t.ProfileUid, Name = t.Profile.Name }).ToList())
                         .Placeholder("Choose Projects")
                         .DisplayExpr("Name")
-                        .ValueExpr("Uid")
+                        .ValueExpr("Id")
                         .ShowClearButton(true)
                         .LabelMode(EditorLabelMode.Floating)
                         )

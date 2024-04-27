@@ -34,7 +34,7 @@
 
 
             columns.AddFor(m => m.AccountItemUid)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.AccountItems.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Account</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountItemUid %>/"><%= displayValue %></a></text>); ;

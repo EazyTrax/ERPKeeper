@@ -3,9 +3,9 @@
 <div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry>()
         .ID("AssetsTreeList")
-        .KeyExpr("Uid")
+        .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
-        .Key("Uid")
+        .Key("Id")
         .LoadUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/{Model.Id}/JournalEntries/All")
         .InsertUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/{Model.Id}/JournalEntries/Insert")
         .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/{Model.Id}/JournalEntries/Update")
@@ -25,7 +25,7 @@
         {
                 columns.AddFor(m => m.TrnDate).Width(100).Format(Format.ShortDate);
                 columns.AddFor(m => m.JournalEntryTypeGuid)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Uid"))
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Uid, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Type</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeGuid %>/"><%= displayValue %></a></text>);
 
