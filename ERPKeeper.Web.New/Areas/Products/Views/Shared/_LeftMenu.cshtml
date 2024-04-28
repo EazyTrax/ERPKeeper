@@ -20,13 +20,17 @@
     }
 }
 
-
-<div class="lh-12 bg-fb1 p-2 rounded">
+<div class="lh-12 bg-fb1 p-2 rounded border font-weight-600">
     @{
         MenuTemplate(0, "Products", $"/{CompanyId}/Products");
-        MenuTemplate(1, "Brands", $"/{CompanyId}/Products/Brands");
-        MenuTemplate(1, "Items", $"/{CompanyId}/Products/Items");
-        MenuTemplate(1, "Inventory", $"/{CompanyId}/Products/Inventory");
-        MenuTemplate(1, "Groups", $"/{CompanyId}/Products/Groups");
+    }
+</div>
+
+<div class="lh-12 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Brands", $"/{CompanyId}/Products/Brands");
+        MenuTemplate(0, "Items", $"/{CompanyId}/Products/Items");
+        MenuTemplate(0, "Inventory", $"/{CompanyId}/Products/Inventory");
+        MenuTemplate(0, "Groups", $"/{CompanyId}/Products/Groups");
     }
 </div>
