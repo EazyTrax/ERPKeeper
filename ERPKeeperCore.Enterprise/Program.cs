@@ -2,7 +2,6 @@
 using ERPKeeperCore.Enterprise.DAL;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
-using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,6 +42,17 @@ namespace ERPKeeperCore.CMD
 
                 //CopyFundTransfers(newOrganization, oldOrganization);
 
+
+                newOrganization.ErpCOREDBContext.Members.Add(new Enterprise.Models.Security.Member()
+                {
+                    Name = "Pawin Yousook",
+                    Email = "pawin.y@engineeringcraft.com",
+                    Password = "P@ssw0rd@1",
+                    AccessLevel = Enterprise.Models.Security.Enums.AccessLevel.Admin,
+                    LastLogin = DateTime.Now,
+
+                });
+                newOrganization.ErpCOREDBContext.SaveChanges();
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
             }

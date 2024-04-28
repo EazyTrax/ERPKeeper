@@ -8,4 +8,5 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         Income = 4,
         Expense = 5
     }
+
 }

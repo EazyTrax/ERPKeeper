@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Enterprise.Models.Items
         [Key]
         public Guid Id { get; set; }
 
-        public Guid ParentId { get; set; }
+        public Guid? ParentId { get; set; }
         [ForeignKey("ParentId")]
         public virtual ItemGroup Parent { get; set; }
         public String? Name { get; set; }

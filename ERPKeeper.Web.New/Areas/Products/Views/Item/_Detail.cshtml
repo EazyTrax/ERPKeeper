@@ -36,7 +36,7 @@
 
                     items.AddSimpleFor(m=>m.Status).Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
-                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.ItemStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
                     .DisplayExpr("Text").ValueExpr("Value"));
 
                     })

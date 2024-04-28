@@ -48,8 +48,16 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public DAL.TaxCodes TaxCodes;
 
+        public EnterpriseRepo(string dbName = "tec", bool migratedDB = false)
+        {
+            this.DatabaseName = dbName;
+            this.ErpCOREDBContext = new ERPCoreDbContext(dbName, migratedDB);
+            Initial();
+        }
 
-        public EnterpriseRepo()
+
+
+        public void Initial()
         {
             Sales = new Sales(this);
             Purchases = new Purchases(this);
@@ -182,13 +190,7 @@ namespace ERPKeeperCore.Enterprise.DAL
         {
             ErpCOREDBContext.SaveChanges();
         }
-        public EnterpriseRepo(string dbName = "erpCoreDB.TEC", bool migratedDB = false)
-        {
-            this.DatabaseName = dbName;
-            this.ErpCOREDBContext = new ERPCoreDbContext(dbName, migratedDB);
-        }
-
-
+ 
         private void CreateSystemAccounts()
         {
             Console.WriteLine("> Create System Accounts");

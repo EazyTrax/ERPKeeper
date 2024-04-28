@@ -5,7 +5,7 @@
     <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
-    <StartupObject>ERPKeeper.Web.New.Program</StartupObject>
+    <StartupObject>ERPKeeperCore.Web.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Areas\API\Accounting - Copy\**" />

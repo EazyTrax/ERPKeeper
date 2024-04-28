@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
             }
         }
 
-        private async Task<IActionResult> DoSignIn(ERPKeeperCore.Enterprise.Models.Security.Member member)
+        private async Task<IActionResult> DoSignIn(Member member)
         {
             var claims = new List<Claim>
             {

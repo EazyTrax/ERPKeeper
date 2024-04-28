@@ -8,7 +8,7 @@ using System.Web;
 
 
 
-namespace ERPKeeperCore.Enterprise.Models.Enums
+namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
 {
 
     public enum FiscalYearStatus

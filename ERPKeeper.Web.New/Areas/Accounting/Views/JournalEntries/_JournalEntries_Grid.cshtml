@@ -31,7 +31,6 @@
 
                 columns.AddFor(m => m.Name).AllowEditing(false).Width(100).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
                 columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
-                columns.AddFor(m => m.Status).AllowEditing(false).Width(100).Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.EnumFiscalYearStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
                 columns.AddFor(m => m.Debit).AllowEditing(false).Width(100).Format(Format.FixedPoint);
                 columns.AddFor(m => m.Credit).AllowEditing(false).Width(100).Format(Format.FixedPoint);
                 columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
