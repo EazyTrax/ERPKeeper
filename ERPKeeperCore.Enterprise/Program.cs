@@ -36,12 +36,16 @@ namespace ERPKeeperCore.CMD
                 //CopySaleItems(newOrganization, oldOrganization);
                 //CopyPurchases(newOrganization, oldOrganization);
                 //CopyPurchaseItems(newOrganization, oldOrganization);
-
                 // CreateTransactionForSales(newOrganization);
                 // CreateTransactionForPurchases(newOrganization);
-
                 //CopyFundTransfers(newOrganization, oldOrganization);
 
+                CopyAssetTypes(newOrganization, oldOrganization);
+                CopyAssets(newOrganization, oldOrganization);
+
+                CopyJournalEntryTypes(newOrganization, oldOrganization);
+                CopyJournalEntries(newOrganization, oldOrganization);
+                CopyJournalEntryItems(newOrganization, oldOrganization);
 
                 newOrganization.ErpCOREDBContext.Members.Add(new Enterprise.Models.Security.Member()
                 {
@@ -685,6 +689,181 @@ namespace ERPKeeperCore.CMD
                 }
 
                 // newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private static void CopyAssetTypes(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.AssetTypes.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.AssetTypes.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Assets.AssetType()
+                    {
+                        Id = a.Uid,
+                        Name = a.Name,
+                        Description = a.Description,
+                        AccumulateDeprecateAccId = a.AccumulateDeprecateAccUid,
+                        AmortizeExpenseAccId = a.AmortizeExpenseAccUid,
+                        AwaitDeprecateAccId = a.AwaitDeprecateAccUid,
+                        PurchaseAccId = a.PurchaseAccUid,
+                        CodePrefix = a.CodePrefix,
+                        DeprecatedAble = a.DeprecatedAble,
+                        DepreciationMethod = (Enterprise.Models.Assets.Enums.EnumDepreciationMethod)a.DepreciationMethod,
+                        ScrapValue = a.ScrapValue,
+                        UseFulLifeYear = a.UseFulLifeYear,
+                    };
+
+                    newOrganization.ErpCOREDBContext.AssetTypes.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private static void CopyAssets(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.Assets.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.Assets.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Assets.Asset()
+                    {
+                        Id = a.Uid,
+                        Name = a.Name,
+                        AssetTypeId = a.FixedAssetTypeUid,
+                        AssetValue = a.AssetValue,
+                        Code = a.Code,
+                        DepreciationPerYear = a.DepreciationPerYear,
+                        LastCreateSchedule = a.LastCreateSchedule,
+                        Memo = a.Memo,
+                        No = a.No,
+                        PurchaseDate = a.StartDeprecationDate,
+                        SavageValue = a.SavageValue,
+                        Reference = a.Reference,
+                        StartDeprecationDate = a.StartDeprecationDate,
+                        Status = (Enterprise.Models.Assets.Enums.AssetStatus)a.Status,
+                    };
+
+                    newOrganization.ErpCOREDBContext.Assets.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+
+
+        private static void CopyJournalEntryTypes(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryTypes.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.JournalEntryTypes.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType()
+                    {
+                        Id = a.Uid,
+                        Name = a.Name,
+                        Detail = a.Detail,
+                        IsActive = a.IsActive,
+                    };
+
+                    newOrganization.ErpCOREDBContext.JournalEntryTypes.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+
+        private static void CopyJournalEntries(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.JournalEntries.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.JournalEntries.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry()
+                    {
+                        Id = a.Uid,
+                        Date = a.TrnDate,
+                        No = a.No,
+                        Credit = a.Credit,
+                        Debit = a.Debit,
+                        Memo = a.Memo,
+                        JournalEntryTypeId = a.JournalEntryTypeGuid,
+                    };
+
+                    newOrganization.ErpCOREDBContext.JournalEntries.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+
+        private static void CopyJournalEntryItems(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryItems.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                var exist = newOrganization.ErpCOREDBContext.JournalEntryItems.FirstOrDefault(x => x.Id == a.JournalEntryItemId);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem()
+                    {
+                        Id = a.JournalEntryItemId,
+                        Credit = a.Credit,
+                        Debit = a.Debit,
+                        Memo = a.Memo,
+                        JournalEntryId = a.JournalEntryId,
+                        AccountId = a.AccountUid,
+                    };
+
+                    newOrganization.ErpCOREDBContext.JournalEntryItems.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
 

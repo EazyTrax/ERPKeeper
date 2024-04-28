@@ -39,14 +39,14 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
 
         public int CommercialsCount => InputCommercialCount + OutputCommercialCount;
-        public int InputCommercialCount { get; private set; }
-        public Decimal InputBalance { get; private set; }
-        public Decimal InputTaxBalance { get; private set; }
+        public int InputCommercialCount { get; set; }
+        public Decimal InputBalance { get; set; }
+        public Decimal InputTaxBalance { get; set; }
 
 
-        public Decimal OutputBalance { get; private set; }
-        public Decimal OutputTaxBalance { get; private set; }
-        public int OutputCommercialCount { get; private set; }
+        public Decimal OutputBalance { get; set; }
+        public Decimal OutputTaxBalance { get; set; }
+        public int OutputCommercialCount { get; set; }
 
         public Decimal ClosingAmount => InputTaxBalance - OutputTaxBalance;
 

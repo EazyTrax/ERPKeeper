@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Accounting
 {
-    public class JournalsController : API_Accounting_BaseController
+    public class TransactionsController : API_Accounting_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.TransactionLedgers;
+            var returnModel = Organization.ErpCOREDBContext.Transactions;
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
@@ -22,7 +22,7 @@ namespace ERPKeeperCore.Web.API.Accounting
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.TransactionLedgers.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.Transactions.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -31,8 +31,8 @@ namespace ERPKeeperCore.Web.API.Accounting
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.TransactionLedgers.First(a => a.Id == key);
-            Organization.ErpCOREDBContext.TransactionLedgers.Remove(model);
+            var model = Organization.ErpCOREDBContext.Transactions.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.Transactions.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
     }

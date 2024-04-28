@@ -1,32 +1,20 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 
-<div class="row p-1">
+<div class="row p-2">
     <div class="col-6 p-0">
-        FY @Model.Name
+         <a href="/@CompanyId">@CompanyId</a>
+        /
+        <a href="/@CompanyId/Accounting">Accounting</a>
+        /
+        <a href="/@CompanyId/Accounting/FiscalYears">FiscalYears</a>
+          /
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">@Model.Name</a>
+         
     </div>
     <div class="col-3 p-0">
     </div>
     <div class="col-3 p-0 text-right">
-        <div class="btn-group">
-            <a class="btn btn-outline-light border btn-sm dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-calculator"></i>
-            </a>
-            <ul class="dropdown-menu p-2">
-                <li class="font-weight-600">
-                    Calculate
-                </li>
-                <li>
-                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/UpdateBalance">Balance</a>
-                </li>
-                <li class="pt-3 font-weight-600">
-                    Creat
-                </li>
-                <li>
-                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/CreateNextFiscalYear">Next FiscalYear</a>
-                </li>
-
-            </ul>
-        </div>
+      
     </div>
 </div>
 

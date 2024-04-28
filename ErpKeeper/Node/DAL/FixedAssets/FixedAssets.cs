@@ -18,15 +18,15 @@ namespace ERPKeeper.Node.DAL.Assets
             transactionType = Models.Accounting.Enums.ERPObjectType.FixedAsset;
         }
 
-        public IQueryable<FixedAsset> Query() => erpNodeDBContext.FixedAssets;
+        public IQueryable<FixedAsset> Query() => erpNodeDBContext.Assets;
 
-        public List<FixedAsset> GetListAll() => erpNodeDBContext.FixedAssets.OrderBy(a => a.StartDeprecationDate).ToList();
+        public List<FixedAsset> GetListAll() => erpNodeDBContext.Assets.OrderBy(a => a.StartDeprecationDate).ToList();
 
 
-        public FixedAsset Find(Guid uid) => erpNodeDBContext.FixedAssets.Find(uid);
+        public FixedAsset Find(Guid uid) => erpNodeDBContext.Assets.Find(uid);
         public FixedAsset Save(FixedAsset fixedAsset)
         {
-            var exFixedAsset = erpNodeDBContext.FixedAssets.Find(fixedAsset.Uid);
+            var exFixedAsset = erpNodeDBContext.Assets.Find(fixedAsset.Uid);
 
             if (exFixedAsset != null)
             {
@@ -56,7 +56,7 @@ namespace ERPKeeper.Node.DAL.Assets
             else
             {
                 fixedAsset.FiscalYear = organization.FiscalYears.Find(fixedAsset.StartDeprecationDate);
-                erpNodeDBContext.FixedAssets.Add(fixedAsset);
+                erpNodeDBContext.Assets.Add(fixedAsset);
                 erpNodeDBContext.SaveChanges();
 
                 return fixedAsset;
@@ -65,11 +65,11 @@ namespace ERPKeeper.Node.DAL.Assets
 
         public void Remove(FixedAsset depAsset)
         {
-            erpNodeDBContext.FixedAssets.Remove(depAsset);
+            erpNodeDBContext.Assets.Remove(depAsset);
             erpNodeDBContext.SaveChanges();
         }
 
-        public List<FixedAsset> ListByStatus(FixedAssetStatus status) => erpNodeDBContext.FixedAssets.Where(d => d.Status == status).ToList();
+        public List<FixedAsset> ListByStatus(FixedAssetStatus status) => erpNodeDBContext.Assets.Where(d => d.Status == status).ToList();
 
         public void UpdateStatus()
         {
@@ -97,7 +97,7 @@ namespace ERPKeeper.Node.DAL.Assets
 
             var fiscalYear = organization.FiscalYears.CurrentPeriod;
 
-            erpNodeDBContext.FixedAssets.OrderBy(ass => ass.StartDeprecationDate).ToList()
+            erpNodeDBContext.Assets.OrderBy(ass => ass.StartDeprecationDate).ToList()
                 .ForEach(fixedAsset =>
                 {
                     fixedAsset.CreateDepreciationSchedule();
@@ -122,7 +122,7 @@ namespace ERPKeeper.Node.DAL.Assets
         }
         public void ReOrder()
         {
-            var assetGroups = erpNodeDBContext.FixedAssets.ToList()
+            var assetGroups = erpNodeDBContext.Assets.ToList()
                 .GroupBy(a => a.StartDeprecationDate.Year)
                 .Select(go => new
                 {
@@ -171,7 +171,7 @@ namespace ERPKeeper.Node.DAL.Assets
                     Name = fixedAssetsTransactionItem.Item.PartNumber
                 };
 
-                erpNodeDBContext.FixedAssets.Add(fixedAsset);
+                erpNodeDBContext.Assets.Add(fixedAsset);
             }
             erpNodeDBContext.SaveChanges();
         }
@@ -187,7 +187,7 @@ namespace ERPKeeper.Node.DAL.Assets
             sqlCommand = string.Format(sqlCommand, (int)this.transactionType);
             erpNodeDBContext.Database.ExecuteSqlCommand(sqlCommand);
 
-            erpNodeDBContext.FixedAssets.ToList()
+            erpNodeDBContext.Assets.ToList()
                 .ForEach(s => s.PostStatus = LedgerPostStatus.Editable);
             erpNodeDBContext.SaveChanges();
         }
@@ -196,7 +196,7 @@ namespace ERPKeeper.Node.DAL.Assets
             get
             {
                 var firstDate = organization.DataItems.FirstDate;
-                return erpNodeDBContext.FixedAssets
+                return erpNodeDBContext.Assets
                     .Where(s => s.Status != FixedAssetStatus.Draft && s.PostStatus == LedgerPostStatus.Editable && s.StartDeprecationDate >= firstDate)
                     .OrderBy(s => s.StartDeprecationDate).ToList();
             }

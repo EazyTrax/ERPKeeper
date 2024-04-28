@@ -269,14 +269,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("TotalCredit")
+                    b.Property<decimal>("Debit")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("TotalDebit")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");

@@ -145,8 +145,8 @@ namespace ERPKeeper.Node.DBContext
         public DbSet<Models.Projects.Material> Materials { get; set; }
 
 
-        public DbSet<Models.Assets.FixedAsset> FixedAssets { get; set; }
-        public DbSet<Models.Assets.FixedAssetType> FixedAssetTypes { get; set; }
+        public DbSet<Models.Assets.FixedAsset> Assets { get; set; }
+        public DbSet<Models.Assets.FixedAssetType> AssetTypes { get; set; }
         public DbSet<Models.Assets.DeprecateSchedule> DeprecateSchedules { get; set; }
 
 

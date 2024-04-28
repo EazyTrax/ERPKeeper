@@ -23,13 +23,13 @@
 
 <div class="lh-12 ">
     @{
-        MenuTemplate(0, CompanyId.ToUpper(), $"/{CompanyId}/DashBoard");
-        MenuTemplate(1, "Profiles", $"/{CompanyId}/Profiles");
-        MenuTemplate(2, "Customers", $"/{CompanyId}/Customers/Customers",Organization.Customers.Count());
-        MenuTemplate(2, "Projects", $"/{CompanyId}/Customers/Projects");
-        MenuTemplate(2, "Estimates", $"/{CompanyId}/Customers/Estimates");
+       
+        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
+        MenuTemplate(1, "Customers", $"/{CompanyId}/Customers/Customers",Organization.Customers.Count());
+        MenuTemplate(1, "Projects", $"/{CompanyId}/Customers/Projects");
+        MenuTemplate(1, "Estimates", $"/{CompanyId}/Customers/Estimates");
         MenuTemplate(3, "Orders", $"/{CompanyId}/Customers/Orders");
-        MenuTemplate(2, "Sales", $"/{CompanyId}/Customers/Sales");
+        MenuTemplate(1, "Sales", $"/{CompanyId}/Customers/Sales");
         MenuTemplate(3, "Payments", $"/{CompanyId}/Customers/Payments");
     }
 </div>

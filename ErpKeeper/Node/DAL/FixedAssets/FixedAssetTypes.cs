@@ -13,13 +13,13 @@ namespace ERPKeeper.Node.DAL.Assets
 
         }
 
-        public List<FixedAssetType> All() => erpNodeDBContext.FixedAssetTypes.ToList();
-        public FixedAssetType Find(Guid uid) => erpNodeDBContext.FixedAssetTypes.Find(uid);
+        public List<FixedAssetType> All() => erpNodeDBContext.AssetTypes.ToList();
+        public FixedAssetType Find(Guid uid) => erpNodeDBContext.AssetTypes.Find(uid);
 
         public void Add(FixedAssetType model)
         {
             model.Uid = Guid.NewGuid();
-            erpNodeDBContext.FixedAssetTypes.Add(model);
+            erpNodeDBContext.AssetTypes.Add(model);
         }
 
         public void Refresh()

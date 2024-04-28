@@ -11,7 +11,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 {
     public class EnterpriseRepo : IDisposable
     {
-        public ERPCoreDbContext ErpCOREDBContext { get; private set; }
+        public ERPCoreDbContext ErpCOREDBContext { get; set; }
 
         private DAL.Accounting.ChartOfAccounts _chartOfAccountDal;
         private DAL.Accounting.SystemAccounts _systemAccountsDal;
@@ -180,7 +180,7 @@ namespace ERPKeeperCore.Enterprise.DAL
                 return _JournalEntryTypes;
             }
         }
-        public String? DatabaseName { get; private set; }
+        public String? DatabaseName { get; set; }
 
         public void Dispose()
         {

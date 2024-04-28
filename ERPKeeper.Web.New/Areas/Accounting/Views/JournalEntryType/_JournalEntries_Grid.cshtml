@@ -6,9 +6,9 @@
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/{Model.Id}/JournalEntries/All")
-        .InsertUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/{Model.Id}/JournalEntries/Insert")
-        .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/{Model.Id}/JournalEntries/Update")
+        .LoadUrl($"/api/{CompanyId}/Accounting/TransactionEntryTypes/{Model.Id}/JournalEntries/All")
+        .InsertUrl($"/api/{CompanyId}/Accounting/TransactionEntryTypes/{Model.Id}/JournalEntries/Insert")
+        .UpdateUrl($"/api/{CompanyId}/Accounting/TransactionEntryTypes/{Model.Id}/JournalEntries/Update")
         .UpdateMethod("Post"))
         .AllowColumnReordering(true)
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
@@ -27,10 +27,10 @@
                 columns.AddFor(m => m.JournalEntryTypeId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Type</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/TransactionEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.Name).AllowEditing(false).Width(100).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
+                columns.AddFor(m => m.Name).AllowEditing(false).Width(100).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/TransactionEntries/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/TransactionEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
                columns.AddFor(m => m.Debit).AllowEditing(false).Width(100).Format(Format.FixedPoint);
                 columns.AddFor(m => m.Credit).AllowEditing(false).Width(100).Format(Format.FixedPoint);
         })

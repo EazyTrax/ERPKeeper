@@ -62,7 +62,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
         public virtual ICollection<AssetDeprecateSchedule> DepreciationSchedules { get; set; }
 
-        public DateTime? LastCreateSchedule { get; private set; }
+        public DateTime? LastCreateSchedule { get; set; }
 
         public Asset()
         {

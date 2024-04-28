@@ -20,18 +20,18 @@
     }
 }
 
-<div class="lh-12 ">
+<div class="lh-12 bg-fb1 p-2 rounded">
     @{
-        MenuTemplate(0, CompanyId.ToUpper(), $"/{CompanyId}/DashBoard");
-        MenuTemplate(1, "Accounting", $"/{CompanyId}/Accounting");
-        MenuTemplate(2, "Assets", $"/{CompanyId}/Assets");
-        MenuTemplate(2, "Products", $"/{CompanyId}/Products");
-        MenuTemplate(1, "Profiles", $"/{CompanyId}/Profiles");
-        MenuTemplate(2, "Customers", $"/{CompanyId}/Customers");
-        MenuTemplate(2, "Suppliers", $"/{CompanyId}/Suppliers");
-        MenuTemplate(2, "Employees", $"/{CompanyId}/Employees");
-        MenuTemplate(2, "Investors", $"/{CompanyId}/Investors");
-        MenuTemplate(1, "Operations", $"/{CompanyId}/Operations");
-        MenuTemplate(1, "Taxes", $"/{CompanyId}/Taxes");
+       
+        MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
+        MenuTemplate(0, "Assets", $"/{CompanyId}/Assets");
+        MenuTemplate(0, "Products", $"/{CompanyId}/Products");
+        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
+        MenuTemplate(1, "Customers", $"/{CompanyId}/Customers");
+        MenuTemplate(1, "Suppliers", $"/{CompanyId}/Suppliers");
+        MenuTemplate(1, "Employees", $"/{CompanyId}/Employees");
+        MenuTemplate(1, "Investors", $"/{CompanyId}/Investors");
+        MenuTemplate(0, "Operations", $"/{CompanyId}/Operations");
+        MenuTemplate(0, "Taxes", $"/{CompanyId}/Taxes");
     }
 </div>

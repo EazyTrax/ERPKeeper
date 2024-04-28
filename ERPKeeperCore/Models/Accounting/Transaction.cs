@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
+using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Transactions;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
@@ -14,15 +15,19 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         [Key]
         public Guid Id { get; set; }
-        public TransactionType Type { get; set; }       
+        public TransactionType Type { get; set; }
         public DateTime Date { get; set; }
-
-
-        public Decimal TotalCredit { get; set; }
-        public Decimal TotalDebit { get; set; }
+        public String? Reference { get; set; }
+        public Decimal Credit { get; set; }
+        public Decimal Debit { get; set; }
 
         public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new HashSet<TransactionLedger>();
 
+        public void Update()
+        {
+            Debit = Ledgers.Sum(x => x.Debit);
+            Credit = Ledgers.Sum(x => x.Credit);
+        }
     }
 
     public partial class TransactionLedger

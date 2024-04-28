@@ -1,13 +1,13 @@
 ﻿<div class="mb-2 border-top">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Transaction>()
         .ID("AssetsTreeList")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
-        .LoadUrl($"/api/{CompanyId}/Accounting/Journals/All")
-        .InsertUrl($"/api/{CompanyId}/Accounting/Journals/Insert")
-        .UpdateUrl($"/api/{CompanyId}/Accounting/Journals/Update")
+        .LoadUrl($"/api/{CompanyId}/Accounting/Transactions/All")
+        .InsertUrl($"/api/{CompanyId}/Accounting/Transactions/Insert")
+        .UpdateUrl($"/api/{CompanyId}/Accounting/Transactions/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/api/{CompanyId}/Accounting/Journals/Delete")
+        .DeleteUrl($"/api/{CompanyId}/Accounting/Transactions/Delete")
         .DeleteMethod("Post"))
         .AllowColumnReordering(true)
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
@@ -22,23 +22,15 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Accounting/Journals/<%= data.Id %>/"><%= data.Name %></a></text>);
-      
-            columns.AddFor(m => m.Reference);
+                columns.AddFor(m => m.Reference).CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Reference %></a></text>
+        );
+                columns.AddFor(m => m.Date).Width(150);
+                columns.AddFor(m => m.Type).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Transactions.TransactionType>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text").ValueExpr("Value"));
+
             columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);
             columns.AddFor(m => m.Credit).Width(100).Format(Format.FixedPoint);
-
-         
-             })
+        })
         )
 </div>
-
-
-
-
-
-
-
-
-
-

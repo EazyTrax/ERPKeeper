@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
-    [Route("/{CompanyId}/{area}/Journals/{JournalId:Guid}/{action=Index}")]
-    public class JournalController : AccountingBaseController
+    [Route("/{CompanyId}/{area}/Transactions/{TransactionId:Guid}/{action=Index}")]
+    public class TransactionController : AccountingBaseController
     {
-        public Guid JournalId => Guid.Parse(HttpContext.GetRouteData().Values["JournalId"].ToString());
+        public Guid TransactionId => Guid.Parse(HttpContext.GetRouteData().Values["TransactionId"].ToString());
 
 
         public IActionResult Index()
         {
-            var model = EnterpriseRepo.ErpCOREDBContext.TransactionLedgers.Find(JournalId);
+            var model = EnterpriseRepo.ErpCOREDBContext.TransactionLedgers.Find(TransactionId);
             return View(model);
         }
 

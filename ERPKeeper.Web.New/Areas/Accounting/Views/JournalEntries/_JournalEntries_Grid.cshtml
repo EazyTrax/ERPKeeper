@@ -4,11 +4,11 @@
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Accounting/JournalEntries/All")
-        .InsertUrl($"/api/{CompanyId}/Accounting/JournalEntries/Insert")
-        .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntries/Update")
+        .LoadUrl($"/api/{CompanyId}/Accounting/TransactionEntries/All")
+        .InsertUrl($"/api/{CompanyId}/Accounting/TransactionEntries/Insert")
+        .UpdateUrl($"/api/{CompanyId}/Accounting/TransactionEntries/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/api/{CompanyId}/Accounting/JournalEntries/Delete")
+        .DeleteUrl($"/api/{CompanyId}/Accounting/TransactionEntries/Delete")
         .DeleteMethod("Post"))
         .AllowColumnReordering(true)
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
@@ -27,10 +27,10 @@
                 columns.AddFor(m => m.JournalEntryTypeId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Type</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/TransactionEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.Name).AllowEditing(false).Width(100).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
+                columns.AddFor(m => m.Name).AllowEditing(false).Width(100).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/TransactionEntries/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/TransactionEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
                 columns.AddFor(m => m.Debit).AllowEditing(false).Width(100).Format(Format.FixedPoint);
                 columns.AddFor(m => m.Credit).AllowEditing(false).Width(100).Format(Format.FixedPoint);
                 columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);

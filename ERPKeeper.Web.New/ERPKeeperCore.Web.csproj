@@ -9,8 +9,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Areas\API\Accounting - Copy\**" />
+    <Compile Remove="Areas\API\Accounting\ChartOfAccount\**" />
+    <Compile Remove="Areas\API\Accounting\DefaultAccounts\**" />
     <Compile Remove="Areas\API\Accounting\FiscalYears\**" />
     <Compile Remove="Areas\API\Accounting\JournalEntries\**" />
+    <Compile Remove="Areas\API\Accounting\Ledgers\**" />
     <Compile Remove="Areas\API\Expenses\**" />
     <Compile Remove="Areas\API\Financial\**" />
     <Compile Remove="Areas\API\Taxex\**" />
@@ -25,8 +28,11 @@
     <Compile Remove="Areas\Products\Models\**" />
     <Compile Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <Content Remove="Areas\API\Accounting - Copy\**" />
+    <Content Remove="Areas\API\Accounting\ChartOfAccount\**" />
+    <Content Remove="Areas\API\Accounting\DefaultAccounts\**" />
     <Content Remove="Areas\API\Accounting\FiscalYears\**" />
     <Content Remove="Areas\API\Accounting\JournalEntries\**" />
+    <Content Remove="Areas\API\Accounting\Ledgers\**" />
     <Content Remove="Areas\API\Expenses\**" />
     <Content Remove="Areas\API\Financial\**" />
     <Content Remove="Areas\API\Taxex\**" />
@@ -41,8 +47,11 @@
     <Content Remove="Areas\Products\Models\**" />
     <Content Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <EmbeddedResource Remove="Areas\API\Accounting - Copy\**" />
+    <EmbeddedResource Remove="Areas\API\Accounting\ChartOfAccount\**" />
+    <EmbeddedResource Remove="Areas\API\Accounting\DefaultAccounts\**" />
     <EmbeddedResource Remove="Areas\API\Accounting\FiscalYears\**" />
     <EmbeddedResource Remove="Areas\API\Accounting\JournalEntries\**" />
+    <EmbeddedResource Remove="Areas\API\Accounting\Ledgers\**" />
     <EmbeddedResource Remove="Areas\API\Expenses\**" />
     <EmbeddedResource Remove="Areas\API\Financial\**" />
     <EmbeddedResource Remove="Areas\API\Taxex\**" />
@@ -57,8 +66,11 @@
     <EmbeddedResource Remove="Areas\Products\Models\**" />
     <EmbeddedResource Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <None Remove="Areas\API\Accounting - Copy\**" />
+    <None Remove="Areas\API\Accounting\ChartOfAccount\**" />
+    <None Remove="Areas\API\Accounting\DefaultAccounts\**" />
     <None Remove="Areas\API\Accounting\FiscalYears\**" />
     <None Remove="Areas\API\Accounting\JournalEntries\**" />
+    <None Remove="Areas\API\Accounting\Ledgers\**" />
     <None Remove="Areas\API\Expenses\**" />
     <None Remove="Areas\API\Financial\**" />
     <None Remove="Areas\API\Taxex\**" />
@@ -110,9 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Accounting\Views\Shared\Components\" />
-    <Folder Include="Areas\API\Accounting\ChartOfAccount\" />
-    <Folder Include="Areas\API\Accounting\Ledgers\" />
-    <Folder Include="Areas\API\Accounting\DefaultAccounts\" />
     <Folder Include="Areas\Authen\Data\" />
     <Folder Include="Areas\Authen\Models\" />
     <Folder Include="Areas\Authen\Views\Shared\Components\" />

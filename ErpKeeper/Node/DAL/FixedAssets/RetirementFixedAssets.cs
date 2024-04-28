@@ -21,12 +21,12 @@ namespace ERPKeeper.Node.DAL.Assets
 
 
         public List<FixedAsset> GetListAll() =>
-            erpNodeDBContext.FixedAssets
+            erpNodeDBContext.Assets
             .Where(f => f.RetirementDate != null)
             .OrderBy(a => a.StartDeprecationDate)
             .ToList();
 
-        public FixedAsset Find(Guid uid) => erpNodeDBContext.FixedAssets.Find(uid);
+        public FixedAsset Find(Guid uid) => erpNodeDBContext.Assets.Find(uid);
 
 
         public void UpdateStatus()
@@ -55,7 +55,7 @@ namespace ERPKeeper.Node.DAL.Assets
             sqlCommand = string.Format(sqlCommand, (int)this.transactionType);
             erpNodeDBContext.Database.ExecuteSqlCommand(sqlCommand);
 
-            erpNodeDBContext.FixedAssets.ToList()
+            erpNodeDBContext.Assets.ToList()
                 .ForEach(s => s.RetirementPostStatus = LedgerPostStatus.Editable);
             erpNodeDBContext.SaveChanges();
         }
@@ -66,7 +66,7 @@ namespace ERPKeeper.Node.DAL.Assets
             {
                 var firstDate = organization.DataItems.FirstDate;
 
-                return erpNodeDBContext.FixedAssets
+                return erpNodeDBContext.Assets
                     .Where(s => s.RetirementDate >= firstDate)
                     .Where(s => s.RetirementPostStatus == LedgerPostStatus.Editable)
                     .ToList();

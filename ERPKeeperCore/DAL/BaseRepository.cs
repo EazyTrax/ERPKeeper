@@ -10,7 +10,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 {
     public class ERPNodeDalRepository
     {
-        public EnterpriseRepo organization { get; private set; }
+        public EnterpriseRepo organization { get; set; }
         protected ERPCoreDbContext erpNodeDBContext { get; set; }
         public ERPNodeDalRepository(EnterpriseRepo organization)
         {

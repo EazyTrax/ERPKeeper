@@ -11,11 +11,13 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Accounting.Journal
 {
-    public class LedgersController : JournalBaseController
+    public class LedgersController : API_Accounting_Transaction_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Transactions;
+            var returnModel = Organization.ErpCOREDBContext
+                .TransactionLedgers
+                .Where(m => m.TransactionId == TransactionId);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

@@ -20,16 +20,7 @@
     }
 }
 
-<div>
-    <div class="font-weight-600 ">
-        <a href="/@CompanyId/Accounting">Accounting</a>
-    </div>
-    <div class="mb-2">
-        @{
 
-        }
-    </div>
-</div>
 
 
 
@@ -55,18 +46,15 @@
     }
 }
 
-<div class="lh-12 ">
+<div class="lh-12 bg-fb1 p-2 rounded">
     @{
-        MenuTemplate(0, CompanyId.ToUpper(), $"/{CompanyId}/DashBoard");
-        MenuTemplate(1, "Accounting", $"/{CompanyId}/Accounting");
-        MenuTemplate(2, "Accounts", $"/{CompanyId}/Accounting/Accounts");
-        MenuTemplate(2, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears");
-        MenuTemplate(2, "Journal Entries", $"/{CompanyId}/Accounting/JournalEntries");
-        MenuTemplate(2, "Journal Entry Types", $"/{CompanyId}/Accounting/JournalEntryTypes");
-        MenuTemplate(2, "Journals", $"/{CompanyId}/Accounting/Journals");
-        MenuTemplate(2, "Opening Balances", $"/{CompanyId}/Accounting/OpeningBalances");
-        MenuTemplate(2, "System Accounts", $"/{CompanyId}/Accounting/DefaultAccounts");
-        MenuTemplate(1, "Assets", $"/{CompanyId}/Assets");
-
+        MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
+        MenuTemplate(1, "Accounts", $"/{CompanyId}/Accounting/Accounts");
+        MenuTemplate(1, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears");
+        MenuTemplate(1, "Journal Entries", $"/{CompanyId}/Accounting/TransactionEntries");
+        MenuTemplate(1, "Journal Entry Types", $"/{CompanyId}/Accounting/TransactionEntryTypes");
+        MenuTemplate(1, "Transactions", $"/{CompanyId}/Accounting/Transactions");
+        MenuTemplate(1, "Opening Balances", $"/{CompanyId}/Accounting/OpeningBalances");
+        MenuTemplate(1, "System Accounts", $"/{CompanyId}/Accounting/DefaultAccounts");
     }
 </div>
