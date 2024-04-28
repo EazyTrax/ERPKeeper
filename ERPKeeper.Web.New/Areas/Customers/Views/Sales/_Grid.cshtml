@@ -57,7 +57,7 @@
     .DisplayExpr("Text")
     .ValueExpr("Value"))
     .AllowEditing(false)
-    .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.ProfileGuid %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
     columns.Add().DataField("Reference").Width(180);

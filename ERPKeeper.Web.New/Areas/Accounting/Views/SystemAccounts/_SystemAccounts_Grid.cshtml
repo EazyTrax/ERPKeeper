@@ -5,7 +5,7 @@
 
 
 <div class="mb-2 border-top">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccountItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccount>()
         .ID("DataGridDefaultAccountItem")
         .KeyExpr("AccountType")
         .DataSource(d => d.RemoteController()
@@ -32,7 +32,7 @@
             </text>);
             *@
 
-            columns.AddFor(m => m.AccountType)
+            columns.AddFor(m => m.Type)
             .Width(200)
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
