@@ -3,7 +3,7 @@
 
 
 
-<div class="mb-3">
+<div class="mb-3 border">
     <div id="treeListDemo" class=" mb-2">
         @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Profiles.ProfileContact>()
         .ID("AddressesGridList")
@@ -12,11 +12,11 @@
         .DataSource(d =>
         d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/Profiles/{Model.Id}/Contacts/All")
-        .InsertUrl($"/api/Profiles/{Model.Id}/Contacts/Insert")
-        .UpdateUrl($"/api/Profiles/{Model.Id}/Contacts/Update")
+        .LoadUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Contacts/All")
+        .InsertUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Contacts/Insert")
+        .UpdateUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Contacts/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/api/Profiles/{Model.Id}/Contacts/Delete")
+        .DeleteUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Contacts/Delete")
         .DeleteMethod("Post")
         )
         .Editing(editing => {

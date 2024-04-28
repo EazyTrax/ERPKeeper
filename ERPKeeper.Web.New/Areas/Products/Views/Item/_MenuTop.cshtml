@@ -3,14 +3,14 @@
 <div class="mb-2 border border-bottom">
     <div class="row mb-2 font-weight-600">
         <div class="col-10 p-2">
-            <a href="/">ERP</a>
-            <a href="/@CompanyId/Products">> Products</a>
-            <a href="/@CompanyId/Products/Groups">> Groups</a>
+            <a href="/@CompanyId/">@CompanyId</a>
+            <a href="/@CompanyId/Products"> Products</a>
+            <a href="/@CompanyId/Products/Groups"> Groups</a>
             @if (Model.ItemGroupId != null)
             {
-                <a href="/@CompanyId/Products/Groups/@Model.ItemGroupId">> @Model.ItemGroup.Name</a>
+                <a href="/@CompanyId/Products/Groups/@Model.ItemGroupId"> @Model.ItemGroup.Name</a>
             }
-            <a href="/@CompanyId/Products/Items/@Model.Id">> @Model.PartNumber</a>
+            <a href="/@CompanyId/Products/Items/@Model.Id"> @Model.PartNumber</a>
         </div>
 
         <div class="col-2 p-2 text-right">

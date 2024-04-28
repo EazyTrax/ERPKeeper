@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Enterprise.DAL
         public DAL.Profiles Profiles;
 
         public DAL.TaxCodes TaxCodes;
-
+        public DAL.TaxPeriods TaxPeriods;
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
             this.DatabaseName = dbName;
@@ -71,6 +71,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             ItemGroups = new ItemGroups(this);
             Profiles = new Profiles(this);
             TaxCodes = new TaxCodes(this);
+            TaxPeriods = new TaxPeriods(this);
         }
 
 
@@ -203,6 +204,9 @@ namespace ERPKeeperCore.Enterprise.DAL
         }
 
         public DateTime FirstDate => this.DataItems.FirstDate;
+
+
+
         private void SetFirstDate(DateTime firstDate)
         {
             Console.WriteLine("> Set FirstDate");

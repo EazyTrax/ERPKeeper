@@ -1,0 +1,33 @@
+﻿@{
+    bool checkCurrentController(string controllerName)
+    {
+        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+        return currentControllerName == controllerName;
+    }
+
+    void Template(string display, string controller, int? count = null)
+    {
+        <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
+            <div class="col p-0">
+                <a href="/@CompanyId/Financial/@controller">
+                  <i class="fa-solid fa-l"></i>  @SharedLocalizer.GetLocalizedHtmlString(display)
+                </a>
+            </div>
+            <div class="col-2 p-0 text-right">
+                <span class="badge badge-light text-dark">@count</span>
+            </div>
+        </div>
+    }
+}
+
+
+
+<div class="bg-fb1 p-2">
+    <div class="font-weight-600 ">
+        <a href="/@CompanyId/Financial">Financial</a>
+    </div>
+
+    @{
+        Template("FundTansfers", "FundTansfers");
+    }
+</div>
