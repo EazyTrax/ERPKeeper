@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Items.Brand
 
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
     .ID("gridList")
@@ -16,7 +16,7 @@
     )
     .Paging(pagging=> pagging.PageSize(100))
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
     .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -30,7 +30,7 @@
 
     .RowAlternationEnabled(true)
     .Columns(columns => {
-    columns.Add().DataField("BrandName").Width(100)
+    columns.Add().DataField("BrandName").Width(130)
     .CellTemplate(@<text>
             <a href="/@CompanyId/Products/Brand/<%= data.BrandGuid %>/">
                 <%= data.BrandName %>
@@ -74,7 +74,7 @@
       
     columns.Add().DataField("AmountOnHand").Width(60).HeaderCellTemplate(@<text>Stock</text>);
     columns.Add().DataField("AmountSold").Width(60).HeaderCellTemplate(@<text>Sold</text>);
-    columns.Add().DataField("SalePrice").Width(100).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);
+    columns.Add().DataField("SalePrice").Width(130).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);
 
     //columns.Add().DataField("Id");
     })

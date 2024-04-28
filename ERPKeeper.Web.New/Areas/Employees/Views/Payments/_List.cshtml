@@ -1,6 +1,6 @@
 ﻿
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employment.EmployeePayment>()
     .ID("gridList")
@@ -22,7 +22,7 @@
     )
 
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .FilterRow(filterRow => filterRow
     .Visible(true)
     .ApplyFilter(GridApplyFilterMode.Auto)
@@ -42,7 +42,7 @@
     columns.AddFor(m=>m.Name).CellTemplate(@<text><a href="/@CompanyId/Employees/Payments/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
-    columns.AddFor(m=>m.EmployeePaymentPeriodUid).Width(100)
+    columns.AddFor(m=>m.EmployeePaymentPeriodUid).Width(130)
     .Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name}))
     .DisplayExpr("Name")

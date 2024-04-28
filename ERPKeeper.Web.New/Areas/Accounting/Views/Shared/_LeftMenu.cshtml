@@ -29,7 +29,7 @@
     {
         <div class="">
             <div class="row e-r">
-                <div class="col-10 p-l@(level)">
+                <div class="col-10 p-0">
                     <a href="@url">
                         @if (level > 0)
                         {
@@ -51,10 +51,10 @@
         MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
         MenuTemplate(1, "Accounts", $"/{CompanyId}/Accounting/Accounts");
         MenuTemplate(1, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears");
-        MenuTemplate(1, "Journal Entries", $"/{CompanyId}/Accounting/TransactionEntries");
-        MenuTemplate(1, "Journal Entry Types", $"/{CompanyId}/Accounting/TransactionEntryTypes");
+        MenuTemplate(1, "JournalEntries", $"/{CompanyId}/Accounting/JournalEntries");
+        MenuTemplate(1, "JournalEntry Types", $"/{CompanyId}/Accounting/JournalEntryTypes");
         MenuTemplate(1, "Transactions", $"/{CompanyId}/Accounting/Transactions");
-        MenuTemplate(1, "Opening Balances", $"/{CompanyId}/Accounting/OpeningBalances");
-        MenuTemplate(1, "System Accounts", $"/{CompanyId}/Accounting/DefaultAccounts");
+        MenuTemplate(1, "Opening", $"/{CompanyId}/Accounting/OpeningBalances");
+        MenuTemplate(1, "Default", $"/{CompanyId}/Accounting/DefaultAccounts");
     }
 </div>

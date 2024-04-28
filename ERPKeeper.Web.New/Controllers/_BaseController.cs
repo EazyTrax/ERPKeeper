@@ -11,6 +11,7 @@ namespace ERPKeeperCore.Web.Controllers
 {
     [Authorize]
     [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/{action=Index}/{id?}")]
+
     public class BaseNodeController : Controller
     {
         public Guid CurrentMakerId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -23,7 +24,7 @@ namespace ERPKeeperCore.Web.Controllers
             get
             {
                 if (_Organization == null)
-                    _Organization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(CompanyId);
+                    _Organization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(CompanyId,true);
                 return _Organization;
             }
         }

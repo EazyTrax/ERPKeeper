@@ -1,5 +1,5 @@
 ﻿
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Projects.Project>()
     .ID("gridList")
@@ -21,7 +21,7 @@
     .Paging(paging => paging.PageSize(100))
 
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
     .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@

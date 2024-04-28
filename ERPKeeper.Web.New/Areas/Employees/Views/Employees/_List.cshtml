@@ -1,4 +1,4 @@
-﻿<div id="treeListDemo" class="mb-3">
+﻿<div id="treeListDemo" class="mb-3 border">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employment.Employee>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
@@ -19,7 +19,7 @@
     )
 
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .FilterRow(filterRow => filterRow
     .Visible(true)
     .ApplyFilter(GridApplyFilterMode.Auto)
@@ -35,7 +35,7 @@
     )
     .Columns(columns =>
     {
-    columns.AddFor(m=>m.Status).Width(100).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
+    columns.AddFor(m=>m.Status).Width(130).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employment.Enums.EmployeeStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")
     .ValueExpr("Value")
@@ -77,8 +77,8 @@
             .CellTemplate(@<text><a href="/@CompanyId/Employees/Positions/<%= data.PositionGuid %>/"><%= displayValue %></a></text>);
   
             
-            @* columns.AddFor(m=>m.TotalBalance).Width(100).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.SumSaleBalance).Width(100).HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);*@
+            @* columns.AddFor(m=>m.TotalBalance).Width(130).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
+    columns.AddFor(m=>m.SumSaleBalance).Width(130).HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);*@
 
     })
     )

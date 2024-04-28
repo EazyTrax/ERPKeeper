@@ -6,18 +6,12 @@
     }
 </style>
 
+
 @{
     var locationsTree = Html.DevExtreme()
     .TreeList<ERPKeeperCore.Enterprise.Models.Items.ItemGroup>()
-                                                                                                    .ID("treeList")
-                                                                                                    .RootValue(null)
-                                                                                                    .KeyExpr("Id")
-                                                                                                    .ParentIdExpr("ParentUid")
-
-                                                                                                    .ShowRowLines(true)
-                                                                                            .ShowBorders(false)
-
-    .HeaderFilter(headerFilter => headerFilter.AllowSearch(true).Visible(true))
+        
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
             .ColumnAutoWidth(false)
     .AutoExpandAll(false)
     .StateStoring(s => s
@@ -48,7 +42,7 @@
 
 
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border mh-100v">
     @locationsTree
 </div>
 
@@ -114,6 +108,7 @@
         return $("#treeList").dxTreeList("instance");
     }
 </script>
+
 
 
 

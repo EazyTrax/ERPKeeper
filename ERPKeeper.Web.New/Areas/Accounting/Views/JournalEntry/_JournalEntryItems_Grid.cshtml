@@ -3,12 +3,12 @@
 <div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem>()
             .ID("LedgerList")
-            .KeyExpr("JournalEntryItemId")
+            .KeyExpr("Id")
             .DataSource(d => d.RemoteController()
-            .Key("JournalEntryItemId")
-            .LoadUrl($"/api/{CompanyId}/Accounting/TransactionEntries/{Model.Id}/JournalEntryItems/All")
-            .InsertUrl($"/api/{CompanyId}/Accounting/TransactionEntries/{Model.Id}/JournalEntryItems/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Accounting/TransactionEntries/{Model.Id}/JournalEntryItems/Update")
+            .Key("Id")
+            .LoadUrl($"/api/{CompanyId}/Accounting/Transactions/{Model.Id}/JournalEntryItems/All")
+            .InsertUrl($"/api/{CompanyId}/Accounting/Transactions/{Model.Id}/JournalEntryItems/Insert")
+            .UpdateUrl($"/api/{CompanyId}/Accounting/Transactions/{Model.Id}/JournalEntryItems/Update")
             .UpdateMethod("Post"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
@@ -28,16 +28,16 @@
                 columns.AddFor(m => m.Account.Type)
     .HeaderCellTemplate("Type")
     .AllowEditing(false)
-    .Width(100).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
+    .Width(130).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );
 
 
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/@CompanyId/Accounting/TransactionEntries/<%= data.Id %>/"><%= data.Memo %></a></text>);
-                columns.AddFor(m => m.Debit).Width(100).Format(",##0.00");
-                columns.AddFor(m => m.Credit).Width(100).Format(",##0.00");
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Memo %></a></text>);
+                columns.AddFor(m => m.Debit).Width(130).Format(",##0.00");
+                columns.AddFor(m => m.Credit).Width(130).Format(",##0.00");
             })
                 .Summary(s => s.TotalItems(items =>{
             items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");

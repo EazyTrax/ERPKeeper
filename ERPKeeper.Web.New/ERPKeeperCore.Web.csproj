@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
@@ -27,6 +27,7 @@
     <Compile Remove="Areas\Products\Data\**" />
     <Compile Remove="Areas\Products\Models\**" />
     <Compile Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <Compile Remove="wwwroot\js\jquery-ui-1.13.1\**" />
     <Content Remove="Areas\API\Accounting - Copy\**" />
     <Content Remove="Areas\API\Accounting\ChartOfAccount\**" />
     <Content Remove="Areas\API\Accounting\DefaultAccounts\**" />
@@ -46,6 +47,7 @@
     <Content Remove="Areas\Products\Data\**" />
     <Content Remove="Areas\Products\Models\**" />
     <Content Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <Content Remove="wwwroot\js\jquery-ui-1.13.1\**" />
     <EmbeddedResource Remove="Areas\API\Accounting - Copy\**" />
     <EmbeddedResource Remove="Areas\API\Accounting\ChartOfAccount\**" />
     <EmbeddedResource Remove="Areas\API\Accounting\DefaultAccounts\**" />
@@ -65,6 +67,7 @@
     <EmbeddedResource Remove="Areas\Products\Data\**" />
     <EmbeddedResource Remove="Areas\Products\Models\**" />
     <EmbeddedResource Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <EmbeddedResource Remove="wwwroot\js\jquery-ui-1.13.1\**" />
     <None Remove="Areas\API\Accounting - Copy\**" />
     <None Remove="Areas\API\Accounting\ChartOfAccount\**" />
     <None Remove="Areas\API\Accounting\DefaultAccounts\**" />
@@ -84,19 +87,11 @@
     <None Remove="Areas\Products\Data\**" />
     <None Remove="Areas\Products\Models\**" />
     <None Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
+    <None Remove="wwwroot\js\jquery-ui-1.13.1\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
     <Content Remove="packages.config" />
-    <Content Remove="wwwroot\js\autogrow.min.js" />
-    <Content Remove="wwwroot\js\html5-qrcode-scanner.js" />
-    <Content Remove="wwwroot\js\html5-qrcode.js" />
-    <Content Remove="wwwroot\js\html5-qrcode.min.js" />
-    <Content Remove="wwwroot\js\jquery.qrcode.min.js" />
-    <Content Remove="wwwroot\js\qrcode.js" />
-    <Content Remove="wwwroot\js\qrcode.min.js" />
-    <Content Remove="wwwroot\js\stringify.js" />
-    <Content Remove="wwwroot\js\vendor.js" />
   </ItemGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\Less\BackGrounds.less" />
@@ -131,7 +126,6 @@
     <Folder Include="Areas\Employees\Views\Payment\" />
     <Folder Include="Areas\Suppliers\Data\" />
     <Folder Include="Areas\Suppliers\Models\" />
-    <Folder Include="wwwroot\js\jquery-ui-1.13.1\" />
     <None Include="Areas\Products\Views\Shared\Components\_Items_Groups\Default.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="packages.config" />
@@ -143,7 +137,7 @@
     <None Include="wwwroot\js\qrcode.js" />
     <None Include="wwwroot\js\qrcode.min.js" />
     <None Include="wwwroot\js\stringify.js" />
-    <None Include="wwwroot\js\vendor.js" />
+    <Page Include="wwwroot\js\vendor.js" />
     <PackageReference Include="DevExtreme.AspNet.Core" Version="23.2.4" />
     <PackageReference Include="DevExtreme.AspNet.Data" Version="3.0.0" />
   </ItemGroup>

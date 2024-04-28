@@ -1,5 +1,5 @@
 ﻿
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
     .ID("gridList")
     .DataSource(Organization.Items
@@ -38,7 +38,7 @@
     .AllowColumnResizing(false).AllowColumnReordering(true)
     .Paging(paging => paging.Enabled(true).PageSize(500))
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
     .ColumnAutoWidth(true)
         @*.AutoExpandAll(true)*@
@@ -56,22 +56,26 @@
     )
     .RowAlternationEnabled(true)
     .Columns(columns => {
-    columns.Add().DataField("BrandName").Width(100)
-    .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Brand/<%= data.BrandGuid %>/">
-                <%= data.BrandName %>
-            </a>
-        </text>);
 
-    columns.Add().DataField("PartNumber")
-    .SortOrder(SortOrder.Asc)
-    .SortIndex(1)
-    .Width(200)
-    .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
-                <span class="font-weight-600"><%= data.PartNumber %></span>
-            </a>
-        </text>);
+
+                columns.AddFor(m => m.BrandId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
+        .HeaderCellTemplate(@<text>Brand</text>)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
+            .DisplayExpr("Name")
+            .ValueExpr("Id")
+            );
+
+                columns.Add().DataField("PartNumber")
+            .SortOrder(SortOrder.Asc)
+            .SortIndex(1)
+            .Width(200)
+            .CellTemplate(@<text>
+        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <span class=""><%= data.PartNumber %></span>
+        </a>
+    </text>);
 
     columns.Add().DataField("Description")
             .Width(430)
@@ -81,9 +85,9 @@
             </a>
         </text>);
 
-                columns.Add().DataField("SalePrice").Width(100).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
-                columns.AddFor(m=>m.AmountPurchase).Width(60).HeaderCellTemplate(@<text>PU</text>);
-                columns.AddFor(m => m.AmountSold).Width(60).HeaderCellTemplate(@<text>SL</text>);
+                columns.Add().DataField("SalePrice").Width(130).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Price</text>);
+                //columns.AddFor(m=>m.AmountPurchase).Width(60).HeaderCellTemplate(@<text>PU</text>);
+                //columns.AddFor(m => m.AmountSold).Width(60).HeaderCellTemplate(@<text>SL</text>);
                 columns.AddFor(m => m.AmountOnHand).Width(60).HeaderCellTemplate(@<text>Stock</text>);
                 columns.AddFor(m => m.AmountOnQuotation).Width(60).HeaderCellTemplate(@<text>QU</text>);
                 columns.AddFor(m => m.AmountOnSaleOrder).Width(60).HeaderCellTemplate(@<text>OR</text>);

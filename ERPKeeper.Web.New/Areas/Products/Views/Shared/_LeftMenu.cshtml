@@ -21,13 +21,12 @@
 }
 
 
-<div class="lh-12 ">
+<div class="lh-12 bg-fb1 p-2 rounded">
     @{
-       
         MenuTemplate(0, "Products", $"/{CompanyId}/Products");
         MenuTemplate(1, "Brands", $"/{CompanyId}/Products/Brands");
         MenuTemplate(1, "Items", $"/{CompanyId}/Products/Items");
-        MenuTemplate(3, "Inventory", $"/{CompanyId}/Products/Inventory");
+        MenuTemplate(1, "Inventory", $"/{CompanyId}/Products/Inventory");
         MenuTemplate(1, "Groups", $"/{CompanyId}/Products/Groups");
     }
 </div>

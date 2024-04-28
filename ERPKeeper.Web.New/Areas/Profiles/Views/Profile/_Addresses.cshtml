@@ -28,7 +28,7 @@
         .ShowRowLines(false)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .ColumnAutoWidth(false)
         .Width("100%")
         .Columns(columns => {
@@ -40,7 +40,7 @@
                         .Height(120))
                     .ColSpan(2)
                 );
-        columns.AddFor(m=>m.PhoneNumber).Width(120);
+        columns.AddFor(m=>m.PhoneNumber).Width(130);
         columns.AddFor(m=>m.IsPrimary).Visible(false);
         })
         )

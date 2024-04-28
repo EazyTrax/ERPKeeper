@@ -10,7 +10,7 @@
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
         .Paging(pagging => pagging.PageSize(100))
@@ -21,8 +21,8 @@
         {
             columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.Reference);
-            columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);
-            columns.AddFor(m => m.Credit).Width(100).Format(Format.FixedPoint);
+            columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
+            columns.AddFor(m => m.Credit).Width(130).Format(Format.FixedPoint);
         })
         )
 </div>

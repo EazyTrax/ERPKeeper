@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Assets.Asset
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.AssetDeprecateSchedule>()
         .ID("gridList")
@@ -22,12 +22,12 @@
         )
             .Columns(columns =>
             {
-            columns.AddFor(m => m.StartDate).Width(100).HeaderCellTemplate(@<text>Start</text>).SortOrder(SortOrder.Asc).SortIndex(1);
-            columns.AddFor(m => m.EndDate).Width(100).HeaderCellTemplate(@<text>End</text>).SortOrder(SortOrder.Asc).SortIndex(1);
-            columns.AddFor(m => m.TotalDays).Width(100).Format("##0").HeaderCellTemplate(@<text>Days</text>);
-            columns.AddFor(m => m.DepreciationValue).Format(",##0.00").Width(120).HeaderCellTemplate(@<text>Value</text>);
-            columns.AddFor(m => m.DepreciateAccumulation).Format(",##0.00").Width(120).HeaderCellTemplate(@<text>Value</text>);
-            columns.AddFor(m => m.RemainValue).Format(",##0.00").Width(120).HeaderCellTemplate(@<text>Value</text>);
+            columns.AddFor(m => m.StartDate).Width(130).HeaderCellTemplate(@<text>Start</text>).SortOrder(SortOrder.Asc).SortIndex(1);
+            columns.AddFor(m => m.EndDate).Width(130).HeaderCellTemplate(@<text>End</text>).SortOrder(SortOrder.Asc).SortIndex(1);
+            columns.AddFor(m => m.TotalDays).Width(60).Format("##0").HeaderCellTemplate(@<text>Days</text>);
+            columns.AddFor(m => m.DepreciationValue).Format(",##0.00").Width(130).HeaderCellTemplate(@<text>Depreciate</text>);
+            columns.AddFor(m => m.DepreciateAccumulation).Format(",##0.00").Width(130).HeaderCellTemplate(@<text>Accumulate</text>);
+            columns.AddFor(m => m.RemainValue).Format(",##0.00").Width(130).HeaderCellTemplate(@<text>Value</text>);
             columns.AddFor(m => m.Id).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
           
         })

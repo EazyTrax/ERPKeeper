@@ -8,7 +8,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
 {
-    [Route("/Profiles/{ProfileUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Profiles/{ProfileUid:Guid}/{action=Index}")]
     public class ProfileController : Base_ProfilesController
     {
         public Guid ProfileUid => Guid.Parse(RouteData.Values["ProfileUid"].ToString());

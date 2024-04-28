@@ -13,7 +13,7 @@
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
         .Paging(pagging => pagging.PageSize(100))
@@ -29,8 +29,8 @@
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Transactions.TransactionType>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text").ValueExpr("Value"));
 
-            columns.AddFor(m => m.Debit).Width(100).Format(Format.FixedPoint);
-            columns.AddFor(m => m.Credit).Width(100).Format(Format.FixedPoint);
+            columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
+            columns.AddFor(m => m.Credit).Width(130).Format(Format.FixedPoint);
         })
         )
 </div>

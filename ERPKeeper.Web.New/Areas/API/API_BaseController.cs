@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.API
             get
             {
                 if (_Organization == null)
-                    _Organization = new Enterprise.DAL.EnterpriseRepo(CompanyId);
+                    _Organization = new Enterprise.DAL.EnterpriseRepo(CompanyId,false);
 
                 return _Organization;
             }

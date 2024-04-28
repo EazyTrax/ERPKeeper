@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
@@ -15,8 +16,7 @@ namespace ERPKeeperCore.Web.API.Assets
 
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Assets;
-
+            var returnModel = Organization.ErpCOREDBContext.Assets.Include(m=>m.AssetType).ToList();
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 

@@ -10,7 +10,7 @@
     }
 </style>
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
     .ID("gridList")
     .DataSource(items)
@@ -19,14 +19,14 @@
     .ShowBorders(false)
     .GroupPanel(groupPanel => groupPanel.Visible(true))
     .Paging(paging => paging.PageSize(100))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .ColumnAutoWidth(false)
     .RowDragging(rd => rd
     .AllowDropInsideItem(false)
     .AllowReordering(false)
     )
     .Columns(columns => {
-    columns.Add().DataField("Commercial.Date").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.Add().DataField("Commercial.Date").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
     columns.Add().DataField("Item.PartNumber")
     .Width(130)
     .CellTemplate(@<text>

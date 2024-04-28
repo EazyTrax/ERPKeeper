@@ -121,7 +121,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Project> Projects { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
-        public DbSet<AssetDeprecateSchedule> DeprecateSchedules { get; set; }
+        public DbSet<AssetDeprecateSchedule> AssetDeprecateSchedules { get; set; }
 
 
 

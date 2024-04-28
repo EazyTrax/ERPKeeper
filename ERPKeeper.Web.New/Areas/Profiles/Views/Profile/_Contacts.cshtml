@@ -32,13 +32,13 @@
         .ShowBorders(false)
         .Width("100%")
         .Paging(paging => paging.PageSize(100))
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .ColumnAutoWidth(false)
         .Columns(columns => {
         columns.AddFor(m=>m.Name);
         columns.AddFor(m=>m.Email).Width(300);
-        columns.AddFor(m=>m.MobilePhone).Width(120);
-        columns.AddFor(m=>m.OfficePhone).Width(120);
+        columns.AddFor(m=>m.MobilePhone).Width(130);
+        columns.AddFor(m=>m.OfficePhone).Width(130);
         columns.AddFor(m=>m.Note).Visible(false);
         columns.AddFor(m=>m.ShippingNote).Visible(false);
         })

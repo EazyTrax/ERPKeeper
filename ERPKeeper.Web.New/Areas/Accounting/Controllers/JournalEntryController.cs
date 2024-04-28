@@ -58,7 +58,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             });
             EnterpriseRepo.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Accounting/TransactionEntries/{model.Id}/");
+            return Redirect($"/{CompanyId}/Accounting/Transactions/{model.Id}/");
         }
     }
 }

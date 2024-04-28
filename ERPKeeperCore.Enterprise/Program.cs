@@ -25,7 +25,12 @@ namespace ERPKeeperCore.CMD
                 //CopyAccounts(newOrganization, oldOrganization);
                 //CopyProfiles(newOrganization, oldOrganization);
                 //CopyBrands(newOrganization, oldOrganization);
-                //CopyItems(newOrganization, oldOrganization);
+
+                //CopyItemGroups(newOrganization, oldOrganization);
+                CopyItems(newOrganization, oldOrganization);
+
+
+
                 //CopyProjects(newOrganization, oldOrganization);
                 //CopyCustomers(newOrganization, oldOrganization);
                 //CopySuppliers(newOrganization, oldOrganization);
@@ -40,12 +45,14 @@ namespace ERPKeeperCore.CMD
                 // CreateTransactionForPurchases(newOrganization);
                 //CopyFundTransfers(newOrganization, oldOrganization);
 
-                CopyAssetTypes(newOrganization, oldOrganization);
-                CopyAssets(newOrganization, oldOrganization);
+                //CopyAssetTypes(newOrganization, oldOrganization);
+                // CopyAssets(newOrganization, oldOrganization);
+                //CopyAssetDeprecreates(newOrganization, oldOrganization);
 
-                CopyJournalEntryTypes(newOrganization, oldOrganization);
-                CopyJournalEntries(newOrganization, oldOrganization);
-                CopyJournalEntryItems(newOrganization, oldOrganization);
+
+                // CopyJournalEntryTypes(newOrganization, oldOrganization);
+                // CopyJournalEntries(newOrganization, oldOrganization);
+                // CopyJournalEntryItems(newOrganization, oldOrganization);
 
                 newOrganization.ErpCOREDBContext.Members.Add(new Enterprise.Models.Security.Member()
                 {
@@ -202,14 +209,41 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private static void CopyItems(EnterpriseRepo newOrganization, Organization oldOrganization)
+        private static void CopyItemGroups(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Items.ToList();
+            var oldModels = oldOrganization.ErpNodeDBContext.ItemGroups.ToList();
 
             oldModels.ForEach(a =>
             {
 
+                var exist = newOrganization.ErpCOREDBContext.ItemGroups.FirstOrDefault(x => x.Id == a.Uid);
 
+                if (exist == null)
+                {
+                    Console.WriteLine($"ITM:{a.Uid}-{a.PartNumber}");
+                    exist = new ERPKeeperCore.Enterprise.Models.Items.ItemGroup()
+                    {
+                        Id = a.Uid,
+                        Name = a.PartNumber,
+                    };
+                    newOrganization.ErpCOREDBContext.ItemGroups.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+
+                }
+
+
+            });
+        }
+
+        private static void CopyItems(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.Items/*.Where(i => i.ParentUid != null)*/.ToList();
+
+            oldModels.ForEach(a =>
+            {
                 var exist = newOrganization.ErpCOREDBContext.Items.FirstOrDefault(x => x.Id == a.Uid);
                 var brand = newOrganization.ErpCOREDBContext.Brands.FirstOrDefault(x => x.Id == a.BrandGuid);
 
@@ -238,7 +272,12 @@ namespace ERPKeeperCore.CMD
                 }
                 else
                 {
-
+                    try
+                    {
+                        exist.ItemGroupId = a.ParentUid;
+                        newOrganization.ErpCOREDBContext.SaveChanges();
+                    }
+                    catch (Exception) { }
                 }
 
 
@@ -760,6 +799,43 @@ namespace ERPKeeperCore.CMD
                     };
 
                     newOrganization.ErpCOREDBContext.Assets.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private static void CopyAssetDeprecreates(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.DeprecateSchedules.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.AssetDeprecateSchedules.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Assets.AssetDeprecateSchedule()
+                    {
+                        Id = a.Uid,
+                        AssetId = a.FixedAssetUid,
+                        DepreciateAccumulation = a.DepreciateAccumulation,
+                        DepreciateOffsetValue = a.DepreciateOffsetValue,
+                        DepreciationValue = a.DepreciationValue,
+                        EndDate = a.EndDate,
+                        No = a.No,
+                        OpeningValue = a.OpeningValue,
+                        PostStatus = (Enterprise.Models.Accounting.Enums.LedgerPostStatus)a.PostStatus,
+                        RemainValue = a.RemainValue,
+                        StartDate = a.StartDate,
+                    };
+
+                    newOrganization.ErpCOREDBContext.AssetDeprecateSchedules.Add(exist);
                 }
                 else
                 {

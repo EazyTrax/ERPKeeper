@@ -14,18 +14,18 @@
         .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
         .Paging(pagging => pagging.Enabled(false))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).UseIcons(true))
         .Columns(columns =>
             {
-                columns.AddFor(m => m.Code).Width(100).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Code %></a></text>);
+                columns.AddFor(m => m.Code).Width(130).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Code %></a></text>);
 
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
-                .Width(100).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
+                .Width(130).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
@@ -41,8 +41,8 @@
 
                 columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a></text>);
 
-                columns.AddFor(m => m.OpeningDebit).HeaderCellTemplate(@<text>Debit</text>).Width(100).Format(Format.FixedPoint);
-                columns.AddFor(m => m.OpeningCredit).HeaderCellTemplate(@<text>Credit</text>).Width(100).Format(Format.FixedPoint);
+                columns.AddFor(m => m.OpeningDebit).HeaderCellTemplate(@<text>Debit</text>).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.OpeningCredit).HeaderCellTemplate(@<text>Credit</text>).Width(130).Format(Format.FixedPoint);
 
             })
         .Summary(s =>

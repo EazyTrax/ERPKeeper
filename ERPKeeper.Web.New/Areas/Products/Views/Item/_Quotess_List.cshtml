@@ -9,7 +9,7 @@
 </style>
 
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
@@ -19,10 +19,10 @@
     .ShowRowLines(true)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .ColumnAutoWidth(false)
     .Columns(columns => {
-    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
     columns.AddFor(m=>m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")

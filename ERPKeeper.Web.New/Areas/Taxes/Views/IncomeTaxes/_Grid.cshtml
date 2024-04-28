@@ -1,5 +1,5 @@
 ﻿
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax>()
         .ID("gridList")
@@ -22,7 +22,7 @@
         .Paging(pagging => pagging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -40,13 +40,13 @@
                             columns.AddFor(m => m.ProfitAmount);
                             columns.AddFor(m => m.TaxAmount);
                              columns.AddFor(m => m.LiabilityAccountGuid);
-                            @* columns.AddFor(m => m.Status).Width(100).Lookup(lookup => lookup
+                            @* columns.AddFor(m => m.Status).Width(130).Lookup(lookup => lookup
                 .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                 .DisplayExpr("Text")
                 .ValueExpr("Value")
             );
 *@
-       @*     columns.AddFor(m => m.per).Width(100).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
+       @*     columns.AddFor(m => m.per).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
             columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
           
             columns.AddFor(m => m.AssetTypeId)

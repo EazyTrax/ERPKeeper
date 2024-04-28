@@ -10,7 +10,7 @@
         <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
             <div class="col p-0">
                 <a href="/@CompanyId/Assets/@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
+                  <i class="fa-solid fa-l"></i>  @SharedLocalizer.GetLocalizedHtmlString(display)
                 </a>
             </div>
             <div class="col-2 p-0 text-right">
@@ -28,7 +28,7 @@
     </div>
 
     @{
-        Template("- Assets", "Assets");
-        Template("- Asset Types", "AssetTypes");
+        Template("Assets", "Assets");
+        Template("Asset Types", "AssetTypes");
     }
 </div>

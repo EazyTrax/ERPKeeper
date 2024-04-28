@@ -48,10 +48,10 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public DAL.TaxCodes TaxCodes;
 
-        public EnterpriseRepo(string dbName = "tec", bool migratedDB = false)
+        public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
             this.DatabaseName = dbName;
-            this.ErpCOREDBContext = new ERPCoreDbContext(dbName, migratedDB);
+            this.ErpCOREDBContext = new ERPCoreDbContext(dbName, useLazyLoading);
             Initial();
         }
 

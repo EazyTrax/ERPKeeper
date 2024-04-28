@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
-<div id="treeListDemo" class="mb-3">
+<div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
@@ -21,7 +21,7 @@
     .Paging(paging => paging.PageSize(100))
 
     //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).AllowSearch(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
     .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -34,7 +34,7 @@
     )
     .Columns(columns => {
 
-    columns.AddFor(m=>m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(100);
+    columns.AddFor(m=>m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
     columns.AddFor(m=>m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")
