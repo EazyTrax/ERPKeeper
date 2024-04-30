@@ -18,36 +18,27 @@ namespace ERPKeeperCore.Enterprise.DAL
         private DAL.Accounting.FiscalYears _fiscalYearsDal;
         private DAL.JournalEntries _JournalEntries;
         private DAL.JournalEntryTypes _JournalEntryTypes;
-
         private DAL.Company.DataItems _DataItems;
-
-
         private DAL.Projects _Projects;
         private DAL.Assets _Assets;
         private DAL.AssetTypes _AssetTypes;
-
-
         private DAL.Members _Members;
         private DAL.Items _Items;
-
-
         public DAL.Sales Sales;
         public DAL.Purchases Purchases;
         public DAL.Customers Customers;
         public DAL.Suppliers Suppliers;
         public DAL.Employees Employees;
         public DAL.EmployeePositions EmployeePositions;
-
-
         public DAL.Investors Investors;
-
         public DAL.ItemGroups ItemGroups;
-
         public DAL.Brands Brands;
         public DAL.Profiles Profiles;
-
         public DAL.TaxCodes TaxCodes;
         public DAL.TaxPeriods TaxPeriods;
+
+        public DAL.FundTransfers FundTransfers;
+
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
             this.DatabaseName = dbName;
@@ -72,6 +63,8 @@ namespace ERPKeeperCore.Enterprise.DAL
             Profiles = new Profiles(this);
             TaxCodes = new TaxCodes(this);
             TaxPeriods = new TaxPeriods(this);
+            FundTransfers = new FundTransfers(this);
+
         }
 
 

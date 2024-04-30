@@ -46,15 +46,21 @@
     }
 }
 
+
+<div class="lh-12 bg-fb1 font-weight-600 p-2 rounded border">
+@{
+    MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
+}
+</div>
 <div class="lh-12 bg-fb1 p-2 rounded border">
     @{
-        MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
-        MenuTemplate(1, "Accounts", $"/{CompanyId}/Accounting/Accounts");
-        MenuTemplate(1, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears");
-        MenuTemplate(1, "JournalEntries", $"/{CompanyId}/Accounting/JournalEntries");
-        MenuTemplate(1, "JournalEntry Types", $"/{CompanyId}/Accounting/JournalEntryTypes");
-        MenuTemplate(1, "Transactions", $"/{CompanyId}/Accounting/Transactions");
-        MenuTemplate(1, "Opening", $"/{CompanyId}/Accounting/OpeningBalances");
-        MenuTemplate(1, "Default", $"/{CompanyId}/Accounting/DefaultAccounts");
+
+        MenuTemplate(0, "Accounts", $"/{CompanyId}/Accounting/Accounts");
+        MenuTemplate(0, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears");
+        MenuTemplate(0, "JournalEntries", $"/{CompanyId}/Accounting/JournalEntries");
+        MenuTemplate(0, "JournalEntry Types", $"/{CompanyId}/Accounting/JournalEntryTypes");
+        MenuTemplate(0, "Transactions", $"/{CompanyId}/Accounting/Transactions");
+        MenuTemplate(0, "Opening", $"/{CompanyId}/Accounting/OpeningBalances");
+        MenuTemplate(0, "Default", $"/{CompanyId}/Accounting/DefaultAccounts");
     }
 </div>

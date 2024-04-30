@@ -27,9 +27,7 @@ namespace ERPKeeperCore.CMD
                 //CopyBrands(newOrganization, oldOrganization);
 
                 //CopyItemGroups(newOrganization, oldOrganization);
-                CopyItems(newOrganization, oldOrganization);
-
-
+                //CopyItems(newOrganization, oldOrganization);
 
                 //CopyProjects(newOrganization, oldOrganization);
                 //CopyCustomers(newOrganization, oldOrganization);

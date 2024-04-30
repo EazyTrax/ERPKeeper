@@ -20,6 +20,12 @@
     }
 }
 
+<div class="lh-12 bg-fb1 font-weight-600 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Home", $"/{CompanyId}");
+    }
+</div>
+
 <div class="lh-12 bg-fb1 p-2 rounded border">
     @{     
         MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");

@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Financial.Controllers
 {
-
     public class FundTransfersController : Financial_BaseController
     {
         public IActionResult Index()
         {
             return View();
         }
-
-
     }
 }

@@ -14,6 +14,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
     {
         [Key]
         public Guid Id { get; set; }
+
+        public bool IsPosted { get; set; }
         public DateTime Date { get; set; }
         public String? Reference { get; set; }
         public FundTransferStatus Status { get; set; }

@@ -15,7 +15,6 @@
     <Compile Remove="Areas\API\Accounting\JournalEntries\**" />
     <Compile Remove="Areas\API\Accounting\Ledgers\**" />
     <Compile Remove="Areas\API\Expenses\**" />
-    <Compile Remove="Areas\API\Financial\**" />
     <Compile Remove="Areas\API\Taxex\**" />
     <Compile Remove="Areas\DashBoard\Data\**" />
     <Compile Remove="Areas\DashBoard\Models\**" />
@@ -35,7 +34,6 @@
     <Content Remove="Areas\API\Accounting\JournalEntries\**" />
     <Content Remove="Areas\API\Accounting\Ledgers\**" />
     <Content Remove="Areas\API\Expenses\**" />
-    <Content Remove="Areas\API\Financial\**" />
     <Content Remove="Areas\API\Taxex\**" />
     <Content Remove="Areas\DashBoard\Data\**" />
     <Content Remove="Areas\DashBoard\Models\**" />
@@ -55,7 +53,6 @@
     <EmbeddedResource Remove="Areas\API\Accounting\JournalEntries\**" />
     <EmbeddedResource Remove="Areas\API\Accounting\Ledgers\**" />
     <EmbeddedResource Remove="Areas\API\Expenses\**" />
-    <EmbeddedResource Remove="Areas\API\Financial\**" />
     <EmbeddedResource Remove="Areas\API\Taxex\**" />
     <EmbeddedResource Remove="Areas\DashBoard\Data\**" />
     <EmbeddedResource Remove="Areas\DashBoard\Models\**" />
@@ -75,7 +72,6 @@
     <None Remove="Areas\API\Accounting\JournalEntries\**" />
     <None Remove="Areas\API\Accounting\Ledgers\**" />
     <None Remove="Areas\API\Expenses\**" />
-    <None Remove="Areas\API\Financial\**" />
     <None Remove="Areas\API\Taxex\**" />
     <None Remove="Areas\DashBoard\Data\**" />
     <None Remove="Areas\DashBoard\Models\**" />
