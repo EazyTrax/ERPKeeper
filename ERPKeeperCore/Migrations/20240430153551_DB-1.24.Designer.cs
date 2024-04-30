@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240430153551_DB-1.24")]
+    partial class DB124
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,6 +286,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("Debit")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<Guid?>("FundTransferId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
@@ -290,6 +296,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FundTransferId");
 
                     b.ToTable("Transactions");
                 });
@@ -308,6 +316,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<decimal>("Debit")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("TransactionId")
                         .HasColumnType("uniqueidentifier");
@@ -875,14 +890,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("FundTransfers");
                 });
@@ -1720,6 +1728,15 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("JournalEntry");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "FundTransfer")
+                        .WithMany()
+                        .HasForeignKey("FundTransferId");
+
+                    b.Navigation("FundTransfer");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
@@ -1938,15 +1955,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .IsRequired();
 
                     b.Navigation("Profile");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("FundTransfer")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "TransactionId");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransferItem", b =>
@@ -2196,8 +2204,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
                 {
-                    b.Navigation("FundTransfer");
-
                     b.Navigation("Ledgers");
 
                     b.Navigation("Purchase");

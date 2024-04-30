@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         }
 
-        public List<FundTransfer> ListAll()
+        public List<FundTransfer> GetList()
         {
             return erpNodeDBContext.FundTransfers.ToList();
         }

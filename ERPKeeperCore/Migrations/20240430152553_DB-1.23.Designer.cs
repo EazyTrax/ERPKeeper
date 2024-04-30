@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240430152553_DB-1.23")]
+    partial class DB123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,14 +208,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("JournalEntryTypeId");
-
-                    b.HasIndex("TransactionId");
 
                     b.ToTable("JournalEntries");
                 });
@@ -308,6 +306,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<decimal>("Debit")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("TransactionId")
                         .HasColumnType("uniqueidentifier");
@@ -593,9 +598,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("TaxPeriodId");
 
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("Sales");
                 });
@@ -875,14 +878,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("FundTransfers");
                 });
@@ -1401,9 +1397,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("TaxPeriodId");
 
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("Purchases");
                 });
@@ -1692,13 +1686,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany("JournalEntries")
                         .HasForeignKey("JournalEntryTypeId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId");
-
                     b.Navigation("JournalEntryType");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem", b =>
@@ -1825,8 +1813,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("TaxPeriodId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("Sale")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Customers.Sale", "TransactionId");
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
 
                     b.Navigation("Customer");
 
@@ -1938,15 +1926,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .IsRequired();
 
                     b.Navigation("Profile");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("FundTransfer")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "TransactionId");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransferItem", b =>
@@ -2064,8 +2043,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("TaxPeriodId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("Purchase")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "TransactionId");
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
 
                     b.Navigation("Supplier");
 
@@ -2196,13 +2175,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
                 {
-                    b.Navigation("FundTransfer");
-
                     b.Navigation("Ledgers");
-
-                    b.Navigation("Purchase");
-
-                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.Asset", b =>

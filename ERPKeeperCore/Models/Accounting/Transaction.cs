@@ -6,8 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
-using ERPKeeperCore.Enterprise.Models.Transactions;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
@@ -18,24 +18,34 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public TransactionType Type { get; set; }
         public DateTime Date { get; set; }
         public String? Reference { get; set; }
+
         public Decimal Credit { get; set; }
         public Decimal Debit { get; set; }
-
         public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new HashSet<TransactionLedger>();
+
+        public virtual Customers.Sale? Sale { get; set; }
+        public virtual Suppliers.Purchase? Purchase { get; set; }
+        public virtual Financial.FundTransfer? FundTransfer { get; set; }
 
         public void Update()
         {
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
         }
+
+        public void RemoveAllLedger()
+        {
+            this.Ledgers.Clear();
+            this.Update();
+        }
     }
+
 
     public partial class TransactionLedger
     {
         [Key]
         public Guid Id { get; set; }
-        public String Name { get; set; }
-        public String? Reference { get; set; }
+
         public Guid TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual required Transaction Transaction { get; set; }

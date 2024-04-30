@@ -24,9 +24,9 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         [ForeignKey("AccountId")]
         public virtual Accounting.Account Account { get; set; }
 
+        public Decimal Debit { get; set; }
+        public Decimal Credit{ get; set; }
 
-        public Decimal DebitAmount { get; set; }
-        public Decimal CreditAmount { get; set; }
         public String? Memo { get; set; }
 
 

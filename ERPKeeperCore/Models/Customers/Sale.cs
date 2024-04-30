@@ -18,6 +18,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [Key]
         public Guid Id { get; set; }
         public SaleStatus Status { get; set; }
+
+
+
         public bool IsPosted { get; set; } 
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
@@ -53,6 +56,24 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public void AddItem(SaleItem existItem)
         {
             this.Items.Add(existItem);
+        }
+
+        public void CreateTransaction()
+        {
+            if (this.Transaction == null)
+            {
+                Console.WriteLine("Creating Sale Transaction");
+                this.Transaction = new Accounting.Transaction()
+                {
+                    Id = this.Id,
+                    Date = this.Date,
+                    Reference = this.Name,
+                    Type = Accounting.Enums.TransactionType.Sale,
+                    Sale = this,
+                };
+            }
+            this.Transaction.RemoveAllLedger();
+            this.Transaction.Update();
         }
     }
 }

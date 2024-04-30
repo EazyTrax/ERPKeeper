@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Accounting.JournalEntry
 {
-    public class JournalEntryItemsController : JournalEntryBaseController
+    public class ItemsController : JournalEntryBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {

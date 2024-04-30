@@ -5,6 +5,7 @@ using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace ERPKeeperCore.CMD
 {
@@ -17,10 +18,46 @@ namespace ERPKeeperCore.CMD
             foreach (var enterpriseDB in Enterprises)
             {
                 Console.WriteLine($"###{enterpriseDB}########################################################");
-                var newOrganization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(enterpriseDB);
+                var newOrganization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
+
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
                 Console.WriteLine("###########################################################");
+
+
+                newOrganization.ErpCOREDBContext.Transactions.ToList()
+                    .ForEach(m =>
+                    {
+                        newOrganization.ErpCOREDBContext.Remove(m);
+                        newOrganization.ErpCOREDBContext.SaveChanges();
+                    });
+
+                Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
+
+                newOrganization.ErpCOREDBContext.Sales
+                    .Where(m => m.TransactionId == null)
+                    .ToList()
+                    .ForEach(m =>
+                    {
+                        m.CreateTransaction();
+                        newOrganization.SaveChanges();
+                    });
+
+
+
+
+                //newOrganization.ErpCOREDBContext.Purchases.ToList()
+                //  .ForEach(m => m.CreateTransaction());
+
+
+                //newOrganization.ErpCOREDBContext.FundTransfers.ToList()
+                // .ForEach(m => m.CreateTransaction());
+                //newOrganization.SaveChanges();
+
+
+
+
+                //newOrganization.SaveChanges();
 
                 //CopyAccounts(newOrganization, oldOrganization);
                 //CopyProfiles(newOrganization, oldOrganization);
@@ -52,16 +89,8 @@ namespace ERPKeeperCore.CMD
                 // CopyJournalEntries(newOrganization, oldOrganization);
                 // CopyJournalEntryItems(newOrganization, oldOrganization);
 
-                newOrganization.ErpCOREDBContext.Members.Add(new Enterprise.Models.Security.Member()
-                {
-                    Name = "Pawin Yousook",
-                    Email = "pawin.y@engineeringcraft.com",
-                    Password = "P@ssw0rd@1",
-                    AccessLevel = Enterprise.Models.Security.Enums.AccessLevel.Admin,
-                    LastLogin = DateTime.Now,
-
-                });
-                newOrganization.ErpCOREDBContext.SaveChanges();
+                //
+                //        newOrganization.ErpCOREDBContext.SaveChanges();
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
             }
@@ -82,7 +111,7 @@ namespace ERPKeeperCore.CMD
                 var transaction = new ERPKeeperCore.Enterprise.Models.Accounting.Transaction()
                 {
                     Date = sale.Date,
-                    Type = ERPKeeperCore.Enterprise.Models.Transactions.TransactionType.Sale,
+                    Type = TransactionType.Sale,
                 };
 
                 newOrganization.ErpCOREDBContext.Transactions.Add(transaction);
@@ -104,7 +133,7 @@ namespace ERPKeeperCore.CMD
                 var transaction = new ERPKeeperCore.Enterprise.Models.Accounting.Transaction()
                 {
                     Date = purchase.Date,
-                    Type = ERPKeeperCore.Enterprise.Models.Transactions.TransactionType.Purchase,
+                    Type = TransactionType.Purchase,
                 };
 
                 newOrganization.ErpCOREDBContext.Transactions.Add(transaction);
@@ -716,7 +745,7 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.FundTransfers.Add(exist);
                     newOrganization.ErpCOREDBContext.SaveChanges();
 
-                    Console.WriteLine($">{exist.TotalCredit}-{exist.TotalCredit}");
+                    Console.WriteLine($">{exist.Credit}-{exist.Debit}");
 
 
                 }
