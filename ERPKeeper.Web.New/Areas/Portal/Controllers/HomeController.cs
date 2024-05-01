@@ -1,6 +1,7 @@
 ﻿using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace ERPKeeperCore.Web.Areas.Portal.Controllers
     {
         public IActionResult Index()
         {
+
+         
+
             return View();
         }
     }

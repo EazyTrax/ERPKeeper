@@ -38,6 +38,7 @@
             .ShowDragIcons(false)*@
     )
     .Columns(columns => {
+
     columns.AddFor(m=>m.ProfileId).Width(150)
     .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber}))

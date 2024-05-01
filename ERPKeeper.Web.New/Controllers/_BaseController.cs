@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Web.Controllers
             get
             {
                 if (_Organization == null)
-                    _Organization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(CompanyId,true);
+                    _Organization = new ERPKeeperCore.Enterprise.EnterpriseRepo(CompanyId,true);
                 return _Organization;
             }
         }

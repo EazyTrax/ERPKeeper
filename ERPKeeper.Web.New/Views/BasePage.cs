@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.Views
             get
             {
                 if (_Organization == null)
-                    _Organization = new Enterprise.DAL.EnterpriseRepo(CompanyId);
+                    _Organization = new Enterprise.EnterpriseRepo(CompanyId);
                 return _Organization;
             }
         }

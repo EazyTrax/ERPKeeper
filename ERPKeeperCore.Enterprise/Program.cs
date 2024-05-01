@@ -18,52 +18,41 @@ namespace ERPKeeperCore.CMD
             foreach (var enterpriseDB in Enterprises)
             {
                 Console.WriteLine($"###{enterpriseDB}########################################################");
-                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
-                newOrganization.ErpCOREDBContext.Database.Migrate();
-
-                var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
-                Console.WriteLine("###########################################################");
+                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, false);
 
 
-                newOrganization.ErpCOREDBContext.Transactions.ToList()
-                    .ForEach(m =>
-                    {
-                        newOrganization.ErpCOREDBContext.Remove(m);
-                        newOrganization.ErpCOREDBContext.SaveChanges();
-                    });
+                newOrganization.ErpCOREDBContext.Customers.Include(m=>m.Profile).ToList().ForEach(model =>
+                {
+                    Console.WriteLine($"CUST: {model.Profile.Name}");
+                });
 
-                Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
 
-                newOrganization.ErpCOREDBContext.Sales
-                    .Where(m => m.TransactionId == null)
-                    .ToList()
-                    .ForEach(model =>
-                    {
-                        Console.WriteLine($"SALE: {model.No}-{model.Name}");
+                //newOrganization.ErpCOREDBContext.Database.Migrate();
 
-                        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
-                        model.TransactionId = tr.Id;
+                //var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
+                //Console.WriteLine("###########################################################");
 
-                        tr.Date = model.Date;
-                        tr.Reference = model.Name;
-                        newOrganization.SaveChanges();
-                    });
+                //Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
 
-                newOrganization.ErpCOREDBContext.Purchases
-                  .Where(m => m.TransactionId == null)
-                  .ToList()
-                  .ForEach(model =>
-                  {
-                      Console.WriteLine($"SALE: {model.No}-{model.Name}");
 
-                      var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
-                      model.TransactionId = tr.Id;
 
-                      tr.Date = model.Date;
-                      tr.Reference = model.Name;
+                //newOrganization.ErpCOREDBContext.Sales
+                //    .Where(m => m.TransactionId == null)
+                //    .ToList()
+                //    .ForEach(model =>
+                //    {
+                //        Console.WriteLine($"SALE: {model.No}-{model.Name}");
 
-                      newOrganization.SaveChanges();
-                  });
+                //        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
+                //        model.TransactionId = tr.Id;
+
+                //        tr.Date = model.Date;
+                //        tr.Reference = model.Name;
+                //        newOrganization.SaveChanges();
+                //    });
+
+
+
 
 
 

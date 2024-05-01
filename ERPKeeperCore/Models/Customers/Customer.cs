@@ -22,7 +22,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
 
-        public Guid ProfileId => Profile.Id;
+        public Guid? ProfileId => Profile?.Id;
 
         public String? Code { get; set; }
         public CustomerStatus Status { get; set; }

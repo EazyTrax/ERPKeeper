@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Dashboard.Controllers
         [Route("/{CompanyId}/{action}")]
         public IActionResult Migrate()
         {
-            var Organization = new Enterprise.DAL.EnterpriseRepo(CompanyId, true);
+            var Organization = new Enterprise.EnterpriseRepo(CompanyId, true);
             var profiles = Organization.ErpCOREDBContext.Profiles;
             return Content($"{profiles.Count()}");
         }

@@ -20,16 +20,20 @@
         </div>
     }
 }
-
-<div class="lh-12 ">
+<div class="lh-12 bg-fb1 p-2 rounded border font-weight-600">
     @{
-       
         MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
-        MenuTemplate(1, "Customers", $"/{CompanyId}/Customers/Customers",Organization.Customers.Count());
-        MenuTemplate(1, "Projects", $"/{CompanyId}/Customers/Projects");
-        MenuTemplate(1, "Estimates", $"/{CompanyId}/Customers/Estimates");
-        MenuTemplate(3, "Orders", $"/{CompanyId}/Customers/Orders");
-        MenuTemplate(1, "Sales", $"/{CompanyId}/Customers/Sales");
-        MenuTemplate(3, "Payments", $"/{CompanyId}/Customers/Payments");
+        MenuTemplate(1, "Customers", $"/{CompanyId}/Customers");
+    }
+</div>
+
+<div class="lh-12 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Customers", $"/{CompanyId}/Customers/Customers", Organization.Customers.Count());
+        MenuTemplate(0, "Projects", $"/{CompanyId}/Customers/Projects");
+        MenuTemplate(0, "Estimates", $"/{CompanyId}/Customers/Estimates");
+        MenuTemplate(1, "Orders", $"/{CompanyId}/Customers/Orders");
+        MenuTemplate(0, "Sales", $"/{CompanyId}/Customers/Sales");
+        MenuTemplate(0, "Payments", $"/{CompanyId}/Customers/Payments");
     }
 </div>

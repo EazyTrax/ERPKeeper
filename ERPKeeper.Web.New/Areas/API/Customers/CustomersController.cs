@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ERPKeeperCore.Web.New.API.Customers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Customers
@@ -14,8 +16,14 @@ namespace ERPKeeperCore.Web.API.Customers
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Customers
+
+            var returnModel = Organization
+                .ErpCOREDBContext
+                .Customers
+                .Include(x => x.Profile)
                 .ToList();
+
+ 
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

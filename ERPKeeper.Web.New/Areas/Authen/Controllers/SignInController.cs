@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
     {
         public SigninController()
         {
-            organizationRepo = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo();
+            organizationRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo();
         }
 
         public IActionResult Index() => View(new LogInModel());
