@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.Controllers
 {
@@ -18,8 +19,8 @@ namespace ERPKeeperCore.Web.Controllers
         public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
 
 
-        private ERPKeeperCore.Enterprise.DAL.EnterpriseRepo _Organization;
-        public ERPKeeperCore.Enterprise.DAL.EnterpriseRepo EnterpriseRepo
+        private EnterpriseRepo _Organization;
+        public EnterpriseRepo EnterpriseRepo
         {
             get
             {

@@ -10,6 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {
@@ -26,7 +27,25 @@ namespace ERPKeeperCore.Enterprise.DAL
         }
 
 
+        public Transaction CreateTransaction(Guid Id, TransactionType Type)
+        {
+            var existTransaction = this.Find(Id);
 
+            if (existTransaction == null)
+            {
+                existTransaction = new Transaction
+                {
+                    Id = Id,
+                    Type = Type,
+                    Date = DateTime.Now
+                };
+
+                this.organization.ErpCOREDBContext.Transactions.Add(existTransaction);
+                this.SaveChanges();
+            }
+            return existTransaction;
+
+        }
         public Transaction? Find(Guid Id) => erpNodeDBContext.Transactions.Find(Id);
 
 

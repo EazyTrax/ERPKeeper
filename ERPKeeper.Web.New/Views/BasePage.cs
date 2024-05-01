@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ERPKeeperCore.Enterprise;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,8 @@ namespace ERPKeeperCore.Web.Views
 
         public bool IsOnEditMode = true;
 
-        private ERPKeeperCore.Enterprise.DAL.EnterpriseRepo _Organization;
-        public ERPKeeperCore.Enterprise.DAL.EnterpriseRepo Organization
+        private EnterpriseRepo _Organization;
+        public EnterpriseRepo Organization
         {
             get
             {

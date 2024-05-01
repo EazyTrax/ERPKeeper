@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
@@ -18,7 +19,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
     [AllowAnonymous]
     public class BaseController : Controller
     {
-        protected ERPKeeperCore.Enterprise.DAL.EnterpriseRepo organizationRepo;
+        protected EnterpriseRepo organizationRepo;
 
     }
 }

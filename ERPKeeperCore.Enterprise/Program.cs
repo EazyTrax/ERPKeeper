@@ -1,5 +1,5 @@
 ﻿using ERPKeeper.Node.DAL;
-using ERPKeeperCore.Enterprise.DAL;
+using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
@@ -18,7 +18,7 @@ namespace ERPKeeperCore.CMD
             foreach (var enterpriseDB in Enterprises)
             {
                 Console.WriteLine($"###{enterpriseDB}########################################################");
-                var newOrganization = new ERPKeeperCore.Enterprise.DAL.EnterpriseRepo(enterpriseDB, true);
+                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
@@ -37,12 +37,33 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Sales
                     .Where(m => m.TransactionId == null)
                     .ToList()
-                    .ForEach(m =>
+                    .ForEach(model =>
                     {
-                        m.CreateTransaction();
+                        Console.WriteLine($"SALE: {model.No}-{model.Name}");
+
+                        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
+                        model.TransactionId = tr.Id;
+
+                        tr.Date = model.Date;
+                        tr.Reference = model.Name;
                         newOrganization.SaveChanges();
                     });
 
+                newOrganization.ErpCOREDBContext.Purchases
+                  .Where(m => m.TransactionId == null)
+                  .ToList()
+                  .ForEach(model =>
+                  {
+                      Console.WriteLine($"SALE: {model.No}-{model.Name}");
+
+                      var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
+                      model.TransactionId = tr.Id;
+
+                      tr.Date = model.Date;
+                      tr.Reference = model.Name;
+
+                      newOrganization.SaveChanges();
+                  });
 
 
 

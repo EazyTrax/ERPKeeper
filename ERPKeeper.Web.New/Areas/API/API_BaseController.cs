@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Routing;
+using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.API
 {
@@ -22,8 +23,8 @@ namespace ERPKeeperCore.Web.API
         public Guid CurrentMakerId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
 
-        private ERPKeeperCore.Enterprise.DAL.EnterpriseRepo _Organization;
-        public ERPKeeperCore.Enterprise.DAL.EnterpriseRepo Organization
+        private EnterpriseRepo _Organization;
+        public EnterpriseRepo Organization
         {
             get
             {
