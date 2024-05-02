@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240502090801_DB-1.35")]
+    partial class DB135
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -809,7 +812,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("EmployeePositionId")
+                    b.Property<Guid>("EmployeePositionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
@@ -2193,7 +2196,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition", "EmployeePosition")
                         .WithMany("Employees")
-                        .HasForeignKey("EmployeePositionId");
+                        .HasForeignKey("EmployeePositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.Profile", "Profile")
                         .WithOne("Employee")

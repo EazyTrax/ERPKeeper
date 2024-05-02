@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
 {
+
     public class PositionsController : API_Profiles_Employees_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)

@@ -21,38 +21,25 @@ namespace ERPKeeperCore.CMD
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, false);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
-                newOrganization.ErpCOREDBContext.Customers.Include(m => m.Profile).ToList().ForEach(model =>
-                {
-                    Console.WriteLine($"CUST: {model.Profile.Name}");
-                });
+                var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
+                Console.WriteLine("###########################################################");
+
+                Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
 
 
 
+                newOrganization.ErpCOREDBContext.Sales
+                    .Where(m => m.TransactionId == null)
+                    .ToList()
+                    .ForEach(model =>
+                    {
+                        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
+                        model.TransactionId = tr.Id;
 
-                //var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
-                //Console.WriteLine("###########################################################");
-
-                //Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
-
-
-
-                //newOrganization.ErpCOREDBContext.Sales
-                //    .Where(m => m.TransactionId == null)
-                //    .ToList()
-                //    .ForEach(model =>
-                //    {
-                //        Console.WriteLine($"SALE: {model.No}-{model.Name}");
-
-                //        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
-                //        model.TransactionId = tr.Id;
-
-                //        tr.Date = model.Date;
-                //        tr.Reference = model.Name;
-                //        newOrganization.SaveChanges();
-                //    });
-
-
-
+                        tr.Date = model.Date;
+                        tr.Reference = model.Name;
+                        newOrganization.SaveChanges();
+                    });
 
 
 
@@ -63,7 +50,6 @@ namespace ERPKeeperCore.CMD
                 //newOrganization.ErpCOREDBContext.FundTransfers.ToList()
                 // .ForEach(m => m.CreateTransaction());
                 //newOrganization.SaveChanges();
-
 
 
 
@@ -82,16 +68,22 @@ namespace ERPKeeperCore.CMD
                 //CopyFiscalYear(newOrganization, oldOrganization);
                 //CopyTaxCode(newOrganization, oldOrganization);
                 //CopyTaxPeriod(newOrganization, oldOrganization);
-                // CopySales(newOrganization, oldOrganization);
+
+
+
+                //CopySales(newOrganization, oldOrganization);
                 //CopySaleItems(newOrganization, oldOrganization);
+
+
+
                 //CopyPurchases(newOrganization, oldOrganization);
                 //CopyPurchaseItems(newOrganization, oldOrganization);
-                // CreateTransactionForSales(newOrganization);
-                // CreateTransactionForPurchases(newOrganization);
+                //CreateTransactionForSales(newOrganization);
+                //CreateTransactionForPurchases(newOrganization);
                 //CopyFundTransfers(newOrganization, oldOrganization);
 
                 //CopyAssetTypes(newOrganization, oldOrganization);
-                // CopyAssets(newOrganization, oldOrganization);
+                //CopyAssets(newOrganization, oldOrganization);
                 //CopyAssetDeprecreates(newOrganization, oldOrganization);
 
 
@@ -99,8 +91,25 @@ namespace ERPKeeperCore.CMD
                 // CopyJournalEntries(newOrganization, oldOrganization);
                 // CopyJournalEntryItems(newOrganization, oldOrganization);
 
-                //
-                //        newOrganization.ErpCOREDBContext.SaveChanges();
+
+
+                CopyEmployeePositions(newOrganization, oldOrganization);
+
+                CopyEmployees(newOrganization, oldOrganization);
+
+
+
+
+
+                //newOrganization.ErpCOREDBContext.SaveChanges();
+
+
+
+
+
+
+
+
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
             }
@@ -405,6 +414,69 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
+
+
+        private static void CopyEmployeePositions(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.EmployeePositions.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"EmployeePositions:{a.Uid}-{a.Title}");
+
+                var exist = newOrganization.ErpCOREDBContext.EmployeePositions.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition()
+                    {
+                        Id = a.Uid,
+                        Description = a.Description ?? "NA",
+                        Title = a.Title,
+                    };
+                    newOrganization.ErpCOREDBContext.EmployeePositions.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private static void CopyEmployees(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.Employees.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"Employees:{a.ProfileUid}-{a.Profile.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.Employees.FirstOrDefault(x => x.Id == a.ProfileUid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Employees.Employee()
+                    {
+                        Id = a.ProfileUid,
+                        EmployeePositionId = a.PositionGuid,
+                        Status = (Enterprise.Models.Employees.Enums.EmployeeStatus)a.Status,
+                    };
+                    newOrganization.ErpCOREDBContext.Employees.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+
+
+
+
+
         private static void CopyFiscalYear(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();
@@ -514,12 +586,13 @@ namespace ERPKeeperCore.CMD
 
             oldModels.ForEach(oldModel =>
             {
-                Console.WriteLine($"PROF:{oldModel.Name}-{oldModel.Uid}");
-
+                Console.WriteLine($"SALE:{oldModel.Name}-{oldModel.Uid}");
                 var exist = newOrganization.ErpCOREDBContext.Sales.FirstOrDefault(x => x.Id == oldModel.Uid);
 
                 if (exist == null)
                 {
+                    Console.WriteLine($"> Add");
+
                     exist = new ERPKeeperCore.Enterprise.Models.Customers.Sale()
                     {
                         Id = oldModel.Uid,

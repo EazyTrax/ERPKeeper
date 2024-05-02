@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public String? Code { get; set; }
         public EmployeeStatus Status { get; set; }
 
-        public Guid EmployeePositionId { get; set; }
+        public Guid? EmployeePositionId { get; set; }
         [ForeignKey("EmployeePositionId")]
         public virtual EmployeePosition? EmployeePosition { get; set; }
 

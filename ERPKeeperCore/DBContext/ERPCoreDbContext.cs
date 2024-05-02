@@ -104,18 +104,29 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
 
-        public DbSet<Customer> Customers { get; set; }
+        /***
+         * Customers
+         */
 
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleItem> SaleItems { get; set; }
         public DbSet<ReceivePayment> ReceivePayments { get; set; }
+        public DbSet<CustomerQuote> CustomerQuotes { get; set; }
+        public DbSet<CustomerQuoteItem> CustomerQuoteItems { get; set; }
 
+
+
+        /***
+         * Suppliers
+         */
 
 
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
         public DbSet<SupplierPayment> SupplierPayments { get; set; }
-
+        public DbSet<SupplierQuote> SupplierQuotes { get; set; }
+        public DbSet<SupplierQuoteItem> SupplierQuoteItems { get; set; }
 
 
 

@@ -33,6 +33,8 @@ namespace ERPKeeperCore.Enterprise.DAL
 
             if (existTransaction == null)
             {
+                Console.WriteLine($"> Create Sale Transaction");
+
                 existTransaction = new Transaction
                 {
                     Id = Id,

@@ -25,14 +25,6 @@
             .HeaderCellTemplate(@<text>TAX</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.ProfileId).Width(80)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>SN</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
@@ -42,6 +34,29 @@
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Employee</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.EmployeePositionId).Width(200)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Id, Text = i.Title }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>Position</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Positions/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.ProfileId).Width(80)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>SN</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+
 
              
             })
