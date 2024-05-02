@@ -114,12 +114,13 @@
     <Folder Include="Areas\Authen\Data\" />
     <Folder Include="Areas\Authen\Models\" />
     <Folder Include="Areas\Authen\Views\Shared\Components\" />
-    <Folder Include="Areas\Employees\Views\Payment Stubs\" />
-    <Folder Include="Areas\Employees\Views\Position\" />
-    <Folder Include="Areas\Employees\Views\PaymentPeriod\" />
-    <Folder Include="Areas\Employees\Views\Payment\" />
-    <Folder Include="Areas\Suppliers\Data\" />
-    <Folder Include="Areas\Suppliers\Models\" />
+    <Folder Include="Areas\Profiles_Employees\Views\Payment Stubs\" />
+    <Folder Include="Areas\Profiles_Employees\Views\Position\" />
+    <Folder Include="Areas\Profiles_Employees\Views\PaymentPeriod\" />
+    <Folder Include="Areas\Profiles_Employees\Views\Payment\" />
+    <Folder Include="Areas\Profiles_Employees\Views\Shared\Components\" />
+    <Folder Include="Areas\Profiles_Suppliers\Data\" />
+    <Folder Include="Areas\Profiles_Suppliers\Models\" />
     <None Include="Areas\Products\Views\Shared\Components\_Items_Groups\Default.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="packages.config" />
@@ -147,15 +148,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Employees\Views\Home\Index.cshtml">
+    <Content Update="Areas\Profiles_Employees\Views\Home\Index.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Employees\Views\_ViewImports.cshtml">
+    <Content Update="Areas\Profiles_Employees\Views\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Employees\Views\_ViewStart.cshtml">
+    <Content Update="Areas\Profiles_Employees\Views\_ViewStart.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

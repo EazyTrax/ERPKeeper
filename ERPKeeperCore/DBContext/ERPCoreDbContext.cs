@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Projects;
 using ERPKeeperCore.Enterprise.Models.Financial;
-using ERPKeeperCore.Enterprise.Models.Employment;
+using ERPKeeperCore.Enterprise.Models.Employees;
 
 namespace ERPKeeperCore.Enterprise.DBContext
 {

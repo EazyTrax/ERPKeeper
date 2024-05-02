@@ -19,15 +19,15 @@ namespace ERPKeeperCore.CMD
             {
                 Console.WriteLine($"###{enterpriseDB}########################################################");
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, false);
+                newOrganization.ErpCOREDBContext.Database.Migrate();
 
-
-                newOrganization.ErpCOREDBContext.Customers.Include(m=>m.Profile).ToList().ForEach(model =>
+                newOrganization.ErpCOREDBContext.Customers.Include(m => m.Profile).ToList().ForEach(model =>
                 {
                     Console.WriteLine($"CUST: {model.Profile.Name}");
                 });
 
 
-                //newOrganization.ErpCOREDBContext.Database.Migrate();
+
 
                 //var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
                 //Console.WriteLine("###########################################################");

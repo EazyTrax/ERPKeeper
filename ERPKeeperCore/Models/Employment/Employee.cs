@@ -1,6 +1,6 @@
 ﻿
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
-using ERPKeeperCore.Enterprise.Models.Employment.Enums;
+using ERPKeeperCore.Enterprise.Models.Employees.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -13,7 +13,7 @@ using System.Globalization;
 using System.Linq;
 
 
-namespace ERPKeeperCore.Enterprise.Models.Employment
+namespace ERPKeeperCore.Enterprise.Models.Employees
 {
     public partial class Employee
     {

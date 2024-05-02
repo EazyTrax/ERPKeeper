@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace ERPKeeperCore.Enterprise.Models.Employment
+namespace ERPKeeperCore.Enterprise.Models.Employees
 {
     public class EmployeePaymentPeriod
     {

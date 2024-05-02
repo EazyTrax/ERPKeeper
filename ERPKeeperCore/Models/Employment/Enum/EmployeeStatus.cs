@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ERPKeeperCore.Enterprise.Models.Employment.Enums
+namespace ERPKeeperCore.Enterprise.Models.Employees.Enums
 {
     public enum EmployeeStatus
     {

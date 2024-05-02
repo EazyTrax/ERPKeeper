@@ -28,12 +28,16 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("DefaultTaxCodeUid")]
         public virtual Taxes.TaxCode DefaultTaxCode { get; set; }
 
-        public int CountPurchases { get; set; }
-        public Decimal SumPurchaseBalance { get; set; }
+
+        public Decimal TotalPurchases { get; set; }
+        public int TotalPurchasesCount { get; set; }
+
+
         public Decimal TotalBalance { get; set; }
+        public int TotalBalanceCount { get; set; }
 
 
-        public int CountBalance { get; set; }
+
         public Decimal CreditLimit { get; set; }
         public int CreditAgeLimit { get; set; }
 
@@ -51,6 +55,12 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.DefaultTaxCodeUid = supplier.DefaultTaxCodeUid;
             this.CreditAgeLimit = supplier.CreditAgeLimit;
             this.CreditLimit = supplier.CreditLimit;
+        }
+
+        public void UpdateBalance()
+        {
+            this.TotalPurchases = this.Purchases.Sum(x => x.LinesTotal);
+            this.TotalBalanceCount = this.Purchases.Count;
         }
     }
 }

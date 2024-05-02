@@ -1,4 +1,4 @@
-﻿using ERPKeeperCore.Enterprise.Models.Employment.Enums;
+﻿using ERPKeeperCore.Enterprise.Models.Employees.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace ERPKeeperCore.Enterprise.Models.Employment
+namespace ERPKeeperCore.Enterprise.Models.Employees
 {
 
     public class EmployeePaymentType

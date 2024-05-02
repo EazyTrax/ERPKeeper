@@ -7,9 +7,9 @@ using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using ERPKeeperCore.Enterprise.Models.Employment;
+using ERPKeeperCore.Enterprise.Models.Employees;
 
-namespace ERPKeeperCore.Enterprise.Models.Employment
+namespace ERPKeeperCore.Enterprise.Models.Employees
 {
 
     public class EmployeePosition

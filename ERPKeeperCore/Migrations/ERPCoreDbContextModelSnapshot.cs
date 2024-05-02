@@ -517,20 +517,20 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("CountBalance")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("CountSales")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalBalance")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("TotalSale")
+                    b.Property<decimal>("TotalBalanceCount")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalSales")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("TotalSalesCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1455,12 +1455,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CountBalance")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountPurchases")
-                        .HasColumnType("int");
-
                     b.Property<int>("CreditAgeLimit")
                         .HasColumnType("int");
 
@@ -1473,11 +1467,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("SumPurchaseBalance")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<decimal>("TotalBalance")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("TotalBalanceCount")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPurchases")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("TotalPurchasesCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

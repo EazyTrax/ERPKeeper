@@ -3,7 +3,7 @@
     {
         <div class="">
             <div class="row e-r">
-                <div class="col-10 p-l@(level)">
+                <div class="col-10 p-l@(level-1)">
                     <a href="@url">
                         @if (level > 0)
                         {
@@ -27,9 +27,9 @@
 
 <div class="lh-12 bg-fb1 p-2 rounded border">
     @{
-        MenuTemplate(0, "Customers", $"/{CompanyId}/Customers");
-        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers");
-        MenuTemplate(0, "Employees", $"/{CompanyId}/Employees");
-        MenuTemplate(0, "Investors", $"/{CompanyId}/Investors");
+        MenuTemplate(0, "Customers", $"/{CompanyId}/Profiles/Customers");
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Profiles/Suppliers");
+        MenuTemplate(0, "Employees", $"/{CompanyId}/Profiles/Employees");
+        MenuTemplate(0, "Investors", $"/{CompanyId}/Profiles/Investors");
     }
 </div>

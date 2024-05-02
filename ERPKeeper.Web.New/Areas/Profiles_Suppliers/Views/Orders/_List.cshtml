@@ -1,0 +1,69 @@
+﻿
+
+
+
+
+
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
+    .ID("gridList")
+    .KeyExpr("Id")
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .RowAlternationEnabled(true)
+    .Paging(paging => paging.PageSize(100))
+
+    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .Columns(columns => {
+
+
+
+    columns.AddFor(m=>m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+    columns.AddFor(m=>m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+    .DisplayExpr("Text")
+    .ValueExpr("Value")
+    );
+    columns.Add().DataField("Name")
+    .Width(130)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Profiles/Suppliers/Estimate/<%= data.Id %>/">
+                <%= data.Name %>
+            </a>
+        </text>);
+
+    columns.Add().DataField("ProfileName")
+    .Width(300)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.Id %>/">
+                <%= data.ProfileName %>
+            </a>
+        </text>);
+
+    columns.Add().DataField("Reference");
+        columns.Add().DataField("LinesTotal").Format(Format.FixedPoint);
+    columns.Add().DataField("Total").Format(Format.FixedPoint);
+    //columns.Add().DataField("Id");
+    })
+    )
+</div>
+
