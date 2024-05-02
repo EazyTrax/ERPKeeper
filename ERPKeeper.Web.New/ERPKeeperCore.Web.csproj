@@ -123,7 +123,6 @@
     <Folder Include="Areas\Profiles_Suppliers\Models\" />
     <None Include="Areas\Products\Views\Shared\Components\_Items_Groups\Default.cshtml" />
     <None Include="compilerconfig.json" />
-    <None Include="packages.config" />
     <None Include="wwwroot\js\autogrow.min.js" />
     <None Include="wwwroot\js\html5-qrcode-scanner.js" />
     <None Include="wwwroot\js\html5-qrcode.js" />
