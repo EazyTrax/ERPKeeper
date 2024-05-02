@@ -10,7 +10,7 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
     {
         [Key]
 
-        public Guid AddressId { get; set; }
+        public Guid Id { get; set; }
 
         [Column("ProfileId")]
         public Guid? ProfileId { get; set; }
