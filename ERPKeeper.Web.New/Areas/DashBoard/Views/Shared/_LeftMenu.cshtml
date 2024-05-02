@@ -30,9 +30,9 @@
     @{     
         MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
         MenuTemplate(0, "Financial", $"/{CompanyId}/Financial");
-        MenuTemplate(0, "Assets", $"/{CompanyId}/Assets");
-        MenuTemplate(0, "Products", $"/{CompanyId}/Products");
-        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
+        MenuTemplate(0, "Assets", $"/{CompanyId}/Assets", Organization.Assets.Count());
+        MenuTemplate(0, "Products", $"/{CompanyId}/Products", Organization.Items.Count());
+        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles",Organization.Profiles.Count());
         MenuTemplate(0, "Taxes", $"/{CompanyId}/Taxes");
     }
 </div>

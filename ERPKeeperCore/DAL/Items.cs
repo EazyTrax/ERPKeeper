@@ -25,7 +25,10 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.Items.ToList();
         }
 
-
+        public int Count()
+        {
+            return erpNodeDBContext.Items.Count();
+        }
 
         public Item? Find(Guid Id) => erpNodeDBContext.Items.Find(Id);
 

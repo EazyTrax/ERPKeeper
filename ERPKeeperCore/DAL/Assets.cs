@@ -24,6 +24,10 @@ namespace ERPKeeperCore.Enterprise.DAL
         {
             return erpNodeDBContext.Assets.ToList();
         }
+        public int Count()
+        {
+            return erpNodeDBContext.Assets.Count();
+        }
 
 
 
