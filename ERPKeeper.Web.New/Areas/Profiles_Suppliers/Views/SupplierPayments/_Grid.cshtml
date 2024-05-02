@@ -4,11 +4,11 @@
 
 <div id="treeListDemo" class="mb-3 border">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment>()
         .ID("gridList")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Profiles/Suppliers/Payments/All")
+        .LoadUrl($"/API/{CompanyId}/Profiles/Suppliers/SupplierPayments/All")
         @*.InsertUrl($"/API/{CompanyId}/Profiles/Suppliers/Suppliers/Insert")
     .UpdateUrl($"/API/{CompanyId}/Profiles/Suppliers/Suppliers/Update")
     .UpdateMethod("Post")
@@ -58,9 +58,9 @@
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
-                columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("LinesTotal").Width(130).Format(Format.FixedPoint);
-                columns.Add().DataField("Total").Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Reference).Width(180);
+
+                columns.AddFor(m => m.Total).Width(130).Format(Format.FixedPoint);
                 columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
             })
         )

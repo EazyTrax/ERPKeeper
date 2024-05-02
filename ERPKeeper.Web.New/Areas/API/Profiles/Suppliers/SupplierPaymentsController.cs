@@ -7,14 +7,15 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeperCore.Web.API.Taxes
+namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
-
-    public class CodesController : API_Taxes_BaseController
+    public class SupplierPaymentsController : API_Profiles_Suppliers_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.TaxCodes;
+            var returnModel = Organization.ErpCOREDBContext.SupplierPayments
+                .ToList();
+
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
@@ -22,13 +23,15 @@ namespace ERPKeeperCore.Web.API.Taxes
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Taxes.TaxCode();
+            var model = new Enterprise.Models.Suppliers.SupplierPayment();
             JsonConvert.PopulateObject(values, model);
+
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
-            
-            Organization.ErpCOREDBContext.TaxCodes.Add(model);
+
+            Organization.ErpCOREDBContext.SupplierPayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
+
             return Ok();
         }
 
@@ -36,24 +39,18 @@ namespace ERPKeeperCore.Web.API.Taxes
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.TaxCodes.Find(key);
+            var model = Organization.ErpCOREDBContext.SupplierPayments.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
-        [HttpPost]
-        public void Delete(Guid key)
-        {
-            try
-            {
-                var model = Organization.ErpCOREDBContext.TaxCodes.Find(key);
-                Organization.ErpCOREDBContext.TaxCodes.Remove(model);
-                Organization.ErpCOREDBContext.SaveChanges();
-
-            }
-            catch (Exception) { }
-
-        }
+        //[HttpPost]
+        //public void Delete(Guid key)
+        //{
+        //    var model = Organization.erpNodeDBContext.SupplierPayments.First(a => a.Id == key);
+        //    Organization.erpNodeDBContext.SupplierPayments.Remove(model);
+        //    Organization.erpNodeDBContext.SaveChanges();
+        //}
     }
 }

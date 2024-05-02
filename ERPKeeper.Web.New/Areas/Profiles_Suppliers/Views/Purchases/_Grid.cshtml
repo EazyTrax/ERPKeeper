@@ -7,11 +7,6 @@
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/API/{CompanyId}/Profiles/Suppliers/Purchases/All")
-        @*.InsertUrl($"/API/{CompanyId}/Profiles/Suppliers/Suppliers/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Profiles/Suppliers/Suppliers/Update")
-            .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Profiles/Suppliers/Suppliers/Delete")
-            .DeleteMethod("Post")*@
     )
         .RowAlternationEnabled(true)
     .KeyExpr("Id")

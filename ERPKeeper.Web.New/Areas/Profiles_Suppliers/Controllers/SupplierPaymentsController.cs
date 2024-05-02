@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
+namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
 {
 
-    public class PaymentController : _Profiles_Customers_Base_Controller
+    public class SupplierPayments : _Profiles_Suppliers_Base_Controller
     {
         public IActionResult Index()
         {
