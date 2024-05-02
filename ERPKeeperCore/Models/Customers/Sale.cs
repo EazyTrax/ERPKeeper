@@ -33,9 +33,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public virtual Customers.Customer? Customer { get; set; }
 
 
-
-
-
         public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
@@ -62,11 +59,36 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Items.Add(existItem);
         }
 
+        public void PostToTransaction()
+        {
+            if (this.TransactionId != null)
+            {
+                Console.Write($"Post SL:{this.Name}");
+
+                this.Transaction.ClearLedger();
+
+                foreach (var item in this.Items)
+                {
+                    Console.WriteLine($"{item.Item.IncomeAccount.Name} {item.LineTotal}");
+                    this.Transaction.AddAcount(item.Item.IncomeAccount, 0, item.LineTotal);
+                }
+
+                if (this.TaxCode != null && this.TaxCode.OutputTaxAccountId != null)
+                {
+                    Console.WriteLine($"{this.TaxCode.OutputTaxAccount.Name} {this.Tax}");
+                    this.Transaction.AddAcount(this.TaxCode.OutputTaxAccount, 0, this.TaxCode.Rate * this.LinesTotal / 100);
+                }
+                this.Transaction.UpdateBalance();
+
+            }
+        }
+
         public void CreateTransaction()
         {
             if (this.Transaction == null)
             {
-                Console.WriteLine("Creating Sale Transaction");
+                Console.Write($"Create TR:{this.Name}");
+
                 this.Transaction = new Accounting.Transaction()
                 {
                     Id = this.Id,
@@ -76,8 +98,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                     Sale = this,
                 };
             }
-            this.Transaction.RemoveAllLedger();
-            this.Transaction.Update();
         }
+
+
     }
 }

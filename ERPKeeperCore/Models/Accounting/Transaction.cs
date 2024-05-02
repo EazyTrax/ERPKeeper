@@ -22,7 +22,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Decimal Credit { get; set; }
         public Decimal Debit { get; set; }
-        public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new HashSet<TransactionLedger>();
+        public virtual ICollection<TransactionLedger> Ledgers { get; set; } 
 
         public virtual Customers.Sale? Sale { get; set; }
         public virtual Suppliers.Purchase? Purchase { get; set; }
@@ -31,17 +31,29 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
 
-        public void Update()
+        public void UpdateBalance()
         {
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
         }
 
-        public void RemoveAllLedger()
+        public void ClearLedger()
         {
             this.Ledgers.Clear();
-            this.Update();
         }
+
+        public void AddAcount(Account account, decimal debit = 0, decimal credit = 0)
+        {
+            var ledger = new TransactionLedger()
+            {
+                AccountId = account.Id,
+                Debit = debit,
+                Credit = credit,
+            };
+
+            this.Ledgers.Add(ledger);
+        }
+
     }
 
 
@@ -52,11 +64,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Guid TransactionId { get; set; }
         [ForeignKey("TransactionId")]
-        public virtual required Transaction Transaction { get; set; }
+        public virtual Transaction Transaction { get; set; }
 
         public Guid AccountId { get; set; }
-        [ForeignKey("TransactionId")]
-        public virtual required Account Account { get; set; }
+        [ForeignKey("AccountId")]
+        public virtual Account Account { get; set; }
 
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }

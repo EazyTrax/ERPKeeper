@@ -84,8 +84,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
                     FundTransfer = this,
                 };
             }
-            this.Transaction.RemoveAllLedger();
-            this.Transaction.Update();
+            this.Transaction.ClearLedger();
+            this.Transaction.UpdateBalance();
         }
 
         public void Post()

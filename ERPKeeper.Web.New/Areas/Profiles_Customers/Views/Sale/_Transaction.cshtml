@@ -4,18 +4,17 @@
 @if (Model.Transaction != null)
 {
 
-
-
-
     <div class="row border">
-        <div class="font-weight-600">TR# @Model.TransactionId</div>
+        <div class="font-weight-600">TR# @Model.Transaction.Ledgers.Count()</div>
         @{
             var transactionLedgers = Model.Transaction.Ledgers.ToList();
+
             foreach (var transactionLedger in transactionLedgers)
             {
                 <div class="col-8">
                     @transactionLedger.Account.Name
                 </div>
+
                 @if (transactionLedger.Debit > 0)
                 {
                     <div class="col-4">

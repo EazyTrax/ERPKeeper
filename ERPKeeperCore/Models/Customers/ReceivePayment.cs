@@ -58,8 +58,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                     ReceivePayment = this,
                 };
             }
-            this.Transaction.RemoveAllLedger();
-            this.Transaction.Update();
+            this.Transaction.ClearLedger();
+            this.Transaction.UpdateBalance();
         }
 
         public static implicit operator ReceivePayment(SupplierPayment v)

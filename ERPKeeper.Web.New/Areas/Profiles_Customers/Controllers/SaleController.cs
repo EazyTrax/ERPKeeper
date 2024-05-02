@@ -16,9 +16,15 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 
         public IActionResult Index()
         {
-            var transcation = EnterpriseRepo.Sales.Find(TransactionId);
-            return View(transcation);
+            var sale = EnterpriseRepo.Sales.Find(TransactionId);
+
+            sale.PostToTransaction();
+            EnterpriseRepo.SaveChanges();
+
+            return View(sale);
         }
+
+
 
         public IActionResult Items()
         {

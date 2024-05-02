@@ -29,6 +29,27 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Sale? Find(Guid Id) => erpNodeDBContext.Sales.Find(Id);
 
+        public void CreateTransactions()
+        {
+            var sales = erpNodeDBContext.Sales.Where(s => s.TransactionId == null).ToList();
 
+            sales.ForEach(s => s.CreateTransaction());
+
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void PostToTransactions()
+        {
+            var sales = erpNodeDBContext.Sales
+                .Where(s => s.TransactionId != null)
+                .OrderBy(s=>s.Date).ToList();
+
+            sales.ForEach(s =>
+            {
+                s.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
+            });
+
+        }
     }
 }

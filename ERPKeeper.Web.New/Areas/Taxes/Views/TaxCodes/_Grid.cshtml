@@ -44,7 +44,29 @@
 
         
             columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxCodes/<%= data.Id %>/"><%= data.Name %></a></text>);
-          @*   columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Taxes</text>);
+            columns.AddFor(m => m.Rate);
+
+
+
+            columns.AddFor(m => m.InputTaxAccountId)
+        .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Width(200).HeaderCellTemplate(@<text>Input</text>);
+
+            columns.AddFor(m => m.OutputTaxAccountId)
+        .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Width(200).HeaderCellTemplate(@<text>Output</text>);
+
+
+            columns.AddFor(m => m.AssignAccountId)
+        .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Width(200).HeaderCellTemplate(@<text>Assign</text>);
+
+            columns.AddFor(m => m.CloseToAccountId)
+        .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Width(200).HeaderCellTemplate(@<text>Close</text>);
+
+
+            @*   columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Taxes</text>);
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
             

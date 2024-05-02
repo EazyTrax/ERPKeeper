@@ -54,8 +54,8 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                     ReceivePayment = this,
                 };
             }
-            this.Transaction.RemoveAllLedger();
-            this.Transaction.Update();
+            this.Transaction.ClearLedger();
+            this.Transaction.UpdateBalance();
         }
     }
 }
