@@ -37,9 +37,12 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-
         public Decimal Total { get; set; }
   
+
+        public virtual ICollection<Sale> Sales { get; set; }
+
+
 
         public void CreateTransaction()
         {

@@ -18,21 +18,25 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [Key]
         public Guid Id { get; set; }
         public SaleStatus Status { get; set; }
+        public bool IsPosted { get; set; }
 
-
-
-        public bool IsPosted { get; set; } 
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-
+        public Guid? ReceivePaymentId { get; set; }
+        [ForeignKey("ReceivePaymentId")]
+        public virtual Customers.ReceivePayment? ReceivePayment { get; set; }
 
         public Guid? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customers.Customer? Customer { get; set; }
 
-         public String? Reference { get; set; }
+
+
+
+
+        public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }

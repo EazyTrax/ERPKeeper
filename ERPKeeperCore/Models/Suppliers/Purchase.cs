@@ -24,6 +24,12 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
+
+        public Guid? SupplierPaymentId { get; set; }
+        [ForeignKey("SupplierPaymentId")]
+        public virtual Suppliers.SupplierPayment? SupplierPayment { get; set; }
+
+
         public Guid? SupplierId { get; set; }
         [ForeignKey("SupplierId")]
         public virtual Suppliers.Supplier? Supplier { get; set; }
