@@ -6840,11 +6840,11 @@ readers do not read off random characters that represent icons */
   content: "\e518";
 }
 
-.fa-diagram-project::before {
+.fa-diagram-estimate::before {
   content: "\f542";
 }
 
-.fa-project-diagram::before {
+.fa-estimate-diagram::before {
   content: "\f542";
 }
 
@@ -8945,7 +8945,7 @@ readers do not read off random characters that represent icons */
   content: "\f081";
 }
 
-.fa-r-project:before {
+.fa-r-estimate:before {
   content: "\f4f7";
 }
 

@@ -5,7 +5,7 @@
     {
         <div class="">
             <div class="row e-r">
-                <div class="col-10 p-l@(level-1)">
+                <div class="col-10 p-l@(level)">
                     <a href="@url">
                         @if (level > 0)
                         {
@@ -26,12 +26,18 @@
 <div class="lh-12 bg-fb1 p-2 rounded border font-weight-600">
     @{
         MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
-        MenuTemplate(1, "Customers", $"/{CompanyId}/Profiles/Customers");
-        MenuTemplate(1, "Suppliers", $"/{CompanyId}/Profiles/Suppliers");
-        MenuTemplate(1, "Employees", $"/{CompanyId}/Profiles/Employees");
-        MenuTemplate(1, "Investors", $"/{CompanyId}/Profiles/Investors");
     }
 </div>
+
+<div class="lh-12 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Customers", $"/{CompanyId}/Profiles/Customers");
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Profiles/Suppliers");
+        MenuTemplate(0, "Employees", $"/{CompanyId}/Profiles/Employees");
+        MenuTemplate(0, "Investors", $"/{CompanyId}/Profiles/Investors");
+    }
+</div>
+
 
 <div class="lh-12 bg-fb1 p-2 rounded border">
     @{

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Assets.Controllers
 {
-    [Route("/{CompanyId}/{area}/AssetTypes/{AssetTypeId:Guid}/{action=Index}/{id?}")]
+    [Route("/{CompanyId}/Assets/AssetTypes/{AssetTypeId:Guid}/{action=Index}/{id?}")]
     public class AssetTypeController : Base_AssetsController
     {
         public IActionResult Index(Guid AssetTypeId)

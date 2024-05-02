@@ -1,35 +1,29 @@
-﻿.col-left {
-    /*    width:100px;
-    -ms-flex: 0 0 100px;
-    flex: 0 0 100px;*/
-    /*   background-color: #f8f9fa;*/
+﻿
+#MenuTop {
 }
-
-
 
 #navigation {
     /*position: fixed;*/ /* Fixed Sidebar (stay in place on scroll) */
     /*top: 0;*/ /* Stay at the top */
     /*z-index: 1;*/ /* Stay on top */
     /*overflow-y: hidden;*/
-  /*  padding: 0.5rem !important;*/
-    background-color: white;
+    /*  padding: 0.5rem !important;*/
+    /*background-color: white;*/
 }
 
 .sidenav {
-    width: 95%; /* Set the width of the sidebar */
-  
+    width: 240px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
-
     background-color: #fff; /* Black */
-    /*overflow-x: hidden;*/ /* Disable horizontal scroll */
-    padding-top: 5px;
+    /*  overflow-x: hidden;*/ /* Disable horizontal scroll */
+    /*  padding-top: 5px;*/
 }
 
 .side-nav-buttom {
     height: 100px; /* Full-height: remove this if you want "auto" height */
-    width: 175px; /* Set the width of the sidebar */
+    width: 160px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0; /* Stay at the top */
@@ -39,11 +33,60 @@
 
 .side-nav-right-buttom {
     height: 50px; /* Full-height: remove this if you want "auto" height */
-    width: 290px; /* Set the width of the sidebar */
+    width: 240px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0px; /* Stay at the top */
-
     background-color: #fff; /* Black */
     padding: 4px;
+}
+
+.col-200px {
+    width: 200px !important; /* Fixed width */
+    flex: 0 0 auto; /* Prevents the column from growing or shrinking */
+}
+
+.col-300px {
+    width: 300px !important; /* Fixed width */
+    flex: 0 0 auto; /* Prevents the column from growing or shrinking */
+}
+.col-360px {
+    width: 360px !important; /* Fixed width */
+    flex: 0 0 auto; /* Prevents the column from growing or shrinking */
+}
+.col-50px {
+    width: 50px !important; /* Fixed width */
+    flex: 0 0 auto; /* Prevents the column from growing or shrinking */
+}
+
+
+.col-center {
+    padding-top: 0rem !important;
+    padding-left: 1rem !important;
+    padding-right: 0rem !important;
+/*    min-height: 90vh;*/
+}
+
+.col-right {
+    padding-right: 0rem !important;
+}
+
+
+.col-10p {
+    flex: 0 0 auto;
+    width: 10%;
+}
+
+.overlayLoading {
+    /* argin-left: 10px;*/
+    width: 1280px;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgba(255,255,255,0.8) url("/images/Loading/loading-progress-bar.gif") center no-repeat;
+    background-size: 10% auto;
 }

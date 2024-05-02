@@ -1,11 +1,13 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
 
-<div class="row bg-fb1 p-2 mb-2 rounded">
-    <div class="col-9 p-0 font-weight-600">
-        Project: @Model.Name
-    </div>
-    <div class="col-4 p-0 text-right">
-        <a href="/Portal/Projects">My</a>  ·
-        <a href="/Portal/Projects">All</a>
+
+
+
+<div class="row mb-2 font-weight-600">
+    <div class="p-2">
+        <a href="/@CompanyId/">@CompanyId</a>
+        <a href="/@CompanyId/Profiles/Customers"> Customers</a>
+        <a href="/@CompanyId/Profiles/Customers/Projects"> Sales</a>
+        <a href="/@CompanyId/Profiles/Customers/Projects/@Model.Id"> @Model.Name</a>
     </div>
 </div>

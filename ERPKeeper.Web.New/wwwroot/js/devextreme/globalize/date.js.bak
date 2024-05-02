@@ -2896,7 +2896,7 @@ function validateRequiredIana( timeZone ) {
 
 		validate(
 			"E_MISSING_IANA_TZ",
-			"Missing required IANA timezone content for `{timeZone}`: `{path}`.",
+			"Missing required IANA timezone Event for `{timeZone}`: `{path}`.",
 			value,
 			{
 				path: path.replace( /globalize-iana\//, "" ),

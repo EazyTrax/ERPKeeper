@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 {
-    [Route("/{CompanyId}/{area}/Projects/{ProjectId:Guid}/{action=Index}/{id?}")]
+    [Route("/{CompanyId}/Profiles/Customers/Projects/{ProjectId:Guid}/{action=Index}/{id?}")]
     public class ProjectController : _Profiles_Customers_Base_Controller
     {
         public IActionResult Index(Guid ProjectId)

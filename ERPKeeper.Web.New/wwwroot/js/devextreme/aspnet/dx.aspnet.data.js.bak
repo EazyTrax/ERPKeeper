@@ -181,7 +181,7 @@
         }
 
         function handleInsertUpdateSuccess(d, res, xhr) {
-            var mime = xhr.getResponseHeader("Content-Type"),
+            var mime = xhr.getResponseHeader("Event-Type"),
                 isJSON = mime && mime.indexOf("application/json") > -1;
             d.resolve(isJSON ? JSON.parse(res) : res);
         }
@@ -367,7 +367,7 @@
     }
 
     function getErrorMessageFromXhr(xhr) {
-        var mime = xhr.getResponseHeader("Content-Type"),
+        var mime = xhr.getResponseHeader("Event-Type"),
             responseText = xhr.responseText;
 
         if(!mime)

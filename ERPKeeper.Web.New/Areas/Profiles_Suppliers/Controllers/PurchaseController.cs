@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
 {
 
-    [Route("/{CompanyId}/{area}/Purchases/{transactionId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Profiles/Suppliers/Purchases/{transactionId:Guid}/{action=index}")]
     public class PurchaseController : _Profiles_Suppliers_Base_Controller
     {
 

@@ -223,7 +223,7 @@ var Quill = /*#__PURE__*/function () {
         return _this.editor.update(null, mutations, selectionInfo);
       }, source);
     });
-    this.setContents(this.getInitialContent(html));
+    this.setEvents(this.getInitialEvent(html));
     this.history.clear();
 
     if (this.options.placeholder) {
@@ -238,8 +238,8 @@ var Quill = /*#__PURE__*/function () {
   }
 
   _createClass(Quill, [{
-    key: "getInitialContent",
-    value: function getInitialContent(html) {
+    key: "getInitialEvent",
+    value: function getInitialEvent(html) {
       return this.clipboard.convert({
         html: "".concat(html, "<p><br></p>"),
         text: '\n'
@@ -402,8 +402,8 @@ var Quill = /*#__PURE__*/function () {
       };
     }
   }, {
-    key: "getContents",
-    value: function getContents() {
+    key: "getEvents",
+    value: function getEvents() {
       var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.getLength() - index;
 
@@ -413,7 +413,7 @@ var Quill = /*#__PURE__*/function () {
 
       index = _overload8[0];
       length = _overload8[1];
-      return this.editor.getContents(index, length);
+      return this.editor.getEvents(index, length);
     }
   }, {
     key: "getFormat",
@@ -582,8 +582,8 @@ var Quill = /*#__PURE__*/function () {
       this.selection.scrollIntoView(this.scrollingContainer);
     }
   }, {
-    key: "setContents",
-    value: function setContents(delta) {
+    key: "setEvents",
+    value: function setEvents(delta) {
       var _this9 = this;
 
       var source = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _emitter__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].sources.API;
@@ -593,7 +593,7 @@ var Quill = /*#__PURE__*/function () {
         var length = _this9.getLength(); // Quill will set empty editor to \n
 
 
-        var delete1 = _this9.editor.deleteText(0, length); // delta always applied before existing content
+        var delete1 = _this9.editor.deleteText(0, length); // delta always applied before existing Event
 
 
         var applied = _this9.editor.applyDelta(delta); // Remove extra \n from empty editor initialization
@@ -601,7 +601,7 @@ var Quill = /*#__PURE__*/function () {
 
         var delete2 = _this9.editor.deleteText(_this9.getLength() - 1, 1);
 
-        _this9.emitter.emit(Quill.events.CONTENT_SETTED);
+        _this9.emitter.emit(Quill.events.Event_SETTED);
 
         return delete1.compose(applied).compose(delete2);
       }, source);
@@ -631,7 +631,7 @@ var Quill = /*#__PURE__*/function () {
     value: function setText(text) {
       var source = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _emitter__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].sources.API;
       var delta = new quill_delta__WEBPACK_IMPORTED_MODULE_0___default.a().insert(text);
-      return this.setContents(delta, source);
+      return this.setEvents(delta, source);
     }
   }, {
     key: "update",
@@ -644,8 +644,8 @@ var Quill = /*#__PURE__*/function () {
       return change;
     }
   }, {
-    key: "updateContents",
-    value: function updateContents(delta) {
+    key: "updateEvents",
+    value: function updateEvents(delta) {
       var _this10 = this;
 
       var source = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _emitter__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].sources.API;
@@ -2092,7 +2092,7 @@ function (_super) {
       this.uiNode.classList.add(ParentBlot.uiClass);
     }
 
-    this.uiNode.setAttribute('contenteditable', 'false');
+    this.uiNode.setAttribute('Eventeditable', 'false');
     this.domNode.insertBefore(this.uiNode, this.domNode.firstChild);
   };
 
@@ -3862,7 +3862,7 @@ Emitter.events = {
   SCROLL_UPDATE: 'scroll-update',
   SELECTION_CHANGE: 'selection-change',
   TEXT_CHANGE: 'text-change',
-  CONTENT_SETTED: 'content-setted'
+  Event_SETTED: 'Event-setted'
 };
 Emitter.sources = {
   API: 'api',
@@ -4097,8 +4097,8 @@ var editor_Editor = /*#__PURE__*/function () {
       return this.update(delta);
     }
   }, {
-    key: "getContents",
-    value: function getContents(index, length) {
+    key: "getEvents",
+    value: function getEvents(index, length) {
       return this.delta.slice(index, index + length);
     }
   }, {
@@ -4167,7 +4167,7 @@ var editor_Editor = /*#__PURE__*/function () {
   }, {
     key: "getText",
     value: function getText(index, length) {
-      return this.getContents(index, length).filter(function (op) {
+      return this.getEvents(index, length).filter(function (op) {
         return typeof op.insert === 'string';
       }).map(function (op) {
         return op.insert;
@@ -4222,8 +4222,8 @@ var editor_Editor = /*#__PURE__*/function () {
         suffix = line.delta().slice(offset, offset + suffixLength - 1).insert('\n');
       }
 
-      var contents = this.getContents(index, length + suffixLength);
-      var diff = contents.diff(new Delta_default.a().insert(text).concat(suffix));
+      var Events = this.getEvents(index, length + suffixLength);
+      var diff = Events.diff(new Delta_default.a().insert(text).concat(suffix));
       var delta = new Delta_default.a().retain(index).concat(diff);
       return this.applyDelta(delta);
     }
@@ -4239,7 +4239,7 @@ var editor_Editor = /*#__PURE__*/function () {
         var textBlot = this.scroll.find(mutations[0].target);
         var formats = Object(blots_block["c" /* bubbleFormats */])(textBlot);
         var index = textBlot.offset(this.scroll);
-        var oldValue = mutations[0].oldValue.replace(cursor["a" /* default */].CONTENTS, '');
+        var oldValue = mutations[0].oldValue.replace(cursor["a" /* default */].EventS, '');
         var oldText = new Delta_default.a().insert(oldValue);
         var newText = new Delta_default.a().insert(textBlot.value());
         var relativeSelectionInfo = selectionInfo && {
@@ -7642,7 +7642,7 @@ var CodeBlockContainer = /*#__PURE__*/function (_Container) {
     key: "code",
     value: function code(index, length) {
       var text = this.children.map(function (child) {
-        return child.length() <= 1 ? '' : child.domNode.textContent;
+        return child.length() <= 1 ? '' : child.domNode.textEvent;
       }).join('\n').slice(index, index + length);
       return Object(_blots_text__WEBPACK_IMPORTED_MODULE_4__[/* escapeText */ "b"])(text);
     }
@@ -7857,7 +7857,7 @@ var Scroll = /*#__PURE__*/function (_ScrollBlot) {
     key: "enable",
     value: function enable() {
       var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      this.domNode.setAttribute('contenteditable', enabled);
+      this.domNode.setAttribute('Eventeditable', enabled);
     }
   }, {
     key: "formatAt",
@@ -7909,7 +7909,7 @@ var Scroll = /*#__PURE__*/function (_ScrollBlot) {
   }, {
     key: "isEnabled",
     value: function isEnabled() {
-      return this.domNode.getAttribute('contenteditable') === 'true';
+      return this.domNode.getAttribute('Eventeditable') === 'true';
     }
   }, {
     key: "leaf",
@@ -8137,7 +8137,7 @@ var Cursor = /*#__PURE__*/function (_EmbedBlot) {
 
     _this = _super.call(this, scroll, domNode);
     _this.selection = selection;
-    _this.textNode = document.createTextNode(Cursor.CONTENTS);
+    _this.textNode = document.createTextNode(Cursor.EventS);
 
     _this.domNode.appendChild(_this.textNode);
 
@@ -8169,9 +8169,9 @@ var Cursor = /*#__PURE__*/function (_EmbedBlot) {
       }
 
       if (target != null) {
-        this.savedLength = Cursor.CONTENTS.length;
+        this.savedLength = Cursor.EventS.length;
         target.optimize();
-        target.formatAt(index, Cursor.CONTENTS.length, name, value);
+        target.formatAt(index, Cursor.EventS.length, name, value);
         this.savedLength = 0;
       }
     }
@@ -8214,8 +8214,8 @@ var Cursor = /*#__PURE__*/function (_EmbedBlot) {
       var nextText = nextTextBlot ? nextTextBlot.text : '';
       var textNode = this.textNode; // take text from inside this blot and reset it
 
-      var newText = textNode.data.split(Cursor.CONTENTS).join('');
-      textNode.data = Cursor.CONTENTS; // proactively merge TextBlots around cursor so that optimization
+      var newText = textNode.data.split(Cursor.EventS).join('');
+      textNode.data = Cursor.EventS; // proactively merge TextBlots around cursor so that optimization
       // doesn't lose the cursor.  the reason we are here in cursor.restore
       // could be that the user clicked in prevTextBlot or nextTextBlot, or
       // the user typed something.
@@ -8306,7 +8306,7 @@ var Cursor = /*#__PURE__*/function (_EmbedBlot) {
 Cursor.blotName = 'cursor';
 Cursor.className = 'ql-cursor';
 Cursor.tagName = 'span';
-Cursor.CONTENTS = "\uFEFF"; // Zero width no break space
+Cursor.EventS = "\uFEFF"; // Zero width no break space
 
 /* harmony default export */ __webpack_exports__["a"] = (Cursor);
 
@@ -8555,7 +8555,7 @@ var keyboard_Keyboard = /*#__PURE__*/function (_Module) {
     value: function addInternalBindings() {
       var _this2 = this;
 
-      this.quill.once(core_quill["a" /* default */].events.CONTENT_SETTED, function () {
+      this.quill.once(core_quill["a" /* default */].events.Event_SETTED, function () {
         _this2.addBinding({
           key: 'enter',
           shiftKey: null
@@ -8804,7 +8804,7 @@ var keyboard_Keyboard = /*#__PURE__*/function (_Module) {
         }
       }
 
-      this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+      this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
       this.quill.focus();
     }
   }, {
@@ -8837,7 +8837,7 @@ var keyboard_Keyboard = /*#__PURE__*/function (_Module) {
         }
       }
 
-      this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+      this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
       this.quill.focus();
     }
   }, {
@@ -8863,7 +8863,7 @@ var keyboard_Keyboard = /*#__PURE__*/function (_Module) {
         return formats;
       }, {});
       var delta = new Delta_default.a().retain(range.index).delete(range.length).insert('\n', lineFormats);
-      this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+      this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
       this.quill.setSelection(range.index + 1, core_quill["a" /* default */].sources.SILENT);
       this.quill.focus();
 
@@ -8981,7 +8981,7 @@ keyboard_Keyboard.DEFAULTS = {
         if (context.format.table) return true;
         this.quill.history.cutoff();
         var delta = new Delta_default.a().retain(range.index).delete(range.length).insert('\t');
-        this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+        this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
         this.quill.history.cutoff();
         this.quill.setSelection(range.index + 1, core_quill["a" /* default */].sources.SILENT);
         return false;
@@ -9032,7 +9032,7 @@ keyboard_Keyboard.DEFAULTS = {
         var delta = new Delta_default.a().retain(range.index).insert('\n', formats).retain(line.length() - offset - 1).retain(1, {
           list: 'unchecked'
         });
-        this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+        this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
         this.quill.setSelection(range.index + 1, core_quill["a" /* default */].sources.SILENT);
         this.quill.scrollIntoView();
       }
@@ -9051,7 +9051,7 @@ keyboard_Keyboard.DEFAULTS = {
         var delta = new Delta_default.a().retain(range.index).insert('\n', context.format).retain(line.length() - offset - 1).retain(1, {
           header: null
         });
-        this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+        this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
         this.quill.setSelection(range.index + 1, core_quill["a" /* default */].sources.SILENT);
         this.quill.scrollIntoView();
       }
@@ -9103,7 +9103,7 @@ keyboard_Keyboard.DEFAULTS = {
           list: value
         });
         this.raiseOnKeydownCallback(context.event);
-        this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+        this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
         this.quill.history.cutoff();
         this.quill.setSelection(range.index - length, core_quill["a" /* default */].sources.SILENT);
         return false;
@@ -9132,7 +9132,7 @@ keyboard_Keyboard.DEFAULTS = {
             var delta = new Delta_default.a().retain(range.index + line.length() - offset - 2).retain(1, {
               'code-block': null
             }).delete(1);
-            this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+            this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
             this.quill.setSelection(range.index - 1, core_quill["a" /* default */].sources.SILENT);
             return false;
           }
@@ -9169,7 +9169,7 @@ function makeCodeBlockHandler(indent) {
           } else {
             length += CodeBlock.TAB.length;
           }
-        } else if (line.domNode.textContent.indexOf(CodeBlock.TAB) === 0) {
+        } else if (line.domNode.textEvent.indexOf(CodeBlock.TAB) === 0) {
           line.deleteAt(0, CodeBlock.TAB.length);
 
           if (i === 0) {
@@ -9478,7 +9478,7 @@ var Clipboard = /*#__PURE__*/function (_Module) {
 
       var matchers = this.prepareTextMatching();
       var element = this.quill.root.ownerDocument.createElement('div');
-      element.textContent = text;
+      element.textEvent = text;
       var node = element.childNodes[0];
       return matchers.reduce(function (delta, matcher) {
         return matcher(node, delta, _this2.quill.scroll);
@@ -9519,14 +9519,14 @@ var Clipboard = /*#__PURE__*/function (_Module) {
           html: index,
           text: ''
         });
-        this.quill.setContents(delta, html);
+        this.quill.setEvents(delta, html);
         this.quill.setSelection(0, _core_quill__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].sources.SILENT);
       } else {
         var paste = this.convert({
           html: html,
           text: ''
         });
-        this.quill.updateContents(new quill_delta__WEBPACK_IMPORTED_MODULE_0___default.a().retain(index).concat(paste), source);
+        this.quill.updateEvents(new quill_delta__WEBPACK_IMPORTED_MODULE_0___default.a().retain(index).concat(paste), source);
         this.quill.setSelection(index + paste.length(), _core_quill__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].sources.SILENT);
       }
     }
@@ -9644,7 +9644,7 @@ var Clipboard = /*#__PURE__*/function (_Module) {
         html: html
       });
       var delta = new quill_delta__WEBPACK_IMPORTED_MODULE_0___default.a().retain(range.index).delete(range.length).concat(pastedDelta);
-      this.quill.updateContents(delta, _core_quill__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].sources.USER); // range.length contributes to delta.length()
+      this.quill.updateEvents(delta, _core_quill__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].sources.USER); // range.length contributes to delta.length()
 
       this.quill.setSelection(delta.length() - range.length, _core_quill__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].sources.SILENT);
       this.quill.scrollIntoView();
@@ -14438,12 +14438,12 @@ var History = /*#__PURE__*/function (_Module) {
     value: function change(source, dest) {
       if (this.stack[source].length === 0) return;
       var delta = this.stack[source].pop();
-      var base = this.quill.getContents();
+      var base = this.quill.getEvents();
       var inverseDelta = delta.invert(base);
       this.stack[dest].push(inverseDelta);
       this.lastRecorded = 0;
       this.ignoreChange = true;
-      this.quill.updateContents(delta, _core_quill__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].sources.USER);
+      this.quill.updateEvents(delta, _core_quill__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].sources.USER);
       this.ignoreChange = false;
       var index = getLastChangeIndex(this.quill.scroll, delta);
       this.quill.setSelection(index);
@@ -14769,19 +14769,19 @@ var Embed = /*#__PURE__*/function (_EmbedBlot) {
     _classCallCheck(this, Embed);
 
     _this = _super.call(this, scroll, node);
-    _this.contentNode = document.createElement('span');
+    _this.EventNode = document.createElement('span');
 
-    _this.contentNode.setAttribute('contenteditable', false);
+    _this.EventNode.setAttribute('Eventeditable', false);
 
     Array.from(_this.domNode.childNodes).forEach(function (childNode) {
-      _this.contentNode.appendChild(childNode);
+      _this.EventNode.appendChild(childNode);
     });
     _this.leftGuard = document.createTextNode(GUARD_TEXT);
     _this.rightGuard = document.createTextNode(GUARD_TEXT);
 
     _this.domNode.appendChild(_this.leftGuard);
 
-    _this.domNode.appendChild(_this.contentNode);
+    _this.domNode.appendChild(_this.EventNode);
 
     _this.domNode.appendChild(_this.rightGuard);
 
@@ -15103,7 +15103,7 @@ Uploader.DEFAULTS = {
         return delta.insert(_defineProperty({}, blotName, image));
       }, new quill_delta__WEBPACK_IMPORTED_MODULE_0___default.a().retain(range.index).delete(range.length));
 
-      _this4.quill.updateContents(update, _core_emitter__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].sources.USER);
+      _this4.quill.updateEvents(update, _core_emitter__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].sources.USER);
 
       _this4.quill.setSelection(range.index + images.length, _core_emitter__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].sources.SILENT);
     });
@@ -16453,7 +16453,7 @@ var table_Table = /*#__PURE__*/function (_Module) {
         });
         return memo;
       }, new Delta_default.a().retain(range.index));
-      this.quill.updateContents(delta, quill["a" /* default */].sources.USER);
+      this.quill.updateEvents(delta, quill["a" /* default */].sources.USER);
       this.quill.setSelection(range.index, quill["a" /* default */].sources.SILENT);
       this.balanceTables();
     }
@@ -16482,7 +16482,7 @@ var table_Table = /*#__PURE__*/function (_Module) {
           return false;
         });
       });
-      this.quill.on(quill["a" /* default */].events.CONTENT_SETTED, function () {
+      this.quill.on(quill["a" /* default */].events.Event_SETTED, function () {
         _this4.quill.once(quill["a" /* default */].events.TEXT_CHANGE, function () {
           _this4.balanceTables();
         });
@@ -17533,7 +17533,7 @@ function insertParagraphAbove(_ref) {
       range = _ref.range;
   var insertIndex = index - 1;
   var delta = new Delta_default.a().retain(insertIndex).insert('\n');
-  quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+  quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
   quill.setSelection(range.index + 1, range.length, core_quill["a" /* default */].sources.SILENT);
 }
 // CONCATENATED MODULE: ./modules/table/utils/insert_pr_above.js
@@ -17545,7 +17545,7 @@ function insertParagraphBelow(_ref) {
       table = _ref.table;
   var insertIndex = index + table.length();
   var delta = new Delta_default.a().retain(insertIndex).insert('\n');
-  quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+  quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
   quill.setSelection(insertIndex, core_quill["a" /* default */].sources.USER);
 }
 // CONCATENATED MODULE: ./modules/table/utils/table_side.js
@@ -17857,7 +17857,7 @@ var lite_TableLite = /*#__PURE__*/function (_Module) {
           table: tableId()
         });
       }, new Delta_default.a().retain(range.index));
-      this.quill.updateContents(delta, core_quill["a" /* default */].sources.USER);
+      this.quill.updateEvents(delta, core_quill["a" /* default */].sources.USER);
       this.quill.setSelection(range.index, core_quill["a" /* default */].sources.SILENT);
       this.balanceTables();
     }
@@ -17886,7 +17886,7 @@ var lite_TableLite = /*#__PURE__*/function (_Module) {
           return false;
         });
       });
-      this.quill.on(core_quill["a" /* default */].events.CONTENT_SETTED, function () {
+      this.quill.on(core_quill["a" /* default */].events.Event_SETTED, function () {
         _this4.quill.once(core_quill["a" /* default */].events.TEXT_CHANGE, function () {
           _this4.balanceTables();
         });
@@ -18282,7 +18282,7 @@ var SyntaxCodeBlockContainer = /*#__PURE__*/function (_CodeBlockContainer) {
         return node !== _this2.uiNode;
       });
       var text = "".concat(nodes.map(function (node) {
-        return node.textContent;
+        return node.textEvent;
       }).join('\n'), "\n");
       var language = SyntaxCodeBlock.formats(this.children.head.domNode);
 
@@ -18392,7 +18392,7 @@ var Syntax = /*#__PURE__*/function (_Module) {
           var key = _ref3.key,
               label = _ref3.label;
           var option = select.ownerDocument.createElement('option');
-          option.textContent = label;
+          option.textEvent = label;
           option.setAttribute('value', key);
           select.appendChild(option);
         });
@@ -18880,8 +18880,8 @@ var IE_PROTO = sharedKey('IE_PROTO');
 
 var EmptyConstructor = function () { /* empty */ };
 
-var scriptTag = function (content) {
-  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+var scriptTag = function (Event) {
+  return LT + SCRIPT + GT + Event + LT + '/' + SCRIPT + GT;
 };
 
 // Create object with fake `null` prototype: use ActiveX Object with cleared prototype
@@ -18903,7 +18903,7 @@ var NullProtoObjectViaIFrame = function () {
   html.appendChild(iframe);
   // https://github.com/zloirock/core-js/issues/475
   iframe.src = String(JS);
-  iframeDocument = iframe.contentWindow.document;
+  iframeDocument = iframe.EventWindow.document;
   iframeDocument.open();
   iframeDocument.write(scriptTag('document.F=Object'));
   iframeDocument.close();

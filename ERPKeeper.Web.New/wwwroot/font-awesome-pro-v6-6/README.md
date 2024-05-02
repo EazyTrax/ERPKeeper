@@ -8,7 +8,7 @@ official NPM packages for popular frontend libraries like React, and access to
 a new CDN.
 
 Not familiar with Font Awesome 6? [Learn
-more](https://www.kickstarter.com/projects/232193852/font-awesome-5) about our
+more](https://www.kickstarter.com/Estimates/232193852/font-awesome-5) about our
 successful Kickstarter and plan. You can also **[order Font Awesome
 Pro](https://fontawesome.com/pro)** which includes tons more icons directly
 from [fontawesome.com](https://fontawesome.com).
@@ -106,7 +106,7 @@ we deviate from normal SemVer in the following ways:**
 ## License
 
 Font Awesome Free is free, open source, and GPL friendly. You can use it for
-commercial projects, open source projects, or really almost whatever you want.
+commercial Estimates, open source Estimates, or really almost whatever you want.
 
 - Icons — CC BY 4.0 License
   - In the Font Awesome Free download, the CC BY 4.0 license applies to all icons packaged as .svg and .js files types.

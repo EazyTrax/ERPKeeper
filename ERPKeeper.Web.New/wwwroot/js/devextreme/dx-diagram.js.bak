@@ -4211,7 +4211,7 @@ var RenderUtils = (function () {
     RenderUtils.removeElement = function (element) {
         element && element.parentNode && element.parentNode.removeChild(element);
     };
-    RenderUtils.removeContent = function (element) {
+    RenderUtils.removeEvent = function (element) {
         while (element && element.firstChild)
             element.removeChild(element.firstChild);
     };
@@ -4933,7 +4933,7 @@ var SvgPrimitive = (function (_super) {
         var el = this.createMainElement();
         this.createChildElements(el);
         insertInDOM(el);
-        this.createCustomContent(el);
+        this.createCustomEvent(el);
         return el;
     };
     SvgPrimitive.prototype.createChildElements = function (parent) {
@@ -4965,9 +4965,9 @@ var SvgPrimitive = (function (_super) {
         if (this.style)
             Utils_1.RenderUtils.applyStyleToElement(this.style, element, reverseTextAnchor);
     };
-    SvgPrimitive.prototype.createCustomContent = function (parent) {
+    SvgPrimitive.prototype.createCustomEvent = function (parent) {
     };
-    SvgPrimitive.prototype.destroyCustomContent = function (parent) {
+    SvgPrimitive.prototype.destroyCustomEvent = function (parent) {
     };
     SvgPrimitive.prototype.dispose = function () {
         if (this.children)
@@ -5879,7 +5879,7 @@ var DomUtils = (function () {
     DomUtils.getVerticalScrollBarWidth = function () {
         if (DomUtils.verticalScrollBarWidth === undefined) {
             var container = document.createElement('DIV');
-            container.style.cssText = 'position: absolute; top: 0px; left: 0px; visibility: hidden; width: 200px; height: 150px; overflow: hidden; box-sizing: content-box';
+            container.style.cssText = 'position: absolute; top: 0px; left: 0px; visibility: hidden; width: 200px; height: 150px; overflow: hidden; box-sizing: Event-box';
             document.body.appendChild(container);
             var child = document.createElement('P');
             container.appendChild(child);
@@ -5925,7 +5925,7 @@ var DomUtils = (function () {
             return innerText;
         }
         else if (browser_1.Browser.NetscapeFamily || browser_1.Browser.WebKitFamily || (browser_1.Browser.IE && browser_1.Browser.Version >= 9) || browser_1.Browser.Edge)
-            return container.textContent;
+            return container.textEvent;
         else
             return container.innerText;
     };
@@ -6227,7 +6227,7 @@ exports.DiagramSettings = DiagramSettings;
 var AutoZoomMode;
 (function (AutoZoomMode) {
     AutoZoomMode[AutoZoomMode["Disabled"] = 0] = "Disabled";
-    AutoZoomMode[AutoZoomMode["FitContent"] = 1] = "FitContent";
+    AutoZoomMode[AutoZoomMode["FitEvent"] = 1] = "FitEvent";
     AutoZoomMode[AutoZoomMode["FitToWidth"] = 2] = "FitToWidth";
 })(AutoZoomMode = exports.AutoZoomMode || (exports.AutoZoomMode = {}));
 var ConnectorRoutingMode;
@@ -7939,8 +7939,8 @@ var ImageInfo = (function () {
         enumerable: false,
         configurable: true
     });
-    ImageInfo.prototype.loadBase64Content = function (base64Content) {
-        this.base64 = base64_1.Base64Utils.normalizeToDataUrl(base64Content, "image/png");
+    ImageInfo.prototype.loadBase64Event = function (base64Event) {
+        this.base64 = base64_1.Base64Utils.normalizeToDataUrl(base64Event, "image/png");
     };
     ImageInfo.prototype.setUnableToLoadFlag = function () {
         this.loadFailed = true;
@@ -9093,7 +9093,7 @@ var DiagramModel = (function () {
     DiagramModel.prototype.cacheShapeImage = function (shape) {
         var cacheImageInfo = ImageCache_1.ImageCache.instance.createUnloadedInfoByShapeImageInfo(shape.image);
         if (cacheImageInfo.isLoaded)
-            shape.image.loadBase64Content(cacheImageInfo.base64);
+            shape.image.loadBase64Event(cacheImageInfo.base64);
     };
     DiagramModel.prototype.loadAllImages = function (imageLoader) {
         ImageCache_1.ImageCache.instance.loadAllImages(imageLoader);
@@ -9337,27 +9337,27 @@ var TextPrimitive = (function (_super) {
     };
     TextPrimitive.prototype.createTSpanElements = function (element, measurer) {
         var _this = this;
-        Utils_1.RenderUtils.removeContent(element);
+        Utils_1.RenderUtils.removeEvent(element);
         this.textSegmens.forEach(function (txt, index) {
             if (!txt && _this.textSegmens.length > 1) {
                 var span = _this.createTSpanElement(element);
-                span.textContent = " ";
+                span.textEvent = " ";
             }
             else if (_this.fitToSize) {
                 var words_1 = TextUtils_1.textToWords(txt);
                 var lines = TextUtils_1.wordsByLines(unit_converter_1.UnitConverter.twipsToPixels(_this.fitToSize), words_1, function () { return measurer.measureWords(words_1, _this.style, _this.owner); });
                 lines.forEach(function (line) {
                     var span = _this.createTSpanElement(element);
-                    span.textContent = line;
+                    span.textEvent = line;
                 });
                 if (!lines.length) {
                     var span = _this.createTSpanElement(element);
-                    span.textContent = " ";
+                    span.textEvent = " ";
                 }
             }
             else {
                 var tSpan = _this.createTSpanElement(element);
-                tSpan.textContent = txt;
+                tSpan.textEvent = txt;
             }
         });
         var firstTSpan = element.firstChild;
@@ -10591,8 +10591,8 @@ var CanvasItemsManager = (function (_super) {
     CanvasItemsManager.prototype.clear = function () {
         this.primitives = {};
         this.selectorPrimitives = {};
-        Utils_1.RenderUtils.removeContent(this.itemSelectorsContainer);
-        Utils_1.RenderUtils.removeContent(this.itemsContainer);
+        Utils_1.RenderUtils.removeEvent(this.itemSelectorsContainer);
+        Utils_1.RenderUtils.removeEvent(this.itemsContainer);
         this.itemSelectorGroupContainers = {};
         this.itemSelectorElements = {};
         this.itemGroupContainers = {};
@@ -10717,8 +10717,8 @@ var CanvasItemsManager = (function (_super) {
                 }
                 break;
             case ModelChange_1.ItemChangeType.Remove:
-                this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(shape));
-                this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(shape));
+                this.removeItemCustomEvent(this.itemSelectorElements[key], this.getSelectorPrimitives(shape));
+                this.removeItemCustomEvent(this.itemElements[key], this.getPrimitives(shape));
                 this.invalidatePrimitives(shape);
                 this.removeItemElements(this.itemSelectorElements[key]);
                 delete this.itemSelectorElements[key];
@@ -10736,8 +10736,8 @@ var CanvasItemsManager = (function (_super) {
             case ModelChange_1.ItemChangeType.Update:
                 if (type !== ModelChange_1.ItemChangeType.Update) {
                     if (type === ModelChange_1.ItemChangeType.UpdateStructure) {
-                        this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(shape));
-                        this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(shape));
+                        this.removeItemCustomEvent(this.itemSelectorElements[key], this.getSelectorPrimitives(shape));
+                        this.removeItemCustomEvent(this.itemElements[key], this.getPrimitives(shape));
                     }
                     this.invalidatePrimitives(shape);
                 }
@@ -10777,8 +10777,8 @@ var CanvasItemsManager = (function (_super) {
                 this.itemElements[key] = this.createItemElements(key, this.getPrimitives(connector), itemParent, className, Event_1.MouseEventElementType.Connector);
                 break;
             case ModelChange_1.ItemChangeType.Remove:
-                this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(connector));
-                this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(connector));
+                this.removeItemCustomEvent(this.itemSelectorElements[key], this.getSelectorPrimitives(connector));
+                this.removeItemCustomEvent(this.itemElements[key], this.getPrimitives(connector));
                 this.invalidatePrimitives(connector);
                 this.removeItemElements(this.itemSelectorElements[key]);
                 delete this.itemSelectorElements[key];
@@ -10790,8 +10790,8 @@ var CanvasItemsManager = (function (_super) {
             case ModelChange_1.ItemChangeType.Update:
                 if (type !== ModelChange_1.ItemChangeType.Update) {
                     if (type === ModelChange_1.ItemChangeType.UpdateStructure) {
-                        this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(connector));
-                        this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(connector));
+                        this.removeItemCustomEvent(this.itemSelectorElements[key], this.getSelectorPrimitives(connector));
+                        this.removeItemCustomEvent(this.itemElements[key], this.getPrimitives(connector));
                     }
                     this.invalidatePrimitives(connector);
                 }
@@ -10816,7 +10816,7 @@ var CanvasItemsManager = (function (_super) {
     };
     CanvasItemsManager.prototype.changeItemElements = function (primitives, element, updateStructure) {
         if (updateStructure || primitives.length !== element.childNodes.length) {
-            Utils_1.RenderUtils.removeContent(element);
+            Utils_1.RenderUtils.removeEvent(element);
             this.createAndChangePrimitivesElements(primitives, element);
         }
         else
@@ -10830,10 +10830,10 @@ var CanvasItemsManager = (function (_super) {
         if (element && element.parentNode)
             element.parentNode.removeChild(element);
     };
-    CanvasItemsManager.prototype.removeItemCustomContent = function (element, primitives) {
+    CanvasItemsManager.prototype.removeItemCustomEvent = function (element, primitives) {
         if (element && primitives && primitives.length === element.childNodes.length)
             primitives.forEach(function (primitive, index) {
-                primitive.destroyCustomContent(element.childNodes[index]);
+                primitive.destroyCustomEvent(element.childNodes[index]);
             });
     };
     CanvasItemsManager.prototype.moveItemElements = function (parent, element, sibling) {
@@ -11071,7 +11071,7 @@ var TextMeasurer = (function () {
         var element = document.createElementNS(RenderHelper_1.svgNS, "text");
         if (text === " ")
             element.setAttributeNS("http://www.w3.org/XML/1998/namespace", "xml:space", "preserve");
-        element.textContent = text;
+        element.textEvent = text;
         style && Utils_1.RenderUtils.applyStyleToElement(style, element);
         return element;
     };
@@ -11960,7 +11960,7 @@ var DiagramCommand;
     DiagramCommand[DiagramCommand["Zoom125"] = 85] = "Zoom125";
     DiagramCommand[DiagramCommand["Zoom150"] = 86] = "Zoom150";
     DiagramCommand[DiagramCommand["Zoom200"] = 87] = "Zoom200";
-    DiagramCommand[DiagramCommand["AutoZoomToContent"] = 88] = "AutoZoomToContent";
+    DiagramCommand[DiagramCommand["AutoZoomToEvent"] = 88] = "AutoZoomToEvent";
     DiagramCommand[DiagramCommand["AutoZoomToWidth"] = 89] = "AutoZoomToWidth";
     DiagramCommand[DiagramCommand["ZoomLevelInPercentage"] = 90] = "ZoomLevelInPercentage";
     DiagramCommand[DiagramCommand["ConnectorRoutingMode"] = 91] = "ConnectorRoutingMode";
@@ -12062,7 +12062,7 @@ var CommandManager = (function () {
         this.createCommand(control, DiagramCommand.Zoom125, ChangeZoomLevelCommand_1.ChangeZoomLevelTo125Command);
         this.createCommand(control, DiagramCommand.Zoom150, ChangeZoomLevelCommand_1.ChangeZoomLevelTo150Command);
         this.createCommand(control, DiagramCommand.Zoom200, ChangeZoomLevelCommand_1.ChangeZoomLevelTo200Command);
-        this.createCommand(control, DiagramCommand.AutoZoomToContent, ChangeZoomLevelCommand_1.ToggleAutoZoomToContentCommand);
+        this.createCommand(control, DiagramCommand.AutoZoomToEvent, ChangeZoomLevelCommand_1.ToggleAutoZoomToEventCommand);
         this.createCommand(control, DiagramCommand.AutoZoomToWidth, ChangeZoomLevelCommand_1.ToggleAutoZoomToWidthCommand);
         this.createCommand(control, DiagramCommand.ConnectorRoutingMode, ChangeConnectorRoutingModeCommand_1.ChangeConnectorRoutingModeCommand);
     }
@@ -15587,7 +15587,7 @@ var CustomShapeDescription = (function (_super) {
         var isToolboxImage = cacheImageInfo.imageUrl && cacheImageInfo.imageUrl === this.properties.svgToolboxUrl;
         var svgImage = isToolboxImage ? this.svgToolboxImage : this.svgImage;
         if (cacheImageInfo.base64)
-            svgImage.loadBase64Content(cacheImageInfo.base64);
+            svgImage.loadBase64Event(cacheImageInfo.base64);
         else
             svgImage.setUnableToLoadFlag();
         if (!isToolboxImage)
@@ -18736,9 +18736,9 @@ var CanvasSelectionManager = (function (_super) {
         this.selectionMarksContainer = this.createAndChangePrimitiveElement(new GroupPrimitive_1.GroupPrimitive([], null), parent);
     };
     CanvasSelectionManager.prototype.clear = function () {
-        Utils_1.RenderUtils.removeContent(this.itemSelectionContainer);
-        Utils_1.RenderUtils.removeContent(this.selectionMarksContainer);
-        Utils_1.RenderUtils.removeContent(this.visualizersContainer);
+        Utils_1.RenderUtils.removeEvent(this.itemSelectionContainer);
+        Utils_1.RenderUtils.removeEvent(this.selectionMarksContainer);
+        Utils_1.RenderUtils.removeEvent(this.visualizersContainer);
         this.selectionRectElement = undefined;
         this.resizeInfoElement = undefined;
         this.connectionPointElements = [];
@@ -20940,16 +20940,16 @@ var FileUtils = (function () {
         headElem.appendChild(scriptElem);
         return { htmlScriptElement: scriptElem };
     };
-    FileUtils.startDownloadFileLocal = function (content, fileName) {
-        if (content instanceof ArrayBuffer)
-            content = base64_1.Base64Utils.fromArrayBuffer(content);
-        if (common_1.isString(content))
-            content = base64_1.Base64Utils.getFileFromBase64(content);
+    FileUtils.startDownloadFileLocal = function (Event, fileName) {
+        if (Event instanceof ArrayBuffer)
+            Event = base64_1.Base64Utils.fromArrayBuffer(Event);
+        if (common_1.isString(Event))
+            Event = base64_1.Base64Utils.getFileFromBase64(Event);
         if (window.navigator.msSaveOrOpenBlob)
-            window.navigator.msSaveOrOpenBlob(content, fileName);
+            window.navigator.msSaveOrOpenBlob(Event, fileName);
         else {
             var a_1 = document.createElement('a');
-            var url_1 = URL.createObjectURL(content);
+            var url_1 = URL.createObjectURL(Event);
             a_1.href = url_1;
             a_1.download = fileName;
             document.body.appendChild(a_1);
@@ -25424,14 +25424,14 @@ var RenderHelper_1 = __webpack_require__(15);
 var Primitive_1 = __webpack_require__(24);
 var SvgElementPrimitive = (function (_super) {
     __extends(SvgElementPrimitive, _super);
-    function SvgElementPrimitive(x, y, width, height, createContent, destroyContent, data, className, onApplyProperties) {
+    function SvgElementPrimitive(x, y, width, height, createEvent, destroyEvent, data, className, onApplyProperties) {
         var _this = _super.call(this, null, className, undefined, onApplyProperties) || this;
         _this.x = x;
         _this.y = y;
         _this.width = width;
         _this.height = height;
-        _this.createContent = createContent;
-        _this.destroyContent = destroyContent;
+        _this.createEvent = createEvent;
+        _this.destroyEvent = destroyEvent;
         _this.data = data;
         return _this;
     }
@@ -25446,13 +25446,13 @@ var SvgElementPrimitive = (function (_super) {
         this.setPositionCorrectionAttribute(element);
         _super.prototype.applyElementProperties.call(this, element, measurer);
     };
-    SvgElementPrimitive.prototype.createCustomContent = function (parent) {
-        if (this.createContent)
-            this.createContent(parent, this.data);
+    SvgElementPrimitive.prototype.createCustomEvent = function (parent) {
+        if (this.createEvent)
+            this.createEvent(parent, this.data);
     };
-    SvgElementPrimitive.prototype.destroyCustomContent = function (parent) {
-        if (this.destroyContent)
-            this.destroyContent(parent);
+    SvgElementPrimitive.prototype.destroyCustomEvent = function (parent) {
+        if (this.destroyEvent)
+            this.destroyEvent(parent);
     };
     return SvgElementPrimitive;
 }(Primitive_1.SvgPrimitive));
@@ -25724,10 +25724,10 @@ var RoundedRectanglePrimitive = (function (_super) {
         _this.ry = ry;
         return _this;
     }
-    RoundedRectanglePrimitive.prototype.createMainElement = function () {
+   roundedRectanglePrimitive.prototype.createMainElement = function () {
         return document.createElementNS(RenderHelper_1.svgNS, "rect");
     };
-    RoundedRectanglePrimitive.prototype.applyElementProperties = function (element, measurer) {
+   roundedRectanglePrimitive.prototype.applyElementProperties = function (element, measurer) {
         this.setUnitAttribute(element, "rx", this.rx);
         this.setUnitAttribute(element, "ry", this.ry);
         _super.prototype.applyElementProperties.call(this, element, measurer);
@@ -28162,7 +28162,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ToggleAutoZoomCommand = exports.ToggleAutoZoomToWidthCommand = exports.ToggleAutoZoomToContentCommand = exports.SwitchAutoZoomCommand = exports.FitToWidthCommand = exports.FitToScreenCommand = exports.ChangeZoomLevelItemsCommand = exports.ChangeZoomLevelTo200Command = exports.ChangeZoomLevelTo150Command = exports.ChangeZoomLevelTo125Command = exports.ChangeZoomLevelTo100Command = exports.ChangeZoomLevelTo75Command = exports.ChangeZoomLevelTo50Command = exports.ChangeZoomLevelTo25Command = exports.ChangeZoomLevelInPercentageCommand = exports.ChangeZoomLevelCommand = void 0;
+exports.ToggleAutoZoomCommand = exports.ToggleAutoZoomToWidthCommand = exports.ToggleAutoZoomToEventCommand = exports.SwitchAutoZoomCommand = exports.FitToWidthCommand = exports.FitToScreenCommand = exports.ChangeZoomLevelItemsCommand = exports.ChangeZoomLevelTo200Command = exports.ChangeZoomLevelTo150Command = exports.ChangeZoomLevelTo125Command = exports.ChangeZoomLevelTo100Command = exports.ChangeZoomLevelTo75Command = exports.ChangeZoomLevelTo50Command = exports.ChangeZoomLevelTo25Command = exports.ChangeZoomLevelInPercentageCommand = exports.ChangeZoomLevelCommand = void 0;
 var SimpleCommandBase_1 = __webpack_require__(10);
 var Settings_1 = __webpack_require__(28);
 var ChangeZoomLevelCommand = (function (_super) {
@@ -28335,7 +28335,7 @@ var FitToScreenCommand = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     FitToScreenCommand.prototype.getZoomLevel = function () {
-        return this.control.render.view.getActualAutoZoomLevel(Settings_1.AutoZoomMode.FitContent);
+        return this.control.render.view.getActualAutoZoomLevel(Settings_1.AutoZoomMode.FitEvent);
     };
     return FitToScreenCommand;
 }(FitZoomCommandBase));
@@ -28375,20 +28375,20 @@ var SwitchAutoZoomCommand = (function (_super) {
     return SwitchAutoZoomCommand;
 }(SimpleCommandBase_1.SimpleCommandBase));
 exports.SwitchAutoZoomCommand = SwitchAutoZoomCommand;
-var ToggleAutoZoomToContentCommand = (function (_super) {
-    __extends(ToggleAutoZoomToContentCommand, _super);
-    function ToggleAutoZoomToContentCommand() {
+var ToggleAutoZoomToEventCommand = (function (_super) {
+    __extends(ToggleAutoZoomToEventCommand, _super);
+    function ToggleAutoZoomToEventCommand() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ToggleAutoZoomToContentCommand.prototype.getValue = function () {
-        return this.control.settings.autoZoom === Settings_1.AutoZoomMode.FitContent;
+    ToggleAutoZoomToEventCommand.prototype.getValue = function () {
+        return this.control.settings.autoZoom === Settings_1.AutoZoomMode.FitEvent;
     };
-    ToggleAutoZoomToContentCommand.prototype.executeCore = function (state, value) {
-        return _super.prototype.executeCore.call(this, state, Settings_1.AutoZoomMode.FitContent);
+    ToggleAutoZoomToEventCommand.prototype.executeCore = function (state, value) {
+        return _super.prototype.executeCore.call(this, state, Settings_1.AutoZoomMode.FitEvent);
     };
-    return ToggleAutoZoomToContentCommand;
+    return ToggleAutoZoomToEventCommand;
 }(SwitchAutoZoomCommand));
-exports.ToggleAutoZoomToContentCommand = ToggleAutoZoomToContentCommand;
+exports.ToggleAutoZoomToEventCommand = ToggleAutoZoomToEventCommand;
 var ToggleAutoZoomToWidthCommand = (function (_super) {
     __extends(ToggleAutoZoomToWidthCommand, _super);
     function ToggleAutoZoomToWidthCommand() {
@@ -28420,9 +28420,9 @@ var ToggleAutoZoomCommand = (function (_super) {
     ToggleAutoZoomCommand.prototype.executeCore = function (state, value) {
         var newValue;
         if (value === undefined)
-            newValue = this.control.settings.autoZoom === Settings_1.AutoZoomMode.Disabled ? Settings_1.AutoZoomMode.FitContent : Settings_1.AutoZoomMode.Disabled;
+            newValue = this.control.settings.autoZoom === Settings_1.AutoZoomMode.Disabled ? Settings_1.AutoZoomMode.FitEvent : Settings_1.AutoZoomMode.Disabled;
         else
-            newValue = value ? Settings_1.AutoZoomMode.FitContent : Settings_1.AutoZoomMode.Disabled;
+            newValue = value ? Settings_1.AutoZoomMode.FitEvent : Settings_1.AutoZoomMode.Disabled;
         if (this.control.settings.autoZoom === newValue)
             return false;
         if (!newValue)
@@ -29281,9 +29281,9 @@ var XmlImporter = (function (_super) {
         var size = this.getSize(sizeAttr);
         if (size)
             shape.size = size;
-        var contentAttr = shapeObj.getAttribute("Content");
-        if (typeof contentAttr === "string")
-            shape.text = contentAttr;
+        var EventAttr = shapeObj.getAttribute("Event");
+        if (typeof EventAttr === "string")
+            shape.text = EventAttr;
         else {
             var headerAttr = shapeObj.getAttribute("Header");
             if (typeof headerAttr === "string")
@@ -29348,9 +29348,9 @@ var XmlImporter = (function (_super) {
             this.assert(beginItemAttr, "string");
         connector["endItemKey"] = endItemAttr;
         connector["beginItemKey"] = beginItemAttr;
-        var contentAttr = connectorObj.getAttribute("Content");
-        if (typeof contentAttr === "string")
-            connector.setText(contentAttr);
+        var EventAttr = connectorObj.getAttribute("Event");
+        if (typeof EventAttr === "string")
+            connector.setText(EventAttr);
         this.importStyle(connectorObj, connector);
         return connector;
     };
@@ -29824,16 +29824,16 @@ var ConnectorRoutingModel_1 = __webpack_require__(368);
 var TextMeasurer_1 = __webpack_require__(79);
 var Connector_1 = __webpack_require__(6);
 var DataLayoutParameters_1 = __webpack_require__(103);
-var ReloadContentParameters_1 = __webpack_require__(379);
+var ReloadEventParameters_1 = __webpack_require__(379);
 var Utils_2 = __webpack_require__(17);
 var _1 = __webpack_require__(58);
 var DiagramControl = (function () {
     function DiagramControl() {
         this.updateLockCount = 0;
         this.shouldUpdateItemsByModel = false;
-        this.reloadContentNeeded = false;
-        this.reloadContentParameters = new ReloadContentParameters_1.ReloadContentParameters();
-        this.reloadContentByExternalChangesParameters = new ReloadContentParameters_1.ReloadContentParameters();
+        this.reloadEventNeeded = false;
+        this.reloadEventParameters = new ReloadEventParameters_1.ReloadEventParameters();
+        this.reloadEventByExternalChangesParameters = new ReloadEventParameters_1.ReloadEventParameters();
         this.settings = new Settings_1.DiagramSettings();
         this.shapeDescriptionManager = new ShapeDescriptionManager_1.ShapeDescriptionManager();
         this.shapeDescriptionManager.onShapeDecriptionChanged.add(this);
@@ -30183,22 +30183,22 @@ var DiagramControl = (function () {
     };
     DiagramControl.prototype.reloadInsertedItem = function (dataKey) {
         if (this.settings.reloadInsertedItemRequired)
-            this.reloadContent(dataKey);
+            this.reloadEvent(dataKey);
     };
-    DiagramControl.prototype.reloadContent = function (dataKey, getData, layoutParameters, isExternalChanges) {
+    DiagramControl.prototype.reloadEvent = function (dataKey, getData, layoutParameters, isExternalChanges) {
         if (!this.documentDataSource)
             return;
         if (this.isChangesLocked())
-            this.reloadContentNeeded = true;
-        var addNewHistoryItem = isExternalChanges === true || (isExternalChanges === undefined && !this.reloadContentNeeded);
-        var reloadContentParameters = addNewHistoryItem ? this.reloadContentByExternalChangesParameters : this.reloadContentParameters;
-        reloadContentParameters.add(dataKey, getData, layoutParameters);
+            this.reloadEventNeeded = true;
+        var addNewHistoryItem = isExternalChanges === true || (isExternalChanges === undefined && !this.reloadEventNeeded);
+        var reloadEventParameters = addNewHistoryItem ? this.reloadEventByExternalChangesParameters : this.reloadEventParameters;
+        reloadEventParameters.add(dataKey, getData, layoutParameters);
         if (!this.isChangesLocked()) {
-            this.reloadContentCore(reloadContentParameters, addNewHistoryItem);
+            this.reloadEventCore(reloadEventParameters, addNewHistoryItem);
             this.barManager.updateItemsState();
         }
     };
-    DiagramControl.prototype.reloadContentCore = function (parameters, addNewHistoryItem) {
+    DiagramControl.prototype.reloadEventCore = function (parameters, addNewHistoryItem) {
         var _this = this;
         var data = parameters.getData && parameters.getData();
         var changes = this.documentDataSource.refetchData(data && data.nodeDataSource, data && data.edgeDataSource);
@@ -30348,14 +30348,14 @@ var DiagramControl = (function () {
                 this.changesLockChanged(true);
         this.updateLockCount++;
     };
-    DiagramControl.prototype.endChangesNotification = function (preventNotifyReloadContent) {
+    DiagramControl.prototype.endChangesNotification = function (preventNotifyReloadEvent) {
         var _this = this;
         this.updateLockCount--;
         if (!this.isChangesLocked()) {
             this.changesLockChanged(false);
-            if (!preventNotifyReloadContent)
+            if (!preventNotifyReloadEvent)
                 setTimeout(function () {
-                    _this.notifyReloadContent();
+                    _this.notifyReloadEvent();
                     _this.notifyDataChanges();
                 }, 0);
         }
@@ -30376,13 +30376,13 @@ var DiagramControl = (function () {
         }
         this.raiseOnChanged();
     };
-    DiagramControl.prototype.notifyReloadContent = function () {
-        if (this.reloadContentNeeded) {
-            if (!this.reloadContentParameters.empty)
-                this.reloadContentCore(this.reloadContentParameters, false);
-            if (!this.reloadContentByExternalChangesParameters.empty)
-                this.reloadContentCore(this.reloadContentByExternalChangesParameters, true);
-            this.reloadContentNeeded = false;
+    DiagramControl.prototype.notifyReloadEvent = function () {
+        if (this.reloadEventNeeded) {
+            if (!this.reloadEventParameters.empty)
+                this.reloadEventCore(this.reloadEventParameters, false);
+            if (!this.reloadEventByExternalChangesParameters.empty)
+                this.reloadEventCore(this.reloadEventByExternalChangesParameters, true);
+            this.reloadEventNeeded = false;
         }
     };
     DiagramControl.prototype.raiseOnChanged = function () {
@@ -30593,7 +30593,7 @@ var ModelManipulator = (function () {
         var shapes = this.model.findShapesByImageUrl(cacheImageInfo.imageUrl);
         shapes.forEach(function (shape) {
             if (cacheImageInfo.base64)
-                shape.image.loadBase64Content(cacheImageInfo.base64);
+                shape.image.loadBase64Event(cacheImageInfo.base64);
             else
                 shape.image.setUnableToLoadFlag();
         });
@@ -35530,7 +35530,7 @@ var CanvasViewManager = (function (_super) {
     };
     CanvasViewManager.prototype.adjustAfterDragEnd = function () {
         if (this.autoZoom && !this.autoZoomLocked)
-            this.adjust({ horizontal: true, vertical: this.autoZoom === Settings_1.AutoZoomMode.FitContent }, this.autoZoom === Settings_1.AutoZoomMode.FitToWidth);
+            this.adjust({ horizontal: true, vertical: this.autoZoom === Settings_1.AutoZoomMode.FitEvent }, this.autoZoom === Settings_1.AutoZoomMode.FitToWidth);
     };
     CanvasViewManager.prototype.notifyShowContextToolbox = function () {
         this.autoZoomLocked = true;
@@ -35588,7 +35588,7 @@ var CanvasViewManager = (function (_super) {
     CanvasViewManager.prototype.getActualAutoZoom = function (containerSize, scrollbarWidth, actualModelSizeWithoutZoom, autoZoom) {
         if (containerSize.width === 0 || containerSize.height === 0)
             return 1;
-        if (autoZoom === Settings_1.AutoZoomMode.FitContent)
+        if (autoZoom === Settings_1.AutoZoomMode.FitEvent)
             return Math.min((containerSize.width - exports.CANVAS_MIN_PADDING * 2) / actualModelSizeWithoutZoom.width, (containerSize.height - exports.CANVAS_MIN_PADDING * 2) / actualModelSizeWithoutZoom.height, 1);
         return Math.min((containerSize.width - exports.CANVAS_MIN_PADDING * 2 - scrollbarWidth) / actualModelSizeWithoutZoom.width, 1);
     };
@@ -37828,7 +37828,7 @@ var LOG_MAX_ZOOM = Math.log(3);
 var ZOOM_STEPS = 40;
 var ZERO_STEP = getStepByZoom(1);
 var ZOOMLEVEL_COMMANDS = [CommandManager_1.DiagramCommand.ZoomLevel, CommandManager_1.DiagramCommand.ZoomLevelInPercentage, CommandManager_1.DiagramCommand.Zoom100, CommandManager_1.DiagramCommand.Zoom125, CommandManager_1.DiagramCommand.Zoom200, CommandManager_1.DiagramCommand.Zoom25, CommandManager_1.DiagramCommand.Zoom50, CommandManager_1.DiagramCommand.Zoom75];
-var AUTOZOOM_COMMANDS = [CommandManager_1.DiagramCommand.SwitchAutoZoom, CommandManager_1.DiagramCommand.ToggleAutoZoom, CommandManager_1.DiagramCommand.AutoZoomToContent, CommandManager_1.DiagramCommand.AutoZoomToWidth];
+var AUTOZOOM_COMMANDS = [CommandManager_1.DiagramCommand.SwitchAutoZoom, CommandManager_1.DiagramCommand.ToggleAutoZoom, CommandManager_1.DiagramCommand.AutoZoomToEvent, CommandManager_1.DiagramCommand.AutoZoomToWidth];
 var ViewController = (function () {
     function ViewController(settings, bars) {
         this.settings = settings;
@@ -38008,7 +38008,7 @@ var TextToolbox = (function (_super) {
             var itemEl = document.createElement("div");
             itemEl.setAttribute("class", "toolbox-text-item");
             itemEl.setAttribute("data-tb-type", shapeType);
-            itemEl.textContent = description.getDefaultText() || description.getTitle();
+            itemEl.textEvent = description.getDefaultText() || description.getTitle();
             element.appendChild(itemEl);
         });
     };
@@ -38016,7 +38016,7 @@ var TextToolbox = (function (_super) {
         var element = document.createElement("DIV");
         element.setAttribute("class", "dxdi-toolbox-drag-text-item");
         var shapeDescription = this.shapeDescriptionManager.get(draggingObject.evt.data);
-        element.textContent = shapeDescription.getDefaultText() || shapeDescription.getTitle();
+        element.textEvent = shapeDescription.getDefaultText() || shapeDescription.getTitle();
         document.body.appendChild(element);
         return element;
     };
@@ -40706,12 +40706,12 @@ exports.AStarCalculator = AStarCalculator;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReloadContentParameters = void 0;
-var ReloadContentParameters = (function () {
-    function ReloadContentParameters() {
+exports.ReloadEventParameters = void 0;
+var ReloadEventParameters = (function () {
+    function ReloadEventParameters() {
         this.isEmpty = true;
     }
-    ReloadContentParameters.prototype.add = function (dataKey, getData, layoutParameters) {
+    ReloadEventParameters.prototype.add = function (dataKey, getData, layoutParameters) {
         if (dataKey !== undefined) {
             if (this._dataKeys === undefined)
                 this._dataKeys = [];
@@ -40724,35 +40724,35 @@ var ReloadContentParameters = (function () {
         this._layoutParameters = this._layoutParameters || layoutParameters;
         this.isEmpty = false;
     };
-    ReloadContentParameters.prototype.clear = function () {
+    ReloadEventParameters.prototype.clear = function () {
         this.isEmpty = true;
         this._dataKeys = undefined;
         this._getData = undefined;
         this._layoutParameters = undefined;
     };
-    Object.defineProperty(ReloadContentParameters.prototype, "empty", {
+    Object.defineProperty(ReloadEventParameters.prototype, "empty", {
         get: function () { return this.isEmpty; },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(ReloadContentParameters.prototype, "dataKeys", {
+    Object.defineProperty(ReloadEventParameters.prototype, "dataKeys", {
         get: function () { return this._dataKeys; },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(ReloadContentParameters.prototype, "getData", {
+    Object.defineProperty(ReloadEventParameters.prototype, "getData", {
         get: function () { return this._getData; },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(ReloadContentParameters.prototype, "layoutParameters", {
+    Object.defineProperty(ReloadEventParameters.prototype, "layoutParameters", {
         get: function () { return this._layoutParameters; },
         enumerable: false,
         configurable: true
     });
-    return ReloadContentParameters;
+    return ReloadEventParameters;
 }());
-exports.ReloadContentParameters = ReloadContentParameters;
+exports.ReloadEventParameters = ReloadEventParameters;
 
 
 /***/ }),

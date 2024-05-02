@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 {
+    [Route("/API/{CompanyId}/Profiles/Customers/Sales/{SaleId:Guid}/{controller}/{action=Index}")]
+
     public class ItemsController : _SaleBaseController
     {
 

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 {
-    [Route("/{CompanyId}/{area}/TaxCodes/{TaxCodeId:Guid}/{action=Index}/{id?}")]
+    [Route("/{CompanyId}/Taxes/TaxCodes/{TaxCodeId:Guid}/{action=Index}/{id?}")]
     public class TaxCodeController : Base_TaxesController
     {
         public IActionResult Index(Guid TaxCodeId)

@@ -2719,7 +2719,7 @@
         out("/" + keyValues[k].key + " " + keyValues[k].value);
       }
 
-      out(">");
+      out(">>");
 
       if (processedData.data.length !== 0) {
         out("stream");
@@ -2766,7 +2766,7 @@
         page: data
       });
       out("/Contents " + pageContentsObjId + " 0 R");
-      out(">");
+      out(">>");
       out("endobj"); // Page content
 
       var pageContent = data.join("\n");
@@ -2823,7 +2823,7 @@
 
       out(kids + "]");
       out("/Count " + page);
-      out(">");
+      out(">>");
       out("endobj");
       events.publish("postPutPages");
     };
@@ -2849,7 +2849,7 @@
 
         out("/FirstChar 32");
         out("/LastChar 255");
-        out(">");
+        out(">>");
         out("endobj");
       }
     };
@@ -3020,7 +3020,7 @@
 
       out("/Function " + funcObjectNumber + " 0 R");
       out("/Extend [true true]");
-      out(">");
+      out(">>");
       out("endobj");
     };
 
@@ -3114,7 +3114,7 @@
         }
       }
 
-      out(">");
+      out(">>");
       out("endobj");
     };
 
@@ -3139,7 +3139,7 @@
 
 
       events.publish("putXobjectDict");
-      out(">");
+      out(">>");
     };
 
     var putEncryptionDict = function putEncryptionDict() {
@@ -3151,7 +3151,7 @@
       out("/U <" + encryption.toHexString(encryption.U) + ">");
       out("/O <" + encryption.toHexString(encryption.O) + ">");
       out("/P " + encryption.P);
-      out(">");
+      out(">>");
       out("endobj");
     };
 
@@ -3166,7 +3166,7 @@
         }
       }
 
-      out(">");
+      out(">>");
     };
 
     var putShadingPatternDict = function putShadingPatternDict() {
@@ -3180,7 +3180,7 @@
         }
 
         events.publish("putShadingPatternDict");
-        out(">");
+        out(">>");
       }
     };
 
@@ -3196,7 +3196,7 @@
         }
 
         events.publish("putTilingPatternDict");
-        out(">");
+        out(">>");
       }
     };
 
@@ -3212,7 +3212,7 @@
         }
 
         events.publish("putGStateDict");
-        out(">");
+        out(">>");
       }
     };
 
@@ -3225,7 +3225,7 @@
       putTilingPatternDict(objectIds.objectOid);
       putGStatesDict();
       putXobjectDict();
-      out(">");
+      out(">>");
       out("endobj");
     };
 
@@ -3672,7 +3672,7 @@
       }
 
       out("/CreationDate (" + pdfEscape(encryptor(creationDate)) + ")");
-      out(">");
+      out(">>");
       out("endobj");
     };
 
@@ -3746,7 +3746,7 @@
       }
 
       events.publish("putCatalog");
-      out(">");
+      out(">>");
       out("endobj");
     };
 
@@ -3763,7 +3763,7 @@
       }
 
       out("/ID [ <" + fileId + "> <" + fileId + "> ]");
-      out(">");
+      out(">>");
     };
 
     var putHeader = API.__private__.putHeader = function () {
@@ -7166,7 +7166,7 @@
           var appearance = calculateAppearanceStream(fieldObject);
           keyValueList.push({
             key: "AP",
-            value: "<</N " + appearance + ">"
+            value: "<</N " + appearance + ">>"
           });
           scope.internal.acroformPlugin.xForms.push(appearance);
         } // Assume AppearanceStreamContent is a Array with N,R,D (at least
@@ -7213,14 +7213,14 @@
                 if (!(scope.internal.acroformPlugin.xForms.indexOf(obj) >= 0)) scope.internal.acroformPlugin.xForms.push(obj);
               }
 
-              appearanceStreamString += ">";
+              appearanceStreamString += ">>";
             }
           } // appearance stream is a normal Object..
 
 
           keyValueList.push({
             key: "AP",
-            value: "<<\n" + appearanceStreamString + ">"
+            value: "<<\n" + appearanceStreamString + ">>"
           });
         }
 
@@ -8674,7 +8674,7 @@
             result.push("/" + key + " (" + pdfEscape(encryptor(_MK[key])) + ")");
           }
 
-          result.push(">");
+          result.push(">>");
           return result.join("\n");
         }
 
@@ -8837,7 +8837,7 @@
           result.push("/" + key + " (" + pdfEscape(encryptor(_MK[key])) + ")");
         }
 
-        result.push(">");
+        result.push(">>");
         return result.join("\n");
       },
       set: function set(value) {
@@ -9736,7 +9736,7 @@
       if ("decodeParameters" in image && typeof image.decodeParameters !== "undefined") {
         additionalKeyValues.push({
           key: "DecodeParms",
-          value: "<<" + image.decodeParameters + ">"
+          value: "<<" + image.decodeParameters + ">>"
         });
       }
 
@@ -11173,7 +11173,7 @@
             this.internal.out("/S /Named");
             this.internal.out("/Type /Action");
             this.internal.out("/N /Print");
-            this.internal.out(">");
+            this.internal.out(">>");
             this.internal.out("endobj");
           });
           this.internal.events.subscribe("putCatalog", function () {
@@ -16721,13 +16721,13 @@
         jsNamesObj = this.internal.newObject();
         this.internal.out("<<");
         this.internal.out("/Names [(EmbeddedJS) " + (jsNamesObj + 1) + " 0 R]");
-        this.internal.out(">");
+        this.internal.out(">>");
         this.internal.out("endobj");
         jsJsObj = this.internal.newObject();
         this.internal.out("<<");
         this.internal.out("/S /JavaScript");
         this.internal.out("/JS (" + text + ")");
-        this.internal.out(">");
+        this.internal.out(">>");
         this.internal.out("endobj");
       });
       this.internal.events.subscribe("putCatalog", function () {
@@ -16821,7 +16821,7 @@
 
         namesOid = pdf.internal.newObject();
         pdf.internal.write("<< /Dests " + names2Oid + " 0 R");
-        pdf.internal.write(">", "endobj");
+        pdf.internal.write(">>", "endobj");
       }
     }]);
     jsPDFAPI.events.push(["putCatalog", function () {
@@ -16968,7 +16968,7 @@
       };
 
       pdf.outline.objEnd = function () {
-        this.ctx.val += "> \r\n" + "endobj" + "\r\n";
+        this.ctx.val += ">> \r\n" + "endobj" + "\r\n";
       };
 
       pdf.outline.count_r = function (ctx, node) {
@@ -25847,7 +25847,7 @@
         out("/Ascent " + font.metadata.ascender);
         out("/Descent " + font.metadata.decender);
         out("/CapHeight " + font.metadata.capHeight);
-        out(">");
+        out(">>");
         out("endobj");
         var DescendantFont = newObject();
         out("<<");
@@ -25863,8 +25863,8 @@
         out("/Supplement 0");
         out("/Registry (Adobe)");
         out("/Ordering (" + font.encoding + ")");
-        out(">");
-        out(">");
+        out(">>");
+        out(">>");
         out("endobj");
         font.objectNumber = newObject();
         out("<<");
@@ -25874,7 +25874,7 @@
         out("/BaseFont /" + toPDFName(font.fontName));
         out("/Encoding /" + font.encoding);
         out("/DescendantFonts [" + DescendantFont + " 0 R]");
-        out(">");
+        out(">>");
         out("endobj");
         font.isAlreadyPutted = true;
       }
@@ -25927,7 +25927,7 @@
         out("/FontName /" + toPDFName(font.fontName));
         out("/ItalicAngle " + font.metadata.italicAngle);
         out("/Ascent " + font.metadata.ascender);
-        out(">");
+        out(">>");
         out("endobj");
         font.objectNumber = newObject();
 
@@ -25935,7 +25935,7 @@
           font.metadata.hmtx.widths[j] = parseInt(font.metadata.hmtx.widths[j] * (1000 / font.metadata.head.unitsPerEm)); //Change the width of Em units to Point units.
         }
 
-        out("<</Subtype/TrueType/Type/Font/ToUnicode " + cmap + " 0 R/BaseFont/" + toPDFName(font.fontName) + "/FontDescriptor " + fontDescriptor + " 0 R" + "/Encoding/" + font.encoding + " /FirstChar 29 /LastChar 255 /Widths " + jsPDF.API.PDFObject.convert(font.metadata.hmtx.widths) + ">");
+        out("<</Subtype/TrueType/Type/Font/ToUnicode " + cmap + " 0 R/BaseFont/" + toPDFName(font.fontName) + "/FontDescriptor " + fontDescriptor + " 0 R" + "/Encoding/" + font.encoding + " /FirstChar 29 /LastChar 255 /Widths " + jsPDF.API.PDFObject.convert(font.metadata.hmtx.widths) + ">>");
         out("endobj");
         font.isAlreadyPutted = true;
       }
@@ -28799,7 +28799,7 @@
           out.push("/" + key + " " + PDFObject.convert(val));
         }
 
-        out.push(">");
+        out.push(">>");
         return out.join("\n");
       } else {
         return "" + object;

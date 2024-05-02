@@ -10,7 +10,7 @@
         <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
             <div class="col p-0">
                 <a href="/@CompanyId/Assets/@controller">
-                  <i class="fa-solid fa-l"></i>  @SharedLocalizer.GetLocalizedHtmlString(display)
+                    <i class="fa-solid fa-l"></i>  @SharedLocalizer.GetLocalizedHtmlString(display)
                 </a>
             </div>
             <div class="col-2 p-0 text-right">
@@ -21,12 +21,13 @@
 }
 
 
-
-<div class="bg-fb1 p-2">
-    <div class="font-weight-600 ">
+<div class="bg-fb1 border p-2 rounded">
+    <div>
         <a href="/@CompanyId/Assets">Assets</a>
     </div>
+</div>
 
+<div class="bg-fb1 border p-2 rounded">
     @{
         Template("Assets", "Assets");
         Template("Asset Types", "AssetTypes");

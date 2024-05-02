@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
@@ -13,8 +14,14 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Suppliers
+
+            var returnModel = Organization
+                .ErpCOREDBContext
+                .Suppliers
+                .Include(x => x.Profile)
                 .ToList();
+
+
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

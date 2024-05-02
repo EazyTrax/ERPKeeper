@@ -33,7 +33,7 @@
             .ShowDragIcons(false)*@
     )
     .Columns(columns => {
-    columns.AddFor(m=>m.Status).Width(60).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
+    columns.AddFor(m=>m.Status).Width(100).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
     .DisplayExpr("Text")
     .ValueExpr("Value")
@@ -45,7 +45,7 @@
     columns.AddFor(m=>m.Name)
     .SortOrder(SortOrder.Asc)
     .SortIndex(1)
-    .CellTemplate(@<text><a href="/Customers/Projects/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Projects/<%= data.Id %>/"><%= data.Name %></a></text>);
      
 
 
@@ -59,6 +59,12 @@
             columns.Add().DataField("TotalBalance").HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
             columns.Add().DataField("TotalSale").HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);*@
     //columns.Add().DataField("Id");
+
+    columns.AddFor(m=>m.StartDate).Width(120);
+    columns.AddFor(m=>m.EndDate).Width(120);
+
+
+
     })
     )
 </div>

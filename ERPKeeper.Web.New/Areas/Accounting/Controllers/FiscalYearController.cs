@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
-    [Route("/{CompanyId}/{area}/FiscalYears/{FiscalYearId:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Accounting/FiscalYears/{FiscalYearId:Guid}/{action=Index}")]
     public class FiscalYearController : AccountingBaseController
     {
         public Guid FiscalYearId => Guid.Parse(HttpContext.GetRouteData().Values["FiscalYearId"].ToString());

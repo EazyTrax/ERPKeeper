@@ -8,7 +8,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 {
-    [Route("/{CompanyId}/{area}/Customers/{customerUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Profiles/Customers/Customers/{customerUid:Guid}/{action=Index}")]
     public class CustomerController : _Profiles_Customers_Base_Controller
     {
         public IActionResult Index(Guid customerUid)

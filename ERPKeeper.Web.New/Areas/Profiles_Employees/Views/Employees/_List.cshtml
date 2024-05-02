@@ -1,85 +1,51 @@
-﻿<div id="treeListDemo" class="mb-3 border">
+﻿
+<div id="treeListDemo" class="mb-3 border">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.Employee>()
-    .ID("gridList")
-    .DataSource(d => d.RemoteController().Key("Id")
-    .LoadUrl($"/API/Profiles/Employees/Employees/All")
-    .InsertUrl($"/API/Profiles/Employees/Employees/Insert")
-    .UpdateUrl($"/API/Profiles/Employees/Employees/Update")
-    .UpdateMethod("Post")
-    .DeleteUrl($"/API/Profiles/Employees/Employees/Delete")
-    .DeleteMethod("Post")
-    )
-    .KeyExpr("Id")
-    .RowAlternationEnabled(true)
-    .ShowRowLines(true)
-    .ShowBorders(false)
-    .Width("100%")
-    .Paging(paging => paging.PageSize(100))
-    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
-    )
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Profiles/Employees/Employees/All"))
+            .KeyExpr("Id")
+            .RowAlternationEnabled(true)
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
 
-    //.SearchPanel(searchPanel => searchPanel.Visible(true))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true))
-    .FilterRow(filterRow => filterRow
-    .Visible(true)
-    .ApplyFilter(GridApplyFilterMode.Auto)
-    )
-    .ColumnAutoWidth(false)
-        @*.AutoExpandAll(true)*@
-    .RowDragging(rd => rd
-    .AllowDropInsideItem(false)
-    .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
-            .OnDragEnd("onDragEnd")
-            .ShowDragIcons(false)*@
-    )
-    .Columns(columns =>
-    {
-    columns.AddFor(m=>m.Status).Width(130).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employees.Enums.EmployeeStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
-    .DisplayExpr("Text")
-    .ValueExpr("Value")
-    );
+            .HeaderFilter(headerFilter => headerFilter.Visible(true))
+            .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+            .ColumnAutoWidth(false)
+            .Columns(columns =>
+            {
 
-         columns.AddFor(m=>m.ProfileId).Width(150)
-    .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber}))
+                columns.AddFor(m => m.ProfileId).Width(150)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .HeaderCellTemplate(@<text>TAX Id</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(@<text>TAX</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-    columns.AddFor(m=>m.ProfileId).Width(80)
-    .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName}))
+                columns.AddFor(m => m.ProfileId).Width(80)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .HeaderCellTemplate(@<text>Short</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(@<text>SN</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-        
-    columns.AddFor(m=>m.ProfileId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
+
+                columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(@<text>Employee</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-
-    columns.AddFor(m=>m.EmployeePositionId)
-    .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Id, Text = i.Title}))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .HeaderCellTemplate(@<text>TAX Id</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Positions/<%= data.PositionGuid %>/"><%= displayValue %></a></text>);
-  
-            
-            @* columns.AddFor(m=>m.TotalBalance).Width(130).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.SumSaleBalance).Width(130).HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);*@
-
-    })
-    )
+             
+            })
+        )
 </div>
+
+

@@ -96,7 +96,7 @@
 .dx-theme-generic-typography .dx-font-s,
 .dx-theme-generic-typography h4 {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-theme-generic-typography h5 {
   font-weight: 700;
@@ -1818,7 +1818,7 @@
 .dx-fieldset-header {
   margin: 0 0 10px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-field {
   margin: 0 0 5px;
@@ -1841,7 +1841,7 @@
 .dx-device-mobile .dx-fieldset-header {
   margin: 0 0 20px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-device-mobile .dx-field {
   margin: 0 0 10px;
@@ -11258,7 +11258,7 @@
   -webkit-touch-callout: none;
   color: #3cbab2;
   padding: 5px 7px;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-accordion-item-title .dx-icon {
   width: 14px;
@@ -11994,10 +11994,10 @@
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-title {
   border-bottom: none;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-title .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-content {
   padding: 0 20px 20px;
@@ -14024,10 +14024,10 @@
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-title {
   border-bottom: none;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-title .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-content {
   padding: 0 20px 20px;
@@ -14945,7 +14945,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -16556,7 +16556,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -17399,7 +17399,7 @@ input.dx-hidden {
 .dx-scheduler-overlay-panel .dx-tooltip-appointment-item .dx-tooltip-appointment-item-content .dx-tooltip-appointment-item-content-subject {
   text-align: left;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: .01em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -17598,7 +17598,7 @@ input.dx-hidden {
   white-space: nowrap;
   overflow: hidden;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-scheduler-agenda .dx-scheduler-appointment-content-details {
   display: -webkit-box;
@@ -19724,7 +19724,7 @@ input.dx-hidden {
   padding-right: 20px;
 }
 .dx-form-group-caption {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-field-item-help-text,
 .dx-field-item-label-text {

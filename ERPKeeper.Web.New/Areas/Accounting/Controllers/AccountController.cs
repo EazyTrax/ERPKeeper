@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
-    [Route("/{CompanyId}/{area}/Accounts/{AccountId:Guid}/{action=Index}/{id?}")]
+    [Route("/{CompanyId}/Accounting/Accounts/{AccountId:Guid}/{action=Index}/{id?}")]
     public class AccountController : AccountingBaseController
     {
         public Guid AccountId => Guid.Parse(HttpContext.GetRouteData().Values["AccountId"].ToString());

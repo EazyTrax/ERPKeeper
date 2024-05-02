@@ -860,7 +860,7 @@ var DomUtils = (function () {
     DomUtils.getVerticalScrollBarWidth = function () {
         if (DomUtils.verticalScrollBarWidth === undefined) {
             var container = document.createElement('DIV');
-            container.style.cssText = 'position: absolute; top: 0px; left: 0px; visibility: hidden; width: 200px; height: 150px; overflow: hidden; box-sizing: content-box';
+            container.style.cssText = 'position: absolute; top: 0px; left: 0px; visibility: hidden; width: 200px; height: 150px; overflow: hidden; box-sizing: Event-box';
             document.body.appendChild(container);
             var child = document.createElement('P');
             container.appendChild(child);
@@ -906,7 +906,7 @@ var DomUtils = (function () {
             return innerText;
         }
         else if (browser_1.Browser.NetscapeFamily || browser_1.Browser.WebKitFamily || (browser_1.Browser.IE && browser_1.Browser.Version >= 9) || browser_1.Browser.Edge)
-            return container.textContent;
+            return container.textEvent;
         else
             return container.innerText;
     };
@@ -4949,16 +4949,16 @@ exports.CellDef = void 0;
 var common_1 = __webpack_require__(1);
 var StyleDef_1 = __webpack_require__(26);
 var CellDef = (function () {
-    function CellDef(content, colSpan, styles) {
-        this.content = "";
-        if (typeof content === "string") {
-            this.content = content;
+    function CellDef(Event, colSpan, styles) {
+        this.Event = "";
+        if (typeof Event === "string") {
+            this.Event = Event;
             this.colSpan = colSpan;
             if (styles)
                 this.appendStyles(styles);
         }
-        else if (content)
-            this.assign(content);
+        else if (Event)
+            this.assign(Event);
     }
     Object.defineProperty(CellDef.prototype, "styles", {
         get: function () {
@@ -4970,8 +4970,8 @@ var CellDef = (function () {
         configurable: true
     });
     CellDef.prototype.assign = function (source) {
-        if ((0, common_1.isDefined)(source["content"]))
-            this.content = source["content"];
+        if ((0, common_1.isDefined)(source["Event"]))
+            this.Event = source["Event"];
         if ((0, common_1.isDefined)(source["colSpan"]))
             this.colSpan = source["colSpan"];
         if (source["styles"])
@@ -4984,7 +4984,7 @@ var CellDef = (function () {
     CellDef.prototype.hasValue = function () { return true; };
     CellDef.prototype.getValue = function () {
         var result = {};
-        result["content"] = this.content;
+        result["Event"] = this.Event;
         if (this.colSpan > 1)
             result["colSpan"] = this.colSpan;
         if (this._styles)
@@ -5110,9 +5110,9 @@ var TaskEditController = (function () {
             var _this = this;
             var tooltipSettings = TooltipSettings_1.TooltipSettings.parse({
                 getHeaderHeight: this.settings.getRenderHelper().header.clientHeight,
-                getTaskProgressTooltipContentTemplate: this.ganttSettings.taskProgressTooltipContentTemplate,
-                getTaskTimeTooltipContentTemplate: this.ganttSettings.taskTimeTooltipContentTemplate,
-                getTaskTooltipContentTemplate: this.ganttSettings.taskTooltipContentTemplate,
+                getTaskProgressTooltipEventTemplate: this.ganttSettings.taskProgressTooltipEventTemplate,
+                getTaskTimeTooltipEventTemplate: this.ganttSettings.taskTimeTooltipEventTemplate,
+                getTaskTooltipEventTemplate: this.ganttSettings.taskTooltipEventTemplate,
                 destroyTemplate: function (container) { _this.settings.destroyTemplate(container); },
                 formatDate: function (date) { return _this.settings.formatDate(date); }
             });
@@ -6215,17 +6215,17 @@ var GanttView = (function () {
             _this.updateBarManager();
         };
     };
-    GanttView.prototype.setTaskTooltipContentTemplate = function (taskTooltipContentTemplate) {
-        this.settings.taskTooltipContentTemplate = taskTooltipContentTemplate;
+    GanttView.prototype.setTaskTooltipEventTemplate = function (taskTooltipEventTemplate) {
+        this.settings.taskTooltipEventTemplate = taskTooltipEventTemplate;
     };
-    GanttView.prototype.setTaskProgressTooltipContentTemplate = function (taskProgressTooltipContentTemplate) {
-        this.settings.taskProgressTooltipContentTemplate = taskProgressTooltipContentTemplate;
+    GanttView.prototype.setTaskProgressTooltipEventTemplate = function (taskProgressTooltipEventTemplate) {
+        this.settings.taskProgressTooltipEventTemplate = taskProgressTooltipEventTemplate;
     };
-    GanttView.prototype.setTaskTimeTooltipContentTemplate = function (taskTimeTooltipContentTemplate) {
-        this.settings.taskTimeTooltipContentTemplate = taskTimeTooltipContentTemplate;
+    GanttView.prototype.setTaskTimeTooltipEventTemplate = function (taskTimeTooltipEventTemplate) {
+        this.settings.taskTimeTooltipEventTemplate = taskTimeTooltipEventTemplate;
     };
-    GanttView.prototype.setTaskContentTemplate = function (taskContentTemplate) {
-        this.settings.taskContentTemplate = taskContentTemplate;
+    GanttView.prototype.setTaskEventTemplate = function (taskEventTemplate) {
+        this.settings.taskEventTemplate = taskEventTemplate;
     };
     GanttView.prototype.updateBarManager = function () {
         this.barManager.updateItemsState([]);
@@ -7335,12 +7335,12 @@ var TooltipSettings = (function () {
         if (settings) {
             if ((0, common_1.isDefined)(settings.getHeaderHeight))
                 result.getHeaderHeight = settings.getHeaderHeight;
-            if ((0, common_1.isDefined)(settings.getTaskTooltipContentTemplate))
-                result.getTaskTooltipContentTemplate = settings.getTaskTooltipContentTemplate;
-            if ((0, common_1.isDefined)(settings.getTaskProgressTooltipContentTemplate))
-                result.getTaskProgressTooltipContentTemplate = settings.getTaskProgressTooltipContentTemplate;
-            if ((0, common_1.isDefined)(settings.getTaskTimeTooltipContentTemplate))
-                result.getTaskTimeTooltipContentTemplate = settings.getTaskTimeTooltipContentTemplate;
+            if ((0, common_1.isDefined)(settings.getTaskTooltipEventTemplate))
+                result.getTaskTooltipEventTemplate = settings.getTaskTooltipEventTemplate;
+            if ((0, common_1.isDefined)(settings.getTaskProgressTooltipEventTemplate))
+                result.getTaskProgressTooltipEventTemplate = settings.getTaskProgressTooltipEventTemplate;
+            if ((0, common_1.isDefined)(settings.getTaskTimeTooltipEventTemplate))
+                result.getTaskTimeTooltipEventTemplate = settings.getTaskTimeTooltipEventTemplate;
             if ((0, common_1.isDefined)(settings.destroyTemplate))
                 result.destroyTemplate = settings.destroyTemplate;
             if ((0, common_1.isDefined)(settings.formatDate))
@@ -11543,7 +11543,7 @@ var GanttExportCalculator = (function () {
                 var resource = resources[i];
                 var style = getComputedStyle(resource);
                 left += this.getMargin(style).left;
-                result.push(new TaskResourcesInfo_1.PdfTaskResourcesInfo(resource.textContent, new StyleDef_1.StyleDef(style), left, top_1));
+                result.push(new TaskResourcesInfo_1.PdfTaskResourcesInfo(resource.textEvent, new StyleDef_1.StyleDef(style), left, top_1));
                 left += dom_1.DomUtils.pxToInt(style.width);
             }
         }
@@ -12636,7 +12636,7 @@ var TaskAreaExportHelper = (function () {
     };
     Object.defineProperty(TaskAreaExportHelper.prototype, "isTaskTemplateMode", {
         get: function () {
-            return !!this._owner.settings.taskContentTemplate;
+            return !!this._owner.settings.taskEventTemplate;
         },
         enumerable: false,
         configurable: true
@@ -13124,14 +13124,14 @@ var PdfGanttPaginator = (function () {
         if (hInfo.isCutted) {
             var width = hInfo.cutSize;
             if (!cancelTextCut) {
-                var text = cell.content;
+                var text = cell.Event;
                 var style = originCell.styles;
                 var leftPadding = style && style.cellPadding.left || 0;
                 var rightPadding = style && style.cellPadding.right || 0;
                 var textWidth = width - leftPadding - rightPadding;
                 var parts = this._pdfDoc.splitTextToSize(text, textWidth);
-                originCell.content = text.replace(parts[0], "");
-                cell.content = parts[0];
+                originCell.Event = text.replace(parts[0], "");
+                cell.Event = parts[0];
             }
             cell.styles.cellWidth.assign(width);
         }
@@ -14630,7 +14630,7 @@ var PdfGanttPageDrawer = (function () {
     PdfGanttPageDrawer.prototype.needDrawTreeList = function () {
         return !this._props || this._props.exportMode === Enums_1.ExportMode.all || this._props.exportMode === Enums_1.ExportMode.treeList;
     };
-    PdfGanttPageDrawer.prototype.getContentRightBottom = function (info) {
+    PdfGanttPageDrawer.prototype.getEventRightBottom = function (info) {
         var p = new point_1.Point(0, 0);
         for (var key in info.tables)
             if (Object.prototype.hasOwnProperty.call(info.tables, key)) {
@@ -14645,7 +14645,7 @@ var PdfGanttPageDrawer = (function () {
         var props = this._props;
         var docWidth = pdfDoc.getPageWidth();
         var docHeight = pdfDoc.getPageHeight();
-        var p = this.getContentRightBottom(info);
+        var p = this.getEventRightBottom(info);
         pdfDoc.setFillColor(255, 255, 255);
         pdfDoc.rect(0, 0, props.margins.left, docHeight, "F");
         pdfDoc.rect(0, 0, docWidth, props.margins.top, "F");
@@ -14931,7 +14931,7 @@ var PdfGanttTableDrawer = (function () {
                     var leftPadding = (_b = styles === null || styles === void 0 ? void 0 : styles.cellPadding.left) !== null && _b !== void 0 ? _b : 0;
                     var rightPadding = (_c = styles === null || styles === void 0 ? void 0 : styles.cellPadding.right) !== null && _c !== void 0 ? _c : 0;
                     var textWidth = Math.max(width - leftPadding - rightPadding - PdfGanttTableDrawer.cellEllipsisSpace, 0);
-                    cell.content = Ellipsis_1.EllipsisHelper.limitPdfTextWithEllipsis(cell.content, this._pdfDoc, textWidth);
+                    cell.Event = Ellipsis_1.EllipsisHelper.limitPdfTextWithEllipsis(cell.Event, this._pdfDoc, textWidth);
                 }
             }
         }
@@ -15633,7 +15633,7 @@ var RenderHelper = (function () {
         return this._taskRender.getSmallTaskWidth(etalonPaddingLeft);
     };
     RenderHelper.prototype.createTaskElement = function (index) {
-        this._taskRender.createTaskElement(index, this._ganttView.settings.taskContentTemplate);
+        this._taskRender.createTaskElement(index, this._ganttView.settings.taskEventTemplate);
     };
     RenderHelper.prototype.removeTaskElement = function (index) {
         this._taskRender.removeTaskElement(index);
@@ -17069,23 +17069,23 @@ var TaskEditTooltip = (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(TaskEditTooltip.prototype, "taskTooltipContentTemplate", {
+    Object.defineProperty(TaskEditTooltip.prototype, "taskTooltipEventTemplate", {
         get: function () {
-            return this.tooltipSettings.getTaskTooltipContentTemplate;
+            return this.tooltipSettings.getTaskTooltipEventTemplate;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(TaskEditTooltip.prototype, "taskProgressTooltipContentTemplate", {
+    Object.defineProperty(TaskEditTooltip.prototype, "taskProgressTooltipEventTemplate", {
         get: function () {
-            return this.tooltipSettings.getTaskProgressTooltipContentTemplate;
+            return this.tooltipSettings.getTaskProgressTooltipEventTemplate;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(TaskEditTooltip.prototype, "taskTimeTooltipContentTemplate", {
+    Object.defineProperty(TaskEditTooltip.prototype, "taskTimeTooltipEventTemplate", {
         get: function () {
-            return this.tooltipSettings.getTaskTimeTooltipContentTemplate;
+            return this.tooltipSettings.getTaskTimeTooltipEventTemplate;
         },
         enumerable: false,
         configurable: true
@@ -17110,7 +17110,7 @@ var TaskEditTooltip = (function () {
         titleWrapper.appendChild(title);
         this.defaultTooltip.appendChild(titleWrapper);
         title.innerText = task.title;
-        this.defaultTooltip.appendChild(this.getTimeContent(task.start, task.end));
+        this.defaultTooltip.appendChild(this.getTimeEvent(task.start, task.end));
         if (!isNaN(task.progress)) {
             var progressElement = document.createElement("DIV");
             progressElement.className = TaskEditTooltip.CLASSNAMES.TASK_EDIT_PROGRESS_STATUS_TIME;
@@ -17133,13 +17133,13 @@ var TaskEditTooltip = (function () {
     TaskEditTooltip.prototype.setDefaultTimeTooltip = function (start, end) {
         this.defaultTooltip = document.createElement("DIV");
         this.defaultTooltip.className = TaskEditTooltip.CLASSNAMES.TASK_EDIT_TOOLTIP_DEFAULT;
-        this.defaultTooltip.appendChild(this.getTimeContent(start, end));
+        this.defaultTooltip.appendChild(this.getTimeEvent(start, end));
         this.baseElement.appendChild(this.defaultTooltip);
     };
     TaskEditTooltip.prototype.showInfo = function (task, posX, delay) {
         var _this = this;
         if (delay === void 0) { delay = 0; }
-        var tooltipTemplateFunction = this.taskTooltipContentTemplate;
+        var tooltipTemplateFunction = this.taskTooltipEventTemplate;
         this.destroyTemplate(this.baseElement);
         if (tooltipTemplateFunction)
             tooltipTemplateFunction(this.baseElement, task, function () { _this.showTooltip(posX, false, delay); });
@@ -17150,7 +17150,7 @@ var TaskEditTooltip = (function () {
     };
     TaskEditTooltip.prototype.showProgress = function (progress, posX) {
         var _this = this;
-        var tooltipTemplateFunction = this.taskProgressTooltipContentTemplate;
+        var tooltipTemplateFunction = this.taskProgressTooltipEventTemplate;
         this.destroyTemplate(this.baseElement);
         if (tooltipTemplateFunction)
             tooltipTemplateFunction(this.baseElement, { progress: progress }, function () { _this.showTooltip(posX); });
@@ -17161,7 +17161,7 @@ var TaskEditTooltip = (function () {
     };
     TaskEditTooltip.prototype.showTime = function (start, end, posX) {
         var _this = this;
-        var tooltipTemplateFunction = this.taskTimeTooltipContentTemplate;
+        var tooltipTemplateFunction = this.taskTimeTooltipEventTemplate;
         this.destroyTemplate(this.baseElement);
         if (tooltipTemplateFunction)
             tooltipTemplateFunction(this.baseElement, { start: start, end: end }, function () { _this.showTooltip(posX); });
@@ -17221,7 +17221,7 @@ var TaskEditTooltip = (function () {
         this.destroyTemplate(this.baseElement);
         clearTimeout(this.timerId);
     };
-    TaskEditTooltip.prototype.getTimeContent = function (start, end) {
+    TaskEditTooltip.prototype.getTimeEvent = function (start, end) {
         var timeElement = document.createElement("TABLE");
         timeElement.className = TaskEditTooltip.CLASSNAMES.TASK_EDIT_PROGRESS_STATUS_TIME;
         var body = document.createElement("TBODY");
@@ -18869,14 +18869,14 @@ var Settings = (function () {
                 result.stripLines = StripLineSettings_1.StripLineSettings.parse(settings.stripLines);
             if ((0, common_1.isDefined)(settings.viewTypeRange))
                 result.viewTypeRange = ViewTypeRange_1.ViewTypeRangeSettings.parse(settings.viewTypeRange);
-            if ((0, common_1.isDefined)(settings.taskTooltipContentTemplate))
-                result.taskTooltipContentTemplate = settings.taskTooltipContentTemplate;
-            if ((0, common_1.isDefined)(settings.taskProgressTooltipContentTemplate))
-                result.taskProgressTooltipContentTemplate = settings.taskProgressTooltipContentTemplate;
-            if ((0, common_1.isDefined)(settings.taskTimeTooltipContentTemplate))
-                result.taskTimeTooltipContentTemplate = settings.taskTimeTooltipContentTemplate;
-            if ((0, common_1.isDefined)(settings.taskContentTemplate))
-                result.taskContentTemplate = settings.taskContentTemplate;
+            if ((0, common_1.isDefined)(settings.taskTooltipEventTemplate))
+                result.taskTooltipEventTemplate = settings.taskTooltipEventTemplate;
+            if ((0, common_1.isDefined)(settings.taskProgressTooltipEventTemplate))
+                result.taskProgressTooltipEventTemplate = settings.taskProgressTooltipEventTemplate;
+            if ((0, common_1.isDefined)(settings.taskTimeTooltipEventTemplate))
+                result.taskTimeTooltipEventTemplate = settings.taskTimeTooltipEventTemplate;
+            if ((0, common_1.isDefined)(settings.taskEventTemplate))
+                result.taskEventTemplate = settings.taskEventTemplate;
             if ((0, common_1.isDefined)(settings.cultureInfo))
                 result.cultureInfo = settings.cultureInfo;
         }

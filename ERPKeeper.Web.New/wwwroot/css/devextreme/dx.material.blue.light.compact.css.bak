@@ -121,7 +121,7 @@
 }
 .dx-theme-material-typography h5 {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-theme-material-typography h6 {
   font-weight: 500;
@@ -135,7 +135,7 @@
   font-size: 20px;
 }
 .dx-theme-material-typography .dx-font-m {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-theme-material-typography .dx-font-s {
   font-size: 14px;
@@ -7751,7 +7751,7 @@
   background-position: 2px 2px;
   background-size: 16px 16px;
   padding: 2px 5.5px 2px 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -7781,7 +7781,7 @@
   background-position: 8px 8px;
   background-size: 16px 16px;
   padding: 8px 5.5px 8px 11px;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -11203,7 +11203,7 @@
   padding: 0;
 }
 .dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-device-mobile .dx-toolbar {
@@ -11692,7 +11692,7 @@
   padding: 0;
 }
 .dx-popup-title.dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-popup-title.dx-toolbar .dx-button.dx-closebutton {
@@ -11755,7 +11755,7 @@
   padding: 0;
 }
 .dx-popup-bottom.dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-device-mobile .dx-popup-bottom.dx-toolbar {
@@ -11804,7 +11804,7 @@
   padding: 0;
 }
 .dx-device-mobile .dx-popup-bottom.dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-popup-content.dx-dialog-content {
@@ -11860,7 +11860,7 @@
   padding: 0;
 }
 .dx-rtl .dx-popup-title.dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-rtl .dx-popup-bottom.dx-toolbar {
@@ -11909,7 +11909,7 @@
   padding: 0;
 }
 .dx-rtl .dx-popup-bottom.dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-device-mobile .dx-rtl .dx-popup-bottom.dx-toolbar {
@@ -11958,7 +11958,7 @@
   padding: 0;
 }
 .dx-device-mobile .dx-rtl .dx-popup-bottom.dx-toolbar .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .dx-dropdownbutton {
@@ -14599,7 +14599,7 @@
   cursor: grabbing;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-title {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-content {
   padding: 0 20px 20px;
@@ -15903,7 +15903,7 @@
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
   margin: 0 2px;
@@ -16071,7 +16071,7 @@
   border-bottom: 1px solid #e0e0e0;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-title .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-content .dx-column-chooser-item {
   margin: 2px 2px 8px;
@@ -16899,7 +16899,7 @@
   cursor: pointer;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-title {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-content {
   padding: 0 20px 20px;
@@ -17807,7 +17807,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -18217,7 +18217,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
   margin: 0 2px;
@@ -18448,7 +18448,7 @@ input.dx-hidden {
   border-bottom: 1px solid #e0e0e0;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-title .dx-toolbar-label {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-content .dx-column-chooser-item {
   margin: 2px 2px 8px;
@@ -19746,7 +19746,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -20716,7 +20716,7 @@ input.dx-hidden {
 .dx-scheduler-overlay-panel .dx-tooltip-appointment-item .dx-tooltip-appointment-item-content .dx-tooltip-appointment-item-content-subject {
   text-align: left;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: .01em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21056,7 +21056,7 @@ input.dx-hidden {
   height: 50px;
   vertical-align: top;
   text-align: right;
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(0,0,0,.54);
 }
 .dx-scheduler-work-space-month .dx-scheduler-date-table-cell .dx-scheduler-date-table-cell-text {
@@ -22959,7 +22959,7 @@ input.dx-hidden {
 }
 .dx-scheduler-header-panel,
 .dx-scheduler-time-panel {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-scheduler-work-space-grouped:not(.dx-scheduler-agenda) .dx-scheduler-group-row th,
 .dx-scheduler-work-space.dx-scheduler-work-space-grouped:not(.dx-scheduler-work-space-vertical-grouped):not(.dx-scheduler-timeline) .dx-scheduler-last-group-cell {
@@ -23078,7 +23078,7 @@ input.dx-hidden {
   box-shadow: inset 0 -1px 0 0 #bfbfbf;
 }
 .dx-scheduler-agenda-nodata {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-popup-content .dx-scheduler-dropdown-appointment-buttons-block .dx-button {
   min-width: auto;
@@ -23312,7 +23312,7 @@ input.dx-hidden {
   padding-right: 20px;
 }
 .dx-form-group-caption {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-form-group-with-caption > .dx-form-group-content {
   border-top: 1px solid #e0e0e0;

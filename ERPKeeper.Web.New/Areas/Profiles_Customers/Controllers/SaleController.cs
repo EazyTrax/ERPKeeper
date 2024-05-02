@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 {
 
-    [Route("/{CompanyId}/{area}/Sales/{TransactionId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Profiles/Customers/Sales/{TransactionId:Guid}/{action=index}")]
     public class SaleController : _Profiles_Customers_Base_Controller
     {
         public Guid TransactionId => Guid.Parse(RouteData.Values["TransactionId"].ToString());

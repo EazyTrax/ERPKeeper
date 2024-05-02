@@ -8,7 +8,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
-using ERPKeeperCore.Enterprise.Models.Equity;
+using ERPKeeperCore.Enterprise.Models.Investors;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {

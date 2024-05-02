@@ -27,14 +27,7 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
     .ColumnAutoWidth(false)
-        @*.AutoExpandAll(true)*@
-    .RowDragging(rd => rd
-    .AllowDropInsideItem(false)
-    .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
-            .OnDragEnd("onDragEnd")
-            .ShowDragIcons(false)*@
-    )
+   
     .Columns(columns => {
 
 
@@ -48,7 +41,7 @@
     .ValueExpr("Value")
     );
 
-    columns.Add().DataField("Name").Width(130)
+    columns.AddFor(m=>m.Name).Width(130)
     .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
@@ -64,7 +57,12 @@
     columns.Add().DataField("LinesTotal").Width(130).Format(Format.FixedPoint);
     columns.Add().DataField("Total").Width(130).Format(Format.FixedPoint);
     columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
-    })
+   
+
+
+
+
+})
     )
 </div>
 

@@ -114,7 +114,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
 
         public DbSet<Models.PaymentTerm> PaymentTerms { get; set; }
-        public DbSet<Models.Equity.Investor> Investors { get; set; }
+        public DbSet<Models.Investors.Investor> Investors { get; set; }
 
         public DbSet<Purchase> Purchases { get; set; }
 

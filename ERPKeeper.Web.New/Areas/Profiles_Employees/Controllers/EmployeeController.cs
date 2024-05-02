@@ -8,7 +8,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Profiles_Employees.Controllers
 {
-    [Route("/{CompanyId}/{area}/Employees/{EmployeeUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Profiles/Employees/Employees/{EmployeeUid:Guid}/{action=Index}")]
     public class EmployeeController : _Profiles_Employees_Base_Controller
     {
 

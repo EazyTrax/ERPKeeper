@@ -11,7 +11,7 @@ using System.Globalization;
 using System.Linq;
 
 
-namespace ERPKeeperCore.Enterprise.Models.Equity
+namespace ERPKeeperCore.Enterprise.Models.Investors
 {
     public partial class Investor
     {

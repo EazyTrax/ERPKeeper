@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
-    [Route("/{CompanyId}/{area}/JournalEntries/{JournalEntryId:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Accounting/JournalEntries/{JournalEntryId:Guid}/{action=Index}")]
     public class JournalEntryController : AccountingBaseController
     {
         public Guid JournalEntryId => Guid.Parse(HttpContext.GetRouteData().Values["JournalEntryId"].ToString());

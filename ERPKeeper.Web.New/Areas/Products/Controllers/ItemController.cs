@@ -9,7 +9,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
-    [Route("/{CompanyId}/{area}/Items/{ItemUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Products/Items/{ItemUid:Guid}/{action=Index}")]
     public class ItemController : Base_ProductsController
     {
         public Guid ItemUid => Guid.Parse(RouteData.Values["ItemUid"].ToString());

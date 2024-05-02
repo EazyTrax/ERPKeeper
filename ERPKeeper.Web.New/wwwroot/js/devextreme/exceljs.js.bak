@@ -46089,7 +46089,7 @@ EdwardsCurve.prototype.validate = function validate(point) {
 };
 
 function Point(curve, x, y, z, t) {
-  Base.BasePoint.call(this, curve, 'projective');
+  Base.BasePoint.call(this, curve, 'estimateive');
 
   if (x === null && y === null && z === null) {
     this.x = this.curve.zero;
@@ -46173,7 +46173,7 @@ Point.prototype._extDbl = function _extDbl() {
 };
 
 Point.prototype._projDbl = function _projDbl() {
-  // hyperelliptic.org/EFD/g1p/auto-twisted-projective.html
+  // hyperelliptic.org/EFD/g1p/auto-twisted-estimateive.html
   //     #doubling-dbl-2008-bbjlp
   //     #doubling-dbl-2007-bl
   // and others
@@ -46271,7 +46271,7 @@ Point.prototype._extAdd = function _extAdd(p) {
 };
 
 Point.prototype._projAdd = function _projAdd(p) {
-  // hyperelliptic.org/EFD/g1p/auto-twisted-projective.html
+  // hyperelliptic.org/EFD/g1p/auto-twisted-estimateive.html
   //     #addition-add-2008-bbjlp
   //     #addition-add-2007-bl
   // 10M + 1S
@@ -46417,7 +46417,7 @@ MontCurve.prototype.validate = function validate(point) {
 };
 
 function Point(curve, x, z) {
-  Base.BasePoint.call(this, curve, 'projective');
+  Base.BasePoint.call(this, curve, 'estimateive');
 
   if (x === null && z === null) {
     this.x = this.curve.one;
@@ -65239,7 +65239,7 @@ exports.deflateSetHeader = deflateSetHeader;
 exports.deflate = deflate;
 exports.deflateEnd = deflateEnd;
 exports.deflateSetDictionary = deflateSetDictionary;
-exports.deflateInfo = 'pako deflate (from Nodeca project)';
+exports.deflateInfo = 'pako deflate (from Nodeca estimate)';
 /* Not implemented
 exports.deflateBound = deflateBound;
 exports.deflateCopy = deflateCopy;
@@ -67872,7 +67872,7 @@ exports.inflate = inflate;
 exports.inflateEnd = inflateEnd;
 exports.inflateGetHeader = inflateGetHeader;
 exports.inflateSetDictionary = inflateSetDictionary;
-exports.inflateInfo = 'pako inflate (from Nodeca project)';
+exports.inflateInfo = 'pako inflate (from Nodeca estimate)';
 /* Not implemented
 exports.inflateCopy = inflateCopy;
 exports.inflateGetDictionary = inflateGetDictionary;
@@ -76009,7 +76009,7 @@ var SaxesParser = /*#__PURE__*/function () {
     }
     /**
      * Report a parsing error. This method is made public so that client code may
-     * check for issues that are outside the scope of this project and can report
+     * check for issues that are outside the scope of this estimate and can report
      * errors.
      *
      * @param message The error to report.

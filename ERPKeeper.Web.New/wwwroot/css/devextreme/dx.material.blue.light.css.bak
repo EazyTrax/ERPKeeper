@@ -4803,7 +4803,7 @@
   cursor: text;
   pointer-events: none;
   color: rgba(148,148,148,.87);
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-placeholder::before {
   display: inline-block;
@@ -4869,7 +4869,7 @@
   margin: 0;
   background-color: transparent;
   color: rgba(0,0,0,.87);
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-texteditor-input:-webkit-autofill + .dx-placeholder {
   display: none!important;
@@ -5446,7 +5446,7 @@
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-texteditor-empty.dx-state-readonly .dx-texteditor-label {
   -webkit-transition: font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -5458,7 +5458,7 @@
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-texteditor-empty.dx-textarea .dx-texteditor-label {
   top: 21px;
   margin-top: 0;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 16px;
   height: 16px;
 }
@@ -5476,7 +5476,7 @@
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-dropdowneditor-active .dx-lookup-field,
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-state-focused .dx-lookup-field,
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-textarea.dx-state-focused .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-dropdowneditor-active .dx-texteditor-label,
 .dx-editor-filled.dx-texteditor-with-floating-label.dx-state-focused .dx-texteditor-label,
@@ -5502,7 +5502,7 @@
 }
 .dx-editor-outlined .dx-texteditor-label .dx-label span {
   position: relative;
-  font-size: 16px;
+  font-size: 15px;
   top: 0;
   margin-top: 0;
 }
@@ -5546,7 +5546,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -5612,7 +5612,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -5694,7 +5694,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -5884,7 +5884,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -6236,7 +6236,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -6500,7 +6500,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -6588,7 +6588,7 @@
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-lookup-empty.dx-state-hover.dx-dropdowneditor-active .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-texteditor-empty.dx-state-hover.dx-dropdowneditor-active .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-lookup-empty.dx-state-hover.dx-dropdowneditor-active.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-texteditor-empty.dx-state-hover.dx-dropdowneditor-active.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -6627,7 +6627,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   margin-top: -8px;
   height: 16px;
@@ -6715,7 +6715,7 @@
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-lookup-empty.dx-dropdowneditor-active .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-texteditor-empty.dx-dropdowneditor-active .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-lookup-empty.dx-dropdowneditor-active.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-texteditor-empty.dx-dropdowneditor-active.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -6829,7 +6829,7 @@
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-disabled .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-readonly .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-readonly.dx-state-hover .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-state-disabled.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-state-readonly.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -6906,7 +6906,7 @@
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-invalid .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-invalid .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-invalid.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-label.dx-invalid.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -7013,7 +7013,7 @@
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-state-hover .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-hover .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-state-hover.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-hover.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -7074,7 +7074,7 @@
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-state-hover.dx-invalid .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-hover.dx-invalid .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-state-hover.dx-invalid.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-hover.dx-invalid.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -7225,7 +7225,7 @@
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-focused.dx-state-hover .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-textarea.dx-state-focused .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-textarea.dx-state-focused.dx-state-hover .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-dropdowneditor-active.dx-state-focused.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-dropdowneditor-active.dx-state-focused.dx-state-hover.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -7416,7 +7416,7 @@
 .dx-editor-outlined.dx-texteditor-with-label.dx-state-focused.dx-state-hover.dx-invalid .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-textarea.dx-state-focused.dx-invalid .dx-lookup-field,
 .dx-editor-outlined.dx-texteditor-with-label.dx-textarea.dx-state-focused.dx-state-hover.dx-invalid .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-dropdowneditor-active.dx-state-focused.dx-invalid.dx-rtl .dx-texteditor-label .dx-label-before,
 .dx-editor-outlined.dx-texteditor-with-floating-label.dx-dropdowneditor-active.dx-state-focused.dx-state-hover.dx-invalid.dx-rtl .dx-texteditor-label .dx-label-before,
@@ -7516,7 +7516,7 @@
 .dx-editor-underlined.dx-texteditor-with-floating-label.dx-textarea.dx-state-focused .dx-lookup-field,
 .dx-editor-underlined.dx-texteditor-with-label.dx-state-focused .dx-lookup-field,
 .dx-editor-underlined.dx-texteditor-with-label.dx-textarea.dx-state-focused .dx-lookup-field {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-editor-underlined.dx-texteditor-with-floating-label.dx-state-focused .dx-texteditor-label,
 .dx-editor-underlined.dx-texteditor-with-floating-label.dx-textarea.dx-state-focused .dx-texteditor-label,
@@ -7612,7 +7612,7 @@
   transition: transform .2s cubic-bezier(0, 0, .2, 1),font-size .2s cubic-bezier(0, 0, .2, 1),top .2s cubic-bezier(0, 0, .2, 1),-webkit-transform .2s cubic-bezier(0, 0, .2, 1);
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   top: 50%;
   height: 16px;
   margin-top: -8px;
@@ -7626,7 +7626,7 @@
   margin-top: 0;
   -webkit-transform: translate(0,0);
   transform: translate(0,0);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 16px;
 }
 .dx-editor-underlined.dx-texteditor-with-floating-label.dx-lookup-empty.dx-state-readonly.dx-textarea .dx-placeholder,
@@ -8350,7 +8350,7 @@
   padding-top: 4px;
 }
 .dx-list-search.dx-searchbox .dx-placeholder::before {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-list-search.dx-searchbox .dx-clear-button-area {
   width: 23px;
@@ -8433,7 +8433,7 @@
   background: rgba(255,255,255,0);
   color: #03a9f4;
   border-top: 1px solid transparent;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-list-group-header .dx-list-group-header-indicator {
   color: rgba(0,0,0,.54);
@@ -8496,7 +8496,7 @@
   border-bottom: none;
 }
 .dx-list-item-content {
-  font-size: 16px;
+  font-size: 15px;
   padding: 14px 16px 13px;
 }
 .dx-list .dx-empty-message {
@@ -8585,7 +8585,7 @@
 .dx-list-select-all {
   white-space: nowrap;
   padding: 13px 0;
-  font-size: 16px;
+  font-size: 15px;
   position: relative;
 }
 .dx-list-select-all::after {
@@ -8813,7 +8813,7 @@
   background: rgba(255,255,255,0);
   color: #03a9f4;
   border-top: 1px solid transparent;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-device-mobile .dx-list-group-header .dx-list-group-header-indicator {
   color: rgba(0,0,0,.54);
@@ -8876,7 +8876,7 @@
   border-bottom: none;
 }
 .dx-device-mobile .dx-list-item-content {
-  font-size: 16px;
+  font-size: 15px;
   padding: 14px 15px 13px;
 }
 .dx-device-mobile .dx-list .dx-empty-message {
@@ -8964,7 +8964,7 @@
 }
 .dx-device-mobile .dx-list-select-all {
   padding: 13px 0;
-  font-size: 16px;
+  font-size: 15px;
   position: relative;
 }
 .dx-device-mobile .dx-list-select-all::after {
@@ -11418,7 +11418,7 @@
 .dx-toolbar-menu-section .dx-toolbar-hidden-button-group .dx-button .dx-button-text {
   text-transform: none;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-toolbar-menu-section .dx-toolbar-hidden-button .dx-button .dx-button-content,
 .dx-toolbar-menu-section .dx-toolbar-hidden-button-group .dx-button .dx-button-content {
@@ -13119,7 +13119,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-lookup-field::before {
   content: ".";
@@ -13820,7 +13820,7 @@
 }
 .dx-accordion-item-title .dx-accordion-item-title-caption {
   color: rgba(0,0,0,.87);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   top: 16px;
   left: 16px;
@@ -14599,7 +14599,7 @@
   cursor: grabbing;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-title {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-datagrid-column-chooser .dx-overlay-content .dx-popup-content {
   padding: 0 20px 20px;
@@ -16899,7 +16899,7 @@
   cursor: pointer;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-title {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-treelist-column-chooser .dx-overlay-content .dx-popup-content {
   padding: 0 20px 20px;
@@ -17807,7 +17807,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -19746,7 +19746,7 @@ input.dx-hidden {
   background-position: 0 0;
   background-size: 16px 16px;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   line-height: 16px;
 }
@@ -20716,7 +20716,7 @@ input.dx-hidden {
 .dx-scheduler-overlay-panel .dx-tooltip-appointment-item .dx-tooltip-appointment-item-content .dx-tooltip-appointment-item-content-subject {
   text-align: left;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: .01em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21056,7 +21056,7 @@ input.dx-hidden {
   height: 50px;
   vertical-align: top;
   text-align: right;
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(0,0,0,.54);
 }
 .dx-scheduler-work-space-month .dx-scheduler-date-table-cell .dx-scheduler-date-table-cell-text {
@@ -22959,7 +22959,7 @@ input.dx-hidden {
 }
 .dx-scheduler-header-panel,
 .dx-scheduler-time-panel {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-scheduler-work-space-grouped:not(.dx-scheduler-agenda) .dx-scheduler-group-row th,
 .dx-scheduler-work-space.dx-scheduler-work-space-grouped:not(.dx-scheduler-work-space-vertical-grouped):not(.dx-scheduler-timeline) .dx-scheduler-last-group-cell {
@@ -23078,7 +23078,7 @@ input.dx-hidden {
   box-shadow: inset 0 -1px 0 0 #bfbfbf;
 }
 .dx-scheduler-agenda-nodata {
-  font-size: 16px;
+  font-size: 15px;
 }
 .dx-popup-content .dx-scheduler-dropdown-appointment-buttons-block .dx-button {
   min-width: auto;

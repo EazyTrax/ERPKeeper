@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 {
-    [Route("/{CompanyId}/{area}/Estimates/{EstimateId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Profiles/Customers/Estimates/{EstimateId:Guid}/{action=index}")]
     public class EstimateController : _Profiles_Customers_Base_Controller
     {
 

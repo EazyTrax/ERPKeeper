@@ -6716,7 +6716,7 @@ readers do not read off random characters that represent icons */
   content: "\f893";
 }
 
-.fa-projector::before {
+.fa-estimateor::before {
   content: "\f8d6";
 }
 
@@ -13972,11 +13972,11 @@ readers do not read off random characters that represent icons */
   content: "\e518";
 }
 
-.fa-diagram-project::before {
+.fa-diagram-estimate::before {
   content: "\f542";
 }
 
-.fa-project-diagram::before {
+.fa-estimate-diagram::before {
   content: "\f542";
 }
 
@@ -17679,7 +17679,7 @@ readers do not read off random characters that represent icons */
   content: "\f081";
 }
 
-.fa-r-project:before {
+.fa-r-estimate:before {
   content: "\f4f7";
 }
 
@@ -26988,8 +26988,8 @@ readers do not read off random characters that represent icons */
   content: "\f893\f893";
 }
 
-.fad.fa-projector::after,
-.fa-duotone.fa-projector::after {
+.fad.fa-estimateor::after,
+.fa-duotone.fa-estimateor::after {
   content: "\f8d6\f8d6";
 }
 
@@ -36058,13 +36058,13 @@ readers do not read off random characters that represent icons */
   content: "\e518\e518";
 }
 
-.fad.fa-diagram-project::after,
-.fa-duotone.fa-diagram-project::after {
+.fad.fa-diagram-estimate::after,
+.fa-duotone.fa-diagram-estimate::after {
   content: "\f542\f542";
 }
 
-.fad.fa-project-diagram::after,
-.fa-duotone.fa-project-diagram::after {
+.fad.fa-estimate-diagram::after,
+.fa-duotone.fa-estimate-diagram::after {
   content: "\f542\f542";
 }
 

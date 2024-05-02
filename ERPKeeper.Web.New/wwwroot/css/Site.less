@@ -7,4 +7,19 @@
 @import "./less/Tile.less";
 @import "./less/SiteCSS.less";
 @import "./less/Layout.less";
-@import "./less/Div.less";
+@import "./less/padding.less";
+@import "./less/fix_bootstrap.less";
+
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    html, body {
+        width: 210mm;
+        height: 297mm;
+    }
+    /* ... the rest of the rules ... */
+}

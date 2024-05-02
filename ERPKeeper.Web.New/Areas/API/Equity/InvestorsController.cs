@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API.Equity
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Equity.Investor();
+            var model = new ERPKeeperCore.Enterprise.Models.Investors.Investor();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))

@@ -8,7 +8,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Profiles_Investors.Controllers
 {
-    [Route("/{CompanyId}/{area}/Owners/{OwnerUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Profiles/Investors/Investors/{OwnerUid:Guid}/{action=Index}")]
     public class OwnerController : _Profiles_Investors_Base_Controller
     {
 

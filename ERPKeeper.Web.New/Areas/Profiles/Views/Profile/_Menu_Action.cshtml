@@ -1,0 +1,39 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
+
+
+<div class="row mb-2 font-weight-600">
+    <div class="col p-0">
+
+
+        @{
+            if (Model.Customer != null)
+            {
+                <div class="p-2 border-right">
+                    <a href="/tec/Profiles/Customers/Customers/@Model.Id>Customer"></a>
+                </div>
+            }
+            if (Model.Supplier != null)
+            {
+                <div class="p-2 border-right">
+                    <a href="/tec/Profiles/Suppliers/Suppliers/@Model.Id>Supplier"></a>
+                </div>
+            }
+            if (Model.Employee != null)
+            {
+                <div class="p-2 border-right">
+                    <a href="/tec/Profiles/Employees/Employees/@Model.Id>Employee"></a>
+                </div>
+            }
+            if (Model.Investor != null)
+            {
+                <div class="p-2 border-right">
+                    <a href="/tec/Profiles/Investors/Investors/@Model.Id>Investor"></a>
+                </div>
+            }
+        }
+
+
+
+    </div>
+</div>
+

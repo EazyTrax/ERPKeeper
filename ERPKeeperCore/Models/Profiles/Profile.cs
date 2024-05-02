@@ -46,6 +46,9 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
         public virtual Customers.Customer Customer { get; set; }
         public virtual Suppliers.Supplier Supplier { get; set; }
 
+        public virtual Employees.Employee Employee { get; set; }
+        public virtual Investors.Investor Investor { get; set; }
+
         public Profile()
         {
 

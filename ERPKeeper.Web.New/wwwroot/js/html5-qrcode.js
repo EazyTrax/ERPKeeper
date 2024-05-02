@@ -884,7 +884,7 @@ class Html5Qrcode {
             return { deviceId: { exact: cameraIdOrConfig } };
         } else if (typeof cameraIdOrConfig == "object") {
             const facingModeKey = "facingMode";
-            const deviceIdKey = "deviceId";
+            const deviceIdKey = "TagId";
             const allowedFacingModeValues
                 = { "user" : true, "environment" : true};
             const exactKey = "exact";

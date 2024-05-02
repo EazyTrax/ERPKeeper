@@ -9,7 +9,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
 {
 
-    [Route("/{CompanyId}/{area}/Suppliers/{supplierUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Profiles/Suppliers/Suppliers/{supplierUid:Guid}/{action=Index}")]
     public class SupplierController : _Profiles_Suppliers_Base_Controller
     {
         public IActionResult Index(Guid supplierUid)
