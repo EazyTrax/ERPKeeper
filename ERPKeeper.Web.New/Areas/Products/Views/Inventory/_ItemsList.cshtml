@@ -59,7 +59,7 @@
 
 
                 columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
         .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())

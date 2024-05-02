@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         public Enterprise.Models.Items.Item Item => EnterpriseRepo.Items.Find(ItemUid);
 
         public IActionResult Index() => View(Item);
-        public IActionResult Estimates() => View(Item);
+        public IActionResult Quotes() => View(Item);
         public IActionResult Purchases() => View(Item);
         public IActionResult Sales() => View(Item);
 

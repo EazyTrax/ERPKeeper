@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace ERPKeeperCore.Web.API.Products
 {
 
-    public class GroupsController : API_Products_BaseController
+    public class ItemGroupsController : API_Products_BaseController
     {
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)

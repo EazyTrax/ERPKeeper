@@ -17,9 +17,17 @@ namespace ERPKeeperCore.Enterprise.Models.Items
         public String? WebSite { get; set; }
         public String? Description { get; set; }
         public bool PublishOnline { get; set; }
-        public virtual int ItemsCount => this.Items?.Count ?? 0;
+
         public virtual int OnlineItemsCount => this.Items?.Where(i => i.OnlineSale).Count() ?? 0;
         public virtual ICollection<Item> Items { get; set; }
+        public int ItemsCount { get; set; }
+
+        public void Refresh()
+        {
+            this.ItemsCount = Items.Count;
+        }
+
+
 
         public void Update(Brand brand)
         {

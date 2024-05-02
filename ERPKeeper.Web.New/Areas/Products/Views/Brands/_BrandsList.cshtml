@@ -18,7 +18,7 @@
         )
         .KeyExpr("Id")
 
-        
+
         .ShowRowLines(true)
         .ShowBorders(false)
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)@*
@@ -42,10 +42,10 @@
 
         .Columns(columns =>
         {
-            columns.Add().DataField("Name").Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.Id %>"><%= data.Name %></a></text>);
-            columns.AddFor(m=>m.WebSite).Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brand/<%= data.Id %>"><%= data.Name %></a></text>);
+            columns.Add().DataField("Name").Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.WebSite).Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
             columns.Add().DataField("Description").Format(Format.FixedPoint);
-            columns.Add().DataField("ItemsCount").Format(Format.FixedPoint);
+            columns.AddFor(m => m.ItemsCount).Format(Format.FixedPoint);
         })
         )
 </div>

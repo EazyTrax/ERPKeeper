@@ -37,7 +37,7 @@
     .Columns(columns => {
     columns.Add().DataField("Name").Width(250)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Brand/<%= data.Id %>">
+            <a href="/@CompanyId/Products/Brands/<%= data.Id %>">
                 <%= data.Name %>
             </a>
         </text>);

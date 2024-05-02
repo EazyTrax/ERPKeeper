@@ -17,14 +17,22 @@ namespace ERPKeeperCore.Enterprise.Models.Items
         public Guid? ParentId { get; set; }
         [ForeignKey("ParentId")]
         public virtual ItemGroup Parent { get; set; }
+
         public String? Name { get; set; }
 
+        public String? Detail { get; set; }
         public int ItemsCount { get; set; }
 
 
 
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Item> Items { get; set; } = new HashSet<Item>();
+        public virtual ICollection<ItemGroup> Child { get; set; } = new HashSet<ItemGroup>();
 
-        public virtual ICollection<ItemGroup> Child { get; set; }
+
+        public void Refresh()
+        {
+
+            this.ItemsCount = Items.Count;
+        }
     }
 }

@@ -31,7 +31,12 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void UpdateAmount()
         {
-            throw new NotImplementedException();
+            erpNodeDBContext
+                .Brands
+                .ToList()
+                .ForEach(b => b.Refresh());
+
+            erpNodeDBContext.SaveChanges();
         }
     }
 }

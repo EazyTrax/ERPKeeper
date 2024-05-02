@@ -42,7 +42,7 @@
     {
         subSetting.Text = "Add New";
 
-        erpNodeDBContext.FixedAssetTypes.ToList().ForEach(basis =>
+        erpNodeDBContext.AssetTypes.ToList().ForEach(basis =>
         {
             subSetting.Items.Add(basis.Name).NavigateUrl = DevExpressHelper.GetUrl(
                 new

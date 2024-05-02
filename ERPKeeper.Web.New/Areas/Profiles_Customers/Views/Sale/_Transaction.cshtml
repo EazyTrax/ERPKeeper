@@ -1,0 +1,39 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
+
+@if (Model.Transaction != null)
+{
+
+    <div class="row border">
+        <div class="font-weight-600">TR# @Model.TransactionId</div>
+        @{
+            var transactionLedgers = Model.Transaction.Ledgers.ToList();
+            foreach (var transactionLedger in transactionLedgers)
+            {
+                <div class="col-8">
+                    @transactionLedger.Account.Name
+                </div>
+                @if (transactionLedger.Debit > 0)
+                {
+                    <div class="col-4">
+                        @transactionLedger.Debit
+                    </div>
+                }
+                else
+                {
+                    <div class="col-4 pl-3 pr-2">
+                        @transactionLedger.Credit
+                    </div>
+                }
+            }
+        }
+    </div>
+}
+else
+{
+    <div class="row border">
+        No Tansaction
+    </div>
+
+}
+

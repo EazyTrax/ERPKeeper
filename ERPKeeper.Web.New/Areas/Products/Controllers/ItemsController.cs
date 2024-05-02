@@ -15,6 +15,10 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         {
             return View();
         }
+        public IActionResult Accounts()
+        {
+            return View();
+        }
         public ActionResult UpdateStock()
         {
             
