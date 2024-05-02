@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Enums;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
@@ -26,6 +27,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Customers.Sale? Sale { get; set; }
         public virtual Suppliers.Purchase? Purchase { get; set; }
         public virtual Financial.FundTransfer? FundTransfer { get; set; }
+        public virtual Customers.ReceivePayment? ReceivePayment { get; internal set; }
+
+
 
         public void Update()
         {

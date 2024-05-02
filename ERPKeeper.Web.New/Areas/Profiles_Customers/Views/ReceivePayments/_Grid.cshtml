@@ -8,30 +8,16 @@
     .ID("gridList")
     .KeyExpr("Id")
     .DataSource(d => d.RemoteController().Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Profiles/Customers/Payments/All")
-        @*.InsertUrl($"/API/{CompanyId}/Profiles/Customers/Customers/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/Customers/Update")
-            .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Profiles/Customers/Customers/Delete")
-            .DeleteMethod("Post")*@
-    )
+    .LoadUrl($"/API/{CompanyId}/Profiles/Customers/Payments/All"))
     .RowAlternationEnabled(true)
     .ShowRowLines(false)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
-
-    //.SearchPanel(searchPanel => searchPanel.Visible(true))
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
     .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
-    .RowDragging(rd => rd
-    .AllowDropInsideItem(false)
-    .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
-            .OnDragEnd("onDragEnd")
-            .ShowDragIcons(false)*@
-    )
+   
     .Columns(columns => {
 
 

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
+
+@{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div class="">
@@ -24,20 +26,16 @@
     @{
 
         MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
-        // MenuTemplate(1, "Customers", $"/{CompanyId}/Profiles/Customers");
-        // MenuTemplate(1, "Suppliers", $"/{CompanyId}/Profiles/Suppliers");
-        // MenuTemplate(1, "Employees", $"/{CompanyId}/Profiles/Employees");
-        // MenuTemplate(1, "Investors", $"/{CompanyId}/Profiles/Investors");
     }
 </div>
 
 
 <div class="lh-12 bg-fb1 p-2 border">
-    <div><a href="/@CompanyId/Profiles/@Model.Id/">General</a></div>
-    <div>    <a href="/@CompanyId/Profiles/@Model.Id/Addresses">Addresses</a></div>
-    <div><a href="/@CompanyId/Profiles/@Model.Id/Contacts">Contacts</a> </div>
-    <div> <a href="/@CompanyId/Profiles/@Model.Id/Roles">Roles</a></div>
+    @{
+        MenuTemplate(0, "General", $"/{CompanyId}/Profiles/{Model.Id}");
+        MenuTemplate(0, "Addresses", $"/{CompanyId}/Profiles/{Model.Id}/Addresses", Model.Addresses.Count());
+        MenuTemplate(0, "Contacts", $"/{CompanyId}/Profiles/{Model.Id}/Contacts", Model.Addresses.Count());
 
 
-
+    }
 </div>

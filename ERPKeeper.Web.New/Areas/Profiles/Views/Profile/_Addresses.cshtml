@@ -6,7 +6,7 @@
         .ID("gridList")
         .DataSource(d =>
         d.RemoteController()
-        .Key("AddressId")
+        .Key("Id")
         .LoadUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Addresses/All")
         .InsertUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Addresses/Insert")
         .UpdateUrl($"/api/{CompanyId}/Profiles/{Model.Id}/Addresses/Update")
@@ -15,7 +15,7 @@
         .DeleteMethod("Post")
         )
        
-        .KeyExpr("AddressId")
+        .KeyExpr("Id")
         .Editing(editing => {
         editing.Mode(GridEditMode.Popup);
         editing.AllowAdding(true);

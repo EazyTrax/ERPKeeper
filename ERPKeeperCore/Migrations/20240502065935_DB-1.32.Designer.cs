@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240502065935_DB-1.32")]
+    partial class DB132
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -581,7 +584,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .IsUnique()
                         .HasFilter("[TransactionId] IS NOT NULL");
 
-                    b.ToTable("ReceivePayments");
+                    b.ToTable("ReceivePayment");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Customers.Sale", b =>
@@ -1533,51 +1536,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPosted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Memo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("No")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("SupplierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
-
-                    b.HasIndex("TransactionId");
-
-                    b.ToTable("SupplierPayments");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", b =>
                 {
                     b.Property<Guid>("Uid")
@@ -2215,21 +2173,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("DefaultTaxCode");
 
                     b.Navigation("Profile");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId");
-
-                    b.Navigation("Supplier");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", b =>
