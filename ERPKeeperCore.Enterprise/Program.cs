@@ -26,22 +26,18 @@ namespace ERPKeeperCore.CMD
 
                 Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
 
+                //newOrganization.ErpCOREDBContext.Sales
+                //    .Where(m => m.TransactionId == null)
+                //    .ToList()
+                //    .ForEach(model =>
+                //    {
+                //        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
+                //        model.TransactionId = tr.Id;
 
-
-                newOrganization.ErpCOREDBContext.Sales
-                    .Where(m => m.TransactionId == null)
-                    .ToList()
-                    .ForEach(model =>
-                    {
-                        var tr = newOrganization.Transactions.CreateTransaction(model.Id, TransactionType.Sale);
-                        model.TransactionId = tr.Id;
-
-                        tr.Date = model.Date;
-                        tr.Reference = model.Name;
-                        newOrganization.SaveChanges();
-                    });
-
-
+                //        tr.Date = model.Date;
+                //        tr.Reference = model.Name;
+                //        newOrganization.SaveChanges();
+                //    });
 
                 //newOrganization.ErpCOREDBContext.Purchases.ToList()
                 //  .ForEach(m => m.CreateTransaction());
@@ -85,27 +81,21 @@ namespace ERPKeeperCore.CMD
                 //CopyAssetTypes(newOrganization, oldOrganization);
                 //CopyAssets(newOrganization, oldOrganization);
                 //CopyAssetDeprecreates(newOrganization, oldOrganization);
-
-
-                // CopyJournalEntryTypes(newOrganization, oldOrganization);
-                // CopyJournalEntries(newOrganization, oldOrganization);
-                // CopyJournalEntryItems(newOrganization, oldOrganization);
-
-
-
-                CopyEmployeePositions(newOrganization, oldOrganization);
-
-                CopyEmployees(newOrganization, oldOrganization);
+                //CopyJournalEntryTypes(newOrganization, oldOrganization);
+                //CopyJournalEntries(newOrganization, oldOrganization);
+                //CopyJournalEntryItems(newOrganization, oldOrganization);
+                //CopyEmployeePositions(newOrganization, oldOrganization);
+                //CopyEmployees(newOrganization, oldOrganization);
 
 
 
 
 
-                //newOrganization.ErpCOREDBContext.SaveChanges();
+                newOrganization.ErpCOREDBContext.SaveChanges();
 
 
-
-
+                CopyAccounts(newOrganization, oldOrganization);
+                CopyDefaultAccounts(newOrganization, oldOrganization);
 
 
 
@@ -161,39 +151,80 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-
         private static void CopyAccounts(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldAccounts = oldOrganization.ErpNodeDBContext.AccountItems.ToList();
-            oldAccounts.ForEach(a =>
+            oldAccounts.ForEach(oldAccount =>
             {
-                Console.WriteLine($"ACC: {a.No}-{a.Name}");
+                Console.WriteLine($"ACC: {oldAccount.No}-{oldAccount.Name}");
 
-                var exist = newOrganization.ErpCOREDBContext.Accounts.FirstOrDefault(x => x.Id == a.Uid);
+                var exist = newOrganization.ErpCOREDBContext.Accounts.FirstOrDefault(x => x.Id == oldAccount.Uid);
 
                 if (exist == null)
                 {
                     exist = new ERPKeeperCore.Enterprise.Models.Accounting.Account()
                     {
-                        Id = a.Uid,
-                        Name = a.Name,
-                        Description = a.Description,
-                        No = a.No,
-                        Type = (AccountTypes)a.Type,
-                        SubType = (AccountSubTypes?)a.SubEnumType,
-                        IsCashEquivalent = a.IsCashEquivalent,
-                        IsLiquidity = a.IsLiquidity,
+                        Id = oldAccount.Uid,
+                        Name = oldAccount.Name,
+                        Description = oldAccount.Description,
+                        No = oldAccount.No,
+                        Type = (AccountTypes)oldAccount.Type,
+                        SubType = (AccountSubTypes?)oldAccount.SubEnumType,
+                        IsCashEquivalent = oldAccount.IsCashEquivalent,
+                        IsLiquidity = oldAccount.IsLiquidity,
                     };
                     newOrganization.ErpCOREDBContext.Accounts.Add(exist);
+                }
+                else
+                {
+                    exist.OpeningCredit = oldAccount.OpeningCreditBalance;
+                    exist.OpeningDebit = oldAccount.OpeningDebitBalance;
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private static void CopyDefaultAccounts(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.SystemAccounts.ToList();
+
+            oldModels.ForEach(oldSystemAccount =>
+            {
+                Console.WriteLine($"PROF:{oldSystemAccount.AccountType}-{oldSystemAccount.AccountItem.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.DefaultAccounts
+                .FirstOrDefault(x => x.Type == (DefaultAccountType)oldSystemAccount.AccountType);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccount()
+                    {
+                        Type = (DefaultAccountType)oldSystemAccount.AccountType,
+                        AccountId = oldSystemAccount.AccountItemUid,
+                        LastUpdate = oldSystemAccount.LastUpdate,
+                    };
+
+                    newOrganization.ErpCOREDBContext.DefaultAccounts.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
                 }
                 else
                 {
 
                 }
 
-                newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
+
+
+
+
+
+
+
+
+
+
+
         private static void CopyProfiles(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.Profiles.ToList();
@@ -283,7 +314,6 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-
         private static void CopyItems(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.Items/*.Where(i => i.ParentUid != null)*/.ToList();
@@ -414,8 +444,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-
-
         private static void CopyEmployeePositions(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.EmployeePositions.ToList();
@@ -472,11 +500,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-
-
-
-
-
         private static void CopyFiscalYear(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();
@@ -789,15 +812,12 @@ namespace ERPKeeperCore.CMD
 
 
         }
-
         private static void CopyFundTransfers(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.FundTransfers.ToList();
 
             oldModels.ForEach(a =>
             {
-
-
                 var exist = newOrganization.ErpCOREDBContext
                 .FundTransfers
                 .Find(a.Uid);
@@ -955,8 +975,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-
-
         private static void CopyJournalEntryTypes(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryTypes.ToList();
@@ -987,7 +1005,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-
         private static void CopyJournalEntries(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.JournalEntries.ToList();
@@ -1021,7 +1038,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-
         private static void CopyJournalEntryItems(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryItems.ToList();
@@ -1052,6 +1068,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
+
 
     }
 }

@@ -6,10 +6,10 @@
 
 <div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccount>()
-        .ID("DataGridDefaultAccountItem")
-        .KeyExpr("AccountType")
+        .ID("DataGridDefaultAccounts")
+        .KeyExpr("Type")
         .DataSource(d => d.RemoteController()
-        .Key("AccountType")
+        .Key("Type")
         .LoadUrl($"/api/{CompanyId}/Accounting/DefaultAccounts/All")
         .InsertUrl($"/api/{CompanyId}/Accounting/DefaultAccounts/Insert")
         .UpdateUrl($"/api/{CompanyId}/Accounting/DefaultAccounts/Update")
@@ -33,7 +33,7 @@
             *@
 
             columns.AddFor(m => m.Type)
-            .Width(200)
+            .Width(250)
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
             .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.DefaultAccountType>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
