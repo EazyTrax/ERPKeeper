@@ -40,11 +40,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 {
                     case AccountTypes.Asset:
                     case AccountTypes.Expense:
-                        return CurrentDebit - CurentCredit;
+                        return CurrentDebit - CurrentCredit;
                     case AccountTypes.Liability:
                     case AccountTypes.Capital:
                     case AccountTypes.Income:
-                        return CurentCredit - CurrentDebit;
+                        return CurrentCredit - CurrentDebit;
                     default:
                         return 0;
 
@@ -56,12 +56,22 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Decimal OpeningCredit { get; set; } = 0;
         public Decimal OpeningDebit { get; set; } = 0;
-        public Decimal CurentCredit { get; set; } = 0;
+        public Decimal CurrentCredit { get; set; } = 0;
         public Decimal CurrentDebit { get; set; } = 0;
 
-        public Decimal TotalDebit { get { return Math.Max(CurrentDebit - CurentCredit, 0); } }
-        public Decimal TotalCredit { get { return Math.Max(CurentCredit - CurrentDebit, 0); } }
+        public Decimal TotalDebit { get { return Math.Max(CurrentDebit - CurrentCredit, 0); } }
+        public Decimal TotalCredit { get { return Math.Max(CurrentCredit - CurrentDebit, 0); } }
 
+        public virtual ICollection<TransactionLedger> TransactionLedgers { get; set; }
 
+        public void Refresh()
+        {
+       
+            CurrentDebit = this.TransactionLedgers.Sum(x => x.Debit);
+            CurrentCredit = this.TransactionLedgers.Sum(x => x.Credit);
+
+            Console.WriteLine(this.TransactionLedgers.Count);
+            Console.WriteLine($"Dr.{CurrentDebit} Cr.{CurrentCredit}");
+        }
     }
 }

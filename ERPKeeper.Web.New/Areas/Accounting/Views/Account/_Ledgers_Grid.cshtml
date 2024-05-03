@@ -20,6 +20,9 @@
             })
         .Summary(s => s.TotalItems(items =>
         {
+            items.AddFor(m => m.Transaction.Date);
+            items.AddFor(m => m.Transaction.Type);
+            items.AddFor(m => m.Transaction.Reference);
             items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
         })

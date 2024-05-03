@@ -22,6 +22,15 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
             return View(model);
         }
+        public IActionResult Refresh()
+        {
+            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            model.Refresh();
+
+            EnterpriseRepo.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         public IActionResult Ledgers()
         {
             var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);

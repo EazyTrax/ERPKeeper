@@ -18,13 +18,29 @@ namespace ERPKeeperCore.CMD
             foreach (var enterpriseDB in Enterprises)
             {
                 Console.WriteLine($"###{enterpriseDB}########################################################");
-                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, false);
+                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
                 Console.WriteLine("###########################################################");
 
                 Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
+
+                //newOrganization.Sales.PostToTransactions();
+
+                //newOrganization.ErpCOREDBContext.SaleItems
+                //    .Where(m => m.Item.IncomeAccountId == null)
+                //    .ToList()
+                //    .ForEach(model =>
+                //    {
+                //        Console.WriteLine($"{model.Item.PartNumber}");
+                //        //  model.IncomeAccount = newOrganization.SystemAccounts.Find(DefaultAccountType.Income).Account;
+                //        //  newOrganization.SaveChanges();
+                //    });
+
+
+
+
 
                 //newOrganization.ErpCOREDBContext.Sales
                 //    .Where(m => m.TransactionId == null)
@@ -88,14 +104,14 @@ namespace ERPKeeperCore.CMD
                 //CopyEmployees(newOrganization, oldOrganization);
 
 
+                //       CopyAccounts(newOrganization, oldOrganization);
+                //   CopyDefaultAccounts(newOrganization, oldOrganization);
 
 
 
                 newOrganization.ErpCOREDBContext.SaveChanges();
 
 
-                CopyAccounts(newOrganization, oldOrganization);
-                CopyDefaultAccounts(newOrganization, oldOrganization);
 
 
 
