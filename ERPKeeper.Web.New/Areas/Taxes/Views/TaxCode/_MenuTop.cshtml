@@ -1,14 +1,14 @@
-﻿
+﻿@model ERPKeeperCore.Enterprise.Models.Taxes.TaxCode
 
 <div class="row bg-fb1 p-2 mb-2 rounded">
     <div class="col-9 p-0 font-weight-600">
-        <a href="/@CompanyId/">@CompanyId</a>
+        <a href="/@CompanyId/Taxes">Taxes</a>
         /
-        Task: @Model.Title
+        <a href="/@CompanyId/Taxes/Codes"> Codes</a>
+        /
+        <a href="/@CompanyId/Taxes/Codes/@Model.Id"> @Model.Name</a>
     </div>
     <div class="col-4 p-0 text-right">
 
-        <a href="/Portal/Tasks">My</a>  ·
-        <a href="/Portal/Tasks">All</a>
     </div>
 </div>

@@ -77,7 +77,8 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         {
             if (this.Transaction == null)
             {
-                Console.WriteLine("Creating Purchase Transaction");
+                Console.WriteLine($"Create TR:{this.Name}");
+
                 this.Transaction = new Accounting.Transaction()
                 {
                     Id = this.Id,
@@ -86,15 +87,15 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                     Type = Accounting.Enums.TransactionType.Purchase,
                     Purchase = this,
                 };
+
+
             }
-            this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
         }
 
 
         public void PostToTransaction()
         {
-            Console.Write($"Post SL:{this.Name}");
+            Console.Write($"Post PUR:{this.Name}");
 
             this.UpdateBalance();
 
@@ -103,18 +104,18 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
             this.Transaction.ClearLedger();
 
-            // Post ITEMS
+            // Post Items
             foreach (var item in this.Items)
             {
                 Console.WriteLine($"{item.Item.PurchaseAccount.Name} {item.LineTotal}");
                 this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal);
             }
 
-            //Post Taxs
+            //Post Taxes
             if (this.TaxCode != null && this.TaxCode.InputTaxAccountId != null)
             {
                 Console.WriteLine($"{this.TaxCode.InputTaxAccount.Name} {this.Tax}");
-                this.Transaction.AddCredit(this.TaxCode.InputTaxAccount, this.Tax);
+                this.Transaction.AddDebit(this.TaxCode.InputTaxAccount, this.Tax);
             }
 
             //Post Receivable

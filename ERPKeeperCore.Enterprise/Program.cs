@@ -25,12 +25,15 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
                 Console.WriteLine("###########################################################");
 
-             //   GeneralOperations(newOrganization);
-             //   PostSales(newOrganization);
+                //   GeneralOperations(newOrganization);
+                //   PostSales(newOrganization);
+                   PostPurchases(newOrganization);
 
-                CopySales(newOrganization, oldOrganization);
-                CopyPurchases(newOrganization, oldOrganization);    
-
+                // CopyProfiles(newOrganization, oldOrganization);
+                // CopySuppliers(newOrganization, oldOrganization);
+                // CopySales(newOrganization, oldOrganization);
+                // CopyPurchases(newOrganization, oldOrganization);
+                // CopyPurchaseItems(newOrganization, oldOrganization);
 
                 //newOrganization.ErpCOREDBContext.Sales
                 //    .Where(m => m.TransactionId == null)

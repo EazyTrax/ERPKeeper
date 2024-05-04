@@ -47,7 +47,35 @@ namespace ERPKeeperCore.Enterprise.DAL
                 purchase.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
+        }
+        public void CreateTransactions()
+        {
+            var purchases = erpNodeDBContext
+                .Purchases
+                .Where(s => s.TransactionId == null)
+                .ToList();
+
+            purchases.ForEach(purchase =>
+            {
+                var transaction = erpNodeDBContext.Transactions.Find(purchase.Id);
+
+                if (transaction == null)
+                {
+                    Console.Write($"Create TR:{purchase.Name}");
+                    transaction = new Transaction()
+                    {
+                        Id = purchase.Id,
+                        Date = purchase.Date,
+                        Reference = purchase.Name,
+                        Type = Models.Accounting.Enums.TransactionType.Purchase,
+                        Purchase = purchase,
+                    };
+                    erpNodeDBContext.Transactions.Add(transaction);
+                    erpNodeDBContext.SaveChanges();
+                }
+            });
 
         }
+
     }
 }

@@ -31,12 +31,33 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void CreateTransactions()
         {
-            var sales = erpNodeDBContext.Sales.Where(s => s.TransactionId == null).ToList();
+            var sales = erpNodeDBContext
+                .Sales
+                .Where(s => s.TransactionId == null)
+                .ToList();
 
-            sales.ForEach(s => s.CreateTransaction());
+            sales.ForEach(sale =>
+            {
+                var transaction = erpNodeDBContext.Transactions.Find(sale.Id);
 
-            erpNodeDBContext.SaveChanges();
+                if (transaction == null)
+                {
+                    Console.Write($"Create TR:{sale.Name}");
+                    transaction = new Transaction()
+                    {
+                        Id = sale.Id,
+                        Date = sale.Date,
+                        Reference = sale.Name,
+                        Type = Models.Accounting.Enums.TransactionType.Sale,
+                        Sale = sale,
+                    };
+                    erpNodeDBContext.Transactions.Add(transaction);
+                    erpNodeDBContext.SaveChanges();
+                }
+            });
+
         }
+
 
         public void PostToTransactions()
         {
