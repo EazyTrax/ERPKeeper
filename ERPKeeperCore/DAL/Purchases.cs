@@ -29,6 +29,25 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Purchase? Find(Guid Id) => erpNodeDBContext.Purchases.Find(Id);
 
+        public void PostToTransactions()
+        {
+            var purchases = erpNodeDBContext.Purchases
+                .Where(s => s.TransactionId != null)
+                .Where(s => !s.IsPosted)
+                .OrderBy(s => s.Date).ToList();
 
+            purchases.ForEach(purchase =>
+            {
+                if (purchase.PayableAccount == null)
+                {
+                    purchase.PayableAccount = organization.SystemAccounts.AccountPayable;
+                    purchase.PayableAccountId = purchase.PayableAccount.Id;
+                }
+
+                purchase.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
+            });
+
+        }
     }
 }

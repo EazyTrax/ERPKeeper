@@ -20,14 +20,21 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public DateTime Date { get; set; }
         public String? Reference { get; set; }
 
+        public DateTime? PostedDate { get; set; }
+        public bool IsPosted => PostedDate != null;
+
+
         public Decimal Credit { get; set; }
         public Decimal Debit { get; set; }
-        public virtual ICollection<TransactionLedger> Ledgers { get; set; } 
 
+
+        public virtual ICollection<TransactionLedger> Ledgers { get; set; }
         public virtual Customers.Sale? Sale { get; set; }
         public virtual Suppliers.Purchase? Purchase { get; set; }
         public virtual Financial.FundTransfer? FundTransfer { get; set; }
-        public virtual Customers.ReceivePayment? ReceivePayment { get; internal set; }
+        public virtual Customers.ReceivePayment? ReceivePayment { get; set; }
+        public virtual Suppliers.SupplierPayment? SupplierPayment { get; set; }
+        public virtual Accounting.JournalEntry? JournalEntry { get; set; }
 
 
 
@@ -40,19 +47,30 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public void ClearLedger()
         {
             this.Ledgers.Clear();
+            this.PostedDate = null;
         }
 
-        public void AddAcount(Account account, decimal debit = 0, decimal credit = 0)
+        public void AddDebit(Account account, decimal debit = 0)
         {
             var ledger = new TransactionLedger()
             {
                 AccountId = account.Id,
                 Debit = debit,
-                Credit = credit,
+                Credit = 0,
             };
-
             this.Ledgers.Add(ledger);
         }
+        public void AddCredit(Account account, decimal credit = 0)
+        {
+            var ledger = new TransactionLedger()
+            {
+                AccountId = account.Id,
+                Debit = 0,
+                Credit = credit,
+            };
+            this.Ledgers.Add(ledger);
+        }
+
 
     }
 

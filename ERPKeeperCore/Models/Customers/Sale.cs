@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -18,8 +19,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [Key]
         public Guid Id { get; set; }
         public SaleStatus Status { get; set; }
-        public bool IsPosted { get; set; }
 
+        public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
@@ -45,6 +46,21 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public virtual ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();
 
+
+
+
+        public Guid? ReceivableAccountId { get; set; }
+        [ForeignKey("ReceivableAccountId")]
+        public virtual Account ReceivableAccount { get; set; }
+
+
+
+
+
+
+
+
+
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
         public virtual TaxCode? TaxCode { get; set; }
@@ -61,28 +77,52 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void PostToTransaction()
         {
-            if (this.TransactionId != null)
+            Console.Write($"Post SL:{this.Name}");
+
+            this.UpdateBalance();
+
+            if (this.Transaction == null)
+                return;
+
+            this.Transaction.ClearLedger();
+
+            // Post ITEMS
+            foreach (var item in this.Items)
             {
-                Console.Write($"Post SL:{this.Name}");
-
-                this.Transaction.ClearLedger();
-
-                foreach (var item in this.Items)
-                {
-                    Console.WriteLine($"{item.Item.IncomeAccount.Name} {item.LineTotal}");
-                    this.Transaction.AddAcount(item.Item.IncomeAccount, 0, item.LineTotal);
-                }
-
-                if (this.TaxCode != null && this.TaxCode.OutputTaxAccountId != null)
-                {
-                    Console.WriteLine($"{this.TaxCode.OutputTaxAccount.Name} {this.Tax}");
-                    this.Transaction.AddAcount(this.TaxCode.OutputTaxAccount, 0, this.TaxCode.Rate * this.LinesTotal / 100);
-                }
-                this.Transaction.UpdateBalance();
-
+                Console.WriteLine($"{item.Item.IncomeAccount.Name} {item.LineTotal}");
+                this.Transaction.AddCredit(item.Item.IncomeAccount, item.LineTotal);
             }
-        }
 
+            //Post Taxs
+            if (this.TaxCode != null && this.TaxCode.OutputTaxAccountId != null)
+            {
+                Console.WriteLine($"{this.TaxCode.OutputTaxAccount.Name} {this.Tax}");
+                this.Transaction.AddCredit(this.TaxCode.OutputTaxAccount, this.Tax);
+            }
+
+            //Post Receivable
+            if (this.ReceivableAccount != null)
+            {
+                Console.WriteLine($"{this.ReceivableAccount.Name} {this.Total}");
+                this.Transaction.AddDebit(this.ReceivableAccount, this.Total);
+            }
+
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.UpdateBalance();
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
+        }
+        public void UpdateBalance()
+        {
+            this.LinesTotal = this.Items.Sum(i => i.LineTotal);
+
+            if (this.TaxCode != null)
+                this.Tax = this.TaxCode.Rate * this.LinesTotal / 100;
+            else
+                this.Tax = 0;
+        }
         public void CreateTransaction()
         {
             if (this.Transaction == null)

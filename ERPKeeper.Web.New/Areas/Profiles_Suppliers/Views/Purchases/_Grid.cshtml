@@ -46,7 +46,20 @@
                 columns.Add().DataField("Reference").Width(180);
                 columns.Add().DataField("LinesTotal").Width(130).Format(Format.FixedPoint);
                 columns.Add().DataField("Total").Width(130).Format(Format.FixedPoint);
-                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+
+                columns.AddFor(m => m.TaxCodeId)
+                .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>TaxCode</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+
+                
+                
+                
+           columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
 
 

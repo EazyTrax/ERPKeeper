@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240504035132_DB-1.46")]
+    partial class DB146
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1526,7 +1529,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PayableAccountId")
+                    b.Property<Guid?>("ReceivableAccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Reference")
@@ -1558,7 +1561,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PayableAccountId");
+                    b.HasIndex("ReceivableAccountId");
 
                     b.HasIndex("SupplierId");
 
@@ -2412,9 +2415,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayableAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ReceivableAccount")
                         .WithMany()
-                        .HasForeignKey("PayableAccountId");
+                        .HasForeignKey("ReceivableAccountId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
                         .WithMany("Purchases")
@@ -2436,7 +2439,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithOne("Purchase")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "TransactionId");
 
-                    b.Navigation("PayableAccount");
+                    b.Navigation("ReceivableAccount");
 
                     b.Navigation("Supplier");
 

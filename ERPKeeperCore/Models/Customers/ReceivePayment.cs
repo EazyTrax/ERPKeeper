@@ -20,12 +20,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Guid Id { get; set; }
         public PaymentStatus Status { get; set; }
 
-        public bool IsPosted { get; set; } 
-
+        public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
-
 
 
         public Guid? CustomerId { get; set; }

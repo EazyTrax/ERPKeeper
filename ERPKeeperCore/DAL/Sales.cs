@@ -42,11 +42,18 @@ namespace ERPKeeperCore.Enterprise.DAL
         {
             var sales = erpNodeDBContext.Sales
                 .Where(s => s.TransactionId != null)
-                .OrderBy(s=>s.Date).ToList();
+                .Where(s => !s.IsPosted)
+                .OrderBy(s => s.Date).ToList();
 
-            sales.ForEach(s =>
+            sales.ForEach(sale =>
             {
-                s.PostToTransaction();
+                if (sale.ReceivableAccount == null)
+                {
+                    sale.ReceivableAccount = organization.SystemAccounts.AccountReceivable;
+                    sale.ReceivableAccountId = sale.ReceivableAccount.Id;
+                }
+
+                sale.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
 

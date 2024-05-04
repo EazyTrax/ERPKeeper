@@ -22,24 +22,14 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
+                Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
                 Console.WriteLine("###########################################################");
 
-                Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
+             //   GeneralOperations(newOrganization);
+             //   PostSales(newOrganization);
 
-                //newOrganization.Sales.PostToTransactions();
-
-                //newOrganization.ErpCOREDBContext.SaleItems
-                //    .Where(m => m.Item.IncomeAccountId == null)
-                //    .ToList()
-                //    .ForEach(model =>
-                //    {
-                //        Console.WriteLine($"{model.Item.PartNumber}");
-                //        //  model.IncomeAccount = newOrganization.SystemAccounts.Find(DefaultAccountType.Income).Account;
-                //        //  newOrganization.SaveChanges();
-                //    });
-
-
-
+                CopySales(newOrganization, oldOrganization);
+                CopyPurchases(newOrganization, oldOrganization);    
 
 
                 //newOrganization.ErpCOREDBContext.Sales
@@ -104,16 +94,8 @@ namespace ERPKeeperCore.CMD
                 //CopyEmployees(newOrganization, oldOrganization);
 
 
-                //       CopyAccounts(newOrganization, oldOrganization);
+                // CopyAccounts(newOrganization, oldOrganization);
                 //   CopyDefaultAccounts(newOrganization, oldOrganization);
-
-
-
-                newOrganization.ErpCOREDBContext.SaveChanges();
-
-
-
-
 
 
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
@@ -123,6 +105,29 @@ namespace ERPKeeperCore.CMD
             Console.WriteLine("###########################################################");
 
         }
+
+        private static void GeneralOperations(EnterpriseRepo newOrganization)
+        {
+
+            newOrganization.ErpCOREDBContext.Items
+                .Where(m => m.ItemType == ItemTypes.Group)
+                .ToList()
+                .ForEach(model =>
+                {
+                    Console.WriteLine($"{model.PartNumber}");
+                    newOrganization.ErpCOREDBContext.Items.Remove(model);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                });
+        }
+        private static void PostSales(EnterpriseRepo newOrganization)
+        {
+            newOrganization.Sales.PostToTransactions();
+        }
+        private static void PostPurchases(EnterpriseRepo newOrganization)
+        {
+            newOrganization.Purchases.PostToTransactions();
+        }
+
 
         private static void CreateTransactionForSales(EnterpriseRepo newOrganization)
         {
@@ -230,16 +235,6 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-
-
-
-
-
-
-
-
-
-
 
         private static void CopyProfiles(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
@@ -653,11 +648,13 @@ namespace ERPKeeperCore.CMD
                 }
                 else
                 {
-
+                    exist.Reference = oldModel.Reference;
                 }
 
 
             });
+
+            newOrganization.ErpCOREDBContext.SaveChanges();
         }
         private static void CopySaleItems(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
@@ -776,11 +773,12 @@ namespace ERPKeeperCore.CMD
                 }
                 else
                 {
-
+                    exist.Reference = oldModel.Reference;
                 }
 
 
             });
+            newOrganization.ErpCOREDBContext.SaveChanges();
         }
         private static void CopyPurchaseItems(EnterpriseRepo newOrganization, Organization oldOrganization)
         {

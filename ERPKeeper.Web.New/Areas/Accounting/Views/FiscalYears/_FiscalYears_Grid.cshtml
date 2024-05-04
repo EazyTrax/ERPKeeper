@@ -35,7 +35,7 @@
             columns.AddFor(m => m.IncomeBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
             columns.AddFor(m => m.ExpenseBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
             columns.AddFor(m => m.ProfitBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
-            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-color-<%= data.PostStatus %>"></i></text>);
+            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
         })
         .Summary(s => s.TotalItems(items =>
         {
