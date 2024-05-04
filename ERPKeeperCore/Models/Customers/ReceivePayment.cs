@@ -25,20 +25,25 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-        public Guid? CustomerId { get; set; }
-        [ForeignKey("CustomerId")]
-        public virtual Customers.Customer? Customer { get; set; }
+        public Guid? SaleId { get; set; }
+        [ForeignKey("SaleId")]
+        public virtual Sale? Sale { get; set; }
 
-         public String? Reference { get; set; }
+        public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public Decimal Total { get; set; }
-  
-        public virtual ICollection<Sale> Sales { get; set; }
+        public Decimal Amount { get; set; }
 
 
+        public Guid? PayToAccountId { get; set; }
+        [ForeignKey("PayToAccountId")]
+        public virtual Accounting.Account? PayToAccount { get; set; }
+
+        public Guid? RetentionTypeId { get; set; }
+        [ForeignKey("RetentionTypeId")]
+        public virtual Financial.RetentionType? RetentionType { get; set; }
 
         public void CreateTransaction()
         {
@@ -58,9 +63,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.UpdateBalance();
         }
 
-        public static implicit operator ReceivePayment(SupplierPayment v)
+        public  ReceivePayment( )
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

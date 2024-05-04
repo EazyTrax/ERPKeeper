@@ -25,9 +25,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-        public Guid? SupplierPaymentId { get; set; }
-        [ForeignKey("SupplierPaymentId")]
-        public virtual Suppliers.SupplierPayment? SupplierPayment { get; set; }
+
 
         public Guid? SupplierId { get; set; }
         [ForeignKey("SupplierId")]
@@ -47,7 +45,12 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Decimal Tax { get; set; }
         public Decimal Total => LinesTotal + Tax;
 
-        public virtual ICollection<PurchaseItem> Items { get; set; } = new List<PurchaseItem>();
+        public virtual ICollection<PurchaseItem> Items { get; set; }
+            = new List<PurchaseItem>();
+        public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }
+            = new List<SupplierPayment>();
+
+
 
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
@@ -57,11 +60,9 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("TaxPeriodId")]
         public virtual TaxPeriod? TaxPeriod { get; set; }
 
-
         public Guid? PayableAccountId { get; set; }
         [ForeignKey("PayableAccountId")]
         public virtual Account PayableAccount { get; set; }
-
 
         public void UpdateBalance()
         {
@@ -78,7 +79,6 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             if (this.Transaction == null)
             {
                 Console.WriteLine($"Create TR:{this.Name}");
-
                 this.Transaction = new Accounting.Transaction()
                 {
                     Id = this.Id,
@@ -87,8 +87,6 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                     Type = Accounting.Enums.TransactionType.Purchase,
                     Purchase = this,
                 };
-
-
             }
         }
 

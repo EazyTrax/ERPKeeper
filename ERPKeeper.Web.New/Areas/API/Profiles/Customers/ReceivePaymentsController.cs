@@ -26,9 +26,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             var model = new Enterprise.Models.Customers.ReceivePayment();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
-
+     
             Organization.ErpCOREDBContext.ReceivePayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
