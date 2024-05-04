@@ -34,7 +34,14 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+
+
         public Decimal Amount { get; set; }
+        public Decimal AmountRetention { get; set; }
+        public Decimal AmountDiscount { get; set; }
+        public Decimal AmountBankFee { get; set; }
+        public Decimal AmountTotalReceive =>
+            Amount - (AmountRetention + AmountDiscount + AmountBankFee);
 
 
         public Guid? PayToAccountId { get; set; }
@@ -44,6 +51,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Guid? RetentionTypeId { get; set; }
         [ForeignKey("RetentionTypeId")]
         public virtual Financial.RetentionType? RetentionType { get; set; }
+
+        public Guid? DiscountAccountId { get; set; }
+        [ForeignKey("DiscountAccountId")]
+        public virtual Accounting.Account? DiscountAccount { get; set; }
+
 
         public void CreateTransaction()
         {
@@ -63,9 +75,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.UpdateBalance();
         }
 
-        public  ReceivePayment( )
+        public ReceivePayment()
         {
-           
+
         }
     }
 }

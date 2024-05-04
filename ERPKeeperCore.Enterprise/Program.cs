@@ -38,17 +38,21 @@ namespace ERPKeeperCore.CMD
 
                         Console.WriteLine($"SALE: {oldSale.No}-{oldSale.Name}");
 
-                        //if (existReceivePayment == null)
-                        //{
-                        //    existReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
-                        //    {
-                        //        SaleId = oldSale.Uid,
-                        //        Date = oldSale.TrnDate,
-                        //        Amount = oldSale.Total,
-                        //        PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
-                        //        RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
-                        //    };
-                        //}
+                        if (existReceivePayment == null)
+                        {
+                            existReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
+                            {
+                                SaleId = oldSale.Uid,
+                                Date = oldSale.TrnDate,
+                                Amount = oldSale.Total,
+                        
+                                PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
+                                RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
+                            };
+                        }
+
+
+
                     });
 
                 Console.WriteLine("###########################################################");
