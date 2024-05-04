@@ -30,43 +30,29 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public string Name => string.Format("{0}-{1}/{2}", "FT", DocumentGroup, No.ToString().PadLeft(3, '0'));
         public string DocumentGroup => this.Date.ToString("yyMM");
         public int No { get; set; }
-
         public String? Memo { get; set; }
 
-        public Decimal Debit { get; private set; }
-        public Decimal Credit { get; private set; }
+        public Guid? WithDrawAccountId { get; set; }
+        [ForeignKey("WithDrawAccountId")]
+        public virtual Accounting.Account WithDrawAccount { get; set; }
 
+        public Decimal WithDrawAmount { get; set; }
 
-        public virtual ICollection<FundTransferItem> Items { get; set; } = new List<FundTransferItem>();
+        public virtual ICollection<FundTransferItem> FundTransferDepositLines { get; set; } = new List<FundTransferItem>();
 
-        public void AddCredit(Guid AccountGuid, decimal amount)
+        public void AddDepositLine(Guid AccountGuid, decimal amount)
         {
-
-            var item = new FundTransferItem()
-            {
-                AccountId = AccountGuid,
-                Debit = 0,
-                Credit = amount,
-            };
-            this.Items.Add(item);
-        }
-
-        public void AddDebit(Guid AccountGuid, decimal amount)
-        {
-
             var item = new FundTransferItem()
             {
                 AccountId = AccountGuid,
                 Debit = amount,
-                Credit = 0,
             };
-            this.Items.Add(item);
+            this.FundTransferDepositLines.Add(item);
         }
 
-        public void Refresh()
+        public void UpdateBalance()
         {
-            Debit = Items.Sum(x => x.Debit);
-            Credit = Items.Sum(x => x.Credit);
+            WithDrawAmount = FundTransferDepositLines.Sum(x => x.Debit);
         }
 
         public void CreateTransaction()
@@ -88,24 +74,33 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             this.Transaction.UpdateBalance();
         }
 
-        public void Post()
+        public void PostToTransaction()
         {
-            this.CreateTransaction();
-           
-            foreach (var item in this.Items)
-            {
-                var ledger = new Accounting.TransactionLedger()
-                {
-                    AccountId = item.AccountId,
-                    Account = item.Account,
-                    Debit = item.Debit,
-                    Credit = item.Credit,
-                    Transaction = this.Transaction,
-                    TransactionId = this.Transaction.Id,
-                };
+            Console.WriteLine($"Post FT:{this.Name}");
 
-                this.Transaction.Ledgers.Add(ledger);
+            this.UpdateBalance();
+
+            if (this.Transaction == null)
+                return;
+
+
+            this.Transaction.ClearLedger();
+            // Dr.
+            foreach (var item in this.FundTransferDepositLines)
+            {
+                this.Transaction.AddDebit(item.Account, item.Debit);
             }
+            // Cr.
+            this.Transaction.AddCredit(this.WithDrawAccount, this.WithDrawAmount);
+
+
+
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
         }
+
     }
 }

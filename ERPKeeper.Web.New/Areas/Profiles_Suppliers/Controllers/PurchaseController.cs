@@ -15,38 +15,38 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
 
         public IActionResult Index(Guid transactionId)
         {
-            var transcation = EnterpriseRepo.Purchases.Find(transactionId);
+            var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
 
 
         public IActionResult Items(Guid transactionId)
         {
-            var transcation = EnterpriseRepo.Purchases.Find(transactionId);
+            var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Payments(Guid transactionId)
         {
-            var transcation = EnterpriseRepo.Purchases.Find(transactionId);
+            var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Shipments(Guid transactionId)
         {
-            var transcation = EnterpriseRepo.Purchases.Find(transactionId);
+            var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Documents(Guid transactionId)
         {
-            var transcation = EnterpriseRepo.Purchases.Find(transactionId);
+            var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Export(Guid transactionId)
         {
-            var transcation = EnterpriseRepo.Purchases.Find(transactionId);
+            var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
     }

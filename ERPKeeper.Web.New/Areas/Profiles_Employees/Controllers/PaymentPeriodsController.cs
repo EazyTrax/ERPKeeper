@@ -14,9 +14,9 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Employees.Controllers
         public IActionResult Index() =>  View();
         public ActionResult Refresh()
         {
-            foreach (var paymentPeriod in EnterpriseRepo.ErpCOREDBContext.EmployeePaymentPeriods.ToList())
+            foreach (var paymentPeriod in OrganizationCore.ErpCOREDBContext.EmployeePaymentPeriods.ToList())
                 paymentPeriod.Calculate();
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

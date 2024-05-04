@@ -25,10 +25,23 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.TaxPeriods.ToList();
         }
 
-
-
         public TaxPeriod? Find(Guid Id) => erpNodeDBContext.TaxPeriods.Find(Id);
 
+        public void Refresh()
+        {
+            var taxPeriods = erpNodeDBContext.TaxPeriods.ToList();
 
+            foreach (var taxPeriod in taxPeriods)
+            {
+                taxPeriod.UpdateBalance();
+                erpNodeDBContext.SaveChanges();
+            }
+        }
+
+        public int Count()
+        {
+            return erpNodeDBContext.TaxPeriods.Count();
+        }
+     
     }
 }

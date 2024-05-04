@@ -25,7 +25,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-
         public Guid? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customers.Customer? Customer { get; set; }
@@ -37,7 +36,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public DateTime Date { get; set; } = DateTime.Now;
         public Decimal Total { get; set; }
   
-
         public virtual ICollection<Sale> Sales { get; set; }
 
 

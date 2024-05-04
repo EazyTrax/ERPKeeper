@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ERPKeeperCore.Enterprise;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
@@ -19,31 +20,34 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
+
+
+
             return View(model);
         }
         public IActionResult Refresh()
         {
-            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             model.Refresh();
 
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult Ledgers()
         {
-            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             return View(model);
         }
         public IActionResult Balances()
         {
-            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             return View(model);
         }
         public IActionResult Chart()
         {
-            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             return View(model);
         }
 
@@ -51,17 +55,22 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Accounting.Account accountItem)
         {
-            var model = EnterpriseRepo.ChartOfAccount.Find(AccountId);
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             model.No = accountItem.No;
             model.Name = accountItem.Name;
+
+            model.Type = accountItem.Type;
+            model.SubType = accountItem.SubType;
+
             model.IsLiquidity = accountItem.IsLiquidity;
             model.IsCashEquivalent = accountItem.IsCashEquivalent;
+            model.Description = accountItem.Description;
 
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
 
             return View("Index", model);
         }
 
-     
+
     }
 }

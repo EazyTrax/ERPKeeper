@@ -25,9 +25,13 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine(newOrganization.ErpCOREDBContext.Transactions.Count());
                 Console.WriteLine("###########################################################");
 
-                //   GeneralOperations(newOrganization);
-                //   PostSales(newOrganization);
-                   PostPurchases(newOrganization);
+                // newOrganization.FiscalYears.PrepareFiscalYearBalances();
+                // newOrganization.FiscalYears.UpdateTransactionFiscalYears();
+
+                //  GeneralOperations(newOrganization);
+
+                //PostLedgers(newOrganization);
+
 
                 // CopyProfiles(newOrganization, oldOrganization);
                 // CopySuppliers(newOrganization, oldOrganization);
@@ -85,7 +89,7 @@ namespace ERPKeeperCore.CMD
                 //CopyPurchaseItems(newOrganization, oldOrganization);
                 //CreateTransactionForSales(newOrganization);
                 //CreateTransactionForPurchases(newOrganization);
-                //CopyFundTransfers(newOrganization, oldOrganization);
+                // CopyFundTransfers(newOrganization, oldOrganization);
 
                 //CopyAssetTypes(newOrganization, oldOrganization);
                 //CopyAssets(newOrganization, oldOrganization);
@@ -100,6 +104,11 @@ namespace ERPKeeperCore.CMD
                 // CopyAccounts(newOrganization, oldOrganization);
                 //   CopyDefaultAccounts(newOrganization, oldOrganization);
 
+                CopyRetentionTypes(newOrganization, oldOrganization);
+
+
+
+
 
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
@@ -109,27 +118,28 @@ namespace ERPKeeperCore.CMD
 
         }
 
+        private static void PostLedgers(EnterpriseRepo newOrganization)
+        {
+            //   newOrganization.Sales.PostToTransactions();
+            //   newOrganization.Purchases.PostToTransactions();
+            // newOrganization.FundTransfers.PostToTransactions();
+        }
+
         private static void GeneralOperations(EnterpriseRepo newOrganization)
         {
 
-            newOrganization.ErpCOREDBContext.Items
-                .Where(m => m.ItemType == ItemTypes.Group)
+            newOrganization.ErpCOREDBContext.FundTransferItems
+                .Where(m => m.Debit == 0)
                 .ToList()
                 .ForEach(model =>
                 {
-                    Console.WriteLine($"{model.PartNumber}");
-                    newOrganization.ErpCOREDBContext.Items.Remove(model);
+                    Console.WriteLine($"{model.Account.Name}");
+                    newOrganization.ErpCOREDBContext.FundTransferItems.Remove(model);
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 });
         }
-        private static void PostSales(EnterpriseRepo newOrganization)
-        {
-            newOrganization.Sales.PostToTransactions();
-        }
-        private static void PostPurchases(EnterpriseRepo newOrganization)
-        {
-            newOrganization.Purchases.PostToTransactions();
-        }
+
+
 
 
         private static void CreateTransactionForSales(EnterpriseRepo newOrganization)
@@ -659,6 +669,51 @@ namespace ERPKeeperCore.CMD
 
             newOrganization.ErpCOREDBContext.SaveChanges();
         }
+
+        private static void CopyRetentionTypes(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.RetentionTypes.ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"RetentionTypes:{oldModel.Name}-{oldModel.Uid}");
+                var exist = newOrganization.ErpCOREDBContext
+                .RetentionTypes
+                .FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"> Add");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Financial.RetentionType()
+                    {
+                        Id = oldModel.Uid,
+                        IsActive = oldModel.IsActive,
+                        Description = oldModel.Description ?? "NA",
+                        Name = oldModel.Name,
+                        Direction = (Enterprise.Models.Financial.Enums.RetentionDirection)oldModel.RetentionDirection,
+                        Rate = oldModel.Rate,
+                        RetentionToAccountId = oldModel.RetentionToAccountGuid,
+                    };
+
+                    newOrganization.ErpCOREDBContext.RetentionTypes.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+
+                }
+            });
+
+            newOrganization.ErpCOREDBContext.SaveChanges();
+        }
+
+
+
+
+
+
+
         private static void CopySaleItems(EnterpriseRepo newOrganization, Organization oldOrganization)
         {
             var existModelIds = newOrganization.ErpCOREDBContext.SaleItems
@@ -833,48 +888,47 @@ namespace ERPKeeperCore.CMD
         {
             var oldModels = oldOrganization.ErpNodeDBContext.FundTransfers.ToList();
 
-            oldModels.ForEach(a =>
+            oldModels.ForEach(oldFundTransfer =>
             {
                 var exist = newOrganization.ErpCOREDBContext
                 .FundTransfers
-                .Find(a.Uid);
+                .Find(oldFundTransfer.Uid);
 
                 if (exist == null)
                 {
-                    Console.WriteLine($"FT:{a.Name}-{a.TrnDate}");
+                    Console.WriteLine($"FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
                     exist = new ERPKeeperCore.Enterprise.Models.Financial.FundTransfer()
                     {
-                        Id = a.Uid,
-                        Date = a.TrnDate,
-                        Reference = a.Reference,
-                        Status = (ERPKeeperCore.Enterprise.Models.Financial.Enums.FundTransferStatus)a.Status,
+                        Id = oldFundTransfer.Uid,
+                        Date = oldFundTransfer.TrnDate,
+                        Reference = oldFundTransfer.Reference,
+                        Status = (ERPKeeperCore.Enterprise.Models.Financial.Enums.FundTransferStatus)oldFundTransfer.Status,
+                        WithDrawAccountId = (Guid)oldFundTransfer.WithDrawAccountGuid
                     };
 
+                    if (oldFundTransfer.BankFeeAccountGuid != null)
+                        exist.AddDepositLine((Guid)oldFundTransfer.BankFeeAccountGuid, oldFundTransfer.AmountFee);
 
-                    if (a.WithDrawAccountGuid != null)
-                        exist.AddCredit((Guid)a.WithDrawAccountGuid, a.AmountwithDraw);
+                    if (oldFundTransfer.DepositAccountGuid != null)
+                        exist.AddDepositLine((Guid)oldFundTransfer.DepositAccountGuid, oldFundTransfer.AmountDeposit);
 
-                    if (a.BankFeeAccountGuid != null)
-                        exist.AddDebit((Guid)a.BankFeeAccountGuid, a.AmountFee);
-
-                    if (a.DepositAccountGuid != null)
-                        exist.AddDebit((Guid)a.DepositAccountGuid, a.AmountDeposit);
-
-                    exist.Refresh();
+                    exist.UpdateBalance();
 
                     newOrganization.ErpCOREDBContext.FundTransfers.Add(exist);
                     newOrganization.ErpCOREDBContext.SaveChanges();
 
-                    Console.WriteLine($">{exist.Credit}-{exist.Debit}");
+                    Console.WriteLine($">{exist.WithDrawAmount}");
 
 
                 }
                 else
                 {
+                    Console.WriteLine($"> Update > FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
 
+                    exist.WithDrawAccountId = oldFundTransfer.WithDrawAccountGuid;
                 }
 
-                // newOrganization.ErpCOREDBContext.SaveChanges();
+                newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
         private static void CopyAssetTypes(EnterpriseRepo newOrganization, Organization oldOrganization)

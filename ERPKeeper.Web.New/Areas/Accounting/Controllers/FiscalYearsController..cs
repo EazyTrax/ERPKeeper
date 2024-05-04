@@ -14,5 +14,14 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         {
             return View();
         }
+
+        public IActionResult Prepares()
+        {
+      
+            OrganizationCore.FiscalYears.PrepareFiscalYearBalances();
+
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

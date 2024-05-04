@@ -22,7 +22,8 @@
             {
                 columns.AddFor(m => m.AccountId)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-                    .Width(200).HeaderCellTemplate(@<text>Account</text>);
+                    .Width(200)
+                    .HeaderCellTemplate(@<text>Account</text>);
 
                
                 columns.AddFor(m => m.Account.Type)

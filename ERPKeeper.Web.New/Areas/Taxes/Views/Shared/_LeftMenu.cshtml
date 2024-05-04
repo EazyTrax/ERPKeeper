@@ -26,7 +26,7 @@
 <div class="border p-2 bg-fb1">
     @{
         Template("Income Taxes", "IncomeTaxes");
-        Template("Codes", "TaxCodes");
-        Template("Periods", "TaxPeriods");
+        Template("Codes", "TaxCodes", Organization.TaxCodes.Count());
+        Template("Periods", "TaxPeriods", Organization.TaxPeriods.Count());
     }
 </div>

@@ -28,15 +28,14 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public Decimal Debit { get; set; }
 
 
-        public virtual ICollection<TransactionLedger> Ledgers { get; set; }
+        public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new List<TransactionLedger>();
         public virtual Customers.Sale? Sale { get; set; }
         public virtual Suppliers.Purchase? Purchase { get; set; }
         public virtual Financial.FundTransfer? FundTransfer { get; set; }
         public virtual Customers.ReceivePayment? ReceivePayment { get; set; }
         public virtual Suppliers.SupplierPayment? SupplierPayment { get; set; }
         public virtual Accounting.JournalEntry? JournalEntry { get; set; }
-
-
+        public Guid? FiscalYearId { get; set; }
 
         public void UpdateBalance()
         {

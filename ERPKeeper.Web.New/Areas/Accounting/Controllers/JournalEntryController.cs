@@ -20,29 +20,29 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
+            var model = OrganizationCore.JournalEntries.Find(JournalEntryId);
             return View(model);
         }
 
         public IActionResult UpdateBalance()
         {
-            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
+            var model = OrganizationCore.JournalEntries.Find(JournalEntryId);
             model.UpdateBalance();
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult UnPost()
         {
-            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
-            EnterpriseRepo.JournalEntries.UnPost(model);
-            EnterpriseRepo.SaveChanges();
+            var model = OrganizationCore.JournalEntries.Find(JournalEntryId);
+            OrganizationCore.JournalEntries.UnPost(model);
+            OrganizationCore.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult Clone()
         {
-            var model = EnterpriseRepo.JournalEntries.Find(JournalEntryId);
+            var model = OrganizationCore.JournalEntries.Find(JournalEntryId);
             var newModel = new JournalEntry()
             {
                 Date = DateTime.Today,
@@ -50,13 +50,13 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
                 JournalEntryTypeId = model.JournalEntryTypeId,
                 JournalEntryItems = new HashSet<JournalEntryItem>()
             };
-            EnterpriseRepo.ErpCOREDBContext.JournalEntries.Add(newModel);
+            OrganizationCore.ErpCOREDBContext.JournalEntries.Add(newModel);
 
             model.JournalEntryItems.ToList().ForEach(item =>
             {
                 newModel.AddAcount(item.AccountId, item.Debit, item.Credit);
             });
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
 
             return Redirect($"/{CompanyId}/Accounting/Transactions/{model.Id}/");
         }

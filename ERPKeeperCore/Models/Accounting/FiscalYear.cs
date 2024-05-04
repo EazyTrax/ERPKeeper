@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
@@ -26,7 +27,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public decimal ExpenseBalance { get; set; }
 
-        public decimal ProfitBalance { get; set; }
+        public decimal ProfitBalance => IncomeBalance - ExpenseBalance;
 
         public Decimal Income => FiscalYearAccountBalances?
                 .Where(a => a.Account.Type == AccountTypes.Income)
@@ -51,14 +52,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             .Select(l => l.Balance)
             .DefaultIfEmpty(0)
             .Sum() ?? 0;
-
         public Decimal EquityBalance => FiscalYearAccountBalances?
             .Where(p => p.Account.Type == AccountTypes.Capital)
             .Select(l => l.Balance)
             .DefaultIfEmpty(0)
             .Sum() ?? 0;
-
-
         public Decimal Profit => Income - Expense;
 
         public decimal? ProfitPercent
@@ -71,9 +69,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                     return (Income - Expense) / Income * 100;
             }
         }
-
         public virtual ICollection<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
-
         public int DayCount => (EndDate - StartDate).Days + 1;
 
         public FiscalYear()
@@ -84,21 +80,13 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         internal void ClearAccountBalances()
         {
             Console.WriteLine($"> Clear Accounts Balance");
-
-
-            FiscalYearAccountBalances.ToList().ForEach(p =>
-            {
-                FiscalYearAccountBalances.Remove(p);
-            });
+            FiscalYearAccountBalances
+                .ToList()
+                .ForEach(p => FiscalYearAccountBalances.Remove(p));
         }
-
-
         private List<FiscalYearAccountBalance> GetClosingBalanceAccounts() => FiscalYearAccountBalances
                                      .Where(pab => pab.Account.Type == AccountTypes.Asset || pab.Account.Type == AccountTypes.Liability || pab.Account.Type == AccountTypes.Capital)
                                      .ToList();
-
-
-
         internal FiscalYearAccountBalance CreateFiscalBalanceLine(Account account)
         {
             var newAccountBlance = new FiscalYearAccountBalance()
@@ -111,7 +99,28 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             FiscalYearAccountBalances.Add(newAccountBlance);
             return newAccountBlance;
         }
+        public void PrepareFiscalBalance(List<Account> accounts, bool clearValue = false)
+        {
+            foreach (var account in accounts)
+            {
+                var accBalance = FiscalYearAccountBalances
+                    .Where(a => a.Id == account.Id)
+                    .FirstOrDefault();
 
+                if (accBalance == null)
+                {
+                    accBalance = new FiscalYearAccountBalance()
+                    {
+                        AccountId = account.Id,
+                    };
+                    this.FiscalYearAccountBalances.Add(accBalance);
+                }
+
+                if(clearValue){
+                    accBalance.ClearBalance();
+                }
+            }
+        }
         internal void UpdateOpeningFiscalBalance(Account account, decimal debit, decimal credit)
         {
             var accBalanceLine = FiscalYearAccountBalances.Where(l => l.AccountId == account.Id).FirstOrDefault();
@@ -122,7 +131,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             accBalanceLine.OpeningDebit = Math.Max(debit - credit, 0);
             accBalanceLine.OpeningCredit = Math.Max(credit - debit, 0);
         }
-
         internal void UpdateCurrentFiscalBalance(Account account, decimal debit, decimal credit)
         {
             var accBalanceLine = FiscalYearAccountBalances.Where(l => l.AccountId == account.Id).FirstOrDefault();
@@ -133,9 +141,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             accBalanceLine.Debit = Math.Max(debit - credit, 0);
             accBalanceLine.Credit = Math.Max(credit - debit, 0);
         }
-
-
-        internal void UpdateClosingFiscalBalance(Account account, decimal debit, decimal credit)
+       internal void UpdateClosingFiscalBalance(Account account, decimal debit, decimal credit)
         {
             var accBalanceLine = FiscalYearAccountBalances.Where(l => l.AccountId == account.Id).FirstOrDefault();
 
@@ -145,6 +151,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             accBalanceLine.ClosingDebit = Math.Max(debit - credit, 0);
             accBalanceLine.ClosingCredit = Math.Max(credit - debit, 0);
         }
-
+        internal void UpdateFiscalBalance()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

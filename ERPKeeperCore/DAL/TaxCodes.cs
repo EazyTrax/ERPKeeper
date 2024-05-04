@@ -29,6 +29,9 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public TaxCode? Find(Guid Id) => erpNodeDBContext.TaxCodes.Find(Id);
 
-
+        public int Count()
+        {
+            return erpNodeDBContext.TaxCodes.Count();
+        }
     }
 }

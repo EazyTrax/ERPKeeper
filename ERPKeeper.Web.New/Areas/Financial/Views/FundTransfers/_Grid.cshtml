@@ -5,14 +5,20 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financials/FundTransfers/All")
-            .InsertUrl($"/API/{CompanyId}/Financials/FundTransfers/Insert"))
+            .LoadUrl($"/API/{CompanyId}/Financial/FundTransfers/All")
+            .InsertUrl($"/API/{CompanyId}/Financial/FundTransfers/Insert")
+            .InsertMethod("Post")
+            .UpdateUrl($"/API/{CompanyId}/Financial/FundTransfers/Update")
+            .UpdateMethod("Post")
+            )
             .RowAlternationEnabled(true)
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .HeaderFilter(headerFilter => headerFilter.Visible(true))
             .ColumnAutoWidth(false)
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
             .Columns(columns =>
             {
 
@@ -28,8 +34,23 @@
                 columns.Add().DataField("Name").Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Financial/FundTransfers/<%= data.Id %>/"><%= data.Name %></a></text>);
                 columns.AddFor(m => m.Reference).Width(180);
-                columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
-                columns.AddFor(m => m.Credit).Width(130).Format(Format.FixedPoint);
+
+
+                columns.AddFor(m => m.WithDrawAccountId)
+
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(200)
+            .HeaderCellTemplate(@<text>Account</text>);
+
+
+
+
+
+
+                columns.AddFor(m => m.WithDrawAmount)
+                .HeaderCellTemplate("Amount")
+                .Width(130)
+                .Format(Format.FixedPoint);
 
 
 

@@ -20,6 +20,7 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
+        .ColumnChooser(m=>m.Enabled(true))
         .Paging(pagging => pagging.Enabled(false))
 
 
@@ -59,18 +60,63 @@
             </text>
         );
 
-              
+            columns.Add()
+        .Caption("Current")
+        .Columns(b =>
+        {
+                b.AddFor(m => m.CurrentDebit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
 
-                columns.AddFor(m => m.TotalDebit).AllowEditing(false).Width(130).Format(Format.FixedPoint);
-                columns.AddFor(m => m.TotalCredit).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+                b.AddFor(m => m.CurrentCredit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+
+
+
+            columns.Add()
+        .Caption("Total")
+        .Columns(b =>
+        {
+                b.AddFor(m => m.TotalDebit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
+
+                b.AddFor(m => m.TotalCredit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+
+
+
+
+
 
             })
         .Summary(s =>
-            s.TotalItems(items => { 
-                items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+            s.TotalItems(items => {
+
+
+
+            items.AddFor(m => m.CurrentDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+            items.AddFor(m => m.CurrentCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+
             items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
-        
-            })
+            items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+
+
+
+
+        })
     )
     )
 </div>

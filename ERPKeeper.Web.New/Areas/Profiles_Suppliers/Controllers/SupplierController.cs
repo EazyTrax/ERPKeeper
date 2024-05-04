@@ -14,23 +14,23 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
     {
         public IActionResult Index(Guid supplierUid)
         {
-            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
+            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);
         }
         public IActionResult Estimates(Guid supplierUid)
         {
-            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
+            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);
         }
         public IActionResult Purchases(Guid supplierUid)
         {
-            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
+            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 
         public IActionResult Items(Guid supplierUid)
         {
-            var supplier = EnterpriseRepo.Suppliers.Find(supplierUid);
+            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 

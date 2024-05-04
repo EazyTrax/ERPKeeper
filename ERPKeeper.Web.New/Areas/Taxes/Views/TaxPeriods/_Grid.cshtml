@@ -43,34 +43,53 @@
 
 
 
-            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/"><%= data.Name %></a></text>);
-            @*   columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Taxes</text>);
-    columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
-    columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
+            columns.AddFor(m => m.Name)
+    .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/"><%= data.Name %></a></text>
+    );
 
-    columns.AddFor(m => m.PurchaseAccId)
-    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-    .Width(200).HeaderCellTemplate(@<text>Asset Acc</text>);
+            columns.Add()
+        .Caption("Purchases")
+        .Columns(subColumns =>
+        {
+                subColumns.AddFor(m => m.PurchasesCount)
+            .HeaderCellTemplate(@<text>Purchases</text>)
+        .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Purchases"><%= data.PurchasesCount %></a></text>)
+            .Format(Format.FixedPoint);
 
-    columns.AddFor(m => m.AmortizeExpenseAccId)
-    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AmortizeExpense).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-    .Width(200).HeaderCellTemplate(@<text>Amortize Acc</text>);
+                subColumns.AddFor(m => m.PurchasesTaxBalance)
+            .HeaderCellTemplate(@<text>PurchasesTax</text>)
+            .Format(Format.FixedPoint);
 
-    columns.AddFor(m => m.AccumulateDeprecateAccId)
-    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-    .Width(200).HeaderCellTemplate(@<text>Accumulate Acc</text>);
-    *@
+            });
 
-            @*
-    columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
-    .DisplayExpr("Text")
-    .ValueExpr("Value")
-    );*@
-            @*
-    columns.Add().DataField("TotalBalance").HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-    columns.Add().DataField("TotalSale").HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);*@
-            //columns.Add().DataField("Id");
+            columns.Add()
+        .Caption("Sales")
+        .Columns(subColumns =>
+        {
+             
+
+                subColumns.AddFor(m => m.SalesCount)
+            .HeaderCellTemplate(@<text>Sales</text>)
+            .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
+            .Format(Format.FixedPoint);
+
+                subColumns.AddFor(m => m.SalesTaxBalance)
+            .HeaderCellTemplate(@<text>SalesTax</text>)
+            .Format(Format.FixedPoint);
+
+            });
+
+
+            columns.AddFor(m => m.ClosingAmount)
+        .HeaderCellTemplate(@<text>ClosingAmount</text>)
+        .Format(Format.FixedPoint);
+
+        
+
+            columns.AddFor(m => m.CloseToAccountId)
+        .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Width(200).HeaderCellTemplate(@<text>CloseTo</text>);
+
         })
         )
 </div>

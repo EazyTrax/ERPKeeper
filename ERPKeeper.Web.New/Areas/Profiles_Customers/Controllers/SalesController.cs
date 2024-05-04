@@ -13,13 +13,14 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
     {
         public IActionResult Index()
         {
-            EnterpriseRepo.Sales.CreateTransactions();
+            OrganizationCore.Sales.CreateTransactions();
             return View();
         }
         public IActionResult Post()
         {
-            EnterpriseRepo.Sales.PostToTransactions();
-            return View();
+            OrganizationCore.Sales.PostToTransactions();
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

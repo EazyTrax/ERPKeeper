@@ -16,25 +16,26 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             return View();
         }
 
-        [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/Update/CurrentBalance")]
+
         public IActionResult UpdateCurrentBalance()
         {
-            EnterpriseRepo.ChartOfAccount.UpdateBalance();
+            OrganizationCore.ChartOfAccount.UpdateBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/Update/HistoryBalance")]
+      
         public IActionResult UpdateHistoryBalance()
         {
-            EnterpriseRepo.ChartOfAccount.UpdateBalance();
-            EnterpriseRepo.ChartOfAccount.GenerateHistoryBalance();
+            OrganizationCore.ChartOfAccount.UpdateBalance();
+            OrganizationCore.ChartOfAccount.GenerateHistoryBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/Update/Number")]
+
+  
         public IActionResult UpdateNumber()
         {
-            EnterpriseRepo.ChartOfAccount.ReAssignNumber();
+            OrganizationCore.ChartOfAccount.ReAssignNumber();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

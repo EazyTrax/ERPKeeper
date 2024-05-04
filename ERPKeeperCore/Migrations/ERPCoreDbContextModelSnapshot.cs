@@ -119,9 +119,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Memo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ProfitBalance")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -284,6 +281,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<decimal>("Debit")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("FiscalYearId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("PostedDate")
                         .HasColumnType("datetime2");
@@ -661,6 +661,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("RetentionTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -673,6 +676,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("RetentionTypeId");
 
                     b.HasIndex("TransactionId")
                         .IsUnique()
@@ -989,14 +994,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Credit")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Debit")
-                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
@@ -1016,11 +1015,19 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("TransactionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("WithDrawAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("WithDrawAmount")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TransactionId")
                         .IsUnique()
                         .HasFilter("[TransactionId] IS NOT NULL");
+
+                    b.HasIndex("WithDrawAccountId");
 
                     b.ToTable("FundTransfers");
                 });
@@ -1033,9 +1040,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Credit")
-                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal>("Debit")
                         .HasColumnType("decimal(18, 2)");
@@ -1053,6 +1057,41 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("FundTransferId");
 
                     b.ToTable("FundTransferItems");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Direction")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("RetentionToAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RetentionToAccountId");
+
+                    b.ToTable("RetentionTypes");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Investors.Investor", b =>
@@ -1677,6 +1716,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("RetentionTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -1690,6 +1732,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RetentionTypeId");
 
                     b.HasIndex("SupplierId");
 
@@ -1924,15 +1968,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("FiscalYearId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("InputBalance")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("InputCommercialCount")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("InputTaxBalance")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<Guid?>("LiabilityPaymentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1942,17 +1977,26 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int?>("No")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("OutputBalance")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("OutputCommercialCount")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("OutputTaxBalance")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<int>("PostStatus")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("PuchasesBalance")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("PurchasesCount")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PurchasesTaxBalance")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("SalesBalance")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("SalesCount")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SalesTaxBalance")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -2152,6 +2196,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", null)
+                        .WithMany("ReceivePayments")
+                        .HasForeignKey("RetentionTypeId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("ReceivePayment")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment", "TransactionId");
@@ -2180,7 +2228,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("TaxCodeId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod", "TaxPeriod")
-                        .WithMany()
+                        .WithMany("Sales")
                         .HasForeignKey("TaxPeriodId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
@@ -2296,7 +2344,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithOne("FundTransfer")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "TransactionId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "WithDrawAccount")
+                        .WithMany()
+                        .HasForeignKey("WithDrawAccountId");
+
                     b.Navigation("Transaction");
+
+                    b.Navigation("WithDrawAccount");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransferItem", b =>
@@ -2308,7 +2362,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .IsRequired();
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "FundTransfer")
-                        .WithMany("Items")
+                        .WithMany("FundTransferDepositLines")
                         .HasForeignKey("FundTransferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2316,6 +2370,15 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("FundTransfer");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "RetentionToAccount")
+                        .WithMany()
+                        .HasForeignKey("RetentionToAccountId");
+
+                    b.Navigation("RetentionToAccount");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Investors.Investor", b =>
@@ -2429,7 +2492,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("TaxCodeId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod", "TaxPeriod")
-                        .WithMany()
+                        .WithMany("Purchases")
                         .HasForeignKey("TaxPeriodId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
@@ -2485,6 +2548,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", b =>
                 {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", null)
+                        .WithMany("SupplierPayments")
+                        .HasForeignKey("RetentionTypeId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId");
@@ -2688,7 +2755,14 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("FundTransferDepositLines");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
+                {
+                    b.Navigation("ReceivePayments");
+
+                    b.Navigation("SupplierPayments");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Items.Brand", b =>
@@ -2744,6 +2818,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuote", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod", b =>
+                {
+                    b.Navigation("Purchases");
+
+                    b.Navigation("Sales");
                 });
 #pragma warning restore 612, 618
         }

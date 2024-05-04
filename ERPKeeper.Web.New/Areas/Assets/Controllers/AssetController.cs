@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
     {
         public IActionResult Index(Guid AssetId)
         {
-            var Asset = EnterpriseRepo.Assets.Find(AssetId);
+            var Asset = OrganizationCore.Assets.Find(AssetId);
             return View(Asset);
         }
 
@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
         [HttpPost]
         public IActionResult Update(Guid AssetId, ERPKeeperCore.Enterprise.Models.Assets.Asset model)
         {
-            var Asset = EnterpriseRepo.Assets.Find(AssetId);
+            var Asset = OrganizationCore.Assets.Find(AssetId);
 
             if (Asset != null)
             {
@@ -34,7 +34,7 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
                 //Asset.ProjectUid = model.ProjectUid;
                 //Asset.Detail = model.Detail;
 
-                EnterpriseRepo.SaveChanges();
+                OrganizationCore.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

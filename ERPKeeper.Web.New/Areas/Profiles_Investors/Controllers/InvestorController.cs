@@ -14,13 +14,13 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Investors.Controllers
 
         public IActionResult Index(Guid OwnerUid)
         {
-            var Owner = EnterpriseRepo.Investors.Find(OwnerUid);
+            var Owner = OrganizationCore.Investors.Find(OwnerUid);
             return View(Owner);
         }
 
         public IActionResult Payments(Guid OwnerUid)
         {
-            var Owner = EnterpriseRepo.Investors.Find(OwnerUid);
+            var Owner = OrganizationCore.Investors.Find(OwnerUid);
             return View(Owner);
         }
 

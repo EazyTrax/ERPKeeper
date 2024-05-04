@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Accounting.Journal
 {
-    public class LedgersController : API_Accounting_Transaction_BaseController
+    public class TransactionLedgersController : API_Accounting_Transaction_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {

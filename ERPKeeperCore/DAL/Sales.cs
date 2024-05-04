@@ -42,7 +42,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
                 if (transaction == null)
                 {
-                    Console.Write($"Create TR:{sale.Name}");
+                    Console.WriteLine($"Create TR:{sale.Name}");
                     transaction = new Transaction()
                     {
                         Id = sale.Id,

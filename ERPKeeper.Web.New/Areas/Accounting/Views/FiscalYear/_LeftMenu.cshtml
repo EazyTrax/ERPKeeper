@@ -11,7 +11,7 @@
     {
         <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
             <div class="col p-0">
-                <a href="/@CompanyId/Accounting/@controller" class="text-fs-16">
+                <a href="/@CompanyId/Accounting/@controller">
                     @SharedLocalizer.GetLocalizedHtmlString(display)
                 </a>
             </div>
@@ -22,44 +22,46 @@
     }
 }
 
-<div class="bg-fb1 p-2">
+<div class="bg-fb1 p-2 text-fs-18">
     <div class="font-weight-600 mb-3 ">
         <a href="/@CompanyId/Accounting">Accounting</a>
     </div>
-
+</div>
+<div class="bg-fb1 p-2 text-fs-18">
     @{
         Template("Fiscal Years", "FiscalYears");
     }
-
-    <div class="pl-2">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id" class="text-fs-16">
+</div>
+<div class="bg-fb1 p-2 text-fs-18">
+    <div class="">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">
             @Model.Name
         </a>
     </div>
-  
-    <div class="pl-3">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes" class="text-fs-16">
+
+    <div class="">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes">
             Incomes
         </a>
     </div>
-    <div class="pl-3">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses" class="text-fs-16">
+    <div class="">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses">
             Expenses
         </a>
     </div>
 
-    <div class="pl-3">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/TrialBalance" class="text-fs-16">
+    <div class="">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/TrialBalance">
             Trial Balance
         </a>
     </div>
-    <div class="pl-3">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Journals" class="text-fs-16">
+    <div class="">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Journals">
             Journals
         </a>
     </div>
-    <div class="pl-3">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Balances" class="text-fs-16">
+    <div class="">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Balances">
             Balances
         </a>
     </div>

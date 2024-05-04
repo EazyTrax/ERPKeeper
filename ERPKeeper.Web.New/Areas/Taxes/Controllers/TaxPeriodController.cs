@@ -13,15 +13,24 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
     {
         public IActionResult Index(Guid TaxPeriodId)
         {
-            var TaxPeriod = EnterpriseRepo.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            return View(TaxPeriod);
+        }
+        public IActionResult Sales(Guid TaxPeriodId)
+        {
+            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            return View(TaxPeriod);
+        }
+        public IActionResult Purchases(Guid TaxPeriodId)
+        {
+            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
             return View(TaxPeriod);
         }
 
-     
         [HttpPost]
         public IActionResult Update(Guid TaxPeriodId, ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod model)
         {
-            var TaxPeriod = EnterpriseRepo.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
 
             if (TaxPeriod != null)
             {
@@ -34,7 +43,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
                 //TaxPeriod.ProjectUid = model.ProjectUid;
                 //TaxPeriod.Detail = model.Detail;
 
-                EnterpriseRepo.SaveChanges();
+                OrganizationCore.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

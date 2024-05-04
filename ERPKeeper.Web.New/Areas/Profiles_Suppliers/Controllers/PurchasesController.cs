@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
     {
         public IActionResult Index()
         {
-            EnterpriseRepo.Purchases.CreateTransactions();
+            OrganizationCore.Purchases.CreateTransactions();
             return View();
         }
 

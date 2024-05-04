@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.New.API.Financials
 {
-    [Route("/API/{CompanyId}/Financials/{controller}/{action=Index}")]
+    [Route("/API/{CompanyId}/Financial/{controller}/{action=Index}")]
     public class API_Financials_BaseController : API_BaseController
     {
  

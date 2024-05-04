@@ -45,6 +45,14 @@
             .HeaderCellTemplate(@<text>Account</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>); ;
 
+            columns.AddFor(m => m.AccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Type = t.Type.ToString() }).OrderBy(t => t.Type).ToList()).DisplayExpr("Type").ValueExpr("Id"))
+            .Width(200)
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>AccType</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+
+
             
             })
         )

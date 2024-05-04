@@ -1,16 +1,29 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Account
 @using ERPKeeperCore.Enterprise.Models.Accounting
+@using Microsoft.EntityFrameworkCore;
+
+
+@{
+    var account = Organization
+    .ErpCOREDBContext
+    .Accounts
+    .AsNoTracking()
+    .FirstOrDefault(a => a.Id == Model.Id);
+
+
+}
 
 
 
-<div class="mb-3 p-1">
-    <form id="EditForm" method="post" action="/@CompanyId/Accounting/Accounts/@Model.Id/Update">
+<div class="mb-3 p-1 border bg-fb1">
+    <form id="EditForm" method="post" action="/@CompanyId/Accounting/Accounts/@account.Id/Update">
         <div class="row">
             <div class="col-6 p-1 mb-2">
                 <div class="p-1">
+             
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_0")
-                        .FormData(Model)
+                        .FormData(account)
                         .LabelMode(FormLabelMode.Static)
                         .LabelLocation(FormLabelLocation.Left)
                         .MinColWidth(300)
@@ -21,7 +34,7 @@
                         {
                             items.AddSimpleFor(m => m.Name);
                             items.AddSimpleFor(m => m.No);
-                            
+
 
                             items.AddSimpleFor(m => m.Type).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
@@ -35,7 +48,7 @@
 
                             items.AddSimpleFor(m => m.IsLiquidity);
                             items.AddSimpleFor(m => m.IsCashEquivalent);
-                    
+
                         })
                         )
 
@@ -45,9 +58,10 @@
             </div>
             <div class="col-6 p-1 mb-2">
                 <div class="p-1">
+
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_1")
-                        .FormData(Model)
+                        .FormData(account)
                         .LabelMode(FormLabelMode.Static)
                         .LabelLocation(FormLabelLocation.Left)
                         .MinColWidth(300)

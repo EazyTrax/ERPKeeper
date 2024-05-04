@@ -77,7 +77,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void PostToTransaction()
         {
-            Console.Write($"Post SL:{this.Name}");
+            Console.WriteLine($"Post SL:{this.Name}");
 
             this.UpdateBalance();
 

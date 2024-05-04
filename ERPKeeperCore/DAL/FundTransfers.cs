@@ -30,6 +30,58 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public FundTransfer? Find(Guid Id) => erpNodeDBContext.FundTransfers.Find(Id);
 
+        public int Count()
+        {
+            return erpNodeDBContext.FundTransfers.Count();
+        }
 
+
+        public void CreateTransactions()
+        {
+            var fundTransfers = erpNodeDBContext
+                .FundTransfers
+                .Where(s => s.TransactionId == null)
+                .ToList();
+
+            fundTransfers.ForEach(fundTransfer =>
+            {
+                var transaction = erpNodeDBContext.Transactions.Find(fundTransfer.Id);
+
+                if (transaction == null)
+                {
+                    Console.WriteLine($"Create TR:{fundTransfer.Name}");
+                    transaction = new Transaction()
+                    {
+                        Id = fundTransfer.Id,
+                        Date = fundTransfer.Date,
+                        Reference = fundTransfer.Name,
+                        Type = Models.Accounting.Enums.TransactionType.FundTransfer,
+                        FundTransfer = fundTransfer,
+                    };
+
+                    erpNodeDBContext.Transactions.Add(transaction);
+                    erpNodeDBContext.SaveChanges();
+                }
+            });
+
+        }
+
+
+        public void PostToTransactions()
+        {
+            this.CreateTransactions();
+
+            var fundTransfers = erpNodeDBContext.FundTransfers
+                .Where(s => s.TransactionId != null)
+                .Where(s => !s.IsPosted)
+                .OrderBy(s => s.Date).ToList();
+
+            fundTransfers.ForEach(fundTransfer =>
+            {
+                fundTransfer.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
+            });
+
+        }
     }
 }

@@ -16,5 +16,11 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             return View();
         }
 
+        public IActionResult Refresh()
+        {
+            OrganizationCore.TaxPeriods.Refresh();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

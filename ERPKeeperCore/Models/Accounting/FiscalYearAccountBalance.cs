@@ -7,14 +7,14 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         public Guid Id { get; set; }
         public Guid FiscalYearId { get; set; }
+
+
         public Guid AccountId { get; set; }
         [ForeignKey("AccountId")]
         public virtual Account Account { get; set; }
 
 
         public Decimal Debit { get; set; }
-
-
         public Decimal Credit { get; set; }
 
         public Decimal Balance
@@ -39,9 +39,25 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Decimal OpeningDebit { get; set; }
         public Decimal OpeningCredit { get; set; }
+
+
         public Decimal ClosingDebit { get; set; }
         public Decimal ClosingCredit { get; set; }
+
+
         public Decimal ClosedDebit { get; set; }
         public Decimal ClosedCredit { get; set; }
+
+        public void ClearBalance()
+        {
+            this.OpeningDebit = 0;
+            this.OpeningCredit = 0;
+            this.Debit = 0;
+            this.Credit = 0;
+            this.ClosingDebit = 0;
+            this.ClosingCredit = 0;
+            this.ClosedDebit = 0;
+            this.ClosedCredit = 0;
+        }
     }
 }

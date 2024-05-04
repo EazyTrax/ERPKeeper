@@ -13,29 +13,29 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
     {
         public IActionResult Index(Guid customerUid)
         {
-            var customer = EnterpriseRepo.Customers.Find(customerUid);
+            var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
 
         public IActionResult Sales(Guid customerUid)
         {
-            var customer = EnterpriseRepo.Customers.Find(customerUid);
+            var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
         public IActionResult Quotes(Guid customerUid)
         {
-            var customer = EnterpriseRepo.Customers.Find(customerUid);
+            var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
 
         public IActionResult SaleItems(Guid customerUid)
         {
-            var customer = EnterpriseRepo.Customers.Find(customerUid);
+            var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
         public IActionResult EstimateItems(Guid customerUid)
         {
-            var customer = EnterpriseRepo.Customers.Find(customerUid);
+            var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
 

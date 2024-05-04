@@ -26,9 +26,10 @@
 
 <div class="lh-12 bg-fb1 p-2 rounded border">
     @{
-        Template("FundTransfers", "FundTransfers");
+        Template("FundTransfers", "FundTransfers", Organization.FundTransfers.Count());
         Template("Lends", "Lends");
         Template("Loans", "Loans");
         Template("Invests", "Invests");
+        Template("Retention Types", "RetentionTypes",Organization.ErpCOREDBContext.RetentionTypes.Count());
     }
 </div>

@@ -69,6 +69,8 @@ namespace ERPKeeperCore.Enterprise
             FundTransfers = new FundTransfers(this);
             Transactions = new Transactions(this);
 
+            //Loans = new Loans(this);
+            //Lends = new Lends(this);
         }
 
 

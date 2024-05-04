@@ -361,6 +361,7 @@
     <Compile Include="Node\Models\Accounting\Enums\LedgerPostingStatus.cs" />
     <Compile Include="Node\Models\Enums\ObjectTypes.cs" />
     <Compile Include="Node\Models\Accounting\FiscalYears\FiscalYear.cs" />
+    <Compile Include="Node\Models\Financial\Payments\Enums\RetentionStatus.cs" />
     <Compile Include="Node\Models\Financial\Payments\LiabilityPayment.cs" />
     <Compile Include="Node\Models\Financial\Payments\RetentionGroup.cs" />
     <Compile Include="Node\Models\Items\GroupItem.cs" />

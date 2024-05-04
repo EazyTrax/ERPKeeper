@@ -1,4 +1,4 @@
-﻿
+﻿@model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
 
 
 
@@ -8,10 +8,7 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Profiles/Customers/Sales/All")
-            .InsertUrl($"/API/{CompanyId}/Profiles/Customers/Customers/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/Customers/Update")
-            .UpdateMethod("Post")
+            .LoadUrl($"/API/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Sales/all")
             )
             .RowAlternationEnabled(true)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))

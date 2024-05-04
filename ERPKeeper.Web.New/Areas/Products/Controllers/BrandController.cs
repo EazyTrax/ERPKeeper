@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
     {
         public IActionResult Index(Guid brandUid)
         {
-            var i = EnterpriseRepo.Brands.Find(brandUid);
+            var i = OrganizationCore.Brands.Find(brandUid);
             return View(i);
         }
     }

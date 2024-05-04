@@ -15,15 +15,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
     {
         public FiscalYears(EnterpriseRepo organization) : base(organization)
         {
-          
+
         }
 
         public List<FiscalYear> Periods { get; set; }
-        public List<FiscalYear> GetAll()
-        {
-            return erpNodeDBContext.FiscalYears.ToList();
-        }
-     
+        public List<FiscalYear> GetAll() => erpNodeDBContext.FiscalYears.ToList();
         public FiscalYear FirstPeriod => GetAll().OrderBy(f => f.StartDate).FirstOrDefault();
         public FiscalYear CurrentPeriod => Find(DateTime.Now);
 
@@ -31,6 +27,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             .Where(period => (period.StartDate) <= DateTime.Now)
             .OrderBy(period => period.StartDate)
             .ToList();
+
         public FiscalYear Find(Guid uid) => erpNodeDBContext.FiscalYears.Find(uid);
         public FiscalYear Find(DateTime date)
         {
@@ -39,7 +36,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             if (this.Periods == null)
                 this.Periods = this.GetAll();
-
 
             FiscalYear fiscalYear = this.Periods
                         .Where(f => date >= f.StartDate && date <= f.EndDate)
@@ -83,20 +79,13 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             return fiscalYear;
         }
         public bool IsFirstPeriod(FiscalYear fy) => fy.Id == this.FirstPeriod.Id;
-        public void Save(FiscalYear fy)
-        {
-          
-        }
-      
+
         public void UpdateBalance(FiscalYear fy)
         {
             Console.WriteLine($"> Update {fy.Name} Balance");
             fy.ClearAccountBalances();
-
             this.SaveChanges();
         }
-
-       
 
         public void Close(FiscalYear fy)
         {
@@ -106,10 +95,40 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
 
 
-    
-      
+        public void PrepareFiscalYearBalances()
+        {
+            Console.WriteLine("> Prepare Fiscal Year Balances");
+            var accounts = organization.ChartOfAccount.GetAccountsList();
 
-     
-        
+
+            foreach (var fiscalYear in this.GetAll())
+            {
+                Console.WriteLine($"> Prepare Fiscal Year Balance {fiscalYear.Name}");
+                fiscalYear.PrepareFiscalBalance(accounts);
+                organization.SaveChanges();
+            }
+
+        }
+
+
+        public void UpdateTransactionFiscalYears()
+        {
+            Console.WriteLine("> Update  TR with Fiscal Years");
+
+            foreach (var fiscalYear in this.GetAll())
+            {
+                Console.WriteLine($"> Update  TR with Fiscal Year {fiscalYear.Name}");
+
+                var transactions = organization
+                    .ErpCOREDBContext
+                    .Transactions
+                    //.Where(t => t.FiscalYearId == null)
+                    .Where(t => t.Date >= fiscalYear.StartDate.Date && t.Date < fiscalYear.EndDate.Date.AddDays(1))
+                    .ToList();
+
+                transactions.ForEach(t => t.FiscalYearId = fiscalYear.Id);
+                organization.SaveChanges();
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@
             .HeaderFilter(headerFilter => headerFilter.Visible(true))
             .FilterRow(m => m.Visible(true))
             .ColumnAutoWidth(false)
+            .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
 
@@ -60,13 +61,38 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TaxCode</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.TaxCodeId).Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .HeaderCellTemplate(@<text>TaxCode</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
+
+
+                columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .HeaderCellTemplate(@<text>TaxPeriod</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
+
+
                 columns.AddFor(m => m.IsPosted)
-                .AllowEditing(false)
-                .Width(30)
-                .HeaderCellTemplate(@<text> </text>)
-                .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            .AllowEditing(false)
+            .Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
 
             })

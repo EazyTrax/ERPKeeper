@@ -14,13 +14,13 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Employees.Controllers
 
         public IActionResult Index(Guid EmployeeUid)
         {
-            var Employee = EnterpriseRepo.Employees.Find(EmployeeUid);
+            var Employee = OrganizationCore.Employees.Find(EmployeeUid);
             return View(Employee);
         }
 
         public IActionResult Payments(Guid EmployeeUid)
         {
-            var Employee = EnterpriseRepo.Employees.Find(EmployeeUid);
+            var Employee = OrganizationCore.Employees.Find(EmployeeUid);
             return View(Employee);
         }
 

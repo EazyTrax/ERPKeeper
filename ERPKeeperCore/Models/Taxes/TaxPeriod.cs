@@ -13,6 +13,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Taxes
@@ -26,51 +27,58 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public DateTime StartDate { get; set; }
         public DateTime EndDate => StartDate.AddMonths(1).AddDays(-1);
         public String? Name => "TP-" + StartDate.ToString("yyyy/MM");
-     
+
 
         public Guid? CloseToAccountId { get; set; }
         [ForeignKey("CloseToAccountId")]
         public virtual Account CloseToAccount { get; set; }
 
+
+
+
+
+
+
+
         public Guid? LiabilityPaymentId { get; set; }
+
+
+
+
+
+
+
+
+
         public String? Memo { get; set; }
         public LedgerPostStatus PostStatus { get; set; }
 
+        public int CommercialsCount => SalesCount + PurchasesCount;
+        public int SalesCount { get; set; }
+        public Decimal SalesBalance { get; set; }
+        public Decimal SalesTaxBalance { get; set; }
 
 
-        public int CommercialsCount => InputCommercialCount + OutputCommercialCount;
-        public int InputCommercialCount { get; set; }
-        public Decimal InputBalance { get; set; }
-        public Decimal InputTaxBalance { get; set; }
+        public Decimal PuchasesBalance { get; set; }
+        public Decimal PurchasesTaxBalance { get; set; }
+        public int PurchasesCount { get; set; }
+
+        public Decimal ClosingAmount => PurchasesTaxBalance - SalesTaxBalance;
+
+        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; }
 
 
-        public Decimal OutputBalance { get; set; }
-        public Decimal OutputTaxBalance { get; set; }
-        public int OutputCommercialCount { get; set; }
-
-        public Decimal ClosingAmount => InputTaxBalance - OutputTaxBalance;
-
-
-        //public List<Sale> GetCommercials(TaxDirection taxDirection) =>
-        //    Commercials
-        //        .Where(c => c.TaxCodeId != null && c.TaxCode.TaxDirection == taxDirection)
-        //        .ToList();
-
-
-
-
-        public void ReCalculate()
+        public void UpdateBalance()
         {
-            //var InputCommercial = GetCommercials(TaxDirection.Input);
-            //InputTaxBalance = InputCommercial.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
-            //InputBalance = InputCommercial.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
-            //InputCommercialCount = InputCommercial.Count;
+            SalesTaxBalance = Sales.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
+            SalesBalance = Sales.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
+            SalesCount = Sales.Count;
 
-            //var OutputCommercial = GetCommercials(TaxDirection.Output);
-            //OutputTaxBalance = OutputCommercial.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
-            //OutputBalance = OutputCommercial.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
-            //OutputCommercialCount = OutputCommercial.Count;
 
+            PurchasesTaxBalance = Purchases.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
+            PuchasesBalance = Purchases.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
+            PurchasesCount = Purchases.Count;
         }
     }
 }

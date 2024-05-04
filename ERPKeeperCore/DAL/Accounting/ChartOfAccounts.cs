@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
 
 
-        public List<Account> ListRelatedAccounts(Account accountItem) => 
+        public List<Account> ListRelatedAccounts(Account accountItem) =>
             this.erpNodeDBContext.Accounts
              .Where(i => i.Type == accountItem.Type && i.SubType == accountItem.SubType)
              .ToList();
@@ -50,7 +50,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         private void ReAssignNumber(Guid? parentId, AccountTypes accountType)
         {
-          
+
         }
         private void ClearBalanceHistory()
         {
@@ -70,7 +70,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
         public Account Find(Guid AccountId) => erpNodeDBContext.Accounts.Find(AccountId);
-        
+
         public Account Update(Account accountItem)
         {
             var exist = erpNodeDBContext.Accounts.Find(accountItem.Id);
@@ -99,8 +99,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             return exist;
         }
-       
-      
+
+
         public List<Account> GetByType(AccountTypes accountType)
         {
             return erpNodeDBContext.Accounts
@@ -109,7 +109,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             .ThenBy(i => i.No)
             .ToList();
         }
-     
+
         public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.Accounts
                 .Where(account => account.SubType == subType)
                 .Where(account => account.IsFolder == false)
@@ -185,7 +185,24 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public void UpdateBalance()
         {
-            throw new NotImplementedException();
+
+            var accountBalances = erpNodeDBContext.TransactionLedgers
+                .GroupBy(t => t.AccountId)
+                .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
+                .ToList();
+
+            foreach (var accBalance in accountBalances)
+            {
+                var account = erpNodeDBContext.Accounts.Find(accBalance.AccountId);
+                if (account != null)
+                {
+                    account.CurrentCredit = accBalance.Credit;
+                    account.CurrentDebit = accBalance.Debit;
+
+                    erpNodeDBContext.SaveChanges();
+                }
+
+            }
         }
 
         public void GenerateHistoryBalance()

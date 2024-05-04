@@ -16,10 +16,10 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 
         public IActionResult Index()
         {
-            var sale = EnterpriseRepo.Sales.Find(TransactionId);
+            var sale = OrganizationCore.Sales.Find(TransactionId);
 
             sale.PostToTransaction();
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
 
             return View(sale);
         }
@@ -28,19 +28,19 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 
         public IActionResult Items()
         {
-            var transcation = EnterpriseRepo.Sales.Find(TransactionId);
+            var transcation = OrganizationCore.Sales.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Payments()
         {
-            var transcation = EnterpriseRepo.Sales.Find(TransactionId);
+            var transcation = OrganizationCore.Sales.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Shipments()
         {
-            var transcation = EnterpriseRepo.Sales.Find(TransactionId);
+            var transcation = OrganizationCore.Sales.Find(TransactionId);
             return View(transcation);
         }
 
@@ -48,13 +48,13 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = EnterpriseRepo.Sales.Find(TransactionId);
+            var transcation = OrganizationCore.Sales.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Export()
         {
-            var transcation = EnterpriseRepo.Sales.Find(TransactionId);
+            var transcation = OrganizationCore.Sales.Find(TransactionId);
             return View(transcation);
         }
     }

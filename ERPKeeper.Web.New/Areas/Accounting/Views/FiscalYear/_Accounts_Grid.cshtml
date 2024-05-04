@@ -1,10 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 
 
-
-
-
-
 <div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYearAccountBalance>()
             .ID("LedgerList")
@@ -17,50 +13,121 @@
             .ColumnAutoWidth(false)
             .Paging(pagging => pagging.Enabled(false))
             .Width("100%")
-            .HeaderFilter(h=>h.Visible(true))
+            .HeaderFilter(h => h.Visible(true))
             .Columns(columns =>
             {
 
                 columns.AddFor(m => m.Account.Type)
-                .HeaderCellTemplate("Type")
-                .Width(90).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-                .DisplayExpr("Text")
-                .ValueExpr("Value")
-                );
+            .HeaderCellTemplate("Type")
+            .Width(90).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            );
 
                 columns.AddFor(m => m.Account.SubType)
-                .SortOrder(SortOrder.Asc).SortIndex(2)
-                .HeaderCellTemplate("SubType").Width(150).Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-                .DisplayExpr("Text")
-                .ValueExpr("Value")
-                );
+            .SortOrder(SortOrder.Asc).SortIndex(2)
+            .HeaderCellTemplate("SubType").Width(150).Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            );
                 columns.AddFor(m => m.AccountId)
-                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-                    .HeaderCellTemplate(@<text>Account</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .HeaderCellTemplate(@<text>Account</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>
+            );
 
 
-                columns.AddFor(m => m.OpeningDebit).Width(90).Format(Format.FixedPoint).CssClass("bg-fb1").HeaderCellTemplate(@<text>Open DR</text>);
-                columns.AddFor(m => m.OpeningCredit).Width(90).Format(Format.FixedPoint).CssClass("bg-fb1").HeaderCellTemplate(@<text>Open CR</text>);
-            
-                columns.AddFor(m => m.Debit).Width(90).Format(Format.FixedPoint).HeaderCellTemplate(@<text>DR</text>);
-                columns.AddFor(m => m.Credit).Width(90).Format(Format.FixedPoint).HeaderCellTemplate(@<text>CR</text>);
+                columns.Add()
+            .Caption("Open")
+            .Columns(b =>
+            {
+                b.AddFor(m => m.OpeningDebit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
 
-                columns.AddFor(m => m.ClosingDebit).Width(90).Format(Format.FixedPoint).CssClass("bg-fb1").HeaderCellTemplate(@<text>Open DR</text>);
-                columns.AddFor(m => m.ClosingCredit).Width(90).Format(Format.FixedPoint).CssClass("bg-fb1").HeaderCellTemplate(@<text>Open CR</text>);
+                b.AddFor(m => m.OpeningCredit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
 
-                columns.AddFor(m => m.ClosedDebit).Width(90).Format(Format.FixedPoint).CssClass("bg-fb1").HeaderCellTemplate(@<text>Close DR</text>);
-                columns.AddFor(m => m.ClosedCredit).Width(90).Format(Format.FixedPoint).CssClass("bg-fb1").HeaderCellTemplate(@<text>Close CR</text>);
+
+
+                columns.Add()
+            .Caption("Current")
+            .Columns(b =>
+            {
+                b.AddFor(m => m.Debit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
+
+                b.AddFor(m => m.Credit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+
+                columns.Add()
+            .Caption("Closing")
+            .Columns(b =>
+            {
+                b.AddFor(m => m.ClosingDebit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
+
+                b.AddFor(m => m.ClosingCredit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+
+                columns.Add()
+            .Caption("Closed")
+            .Columns(b =>
+            {
+                b.AddFor(m => m.ClosedDebit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
+
+                b.AddFor(m => m.ClosedCredit)
+            .Width(90)
+            .Format(Format.FixedPoint)
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+
 
             })
-            .Summary(s =>  s.TotalItems(items =>
-            {
+        .Summary(s => s.TotalItems(items =>
+        {
+            items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+
             items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            })
-            )
+
+            items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+
+            items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.ClosedCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+
+
+        })
+        )
         )
 </div>
 

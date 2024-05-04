@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
     {
         public IActionResult Index(Guid TaxCodeId)
         {
-            var TaxCode = EnterpriseRepo.TaxCodes.Find(TaxCodeId);
+            var TaxCode = OrganizationCore.TaxCodes.Find(TaxCodeId);
             return View(TaxCode);
         }
 
@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
         [HttpPost]
         public IActionResult Update(Guid TaxCodeId, ERPKeeperCore.Enterprise.Models.Taxes.TaxCode model)
         {
-            var TaxCode = EnterpriseRepo.TaxCodes.Find(TaxCodeId);
+            var TaxCode = OrganizationCore.TaxCodes.Find(TaxCodeId);
 
             if (TaxCode != null)
             {
@@ -34,7 +34,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
                 //TaxCode.ProjectUid = model.ProjectUid;
                 //TaxCode.Detail = model.Detail;
 
-                EnterpriseRepo.SaveChanges();
+                OrganizationCore.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

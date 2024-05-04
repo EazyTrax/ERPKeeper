@@ -25,12 +25,6 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public virtual Accounting.Account Account { get; set; }
 
         public Decimal Debit { get; set; }
-        public Decimal Credit{ get; set; }
-
         public String? Memo { get; set; }
-
-
-
-
     }
 }

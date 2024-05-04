@@ -60,22 +60,14 @@ namespace ERPKeeperCore.Enterprise.DBContext
                     property.SetColumnType("decimal(18, 2)");
                 }
             }
-
         }
-
-
 
         public DbSet<DataItem> DataItems { get; set; }
 
         public DbSet<CapitalActivity> CapitalActivities { get; set; }
-
-
-
         public DbSet<Models.Items.Item> Items { get; set; }
-
         public DbSet<Models.Items.ItemGroup> ItemGroups { get; set; }
         public DbSet<Models.Items.Brand> Brands { get; set; }
-
         public DbSet<FiscalYear> FiscalYears { get; set; }
         public DbSet<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
 
@@ -146,6 +138,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
         #region Financial
         public DbSet<FundTransfer> FundTransfers { get; set; }
         public DbSet<FundTransferItem> FundTransferItems { get; set; }
+
+        public DbSet<RetentionType> RetentionTypes { get; set; }
         #endregion
 
 

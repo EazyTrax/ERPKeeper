@@ -18,52 +18,54 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult TrialBalance()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult Incomes()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult Expenses()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult Journals()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
+
+
         public IActionResult Balances()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult UpdateBalance()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
-            EnterpriseRepo.FiscalYears.UpdateBalance(model);
-            EnterpriseRepo.SaveChanges();
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            OrganizationCore.FiscalYears.UpdateBalance(model);
+            OrganizationCore.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult CreateNextFiscalYear()
         {
-            var model = EnterpriseRepo.FiscalYears.Find(FiscalYearId);
-            EnterpriseRepo.FiscalYears.Find(model.EndDate.AddDays(1));
-            EnterpriseRepo.SaveChanges();
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            OrganizationCore.FiscalYears.Find(model.EndDate.AddDays(1));
+            OrganizationCore.SaveChanges();
             return Redirect($"/{CompanyId}/Accounting/FiscalYears/{FiscalYearId}");
         }
     }

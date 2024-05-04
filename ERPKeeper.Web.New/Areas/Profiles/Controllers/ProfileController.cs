@@ -15,22 +15,22 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
 
         public IActionResult Index()
         {
-            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
+            var customer = OrganizationCore.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Addresses()
         {
-            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
+            var customer = OrganizationCore.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Contacts()
         {
-            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
+            var customer = OrganizationCore.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Roles()
         {
-            var customer = EnterpriseRepo.Profiles.Find(ProfileUid);
+            var customer = OrganizationCore.Profiles.Find(ProfileUid);
             return View(customer);
         }
 
@@ -38,14 +38,14 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
         [HttpPost]
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Profiles.Profile model)
         {
-            var profile = EnterpriseRepo.Profiles.Find(ProfileUid);
+            var profile = OrganizationCore.Profiles.Find(ProfileUid);
 
             profile.Name = model.Name;
             profile.ShotName = model.ShotName;
             profile.TaxNumber = model.TaxNumber;
             profile.WebSite = model.WebSite;
             profile.PhoneNumber = model.PhoneNumber;
-            EnterpriseRepo.SaveChanges();
+            OrganizationCore.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
