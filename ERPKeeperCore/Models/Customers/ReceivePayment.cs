@@ -38,13 +38,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
   
         public virtual ICollection<Sale> Sales { get; set; }
 
-
-
         public void CreateTransaction()
         {
             if (this.Transaction == null)
             {
-                Console.WriteLine("Creating Sale Transaction");
+                Console.WriteLine("Creating ReceivePayment Transaction");
                 this.Transaction = new Accounting.Transaction()
                 {
                     Id = this.Id,
@@ -58,9 +56,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.UpdateBalance();
         }
 
-        public static implicit operator ReceivePayment(SupplierPayment v)
+        public  ReceivePayment()
         {
-            throw new NotImplementedException();
+        
         }
     }
 }
