@@ -25,24 +25,43 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-        public Guid? CustomerId { get; set; }
-        [ForeignKey("CustomerId")]
-        public virtual Customers.Customer? Customer { get; set; }
+        public Guid? SaleId { get; set; }
+        [ForeignKey("SaleId")]
+        public virtual Sale? Sale { get; set; }
 
-         public String? Reference { get; set; }
+        public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public Decimal Total { get; set; }
-  
-        public virtual ICollection<Sale> Sales { get; set; }
+
+
+        public Decimal Amount { get; set; }
+        public Decimal AmountRetention { get; set; }
+        public Decimal AmountDiscount { get; set; }
+        public Decimal AmountBankFee { get; set; }
+        public Decimal AmountTotalReceive =>
+            Amount - (AmountRetention + AmountDiscount + AmountBankFee);
+
+
+        public Guid? PayToAccountId { get; set; }
+        [ForeignKey("PayToAccountId")]
+        public virtual Accounting.Account? PayToAccount { get; set; }
+
+        public Guid? RetentionTypeId { get; set; }
+        [ForeignKey("RetentionTypeId")]
+        public virtual Financial.RetentionType? RetentionType { get; set; }
+
+        public Guid? DiscountAccountId { get; set; }
+        [ForeignKey("DiscountAccountId")]
+        public virtual Accounting.Account? DiscountAccount { get; set; }
+
 
         public void CreateTransaction()
         {
             if (this.Transaction == null)
             {
-                Console.WriteLine("Creating ReceivePayment Transaction");
+                Console.WriteLine("Creating Sale Transaction");
                 this.Transaction = new Accounting.Transaction()
                 {
                     Id = this.Id,
@@ -56,9 +75,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.UpdateBalance();
         }
 
-        public  ReceivePayment()
+        public ReceivePayment()
         {
-        
+
         }
     }
 }

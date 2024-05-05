@@ -49,14 +49,14 @@
                 columns.Add().DataField("Name").Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
-
+@* 
                 columns.AddFor(m => m.SupplierId).Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
-
+ *@
 
                 columns.AddFor(m => m.Reference).Width(180);
 

@@ -25,9 +25,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-        public Guid? ReceivePaymentId { get; set; }
-        [ForeignKey("ReceivePaymentId")]
-        public virtual Customers.ReceivePayment? ReceivePayment { get; set; }
 
         public Guid? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
@@ -44,20 +41,17 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal Tax { get; set; }
         public Decimal Total => LinesTotal + Tax;
 
-        public virtual ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();
+        public virtual ICollection<SaleItem> Items { get; set; }
+            = new List<SaleItem>();
 
+        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; }
+            = new List<ReceivePayment>();
 
 
 
         public Guid? ReceivableAccountId { get; set; }
         [ForeignKey("ReceivableAccountId")]
-        public virtual Account ReceivableAccount { get; set; }
-
-
-
-
-
-
+        public virtual Account? ReceivableAccount { get; set; }
 
 
 
@@ -124,7 +118,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 this.Tax = 0;
         }
 
- 
+
 
     }
 }

@@ -12,6 +12,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         Purchase = 30,
         DebtPayment = 40,
         ReceivePayment = 50,
+        SupplierPayment = 70,
         FundTransfer = 60,
     }
 }

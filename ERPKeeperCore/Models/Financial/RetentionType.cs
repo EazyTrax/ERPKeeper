@@ -25,10 +25,10 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public Guid? RetentionToAccountId { get; set; }
         [ForeignKey("RetentionToAccountId")]
-        public virtual Accounting.Account RetentionToAccount { get; set; }
+        public virtual Accounting.Account? RetentionToAccount { get; set; }
 
-        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; }
-        public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }
+        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; }=new List<ReceivePayment>();
+        public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }= new List<SupplierPayment>();
 
         public void Update(RetentionType type)
         {
