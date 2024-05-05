@@ -59,18 +59,10 @@
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
+            .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
-
-
-
-                columns.AddFor(m => m.TaxCodeId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .HeaderCellTemplate(@<text>TaxCode</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
 
