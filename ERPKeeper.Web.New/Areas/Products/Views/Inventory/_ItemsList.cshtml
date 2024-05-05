@@ -37,7 +37,7 @@
     .ShowBorders(false)
     .AllowColumnResizing(false).AllowColumnReordering(true)
     .Paging(paging => paging.Enabled(true).PageSize(500))
-    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .AllowColumnResizing(true)
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
     .ColumnAutoWidth(true)

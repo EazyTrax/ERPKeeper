@@ -18,7 +18,7 @@
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
 
-        //.SearchPanel(searchPanel => searchPanel.Visible(true))
+        .AllowColumnResizing(true)
         .Paging(pagging => pagging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 

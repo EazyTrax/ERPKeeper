@@ -28,20 +28,38 @@
             .ValueExpr("Value")
             );
 
-                columns.Add().DataField("Name").Width(130)
+                columns.Add().DataField("Name")
+                .Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Payments/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-         @*        columns.AddFor(m => m.CustomerId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+                columns.AddFor(m => m.SaleId)
+                .Width(130)
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Payments/<%= data.SaleId %>/"><%= data.Sale.Name %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.Sale.CustomerId).Lookup(lookup => 
+               lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
- *@
+       
 
                 columns.AddFor(m => m.Reference).Width(180);
                 columns.AddFor(m => m.Amount).Width(130).Format(Format.FixedPoint);
+
+
+
+           
+
+
+
+
+
+
                 columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
 

@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505091200_DB-1.62")]
+    partial class DB162
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -673,9 +676,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("PayToAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ReceivableAccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
@@ -696,8 +696,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("DiscountAccountId");
 
                     b.HasIndex("PayToAccountId");
-
-                    b.HasIndex("ReceivableAccountId");
 
                     b.HasIndex("RetentionTypeId");
 
@@ -864,20 +862,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EmployeeId")
+                    b.Property<Guid?>("EmployeePaymentPeriodUid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EmployeePaymentPeriodId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("EmployeeUid")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("EmployeeUid");
 
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PayFromAccountId")
+                    b.Property<Guid?>("PayFromAccountUid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalDeduction")
@@ -888,11 +883,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeePaymentPeriodUid");
 
-                    b.HasIndex("EmployeePaymentPeriodId");
+                    b.HasIndex("EmployeeUid");
 
-                    b.HasIndex("PayFromAccountId");
+                    b.HasIndex("PayFromAccountUid");
 
                     b.ToTable("EmployeePayments");
                 });
@@ -1715,18 +1710,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AmountBankFee")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AmountDiscount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AmountRetention")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -1745,9 +1728,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("PayFromAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PayableAccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("PurchaseId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1760,14 +1740,15 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<Guid?>("TransactionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PayFromAccountId");
-
-                    b.HasIndex("PayableAccountId");
 
                     b.HasIndex("PurchaseId");
 
@@ -2236,10 +2217,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("PayToAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ReceivableAccount")
-                        .WithMany()
-                        .HasForeignKey("ReceivableAccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", "RetentionType")
                         .WithMany("ReceivePayments")
                         .HasForeignKey("RetentionTypeId");
@@ -2255,8 +2232,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("DiscountAccount");
 
                     b.Navigation("PayToAccount");
-
-                    b.Navigation("ReceivableAccount");
 
                     b.Navigation("RetentionType");
 
@@ -2334,19 +2309,19 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment", b =>
                 {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod", "EmployeePaymentPeriod")
+                        .WithMany("EmployeePayments")
+                        .HasForeignKey("EmployeePaymentPeriodUid");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("EmployeeUid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod", "EmployeePaymentPeriod")
-                        .WithMany("EmployeePayments")
-                        .HasForeignKey("EmployeePaymentPeriodId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFromAccount")
                         .WithMany()
-                        .HasForeignKey("PayFromAccountId");
+                        .HasForeignKey("PayFromAccountUid");
 
                     b.Navigation("Employee");
 
@@ -2596,10 +2571,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("PayFromAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayableAccount")
-                        .WithMany()
-                        .HasForeignKey("PayableAccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "Purchase")
                         .WithMany("SupplierPayments")
                         .HasForeignKey("PurchaseId")
@@ -2615,8 +2586,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", "TransactionId");
 
                     b.Navigation("PayFromAccount");
-
-                    b.Navigation("PayableAccount");
 
                     b.Navigation("Purchase");
 

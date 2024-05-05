@@ -26,7 +26,7 @@
         .AllowAdding(true)
         )
         .Paging(pagging => pagging.PageSize(100))
-        //.SearchPanel(searchPanel => searchPanel.Visible(true))
+        .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
         .ColumnAutoWidth(false)

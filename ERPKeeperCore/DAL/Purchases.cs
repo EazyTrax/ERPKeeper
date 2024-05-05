@@ -31,6 +31,8 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostToTransactions()
         {
+            this.CreateTransactions();
+
             var purchases = erpNodeDBContext.Purchases
                 .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted)

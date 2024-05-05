@@ -20,7 +20,7 @@
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
 
-        //.SearchPanel(searchPanel => searchPanel.Visible(true))
+        .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
         .ColumnAutoWidth(false)
@@ -47,20 +47,32 @@
             );
 
                 columns.Add().DataField("Name").Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
-@* 
-                columns.AddFor(m => m.SupplierId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+
+                columns.AddFor(m => m.PurchaseId)
+            .Width(130)
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Payments/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
+            lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
- *@
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
+
 
                 columns.AddFor(m => m.Reference).Width(180);
 
-                columns.AddFor(m => m.Total).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Amount).Width(130).Format(Format.FixedPoint);
                 columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
             })
         )

@@ -48,6 +48,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("PayToAccountId")]
         public virtual Accounting.Account? PayToAccount { get; set; }
 
+        public Guid? ReceivableAccountId { get; set; }
+        [ForeignKey("ReceivableAccountId")]
+        public virtual Accounting.Account? ReceivableAccount { get; set; }
+
+
         public Guid? RetentionTypeId { get; set; }
         [ForeignKey("RetentionTypeId")]
         public virtual Financial.RetentionType? RetentionType { get; set; }

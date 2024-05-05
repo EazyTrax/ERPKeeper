@@ -17,7 +17,8 @@ namespace ERPKeeperCore.Web.API.Accounting.Journal
         {
             var returnModel = Organization.ErpCOREDBContext
                 .TransactionLedgers
-                .Where(m => m.TransactionId == TransactionId);
+                .Where(m => m.TransactionId == TransactionId)
+                .Include(m=>m.Account);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

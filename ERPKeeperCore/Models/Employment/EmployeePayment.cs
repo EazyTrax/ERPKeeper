@@ -16,16 +16,16 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public Guid Id { get; set; }
 
         public int No { get; set; }
-        public string Name => $"EP-{GetDocumentGroup()}/{No}";
-        public string GetDocumentGroup() => "";
+        public string Name { get; set; }
 
-        [Column("EmployeeUid")]
-        public Guid EmployeeUid { get; set; }
-        [ForeignKey("EmployeeUid")]
+
+
+        public Guid EmployeeId { get; set; }
+        [ForeignKey("EmployeeId")]
         public virtual Employees.Employee Employee { get; set; }
 
-        public Guid? EmployeePaymentPeriodUid { get; set; }
-        [ForeignKey("EmployeePaymentPeriodUid")]
+        public Guid? EmployeePaymentPeriodId { get; set; }
+        [ForeignKey("EmployeePaymentPeriodId")]
         public virtual EmployeePaymentPeriod EmployeePaymentPeriod { get; set; }
 
 
@@ -34,16 +34,17 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public Decimal TotalDeduction { get; set; }
         public Decimal TotalPayment => TotalEarning - TotalDeduction;
 
-        public Guid? PayFromAccountUid { get; set; }
-        [ForeignKey("PayFromAccountUid")]
+        public Guid? PayFromAccountId { get; set; }
+        [ForeignKey("PayFromAccountId")]
         public virtual Accounting.Account PayFromAccount { get; set; }
+
         public virtual ICollection<EmployeePaymentItem> PaymentItems { get; set; }
 
         public EmployeePaymentItem addPaymentItems(EmployeePaymentType type, decimal amount)
         {
             var employeePaymentItem = new EmployeePaymentItem()
             {
-                
+
                 EmployeePaymentType = type,
                 EmployeePaymentId = type.Id,
                 Amount = Math.Abs(amount)
@@ -54,8 +55,8 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             return employeePaymentItem;
         }
 
-     
-        public void Calculate()
+
+        public void UpdateBalance()
         {
             TotalEarning = PaymentItems
                 .Where(pi => pi.EmployeePaymentType.PayDirection == PayDirection.Eanring)

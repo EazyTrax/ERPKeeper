@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505103558_DB-1.64")]
+    partial class DB164
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -673,9 +676,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("PayToAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ReceivableAccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
@@ -696,8 +696,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("DiscountAccountId");
 
                     b.HasIndex("PayToAccountId");
-
-                    b.HasIndex("ReceivableAccountId");
 
                     b.HasIndex("RetentionTypeId");
 
@@ -1745,9 +1743,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("PayFromAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PayableAccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("PurchaseId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1766,8 +1761,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PayFromAccountId");
-
-                    b.HasIndex("PayableAccountId");
 
                     b.HasIndex("PurchaseId");
 
@@ -2236,10 +2229,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("PayToAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ReceivableAccount")
-                        .WithMany()
-                        .HasForeignKey("ReceivableAccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", "RetentionType")
                         .WithMany("ReceivePayments")
                         .HasForeignKey("RetentionTypeId");
@@ -2255,8 +2244,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("DiscountAccount");
 
                     b.Navigation("PayToAccount");
-
-                    b.Navigation("ReceivableAccount");
 
                     b.Navigation("RetentionType");
 
@@ -2596,10 +2583,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("PayFromAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayableAccount")
-                        .WithMany()
-                        .HasForeignKey("PayableAccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "Purchase")
                         .WithMany("SupplierPayments")
                         .HasForeignKey("PurchaseId")
@@ -2615,8 +2598,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", "TransactionId");
 
                     b.Navigation("PayFromAccount");
-
-                    b.Navigation("PayableAccount");
 
                     b.Navigation("Purchase");
 

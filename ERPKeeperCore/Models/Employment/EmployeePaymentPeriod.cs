@@ -17,16 +17,19 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public DateTime Date { get; set; }
         public string TrGroup => this.Date.ToString("yy-MM");
 
-        public virtual ICollection<EmployeePayment> EmployeePayments { get; set; }
+        public virtual ICollection<EmployeePayment> EmployeePayments { get; set; } = new List<EmployeePayment>();
 
 
         public decimal TotalEarning { get; set; }
         public decimal TotalDeduction { get; set; }
+        public decimal TotalPayment => TotalEarning - TotalDeduction;
+        public int PaymentCount => EmployeePayments?.Count() ?? 0;
+
 
 
         public String Description { get; set; }
 
-        public Guid? PayFromAccountId{ get; set; }
+        public Guid? PayFromAccountId { get; set; }
         [ForeignKey("PayFromAccountId")]
         public virtual Accounting.Account PayFromAccount { get; set; }
 
@@ -38,7 +41,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             this.Date = model.Date;
             this.PayFromAccountId = model.PayFromAccountId;
 
-          
+
         }
 
         public void Calculate()

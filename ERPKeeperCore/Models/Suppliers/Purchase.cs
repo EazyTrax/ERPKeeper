@@ -74,21 +74,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 this.Tax = 0;
         }
 
-        public void CreateTransaction()
-        {
-            if (this.Transaction == null)
-            {
-                Console.WriteLine($"Create TR:{this.Name}");
-                this.Transaction = new Accounting.Transaction()
-                {
-                    Id = this.Id,
-                    Date = this.Date,
-                    Reference = this.Name,
-                    Type = Accounting.Enums.TransactionType.Purchase,
-                    Purchase = this,
-                };
-            }
-        }
+
 
 
         public void PostToTransaction()

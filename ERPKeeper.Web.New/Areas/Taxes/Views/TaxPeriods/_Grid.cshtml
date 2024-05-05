@@ -20,7 +20,7 @@
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
 
-        //.SearchPanel(searchPanel => searchPanel.Visible(true))
+        .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
         .ColumnAutoWidth(false)

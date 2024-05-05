@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ERPKeeper.Node.DAL;
+using ERPKeeper.Node.DAL.Employees;
 using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace ERPKeeperCore.CMD
 {
     public class ERPMigrationTool
@@ -37,9 +39,19 @@ namespace ERPKeeperCore.CMD
 
             //CopyProfiles(newOrganization, oldOrganization);
             //CopySuppliers(newOrganization, oldOrganization);
-            //CopySales(newOrganization, oldOrganization);
-            //CopyPurchases(newOrganization, oldOrganization);
-            //CopyPurchaseItems(newOrganization, oldOrganization);
+
+            CopySales();
+            CopySaleItems();
+
+            CopyPurchases();
+            CopyPurchaseItems();
+
+            CopyEmployeePositions();
+            CopyEmployees();
+
+            CopyEmployeePaymentPeriods();
+            CopyEmployeePayments();
+
             //CopyAccounts(newOrganization, oldOrganization);
             //CopyProfiles(newOrganization, oldOrganization);
             //CopyBrands(newOrganization, oldOrganization);
@@ -358,7 +370,15 @@ namespace ERPKeeperCore.CMD
         }
         private void CopyEmployeePositions()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.EmployeePositions.ToList();
+            var existModelIds = newOrganization.ErpCOREDBContext.EmployeePositions
+              .Select(x => x.Id)
+              .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EmployeePositions
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
 
             oldModels.ForEach(a =>
             {
@@ -386,7 +406,14 @@ namespace ERPKeeperCore.CMD
         }
         private void CopyEmployees()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Employees.ToList();
+            var existModelIds = newOrganization.ErpCOREDBContext.Employees
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .Employees
+                .Where(i => !existModelIds.Contains(i.ProfileUid))
+                .ToList();
 
             oldModels.ForEach(a =>
             {
@@ -412,6 +439,84 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
+        private void CopyEmployeePaymentPeriods()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentPeriods
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EmployeePaymentPeriods
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"EmployeePaymentPeriods:{oldModel.Name}-{oldModel.Name}");
+                var exist = newOrganization.ErpCOREDBContext.EmployeePaymentPeriods.FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod()
+                    {
+                        Id = oldModel.Uid,
+                        Date = oldModel.TrnDate,
+                        Description = oldModel.Description ?? "NA",
+                        Name = oldModel.Name,
+                        PayFromAccountId = oldModel.PayFromAccountGuid,
+                        TotalDeduction = oldModel.TotalDeduction,
+                        TotalEarning = oldModel.TotalEarning
+                    };
+
+                    newOrganization.ErpCOREDBContext.EmployeePaymentPeriods.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private void CopyEmployeePayments()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.EmployeePayments
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EmployeePayments
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"EmployeePayments:{oldModel.Name}");
+                var exist = newOrganization.ErpCOREDBContext.EmployeePayments.FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment()
+                    {
+                        Id = oldModel.Uid,
+                        EmployeeId = oldModel.EmployeeUid,
+                        EmployeePaymentPeriodId = oldModel.EmployeePaymentPeriodUid,
+                        Name = oldModel.Name,
+                        PayFromAccountId = oldModel.PayFromAccountGuid,
+                        TotalEarning = oldModel.TotalEarning,
+                        TotalDeduction = oldModel.TotalDeduction,
+                    };
+                    newOrganization.ErpCOREDBContext.EmployeePayments.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+
         private void CopyFiscalYear()
         {
             var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();
@@ -517,7 +622,14 @@ namespace ERPKeeperCore.CMD
         }
         private void CopySales()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Sales.ToList();
+            var existModelIds = newOrganization.ErpCOREDBContext.Sales
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.Sales
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
 
             oldModels.ForEach(oldModel =>
             {

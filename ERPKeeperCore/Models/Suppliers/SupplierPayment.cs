@@ -36,13 +36,25 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public Decimal Total { get; set; }
+        public Decimal Amount { get; set; }
+        public Decimal AmountRetention { get; set; }
+        public Decimal AmountDiscount { get; set; }
+        public Decimal AmountBankFee { get; set; }
+        public Decimal AmountTotalReceive =>
+            Amount - (AmountRetention + AmountDiscount + AmountBankFee);
 
 
-
+        //Cr.
         public Guid? PayFromAccountId { get; set; }
         [ForeignKey("PayFromAccountId")]
         public virtual Accounting.Account? PayFromAccount { get; set; }
+
+
+        // Dr.
+        public Guid? PayableAccountId { get; set; }
+        [ForeignKey("PayableAccountId")]
+        public virtual Accounting.Account? PayableAccount { get; set; }
+
 
         public Guid? RetentionTypeId { get; set; }
         [ForeignKey("RetentionTypeId")]

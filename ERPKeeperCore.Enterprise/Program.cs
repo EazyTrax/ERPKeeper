@@ -20,52 +20,137 @@ namespace ERPKeeperCore.CMD
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 //migrationTool.Migrate();
 
+
+
                 Console.WriteLine($"###{enterpriseDB}########################################################");
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
-                oldOrganization.ErpNodeDBContext
-                    .Sales
-                    .Where(s => s.GeneralPaymentUid != null)
-                    .ToList()
-                    .ForEach(oldSale =>
-                    {
-                        var existReceivePayment = newOrganization.ErpCOREDBContext
-                            .ReceivePayments
-                            .FirstOrDefault(s => s.SaleId == oldSale.Uid);
-
-                        Console.WriteLine($"SALE: {oldSale.No}-{oldSale.Name}");
-
-                        if (existReceivePayment == null)
-                        {
-                            existReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
-                            {
-                                SaleId = oldSale.Uid,
-                                Date = oldSale.TrnDate,
-                                Amount = oldSale.Total,
-                        
-                                PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
-                                RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
-                            };
-                        }
-
-
-
-                    });
+                //CopyReceivePayments(newOrganization, oldOrganization);
+                //CopySupplierPayments(newOrganization, oldOrganization);
+                PostLedgers(newOrganization);
 
                 Console.WriteLine("###########################################################");
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
             }
         }
+        private static void CopySupplierPayments(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            oldOrganization.ErpNodeDBContext
+                .Purchases
+                .Where(s => s.GeneralPaymentUid != null)
+                .OrderByDescending(s => s.GeneralPayment.TrnDate)
+                .ToList()
+                .ForEach(oldPurchase =>
+                {
+                    Console.WriteLine($"PURCHASE: {oldPurchase.Name}");
+
+                    var existSupplierPayment = newOrganization.ErpCOREDBContext
+                        .SupplierPayments
+                        .FirstOrDefault(s => s.PurchaseId == oldPurchase.Uid);
+
+                    if (existSupplierPayment == null)
+                    {
+                        existSupplierPayment = new Enterprise.Models.Suppliers.SupplierPayment()
+                        {
+                            PurchaseId = oldPurchase.Uid,
+                            Amount = oldPurchase.Total,
+                            Date = oldPurchase.GeneralPayment.TrnDate,
+                            Reference = oldPurchase.GeneralPayment.Reference,
+                            AmountBankFee = oldPurchase.GeneralPayment.BankFeeAmount,
+                            AmountDiscount = oldPurchase.GeneralPayment.DiscountAmount,
+                            PayFromAccountId = oldPurchase.GeneralPayment.AssetAccountUid,
+                            PayableAccountId = oldPurchase.GeneralPayment.LiabilityAccountUid,
+                            RetentionTypeId = oldPurchase.GeneralPayment.RetentionTypeGuid,
+
+                        };
+
+                        if (existSupplierPayment.RetentionTypeId != null)
+                            existSupplierPayment.AmountRetention = oldPurchase.GeneralPayment.RetentionType.Rate * oldPurchase.LinesTotal / 100;
+
+
+                        if (existSupplierPayment.PayableAccountId == null)
+                            existSupplierPayment.PayableAccountId =
+                                newOrganization.SystemAccounts.GetAccount(DefaultAccountType.AccountPayable).Id;
+
+
+                        Console.WriteLine($"> {oldPurchase.GeneralPayment.AssetAccount.Name}");
+                        Console.WriteLine($"> {oldPurchase.GeneralPayment.LiabilityAccount?.Name}");
+
+
+                        newOrganization.ErpCOREDBContext
+                            .SupplierPayments.Add(existSupplierPayment);
+
+                        newOrganization.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+
+
+
+                });
+        }
+        private static void CopyReceivePayments(EnterpriseRepo newOrganization, Organization oldOrganization)
+        {
+            oldOrganization.ErpNodeDBContext
+                .Sales
+                .Where(s => s.GeneralPaymentUid != null)
+                .OrderByDescending(s => s.GeneralPayment.TrnDate)
+                .ToList()
+                .ForEach(oldSale =>
+                {
+                    Console.WriteLine($"SALE: {oldSale.Name}");
+
+                    var existReceivePayment = newOrganization.ErpCOREDBContext
+                        .ReceivePayments
+                        .FirstOrDefault(s => s.SaleId == oldSale.Uid);
+
+                    if (existReceivePayment == null)
+                    {
+                        existReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
+                        {
+                            SaleId = oldSale.Uid,
+                            Amount = oldSale.Total,
+                            Date = oldSale.GeneralPayment.TrnDate,
+                            Reference = oldSale.GeneralPayment.Reference,
+                            AmountBankFee = oldSale.GeneralPayment.BankFeeAmount,
+                            AmountDiscount = oldSale.GeneralPayment.DiscountAmount,
+                            PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
+                            ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid,
+                            RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
+
+
+                        };
+
+                        if (existReceivePayment.RetentionTypeId != null)
+                            existReceivePayment.AmountRetention = oldSale.GeneralPayment.RetentionType.Rate * oldSale.LinesTotal / 100;
+
+                        newOrganization.ErpCOREDBContext
+                            .ReceivePayments.Add(existReceivePayment);
+
+                        newOrganization.SaveChanges();
+                    }
+                    else
+                    {
+                        existReceivePayment.ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid;
+                    }
+                });
+        }
 
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
-            //   newOrganization.Sales.PostToTransactions();
-            //   newOrganization.Purchases.PostToTransactions();
-            // newOrganization.FundTransfers.PostToTransactions();
+            newOrganization.Sales.PostToTransactions();
+            newOrganization.Purchases.PostToTransactions();
+            newOrganization.FundTransfers.PostToTransactions();
+            newOrganization.JournalEntries.PostToTransactions();
+
+
+
         }
         private static void GeneralOperations(EnterpriseRepo newOrganization)
         {

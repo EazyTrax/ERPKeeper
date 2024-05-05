@@ -5,12 +5,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
-    .LoadUrl($"/API/Profiles/Employees/Payments/All")
-    .InsertUrl($"/API/Profiles/Employees/Payments/Insert")
-    .UpdateUrl($"/API/Profiles/Employees/Payments/Update")
-    .UpdateMethod("Post")
-    .DeleteUrl($"/API/Profiles/Employees/Payments/Delete")
-    .DeleteMethod("Post")
+        .LoadUrl($"/API/{CompanyId}/Profiles/Employees/Payments/All")
+        .InsertUrl($"/API/{CompanyId}/Profiles/Employees/Payments/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Profiles/Employees/Payments/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Profiles/Employees/Payments/Delete").DeleteMethod("Post")
     )
     .KeyExpr("Id")
     .RowAlternationEnabled(true)
@@ -21,7 +19,7 @@
     .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
     )
 
-    //.SearchPanel(searchPanel => searchPanel.Visible(true))
+    .AllowColumnResizing(true)
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .FilterRow(filterRow => filterRow
     .Visible(true)
@@ -42,7 +40,7 @@
     columns.AddFor(m=>m.Name).CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Payments/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
-    columns.AddFor(m=>m.EmployeePaymentPeriodUid).Width(130)
+    columns.AddFor(m=>m.EmployeePaymentPeriodId).Width(130)
     .Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name}))
     .DisplayExpr("Name")
@@ -53,7 +51,7 @@
     .HeaderCellTemplate(@<text>Period</text>)
     .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/PaymentPeriods/<%= data.EmployeePaymentPeriodUid %>/"><%= displayValue %></a></text>);
 
-    columns.AddFor(m=>m.EmployeeUid).Width(150)
+    columns.AddFor(m=>m.EmployeeId).Width(150)
     .Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber}))
     .DisplayExpr("Text")
@@ -62,7 +60,7 @@
     .HeaderCellTemplate(@<text>TAX Id</text>)
     .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeUid %>/"><%= displayValue %></a></text>);
 
-    columns.AddFor(m=>m.EmployeeUid).Width(250)
+    columns.AddFor(m=>m.EmployeeId).Width(250)
     .Lookup(lookup => lookup
     .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name}))
     .DisplayExpr("Text")

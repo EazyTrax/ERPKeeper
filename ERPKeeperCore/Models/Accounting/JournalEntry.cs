@@ -70,6 +70,37 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             this.UpdateBalance();
         }
 
+        public void PostToTransaction()
+        {
+            Console.WriteLine($"Post JourmalEntry:{this.Name}");
+
+            this.UpdateBalance();
+
+            if (this.Transaction == null)
+                return;
+
+            this.Transaction.ClearLedger();
+
+
+            foreach (var item in this.JournalEntryItems)
+            {
+                Console.WriteLine($"{item.Account.Name} Dr.{item.Debit}  Cr.{item.Credit} ");
+
+                if ((item.Debit ?? 0) > 0)
+                    this.Transaction.AddDebit(item.Account, item.Debit ?? 0);
+                if ((item.Credit ?? 0) > 0)
+                    this.Transaction.AddCredit(item.Account, item.Credit ?? 0);
+            }
+
+
+
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Name;
+            this.Transaction.UpdateBalance();
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
+        }
 
     }
 }

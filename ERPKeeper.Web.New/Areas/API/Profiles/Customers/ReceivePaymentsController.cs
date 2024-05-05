@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
@@ -13,8 +14,9 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.ReceivePayments
-                .ToList();
+            var returnModel = Organization.ErpCOREDBContext
+                .ReceivePayments
+                .Include(a => a.Sale);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
