@@ -40,7 +40,8 @@
 
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(200)
-            .HeaderCellTemplate(@<text>Account</text>);
+            .HeaderCellTemplate(@<text>WithDrawAccount</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
 
 
 

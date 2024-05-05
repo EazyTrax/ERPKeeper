@@ -13,6 +13,7 @@
         .DeleteMethod("Post"))
         .KeyExpr("Id")
         .AllowColumnReordering(true)
+        .AllowColumnResizing(true)
         .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("AssetsTree" + CompanyId.ToString()))
         .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
@@ -22,26 +23,21 @@
         .ColumnAutoWidth(false)
         .ColumnChooser(m=>m.Enabled(true))
         .Paging(pagging => pagging.Enabled(false))
-
-
-
           .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-        @*     .AllowColumnResizing(true)*@
-        @*  .RowDragging(rd => rd.AllowDropInsideItem(IsOnEditMode).OnDragChange("onDragChange").OnDragEnd("onDragEnd").ShowDragIcons(IsOnEditMode))*@
-
         .Columns(columns =>
             {
-            columns.AddFor(m => m.No).Width(130).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);
+            columns.AddFor(m => m.No).Width(90).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);
 
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
-                .Width(130).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
+                .Width(120).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );
 
   columns.AddFor(m => m.SubType)
+  .Width(160)
   .HeaderCellTemplate("SubType").SortOrder(SortOrder.Asc).SortIndex(2).Width(200).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
@@ -65,13 +61,13 @@
         .Columns(b =>
         {
                 b.AddFor(m => m.CurrentDebit)
-            .Width(90)
+            .Width(120)
             .Format(Format.FixedPoint)
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.CurrentCredit)
-            .Width(90)
+            .Width(120)
             .Format(Format.FixedPoint)
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>CR</text>);
@@ -84,13 +80,13 @@
         .Columns(b =>
         {
                 b.AddFor(m => m.TotalDebit)
-            .Width(90)
+            .Width(120)
             .Format(Format.FixedPoint)
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.TotalCredit)
-            .Width(90)
+            .Width(120)
             .Format(Format.FixedPoint)
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>CR</text>);

@@ -144,11 +144,42 @@ namespace ERPKeeperCore.CMD
 
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
+            //organization.OpeningEntries.PostLedger();
+
+            //Capital Activities
+            //organization.CapitalActivities.PostLedger();
+
+            ////Commercial Section
             newOrganization.Sales.PostToTransactions();
             newOrganization.Purchases.PostToTransactions();
+
+            //Financial Section
+            //organization.ReceivePayments.PostLedger();
+            //organization.SupplierPayments.PostLedger();
+            //organization.LiabilityPayments.PostLedger();
+
             newOrganization.FundTransfers.PostToTransactions();
+            //organization.Loans.PostLedger();
+            //organization.Lends.PostLedger();
+
+            //Taxes Section
+            // organization.TaxPeriods.PostLedger();
+            // organization.IncomeTaxes.PostLedger();
+
+            //Employee Section
+            //  organization.EmployeePayments.PostLedger();
+
+            //Other Section
             newOrganization.JournalEntries.PostToTransactions();
 
+            //Assets
+            //  organization.FixedAssets.PostLedger();
+            //  organization.FixedAssetDreprecateSchedules.PostLedger();
+
+            //organization.RetirementFixedAssets.UnPost();
+            //  organization.RetirementFixedAssets.PostLedger();
+
+            // organization.FiscalYears.PostLedger();
 
 
         }

@@ -4,7 +4,13 @@
 @if (Model != null)
 {
     <div class="row border">
-        <div class="font-weight-600">TR# @Model.Ledgers.Count()</div>
+        <div class="font-weight-600">
+            <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
+                TR# @Model.Ledgers.Count()
+            </a>
+        </div>
+
+
         @{
             var transactionLedgers = Model.Ledgers.ToList();
 

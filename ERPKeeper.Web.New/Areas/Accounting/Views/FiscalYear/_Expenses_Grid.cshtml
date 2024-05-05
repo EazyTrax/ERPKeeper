@@ -31,7 +31,8 @@
                 );
                 columns.AddFor(m => m.AccountId)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-                    .HeaderCellTemplate(@<text>Account</text>);
+                    .HeaderCellTemplate(@<text>Account</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
                 columns.AddFor(m => m.Credit).Width(130).Format(Format.FixedPoint);
