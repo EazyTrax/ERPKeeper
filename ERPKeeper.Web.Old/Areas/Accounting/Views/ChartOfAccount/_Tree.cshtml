@@ -104,12 +104,18 @@
         settings.Summary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance").DisplayFormat = "{0:n2}";
         settings.Summary.Add(DevExpress.Data.SummaryItemType.Sum, "OpeningBalance").DisplayFormat = "{0:n2}";
 
-        //settings.Columns.Add(column =>
-        //{
-        //  column.FieldName = "OpeningBalance";
-        //  column.Width = 100;
-        //  column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
-        //});
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OpeningDebitBalance";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "OpeningCreditBalance";
+            column.Width = 100;
+            column.PropertiesEdit.DisplayFormatString = "#,##0.00;(#,##0.00);-";
+        });
     });
 
 }

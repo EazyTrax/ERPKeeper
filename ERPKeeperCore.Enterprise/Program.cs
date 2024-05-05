@@ -17,24 +17,21 @@ namespace ERPKeeperCore.CMD
 
             foreach (var enterpriseDB in Enterprises)
             {
-                var migrationTool = new ERPMigrationTool(enterpriseDB);
-                //migrationTool.Migrate();
-
-
-
                 Console.WriteLine($"###{enterpriseDB}########################################################");
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
-
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
+                Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
+                Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
                 //CopyReceivePayments(newOrganization, oldOrganization);
                 //CopySupplierPayments(newOrganization, oldOrganization);
-                PostLedgers(newOrganization);
+                // PostLedgers(newOrganization);
 
-                Console.WriteLine("###########################################################");
-                Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
-                Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
+                var migrationTool = new ERPMigrationTool(enterpriseDB);
+                migrationTool.Migrate();
+
+          
             }
         }
         private static void CopySupplierPayments(EnterpriseRepo newOrganization, Organization oldOrganization)

@@ -34,11 +34,14 @@ namespace ERPKeeperCore.CMD
 
         public void Migrate()
         {
+
             //newOrganization.FiscalYears.PrepareFiscalYearBalances();
             //newOrganization.FiscalYears.UpdateTransactionFiscalYears();
 
             //CopyProfiles(newOrganization, oldOrganization);
             //CopySuppliers(newOrganization, oldOrganization);
+
+            CopyAccounts();
 
             CopySales();
             CopySaleItems();
@@ -52,7 +55,7 @@ namespace ERPKeeperCore.CMD
             CopyEmployeePaymentPeriods();
             CopyEmployeePayments();
 
-            //CopyAccounts(newOrganization, oldOrganization);
+
             //CopyProfiles(newOrganization, oldOrganization);
             //CopyBrands(newOrganization, oldOrganization);
             //CopyItemGroups(newOrganization, oldOrganization);
@@ -108,14 +111,23 @@ namespace ERPKeeperCore.CMD
                         IsLiquidity = oldAccount.IsLiquidity,
                     };
                     newOrganization.ErpCOREDBContext.Accounts.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
                 }
                 else
                 {
-                    exist.OpeningCredit = oldAccount.OpeningCreditBalance;
+                    Console.WriteLine($"Dr.{oldAccount.OpeningDebitBalance} , Cr.{oldAccount.OpeningCreditBalance}");
                     exist.OpeningDebit = oldAccount.OpeningDebitBalance;
+                    exist.OpeningCredit = oldAccount.OpeningCreditBalance;
+
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                    Console.WriteLine($"Dr.{exist.OpeningDebit} , Cr.{exist.OpeningCredit}");
+                    Console.WriteLine($"-------------------------------");
+
+
+             
                 }
 
-                newOrganization.ErpCOREDBContext.SaveChanges();
+
             });
         }
         private void CopyDefaultAccounts()
