@@ -51,6 +51,8 @@ namespace ERPKeeperCore.CMD
                             AmountBankFee = oldPurchase.BankFeeAmount,
                             LiabilityAccountId = oldPurchase.LiabilityAccount.Uid,
                         };
+                        newOrganization.ErpCOREDBContext.LiabilityPayments.Add(existLiabilityPayment);
+                        newOrganization.SaveChanges();
 
                         if (oldPurchase.OptionalAssetAccount != null)
                         {
@@ -72,9 +74,7 @@ namespace ERPKeeperCore.CMD
                             existLiabilityPayment.LiabilityPaymentPayFromAccounts.Add(payFromAccount);
                         }
 
-
-                        //newOrganization.ErpCOREDBContext.LiabilityPayments.Add(existLiabilityPayment);
-                        //newOrganization.SaveChanges();
+                        newOrganization.SaveChanges();
                     }
                     else
                     {
