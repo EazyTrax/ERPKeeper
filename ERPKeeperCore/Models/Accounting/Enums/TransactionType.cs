@@ -15,6 +15,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         FundTransfer = 60,
         SupplierPayment = 70,
         JournalEntry = 80,
+        LiabilityPayment = 90,
     }
 }
 

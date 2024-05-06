@@ -9,6 +9,7 @@ using System.Linq;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Financial;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
@@ -18,15 +19,14 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public Guid Id { get; set; }
         public TransactionType Type { get; set; }
         public DateTime Date { get; set; }
+        public Guid? FiscalYearId { get; set; }
+        public String? Name { get; set; }
         public String? Reference { get; set; }
-
         public DateTime? PostedDate { get; set; }
         public bool IsPosted => PostedDate != null;
 
-
         public Decimal Credit { get; set; }
         public Decimal Debit { get; set; }
-
 
         public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new List<TransactionLedger>();
         public virtual Customers.Sale? Sale { get; set; }
@@ -35,7 +35,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Customers.ReceivePayment? ReceivePayment { get; set; }
         public virtual Suppliers.SupplierPayment? SupplierPayment { get; set; }
         public virtual Accounting.JournalEntry? JournalEntry { get; set; }
-        public Guid? FiscalYearId { get; set; }
+        public virtual Financial.LiabilityPayment? LiabilityPayment { get; internal set; }
+
+
+
+
 
         public void UpdateBalance()
         {
@@ -69,8 +73,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             };
             this.Ledgers.Add(ledger);
         }
-
-
     }
 
 

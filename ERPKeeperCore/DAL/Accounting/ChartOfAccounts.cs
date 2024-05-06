@@ -69,8 +69,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.Accounts.Remove(account);
             erpNodeDBContext.SaveChanges();
         }
-        public Account Find(Guid AccountId) => erpNodeDBContext.Accounts.Find(AccountId);
-
+        public Account? Find(Guid AccountId)
+        {
+            return erpNodeDBContext.Accounts.Find(AccountId);
+        }
         public Account Update(Account accountItem)
         {
             var exist = erpNodeDBContext.Accounts.Find(accountItem.Id);
@@ -99,8 +101,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             return exist;
         }
-
-
         public List<Account> GetByType(AccountTypes accountType)
         {
             return erpNodeDBContext.Accounts
@@ -109,7 +109,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             .ThenBy(i => i.No)
             .ToList();
         }
-
         public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.Accounts
                 .Where(account => account.SubType == subType)
                 .Where(account => account.IsFolder == false)
@@ -123,8 +122,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 .Where(account => accountType == null || account.Type == accountType)
                 .OrderBy(i => i.No)
                 .ToList();
-
-
         public List<Account> GetAccountsList() => erpNodeDBContext.Accounts
             .Where(i => i.IsFolder == false)
             .ToList();
@@ -198,18 +195,17 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 {
                     account.CurrentCredit = accBalance.Credit;
                     account.CurrentDebit = accBalance.Debit;
+                    account.BalanceCalulatedDate = DateTime.Now;
 
                     erpNodeDBContext.SaveChanges();
                 }
 
             }
         }
-
         public void GenerateHistoryBalance()
         {
             throw new NotImplementedException();
         }
-
         public List<Account> IncomeAccounts => this.GetAccountByType(AccountTypes.Income);
         public List<Account> InventoryAssetAccounts => this.GetItemBySubType(AccountSubTypes.Inventory);
         public List<Account> LiabilityAccounts => this.GetAccountByType(AccountTypes.Liability);
@@ -225,7 +221,5 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                  .Where(account => account.IsFolder == false)
                  .OrderBy(i => i.No)
                  .ToList();
-
     }
 }
-

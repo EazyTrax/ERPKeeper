@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace ERPKeeperCore.CMD
 {
-    public class ERPMigrationTool
+    public partial class ERPMigrationTool
     {
         private string enterpriseDB;
         public EnterpriseRepo newOrganization;
@@ -42,6 +42,8 @@ namespace ERPKeeperCore.CMD
             //CopySuppliers(newOrganization, oldOrganization);
 
             CopyAccounts();
+            Copy_Financial_LiabilityPayments();
+
 
             CopySales();
             CopySaleItems();
@@ -88,78 +90,7 @@ namespace ERPKeeperCore.CMD
 
         }
 
-        private void CopyAccounts()
-        {
-            var oldAccounts = oldOrganization.ErpNodeDBContext.AccountItems.ToList();
-            oldAccounts.ForEach(oldAccount =>
-            {
-                Console.WriteLine($"ACC: {oldAccount.No}-{oldAccount.Name}");
 
-                var exist = newOrganization.ErpCOREDBContext.Accounts.FirstOrDefault(x => x.Id == oldAccount.Uid);
-
-                if (exist == null)
-                {
-                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.Account()
-                    {
-                        Id = oldAccount.Uid,
-                        Name = oldAccount.Name,
-                        Description = oldAccount.Description,
-                        No = oldAccount.No,
-                        Type = (AccountTypes)oldAccount.Type,
-                        SubType = (AccountSubTypes?)oldAccount.SubEnumType,
-                        IsCashEquivalent = oldAccount.IsCashEquivalent,
-                        IsLiquidity = oldAccount.IsLiquidity,
-                    };
-                    newOrganization.ErpCOREDBContext.Accounts.Add(exist);
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                }
-                else
-                {
-                    Console.WriteLine($"Dr.{oldAccount.OpeningDebitBalance} , Cr.{oldAccount.OpeningCreditBalance}");
-                    exist.OpeningDebit = oldAccount.OpeningDebitBalance;
-                    exist.OpeningCredit = oldAccount.OpeningCreditBalance;
-
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                    Console.WriteLine($"Dr.{exist.OpeningDebit} , Cr.{exist.OpeningCredit}");
-                    Console.WriteLine($"-------------------------------");
-
-
-             
-                }
-
-
-            });
-        }
-        private void CopyDefaultAccounts()
-        {
-            var oldModels = oldOrganization.ErpNodeDBContext.SystemAccounts.ToList();
-
-            oldModels.ForEach(oldSystemAccount =>
-            {
-                Console.WriteLine($"PROF:{oldSystemAccount.AccountType}-{oldSystemAccount.AccountItem.Name}");
-
-                var exist = newOrganization.ErpCOREDBContext.DefaultAccounts
-                .FirstOrDefault(x => x.Type == (DefaultAccountType)oldSystemAccount.AccountType);
-
-                if (exist == null)
-                {
-                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccount()
-                    {
-                        Type = (DefaultAccountType)oldSystemAccount.AccountType,
-                        AccountId = oldSystemAccount.AccountItemUid,
-                        LastUpdate = oldSystemAccount.LastUpdate,
-                    };
-
-                    newOrganization.ErpCOREDBContext.DefaultAccounts.Add(exist);
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                }
-                else
-                {
-
-                }
-
-            });
-        }
 
         private void CopyProfiles()
         {
@@ -190,109 +121,6 @@ namespace ERPKeeperCore.CMD
                 }
 
                 newOrganization.ErpCOREDBContext.SaveChanges();
-            });
-        }
-        private void CopyBrands()
-        {
-            var oldModels = oldOrganization.ErpNodeDBContext.Brands.ToList();
-
-            oldModels.ForEach(a =>
-            {
-                Console.WriteLine($"PROF:{a.Uid}-{a.Name}");
-
-                var exist = newOrganization.ErpCOREDBContext.Brands.FirstOrDefault(x => x.Id == a.Uid);
-
-                if (exist == null)
-                {
-                    exist = new ERPKeeperCore.Enterprise.Models.Items.Brand()
-                    {
-                        Id = a.Uid,
-                        Name = a.Name,
-                        Description = a.Description,
-                        WebSite = a.WebSite,
-                        ShotName = a.ShotName,
-                    };
-                    newOrganization.ErpCOREDBContext.Brands.Add(exist);
-                }
-                else
-                {
-
-                }
-
-                newOrganization.ErpCOREDBContext.SaveChanges();
-            });
-        }
-        private void CopyItemGroups()
-        {
-            var oldModels = oldOrganization.ErpNodeDBContext.ItemGroups.ToList();
-
-            oldModels.ForEach(a =>
-            {
-
-                var exist = newOrganization.ErpCOREDBContext.ItemGroups.FirstOrDefault(x => x.Id == a.Uid);
-
-                if (exist == null)
-                {
-                    Console.WriteLine($"ITM:{a.Uid}-{a.PartNumber}");
-                    exist = new ERPKeeperCore.Enterprise.Models.Items.ItemGroup()
-                    {
-                        Id = a.Uid,
-                        Name = a.PartNumber,
-                    };
-                    newOrganization.ErpCOREDBContext.ItemGroups.Add(exist);
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                }
-                else
-                {
-
-                }
-
-
-            });
-        }
-        private void CopyItems()
-        {
-            var oldModels = oldOrganization.ErpNodeDBContext.Items/*.Where(i => i.ParentUid != null)*/.ToList();
-
-            oldModels.ForEach(a =>
-            {
-                var exist = newOrganization.ErpCOREDBContext.Items.FirstOrDefault(x => x.Id == a.Uid);
-                var brand = newOrganization.ErpCOREDBContext.Brands.FirstOrDefault(x => x.Id == a.BrandGuid);
-
-                if (exist == null)
-                {
-                    Console.WriteLine($"ITM:{a.Uid}-{a.PartNumber}");
-                    exist = new ERPKeeperCore.Enterprise.Models.Items.Item()
-                    {
-                        Id = a.Uid,
-                        PartNumber = a.PartNumber,
-                        BrandId = brand?.Id,
-                        Description = a.Description,
-                        PurchasePrice = a.PurchasePrice,
-                        SalePrice = a.UnitPrice,
-                        UPC = a.UPC,
-                        Status = (ItemStatus)a.Status,
-                        ItemType = (ItemTypes)a.ItemType,
-                        OnlineSale = a.OnlineSale,
-                        Specification = a.Specification,
-                        IncomeAccountId = a.IncomeAccountUid,
-                        PurchaseAccountId = a.PurchaseAccountUid,
-                        CreatedDate = (DateTime)(a.CreatedDate ?? DateTime.Today),
-                    };
-                    newOrganization.ErpCOREDBContext.Items.Add(exist);
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                }
-                else
-                {
-                    try
-                    {
-                        exist.ItemGroupId = a.ParentUid;
-                        newOrganization.ErpCOREDBContext.SaveChanges();
-                    }
-                    catch (Exception) { }
-                }
-
-
             });
         }
         private void CopyProjects()

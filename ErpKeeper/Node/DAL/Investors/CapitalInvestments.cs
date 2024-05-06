@@ -41,19 +41,19 @@ namespace ERPKeeper.Node.DAL.Investors
         private List<CapitalActivity> GetReadyForPost()
         {
             return erpNodeDBContext.CapitalActivities
-.Where(s => s.PostStatus == LedgerPostStatus.Editable)
-.ToList()
-.Where(t => t.TrnDate >= organization.DataItems.FirstDate)
-.ToList();
+                .Where(s => s.PostStatus == LedgerPostStatus.Editable)
+                .ToList()
+                .Where(t => t.TrnDate >= organization.DataItems.FirstDate)
+                .ToList();
         }
+
+
         public void PostLedger()
         {
             var postingTransactions = this.GetReadyForPost();
 
             string logTitle = string.Format("> Post {0} [{1}]", this.trString, postingTransactions.Count());
             organization.EventLogs.NewEventLog(EventLogLevel.Information, "00", logTitle, null, "");
-
-
 
             postingTransactions.ForEach(s =>
             {

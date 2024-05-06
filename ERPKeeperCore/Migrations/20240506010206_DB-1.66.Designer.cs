@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506010206_DB-1.66")]
+    partial class DB166
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1096,9 +1099,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("AmountBankFee")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("AmountDiscount")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -1117,6 +1117,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("PayFromAccountId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
@@ -1130,35 +1133,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("LiabilityAccountId");
 
+                    b.HasIndex("PayFromAccountId");
+
                     b.HasIndex("TransactionId")
                         .IsUnique()
                         .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("LiabilityPayments");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPaymentPayFromAccount", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<Guid>("LiabilityPaymentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("LiabilityPaymentId");
-
-                    b.ToTable("LiabilityPaymentPayFromAccount");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
@@ -2508,32 +2489,19 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("LiabilityAccountId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFromAccount")
+                        .WithMany()
+                        .HasForeignKey("PayFromAccountId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("LiabilityPayment")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment", "TransactionId");
 
                     b.Navigation("LiabilityAccount");
 
+                    b.Navigation("PayFromAccount");
+
                     b.Navigation("Transaction");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPaymentPayFromAccount", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment", "LiabilityPayment")
-                        .WithMany("LiabilityPaymentPayFromAccounts")
-                        .HasForeignKey("LiabilityPaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("LiabilityPayment");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
@@ -2929,11 +2897,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
                 {
                     b.Navigation("FundTransferDepositLines");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment", b =>
-                {
-                    b.Navigation("LiabilityPaymentPayFromAccounts");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>

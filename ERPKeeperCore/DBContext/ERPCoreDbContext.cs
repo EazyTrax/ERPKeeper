@@ -138,8 +138,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
         #region Financial
         public DbSet<FundTransfer> FundTransfers { get; set; }
         public DbSet<FundTransferItem> FundTransferItems { get; set; }
-
         public DbSet<RetentionType> RetentionTypes { get; set; }
+        public DbSet<LiabilityPayment> LiabilityPayments { get; set; }
         #endregion
 
 
