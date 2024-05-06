@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         [Key]
         public Guid Id { get; set; }
-        public PaymentStatus Status { get; set; }
+        public LiabilityPaymentStatus Status { get; set; }
         public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
