@@ -1,22 +1,30 @@
 ﻿
 using ERPKeeperCore.Enterprise.Models.Taxes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
+    [Index("FiscalYearId")]
     public partial class Transaction
     {
         [Key]
         public Guid Id { get; set; }
         public Enums.TransactionType Type { get; set; }
         public DateTime Date { get; set; }
+
+
         public Guid? FiscalYearId { get; set; }
+        [ForeignKey("FiscalYearId")]
+        public virtual FiscalYear? FiscalYear { get; set; }
+
         public String? Name { get; set; }
         public String? Reference { get; set; }
         public DateTime? PostedDate { get; set; }
@@ -24,6 +32,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Decimal Credit { get; set; }
         public Decimal Debit { get; set; }
+
+        public Decimal Diff => Debit - Credit;
 
         public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new List<TransactionLedger>();
         public virtual Customers.Sale? Sale { get; set; }

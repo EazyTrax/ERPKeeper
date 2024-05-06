@@ -27,7 +27,7 @@
             columns.AddFor(m => m.Status).Width(130).Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.FiscalYearStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
 
 
-       @*      columns.AddFor(m => m.AssetBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
+@*      columns.AddFor(m => m.AssetBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
             columns.AddFor(m => m.LiabilityBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
             columns.AddFor(m => m.EquityBalance).CssClass("bg-fb1").Width(130).Format(Format.FixedPoint);
  *@
@@ -49,6 +49,8 @@
             .HeaderCellTemplate("Profit")
             .Width(130)
             .Format(Format.FixedPoint);
+
+           
 
             columns.AddFor(m => m.IsPosted)
             .AllowEditing(false)

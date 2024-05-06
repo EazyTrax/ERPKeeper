@@ -15,6 +15,13 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         [Key]
         public Guid Id { get; set; }
 
+
+        public bool IsPosted { get; set; }
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Accounting.Transaction? Transaction { get; set; }
+
+
         public int No { get; set; }
         public string Name { get; set; }
 

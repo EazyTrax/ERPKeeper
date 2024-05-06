@@ -48,6 +48,47 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
+
+        private void Copy_Employees_PaymentTypes()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentTypes
+              .Select(x => x.Id)
+              .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EmployeePaymentTypes
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"EmployeePositions:{a.Uid}-{a.Name}");
+
+                var exist = newOrganization.ErpCOREDBContext.EmployeePaymentTypes.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType()
+                    {
+                        Id = a.Uid,
+                        Description = a.Description ?? "NA",
+                        Name = a.Name,
+                        ExpenseAccountId = a.AccountGuid,
+                        PayDirection = (Enterprise.Models.Employees.Enums.PayDirection)a.PayDirection,
+                        IsActive = a.IsActive,
+
+                    };
+                    newOrganization.ErpCOREDBContext.EmployeePaymentTypes.Add(exist);
+                }
+                else
+                {
+                    exist.ExpenseAccountId = a.AccountGuid;
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
         private void CopyEmployees()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.Employees

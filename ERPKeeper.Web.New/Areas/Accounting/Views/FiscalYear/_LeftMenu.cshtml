@@ -22,45 +22,42 @@
     }
 }
 
-<div class="bg-fb1 p-2 text-fs-18">
-    <div class="font-weight-600 mb-3 ">
+<div class="bg-fb1 p-2 text-fs-18 border">
+    <div class="font-weight-600">
         <a href="/@CompanyId/Accounting">Accounting</a>
     </div>
 </div>
-<div class="bg-fb1 p-2 text-fs-18">
-    @{
-        Template("Fiscal Years", "FiscalYears");
-    }
+<div class="bg-fb1 p-2 text-fs-18 border">
+    <a href="/@CompanyId/Accounting/FiscalYears/">
+        FiscalYears
+    </a>: 
+    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">
+        @Model.Name
+    </a>
 </div>
 <div class="bg-fb1 p-2 text-fs-18">
-    <div class="">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">
-            @Model.Name
-        </a>
-    </div>
-
-    <div class="">
+    <div >
         <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes">
             Incomes
         </a>
     </div>
-    <div class="">
+    <div >
         <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses">
             Expenses
         </a>
     </div>
 
-    <div class="">
+    <div >
         <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/TrialBalance">
             Trial Balance
         </a>
     </div>
-    <div class="">
+    <div >
         <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Journals">
             Journals
         </a>
     </div>
-    <div class="">
+    <div >
         <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Balances">
             Balances
         </a>

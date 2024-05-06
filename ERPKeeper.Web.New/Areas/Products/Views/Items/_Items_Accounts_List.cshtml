@@ -44,7 +44,7 @@
             .Width(200)
             .CellTemplate(@<text>
         <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
-            <span class=""><%= data.PartNumber %></span>
+            <span ><%= data.PartNumber %></span>
         </a>
     </text>);
                 columns.AddFor(m => m.Description);

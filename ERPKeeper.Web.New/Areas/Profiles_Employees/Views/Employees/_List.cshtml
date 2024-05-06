@@ -16,7 +16,7 @@
             .Columns(columns =>
             {
 
-                columns.AddFor(m => m.ProfileId).Width(150)
+                columns.AddFor(m => m.Id).Width(150)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
             .DisplayExpr("Text")
@@ -27,7 +27,7 @@
 
 
 
-                columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
+                columns.AddFor(m => m.Id).Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
@@ -47,15 +47,6 @@
         .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Positions/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
-
-                columns.AddFor(m => m.ProfileId).Width(80)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>SN</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
              

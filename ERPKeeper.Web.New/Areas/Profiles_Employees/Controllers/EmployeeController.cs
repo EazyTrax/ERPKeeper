@@ -8,19 +8,19 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Profiles_Employees.Controllers
 {
-    [Route("/{CompanyId}/Profiles/Employees/Employees/{EmployeeUid:Guid}/{action=Index}")]
+    [Route("/{CompanyId}/Profiles/Employees/Employees/{EmployeeId:Guid}/{action=Index}")]
     public class EmployeeController : _Profiles_Employees_Base_Controller
     {
 
-        public IActionResult Index(Guid EmployeeUid)
+        public IActionResult Index(Guid EmployeeId)
         {
-            var Employee = OrganizationCore.Employees.Find(EmployeeUid);
+            var Employee = OrganizationCore.Employees.Find(EmployeeId);
             return View(Employee);
         }
 
-        public IActionResult Payments(Guid EmployeeUid)
+        public IActionResult Payments(Guid EmployeeId)
         {
-            var Employee = OrganizationCore.Employees.Find(EmployeeUid);
+            var Employee = OrganizationCore.Employees.Find(EmployeeId);
             return View(Employee);
         }
 

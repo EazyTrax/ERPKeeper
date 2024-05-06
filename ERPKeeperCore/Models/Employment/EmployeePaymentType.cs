@@ -20,9 +20,9 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         public PayDirection PayDirection { get; set; }
 
-        public Guid? AccountUid { get; set; }
-        [ForeignKey("AccountUid")]
-        public virtual Models.Accounting.Account Account { get; set; }
+        public Guid? ExpenseAccountId { get; set; }
+        [ForeignKey("ExpenseAccountId")]
+        public virtual Models.Accounting.Account ExpenseAccount { get; set; }
 
         public virtual ICollection<EmployeePaymentItem> Payments { get; set; }
 
@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             this.Name = paymentType.Name;
             this.PayDirection = paymentType.PayDirection;
             this.Description = paymentType.Description;
-            this.AccountUid = paymentType.AccountUid;
+            this.ExpenseAccount = paymentType.ExpenseAccount;
         }
     }
 }

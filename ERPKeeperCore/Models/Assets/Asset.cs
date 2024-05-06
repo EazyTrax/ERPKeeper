@@ -80,7 +80,8 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
         public void CreateDepreciationSchedule()
         {
-            RemoveSchedule();
+
+            this.RemoveSchedule();
 
             if (AssetType == null)
                 return;

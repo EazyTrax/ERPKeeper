@@ -13,7 +13,8 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.EmployeePaymentPeriods
+            var returnModel = Organization.ErpCOREDBContext
+                .EmployeePaymentPeriods
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

@@ -37,7 +37,10 @@
     .Columns(columns =>
     {
 
-    columns.AddFor(m=>m.Name).CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Payments/<%= data.Id %>/"><%= displayValue %></a></text>);
+    columns.AddFor(m=>m.Name)
+    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Payments/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
 
 
     columns.AddFor(m=>m.EmployeePaymentPeriodId).Width(130)
@@ -49,7 +52,15 @@
     .CalculateSortValue("Name")
     .SortIndex(1)
     .HeaderCellTemplate(@<text>Period</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/PaymentPeriods/<%= data.EmployeePaymentPeriodUid %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/PaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+
+
+
+    columns.AddFor(m=>m.EmployeePaymentPeriod.Date)
+    .Width(130).Format(Format.ShortDate)
+    .HeaderCellTemplate(@<text>Date</text>);
+
+
 
     columns.AddFor(m=>m.EmployeeId).Width(150)
     .Lookup(lookup => lookup
@@ -58,7 +69,7 @@
     .ValueExpr("Value"))
     .AllowEditing(false)
     .HeaderCellTemplate(@<text>TAX Id</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeUid %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
 
     columns.AddFor(m=>m.EmployeeId).Width(250)
     .Lookup(lookup => lookup
@@ -67,11 +78,35 @@
     .ValueExpr("Value"))
     .AllowEditing(false)
     .HeaderCellTemplate(@<text>Name</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeUid %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+
+
+
 
     columns.AddFor(m=>m.TotalEarning).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Earning</text>);
     columns.AddFor(m=>m.TotalDeduction).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Deduction</text>);
-    })
+
+
+
+
+            columns.AddFor(m => m.IsPosted)
+        .AllowEditing(false).Width(30)
+        .HeaderCellTemplate(@<text> </text>)
+    .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+
+
+
+
+
+        }).Summary(s =>
+        s.TotalItems(items =>
+        {
+
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        }))
+
 
     )
 </div>

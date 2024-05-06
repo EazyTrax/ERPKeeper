@@ -40,26 +40,22 @@ namespace ERPKeeperCore.CMD
 
             //CopyProfiles();
             //CopySuppliers();
-  
-            
 
+            //CopyAccounts();
+            //Copy_Financial_LiabilityPayments();
+            //Copy_Financial_Loans();
+            //Copy_Financial_Lends();
 
-            CopyAccounts();
-            Copy_Financial_LiabilityPayments();
-            Copy_Financial_Loans();
-            Copy_Financial_Lends();
+            //Copy_Customers_Sales();
+            //Copy_Customers_SaleItems();
+            ////CopyReceivePayments();
 
-            Copy_Customers_Sales();
-            Copy_Customers_SaleItems();
-            //CopyReceivePayments();
-
-
-            Copy_Suppliers_Purchases();
-            Copyy_Suppliers_PurchaseItems();
-            //CopySupplierPayments();
-
+            //Copy_Suppliers_Purchases();
+            //Copyy_Suppliers_PurchaseItems();
+            ////CopySupplierPayments();
 
             CopyEmployeePositions();
+            Copy_Employees_PaymentTypes();
             CopyEmployees();
 
             CopyEmployeePaymentPeriods();

@@ -308,6 +308,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FiscalYearId");
+
                     b.ToTable("Transactions");
                 });
 
@@ -882,6 +884,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("EmployeePaymentPeriodId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsPosted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -898,6 +903,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("TotalEarning")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
@@ -905,6 +913,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("EmployeePaymentPeriodId");
 
                     b.HasIndex("PayFromAccountId");
+
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("EmployeePayments");
                 });
@@ -975,12 +985,12 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AccountUid")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ExpenseAccountId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -994,7 +1004,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountUid");
+                    b.HasIndex("ExpenseAccountId");
 
                     b.ToTable("EmployeePaymentTypes");
                 });
@@ -2402,6 +2412,15 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("JournalEntry");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear", "FiscalYear")
+                        .WithMany()
+                        .HasForeignKey("FiscalYearId");
+
+                    b.Navigation("FiscalYear");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
@@ -2646,11 +2665,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("PayFromAccountId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
+
                     b.Navigation("Employee");
 
                     b.Navigation("EmployeePaymentPeriod");
 
                     b.Navigation("PayFromAccount");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentItem", b =>
@@ -2679,11 +2704,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Account")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ExpenseAccount")
                         .WithMany()
-                        .HasForeignKey("AccountUid");
+                        .HasForeignKey("ExpenseAccountId");
 
-                    b.Navigation("Account");
+                    b.Navigation("ExpenseAccount");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>

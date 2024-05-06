@@ -46,7 +46,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Employees.First(a => a.ProfileId == key);
+            var model = Organization.ErpCOREDBContext.Employees.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -55,7 +55,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.Employees.First(a => a.ProfileId == key);
+            var model = Organization.ErpCOREDBContext.Employees.First(a => a.Id == key);
             Organization.ErpCOREDBContext.Employees.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }

@@ -19,6 +19,7 @@
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
             .ColumnAutoWidth(false)
             .Paging(pagging => pagging.PageSize(100))
+            .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
                 columns.AddFor(m => m.FiscalYearId)
@@ -30,8 +31,8 @@
 
 
 
-                columns.AddFor(m => m.Reference)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/">T</a></text>);
+                columns.AddFor(m => m.Name)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.Reference)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Reference %></a></text>);
@@ -48,6 +49,11 @@
             .Format(Format.FixedPoint);
 
                 columns.AddFor(m => m.Credit)
+            .Width(130)
+            .Format(Format.FixedPoint);
+
+
+                columns.AddFor(m => m.Diff)
             .Width(130)
             .Format(Format.FixedPoint);
 

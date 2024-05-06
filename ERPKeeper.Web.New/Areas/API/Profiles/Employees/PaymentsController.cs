@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
@@ -13,7 +14,10 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.EmployeePayments
+            var returnModel = Organization.ErpCOREDBContext
+                .EmployeePayments
+                .Include(a => a.Employee)
+                .Include(a => a.EmployeePaymentPeriod)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

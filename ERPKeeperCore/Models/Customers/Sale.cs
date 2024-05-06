@@ -103,6 +103,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
+            this.Transaction.Name = this.Name;
             this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;

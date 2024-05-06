@@ -44,7 +44,7 @@
     .ValueExpr("Value")
     );
 
-    columns.Add().DataField("Name")
+    columns.AddFor(m=>m.Name)
     .Width(130)
     .CellTemplate(@<text>
             <a href="/@CompanyId/Profiles/Customers/Estimates/<%= data.Id %>/">
@@ -55,7 +55,7 @@
     columns.Add().DataField("ProfileName")
     .Width(300)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Profiles/Customers/Customers/<%= data.ProfileUid %>/">
+            <a href="/@CompanyId/Profiles/Customers/Customers/<%= data.ProfileId %>/">
                 <%= data.ProfileName %>
             </a>
         </text>);

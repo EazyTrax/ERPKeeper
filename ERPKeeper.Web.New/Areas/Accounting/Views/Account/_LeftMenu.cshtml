@@ -11,7 +11,7 @@
     {
         <div class="row e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
             <div class="col p-0">
-                <a href="/@CompanyId/Accounting/@controller" class="">
+                <a href="/@CompanyId/Accounting/@controller">
                     @SharedLocalizer.GetLocalizedHtmlString(display)
                 </a>
             </div>
@@ -26,31 +26,33 @@
         <a href="/@CompanyId/Accounting">Accounting</a>
     </div>
 </div>
-<div class="bg-fb1 p-2 text-fs-18 border">
-    @{
-        Template("Accounts", "Accounts");
-    }
-
+<div class="bg-fb1 p-2 text-fs-18 font-weight-600 border">
+    <a href="/@CompanyId/Accounting/Accounts/">
+        Accounts
+    </a> :
+    <a href="/@CompanyId/Accounting/Accounts/@Model.Id">
+        Account @Model.No
+    </a>
 </div>
 <div class="bg-fb1 p-2 text-fs-18 border">
 
-    <div class="">
-        <a href="/@CompanyId/Accounting/Accounts/@Model.Id" class="">
-            Account @Model.No
+    <div>
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Id">
+            Home
         </a>
     </div>
-    <div class="">
-        <a href="/@CompanyId/Accounting/Accounts/@Model.Id/Ledgers" class="">
+    <div>
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Id/Ledgers">
             Ledgers
         </a>
     </div>
-    <div class="">
-        <a href="/@CompanyId/Accounting/Accounts/@Model.Id/Balances" class="">
+    <div>
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Id/Balances">
             Balances
         </a>
     </div>
-    <div class="">
-        <a href="/@CompanyId/Accounting/Accounts/@Model.Id/Balances" class="">
+    <div>
+        <a href="/@CompanyId/Accounting/Accounts/@Model.Id/Balances">
             Charts
         </a>
     </div>
