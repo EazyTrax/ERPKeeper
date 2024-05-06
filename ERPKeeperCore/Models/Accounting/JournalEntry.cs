@@ -42,8 +42,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public Decimal Debit { get; set; }
         public Decimal Credit { get; set; }
 
-        public virtual ICollection<JournalEntryItem> JournalEntryItems { get; set; }
-
+        public virtual ICollection<JournalEntryItem> JournalEntryItems { get; set; } = new List<JournalEntryItem>();
+        public String? Description { get; set; }
 
         public JournalEntry()
         {
@@ -57,8 +57,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             Credit = (JournalEntryItems?.Select(i => i.Credit).DefaultIfEmpty(0).Sum()) ?? 0;
         }
 
-        public void AddAcount(Guid accountUid, decimal? debit = 0, decimal? credit = 0)
+        public void AddAcount(Guid accountUid, decimal? debit, decimal? credit)
         {
+            debit = debit ?? 0;
+            credit = credit ?? 0;
+
             var jourmalEntryItem = new JournalEntryItem()
             {
                 AccountId = accountUid,
@@ -100,6 +103,12 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
 
+        }
+
+
+        public void RemoveAllItems()
+        {
+            this.JournalEntryItems.Clear();
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+﻿using ERPKeeperCore.Enterprise.DBContext;
+using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -206,6 +207,55 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         {
             throw new NotImplementedException();
         }
+
+        public void CreateOpeningJournalEntry()
+        {
+            var openingJournalEntryType = erpNodeDBContext
+                .JournalEntryTypes
+                .FirstOrDefault(j => j.Name == "Opening");
+
+            if (openingJournalEntryType == null)
+            {
+                openingJournalEntryType = new JournalEntryType
+                {
+                    Name = "Opening",
+                    Description = "Opening Journal Entry",
+                    IsSystem = true
+                };
+                erpNodeDBContext.JournalEntryTypes.Add(openingJournalEntryType);
+                erpNodeDBContext.SaveChanges();
+            }
+
+            var openingJournalEntry = erpNodeDBContext
+                .JournalEntries
+                .FirstOrDefault(j => j.JournalEntryTypeId == openingJournalEntryType.Id);
+
+            if (openingJournalEntry == null)
+            {
+                openingJournalEntry = new JournalEntry
+                {
+                    Date = erpNodeDBContext.FiscalYears.OrderBy(f => f.StartDate).FirstOrDefault().StartDate,
+                    Description = "Opening Journal Entry",
+                    JournalEntryTypeId = openingJournalEntryType.Id,
+                };
+                erpNodeDBContext.JournalEntries.Add(openingJournalEntry);
+                erpNodeDBContext.SaveChanges();
+            }
+
+            openingJournalEntry.RemoveAllItems();
+            erpNodeDBContext.SaveChanges();
+
+            var accountsWithOpening = erpNodeDBContext.Accounts
+                .Where(a => a.OpeningCredit != 0 || a.OpeningDebit != 0)
+                .ToList();
+
+            foreach (var acc in accountsWithOpening)
+            {
+                openingJournalEntry.AddAcount(acc.Id, acc.OpeningDebit, acc.OpeningCredit);
+            }
+            erpNodeDBContext.SaveChanges();
+        }
+
         public List<Account> IncomeAccounts => this.GetAccountByType(AccountTypes.Income);
         public List<Account> InventoryAssetAccounts => this.GetItemBySubType(AccountSubTypes.Inventory);
         public List<Account> LiabilityAccounts => this.GetAccountByType(AccountTypes.Liability);

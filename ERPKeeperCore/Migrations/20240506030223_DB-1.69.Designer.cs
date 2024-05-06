@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506030223_DB-1.69")]
+    partial class DB169
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1093,104 +1096,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("FundTransferItems");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Lend", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("AmountLend")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AmountReturn")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPosted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LendingAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Memo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("No")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("PayingAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LendingAccountId");
-
-                    b.HasIndex("PayingAccountId");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
-
-                    b.ToTable("Lends");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LendReturn", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPosted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("LendId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ReturnToAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LendId");
-
-                    b.HasIndex("ReturnToAccountId");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
-
-                    b.ToTable("LendReturns");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1266,98 +1171,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("LiabilityPaymentId");
 
                     b.ToTable("LiabilityPaymentPayFromAccount");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Loan", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("AmountLoan")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AmountReturn")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPosted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LoanAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Memo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("No")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("RecevingAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LoanAccountId");
-
-                    b.HasIndex("RecevingAccountId");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
-
-                    b.ToTable("Loans");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LoanReturn", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPosted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("LoanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ReturnFromAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LoanId");
-
-                    b.HasIndex("ReturnFromAccountId");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
-
-                    b.ToTable("LoanReturns");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
@@ -2701,52 +2514,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("FundTransfer");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Lend", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LendingAccount")
-                        .WithMany()
-                        .HasForeignKey("LendingAccountId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayingAccount")
-                        .WithMany()
-                        .HasForeignKey("PayingAccountId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("Lend")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.Lend", "TransactionId");
-
-                    b.Navigation("LendingAccount");
-
-                    b.Navigation("PayingAccount");
-
-                    b.Navigation("Transaction");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LendReturn", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.Lend", "Lend")
-                        .WithMany("LendReturns")
-                        .HasForeignKey("LendId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ReturnToAccount")
-                        .WithMany()
-                        .HasForeignKey("ReturnToAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("LendReturn")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.LendReturn", "TransactionId");
-
-                    b.Navigation("Lend");
-
-                    b.Navigation("ReturnToAccount");
-
-                    b.Navigation("Transaction");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LiabilityAccount")
@@ -2779,52 +2546,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("LiabilityPayment");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Loan", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LoanAccount")
-                        .WithMany()
-                        .HasForeignKey("LoanAccountId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "RecevingAccount")
-                        .WithMany()
-                        .HasForeignKey("RecevingAccountId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("Loan")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.Loan", "TransactionId");
-
-                    b.Navigation("LoanAccount");
-
-                    b.Navigation("RecevingAccount");
-
-                    b.Navigation("Transaction");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LoanReturn", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.Loan", "Loan")
-                        .WithMany("LoanReturns")
-                        .HasForeignKey("LoanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ReturnFromAccount")
-                        .WithMany()
-                        .HasForeignKey("ReturnFromAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("LoanReturn")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.LoanReturn", "TransactionId");
-
-                    b.Navigation("Loan");
-
-                    b.Navigation("ReturnFromAccount");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
@@ -3159,15 +2880,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Navigation("Ledgers");
 
-                    b.Navigation("Lend");
-
-                    b.Navigation("LendReturn");
-
                     b.Navigation("LiabilityPayment");
-
-                    b.Navigation("Loan");
-
-                    b.Navigation("LoanReturn");
 
                     b.Navigation("Purchase");
 
@@ -3230,19 +2943,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("FundTransferDepositLines");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Lend", b =>
-                {
-                    b.Navigation("LendReturns");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment", b =>
                 {
                     b.Navigation("LiabilityPaymentPayFromAccounts");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Loan", b =>
-                {
-                    b.Navigation("LoanReturns");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>

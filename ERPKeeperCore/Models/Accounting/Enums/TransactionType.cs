@@ -16,6 +16,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         SupplierPayment = 70,
         JournalEntry = 80,
         LiabilityPayment = 90,
+        Lend = 100,
+        LendReturn = 101,
+
+        Loan = 110,
+        LoanReturn = 112,
     }
 }
 

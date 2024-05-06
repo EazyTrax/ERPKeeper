@@ -122,11 +122,10 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
 
-        public DbSet<Models.PaymentTerm> PaymentTerms { get; set; }
+
         public DbSet<Models.Investors.Investor> Investors { get; set; }
 
         public DbSet<Purchase> Purchases { get; set; }
-
         public DbSet<Project> Projects { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
@@ -136,10 +135,16 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
         #region Financial
-        public DbSet<FundTransfer> FundTransfers { get; set; }
-        public DbSet<FundTransferItem> FundTransferItems { get; set; }
-        public DbSet<RetentionType> RetentionTypes { get; set; }
-        public DbSet<LiabilityPayment> LiabilityPayments { get; set; }
+        public DbSet<Models.Financial.FundTransfer> FundTransfers { get; set; }
+        public DbSet<Models.Financial.FundTransferItem> FundTransferItems { get; set; }
+        public DbSet<Models.Financial.RetentionType> RetentionTypes { get; set; }
+        public DbSet<Models.Financial.LiabilityPayment> LiabilityPayments { get; set; }
+        public DbSet<Models.PaymentTerm> PaymentTerms { get; set; }
+        public DbSet<Models.Financial.Loan> Loans { get; set; }
+        public DbSet<Models.Financial.LoanReturn> LoanReturns { get; set; }
+        public DbSet<Models.Financial.Lend> Lends { get; set; }
+        public DbSet<Models.Financial.LendReturn> LendReturns { get; set; }
+
         #endregion
 
 

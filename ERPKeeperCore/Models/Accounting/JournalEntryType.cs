@@ -25,6 +25,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public virtual int EntryCount => JournalEntries?.Count() ?? 0;
 
+        public string? Description { get;  set; } = "NA";
+
+        public bool IsSystem { get;  set; }
 
         public void Update(JournalEntryType journalEntryType)
         {

@@ -28,8 +28,12 @@ namespace ERPKeeperCore.CMD
                 //CopySupplierPayments(newOrganization, oldOrganization);
                 // PostLedgers(newOrganization);
 
+
+                newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
+
+
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                migrationTool.Migrate();
+               // migrationTool.Migrate();
 
           
             }

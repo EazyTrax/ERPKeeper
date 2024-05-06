@@ -3,13 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
-using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
-using ERPKeeperCore.Enterprise.Models.Customers;
-using ERPKeeperCore.Enterprise.Models.Enums;
-using ERPKeeperCore.Enterprise.Models.Financial;
+
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
@@ -17,7 +13,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         [Key]
         public Guid Id { get; set; }
-        public TransactionType Type { get; set; }
+        public Enums.TransactionType Type { get; set; }
         public DateTime Date { get; set; }
         public Guid? FiscalYearId { get; set; }
         public String? Name { get; set; }
@@ -35,10 +31,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Customers.ReceivePayment? ReceivePayment { get; set; }
         public virtual Suppliers.SupplierPayment? SupplierPayment { get; set; }
         public virtual Accounting.JournalEntry? JournalEntry { get; set; }
-        public virtual Financial.LiabilityPayment? LiabilityPayment { get; internal set; }
-
-
-
+        public virtual Financial.LiabilityPayment? LiabilityPayment { get; set; }
+        public virtual Financial.Lend? Lend { get; set; }
+        public virtual Financial.LendReturn? LendReturn { get; set; }
+        public virtual Financial.Loan? Loan { get; set; }
+        public virtual Financial.LoanReturn? LoanReturn { get; set; }
 
 
         public void UpdateBalance()
@@ -73,23 +70,5 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             };
             this.Ledgers.Add(ledger);
         }
-    }
-
-
-    public partial class TransactionLedger
-    {
-        [Key]
-        public Guid Id { get; set; }
-
-        public Guid TransactionId { get; set; }
-        [ForeignKey("TransactionId")]
-        public virtual Transaction Transaction { get; set; }
-
-        public Guid AccountId { get; set; }
-        [ForeignKey("AccountId")]
-        public virtual Account Account { get; set; }
-
-        public decimal Debit { get; set; }
-        public decimal Credit { get; set; }
     }
 }
