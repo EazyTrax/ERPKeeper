@@ -42,6 +42,10 @@ namespace ERPKeeperCore.Enterprise
         public Transactions Transactions;
         public FundTransfers FundTransfers;
 
+        public IncomeTaxes IncomeTaxes;
+        public Loans Loans;
+        public Lends Lends;
+
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
             DatabaseName = dbName;
@@ -69,8 +73,9 @@ namespace ERPKeeperCore.Enterprise
             FundTransfers = new FundTransfers(this);
             Transactions = new Transactions(this);
 
-            //Loans = new Loans(this);
-            //Lends = new Lends(this);
+            Loans = new Loans(this);
+            Lends = new Lends(this);
+            IncomeTaxes = new IncomeTaxes(this);
         }
 
 

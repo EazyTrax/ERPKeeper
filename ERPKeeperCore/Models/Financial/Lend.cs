@@ -41,6 +41,9 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public virtual ICollection<LendReturn> LendReturns { get; set; } = new List<LendReturn>();
         public Decimal AmountReturn { get; set; }
+        public Decimal AmountRemain => AmountLend - AmountReturn;
+
+
 
         public void AddReturnLine(DateTime date, decimal amount, Guid AccountId)
         {
@@ -79,7 +82,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void PostToTransaction()
         {
-            Console.WriteLine($"Post FT:{this.Name}");
+            Console.WriteLine($">Post  FT:{this.Name}");
 
             this.UpdateBalance();
 

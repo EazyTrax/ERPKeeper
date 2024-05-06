@@ -11,13 +11,64 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
+        private void Copy_Financial_FundTransfers()
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.FundTransfers.ToList();
+
+            oldModels.ForEach(oldFundTransfer =>
+            {
+                var exist = newOrganization.ErpCOREDBContext
+                .FundTransfers
+                .Find(oldFundTransfer.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
+                    exist = new ERPKeeperCore.Enterprise.Models.Financial.FundTransfer()
+                    {
+                        Id = oldFundTransfer.Uid,
+                        Date = oldFundTransfer.TrnDate,
+                        Reference = oldFundTransfer.Reference,
+                        Status = (ERPKeeperCore.Enterprise.Models.Financial.Enums.FundTransferStatus)oldFundTransfer.Status,
+                        WithDrawAccountId = (Guid)oldFundTransfer.WithDrawAccountGuid
+                    };
+
+                    if (oldFundTransfer.BankFeeAccountGuid != null)
+                        exist.AddDepositLine((Guid)oldFundTransfer.BankFeeAccountGuid, oldFundTransfer.AmountFee);
+
+                    if (oldFundTransfer.DepositAccountGuid != null)
+                        exist.AddDepositLine((Guid)oldFundTransfer.DepositAccountGuid, oldFundTransfer.AmountDeposit);
+
+                    exist.UpdateBalance();
+
+                    newOrganization.ErpCOREDBContext.FundTransfers.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+
+                    Console.WriteLine($">{exist.WithDrawAmount}");
+
+
+                }
+                else
+                {
+                    Console.WriteLine($"> Update > FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
+
+                    exist.WithDrawAccountId = oldFundTransfer.WithDrawAccountGuid;
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
         private void Copy_Financial_LiabilityPayments()
         {
-            oldOrganization.ErpNodeDBContext
-                .LiabilityPayments
-                .OrderByDescending(s => s.TrnDate)
-                .ToList()
-                .ForEach(oldPurchase =>
+            var existModelIds = newOrganization.ErpCOREDBContext.LiabilityPayments
+                .Select(x => x.Id)
+                .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.LiabilityPayments
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+            oldModels.ForEach(oldPurchase =>
                 {
                     Console.WriteLine($"PURCHASE: {oldPurchase.Name}");
 
@@ -78,13 +129,84 @@ namespace ERPKeeperCore.CMD
                     }
                     else
                     {
-                        existLiabilityPayment.Amount = oldPurchase.Amount;
-                        newOrganization.SaveChanges();
+                       
                     }
 
 
                 });
         }
 
+        private void Copy_Financial_Loans()
+        {
+            oldOrganization.ErpNodeDBContext
+                .Loans
+                .OrderByDescending(s => s.TrnDate)
+                .ToList()
+                .ForEach(oldPurchase =>
+                {
+                    var existLoan = newOrganization.ErpCOREDBContext
+                        .Loans
+                        .FirstOrDefault(s => s.Id == oldPurchase.Uid);
+
+                    if (existLoan == null)
+                    {
+                        Console.WriteLine("----------------------------------------------");
+                        Console.WriteLine($"> Loans: {oldPurchase.Name} ");
+                       
+                        existLoan = new Enterprise.Models.Financial.Loan()
+                        {
+                            Id = oldPurchase.Uid,
+                            Date = oldPurchase.TrnDate,
+                            Memo =  "NA",
+                            AmountLoan = oldPurchase.Amount,
+                            RecevingAccountId = oldPurchase.AssetAccountGuid,
+                            LoanAccountId = oldPurchase.LiabilityAccount.Uid,
+                        };
+                        newOrganization.ErpCOREDBContext.Loans.Add(existLoan);
+                        newOrganization.SaveChanges();
+                    }
+                    else
+                    {
+ 
+                    }
+
+                });
+        }
+        private void Copy_Financial_Lends()
+        {
+            oldOrganization.ErpNodeDBContext
+                .Lends
+                .OrderByDescending(s => s.TrnDate)
+                .ToList()
+                .ForEach(oldPurchase =>
+                {
+                    var existLoan = newOrganization.ErpCOREDBContext
+                        .Lends
+                        .FirstOrDefault(s => s.Id == oldPurchase.Uid);
+
+                    if (existLoan == null)
+                    {
+                        Console.WriteLine("----------------------------------------------");
+                        Console.WriteLine($"> Lends: {oldPurchase.Name} ");
+
+                        existLoan = new Enterprise.Models.Financial.Lend()
+                        {
+                            Id = oldPurchase.Uid,
+                            Date = oldPurchase.TrnDate,
+                            Memo = "NA",
+                            AmountLend = oldPurchase.Amount,
+                            PayingAccountId = oldPurchase.AssetAccountGuid,
+                            LendingAccountId = oldPurchase.LendingAssetAccountGuid,
+                        };
+                        newOrganization.ErpCOREDBContext.Lends.Add(existLoan);
+                        newOrganization.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+
+                });
+        }
     }
 }

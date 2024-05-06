@@ -90,6 +90,18 @@
         .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .Width(200).HeaderCellTemplate(@<text>CloseTo</text>);
 
+
+
+
+            columns.AddFor(m => m.IsPosted)
+            .AllowEditing(false)
+            .Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+
+
+
         })
         )
 </div>

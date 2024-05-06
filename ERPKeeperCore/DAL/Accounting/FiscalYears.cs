@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using Z.EntityFramework.Plus;
 
 namespace ERPKeeperCore.Enterprise.DAL.Accounting
 {
@@ -113,20 +114,26 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public void UpdateTransactionFiscalYears()
         {
-            Console.WriteLine("> Update  TR with Fiscal Years");
+            Console.WriteLine("> Update TR with Fiscal Years");
 
             foreach (var fiscalYear in this.GetAll())
             {
-                Console.WriteLine($"> Update  TR with Fiscal Year {fiscalYear.Name}");
+                Console.WriteLine($"> FiscalYear:{fiscalYear.Name}");
 
-                var transactions = organization
-                    .ErpCOREDBContext
-                    .Transactions
-                    //.Where(t => t.FiscalYearId == null)
-                    .Where(t => t.Date >= fiscalYear.StartDate.Date && t.Date < fiscalYear.EndDate.Date.AddDays(1))
-                    .ToList();
+                var transactions = organization.ErpCOREDBContext.Transactions
+                    .Where(t => t.FiscalYearId == null && t.Date >= fiscalYear.StartDate.Date && t.Date < fiscalYear.EndDate.Date.AddDays(1))
+                    .Update(t => new Transaction { FiscalYearId = fiscalYear.Id });
+                organization.SaveChanges();
+            }
+        }
 
-                transactions.ForEach(t => t.FiscalYearId = fiscalYear.Id);
+        public void UpdateIncomeExpense()
+        {
+            Console.WriteLine("> Update Income Expense");
+            this.UpdateTransactionFiscalYears();
+
+            foreach (var fiscalYear in this.GetAll())
+            {
                 organization.SaveChanges();
             }
         }

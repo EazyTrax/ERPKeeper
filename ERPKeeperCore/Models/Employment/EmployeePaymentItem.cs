@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
     {
 
         public Guid Id { get; set; }
-        public String Memo { get; set; }
+        public String? Memo { get; set; }
 
         public Guid? EmployeePaymentTypeId { get; set; }
         [ForeignKey("EmployeePaymentTypeId")]

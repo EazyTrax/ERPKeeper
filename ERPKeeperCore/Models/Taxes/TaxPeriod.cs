@@ -22,6 +22,14 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
     {
         [Key]
         public Guid Id { get; set; }
+
+        public bool IsPosted { get; set; }
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Accounting.Transaction? Transaction { get; set; }
+
+
+
         public int? No { get; set; }
         public Guid? FiscalYearId { get; set; }
         public DateTime StartDate { get; set; }

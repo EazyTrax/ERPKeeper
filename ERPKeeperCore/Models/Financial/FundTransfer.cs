@@ -76,7 +76,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void PostToTransaction()
         {
-            Console.WriteLine($"Post FT:{this.Name}");
+            Console.WriteLine($">Post  FT:{this.Name}");
 
             this.UpdateBalance();
 

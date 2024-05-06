@@ -79,7 +79,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         public void PostToTransaction()
         {
-            Console.WriteLine($"Post PUR:{this.Name}");
+            Console.WriteLine($">Post  PUR:{this.Name}");
 
             this.UpdateBalance();
 

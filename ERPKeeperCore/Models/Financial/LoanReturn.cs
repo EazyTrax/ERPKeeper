@@ -19,7 +19,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-
+        public String? Name { get; set; }
+        public String? Reference { get; set; }
 
         public DateTime Date { get; set; }
 

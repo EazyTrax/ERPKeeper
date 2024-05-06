@@ -925,7 +925,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Memo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1340,6 +1339,12 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<Guid>("LoanId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ReturnFromAccountId")
                         .HasColumnType("uniqueidentifier");
@@ -2151,48 +2156,54 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("FiscalYearUid")
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ExpenseAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IncomeTaxExpenseAccountGuid")
+                    b.Property<Guid?>("FiscalYearId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("LiabilityAccountGuid")
+                    b.Property<Guid?>("LiabilityAccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Memo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PayFromAccountGuid")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("ProfitAmount")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxAmount")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<DateTime>("TrDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Uid");
+                    b.HasKey("Id");
 
-                    b.HasIndex("FiscalYearUid");
+                    b.HasIndex("ExpenseAccountId");
 
-                    b.HasIndex("IncomeTaxExpenseAccountGuid");
+                    b.HasIndex("FiscalYearId");
 
-                    b.HasIndex("LiabilityAccountGuid");
+                    b.HasIndex("LiabilityAccountId");
+
+                    b.HasIndex("TransactionId")
+                        .IsUnique()
+                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("IncomeTaxes");
                 });
@@ -2283,6 +2294,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("FiscalYearId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsPosted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("LiabilityPaymentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -2316,9 +2330,14 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CloseToAccountId");
+
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("TaxPeriods");
                 });
@@ -3064,23 +3083,29 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", b =>
                 {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ExpenseAccount")
+                        .WithMany()
+                        .HasForeignKey("ExpenseAccountId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear", "FiscalYear")
                         .WithMany()
-                        .HasForeignKey("FiscalYearUid");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "IncomeTaxExpenAccount")
-                        .WithMany()
-                        .HasForeignKey("IncomeTaxExpenseAccountGuid");
+                        .HasForeignKey("FiscalYearId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LiabilityAccount")
                         .WithMany()
-                        .HasForeignKey("LiabilityAccountGuid");
+                        .HasForeignKey("LiabilityAccountId");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithOne("IncomeTax")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", "TransactionId");
+
+                    b.Navigation("ExpenseAccount");
 
                     b.Navigation("FiscalYear");
 
-                    b.Navigation("IncomeTaxExpenAccount");
-
                     b.Navigation("LiabilityAccount");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.TaxCode", b =>
@@ -3128,7 +3153,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("CloseToAccountId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
+
                     b.Navigation("CloseToAccount");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Account", b =>
@@ -3154,6 +3185,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
                 {
                     b.Navigation("FundTransfer");
+
+                    b.Navigation("IncomeTax");
 
                     b.Navigation("JournalEntry");
 

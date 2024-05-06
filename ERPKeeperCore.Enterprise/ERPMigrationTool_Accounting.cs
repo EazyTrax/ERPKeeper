@@ -14,9 +14,11 @@ namespace ERPKeeperCore.CMD
         private void CopyAccounts()
         {
             var oldAccounts = oldOrganization.ErpNodeDBContext.AccountItems.ToList();
+
+
+
             oldAccounts.ForEach(oldAccount =>
             {
-              
                 var exist = newOrganization.ErpCOREDBContext.Accounts.FirstOrDefault(x => x.Id == oldAccount.Uid);
 
                 if (exist == null)
@@ -79,6 +81,36 @@ namespace ERPKeeperCore.CMD
 
             });
         }
+        private void CopyFiscalYear()
+        {
+            var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();
 
+            oldModels.ForEach(a =>
+            {
+                Console.WriteLine($"PROF:{a.Name}-{a.StartDate}");
+
+                var exist = newOrganization.ErpCOREDBContext.FiscalYears.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear()
+                    {
+                        Id = a.Uid,
+                        StartDate = a.StartDate,
+                        EndDate = a.EndDate,
+                        Memo = a.Memo,
+                        Status = (FiscalYearStatus)a.Status,
+                    };
+
+                    newOrganization.ErpCOREDBContext.FiscalYears.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
     }
 }

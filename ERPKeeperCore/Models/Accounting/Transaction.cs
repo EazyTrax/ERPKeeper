@@ -1,4 +1,5 @@
 ﻿
+using ERPKeeperCore.Enterprise.Models.Taxes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +37,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Financial.LendReturn? LendReturn { get; set; }
         public virtual Financial.Loan? Loan { get; set; }
         public virtual Financial.LoanReturn? LoanReturn { get; set; }
-
+        public virtual Taxes.IncomeTax? IncomeTax { get; set; }
 
         public void UpdateBalance()
         {

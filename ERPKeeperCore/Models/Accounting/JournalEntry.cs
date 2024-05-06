@@ -75,7 +75,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public void PostToTransaction()
         {
-            Console.WriteLine($"Post JourmalEntry:{this.Name}");
+            Console.WriteLine($">Post  JourmalEntry:{this.Name}");
 
             this.UpdateBalance();
 

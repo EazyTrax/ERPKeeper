@@ -28,9 +28,9 @@
     @{
         Template("FundTransfers", "FundTransfers", Organization.FundTransfers.Count());
         Template("LiabilityPayments", "LiabilityPayments", Organization.ErpCOREDBContext.LiabilityPayments.Count());
-        Template("Lends", "Lends");
-        Template("Loans", "Loans");
-        Template("Invests", "Invests");
-        Template("Retention Types", "RetentionTypes",Organization.ErpCOREDBContext.RetentionTypes.Count());
+        Template("Lends", "Lends", Organization.ErpCOREDBContext.Lends.Count());
+        Template("Loans", "Loans", Organization.ErpCOREDBContext.Loans.Count());
+        Template("Stocks", "Stocks");
+        Template("Retention Types", "RetentionTypes", Organization.ErpCOREDBContext.RetentionTypes.Count());
     }
 </div>

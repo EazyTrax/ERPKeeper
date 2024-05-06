@@ -43,7 +43,9 @@
 
 
         
-            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxCodes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name)
+            .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxCodes/<%= data.Id %>/"><%= data.Name %></a></text>);
+           
             columns.AddFor(m => m.Rate);
 
 

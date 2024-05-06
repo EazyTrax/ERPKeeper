@@ -21,6 +21,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
         Loan = 110,
         LoanReturn = 112,
+        IncomeTax = 130,
     }
 }
 

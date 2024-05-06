@@ -24,69 +24,19 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
-                //CopyReceivePayments(newOrganization, oldOrganization);
-                //CopySupplierPayments(newOrganization, oldOrganization);
-                // PostLedgers(newOrganization);
-
-
-                newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
 
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-               // migrationTool.Migrate();
+                migrationTool.Migrate();
 
-          
+                newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
+                PostLedgers(newOrganization);
+
+                newOrganization.FiscalYears.UpdateIncomeExpense();
+
             }
         }
-   
-        
-        
-        private static void CopyReceivePayments(EnterpriseRepo newOrganization, Organization oldOrganization)
-        {
-            oldOrganization.ErpNodeDBContext
-                .Sales
-                .Where(s => s.GeneralPaymentUid != null)
-                .OrderByDescending(s => s.GeneralPayment.TrnDate)
-                .ToList()
-                .ForEach(oldSale =>
-                {
-                    Console.WriteLine($"SALE: {oldSale.Name}");
 
-                    var existReceivePayment = newOrganization.ErpCOREDBContext
-                        .ReceivePayments
-                        .FirstOrDefault(s => s.SaleId == oldSale.Uid);
-
-                    if (existReceivePayment == null)
-                    {
-                        existReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
-                        {
-                            SaleId = oldSale.Uid,
-                            Amount = oldSale.Total,
-                            Date = oldSale.GeneralPayment.TrnDate,
-                            Reference = oldSale.GeneralPayment.Reference,
-                            AmountBankFee = oldSale.GeneralPayment.BankFeeAmount,
-                            AmountDiscount = oldSale.GeneralPayment.DiscountAmount,
-                            PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
-                            ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid,
-                            RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
-
-
-                        };
-
-                        if (existReceivePayment.RetentionTypeId != null)
-                            existReceivePayment.AmountRetention = oldSale.GeneralPayment.RetentionType.Rate * oldSale.LinesTotal / 100;
-
-                        newOrganization.ErpCOREDBContext
-                            .ReceivePayments.Add(existReceivePayment);
-
-                        newOrganization.SaveChanges();
-                    }
-                    else
-                    {
-                        existReceivePayment.ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid;
-                    }
-                });
-        }
 
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
@@ -126,6 +76,9 @@ namespace ERPKeeperCore.CMD
             //  organization.RetirementFixedAssets.PostLedger();
 
             // organization.FiscalYears.PostLedger();
+
+            //Other Section
+            newOrganization.IncomeTaxes.PostToTransactions();
 
 
         }
