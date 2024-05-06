@@ -78,9 +78,9 @@ namespace ERPKeeperCore.CMD
                     }
                     else
                     {
-
+                        existLiabilityPayment.Amount = oldPurchase.Amount;
+                        newOrganization.SaveChanges();
                     }
-
 
 
                 });
