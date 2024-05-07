@@ -16,6 +16,7 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
         .FilterRow(filterRow => filterRow.Visible(true))
         .ColumnAutoWidth(false)
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         @*.AutoExpandAll(true)*@
 
         .Columns(columns =>
@@ -50,7 +51,7 @@
 
                 columns.AddFor(m => m.Reference).Width(180);
                 columns.AddFor(m => m.Amount).Width(130).Format(Format.FixedPoint);
-
+                columns.AddFor(m => m.DiscountAccount).Width(130).Format(Format.FixedPoint);
 
                 columns.AddFor(m => m.PayToAccountId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))

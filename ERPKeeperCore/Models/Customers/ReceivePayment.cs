@@ -37,6 +37,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
 
         public Decimal Amount { get; set; }
+        public Decimal AmountExcludeTax { get; set; }
+
         public Decimal AmountRetention { get; set; }
         public Decimal AmountDiscount { get; set; }
         public Decimal AmountBankFee { get; set; }
@@ -61,23 +63,47 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("DiscountAccountId")]
         public virtual Accounting.Account? DiscountAccount { get; set; }
 
+        public Guid? BankFeeAccountId { get; set; }
+        [ForeignKey("BankFeeAccountId")]
+        public virtual Accounting.Account? BankFeeAccount { get; set; }
 
-        public void CreateTransaction()
+
+        public void PostToTransaction()
         {
+            Console.WriteLine($">Post  RP:{this.Name}");
+
             if (this.Transaction == null)
-            {
-                Console.WriteLine("Creating Sale Transaction");
-                this.Transaction = new Accounting.Transaction()
-                {
-                    Id = this.Id,
-                    Date = this.Date,
-                    Reference = this.Name,
-                    Type = Accounting.Enums.TransactionType.ReceivePayment,
-                    ReceivePayment = this,
-                };
-            }
+                return;
+
             this.Transaction.ClearLedger();
+
+            // Dr.
+            this.Transaction.AddDebit(this.PayToAccount, this.AmountTotalReceive);
+
+            if (this.AmountDiscount > 0)
+                this.Transaction.AddDebit(this.DiscountAccount, this.AmountDiscount);
+            if (this.RetentionTypeId != null)
+                this.Transaction.AddDebit(this.RetentionType.RetentionToAccount, this.AmountRetention);
+            if (this.AmountBankFee > 0)
+                this.Transaction.AddDebit(this.BankFeeAccount, this.AmountBankFee);
+
+
+
+            // Cr.
+            this.Transaction.AddCredit(this.ReceivableAccount, this.Amount);
+
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
             this.Transaction.UpdateBalance();
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
+        }
+
+        public void UpdateBalance()
+        {
+
         }
 
         public ReceivePayment()

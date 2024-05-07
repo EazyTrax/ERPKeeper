@@ -84,9 +84,10 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             // Cr.
             this.Transaction.AddCredit(this.LiabilityAccount, this.TaxAmount);
 
-
+            this.Transaction.UpdateBalance();
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
+            this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
 

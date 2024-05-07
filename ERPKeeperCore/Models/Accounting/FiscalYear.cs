@@ -122,11 +122,17 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                         accBalance.ClosedDebit = this.ProfitBalance;
                     }
                 }
+                else
+                {
+                    accBalance.ClosingDebit = 0;
+                    accBalance.ClosingCredit = 0;
+                }
 
                 var ClosedDebit = accBalance.OpeningDebit + accBalance.Debit + accBalance.ClosingDebit;
                 var ClosedCredit = accBalance.OpeningCredit + accBalance.Credit + accBalance.ClosingCredit;
+               
                 accBalance.ClosedDebit = Math.Max(ClosedDebit - ClosedCredit, 0);
-                accBalance.ClosingCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
+                accBalance.ClosedCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
 
             }
         }

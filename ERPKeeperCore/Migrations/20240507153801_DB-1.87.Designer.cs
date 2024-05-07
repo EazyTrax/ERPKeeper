@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240507153801_DB-1.87")]
+    partial class DB187
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -686,9 +689,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("AmountRetention")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<Guid?>("BankFeeAccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -729,8 +729,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BankFeeAccountId");
 
                     b.HasIndex("DiscountAccountId");
 
@@ -2595,10 +2593,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "BankFeeAccount")
-                        .WithMany()
-                        .HasForeignKey("BankFeeAccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "DiscountAccount")
                         .WithMany()
                         .HasForeignKey("DiscountAccountId");
@@ -2622,8 +2616,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("ReceivePayment")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment", "TransactionId");
-
-                    b.Navigation("BankFeeAccount");
 
                     b.Navigation("DiscountAccount");
 

@@ -37,11 +37,12 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public DateTime Date { get; set; } = DateTime.Now;
 
         public Decimal Amount { get; set; }
+        public Decimal AmountExcludeTax { get; set; }
+
         public Decimal AmountRetention { get; set; }
         public Decimal AmountDiscount { get; set; }
         public Decimal AmountBankFee { get; set; }
-        public Decimal AmountTotalReceive =>
-            Amount - (AmountRetention + AmountDiscount + AmountBankFee);
+        public Decimal AmountTotal => Amount - (AmountRetention + AmountDiscount + AmountBankFee);
 
 
         //Cr.

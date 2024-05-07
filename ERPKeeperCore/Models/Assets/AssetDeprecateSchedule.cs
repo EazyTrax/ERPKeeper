@@ -65,9 +65,10 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             this.Transaction.AddCredit(this.Asset.AssetType.AccumulateDeprecateAcc, this.DepreciationValue);
 
             this.Transaction.Date = this.StartDate;
-            //this.Transaction.Reference = this.Reference;
+           // this.Transaction.Reference = this.Reference;
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
+            this.Transaction.UpdateBalance();
 
         }
     }

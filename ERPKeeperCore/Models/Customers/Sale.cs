@@ -118,8 +118,5 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             else
                 this.Tax = 0;
         }
-
-
-
     }
 }

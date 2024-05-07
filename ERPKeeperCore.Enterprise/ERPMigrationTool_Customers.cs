@@ -67,7 +67,7 @@ namespace ERPKeeperCore.CMD
                             PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
                             ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid,
                             RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
-
+      
 
                         };
 

@@ -7,6 +7,7 @@ using ERPKeeperCore.Enterprise.Models;
 using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.DAL;
+using ERPKeeperCore.Enterprise.Models.Customers;
 
 
 namespace ERPKeeperCore.Enterprise
@@ -36,6 +37,9 @@ namespace ERPKeeperCore.Enterprise
         public Sales Sales;
         public Purchases Purchases;
         public Customers Customers;
+        public ReceivePayments ReceivePayments;
+
+
         public Suppliers Suppliers;
 
         public Employees Employees;
@@ -89,6 +93,8 @@ namespace ERPKeeperCore.Enterprise
             Loans = new Loans(this);
             Lends = new Lends(this);
             IncomeTaxes = new IncomeTaxes(this);
+
+            ReceivePayments = new ReceivePayments(this);
         }
 
 

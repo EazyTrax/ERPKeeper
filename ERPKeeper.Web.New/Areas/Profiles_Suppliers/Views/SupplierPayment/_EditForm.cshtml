@@ -1,8 +1,8 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment
 
 
 
-<form id="EditForm" action="/Customers/Sales/@Model.Id/Update" method="post">
+<form id="EditForm" action="/Suppliers/Sales/@Model.Id/Update" method="post">
     <div >
         <div class="row">
 
@@ -11,14 +11,14 @@
 
                     <div class="row">
                         <div class="col-10 p-0">
-                            <div class="mb-3 font-weight-600">Customer</div>
+                            <div class="mb-3 font-weight-600">Supplier</div>
                         </div>
                         <div class="col-2 p-0 text-right">
                         </div>
                     </div>
 
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Sale.Name).Label("Sale").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Sale.Customer.Profile.Name).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Purchase.Name).Label("Sale").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Purchase.Supplier.Profile.Name).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
 
                 </div>
             </div>
@@ -29,9 +29,7 @@
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").LabelMode(EditorLabelMode.Static)</div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountBankFee).Label("BankFee").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountDiscount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
-
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m => m.RetentionTypeId)
                             .DataSource(Organization.ErpCOREDBContext.RetentionTypes.ToList().Select(t => new { t.Id, t.Name }).ToList())
@@ -43,8 +41,8 @@
                             .LabelMode(EditorLabelMode.Static)
                             )
                     </div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountRetention).Label("Retention").LabelMode(EditorLabelMode.Static)</div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountTotalReceive).Label("Total").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountRetention).Label("AmountRetention").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountTotal).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
 
                 </div>
             </div>

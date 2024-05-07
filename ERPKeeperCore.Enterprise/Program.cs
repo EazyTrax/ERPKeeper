@@ -6,6 +6,7 @@ using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Runtime.CompilerServices;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ERPKeeperCore.CMD
 {
@@ -24,8 +25,16 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
+                oldOrganization.ErpNodeDBContext.GeneralPayments
+                    .Where(x => x.DiscountAmount > 0)
+                    .ToList()
+                    .ForEach(model =>
+                    {
+                        Console.WriteLine($"{model.Name}, {model.DiscountAmount}");
+                    });
+
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                migrationTool.Migrate();
+                //migrationTool.Migrate();
 
                 //newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
                 PostLedgers(newOrganization);
@@ -35,17 +44,26 @@ namespace ERPKeeperCore.CMD
 
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
-            //organization.OpeningEntries.PostLedger();
+            newOrganization.ErpCOREDBContext.Transactions
+                .Where(x => x.Debit == 0)
+                .ToList()
+                .ForEach(action =>
+                {
+                    Console.WriteLine($"{action.Reference}");
+                    action.UpdateBalance();
+                });
 
+            newOrganization.ErpCOREDBContext.SaveChanges();
+            //organization.OpeningEntries.PostLedger();
             //Capital Activities
             //organization.CapitalActivities.PostLedger();
 
-            ////Commercial Section
+            //Commercial Section
             newOrganization.Sales.PostToTransactions();
+            newOrganization.ReceivePayments.PostToTransactions();
             newOrganization.Purchases.PostToTransactions();
 
             //Financial Section
-            //organization.ReceivePayments.PostLedger();
             //organization.SupplierPayments.PostLedger();
             //organization.LiabilityPayments.PostLedger();
 
@@ -54,8 +72,8 @@ namespace ERPKeeperCore.CMD
             //organization.Lends.PostLedger();
 
             //Taxes Section
-            // organization.TaxPeriods.PostLedger();
-            // organization.IncomeTaxes.PostLedger();
+            //organization.TaxPeriods.PostLedger();
+            //organization.IncomeTaxes.PostLedger();
 
             //Employee Section
             newOrganization.EmployeePayments.PostToTransactions();
@@ -65,13 +83,12 @@ namespace ERPKeeperCore.CMD
             newOrganization.JournalEntries.PostToTransactions();
 
             //Assets
-            //  organization.FixedAssets.PostLedger();
+            //organization.FixedAssets.PostLedger();
             newOrganization.AssetDeprecateSchedules.PostToTransactions();
 
             //organization.RetirementFixedAssets.UnPost();
-            //  organization.RetirementFixedAssets.PostLedger();
-
-            // organization.FiscalYears.PostLedger();
+            //organization.RetirementFixedAssets.PostLedger();
+            //organization.FiscalYears.PostLedger();
 
             //Other Section
             newOrganization.IncomeTaxes.PostToTransactions();
