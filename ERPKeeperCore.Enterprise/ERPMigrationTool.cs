@@ -35,6 +35,10 @@ namespace ERPKeeperCore.CMD
         public void Migrate()
         {
 
+            Copy_Employees();
+            Copy_Taxes();
+
+
             //newOrganization.FiscalYears.PrepareFiscalYearBalances();
             //newOrganization.FiscalYears.UpdateTransactionFiscalYears();
 
@@ -54,13 +58,8 @@ namespace ERPKeeperCore.CMD
             //Copyy_Suppliers_PurchaseItems();
             ////CopySupplierPayments();
 
-            CopyEmployeePositions();
-            Copy_Employees_PaymentTypes();
-            CopyEmployees();
 
-            CopyEmployeePaymentPeriods();
-            CopyEmployeePayments();
-            Copy_Taxes_IncomeTaxes();
+
 
 
             //CopyProfiles();
@@ -93,9 +92,25 @@ namespace ERPKeeperCore.CMD
             //CopyRetentionTypes();
 
 
+
         }
 
+        private void Copy_Employees()
+        {
+            // Employees Section
+            Copy_EmployeesEmployeePositions();
+            Copy_Employees_PaymentTypes();
+            Copy_Employees_Employees();
+            Copy_Employees_EmployeePaymentPeriods();
+            Copy_Employees_EmployeePayments();
+            Copy_Employees_EmployeePaymentItems();
+        }
 
+        private void Copy_Taxes()
+        {
+            //Taxes
+            Copy_Taxes_IncomeTaxes();
+        }
 
         private void CopyProfiles()
         {

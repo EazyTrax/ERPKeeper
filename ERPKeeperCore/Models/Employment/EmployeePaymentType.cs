@@ -24,8 +24,13 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         [ForeignKey("ExpenseAccountId")]
         public virtual Models.Accounting.Account ExpenseAccount { get; set; }
 
-        public virtual ICollection<EmployeePaymentItem> Payments { get; set; }
+        public virtual ICollection<EmployeePaymentItem> Items { get; set; }
+        public decimal Total { get; private set; }
 
+        public void UpdateBalance()
+        {
+            this.Total= Items.Sum(a => a.Amount);
+        }
         public void Update(EmployeePaymentType paymentType)
         {
             this.Name = paymentType.Name;

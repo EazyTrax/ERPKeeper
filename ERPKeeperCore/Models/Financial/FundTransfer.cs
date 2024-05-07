@@ -55,24 +55,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             WithDrawAmount = FundTransferDepositLines.Sum(x => x.Debit);
         }
 
-        public void CreateTransaction()
-        {
-            if (this.Transaction == null)
-            {
-                Console.WriteLine("Creating FundTransfer Transaction");
-
-                this.Transaction = new Accounting.Transaction()
-                {
-                    Id = this.Id,
-                    Date = this.Date,
-                    Reference = this.Name,
-                    Type = Accounting.Enums.TransactionType.FundTransfer,
-                    FundTransfer = this,
-                };
-            }
-            this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
-        }
+  
 
         public void PostToTransaction()
         {

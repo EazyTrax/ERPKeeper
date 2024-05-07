@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public decimal TotalEarning { get; set; }
         public decimal TotalDeduction { get; set; }
         public decimal TotalPayment => TotalEarning - TotalDeduction;
-        public int PaymentCount => EmployeePayments?.Count() ?? 0;
+        public int PaymentCount { get; set; }
 
 
 
@@ -33,6 +33,15 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         [ForeignKey("PayFromAccountId")]
         public virtual Accounting.Account PayFromAccount { get; set; }
 
+        public void UpdateBalance()
+        {
+            if (EmployeePayments != null)
+            {
+                PaymentCount = EmployeePayments.Count();
+                TotalEarning = EmployeePayments.Select(l => l.TotalEarning).DefaultIfEmpty(0).Sum();
+                TotalDeduction = EmployeePayments.Select(l => l.TotalDeduction).DefaultIfEmpty(0).Sum();
+            }
+        }
 
         public void Update(EmployeePaymentPeriod model)
         {
@@ -44,10 +53,6 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         }
 
-        public void Calculate()
-        {
-            TotalEarning = EmployeePayments.Select(l => l.TotalEarning).DefaultIfEmpty(0).Sum();
-            TotalDeduction = EmployeePayments.Select(l => l.TotalDeduction).DefaultIfEmpty(0).Sum();
-        }
+
     }
 }

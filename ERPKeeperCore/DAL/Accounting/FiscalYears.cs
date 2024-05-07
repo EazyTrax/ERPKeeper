@@ -102,7 +102,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             foreach (var fiscalYear in this.GetAll())
             {
                 Console.WriteLine($"> Prepare Fiscal Year Balance {fiscalYear.Name}");
-                fiscalYear.PrepareFiscalBalance(accounts);
+                fiscalYear.PrepareFiscalBalance(accounts, true);
                 organization.SaveChanges();
             }
 
@@ -127,9 +127,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public void UpdateAccountBalance()
         {
-            organization.ErpCOREDBContext.FiscalYearAccountBalances.Delete();
+            // organization.ErpCOREDBContext.FiscalYearAccountBalances.Delete();
             organization.SaveChanges();
-
 
             Console.WriteLine("> Update Income Expense");
             this.PrepareFiscalYearBalances();
@@ -166,8 +165,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                         .Where(b => b.AccountId == x.AccountId && b.FiscalYearId == fiscalYear.Id)
                         .FirstOrDefault();
 
-                    accountBalance.Debit = x.Debit;
-                    accountBalance.Credit = x.Credit;
+                    accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
+                    accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
 
                     Console.WriteLine($"> {x.Account.Name}");
                     Console.WriteLine($"> Debit:{x.Debit}");

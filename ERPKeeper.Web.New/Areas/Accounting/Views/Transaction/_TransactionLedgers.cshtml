@@ -11,14 +11,11 @@
             </a>
         </div>
 
-
         @{
             var transactionLedgers = Model.Ledgers.ToList();
 
             foreach (var transactionLedger in transactionLedgers)
             {
-               
-
                 @if (transactionLedger.Debit > 0)
                 {
                     <div class="col-7 border">

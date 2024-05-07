@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         /// </summary>
         Equity = 300,
         Stock = 301,
-        RetainEarning = 302,
+        Equity_RetainEarning = 302,
         OverStockValue = 303,
         OpeningBalance = 304,
         Dividend = 305,

@@ -30,6 +30,7 @@
     @{
         MenuTemplate(0, "Brands", $"/{CompanyId}/Products/Brands", Organization.ErpCOREDBContext.Brands.Count());
         MenuTemplate(0, "Items", $"/{CompanyId}/Products/Items", Organization.ErpCOREDBContext.Items.Count());
+        MenuTemplate(1, "Accounts", $"/{CompanyId}/Products/Items/Accounts", Organization.ErpCOREDBContext.Items.Count());
         MenuTemplate(0, "Inventory", $"/{CompanyId}/Products/Inventory");
         MenuTemplate(0, "Groups", $"/{CompanyId}/Products/Groups", Organization.ErpCOREDBContext.ItemGroups.Count());
     }

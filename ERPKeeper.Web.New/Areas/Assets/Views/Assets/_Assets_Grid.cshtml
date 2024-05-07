@@ -65,6 +65,8 @@
             })
         .Summary(s => s.TotalItems(items =>
         {
+          
+            
             items.AddFor(m => m.AssetValue).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
         }))
         .OnInitNewRow("function(e) { e.data.Status = 4;  }")

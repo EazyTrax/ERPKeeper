@@ -118,7 +118,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             this.SetIfUnAssign(DefaultAccountType.Cash, accounts.Where(i => i.SubType == AccountSubTypes.Cash).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.AccountPayable, accounts.Where(i => i.SubType == AccountSubTypes.AccountPayable).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.Expense, accounts.Where(i => i.SubType == AccountSubTypes.Expense).FirstOrDefault());
-            this.SetIfUnAssign(DefaultAccountType.RetainedEarning, accounts.Where(i => i.SubType == AccountSubTypes.RetainEarning).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.RetainedEarning, accounts.Where(i => i.SubType == AccountSubTypes.Equity_RetainEarning).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.EquityStock, accounts.Where(i => i.SubType == AccountSubTypes.Stock).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.OpeningBalanceEquity, accounts.Where(i => i.SubType == AccountSubTypes.OpeningBalance).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.DiscountGiven, accounts.Where(i => i.SubType == AccountSubTypes.DiscountGiven).FirstOrDefault());

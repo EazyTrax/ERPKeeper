@@ -12,7 +12,7 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void CopyEmployeePositions()
+        private void Copy_EmployeesEmployeePositions()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePositions
               .Select(x => x.Id)
@@ -48,7 +48,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-
         private void Copy_Employees_PaymentTypes()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentTypes
@@ -89,7 +88,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void CopyEmployees()
+        private void Copy_Employees_Employees()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.Employees
                .Select(x => x.Id)
@@ -124,7 +123,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void CopyEmployeePaymentPeriods()
+        private void Copy_Employees_EmployeePaymentPeriods()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentPeriods
                .Select(x => x.Id)
@@ -163,7 +162,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void CopyEmployeePayments()
+        private void Copy_Employees_EmployeePayments()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePayments
                .Select(x => x.Id)
@@ -192,6 +191,44 @@ namespace ERPKeeperCore.CMD
                         TotalDeduction = oldModel.TotalDeduction,
                     };
                     newOrganization.ErpCOREDBContext.EmployeePayments.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+
+
+        private void Copy_Employees_EmployeePaymentItems()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentItems
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EmployeePaymentLines
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"Employee.Payment.Items:{oldModel.Uid}");
+                var exist = newOrganization.ErpCOREDBContext.EmployeePaymentItems.FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentItem()
+                    {
+                        Id = oldModel.Uid,
+                        EmployeePaymentId = oldModel.EmployeePaymentId,
+                        EmployeePaymentTypeId = oldModel.PaymentTypeGuid,
+                        Amount = oldModel.Amount,
+                        Memo = oldModel.Memo,
+                    };
+                    newOrganization.ErpCOREDBContext.EmployeePaymentItems.Add(exist);
                 }
                 else
                 {

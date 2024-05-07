@@ -15,7 +15,20 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
     {
         [Key]
         public Guid Id { get; set; }
+
+
         public bool IsPosted { get; set; }
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Accounting.Transaction? Transaction { get; set; }
+
+
+
+
+
+
+
+
         public int No { get; set; }
         public String? Name { get; set; }
         public String? Code { get; set; }
@@ -129,7 +142,6 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         {
             var _schedule = new AssetDeprecateSchedule()
             {
-                Id = Guid.NewGuid(),
                 AssetId = Id,
                 StartDate = _startDate,
                 EndDate = _endDate,

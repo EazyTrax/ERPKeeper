@@ -145,12 +145,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("ClosedDebit")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("ClosingCredit")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("ClosingDebit")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<decimal>("Credit")
                         .HasColumnType("decimal(18, 2)");
 
@@ -388,9 +382,16 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssetTypeId");
+
+                    b.HasIndex("TransactionId")
+                        .IsUnique()
+                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("Assets");
                 });
@@ -416,6 +417,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPosted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("No")
                         .HasColumnType("int");
 
@@ -431,9 +435,16 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssetId");
+
+                    b.HasIndex("TransactionId")
+                        .IsUnique()
+                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("AssetDeprecateSchedules");
                 });
@@ -914,7 +925,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("PayFromAccountId");
 
-                    b.HasIndex("TransactionId");
+                    b.HasIndex("TransactionId")
+                        .IsUnique()
+                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("EmployeePayments");
                 });
@@ -966,6 +979,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("PayFromAccountId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("PaymentCount")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalDeduction")
                         .HasColumnType("decimal(18, 2)");
 
@@ -1001,6 +1017,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<int>("PayDirection")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
 
@@ -2446,7 +2465,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany("Assets")
                         .HasForeignKey("AssetTypeId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithOne("Asset")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Assets.Asset", "TransactionId");
+
                     b.Navigation("AssetType");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.AssetDeprecateSchedule", b =>
@@ -2455,7 +2480,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany("DepreciationSchedules")
                         .HasForeignKey("AssetId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithOne("AssetDeprecateSchedule")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Assets.AssetDeprecateSchedule", "TransactionId");
+
                     b.Navigation("Asset");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.AssetType", b =>
@@ -2666,8 +2697,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("PayFromAccountId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId");
+                        .WithOne("EmployeePayment")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment", "TransactionId");
 
                     b.Navigation("Employee");
 
@@ -2685,7 +2716,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("EmployeePaymentId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType", "EmployeePaymentType")
-                        .WithMany("Payments")
+                        .WithMany("Items")
                         .HasForeignKey("EmployeePaymentTypeId");
 
                     b.Navigation("EmployeePayment");
@@ -3209,6 +3240,12 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", b =>
                 {
+                    b.Navigation("Asset");
+
+                    b.Navigation("AssetDeprecateSchedule");
+
+                    b.Navigation("EmployeePayment");
+
                     b.Navigation("FundTransfer");
 
                     b.Navigation("IncomeTax");
@@ -3275,7 +3312,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType", b =>
                 {
-                    b.Navigation("Payments");
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition", b =>

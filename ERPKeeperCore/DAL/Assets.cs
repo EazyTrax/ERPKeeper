@@ -33,6 +33,48 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Asset? Find(Guid Id) => erpNodeDBContext.Assets.Find(Id);
 
+        //public void PostToTransactions()
+        //{
+        //    this.CreateTransactions();
 
+        //    //var Assets = erpNodeDBContext.Assets
+        //    //    .Where(s => s.TransactionId != null)
+        //    //    .Where(s => !s.IsPosted)
+        //    //    .OrderBy(s => s.PurchaseDate).ToList();
+
+        //    //Assets.ForEach(Asset =>
+        //    //{
+        //    //    //Asset.PostToTransaction();
+        //    //    erpNodeDBContext.SaveChanges();
+        //    //});
+        //}
+        public void CreateTransactions()
+        {
+            var Assets = erpNodeDBContext
+                .Assets
+                .Where(s => s.TransactionId == null)
+                .ToList();
+
+            Assets.ForEach(purchase =>
+            {
+                var transaction = erpNodeDBContext.Transactions.Find(purchase.Id);
+
+                if (transaction == null)
+                {
+                    Console.WriteLine($"Create TR:{purchase.Name}");
+                    transaction = new Transaction()
+                    {
+                        Id = purchase.Id,
+                        Date = purchase.PurchaseDate,
+                        Reference = purchase.Name,
+                        Type = Models.Accounting.Enums.TransactionType.Asset,
+                        Asset = purchase,
+                    };
+                    erpNodeDBContext.Transactions.Add(transaction);
+                    erpNodeDBContext.SaveChanges();
+                }
+            });
+
+        }
     }
 }

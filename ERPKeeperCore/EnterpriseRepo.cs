@@ -21,17 +21,29 @@ namespace ERPKeeperCore.Enterprise
         private JournalEntries _JournalEntries;
         private JournalEntryTypes _JournalEntryTypes;
         private DAL.Company.DataItems _DataItems;
+
+
+
         private Projects _Projects;
         private Assets _Assets;
         private AssetTypes _AssetTypes;
+        public AssetDeprecateSchedules AssetDeprecateSchedules;
+
+
+
         private Members _Members;
         private Items _Items;
         public Sales Sales;
         public Purchases Purchases;
         public Customers Customers;
         public Suppliers Suppliers;
+
         public Employees Employees;
         public EmployeePositions EmployeePositions;
+        public EmployeePaymentTypes EmployeePaymentTypes;
+        public EmployeePayments EmployeePayments;
+
+
         public Investors Investors;
         public ItemGroups ItemGroups;
         public Brands Brands;
@@ -39,8 +51,10 @@ namespace ERPKeeperCore.Enterprise
         public TaxCodes TaxCodes;
         public TaxPeriods TaxPeriods;
 
+
         public Transactions Transactions;
         public FundTransfers FundTransfers;
+
 
         public IncomeTaxes IncomeTaxes;
         public Loans Loans;
@@ -53,8 +67,6 @@ namespace ERPKeeperCore.Enterprise
             Initial();
         }
 
-
-
         public void Initial()
         {
             Sales = new Sales(this);
@@ -63,8 +75,10 @@ namespace ERPKeeperCore.Enterprise
             Suppliers = new Suppliers(this);
             Employees = new Employees(this);
             EmployeePositions = new EmployeePositions(this);
+            EmployeePaymentTypes = new EmployeePaymentTypes(this);
+            EmployeePayments = new EmployeePayments(this);
+            AssetDeprecateSchedules = new AssetDeprecateSchedules(this);
             Investors = new Investors(this);
-
             Brands = new Brands(this);
             ItemGroups = new ItemGroups(this);
             Profiles = new Profiles(this);
@@ -72,7 +86,6 @@ namespace ERPKeeperCore.Enterprise
             TaxPeriods = new TaxPeriods(this);
             FundTransfers = new FundTransfers(this);
             Transactions = new Transactions(this);
-
             Loans = new Loans(this);
             Lends = new Lends(this);
             IncomeTaxes = new IncomeTaxes(this);

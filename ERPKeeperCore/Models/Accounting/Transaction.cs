@@ -1,4 +1,6 @@
 ﻿
+using ERPKeeperCore.Enterprise.Models.Assets;
+using ERPKeeperCore.Enterprise.Models.Employees;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -48,13 +50,15 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Financial.Loan? Loan { get; set; }
         public virtual Financial.LoanReturn? LoanReturn { get; set; }
         public virtual Taxes.IncomeTax? IncomeTax { get; set; }
+        public virtual Employees.EmployeePayment? EmployeePayment { get; set; }
+        public virtual Assets.Asset? Asset { get;  set; }
+        public virtual Assets.AssetDeprecateSchedule? AssetDeprecateSchedule { get;  set; }
 
         public void UpdateBalance()
         {
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
         }
-
         public void ClearLedger()
         {
             this.Ledgers.Clear();

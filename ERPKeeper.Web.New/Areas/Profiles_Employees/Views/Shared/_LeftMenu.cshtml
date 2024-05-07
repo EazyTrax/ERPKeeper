@@ -40,9 +40,11 @@
     @{
         MenuTemplate(0, "Employees", $"/{CompanyId}/Profiles/Employees/Employees", Organization.Employees.Count());
         MenuTemplate(0, "Positions", $"/{CompanyId}/Profiles/Employees/Positions", Organization.ErpCOREDBContext.EmployeePositions.Count());
-        MenuTemplate(0, "Payments", $"/{CompanyId}/Profiles/Employees/Payments", Organization.ErpCOREDBContext.EmployeePayments.Count());
-        MenuTemplate(1, "Payment Periods", $"/{CompanyId}/Profiles/Employees/PaymentPeriods", Organization.ErpCOREDBContext.EmployeePaymentPeriods.Count());
-        MenuTemplate(1, "Payment Types", $"/{CompanyId}/Profiles/Employees/PaymentTypes", Organization.ErpCOREDBContext.EmployeePaymentTypes.Count());
+        MenuTemplate(0, "Payments", $"/{CompanyId}/Profiles/Employees/EmployeePayments", Organization.ErpCOREDBContext.EmployeePayments.Count());
+        MenuTemplate(1, "Periods", $"/{CompanyId}/Profiles/Employees/EmployeePaymentPeriods", Organization.ErpCOREDBContext.EmployeePaymentPeriods.Count());
+        MenuTemplate(1, "Types", $"/{CompanyId}/Profiles/Employees/EmployeePaymentTypes", Organization.ErpCOREDBContext.EmployeePaymentTypes.Count());
+        MenuTemplate(1, "Items", $"/{CompanyId}/Profiles/Employees/EmployeePaymentItems", Organization.ErpCOREDBContext.EmployeePaymentTypes.Count());
+
     }
 </div>
 

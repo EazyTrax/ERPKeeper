@@ -48,7 +48,6 @@ namespace ERPKeeperCore.Enterprise.DAL
                 erpNodeDBContext.SaveChanges();
             });
         }
-
         public void CreateTransactions()
         {
             var journalEntries = erpNodeDBContext

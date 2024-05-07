@@ -24,19 +24,14 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
-
-
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 migrationTool.Migrate();
 
                 //newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-                //PostLedgers(newOrganization);
-
-          //      newOrganization.FiscalYears.UpdateAccountBalance();
-
+                PostLedgers(newOrganization);
+                newOrganization.FiscalYears.UpdateAccountBalance();
             }
         }
-
 
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
@@ -63,14 +58,15 @@ namespace ERPKeeperCore.CMD
             // organization.IncomeTaxes.PostLedger();
 
             //Employee Section
-            //  organization.EmployeePayments.PostLedger();
+            newOrganization.EmployeePayments.PostToTransactions();
+
 
             //Other Section
             newOrganization.JournalEntries.PostToTransactions();
 
             //Assets
             //  organization.FixedAssets.PostLedger();
-            //  organization.FixedAssetDreprecateSchedules.PostLedger();
+            newOrganization.AssetDeprecateSchedules.PostToTransactions();
 
             //organization.RetirementFixedAssets.UnPost();
             //  organization.RetirementFixedAssets.PostLedger();

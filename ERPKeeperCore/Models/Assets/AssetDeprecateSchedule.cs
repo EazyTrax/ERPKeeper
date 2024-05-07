@@ -16,8 +16,15 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
     {
         [Key]
         public Guid Id { get; set; }
-        public int No { get; set; }
 
+
+        public bool IsPosted { get; set; }
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Accounting.Transaction? Transaction { get; set; }
+
+
+        public int No { get; set; }
         public Guid? AssetId { get; set; }
         [ForeignKey("AssetId")]
         public virtual Asset Asset { get; set; }
@@ -32,20 +39,10 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
 
         public Decimal DepreciationValue { get; set; }
-
-
         public Decimal DepreciateOffsetValue { get; set; }
-
-
         public Decimal DepreciateAccumulation { get; set; }
-
-
         public Decimal RemainValue { get; set; }
-
-
         public Decimal OpeningValue { get; set; }
-
-
         public LedgerPostStatus PostStatus { get; set; }
 
         public AssetDeprecateSchedule()
@@ -53,5 +50,25 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
         }
 
+        public void PostToTransaction()
+        {
+            Console.WriteLine($">Post  AssetDeprecateSchedule:{this.Name}");
+
+            if (this.Transaction == null)
+                return;
+            this.Transaction.ClearLedger();
+
+            // Dr.
+            this.Transaction.AddDebit(this.Asset.AssetType.AmortizeExpenseAccount, this.DepreciationValue);
+
+            // Cr.
+            this.Transaction.AddCredit(this.Asset.AssetType.AccumulateDeprecateAcc, this.DepreciationValue);
+
+            this.Transaction.Date = this.StartDate;
+            //this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
+        }
     }
 }

@@ -1,0 +1,115 @@
+﻿
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Profiles/Employees/EmployeePayments/All")
+        .InsertUrl($"/API/{CompanyId}/Profiles/Employees/EmployeePayments/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Profiles/Employees/EmployeePayments/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Profiles/Employees/EmployeePayments/Delete").DeleteMethod("Post")
+        )
+        .KeyExpr("Id")
+        .RowAlternationEnabled(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(100))
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
+        )
+
+        .AllowColumnResizing(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+        .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+        .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+        .RowDragging(rd => rd
+        .AllowDropInsideItem(false)
+        .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+    .OnDragEnd("onDragEnd")
+    .ShowDragIcons(false)*@
+        )
+            .Columns(columns =>
+            {
+
+                columns.AddFor(m => m.Name)
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }))
+            .DisplayExpr("Name")
+            .ValueExpr("Value"))
+            .CalculateSortValue("Name")
+            .SortIndex(1)
+            .HeaderCellTemplate(@<text>Period</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.EmployeePaymentPeriod.Date)
+            .Width(130)
+            .SortIndex(1)
+            .AllowEditing(false)
+            .Format(Format.ShortDate)
+            .HeaderCellTemplate(@<text>Date</text>);
+
+
+
+                columns.AddFor(m => m.EmployeeId).Width(150)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>TAX Id</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+
+                columns.AddFor(m => m.EmployeeId).Width(250)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .HeaderCellTemplate(@<text>Name</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.TotalEarning).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Earning</text>);
+                columns.AddFor(m => m.TotalDeduction).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Deduction</text>);
+
+
+
+
+                columns.AddFor(m => m.IsPosted)
+            .AllowEditing(false).Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+
+
+
+
+
+            }).Summary(s =>
+    s.TotalItems(items =>
+    {
+
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        }))
+
+
+        )
+</div>
+
+

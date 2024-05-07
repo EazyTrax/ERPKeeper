@@ -5,16 +5,14 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.AssetDeprecateSchedule>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Assets/{Model.Id}/DeprecateSchedules/All")
+        .LoadUrl($"/API/{CompanyId}/Assets/{Model.Id}/AssetDeprecateSchedules/All")
         )
         .KeyExpr("Id")
         .Width("100%")
         .RowAlternationEnabled(true)
-
         .ShowRowLines(true)
         .ShowBorders(false)
         .ColumnAutoWidth(false)
-        @*.AutoExpandAll(true)*@
         .RowDragging(rd => rd
         .AllowDropInsideItem(false)
         .AllowReordering(false)

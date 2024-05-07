@@ -27,10 +27,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public decimal ExpenseBalance { get; set; }
         public decimal ProfitBalance => IncomeBalance - ExpenseBalance;
 
-
-
-
-
         public decimal ProfitPercent
         {
             get
