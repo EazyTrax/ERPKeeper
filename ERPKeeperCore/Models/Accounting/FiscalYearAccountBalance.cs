@@ -38,41 +38,10 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             }
         }
 
-
         public Decimal OpeningDebit { get; set; }
         public Decimal OpeningCredit { get; set; }
-
-        public Decimal ClosingDebit
-        {
-            get
-            {
-                if (this.Account.Type == AccountTypes.Income || this.Account.Type == AccountTypes.Expense)
-                    return this.Credit;
-                return 0;
-                //if (this.Account.Type == AccountTypes.Capital && this.Account.SubType == AccountSubTypes.Equity_RetainEarning)
-                //{
-                //    var totalDebit = this.FiscalYear.FiscalYearAccountBalances
-                //        .Where(x=> x.Account.Type == AccountTypes.Income || x.Account.Type == AccountTypes.Expense)
-                //        .ToList()
-                //        .Sum(x => x.Debit);
-
-                //    var totalCredit = this.FiscalYear.FiscalYearAccountBalances
-                //        .Where(x => x.Account.Type == AccountTypes.Income || x.Account.Type == AccountTypes.Expense)
-                //        .ToList()
-                //        .Sum(x => x.Credit);
-                //}
-            }
-        }
-        public Decimal ClosingCredit
-        {
-            get
-            {
-                if (this.Account.Type == AccountTypes.Income || this.Account.Type == AccountTypes.Expense)
-                    return this.Debit;
-                return 0;
-            }
-        }
-
+        public Decimal ClosingDebit { get; set; }
+        public Decimal ClosingCredit { get; set; }
         public Decimal ClosedDebit { get; set; }
         public Decimal ClosedCredit { get; set; }
 

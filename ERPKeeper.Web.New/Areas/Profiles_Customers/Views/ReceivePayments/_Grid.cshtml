@@ -52,6 +52,16 @@
                 columns.AddFor(m => m.Amount).Width(130).Format(Format.FixedPoint);
 
 
+                columns.AddFor(m => m.PayToAccountId).Lookup(lookup =>
+            lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayToAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+
                 columns.AddFor(m => m.RetentionTypeId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")

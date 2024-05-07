@@ -52,21 +52,12 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 .ToList()
                 .ForEach(p => FiscalYearAccountBalances.Remove(p));
         }
-        private List<FiscalYearAccountBalance> GetClosingBalanceAccounts() => FiscalYearAccountBalances
-                                     .Where(pab => pab.Account.Type == AccountTypes.Asset || pab.Account.Type == AccountTypes.Liability || pab.Account.Type == AccountTypes.Capital)
-                                     .ToList();
-        public FiscalYearAccountBalance CreateFiscalBalanceLine(Account account)
-        {
-            var newAccountBlance = new FiscalYearAccountBalance()
-            {
-                Id = Guid.NewGuid(),
-                Account = account,
-                AccountId = account.Id,
-            };
+        private List<FiscalYearAccountBalance> GetClosingBalanceAccounts() =>
+            FiscalYearAccountBalances
+            .Where(pab => pab.Account.Type == AccountTypes.Asset || pab.Account.Type == AccountTypes.Liability || pab.Account.Type == AccountTypes.Capital)
+            .ToList();
 
-            FiscalYearAccountBalances.Add(newAccountBlance);
-            return newAccountBlance;
-        }
+
         public void PrepareFiscalBalance(List<Account> accounts, bool clearValue = false)
         {
             foreach (var account in accounts)
@@ -96,19 +87,48 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public void UpdateBalance()
         {
-            // Assuming FiscalYearAccountBalances is IQueryable and initialized
             var balanceSummary = FiscalYearAccountBalances?
                 .GroupBy(a => a.Account.Type)
                 .Select(g => new { Type = g.Key, TotalBalance = g.Sum(x => x.Balance) })
                 .ToList();
 
-            // Separately calculate income and expense from the grouped result
             IncomeBalance = balanceSummary?
-                .FirstOrDefault(x => x.Type == AccountTypes.Income)?.TotalBalance ?? 0;
+                .FirstOrDefault(x => x.Type == AccountTypes.Income)?
+                .TotalBalance ?? 0;
 
             ExpenseBalance = balanceSummary?
-                .FirstOrDefault(x => x.Type == AccountTypes.Expense)?.TotalBalance ?? 0;
+                .FirstOrDefault(x => x.Type == AccountTypes.Expense)?
+                .TotalBalance ?? 0;
 
+            foreach (var accBalance in FiscalYearAccountBalances.ToList())
+            {
+                if (accBalance == null)
+                    continue;
+                else if (accBalance.Account.Type == AccountTypes.Income || accBalance.Account.Type == AccountTypes.Expense)
+                {
+                    accBalance.ClosingDebit = accBalance.Credit;
+                    accBalance.ClosingCredit = accBalance.Debit;
+                }
+                else if (accBalance.Account.Type == AccountTypes.Capital && accBalance.Account.SubType == AccountSubTypes.Equity_RetainEarning)
+                {
+                    if (this.ProfitBalance > 0)
+                    {
+                        accBalance.ClosingCredit = this.ProfitBalance;
+                        accBalance.ClosedDebit = 0;
+                    }
+                    else
+                    {
+                        accBalance.ClosingCredit = 0;
+                        accBalance.ClosedDebit = this.ProfitBalance;
+                    }
+                }
+
+                var ClosedDebit = accBalance.OpeningDebit + accBalance.Debit + accBalance.ClosingDebit;
+                var ClosedCredit = accBalance.OpeningCredit + accBalance.Credit + accBalance.ClosingCredit;
+                accBalance.ClosedDebit = Math.Max(ClosedDebit - ClosedCredit, 0);
+                accBalance.ClosingCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
+
+            }
         }
     }
 }

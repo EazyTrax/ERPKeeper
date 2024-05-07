@@ -177,7 +177,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
                 fiscalYear.UpdateBalance();
                 organization.SaveChanges();
-
             }
         }
     }
