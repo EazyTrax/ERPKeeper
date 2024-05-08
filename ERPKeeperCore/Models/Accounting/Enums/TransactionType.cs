@@ -22,9 +22,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         Loan = 110,
         LoanReturn = 112,
         IncomeTax = 130,
+        TaxPeriod = 131,
         EmployeePayment = 150,
         Asset = 160,
-        AssetDeprecateSchedule = 161
+        AssetDeprecateSchedule = 161,
+    
     }
 }
 

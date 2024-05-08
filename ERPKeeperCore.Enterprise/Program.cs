@@ -73,7 +73,7 @@ namespace ERPKeeperCore.CMD
 
             //Other Section
             newOrganization.IncomeTaxes.PostToTransactions();
-
+            newOrganization.TaxPeriods.PostToTransactions(true);
 
         }
         private static void GeneralOperations(EnterpriseRepo newOrganization)

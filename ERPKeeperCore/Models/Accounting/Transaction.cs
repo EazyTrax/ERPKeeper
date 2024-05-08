@@ -53,6 +53,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Employees.EmployeePayment? EmployeePayment { get; set; }
         public virtual Assets.Asset? Asset { get;  set; }
         public virtual Assets.AssetDeprecateSchedule? AssetDeprecateSchedule { get;  set; }
+        public virtual Taxes.TaxPeriod? TaxPeriod { get;  set; }
 
         public void UpdateBalance()
         {

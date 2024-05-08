@@ -22,7 +22,7 @@
     }
 }
 
-<div class="lh-12 bg-fb1 p-2 border">
+<div class="lh-120 bg-fb1 p-2 border">
     @{
 
         MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
@@ -30,7 +30,7 @@
 </div>
 
 
-<div class="lh-12 bg-fb1 p-2 border">
+<div class="lh-120 bg-fb1 p-2 border">
     @{
         MenuTemplate(0, "General", $"/{CompanyId}/Profiles/{Model.Id}");
         MenuTemplate(0, "Addresses", $"/{CompanyId}/Profiles/{Model.Id}/Addresses", Model.Addresses.Count());

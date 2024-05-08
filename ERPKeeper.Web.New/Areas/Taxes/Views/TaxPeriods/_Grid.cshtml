@@ -21,7 +21,7 @@
 
 
         .AllowColumnResizing(true)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -54,7 +54,8 @@
         .Columns(subColumns =>
         {
                 subColumns.AddFor(m => m.PurchasesCount)
-            .HeaderCellTemplate(@<text>Purchases</text>)
+            .HeaderCellTemplate(@<text>Count</text>)
+            .Width(60)
         .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Purchases"><%= data.PurchasesCount %></a></text>)
             .Format(Format.FixedPoint);
 
@@ -62,22 +63,34 @@
             .HeaderCellTemplate(@<text>PurchasesTax</text>)
             .Format(Format.FixedPoint);
 
+                columns.AddFor(m => m.PurchaseTaxAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(180).HeaderCellTemplate(@<text>CloseTo</text>);
+
+
+
             });
 
             columns.Add()
         .Caption("Sales")
         .Columns(subColumns =>
         {
-             
+
 
                 subColumns.AddFor(m => m.SalesCount)
+            .Width(60)
             .HeaderCellTemplate(@<text>Sales</text>)
-            .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
+        .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
             .Format(Format.FixedPoint);
 
                 subColumns.AddFor(m => m.SalesTaxBalance)
             .HeaderCellTemplate(@<text>SalesTax</text>)
             .Format(Format.FixedPoint);
+
+                columns.AddFor(m => m.SaleTaxAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(180).HeaderCellTemplate(@<text>CloseTo</text>);
+
 
             });
 
@@ -86,20 +99,20 @@
         .HeaderCellTemplate(@<text>ClosingAmount</text>)
         .Format(Format.FixedPoint);
 
-        
+
 
             columns.AddFor(m => m.CloseToAccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .Width(200).HeaderCellTemplate(@<text>CloseTo</text>);
+        .Width(180).HeaderCellTemplate(@<text>CloseTo</text>);
 
 
 
 
             columns.AddFor(m => m.IsPosted)
-            .AllowEditing(false)
-            .Width(30)
-            .HeaderCellTemplate(@<text> </text>)
-            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+        .AllowEditing(false)
+        .Width(30)
+        .HeaderCellTemplate(@<text> </text>)
+    .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
 
 

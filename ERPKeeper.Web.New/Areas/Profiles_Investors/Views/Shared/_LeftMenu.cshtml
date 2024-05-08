@@ -20,23 +20,14 @@
     }
 }
 
-<div class="lh-12 bg-fb1 p-2 rounded border font-weight-600">
-    @{
-        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles");
-    }
-</div>
-
-<div class="lh-12 bg-fb1 p-2 rounded border">
-    @{
-        MenuTemplate(0, "Customers", $"/{CompanyId}/Profiles/Customers", Organization.Customers.Count());
-        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Profiles/Suppliers", Organization.Suppliers.Count());
-        MenuTemplate(0, "Employees", $"/{CompanyId}/Profiles/Employees", Organization.Employees.Count());
-        MenuTemplate(0, "Investors", $"/{CompanyId}/Profiles/Investors", Organization.Investors.Count());
-    }
+<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+    <a href="/@CompanyId/Profiles">Profiles</a> :
+    <a href="/@CompanyId/Profiles/Investors">Investors</a>
 </div>
 
 
-<div class="lh-12 bg-fb1 p-2 rounded border">
+
+<div class="lh-120 bg-fb1 p-2 rounded border">
     @{
         MenuTemplate(0, "Investors", $"/{CompanyId}/Profiles/Investors/Investors", Organization.Investors.Count());
 

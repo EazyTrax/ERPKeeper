@@ -40,35 +40,31 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public Guid? CloseToAccountId { get; set; }
         [ForeignKey("CloseToAccountId")]
         public virtual Account CloseToAccount { get; set; }
-
-
-
-
-
-
-
-
         public Guid? LiabilityPaymentId { get; set; }
-
-
-
-
-
-
-
-
-
         public String? Memo { get; set; }
         public LedgerPostStatus PostStatus { get; set; }
-
         public int CommercialsCount => SalesCount + PurchasesCount;
+
+        //Sales Tax
         public int SalesCount { get; set; }
         public Decimal SalesBalance { get; set; }
         public Decimal SalesTaxBalance { get; set; }
+        public Guid? SaleTaxAccountId { get; set; }
+        [ForeignKey("SaleTaxAccountId")]
+        public virtual Account? SaleTaxAccount { get; set; }
 
 
+
+        //Purchhases Tax
         public Decimal PuchasesBalance { get; set; }
         public Decimal PurchasesTaxBalance { get; set; }
+        public Guid? PurchaseTaxAccountId { get; set; }
+        [ForeignKey("PurchaseTaxAccountId")]
+        public virtual Account? PurchaseTaxAccount { get; set; }
+
+
+
+
         public int PurchasesCount { get; set; }
 
         public Decimal ClosingAmount => PurchasesTaxBalance - SalesTaxBalance;
@@ -83,10 +79,53 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             SalesBalance = Sales.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
             SalesCount = Sales.Count;
 
+            if (this.SaleTaxAccount == null)
+                this.SaleTaxAccount = Sales.FirstOrDefault()?.TaxCode?.OutputTaxAccount;
+
 
             PurchasesTaxBalance = Purchases.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
             PuchasesBalance = Purchases.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
             PurchasesCount = Purchases.Count;
+
+            if (this.PurchaseTaxAccount == null)
+                this.PurchaseTaxAccount = Purchases.FirstOrDefault()?.TaxCode?.InputTaxAccount;
         }
+
+        public void PostToTransaction()
+        {
+            Console.WriteLine($">Post > TaxPeriods:{this.Name}");
+            this.UpdateBalance();
+
+            if (this.Transaction == null)
+                return;
+
+            this.Transaction.ClearLedger();
+
+            // Dr.
+            this.Transaction.AddCredit(this.PurchaseTaxAccount, this.PurchasesTaxBalance);
+            // Cr.
+            this.Transaction.AddDebit(this.SaleTaxAccount, this.SalesTaxBalance);
+
+            if (ClosingAmount > 0 && this.CloseToAccount.Type == AccountTypes.Asset)
+                this.Transaction.AddDebit(this.CloseToAccount, Math.Abs(this.ClosingAmount));
+            else if (ClosingAmount < 0 && this.CloseToAccount.Type == AccountTypes.Liability)
+                this.Transaction.AddCredit(this.CloseToAccount, Math.Abs(this.ClosingAmount));
+            else
+            {
+                this.Transaction.ClearLedger();
+                return;
+            }
+
+
+            this.Transaction.UpdateBalance();
+            this.Transaction.Date = this.EndDate;
+            this.Transaction.Name = this.Name;
+            this.Transaction.UpdateBalance();
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
+        }
+
+
     }
 }

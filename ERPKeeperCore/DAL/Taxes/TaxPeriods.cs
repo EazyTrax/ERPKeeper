@@ -43,5 +43,51 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
             return erpNodeDBContext.TaxPeriods.Count();
         }
 
+        public void PostToTransactions(bool rePost = false)
+        {
+            this.CreateTransactions();
+
+            var TaxPeriods = erpNodeDBContext.TaxPeriods
+                .Where(s => s.TransactionId != null)
+                .Where(s => !s.IsPosted || rePost)
+                .ToList()
+                .OrderBy(s => s.EndDate)
+                .ToList();
+
+            TaxPeriods.ForEach(TaxPeriod =>
+            {
+                TaxPeriod.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
+            });
+        }
+
+        public void CreateTransactions()
+        {
+            var TaxPeriods = erpNodeDBContext
+                .TaxPeriods
+                .Where(s => s.TransactionId == null)
+                .ToList();
+
+            TaxPeriods.ForEach(TaxPeriod =>
+            {
+                var transaction = erpNodeDBContext.Transactions.Find(TaxPeriod.Id);
+
+                if (transaction == null)
+                {
+                    Console.WriteLine($"Create TR:{TaxPeriod.Name}");
+                    transaction = new Transaction()
+                    {
+                        Id = TaxPeriod.Id,
+                        Date = TaxPeriod.EndDate,
+                        Reference = TaxPeriod.Name,
+                        Type = Models.Accounting.Enums.TransactionType.TaxPeriod,
+                        TaxPeriod = TaxPeriod,
+                    };
+                    erpNodeDBContext.Transactions.Add(transaction);
+                    erpNodeDBContext.SaveChanges();
+                }
+            });
+
+        }
     }
 }
