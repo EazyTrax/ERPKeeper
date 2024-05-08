@@ -50,22 +50,22 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("PayToAccountId")]
         public virtual Accounting.Account? PayToAccount { get; set; }
 
-        public Guid? ReceivableAccountId { get; set; }
-        [ForeignKey("ReceivableAccountId")]
-        public virtual Accounting.Account? ReceivableAccount { get; set; }
+        public Guid? Receivable_Asset_AccountId { get; set; }
+        [ForeignKey("Receivable_Asset_AccountId")]
+        public virtual Accounting.Account? Receivable_Asset_Account { get; set; }
 
 
         public Guid? RetentionTypeId { get; set; }
         [ForeignKey("RetentionTypeId")]
         public virtual Financial.RetentionType? RetentionType { get; set; }
 
-        public Guid? DiscountAccountId { get; set; }
+        public Guid? Discount_Given_Expense_AccountId { get; set; }
         [ForeignKey("DiscountAccountId")]
-        public virtual Accounting.Account? DiscountAccount { get; set; }
+        public virtual Accounting.Account? Discount_Given_Expense_Account { get; set; }
 
-        public Guid? BankFeeAccountId { get; set; }
-        [ForeignKey("BankFeeAccountId")]
-        public virtual Accounting.Account? BankFeeAccount { get; set; }
+        public Guid? BankFee_Expense_AccountId { get; set; }
+        [ForeignKey("BankFee_Expense_AccountId")]
+        public virtual Accounting.Account? BankFee_Expense_Account { get; set; }
 
 
         public void PostToTransaction()
@@ -81,24 +81,22 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.AddDebit(this.PayToAccount, this.AmountTotalReceive);
 
             if (this.AmountDiscount > 0)
-                this.Transaction.AddDebit(this.DiscountAccount, this.AmountDiscount);
+                this.Transaction.AddDebit(this.Discount_Given_Expense_Account, this.AmountDiscount);
+            
             if (this.RetentionTypeId != null)
                 this.Transaction.AddDebit(this.RetentionType.RetentionToAccount, this.AmountRetention);
+            
             if (this.AmountBankFee > 0)
-                this.Transaction.AddDebit(this.BankFeeAccount, this.AmountBankFee);
-
-
+                this.Transaction.AddDebit(this.BankFee_Expense_Account, this.AmountBankFee);
 
             // Cr.
-            this.Transaction.AddCredit(this.ReceivableAccount, this.Amount);
-
+            this.Transaction.AddCredit(this.Receivable_Asset_Account, this.Amount);
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
             this.Transaction.PostedDate = DateTime.Now;
             this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
-
         }
 
         public void UpdateBalance()

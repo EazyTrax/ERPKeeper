@@ -36,9 +36,9 @@ namespace ERPKeeperCore.CMD
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 //migrationTool.Migrate();
 
-                //newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-                PostLedgers(newOrganization);
-                newOrganization.FiscalYears.UpdateAccountBalance();
+                ///newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
+                //PostLedgers(newOrganization);
+                //newOrganization.FiscalYears.UpdateAccountBalance();
             }
         }
 

@@ -51,7 +51,7 @@
 
                 columns.AddFor(m => m.Reference).Width(180);
                 columns.AddFor(m => m.Amount).Width(130).Format(Format.FixedPoint);
-                columns.AddFor(m => m.DiscountAccount).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Discount_Given_Expense_Account).Width(130).Format(Format.FixedPoint);
 
                 columns.AddFor(m => m.PayToAccountId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))

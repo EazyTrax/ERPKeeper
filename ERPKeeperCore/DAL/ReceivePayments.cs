@@ -82,12 +82,12 @@ namespace ERPKeeperCore.Enterprise.DAL
 
             ReceivePayments.ForEach(receivePayment =>
             {
-                receivePayment.DiscountAccount = DiscountAccount;
-                receivePayment.DiscountAccountId = DiscountAccount.Id;
-                receivePayment.ReceivableAccount = ReceivableAccount;
-                receivePayment.ReceivableAccountId = ReceivableAccount.Id;
-                receivePayment.BankFeeAccount = BankFeeAccount;
-                receivePayment.BankFeeAccountId = BankFeeAccount.Id;
+                receivePayment.Discount_Given_Expense_Account = DiscountAccount;
+                receivePayment.Discount_Given_Expense_AccountId = DiscountAccount.Id;
+                receivePayment.Receivable_Asset_Account = ReceivableAccount;
+                receivePayment.Receivable_Asset_AccountId = ReceivableAccount.Id;
+                receivePayment.BankFee_Expense_Account = BankFeeAccount;
+                receivePayment.BankFee_Expense_AccountId = BankFeeAccount.Id;
 
                 erpNodeDBContext.SaveChanges();
 

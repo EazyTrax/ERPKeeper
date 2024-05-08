@@ -79,5 +79,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.Transaction.ClearLedger();
             this.Transaction.UpdateBalance();
         }
+
+
     }
 }

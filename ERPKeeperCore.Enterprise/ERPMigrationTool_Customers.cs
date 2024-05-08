@@ -65,7 +65,7 @@ namespace ERPKeeperCore.CMD
                             AmountBankFee = oldSale.GeneralPayment.BankFeeAmount,
                             AmountDiscount = oldSale.GeneralPayment.DiscountAmount,
                             PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
-                            ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid,
+                            Receivable_Asset_AccountId = oldSale.GeneralPayment.ReceivableAccountUid,
                             RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
       
 
@@ -81,7 +81,7 @@ namespace ERPKeeperCore.CMD
                     }
                     else
                     {
-                        existReceivePayment.ReceivableAccountId = oldSale.GeneralPayment.ReceivableAccountUid;
+                        existReceivePayment.Receivable_Asset_AccountId = oldSale.GeneralPayment.ReceivableAccountUid;
                     }
                 });
         }
