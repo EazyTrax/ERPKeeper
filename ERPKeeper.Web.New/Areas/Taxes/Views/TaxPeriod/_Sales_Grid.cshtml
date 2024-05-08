@@ -46,9 +46,12 @@
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
-                columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("LinesTotal").AllowEditing(false).Width(130).Format(Format.FixedPoint);
-                columns.Add().DataField("Total").AllowEditing(false).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Reference).Width(180);
+                columns.AddFor(m=>m.LinesTotal).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+
+                columns.AddFor(m=>m.Tax).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+
+                columns.AddFor(m => m.Total).AllowEditing(false).Width(130).Format(Format.FixedPoint);
 
 
 
@@ -67,6 +70,12 @@
 
 
             })
+        .Summary(s => s.TotalItems(items =>
+        {
+            items.AddFor(m => m.LinesTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.Tax).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        }))
         )
 </div>
 

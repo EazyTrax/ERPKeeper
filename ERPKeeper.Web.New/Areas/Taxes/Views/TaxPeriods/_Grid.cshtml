@@ -47,6 +47,8 @@
     .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/"><%= data.Name %></a></text>
     );
 
+            columns.AddFor(m => m.StartDate).SortOrder(SortOrder.Desc).SortIndex(1);
+
             columns.Add()
         .Caption("Purchases")
         .Columns(subColumns =>
