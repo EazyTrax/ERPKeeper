@@ -55,13 +55,15 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             WithDrawAmount = FundTransferDepositLines.Sum(x => x.Debit);
         }
 
-  
-
         public void PostToTransaction()
         {
+
+
             Console.WriteLine($">Post  FT:{this.Name}");
 
             this.UpdateBalance();
+
+
 
             if (this.Transaction == null)
                 return;

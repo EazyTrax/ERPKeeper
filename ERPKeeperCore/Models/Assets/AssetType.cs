@@ -35,6 +35,11 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         public EnumDepreciationMethod DepreciationMethod { get; set; }
 
 
+        public Guid? Purchase_Asset_AccountId { get; set; }
+        [ForeignKey("Purchase_Asset_AccountId")]
+        public virtual Account Purchase_Asset_Account { get; set; }
+
+
         [Column("AwaitDeprecateAccId")]
         public Guid? AwaitDeprecateAccId { get; set; }
         [ForeignKey("AwaitDeprecateAccId")]
@@ -42,10 +47,8 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
 
 
-        [Column("PurchaseAccId")]
-        public Guid? PurchaseAccId { get; set; }
-        [ForeignKey("PurchaseAccId")]
-        public virtual Account AssetAccount { get; set; }
+      
+
 
         [Column("AmortizeExpenseAccId")]
         public Guid? AmortizeExpenseAccId { get; set; }
@@ -69,7 +72,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
             Description = model.Description;
             AwaitDeprecateAccId = model.AwaitDeprecateAccId;
-            PurchaseAccId = model.PurchaseAccId;
+            Purchase_Asset_AccountId = model.Purchase_Asset_AccountId;
 
             if (model.DeprecatedAble)
             {

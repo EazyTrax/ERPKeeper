@@ -12,7 +12,7 @@ using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using ERPKeeperCore.Enterprise.Models.Financial;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Financial
 {
     public class FundTransfers : ERPNodeDalRepository
     {
@@ -69,7 +69,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostToTransactions()
         {
-            this.CreateTransactions();
+            CreateTransactions();
 
             var fundTransfers = erpNodeDBContext.FundTransfers
                 .Where(s => s.TransactionId != null)

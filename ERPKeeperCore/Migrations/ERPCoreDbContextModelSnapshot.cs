@@ -488,9 +488,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PurchaseAccId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("PurchaseAccId");
+                    b.Property<Guid?>("Purchase_Asset_AccountId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("ScrapValue")
                         .HasColumnType("decimal(18, 2)");
@@ -506,7 +505,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("AwaitDeprecateAccId");
 
-                    b.HasIndex("PurchaseAccId");
+                    b.HasIndex("Purchase_Asset_AccountId");
 
                     b.ToTable("AssetTypes");
                 });
@@ -1156,7 +1155,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("LendingAccountId")
+                    b.Property<Guid?>("Lending_AssetAccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Memo")
@@ -1165,7 +1164,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PayingAccountId")
+                    b.Property<Guid?>("PayFrom_AssetAccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Reference")
@@ -1179,9 +1178,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LendingAccountId");
+                    b.HasIndex("Lending_AssetAccountId");
 
-                    b.HasIndex("PayingAccountId");
+                    b.HasIndex("PayFrom_AssetAccountId");
 
                     b.HasIndex("TransactionId")
                         .IsUnique()
@@ -1269,6 +1268,12 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("PayFromAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("PayFromCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
@@ -1310,7 +1315,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("LiabilityPaymentId");
 
-                    b.ToTable("LiabilityPaymentPayFromAccount");
+                    b.ToTable("LiabilityPaymentPayFromAccounts");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Loan", b =>
@@ -2063,8 +2068,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ExpenseAccount_BankFeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("IncomeAccount_DiscountTakenId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
+
+                    b.Property<Guid?>("LiablityAccount_SupplierPayableId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Memo")
                         .HasColumnType("nvarchar(max)");
@@ -2075,10 +2089,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PayFromAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("PayableAccountId")
+                    b.Property<Guid?>("PayFrom_AssetAccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PurchaseId")
@@ -2098,9 +2109,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PayFromAccountId");
+                    b.HasIndex("ExpenseAccount_BankFeeId");
 
-                    b.HasIndex("PayableAccountId");
+                    b.HasIndex("IncomeAccount_DiscountTakenId");
+
+                    b.HasIndex("LiablityAccount_SupplierPayableId");
+
+                    b.HasIndex("PayFrom_AssetAccountId");
 
                     b.HasIndex("PurchaseId");
 
@@ -2525,17 +2540,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("AwaitDeprecateAccId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "AssetAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Purchase_Asset_Account")
                         .WithMany()
-                        .HasForeignKey("PurchaseAccId");
+                        .HasForeignKey("Purchase_Asset_AccountId");
 
                     b.Navigation("AccumulateDeprecateAcc");
 
                     b.Navigation("AmortizeExpenseAccount");
 
-                    b.Navigation("AssetAccount");
-
                     b.Navigation("AwaitDeprecateAccount");
+
+                    b.Navigation("Purchase_Asset_Account");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.CapitalActivity", b =>
@@ -2806,21 +2821,21 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Lend", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LendingAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Lending_AssetAccount")
                         .WithMany()
-                        .HasForeignKey("LendingAccountId");
+                        .HasForeignKey("Lending_AssetAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayingAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFrom_AssetAccount")
                         .WithMany()
-                        .HasForeignKey("PayingAccountId");
+                        .HasForeignKey("PayFrom_AssetAccountId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("Lend")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.Lend", "TransactionId");
 
-                    b.Navigation("LendingAccount");
+                    b.Navigation("Lending_AssetAccount");
 
-                    b.Navigation("PayingAccount");
+                    b.Navigation("PayFrom_AssetAccount");
 
                     b.Navigation("Transaction");
                 });
@@ -2886,11 +2901,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Loan", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LoanAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Loan_LiabilityAccount")
                         .WithMany()
                         .HasForeignKey("LoanAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "RecevingAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Receving_AssetAccount")
                         .WithMany()
                         .HasForeignKey("RecevingAccountId");
 
@@ -2898,9 +2913,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithOne("Loan")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.Loan", "TransactionId");
 
-                    b.Navigation("LoanAccount");
+                    b.Navigation("Loan_LiabilityAccount");
 
-                    b.Navigation("RecevingAccount");
+                    b.Navigation("Receving_AssetAccount");
 
                     b.Navigation("Transaction");
                 });
@@ -3100,13 +3115,21 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFromAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ExpenseAccount_BankFee")
                         .WithMany()
-                        .HasForeignKey("PayFromAccountId");
+                        .HasForeignKey("ExpenseAccount_BankFeeId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayableAccount")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "IncomeAccount_DiscountTaken")
                         .WithMany()
-                        .HasForeignKey("PayableAccountId");
+                        .HasForeignKey("IncomeAccount_DiscountTakenId");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LiablityAccount_SupplierPayable")
+                        .WithMany()
+                        .HasForeignKey("LiablityAccount_SupplierPayableId");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "AssetAccount_PayFrom")
+                        .WithMany()
+                        .HasForeignKey("PayFrom_AssetAccountId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "Purchase")
                         .WithMany("SupplierPayments")
@@ -3122,9 +3145,13 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithOne("SupplierPayment")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", "TransactionId");
 
-                    b.Navigation("PayFromAccount");
+                    b.Navigation("AssetAccount_PayFrom");
 
-                    b.Navigation("PayableAccount");
+                    b.Navigation("ExpenseAccount_BankFee");
+
+                    b.Navigation("IncomeAccount_DiscountTaken");
+
+                    b.Navigation("LiablityAccount_SupplierPayable");
 
                     b.Navigation("Purchase");
 

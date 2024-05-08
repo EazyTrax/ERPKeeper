@@ -8,25 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Financial
 {
-    public class Loans : ERPNodeDalRepository
+    public class Lends : ERPNodeDalRepository
     {
-        public Loans(EnterpriseRepo organization) : base(organization)
+        public Lends(EnterpriseRepo organization) : base(organization)
         {
 
         }
 
-        public List<Models.Financial.Loan> GetAll()
+        public List<Models.Financial.Lend> GetAll()
         {
-            return erpNodeDBContext.Loans.ToList();
+            return erpNodeDBContext.Lends.ToList();
         }
 
 
 
-        public Models.Financial.Loan? Find(Guid Id) => erpNodeDBContext.Loans.Find(Id);
+        public Models.Financial.Lend? Find(Guid Id) => erpNodeDBContext.Lends.Find(Id);
 
-        public void UnPost(Models.Financial.Loan model)
+        public void UnPost(Models.Financial.Lend model)
         {
             throw new NotImplementedException();
         }
@@ -34,41 +34,41 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostToTransactions()
         {
-            this.CreateTransactions();
+            CreateTransactions();
 
-            var incomeTaxes = erpNodeDBContext.Loans
+            var models = erpNodeDBContext.Lends
                 .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted)
                 .OrderBy(s => s.Date).ToList();
 
-            incomeTaxes.ForEach(incomeTax =>
+            models.ForEach(model =>
             {
-                incomeTax.PostToTransaction();
+                model.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
         }
 
         public void CreateTransactions()
         {
-            var loans = erpNodeDBContext
-                .Loans
+            var lends = erpNodeDBContext
+                .Lends
                 .Where(s => s.TransactionId == null)
                 .ToList();
 
-            loans.ForEach(loan =>
+            lends.ForEach(lend =>
             {
-                var transaction = erpNodeDBContext.Transactions.Find(loan.Id);
+                var transaction = erpNodeDBContext.Transactions.Find(lend.Id);
 
                 if (transaction == null)
                 {
-                    Console.WriteLine($"Create TR:{loan.Name}");
+                    Console.WriteLine($"Create TR:{lend.Name}");
                     transaction = new Transaction()
                     {
-                        Id = loan.Id,
-                        Date = loan.Date,
-                        Reference = loan.Name,
-                        Type = Models.Accounting.Enums.TransactionType.Loan,
-                        Loan = loan,
+                        Id = lend.Id,
+                        Date = lend.Date,
+                        Reference = lend.Name,
+                        Type = Models.Accounting.Enums.TransactionType.Lend,
+                        Lend = lend,
                     };
                     erpNodeDBContext.Transactions.Add(transaction);
                     erpNodeDBContext.SaveChanges();

@@ -29,11 +29,11 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public Guid? RecevingAccountId { get; set; }
         [ForeignKey("RecevingAccountId")]
-        public virtual Accounting.Account? RecevingAccount { get; set; }
+        public virtual Accounting.Account? Receving_AssetAccount { get; set; }
 
         public Guid? LoanAccountId { get; set; }
         [ForeignKey("LoanAccountId")]
-        public virtual Accounting.Account? LoanAccount { get; set; }
+        public virtual Accounting.Account? Loan_LiabilityAccount { get; set; }
 
         public Decimal AmountLoan { get; set; }
         public virtual ICollection<LoanReturn> LoanReturns { get; set; } = new List<LoanReturn>();
@@ -77,7 +77,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void PostToTransaction()
         {
-            Console.WriteLine($">Post  FT:{this.Name}");
+            Console.WriteLine($">Post  LOAN:{this.Name}");
 
             this.UpdateBalance();
 
@@ -87,16 +87,18 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
             this.Transaction.ClearLedger();
             // Dr.
-            this.Transaction.AddCredit(this.RecevingAccount, this.AmountLoan);
+            this.Transaction.AddDebit(this.Receving_AssetAccount, this.AmountLoan);
 
             // Cr.
-            this.Transaction.AddDebit(this.LoanAccount, this.AmountLoan);
+            this.Transaction.AddCredit(this.Loan_LiabilityAccount, this.AmountLoan);
 
 
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
             this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.UpdateBalance();
             this.IsPosted = true;
+    
 
         }
 

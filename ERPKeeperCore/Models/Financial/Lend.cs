@@ -22,19 +22,19 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public DateTime Date { get; set; }
         public String? Reference { get; set; }
         public LendStatus Status { get; set; }
-        public string Name => string.Format("{0}-{1}/{2}", "FT", DocumentGroup, No.ToString().PadLeft(3, '0'));
+        public string Name => string.Format("{0}-{1}/{2}", "LEND", DocumentGroup, No.ToString().PadLeft(3, '0'));
         public string DocumentGroup => this.Date.ToString("yyMM");
         public int No { get; set; }
         public String? Memo { get; set; }
 
-        public Guid? PayingAccountId { get; set; }
-        [ForeignKey("PayingAccountId")]
-        public virtual Accounting.Account? PayingAccount { get; set; }
+        public Guid? PayFrom_AssetAccountId { get; set; }
+        [ForeignKey("PayFrom_AssetAccountId")]
+        public virtual Accounting.Account? PayFrom_AssetAccount { get; set; }
 
 
-        public Guid? LendingAccountId { get; set; }
-        [ForeignKey("LendingAccountId")]
-        public virtual Accounting.Account? LendingAccount { get; set; }
+        public Guid? Lending_AssetAccountId { get; set; }
+        [ForeignKey("Lending_AssetAccountId")]
+        public virtual Accounting.Account? Lending_AssetAccount { get; set; }
 
 
         public Decimal AmountLend { get; set; }
@@ -92,14 +92,15 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
             this.Transaction.ClearLedger();
             // Dr.
-            this.Transaction.AddDebit(this.LendingAccount, this.AmountLend);
+            this.Transaction.AddDebit(this.Lending_AssetAccount, this.AmountLend);
 
             // Cr.
-            this.Transaction.AddCredit(this.PayingAccount, this.AmountLend);
+            this.Transaction.AddCredit(this.PayFrom_AssetAccount, this.AmountLend);
 
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
             this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.UpdateBalance();
             this.IsPosted = true;
 
         }

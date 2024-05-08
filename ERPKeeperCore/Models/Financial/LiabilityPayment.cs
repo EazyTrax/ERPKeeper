@@ -41,22 +41,50 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         [ForeignKey("LiabilityAccountId")]
         public virtual Accounting.Account? LiabilityAccount { get; set; }
 
-        public void CreateTransaction()
+
+        public decimal PayFromAmount { get; private set; }
+        public int PayFromCount { get; private set; }
+
+        public void UpdateBalance()
         {
+            this.PayFromAmount = this.LiabilityPaymentPayFromAccounts.Sum(x => x.Amount);
+            this.PayFromCount = this.LiabilityPaymentPayFromAccounts.Count();
+        }
+
+
+        public void PostToTransaction()
+        {
+            Console.WriteLine($">Post LiabilityPayment:{this.Name}");
+
+            this.UpdateBalance();
+
+            if (this.PayFromAmount != this.Amount)
+                return;
+
             if (this.Transaction == null)
-            {
-                Console.WriteLine("Creating Liability Transaction");
-                this.Transaction = new Accounting.Transaction()
-                {
-                    Id = this.Id,
-                    Date = this.Date,
-                    Reference = this.Name,
-                    Type = Accounting.Enums.TransactionType.LiabilityPayment,
-                    LiabilityPayment = this,
-                };
-            }
+                return;
+
+
             this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
+
+
+            // Dr.
+            this.Transaction.AddDebit(this.LiabilityAccount, this.Amount);
+
+
+            // Dr.
+            foreach (var item in this.LiabilityPaymentPayFromAccounts)
+            {
+                this.Transaction.AddCredit(item.Account, item.Amount);
+            }
+
+
+
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+
         }
     }
 }

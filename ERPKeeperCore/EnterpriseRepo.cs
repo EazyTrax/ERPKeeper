@@ -1,13 +1,12 @@
-using ERPKeeperCore.Enterprise.DBContext;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using ERPKeeperCore.Enterprise.Models;
-using ERPKeeperCore.Enterprise.Models.Assets;
-using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.DAL;
-using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Enterprise.DAL.Assets;
+using ERPKeeperCore.Enterprise.DAL.Customers;
+using ERPKeeperCore.Enterprise.DAL.Employees;
+using ERPKeeperCore.Enterprise.DAL.Financial;
+using ERPKeeperCore.Enterprise.DAL.Products;
+using ERPKeeperCore.Enterprise.DAL.Taxes;
+using ERPKeeperCore.Enterprise.DBContext;
+using ERPKeeperCore.Enterprise.Models;
 
 
 namespace ERPKeeperCore.Enterprise
@@ -34,18 +33,18 @@ namespace ERPKeeperCore.Enterprise
 
         private Members _Members;
         private Items _Items;
-        public Sales Sales;
-        public Purchases Purchases;
-        public Customers Customers;
-        public ReceivePayments ReceivePayments;
-
+        public DAL.Customers.Sales Sales;
+        public DAL.Purchases Purchases;
+        public DAL.Customers.Customers Customers;
+        public DAL.Customers.ReceivePayments ReceivePayments;
+        public SupplierPayments SupplierPayments;
 
         public Suppliers Suppliers;
 
         public Employees Employees;
-        public EmployeePositions EmployeePositions;
-        public EmployeePaymentTypes EmployeePaymentTypes;
-        public EmployeePayments EmployeePayments;
+        public DAL.Employees.EmployeePositions EmployeePositions;
+        public DAL.Employees.EmployeePaymentTypes EmployeePaymentTypes;
+        public DAL.Employees.EmployeePayments EmployeePayments;
 
 
         public Investors Investors;
@@ -58,7 +57,7 @@ namespace ERPKeeperCore.Enterprise
 
         public Transactions Transactions;
         public FundTransfers FundTransfers;
-
+        public LiabilityPayments LiabilityPayments;
 
         public IncomeTaxes IncomeTaxes;
         public Loans Loans;
@@ -78,9 +77,9 @@ namespace ERPKeeperCore.Enterprise
             Customers = new Customers(this);
             Suppliers = new Suppliers(this);
             Employees = new Employees(this);
-            EmployeePositions = new EmployeePositions(this);
-            EmployeePaymentTypes = new EmployeePaymentTypes(this);
-            EmployeePayments = new EmployeePayments(this);
+            EmployeePositions = new DAL.Employees.EmployeePositions(this);
+            EmployeePaymentTypes = new DAL.Employees.EmployeePaymentTypes(this);
+            EmployeePayments = new DAL.Employees.EmployeePayments(this);
             AssetDeprecateSchedules = new AssetDeprecateSchedules(this);
             Investors = new Investors(this);
             Brands = new Brands(this);
@@ -94,7 +93,9 @@ namespace ERPKeeperCore.Enterprise
             Lends = new Lends(this);
             IncomeTaxes = new IncomeTaxes(this);
 
-            ReceivePayments = new ReceivePayments(this);
+            ReceivePayments = new DAL.Customers.ReceivePayments(this);
+            SupplierPayments = new SupplierPayments(this);
+            LiabilityPayments = new LiabilityPayments(this);
         }
 
 

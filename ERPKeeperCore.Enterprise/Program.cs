@@ -25,65 +25,46 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
-                oldOrganization.ErpNodeDBContext.GeneralPayments
-                    .Where(x => x.DiscountAmount > 0)
-                    .ToList()
-                    .ForEach(model =>
-                    {
-                        Console.WriteLine($"{model.Name}, {model.DiscountAmount}");
-                    });
-
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 //migrationTool.Migrate();
 
-                ///newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-                //PostLedgers(newOrganization);
-                //newOrganization.FiscalYears.UpdateAccountBalance();
+                newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
+                PostLedgers(newOrganization);
+                newOrganization.FiscalYears.UpdateAccountBalance();
             }
         }
-
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
-            newOrganization.ErpCOREDBContext.Transactions
-                .Where(x => x.Debit == 0)
-                .ToList()
-                .ForEach(action =>
-                {
-                    Console.WriteLine($"{action.Reference}");
-                    action.UpdateBalance();
-                });
-
-            newOrganization.ErpCOREDBContext.SaveChanges();
-            //organization.OpeningEntries.PostLedger();
             //Capital Activities
             //organization.CapitalActivities.PostLedger();
 
             //Commercial Section
             newOrganization.Sales.PostToTransactions();
             newOrganization.ReceivePayments.PostToTransactions();
+
             newOrganization.Purchases.PostToTransactions();
+            newOrganization.SupplierPayments.PostToTransactions();
+
+
 
             //Financial Section
-            //organization.SupplierPayments.PostLedger();
-            //organization.LiabilityPayments.PostLedger();
-
             newOrganization.FundTransfers.PostToTransactions();
-            //organization.Loans.PostLedger();
-            //organization.Lends.PostLedger();
+            newOrganization.Loans.PostToTransactions();
+            newOrganization.Lends.PostToTransactions();
+            newOrganization.LiabilityPayments.PostToTransactions();
 
             //Taxes Section
             //organization.TaxPeriods.PostLedger();
-            //organization.IncomeTaxes.PostLedger();
+            newOrganization.IncomeTaxes.PostToTransactions();
 
             //Employee Section
             newOrganization.EmployeePayments.PostToTransactions();
-
 
             //Other Section
             newOrganization.JournalEntries.PostToTransactions();
 
             //Assets
-            //organization.FixedAssets.PostLedger();
+            newOrganization.Assets.PostToTransactions();
             newOrganization.AssetDeprecateSchedules.PostToTransactions();
 
             //organization.RetirementFixedAssets.UnPost();
@@ -151,6 +132,5 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-
     }
 }

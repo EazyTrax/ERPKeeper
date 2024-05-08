@@ -139,6 +139,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Models.Financial.FundTransferItem> FundTransferItems { get; set; }
         public DbSet<Models.Financial.RetentionType> RetentionTypes { get; set; }
         public DbSet<Models.Financial.LiabilityPayment> LiabilityPayments { get; set; }
+        public DbSet<Models.Financial.LiabilityPaymentPayFromAccount> LiabilityPaymentPayFromAccounts { get; set; }
+
         public DbSet<Models.PaymentTerm> PaymentTerms { get; set; }
         public DbSet<Models.Financial.Loan> Loans { get; set; }
         public DbSet<Models.Financial.LoanReturn> LoanReturns { get; set; }

@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DAL\Security\**" />
     <Compile Remove="ERPNode\**" />
+    <EmbeddedResource Remove="DAL\Security\**" />
     <EmbeddedResource Remove="ERPNode\**" />
+    <None Remove="DAL\Security\**" />
     <None Remove="ERPNode\**" />
   </ItemGroup>
 
@@ -27,10 +30,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
     <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.102.2.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DAL\Security\" />
   </ItemGroup>
 
 </Project>

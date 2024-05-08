@@ -20,7 +20,7 @@
         .Paging(paging => paging.PageSize(100))
 
         .AllowColumnResizing(true)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@

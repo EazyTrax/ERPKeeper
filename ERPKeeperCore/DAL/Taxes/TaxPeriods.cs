@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Taxes
 {
     public class TaxPeriods : ERPNodeDalRepository
     {
@@ -42,6 +42,6 @@ namespace ERPKeeperCore.Enterprise.DAL
         {
             return erpNodeDBContext.TaxPeriods.Count();
         }
-     
+
     }
 }

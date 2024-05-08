@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Customers
 {
     public class Sales : ERPNodeDalRepository
     {

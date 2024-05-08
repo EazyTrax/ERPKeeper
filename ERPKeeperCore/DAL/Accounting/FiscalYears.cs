@@ -168,9 +168,9 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                     accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
                     accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
 
-                    Console.WriteLine($"> {x.Account.Name}");
-                    Console.WriteLine($"> Debit:{x.Debit}");
-                    Console.WriteLine($"> Credit:{x.Credit}");
+                    //Console.WriteLine($"> {x.Account.Name}");
+                    //Console.WriteLine($"> Debit:{x.Debit}");
+                    //Console.WriteLine($"> Credit:{x.Credit}");
                 });
 
                 organization.SaveChanges();

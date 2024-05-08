@@ -1,5 +1,4 @@
-﻿
-<div id="treeListDemo" class="mb-3 border">
+﻿<div id="treeListDemo" class="mb-3 border">
     @(
             Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment>()
             .ID("gridList")
@@ -15,16 +14,13 @@
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
             .ColumnAutoWidth(false)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-
+            .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
-
-
                 columns.AddFor(m => m.Date).Alignment(HorizontalAlignment.Right).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
-
                 columns.AddFor(m => m.Status).Width(80).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Financial.Enums.LiabilityPaymentStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
@@ -32,11 +28,15 @@
             );
 
                 columns.Add().DataField("Name").Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/<%= data.Id %>/"><%= data.Name %></a></text>);
-                columns.AddFor(m => m.Reference).Width(180);
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/<%= data.Id %>/">N:<%= data.Name %></a></text>);
+              
+            
+            columns.AddFor(m => m.Reference).Width(180)
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/<%= data.Id %>/">R:<%= data.Reference %></a></text>);
+
 
                 columns.AddFor(m => m.LiabilityAccountId)
-                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(200)
                     .HeaderCellTemplate(@<text>Liability Acc</text>)
                     .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
@@ -54,4 +54,3 @@
             })
         )
 </div>
-

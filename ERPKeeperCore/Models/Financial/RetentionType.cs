@@ -27,8 +27,29 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         [ForeignKey("RetentionToAccountId")]
         public virtual Accounting.Account? RetentionToAccount { get; set; }
 
-        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; }=new List<ReceivePayment>();
-        public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }= new List<SupplierPayment>();
+        public Accounting.Account? RetentionTo_AssetAccount
+        {
+            get
+            {
+                if (RetentionToAccount!=null &&  RetentionToAccount.Type == Accounting.Enums.AccountTypes.Asset)
+                    return RetentionToAccount;
+                return null;
+            }
+        }
+        public Accounting.Account? RetentionTo_LiabilityAccount
+        {
+            get
+            {
+                if (RetentionToAccount != null && RetentionToAccount.Type == Accounting.Enums.AccountTypes.Liability)
+                    return RetentionToAccount;
+                return null;
+            }
+        }
+
+
+
+        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; } = new List<ReceivePayment>();
+        public virtual ICollection<SupplierPayment> SupplierPayments { get; set; } = new List<SupplierPayment>();
 
         public void Update(RetentionType type)
         {

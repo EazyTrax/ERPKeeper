@@ -1,0 +1,23 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment
+
+<div class="row">
+    <div class="col-8 p-0 col-center">
+        <partial name="_EditForm" />
+        <partial name="PayFromAccounts_Grid" />
+    </div>
+    <div class="col-4 col-right pr-0">
+
+
+        <div>
+            @Model.LiabilityPaymentPayFromAccounts.Count()
+
+            @{
+                foreach (var fromAcc in Model.LiabilityPaymentPayFromAccounts)
+                {
+                    @fromAcc.Account.Name @fromAcc.Amount
+                }
+            }
+        </div>
+        <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+    </div>
+</div>

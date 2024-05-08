@@ -21,7 +21,7 @@
 
 
         .AllowColumnResizing(true)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -49,22 +49,26 @@
 
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
             
-            columns.AddFor(m => m.PurchaseAccId)
+            columns.AddFor(m => m.Purchase_Asset_AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .HeaderCellTemplate(@<text>Purchase Acc</text>);
+            .HeaderCellTemplate(@<text>Purchase Acc</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Purchase_Asset_AccountId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.AwaitDeprecateAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .HeaderCellTemplate(@<text>AwaitDep Acc</text>);
+            .HeaderCellTemplate(@<text>AwaitDep Acc</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AwaitDeprecateAccId %>/"><%= displayValue %></a></text>);
 
 
             columns.AddFor(m => m.AmortizeExpenseAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AmortizeExpense).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .HeaderCellTemplate(@<text>Amortize Acc</text>);
+            .HeaderCellTemplate(@<text>Amortize Acc</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AmortizeExpenseAccId %>/"><%= displayValue %></a></text>);
 
              columns.AddFor(m => m.AccumulateDeprecateAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .HeaderCellTemplate(@<text>Accumulate Acc</text>);
+            .HeaderCellTemplate(@<text>Accumulate Acc</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccumulateDeprecateAccId %>/"><%= displayValue %></a></text>);
 
 
              @*

@@ -15,7 +15,7 @@
             .AllowColumnResizing(true)
             
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
             .ColumnAutoWidth(false)
             .RowDragging(rd => rd
             .AllowDropInsideItem(false)

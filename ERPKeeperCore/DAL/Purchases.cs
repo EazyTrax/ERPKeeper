@@ -29,13 +29,13 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Purchase? Find(Guid Id) => erpNodeDBContext.Purchases.Find(Id);
 
-        public void PostToTransactions()
+        public void PostToTransactions(bool rePost = false)
         {
             this.CreateTransactions();
 
             var purchases = erpNodeDBContext.Purchases
                 .Where(s => s.TransactionId != null)
-                .Where(s => !s.IsPosted)
+                .Where(s => !s.IsPosted || rePost)
                 .OrderBy(s => s.Date).ToList();
 
             purchases.ForEach(purchase =>

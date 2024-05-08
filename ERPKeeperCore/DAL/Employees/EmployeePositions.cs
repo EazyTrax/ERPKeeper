@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Employees;
 using ERPKeeperCore.Enterprise.Models.Employees.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Employees
 {
     public class EmployeePositions : ERPNodeDalRepository
     {

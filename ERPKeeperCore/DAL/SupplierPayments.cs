@@ -66,36 +66,35 @@ namespace ERPKeeperCore.Enterprise.DAL
         }
 
 
-        public void PostToTransactions()
+        public void PostToTransactions(bool rePost = false)
         {
             this.CreateTransactions();
 
             var SupplierPayments = erpNodeDBContext.SupplierPayments
                 .Where(s => s.TransactionId != null)
-                .Where(s => !s.IsPosted)
-               // .Where(s => s.AmountBankFee > 0)
+                .Where(s => !s.IsPosted || rePost)
                 .OrderBy(s => s.Date).ToList();
 
-            var DiscountAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.DiscountGiven);
-            var ReceivableAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.AccountReceivable);
-            var BankFeeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.BankFee);
+            var DiscountTaken_IncomeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
+            var SupplierPayable_LiabilityAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Liability_AccountPayable);
+            var BankFee_ExpenseAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Expense_BankFee);
 
 
-            SupplierPayments.ForEach(receivePayment =>
+            SupplierPayments.ForEach(payment =>
             {
-                //receivePayment.DiscountAccount = DiscountAccount;
-                //receivePayment.DiscountAccountId = DiscountAccount.Id;
+                payment.IncomeAccount_DiscountTaken = DiscountTaken_IncomeAccount;
+                payment.IncomeAccount_DiscountTakenId = DiscountTaken_IncomeAccount.Id;
 
-                //receivePayment.ReceivableAccount = ReceivableAccount;
-                //receivePayment.ReceivableAccountId = ReceivableAccount.Id;
+                payment.LiablityAccount_SupplierPayable = SupplierPayable_LiabilityAccount;
+                payment.LiablityAccount_SupplierPayableId = SupplierPayable_LiabilityAccount.Id;
 
-                //receivePayment.BankFeeAccount = BankFeeAccount;
-                //receivePayment.BankFeeAccountId = BankFeeAccount.Id;
+                payment.ExpenseAccount_BankFee = BankFee_ExpenseAccount;
+                payment.ExpenseAccount_BankFeeId = BankFee_ExpenseAccount.Id;
 
-                //erpNodeDBContext.SaveChanges();
+                erpNodeDBContext.SaveChanges();
 
-                //receivePayment.PostToTransaction();
-                //erpNodeDBContext.SaveChanges();
+                payment.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
             });
         }
     }

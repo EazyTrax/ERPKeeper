@@ -11,9 +11,11 @@
 
     </div>
     <div class="col-4 p-0 col-right">
-        <div class="border p-2">
-            @Model.RemainAgeDay
-        </div>
+        <div class="border p-2 bg-fb2">
+           RemainAgeDay @Model.RemainAgeDay
+        </div
+
+                <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
     </div>
 </div>
 

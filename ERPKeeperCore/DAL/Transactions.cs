@@ -26,30 +26,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.Transactions.ToList();
         }
 
-
-        public Transaction CreateTransaction(Guid Id, TransactionType Type)
-        {
-            var existTransaction = this.Find(Id);
-
-            if (existTransaction == null)
-            {
-                Console.WriteLine($"> Create Sale Transaction");
-
-                existTransaction = new Transaction
-                {
-                    Id = Id,
-                    Type = Type,
-                    Date = DateTime.Now
-                };
-
-                this.organization.ErpCOREDBContext.Transactions.Add(existTransaction);
-                this.SaveChanges();
-            }
-            return existTransaction;
-
-        }
         public Transaction? Find(Guid Id) => erpNodeDBContext.Transactions.Find(Id);
-
 
     }
 }

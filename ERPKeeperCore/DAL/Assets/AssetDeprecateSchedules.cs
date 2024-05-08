@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Assets
 {
     public class AssetDeprecateSchedules : ERPNodeDalRepository
     {
@@ -35,7 +35,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostToTransactions()
         {
-            this.CreateTransactions();
+            CreateTransactions();
 
             var assetDeprecateSchedules = erpNodeDBContext.AssetDeprecateSchedules
                 .Where(s => s.TransactionId != null)

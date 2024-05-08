@@ -10,7 +10,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
 {
 
     [Route("/{CompanyId}/Profiles/Customers/ReceivePayments/{TransactionId:Guid}/{action=index}")]
-    public class ReceivePayment : _Profiles_Customers_Base_Controller
+    public class ReceivePaymentController : _Profiles_Customers_Base_Controller
     {
         public Guid TransactionId => Guid.Parse(RouteData.Values["TransactionId"].ToString());
 

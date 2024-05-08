@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Assets
 {
     public class AssetTypes : ERPNodeDalRepository
     {

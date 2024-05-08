@@ -32,7 +32,7 @@ namespace ERPKeeperCore.CMD
                         AccumulateDeprecateAccId = a.AccumulateDeprecateAccUid,
                         AmortizeExpenseAccId = a.AmortizeExpenseAccUid,
                         AwaitDeprecateAccId = a.AwaitDeprecateAccUid,
-                        PurchaseAccId = a.PurchaseAccUid,
+                        Purchase_Asset_AccountId = a.PurchaseAccUid,
                         CodePrefix = a.CodePrefix,
                         DeprecatedAble = a.DeprecatedAble,
                         DepreciationMethod = (Enterprise.Models.Assets.Enums.EnumDepreciationMethod)a.DepreciationMethod,

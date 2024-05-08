@@ -19,12 +19,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
 
         public Account Cash => this.GetAccount(DefaultAccountType.Cash);
-        public Account BankFee => this.GetAccount(DefaultAccountType.BankFee);
+        public Account BankFee => this.GetAccount(DefaultAccountType.Expense_BankFee);
         public Account COSG => this.GetAccount(DefaultAccountType.CostOfGoodSold);
         public Account OverPayment => this.GetAccount(DefaultAccountType.OverRecivePayment);
         public Account RetainedEarning => this.GetAccount(DefaultAccountType.RetainedEarning);
-        public Account AccountPayable => this.GetAccount(DefaultAccountType.AccountPayable);
-        public Account AccountReceivable => this.GetAccount(DefaultAccountType.AccountReceivable);
+        public Account AccountPayable => this.GetAccount(DefaultAccountType.Liability_AccountPayable);
+        public Account AccountReceivable => this.GetAccount(DefaultAccountType.Asset_AccountReceivable);
         public Account OpeningBalanceEquity => this.GetAccount(DefaultAccountType.OpeningBalanceEquity);
 
         public void Add(DefaultAccount defaultAccountItem)
@@ -35,7 +35,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public Account EquityStock => this.GetAccount(DefaultAccountType.EquityStock);
         public Account DiscountGiven => this.GetAccount(DefaultAccountType.DiscountGiven);
-        public Account DiscountTaken => this.GetAccount(DefaultAccountType.DiscountTaken);
+        public Account DiscountTaken => this.GetAccount(DefaultAccountType.Income_DiscountTaken);
         public Account Income => this.GetAccount(DefaultAccountType.Income);
         public Account Expense => this.GetAccount(DefaultAccountType.Expense);
 
@@ -116,18 +116,18 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             this.SetIfUnAssign(DefaultAccountType.Income, accounts.Where(i => i.Type == AccountTypes.Income).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.Cash, accounts.Where(i => i.SubType == AccountSubTypes.Cash).FirstOrDefault());
-            this.SetIfUnAssign(DefaultAccountType.AccountPayable, accounts.Where(i => i.SubType == AccountSubTypes.AccountPayable).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Liability_AccountPayable, accounts.Where(i => i.SubType == AccountSubTypes.AccountPayable).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.Expense, accounts.Where(i => i.SubType == AccountSubTypes.Expense).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.RetainedEarning, accounts.Where(i => i.SubType == AccountSubTypes.Equity_RetainEarning).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.EquityStock, accounts.Where(i => i.SubType == AccountSubTypes.Stock).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.OpeningBalanceEquity, accounts.Where(i => i.SubType == AccountSubTypes.OpeningBalance).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.DiscountGiven, accounts.Where(i => i.SubType == AccountSubTypes.DiscountGiven).FirstOrDefault());
-            this.SetIfUnAssign(DefaultAccountType.DiscountTaken, accounts.Where(i => i.Type == AccountTypes.Income && i.SubType == AccountSubTypes.DiscountTaken).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Income_DiscountTaken, accounts.Where(i => i.Type == AccountTypes.Income && i.SubType == AccountSubTypes.DiscountTaken).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.Inventory, accounts.Where(i => i.SubType == AccountSubTypes.Inventory).FirstOrDefault());
-            this.SetIfUnAssign(DefaultAccountType.AccountReceivable, accounts.Where(i => i.SubType == AccountSubTypes.AccountReceivable).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Asset_AccountReceivable, accounts.Where(i => i.SubType == AccountSubTypes.AccountReceivable).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.EarnestAsset, accounts.Where(i => i.SubType == AccountSubTypes.EarnestPayment).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.EarnestLiability, accounts.Where(i => i.SubType == AccountSubTypes.EarnestReceive).FirstOrDefault());
-            this.SetIfUnAssign(DefaultAccountType.BankFee, accounts.Where(i => i.SubType == AccountSubTypes.BankFee).FirstOrDefault());
+            this.SetIfUnAssign(DefaultAccountType.Expense_BankFee, accounts.Where(i => i.SubType == AccountSubTypes.BankFee).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.EquityPremiumStock, accounts.Where(i => i.SubType == AccountSubTypes.OverStockValue).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.CostOfGoodSold, accounts.Where(i => i.SubType == AccountSubTypes.CostOfGoodsSold).FirstOrDefault());
             this.SetIfUnAssign(DefaultAccountType.OverRecivePayment, accounts.Where(i => i.SubType == AccountSubTypes.OverReceivePayment).FirstOrDefault());

@@ -10,7 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Customers
 {
     public class ReceivePayments : ERPNodeDalRepository
     {
@@ -67,17 +67,17 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostToTransactions()
         {
-            this.CreateTransactions();
+            CreateTransactions();
 
             var ReceivePayments = erpNodeDBContext.ReceivePayments
                 .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted)
-               // .Where(s => s.AmountBankFee > 0)
+                // .Where(s => s.AmountBankFee > 0)
                 .OrderBy(s => s.Date).ToList();
 
             var DiscountAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.DiscountGiven);
-            var ReceivableAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.AccountReceivable);
-            var BankFeeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.BankFee);
+            var ReceivableAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Asset_AccountReceivable);
+            var BankFeeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Expense_BankFee);
 
 
             ReceivePayments.ForEach(receivePayment =>

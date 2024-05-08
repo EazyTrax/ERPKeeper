@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Assets
 {
     public class Assets : ERPNodeDalRepository
     {
@@ -33,21 +33,21 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Asset? Find(Guid Id) => erpNodeDBContext.Assets.Find(Id);
 
-        //public void PostToTransactions()
-        //{
-        //    this.CreateTransactions();
+        public void PostToTransactions()
+        {
+            CreateTransactions();
 
-        //    //var Assets = erpNodeDBContext.Assets
-        //    //    .Where(s => s.TransactionId != null)
-        //    //    .Where(s => !s.IsPosted)
-        //    //    .OrderBy(s => s.PurchaseDate).ToList();
+            var Assets = erpNodeDBContext.Assets
+                .Where(s => s.TransactionId != null)
+                .Where(s => !s.IsPosted)
+                .OrderBy(s => s.PurchaseDate).ToList();
 
-        //    //Assets.ForEach(Asset =>
-        //    //{
-        //    //    //Asset.PostToTransaction();
-        //    //    erpNodeDBContext.SaveChanges();
-        //    //});
-        //}
+            Assets.ForEach(Asset =>
+            {
+                Asset.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
+            });
+        }
         public void CreateTransactions()
         {
             var Assets = erpNodeDBContext
@@ -76,5 +76,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             });
 
         }
+
+
     }
 }

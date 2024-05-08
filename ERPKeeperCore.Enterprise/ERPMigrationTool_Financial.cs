@@ -195,8 +195,8 @@ namespace ERPKeeperCore.CMD
                             Date = oldPurchase.TrnDate,
                             Memo = "NA",
                             AmountLend = oldPurchase.Amount,
-                            PayingAccountId = oldPurchase.AssetAccountGuid,
-                            LendingAccountId = oldPurchase.LendingAssetAccountGuid,
+                            PayFrom_AssetAccountId = oldPurchase.AssetAccountGuid,
+                            Lending_AssetAccountId = oldPurchase.LendingAssetAccountGuid,
                         };
                         newOrganization.ErpCOREDBContext.Lends.Add(existLoan);
                         newOrganization.SaveChanges();

@@ -4,19 +4,19 @@
     {
         Income = 0,
         Cash = 1,
-        AccountPayable = 2,
+        Liability_AccountPayable = 2,
         Expense = 6,
         RetainedEarning = 9,
         EquityStock = 10,
         EquityPremiumStock = 22,
         OpeningBalanceEquity = 11,
         DiscountGiven = 12,
-        DiscountTaken = 13,
+        Income_DiscountTaken = 13,
         Inventory = 17,
-        AccountReceivable = 18,
+        Asset_AccountReceivable = 18,
         EarnestAsset = 19,
         EarnestLiability = 20,
-        BankFee = 21,
+        Expense_BankFee = 21,
         CostOfGoodSold = 23,
         OverRecivePayment = 24
 

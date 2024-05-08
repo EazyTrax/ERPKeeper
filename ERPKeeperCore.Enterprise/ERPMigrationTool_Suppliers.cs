@@ -188,8 +188,8 @@ namespace ERPKeeperCore.CMD
                             Reference = oldPurchase.GeneralPayment.Reference,
                             AmountBankFee = oldPurchase.GeneralPayment.BankFeeAmount,
                             AmountDiscount = oldPurchase.GeneralPayment.DiscountAmount,
-                            PayFromAccountId = oldPurchase.GeneralPayment.AssetAccountUid,
-                            PayableAccountId = oldPurchase.GeneralPayment.LiabilityAccountUid,
+                            PayFrom_AssetAccountId = oldPurchase.GeneralPayment.AssetAccountUid,
+                            LiablityAccount_SupplierPayableId = oldPurchase.GeneralPayment.LiabilityAccountUid,
                             RetentionTypeId = oldPurchase.GeneralPayment.RetentionTypeGuid,
 
                         };
@@ -198,9 +198,9 @@ namespace ERPKeeperCore.CMD
                             existSupplierPayment.AmountRetention = oldPurchase.GeneralPayment.RetentionType.Rate * oldPurchase.LinesTotal / 100;
 
 
-                        if (existSupplierPayment.PayableAccountId == null)
-                            existSupplierPayment.PayableAccountId =
-                                newOrganization.SystemAccounts.GetAccount(DefaultAccountType.AccountPayable).Id;
+                        if (existSupplierPayment.LiablityAccount_SupplierPayableId == null)
+                            existSupplierPayment.LiablityAccount_SupplierPayableId =
+                                newOrganization.SystemAccounts.GetAccount(DefaultAccountType.Liability_AccountPayable).Id;
 
 
                         Console.WriteLine($"> {oldPurchase.GeneralPayment.AssetAccount.Name}");

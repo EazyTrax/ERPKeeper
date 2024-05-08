@@ -11,7 +11,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Employees;
 using ERPKeeperCore.Enterprise.Models.Employees.Enums;
 
-namespace ERPKeeperCore.Enterprise.DAL
+namespace ERPKeeperCore.Enterprise.DAL.Employees
 {
     public class EmployeePayments : ERPNodeDalRepository
     {
@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostToTransactions()
         {
-            this.CreateTransactions();
+            CreateTransactions();
 
             var employeePayments = erpNodeDBContext.EmployeePayments
                 .Where(s => s.TransactionId != null)
