@@ -112,11 +112,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
         public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.Accounts
                 .Where(account => account.SubType == subType)
-                .Where(account => account.IsFolder == false)
+                
                 .ToList();
         public List<Account> GetAccountByType(AccountTypes accountType) => erpNodeDBContext.Accounts
                 .Where(account => account.Type == accountType)
-                .Where(account => account.IsFolder == false)
+                
                 .OrderBy(i => i.No)
                 .ToList();
         public IEnumerable<Account> GetFocusAccount(AccountTypes? accountType) => erpNodeDBContext.Accounts
@@ -137,19 +137,19 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             {
                 return erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset || account.Type == AccountTypes.Liability)
-              .Where(account => account.IsFolder == false)
-              .Where(account => account.IsFolder == false).ToList();
+              
+              .ToList();
             }
         }
         public List<Account> GetCashEquivalentAccounts() => erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset)
-              .Where(account => account.IsFolder == false)
+              
               .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
               .OrderBy(account => account.SubType)
               .ToList();
         public List<Account> GetCashOrBankAccounts() => erpNodeDBContext.Accounts
             .Where(account => account.Type == AccountTypes.Asset)
-            .Where(account => account.IsFolder == false)
+            
             .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
             .OrderBy(account => account.SubType)
             .ToList();
@@ -158,12 +158,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> ExpenseAccounts => this.GetAccountByType(AccountTypes.Expense);
         public List<Account> TaxRelatedAccountItems => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxOutput || account.SubType == AccountSubTypes.TaxExpense)
-                 .Where(account => account.IsFolder == false)
+                 
                  .OrderBy(i => i.No)
                  .ToList();
         public List<Account> TaxClosingAccount => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxPayable || account.SubType == AccountSubTypes.TaxReceivable)
-                 .Where(account => account.IsFolder == false)
+                 
                  .OrderBy(i => i.No)
                  .ToList();
         public List<Account> ListTaxAccounts(TaxDirection direction)
@@ -171,12 +171,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             if (direction == TaxDirection.Input)
                 return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxInput)
-                             .Where(account => account.IsFolder == false)
+                             
                              .OrderBy(i => i.No)
                              .ToList();
             else
                 return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxOutput)
-                                .Where(account => account.IsFolder == false)
+                                
                                 .OrderBy(i => i.No)
                                 .ToList();
         }
@@ -256,6 +256,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
 
+
+
+        public List<Account> IncomeExpenseAccounts
+        {
+            get
+            {
+                return erpNodeDBContext.Accounts
+              .Where(account => account.Type == AccountTypes.Asset || account.Type == AccountTypes.Expense).ToList();
+            }
+        }
         public List<Account> IncomeAccounts => this.GetAccountByType(AccountTypes.Income);
         public List<Account> InventoryAssetAccounts => this.GetItemBySubType(AccountSubTypes.Inventory);
         public List<Account> LiabilityAccounts => this.GetAccountByType(AccountTypes.Liability);
@@ -268,7 +278,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> TaxReceivableAccounts => this.GetItemBySubType(AccountSubTypes.TaxReceivable);
         public List<Account> TaxInputAndTaxExpenseAccounts => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxExpense)
-                 .Where(account => account.IsFolder == false)
+                 
                  .OrderBy(i => i.No)
                  .ToList();
     }

@@ -13,11 +13,10 @@
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
             .ColumnAutoWidth(false)
             .Paging(pagging => pagging.PageSize(100))
+            .GroupPanel(gp => gp.Visible(true))
             .Columns(columns =>
             {
             columns.AddFor(m => m.Transaction.Date);
-
-
 
 
             columns.AddFor(m => m.Transaction.Type)
@@ -26,34 +25,22 @@
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
-
-
-
-
+            columns.AddFor(m => m.Transaction.Name);
                 columns.AddFor(m => m.Transaction.Reference);
-    
-                 columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
                 columns.AddFor(m => m.Credit).Width(130).Format(Format.FixedPoint);
-
-
-
             })
+            
         .Summary(s => s.TotalItems(items =>
         {
-          
             items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+        })
+        .GroupItems(groupItems =>
+        {
+            groupItems.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("Sum: {0}").ValueFormat(Format.FixedPoint);
+            groupItems.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("Sum: {0}").ValueFormat(Format.FixedPoint);
         })
         )
         )
 </div>
-
-
-
-
-
-
-
-
-
-

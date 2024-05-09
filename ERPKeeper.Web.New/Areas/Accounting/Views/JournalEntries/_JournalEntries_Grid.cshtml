@@ -18,6 +18,7 @@
         .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
         .Paging(pagging => pagging.PageSize(100))
+        .GroupPanel(gp => gp.Visible(true))
          .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         @*  .AllowColumnResizing(true)*@
 

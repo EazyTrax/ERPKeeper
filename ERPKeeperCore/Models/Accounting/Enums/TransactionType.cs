@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         EmployeePayment = 150,
         Asset = 160,
         AssetDeprecateSchedule = 161,
-    
+        FiscalYearClosing = 200,
     }
 }
 

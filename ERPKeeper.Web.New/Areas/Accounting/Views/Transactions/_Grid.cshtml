@@ -20,6 +20,7 @@
             .ColumnAutoWidth(false)
             .Paging(pagging => pagging.PageSize(100))
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+            .GroupPanel(gp=>gp.Visible(true))
             .Columns(columns =>
             {
                 columns.AddFor(m => m.FiscalYearId)

@@ -102,20 +102,25 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             this.Transaction.ClearLedger();
 
             // Dr.
-            this.Transaction.AddCredit(this.PurchaseTaxAccount, this.PurchasesTaxBalance);
+            if (this.PurchasesTaxBalance > 0)
+                this.Transaction.AddCredit(this.PurchaseTaxAccount, this.PurchasesTaxBalance);
             // Cr.
-            this.Transaction.AddDebit(this.SaleTaxAccount, this.SalesTaxBalance);
+            if (this.SalesTaxBalance > 0)
+                this.Transaction.AddDebit(this.SaleTaxAccount, this.SalesTaxBalance);
 
             if (ClosingAmount > 0 && this.CloseToAccount.Type == AccountTypes.Asset)
                 this.Transaction.AddDebit(this.CloseToAccount, Math.Abs(this.ClosingAmount));
             else if (ClosingAmount < 0 && this.CloseToAccount.Type == AccountTypes.Liability)
                 this.Transaction.AddCredit(this.CloseToAccount, Math.Abs(this.ClosingAmount));
+            else if (ClosingAmount == 0)
+            { 
+
+            }
             else
             {
                 this.Transaction.ClearLedger();
                 return;
             }
-
 
             this.Transaction.UpdateBalance();
             this.Transaction.Date = this.EndDate;
@@ -123,9 +128,6 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
-
         }
-
-
     }
 }

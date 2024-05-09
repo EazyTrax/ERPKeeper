@@ -11,7 +11,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Guid TransactionId { get; set; }
         [ForeignKey("TransactionId")]
-        public virtual Transaction? Transaction { get; set; }
+        public virtual Transaction Transaction { get; set; }
 
         public Guid AccountId { get; set; }
         [ForeignKey("AccountId")]

@@ -57,15 +57,19 @@
 
 
                 columns.AddFor(m => m.PurchaseAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeExpenseAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .MinWidth(250)
-            .HeaderCellTemplate(@<text>Purchase Acc (DR)</text>);
+            .HeaderCellTemplate(@<text>Purchase Acc (DR)</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PurchaseAccountId %>/"><%= displayValue %></a></text>);
+
 
 
                 columns.AddFor(m => m.IncomeAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .MinWidth(250)
-            .HeaderCellTemplate(@<text>Income Acc (CR)</text>);
+            .HeaderCellTemplate(@<text>Income Acc (CR)</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeAccountId %>/"><%= displayValue %></a></text>);
+
 
             })
         )
