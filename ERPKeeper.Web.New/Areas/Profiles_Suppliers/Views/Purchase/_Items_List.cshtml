@@ -25,6 +25,7 @@
 
     .KeyExpr("Id")
     .WordWrapEnabled(true)
+            .ColumnChooser(c => c.Enabled(true))
     .Columns(columns => {
 
     columns.AddFor(m=>m.ItemId).Width(150)
@@ -39,9 +40,13 @@
 
 
     columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
-    columns.AddFor(m=>m.Price).Width(130).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.Quantity).Width(130).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.LineTotal).Width(130).Format(Format.FixedPoint).FormItem(i=>i.Visible(false));
+    columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
+
+                columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.PriceAfterDiscount).Width(130).Format("#,##0.00");
+
+    columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");
+    columns.AddFor(m=>m.LineTotal).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));
     columns.AddFor(m=>m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
     })
     .OnInitNewRow("function(e) { e.data.PurchasePrice = 0;e.data.Amount = 1; }")

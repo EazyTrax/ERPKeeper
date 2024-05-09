@@ -44,8 +44,8 @@
 
 
                 columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("LinesTotal").Width(130).Format(Format.FixedPoint);
-                columns.Add().DataField("Total").Width(130).Format(Format.FixedPoint);
+                columns.Add().DataField("LinesTotal").Width(130).Format("#,##0.00");
+                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
                 .Lookup(lookup => lookup

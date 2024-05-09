@@ -53,9 +53,9 @@
     </text>);
 
                 columns.AddFor(m => m.Purchase.Reference);
-                columns.Add().DataField("Amount").Width(80).Format(Format.FixedPoint);
-                columns.Add().DataField("SalePrice").Width(80).Format(Format.FixedPoint);
-                columns.Add().DataField("LineTotal").Width(80).Format(Format.FixedPoint);
+                columns.Add().DataField("Amount").Width(80).Format("#,##0.00");
+                columns.Add().DataField("SalePrice").Width(80).Format("#,##0.00");
+                columns.Add().DataField("LineTotal").Width(80).Format("#,##0.00");
                 //columns.Add().DataField("Id");
             })
         )

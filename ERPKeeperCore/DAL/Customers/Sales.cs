@@ -59,11 +59,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
         }
 
 
-        public void PostToTransactions()
+        public void PostToTransactions(bool rePost = false)
         {
             var sales = erpNodeDBContext.Sales
                 .Where(s => s.TransactionId != null)
-                .Where(s => !s.IsPosted)
+                .Where(s => !s.IsPosted || rePost)
                 .OrderBy(s => s.Date).ToList();
 
             sales.ForEach(sale =>
@@ -75,6 +75,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 }
 
                 sale.PostToTransaction();
+
                 erpNodeDBContext.SaveChanges();
             });
 

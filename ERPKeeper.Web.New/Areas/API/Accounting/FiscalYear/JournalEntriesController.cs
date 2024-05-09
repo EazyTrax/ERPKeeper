@@ -10,27 +10,34 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
 {
-    public class JournalsController : FiscalYearBaseController
+    public class JournalEntriesController : FiscalYearBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
             var fiscalYear = Organization.ErpCOREDBContext.FiscalYears.First(a => a.Id == FiscalYearId);
 
             var returnModel = Organization.ErpCOREDBContext
-                .TransactionLedgers;
+                .JournalEntries
+                .Where(a => a.Date > fiscalYear.StartDate && a.Date < fiscalYear.EndDate.AddDays(1));
+
+
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
-
         [HttpPost]
-        public IActionResult Update(Guid key, string values)
+        public IActionResult Insert(string values)
         {
-            var model = Organization.ErpCOREDBContext.TransactionLedgers.First(a => a.Id == key);
+            var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry();
             JsonConvert.PopulateObject(values, model);
+
+            //  model.Status = JournalEntryStatus.Draft;
+            Organization.ErpCOREDBContext.JournalEntries.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
+
             return Ok();
         }
 
-    
+
+
     }
 }

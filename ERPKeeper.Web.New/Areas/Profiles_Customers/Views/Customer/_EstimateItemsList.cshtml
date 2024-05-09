@@ -50,9 +50,9 @@
 
 
     columns.Add().DataField("Quote.Reference").HeaderCellTemplate(@<text>Reference</text>);
-    columns.Add().DataField("Amount").Format(Format.FixedPoint);
-    columns.Add().DataField("SalePrice").Format(Format.FixedPoint);
-    columns.Add().DataField("LineTotal").Format(Format.FixedPoint);
+    columns.Add().DataField("Amount").Format("#,##0.00");
+    columns.Add().DataField("SalePrice").Format("#,##0.00");
+    columns.Add().DataField("LineTotal").Format("#,##0.00");
 
 
     })

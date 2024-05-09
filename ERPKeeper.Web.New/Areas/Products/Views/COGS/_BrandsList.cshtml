@@ -41,8 +41,8 @@
                 <%= data.Name %>
             </a>
         </text>);
-         columns.Add().DataField("Description").Format(Format.FixedPoint);
-    columns.Add().DataField("ItemsCount").Format(Format.FixedPoint);
+         columns.Add().DataField("Description").Format("#,##0.00");
+    columns.Add().DataField("ItemsCount").Format("#,##0.00");
     })
     )
 </div>

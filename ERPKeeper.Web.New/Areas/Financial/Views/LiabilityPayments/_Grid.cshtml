@@ -44,7 +44,7 @@
                 columns.AddFor(m => m.Amount)
                     .HeaderCellTemplate("Amount")
                     .Width(130)
-                    .Format(Format.FixedPoint);
+                    .Format("#,##0.00");
 
                 columns.AddFor(m => m.IsPosted)
                     .AllowEditing(false).Width(30)

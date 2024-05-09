@@ -46,11 +46,11 @@
 
                 columns.AddFor(m => m.Reference).Width(180);
 
-                columns.AddFor(m => m.LinesTotal).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.LinesTotal).AllowEditing(false).Width(130).Format("#,##0.00");
 
-                columns.AddFor(m => m.Tax).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Tax).AllowEditing(false).Width(130).Format("#,##0.00");
 
-                columns.AddFor(m => m.Total).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Total).AllowEditing(false).Width(130).Format("#,##0.00");
 
 
 

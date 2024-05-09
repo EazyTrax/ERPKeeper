@@ -80,7 +80,7 @@
     settings.Styles.Footer.Font.Bold = true;
     settings.Styles.Footer.ForeColor = System.Drawing.Color.DarkBlue;
     settings.Styles.GroupFooter.Font.Bold = true;
-       settings.Styles.GroupFooter.ForeColor = System.Drawing.Color.DarkRed;
+    settings.Styles.GroupFooter.ForeColor = System.Drawing.Color.DarkRed;
 
     settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance").DisplayFormat = "N2";
     var TotalGroup = settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "CurrentBalance");
@@ -88,27 +88,27 @@
     TotalGroup.DisplayFormat = "N2";
 
 
-    settings.Columns.Add(c =>
-    {
-        c.FieldName = "CurrentBalance";
-        c.Width = Unit.Pixel(325);
+    //settings.Columns.Add(c =>
+    //{
+    //    c.FieldName = "CurrentBalance";
+    //    c.Width = Unit.Pixel(325);
 
-        c.SetDataItemTemplateContent(container =>
-        {
-            var percent = (100 * Convert.ToDecimal(DataBinder.Eval(container.DataItem, "CurrentBalance")) / expenseCurrentBalance);
+    //    c.SetDataItemTemplateContent(container =>
+    //    {
+    //        var percent = (100 * Convert.ToDecimal(DataBinder.Eval(container.DataItem, "CurrentBalance")) / expenseCurrentBalance);
 
-            ViewContext.Writer.Write(HttpUtility.HtmlEncode(percent.ToString("N2")) + "% &nbsp;");
+    //        ViewContext.Writer.Write(HttpUtility.HtmlEncode(percent.ToString("N2")) + "% &nbsp;");
 
-            Html.DevExpress().ProgressBar(pb =>
-            {
-                pb.Name = "CurrentBalance" + container.VisibleIndex;
-                pb.Width = Unit.Percentage(75);
-                pb.Position = 3;
-                pb.Properties.ShowPosition = true;
+    //        Html.DevExpress().ProgressBar(pb =>
+    //        {
+    //            pb.Name = "CurrentBalance" + container.VisibleIndex;
+    //            pb.Width = Unit.Percentage(75);
+    //            pb.Position = 3;
+    //            pb.Properties.ShowPosition = true;
 
 
-            }).Bind(percent).Render();
-        });
-    });
+    //        }).Bind(percent).Render();
+    //    });
+    //});
 
 }).Bind(expenseAccounts).GetHtml()

@@ -87,6 +87,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             this.SaveChanges();
         }
 
+
         public void Close(FiscalYear fy)
         {
             fy.Status = FiscalYearStatus.Close;
@@ -138,67 +139,74 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             this.PrepareFiscalYearBalances();
             this.UpdateTransactionsFiscalYears(true);
 
-            var fiscalYears = this.GetAll();
-
+            var fiscalYears = this.GetAll(); 
+            
             foreach (var fiscalYear in fiscalYears)
             {
-                Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateBalance");
-
-                // Step 1. Clear Account Balance
-                organization.SaveChanges();
-
-                // Step 2. Collecting Account Balance
-                var currentYearAccBalances = organization.ErpCOREDBContext
-                    .TransactionLedgers
-                    .Where(t => t.Transaction.Type != TransactionType.FiscalYearClosing && t.Transaction.FiscalYearId == fiscalYear.Id)
-                    .GroupBy(t => t.AccountId)
-                    .Select(t => new
-                    {
-                        AccountId = t.Key,
-                        Account = t.First().Account,
-                        Debit = t.Sum(x => x.Debit),
-                        Credit = t.Sum(x => x.Credit)
-                    })
-                    .ToList();
-
-                // Step 3. Collecting Account Balance
-                currentYearAccBalances.ForEach(x =>
-                {
-                    var accountBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
-                        .Where(b => b.AccountId == x.AccountId && b.FiscalYearId == fiscalYear.Id)
-                        .First();
-
-                    accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
-                    accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
-                });
-                organization.SaveChanges();
-
-
-                // Step 3. Collecting Opening Balance
-                var priorAccountBalances = erpNodeDBContext.TransactionLedgers
-                .Where(t => t.Transaction.Date < fiscalYear.EndDate.Date.AddDays(1))
-                  .GroupBy(t => t.AccountId)
-               .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
-               .ToList();
-
-                foreach (var priorAccountBalance in priorAccountBalances)
-                {
-                    var accountBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
-                      .Where(b => b.AccountId == priorAccountBalance.AccountId && b.FiscalYearId == fiscalYear.Id)
-                      .First();
-
-                    if (accountBalance != null)
-                    {
-                        accountBalance.OpeningCredit = priorAccountBalance.Credit;
-                        accountBalance.OpeningDebit = priorAccountBalance.Debit;
-                    }
-                }
-
-                erpNodeDBContext.SaveChanges();
-
-                fiscalYear.UpdateBalance();
-                organization.SaveChanges();
+                UpdateAccountBalance(fiscalYear);
             }
         }
+
+        public void UpdateAccountBalance(FiscalYear fiscalYear)
+        {
+
+            Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateBalance");
+
+            // Step 1. Clear Account Balance
+            organization.SaveChanges();
+
+            // Step 2. Collecting Account Balance
+            var currentYearAccBalances = organization.ErpCOREDBContext
+                .TransactionLedgers
+                .Where(t => t.Transaction.Type != TransactionType.FiscalYearClosing && t.Transaction.FiscalYearId == fiscalYear.Id)
+                .GroupBy(t => t.AccountId)
+                .Select(t => new
+                {
+                    AccountId = t.Key,
+                    Account = t.First().Account,
+                    Debit = t.Sum(x => x.Debit),
+                    Credit = t.Sum(x => x.Credit)
+                })
+                .ToList();
+
+            // Step 3. Collecting Account Balance
+            currentYearAccBalances.ForEach(x =>
+            {
+                var accountBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
+                    .Where(b => b.AccountId == x.AccountId && b.FiscalYearId == fiscalYear.Id)
+                    .First();
+
+                accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
+                accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
+            });
+            organization.SaveChanges();
+
+
+            // Step 3. Collecting Opening Balance
+            var priorAccountBalances = erpNodeDBContext.TransactionLedgers
+            .Where(t => t.Transaction.Date < fiscalYear.StartDate.Date)
+              .GroupBy(t => t.AccountId)
+           .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
+           .ToList();
+
+            foreach (var priorAccountBalance in priorAccountBalances)
+            {
+                var accountBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
+                  .Where(b => b.AccountId == priorAccountBalance.AccountId && b.FiscalYearId == fiscalYear.Id)
+                  .First();
+
+                if (accountBalance != null)
+                {
+                    accountBalance.OpeningCredit = priorAccountBalance.Credit;
+                    accountBalance.OpeningDebit = priorAccountBalance.Debit;
+                }
+            }
+
+            erpNodeDBContext.SaveChanges();
+
+            fiscalYear.UpdateBalance();
+            organization.SaveChanges();
+        }
+
     }
 }

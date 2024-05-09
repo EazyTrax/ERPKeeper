@@ -57,11 +57,11 @@
             .HeaderCellTemplate(@<text>Count</text>)
             .Width(60)
         .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Purchases"><%= data.PurchasesCount %></a></text>)
-            .Format(Format.FixedPoint);
+            .Format("#,##0.00");
 
                 subColumns.AddFor(m => m.PurchasesTaxBalance)
             .HeaderCellTemplate(@<text>PurchasesTax</text>)
-            .Format(Format.FixedPoint);
+            .Format("#,##0.00");
 
                 columns.AddFor(m => m.PurchaseTaxAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
@@ -81,11 +81,11 @@
             .Width(60)
             .HeaderCellTemplate(@<text>Sales</text>)
         .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
-            .Format(Format.FixedPoint);
+            .Format("#,##0.00");
 
                 subColumns.AddFor(m => m.SalesTaxBalance)
             .HeaderCellTemplate(@<text>SalesTax</text>)
-            .Format(Format.FixedPoint);
+            .Format("#,##0.00");
 
                 columns.AddFor(m => m.SaleTaxAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
@@ -97,7 +97,7 @@
 
             columns.AddFor(m => m.ClosingAmount)
         .HeaderCellTemplate(@<text>ClosingAmount</text>)
-        .Format(Format.FixedPoint);
+        .Format("#,##0.00");
 
 
 

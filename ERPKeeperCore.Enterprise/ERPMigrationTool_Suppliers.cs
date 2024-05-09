@@ -150,6 +150,7 @@ namespace ERPKeeperCore.CMD
                         PartNumber = oldModel.ItemPartNumber,
                         Description = oldModel.ItemDescription,
                         Memo = oldModel.Memo,
+                        DiscountPercent = oldModel.DiscountPercent,
                     };
 
                     newOrganization.ErpCOREDBContext.PurchaseItems.Add(existItem);

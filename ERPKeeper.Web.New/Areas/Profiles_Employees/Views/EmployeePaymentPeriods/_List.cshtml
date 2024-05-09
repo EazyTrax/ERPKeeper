@@ -52,13 +52,13 @@
         .CellTemplate(@<text><a href="/@CompanyId/Accounts/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
 
 
-            columns.AddFor(m => m.PaymentCount).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Earning</text>);
+            columns.AddFor(m => m.PaymentCount).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
 
 
 
-            columns.AddFor(m=>m.TotalEarning).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Earning</text>);
+            columns.AddFor(m=>m.TotalEarning).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
   
-            columns.AddFor(m=>m.TotalDeduction).Format(Format.FixedPoint).HeaderCellTemplate(@<text>Deduction</text>);
+            columns.AddFor(m=>m.TotalDeduction).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
   
 
 

@@ -34,13 +34,13 @@
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
 
-                columns.AddFor(m => m.Debit).Width(130).Format(Format.FixedPoint);
-                columns.AddFor(m => m.Credit).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Debit).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Credit).Width(130).Format("#,##0.00");
             })
             .Summary(s =>  s.TotalItems(items =>
             {
-            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             })
             )
         )

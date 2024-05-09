@@ -66,7 +66,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             this.PostedDate = null;
         }
 
-        public void AddDebit(Account account, decimal debit = 0)
+        public TransactionLedger AddDebit(Account account, decimal debit = 0)
         {
             var ledger = new TransactionLedger()
             {
@@ -75,8 +75,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 Credit = 0,
             };
             this.Ledgers.Add(ledger);
+            return ledger;
         }
-        public void AddCredit(Account account, decimal credit = 0)
+        public TransactionLedger AddCredit(Account account, decimal credit = 0)
         {
             var ledger = new TransactionLedger()
             {
@@ -85,6 +86,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 Credit = credit,
             };
             this.Ledgers.Add(ledger);
+            return ledger;
         }
     }
 }

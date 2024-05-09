@@ -24,10 +24,8 @@ namespace ERPKeeperCore.Web.API.Accounting
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry();
             JsonConvert.PopulateObject(values, model);
-            
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
 
+          //  model.Status = JournalEntryStatus.Draft;
             Organization.ErpCOREDBContext.JournalEntries.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

@@ -24,42 +24,23 @@ namespace ERPKeeperCore.CMD
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
+                newOrganization.SaveChanges();
 
 
-                foreach (var oldItem in oldOrganization.ErpNodeDBContext.CommercialItems.Where(x => x.DiscountPercent > 0).Include(c => c.Commercial).ToList())
-                {
-                    Console.WriteLine($"{oldItem.TransactionType} {oldItem.Commercial.Name} {oldItem.DiscountPercent}");
-                }
-
-                //foreach (var oldItem in oldOrganization.ErpNodeDBContext.CommercialItems.Include(c => c.Commercial).ToList())
-                //{
-                //    if (oldItem.Commercial != null && oldItem.Commercial.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase)
-                //    {
-                //        Console.WriteLine($"{oldItem.Commercial.No} - {oldItem.Commercial.Name} - {oldItem.UnitPrice}");
-
-                //        var newPurchaseItem = newOrganization.ErpCOREDBContext.PurchaseItems.Find(oldItem.Uid);
-                //        if (newPurchaseItem != null)
-                //        {
-                //            newPurchaseItem.Price = oldItem.UnitPrice;
-                //            newPurchaseItem.Quantity = oldItem.Amount;
-                //        }
-
-                //    }
-                //}
-
-
-               // newOrganization.SaveChanges();
-
+                //newOrganization.ErpCOREDBContext.TransactionLedgers.Where(t => t.Debit == 0 && t.Credit == 0)
+                //    .ExecuteDelete();
+                //newOrganization.SaveChanges();
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                //migrationTool.Migrate();
+               // migrationTool.Migrate();
 
-                // newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-                //  PostLedgers(newOrganization);
+              //  newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
+             PostLedgers(newOrganization);
 
-                //  newOrganization.FiscalYears.UpdateAccountBalance();
+              newOrganization.FiscalYears.UpdateAccountBalance();
             }
         }
+
         private static void PostLedgers(EnterpriseRepo newOrganization)
         {
             //Capital Activities
@@ -69,7 +50,7 @@ namespace ERPKeeperCore.CMD
             newOrganization.Sales.PostToTransactions();
             newOrganization.ReceivePayments.PostToTransactions();
 
-            newOrganization.Purchases.PostToTransactions(true);
+            newOrganization.Purchases.PostToTransactions();
             newOrganization.SupplierPayments.PostToTransactions();
 
 

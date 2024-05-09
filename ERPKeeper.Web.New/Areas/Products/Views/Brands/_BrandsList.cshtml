@@ -44,8 +44,8 @@
         {
             columns.Add().DataField("Name").Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
             columns.AddFor(m => m.WebSite).Width(200).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
-            columns.Add().DataField("Description").Format(Format.FixedPoint);
-            columns.AddFor(m => m.ItemsCount).Format(Format.FixedPoint);
+            columns.Add().DataField("Description").Format("#,##0.00");
+            columns.AddFor(m => m.ItemsCount).Format("#,##0.00");
         })
         )
 </div>

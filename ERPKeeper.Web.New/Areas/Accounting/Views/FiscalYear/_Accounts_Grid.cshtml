@@ -45,13 +45,13 @@
             {
                 b.AddFor(m => m.OpeningDebit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.OpeningCredit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .HeaderCellTemplate(@<text>CR</text>);
             });
 
@@ -63,13 +63,13 @@
             {
                 b.AddFor(m => m.Debit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.Credit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .HeaderCellTemplate(@<text>CR</text>);
             });
 
@@ -79,13 +79,13 @@
             {
                 b.AddFor(m => m.ClosingDebit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.ClosingCredit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .HeaderCellTemplate(@<text>CR</text>);
             });
 
@@ -95,13 +95,13 @@
             {
                 b.AddFor(m => m.ClosedDebit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.ClosedCredit)
             .Width(90)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .HeaderCellTemplate(@<text>CR</text>);
             });
 
@@ -109,17 +109,17 @@
             })
         .Summary(s => s.TotalItems(items =>
         {
-            items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
 
-            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
 
-            items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
 
-            items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.ClosedCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            items.AddFor(m => m.ClosedCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
 
 
         })

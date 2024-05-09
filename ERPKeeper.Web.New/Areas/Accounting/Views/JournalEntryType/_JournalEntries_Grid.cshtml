@@ -31,8 +31,8 @@
 
                 columns.AddFor(m => m.Name).AllowEditing(false).Width(130).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
                 columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
-               columns.AddFor(m => m.Debit).AllowEditing(false).Width(130).Format(Format.FixedPoint);
-                columns.AddFor(m => m.Credit).AllowEditing(false).Width(130).Format(Format.FixedPoint);
+               columns.AddFor(m => m.Debit).AllowEditing(false).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Credit).AllowEditing(false).Width(130).Format("#,##0.00");
         })
         )
 </div>

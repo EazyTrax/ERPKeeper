@@ -38,7 +38,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
-        public IActionResult Journals()
+        public IActionResult JournalEntries()
         {
             var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
@@ -55,7 +55,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         public IActionResult UpdateBalance()
         {
             var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
-            OrganizationCore.FiscalYears.UpdateBalance(model);
+            OrganizationCore.FiscalYears.UpdateAccountBalance(model);
             OrganizationCore.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());

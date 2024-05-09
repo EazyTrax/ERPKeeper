@@ -66,8 +66,8 @@
             .ValueExpr("Value")
             );*@
                 @*
-    columns.Add().DataField("TotalBalance").HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-    columns.Add().DataField("TotalSale").HeaderCellTemplate(@<text>Sales</text>).Format(Format.FixedPoint);*@
+    columns.Add().DataField("TotalBalance").HeaderCellTemplate(@<text>Balance</text>).Format("#,##0.00");
+    columns.Add().DataField("TotalSale").HeaderCellTemplate(@<text>Sales</text>).Format("#,##0.00");*@
                 //columns.Add().DataField("Id");
             })
         .Summary(s => s.TotalItems(items =>

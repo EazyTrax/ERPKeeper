@@ -29,7 +29,12 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void UnPost(JournalEntry model)
         {
-            throw new NotImplementedException();
+            model.Transaction.ClearLedger();
+            model.Debit = 0;
+            model.Credit = 0;
+            model.IsPosted = false;
+
+            erpNodeDBContext.SaveChanges();
         }
 
 

@@ -89,10 +89,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.Transaction.ClearLedger();
 
             // Post Items
-            foreach (var item in this.Items)
+            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
             {
                 Console.WriteLine($"{item.Item.PurchaseAccount.Name} {item.LineTotal}");
-                this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal);
+                var ledgerItem = this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal);
+                ledgerItem.Memo = $"{item.Quantity} x {item.PartNumber}";
             }
 
             //Post Taxes

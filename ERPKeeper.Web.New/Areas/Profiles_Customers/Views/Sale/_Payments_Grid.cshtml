@@ -48,7 +48,7 @@
        
 
                 columns.AddFor(m => m.Reference).Width(180);
-                columns.AddFor(m => m.Amount).Width(130).Format(Format.FixedPoint);
+                columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
 
 
                 columns.AddFor(m => m.RetentionTypeId).Lookup(lookup =>

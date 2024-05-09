@@ -37,9 +37,9 @@
 
 
     columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
-    columns.AddFor(m=>m.Price).Width(130).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.Quantity).Width(130).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.LineTotal).Width(130).Format(Format.FixedPoint).FormItem(i=>i.Visible(false));
+    columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
+    columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");
+    columns.AddFor(m=>m.LineTotal).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));
     })
     .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
     )

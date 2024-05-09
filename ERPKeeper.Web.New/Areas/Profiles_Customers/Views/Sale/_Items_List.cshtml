@@ -4,46 +4,51 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
-    .ID("gridList")
-    .KeyExpr("Id")
-    .ShowRowLines(true)
-    .ShowBorders(false)
-    .Paging(paging => paging.PageSize(100))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-    .Width("100%")
-    .ColumnAutoWidth(false)
-    .DataSource(d =>
-    d.RemoteController()
-    .Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/All")
-    .InsertUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/Update")
-    .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/Delete")
-    .DeleteMethod("Post")
-    )
+            .ID("gridList")
+            .KeyExpr("Id")
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .Width("100%")
+            .ColumnAutoWidth(false)
+            .DataSource(d =>
+            d.RemoteController()
+            .Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/All")
+            .InsertUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/Update")
+            .UpdateMethod("Post")
+            .DeleteUrl($"/API/{CompanyId}/Profiles/Customers/Sales/{Model.Id}/Items/Delete")
+            .DeleteMethod("Post")
+            )
 
-    .KeyExpr("Id")
-    .WordWrapEnabled(true)
-    .Columns(columns => {
+            .KeyExpr("Id")
+            .WordWrapEnabled(true)
+            .ColumnChooser(c=>c.Enabled(true))
+            .Columns(columns =>
+            {
 
-    columns.AddFor(m=>m.ItemId).Width(150)
-    .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= displayValue %></a></text>)
-    .Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Id, t.PartNumber }).ToList())
-    .DisplayExpr("PartNumber")
-    .ValueExpr("Id")
-    );
-
-   
+                columns.AddFor(m => m.ItemId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= displayValue %></a></text>)
+        .Lookup(lookup => lookup
+        .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Id, t.PartNumber }).ToList())
+        .DisplayExpr("PartNumber")
+        .ValueExpr("Id")
+        );
 
 
-    columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
-    columns.AddFor(m=>m.Price).Width(130).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.Quantity).Width(130).Format(Format.FixedPoint);
-    columns.AddFor(m=>m.LineTotal).Width(130).Format(Format.FixedPoint).FormItem(i=>i.Visible(false));
-    columns.AddFor(m=>m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
-    })
-    .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
-    )
+
+
+                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+                columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.PriceAfterDiscount).Width(130).Format("#,##0.00");
+
+                columns.AddFor(m => m.Quantity).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.LineTotal).Width(130).Format("#,##0.00").FormItem(i => i.Visible(false));
+                columns.AddFor(m => m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+            })
+        .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
+        )
 </div>

@@ -63,13 +63,13 @@
         {
                 b.AddFor(m => m.CurrentDebit)
             .Width(120)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.CurrentCredit)
             .Width(120)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>CR</text>);
             });
@@ -82,13 +82,13 @@
         {
                 b.AddFor(m => m.TotalDebit)
             .Width(120)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.TotalCredit)
             .Width(120)
-            .Format(Format.FixedPoint)
+            .Format("#,##0.00")
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>CR</text>);
             });

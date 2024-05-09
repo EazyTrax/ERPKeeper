@@ -1,12 +1,15 @@
-﻿<div class="mb-2 border-top">
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+
+
+<div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry>()
         .ID("AssetsTreeList")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Accounting/JournalEntries/All")
-        .InsertUrl($"/api/{CompanyId}/Accounting/JournalEntries/Insert")
-        .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntries/Update")
+        .LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/JournalEntries/All")
+        .InsertUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/JournalEntries/Insert")
+        .UpdateUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/JournalEntries/Update")
         .UpdateMethod("Post"))
         .AllowColumnReordering(true)
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)

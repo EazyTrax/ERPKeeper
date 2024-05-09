@@ -81,10 +81,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.ClearLedger();
 
             // Post ITEMS
-            foreach (var item in this.Items)
+            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
             {
                 Console.WriteLine($"{item.Item.IncomeAccount.Name} {item.LineTotal}");
-                this.Transaction.AddCredit(item.Item.IncomeAccount, item.LineTotal);
+                var ledgerItem = this.Transaction.AddCredit(item.Item.IncomeAccount, item.LineTotal);
+                ledgerItem.Memo = $"{item.Quantity} x {item.PartNumber}";
             }
 
             //Post Taxs
