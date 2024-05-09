@@ -68,13 +68,6 @@
                 
            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
-
-
-
-
-
-
-
     })
     .Summary(s =>
         s.TotalItems(items =>

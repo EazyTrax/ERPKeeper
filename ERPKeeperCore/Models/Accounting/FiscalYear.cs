@@ -14,7 +14,13 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
     {
         [Key]
         public Guid Id { get; set; }
+
         public bool IsPosted { get; set; }
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Accounting.Transaction? Transaction { get; set; }
+
+
         public String Name => string.Format("{0}", EndDate.Year.ToString());
 
         public DateTime StartDate { get; set; }
@@ -40,6 +46,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual ICollection<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
         public int DayCount => (EndDate - StartDate).Days + 1;
 
+      
+
         public FiscalYear()
         {
 
@@ -60,6 +68,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public void PrepareFiscalBalance(List<Account> accounts, bool clearValue = false)
         {
+            Console.WriteLine($"> FISCAL: {this.Name} > Prepare Balance ");
+
             foreach (var account in accounts)
             {
                 var accBalance = FiscalYearAccountBalances
@@ -136,5 +146,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
             }
         }
+
+
     }
 }

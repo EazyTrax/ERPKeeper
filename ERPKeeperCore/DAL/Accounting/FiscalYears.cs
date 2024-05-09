@@ -95,33 +95,18 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
 
 
-        public void PrepareFiscalYearBalances()
-        {
-            Console.WriteLine("> Prepare Fiscal Year Balances");
-            var accounts = organization.ChartOfAccount.GetAccountsList();
 
-            foreach (var fiscalYear in this.GetAll())
-            {
-                Console.WriteLine($"> Prepare Fiscal Year Balance {fiscalYear.Name}");
-                fiscalYear.PrepareFiscalBalance(accounts, true);
-                organization.SaveChanges();
-            }
-
-        }
 
 
         public void UpdateTransactionsFiscalYears(bool reUpdate)
         {
-            Console.WriteLine("> Update TR with Fiscal Years");
 
             foreach (var fiscalYear in this.GetAll())
             {
-                Console.WriteLine($"> FiscalYear:{fiscalYear.Name}");
-
+                Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateTransaction");
                 organization.ErpCOREDBContext.Transactions
-                .Where(t => (reUpdate || t.FiscalYearId == null) && t.Date >= fiscalYear.StartDate.Date && t.Date < fiscalYear.EndDate.Date.AddDays(1))
-                .Update(t => new Transaction { FiscalYearId = fiscalYear.Id });
-
+                    .Where(t => (reUpdate || t.FiscalYearId == null) && t.Date >= fiscalYear.StartDate.Date && t.Date < fiscalYear.EndDate.Date.AddDays(1))
+                    .Update(t => new Transaction { FiscalYearId = fiscalYear.Id });
                 organization.SaveChanges();
             }
         }
@@ -132,24 +117,23 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
         public void UpdateAccountBalance()
         {
-            // organization.ErpCOREDBContext.FiscalYearAccountBalances.Delete();
-            organization.SaveChanges();
+            Console.WriteLine("> FISCALs > Update");
+            this.UpdateTransactionsFiscalYears(false);
 
-            Console.WriteLine("> Update Income Expense");
-            this.PrepareFiscalYearBalances();
-            this.UpdateTransactionsFiscalYears(true);
-
-            var fiscalYears = this.GetAll(); 
-            
-            foreach (var fiscalYear in fiscalYears)
+            foreach (var fiscalYear in this.GetAll())
             {
-                UpdateAccountBalance(fiscalYear);
+
+                var accounts = organization.ChartOfAccount.All();
+                fiscalYear.PrepareFiscalBalance(accounts, true);
+                this.UpdateAccountBalance(fiscalYear);
+
+                organization.SaveChanges();
             }
+
         }
 
         public void UpdateAccountBalance(FiscalYear fiscalYear)
         {
-
             Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateBalance");
 
             // Step 1. Clear Account Balance
@@ -183,22 +167,24 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
 
             // Step 3. Collecting Opening Balance
+            var firstDate = organization.FiscalYears.FirstPeriod.StartDate.Date;
+
             var priorAccountBalances = erpNodeDBContext.TransactionLedgers
-            .Where(t => t.Transaction.Date < fiscalYear.StartDate.Date)
+            .Where(t => t.Transaction.Date >= firstDate && t.Transaction.Date < fiscalYear.StartDate.Date)
               .GroupBy(t => t.AccountId)
            .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
            .ToList();
 
-            foreach (var priorAccountBalance in priorAccountBalances)
+            foreach (var priorAccBalance in priorAccountBalances)
             {
-                var accountBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
-                  .Where(b => b.AccountId == priorAccountBalance.AccountId && b.FiscalYearId == fiscalYear.Id)
+                var accBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
+                  .Where(b => b.AccountId == priorAccBalance.AccountId && b.FiscalYearId == fiscalYear.Id)
                   .First();
 
-                if (accountBalance != null)
+                if (accBalance != null)
                 {
-                    accountBalance.OpeningCredit = priorAccountBalance.Credit;
-                    accountBalance.OpeningDebit = priorAccountBalance.Debit;
+                    accBalance.OpeningDebit = Math.Max(priorAccBalance.Debit - priorAccBalance.Credit, 0);
+                    accBalance.OpeningCredit = Math.Max(priorAccBalance.Credit - priorAccBalance.Debit, 0);
                 }
             }
 
@@ -207,6 +193,5 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             fiscalYear.UpdateBalance();
             organization.SaveChanges();
         }
-
     }
 }

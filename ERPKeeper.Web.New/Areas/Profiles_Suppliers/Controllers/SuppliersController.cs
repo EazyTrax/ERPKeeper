@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.DBContext;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +19,8 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
 
         public ActionResult Refresh()
         {
-       
+
+            OrganizationCore.Suppliers.UpdateSuppliersPurchasesBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

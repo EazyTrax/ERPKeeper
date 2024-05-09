@@ -29,6 +29,15 @@ namespace ERPKeeperCore.Enterprise.DAL
         public int Count() => erpNodeDBContext.Suppliers.Count();
         public Supplier? Find(Guid Id) => erpNodeDBContext.Suppliers.Find(Id);
 
+        public void UpdateSuppliersPurchasesBalance()
+        {
 
+            erpNodeDBContext.Suppliers.ToList()
+                    .ForEach(x =>
+                    {
+                        x.UpdateBalance();
+                    });
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

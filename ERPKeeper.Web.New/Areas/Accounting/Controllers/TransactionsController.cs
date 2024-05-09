@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
@@ -14,6 +15,15 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Post()
+        {
+            OrganizationCore.FiscalYears.UpdateTransactionsFiscalYears(false);
+            OrganizationCore.Transactions.PostLedgers();
+            OrganizationCore.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

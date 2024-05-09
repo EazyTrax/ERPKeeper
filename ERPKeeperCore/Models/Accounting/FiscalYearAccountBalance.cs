@@ -15,6 +15,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         [ForeignKey("AccountId")]
         public virtual Account Account { get; set; }
 
+        public Decimal OpeningDebit { get; set; }
+        public Decimal OpeningCredit { get; set; }
 
         public Decimal Debit { get; set; }
         public Decimal Credit { get; set; }
@@ -38,8 +40,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             }
         }
 
-        public Decimal OpeningDebit { get; set; }
-        public Decimal OpeningCredit { get; set; }
         public Decimal ClosingDebit { get; set; }
         public Decimal ClosingCredit { get; set; }
         public Decimal ClosedDebit { get; set; }

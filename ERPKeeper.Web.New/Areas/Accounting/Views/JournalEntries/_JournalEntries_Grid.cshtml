@@ -23,13 +23,7 @@
         .Columns(columns =>
         {
                 columns.AddFor(m => m.Date).Width(130).Format(Format.ShortDate);
-
-                columns.AddFor(m => m.JournalEntryTypeId)
-                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-                    .HeaderCellTemplate(@<text>Type</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
-
-                columns.AddFor(m => m.Name)
+   columns.AddFor(m => m.Name)
                 .AllowEditing(false)
                 .Width(130)
                 .SortOrder(SortOrder.Desc)
@@ -39,6 +33,12 @@
                 .SortOrder(SortOrder.Desc)
                 .CellTemplate(@<text> <div><a href="/@CompanyId/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
                 
+                columns.AddFor(m => m.JournalEntryTypeId)
+                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .HeaderCellTemplate(@<text>Type</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
+
+             
                 columns.AddFor(m => m.Debit)
                 .AllowEditing(false)
                 .Width(130)

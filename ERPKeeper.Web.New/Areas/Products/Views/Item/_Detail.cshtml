@@ -111,7 +111,7 @@
                     items.AddSimpleFor(m=>m.PurchaseAccountId)
                     .Editor(e=>e.SelectBox()
                     .SearchEnabled(true)
-                    .DataSource(Organization.ChartOfAccount.GetAccountsList().OrderBy(m=>m.Name).Select(t => new {t.Type, t.Id, t.Name }).ToList())
+                    .DataSource(Organization.ChartOfAccount.All().OrderBy(m=>m.Name).Select(t => new {t.Type, t.Id, t.Name }).ToList())
                     .DataSourceOptions(o => o.Group("Type"))
                     .Grouped(true)
                     .GroupTemplate(@<text><div class="custom-icon"><span class="dx-icon-box icon"></span><%- key %></div></text>)

@@ -17,9 +17,6 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Prepares()
         {
-      
-            OrganizationCore.FiscalYears.PrepareFiscalYearBalances();
-
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

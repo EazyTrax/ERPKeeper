@@ -28,5 +28,51 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Transaction? Find(Guid Id) => erpNodeDBContext.Transactions.Find(Id);
 
+        public void PostLedgers()
+        {
+
+            //Capital Activities
+            //organization.CapitalActivities.PostLedger();
+
+            //Commercial Section
+            organization.Sales.PostToTransactions();
+            organization.ReceivePayments.PostToTransactions();
+
+            organization.Purchases.PostToTransactions();
+            organization.SupplierPayments.PostToTransactions();
+
+
+
+            //Financial Section
+            organization.FundTransfers.PostToTransactions();
+            organization.Loans.PostToTransactions();
+            organization.Lends.PostToTransactions();
+            organization.LiabilityPayments.PostToTransactions();
+
+            //Taxes Section
+            //organization.TaxPeriods.PostLedger();
+            organization.IncomeTaxes.PostToTransactions();
+
+            //Employee Section
+            organization.EmployeePayments.PostToTransactions();
+
+            //Other Section
+            organization.JournalEntries.PostToTransactions();
+
+            //Assets
+            organization.Assets.PostToTransactions();
+            organization.AssetDeprecateSchedules.PostToTransactions();
+
+            //organization.RetirementFixedAssets.UnPost();
+            //organization.RetirementFixedAssets.PostLedger();
+ 
+
+            //Other Section
+            organization.IncomeTaxes.PostToTransactions();
+            organization.TaxPeriods.PostToTransactions();
+
+ 
+
+        }
     }
 }

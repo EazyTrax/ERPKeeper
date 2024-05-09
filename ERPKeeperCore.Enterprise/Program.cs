@@ -14,7 +14,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] { "tec"/*, "bit"*/ };
+            string[] Enterprises = new string[] { "tec"/*, "bit" */};
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -32,58 +32,15 @@ namespace ERPKeeperCore.CMD
                 //newOrganization.SaveChanges();
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-               // migrationTool.Migrate();
+                // migrationTool.Migrate();
 
-              //  newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-             PostLedgers(newOrganization);
-
-              newOrganization.FiscalYears.UpdateAccountBalance();
+                //  newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
+                newOrganization.Transactions.PostLedgers();
+              //  newOrganization.FiscalYears.UpdateAccountBalance();
             }
         }
 
-        private static void PostLedgers(EnterpriseRepo newOrganization)
-        {
-            //Capital Activities
-            //organization.CapitalActivities.PostLedger();
 
-            //Commercial Section
-            newOrganization.Sales.PostToTransactions();
-            newOrganization.ReceivePayments.PostToTransactions();
-
-            newOrganization.Purchases.PostToTransactions();
-            newOrganization.SupplierPayments.PostToTransactions();
-
-
-
-            //Financial Section
-            newOrganization.FundTransfers.PostToTransactions();
-            newOrganization.Loans.PostToTransactions();
-            newOrganization.Lends.PostToTransactions();
-            newOrganization.LiabilityPayments.PostToTransactions();
-
-            //Taxes Section
-            //organization.TaxPeriods.PostLedger();
-            newOrganization.IncomeTaxes.PostToTransactions();
-
-            //Employee Section
-            newOrganization.EmployeePayments.PostToTransactions();
-
-            //Other Section
-            newOrganization.JournalEntries.PostToTransactions();
-
-            //Assets
-            newOrganization.Assets.PostToTransactions();
-            newOrganization.AssetDeprecateSchedules.PostToTransactions();
-
-            //organization.RetirementFixedAssets.UnPost();
-            //organization.RetirementFixedAssets.PostLedger();
-            //organization.FiscalYears.PostLedger();
-
-            //Other Section
-            newOrganization.IncomeTaxes.PostToTransactions();
-            newOrganization.TaxPeriods.PostToTransactions();
-
-        }
         private static void GeneralOperations(EnterpriseRepo newOrganization)
         {
 

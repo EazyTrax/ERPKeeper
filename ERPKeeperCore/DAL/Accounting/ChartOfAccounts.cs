@@ -123,7 +123,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 .Where(account => accountType == null || account.Type == accountType)
                 .OrderBy(i => i.No)
                 .ToList();
-        public List<Account> GetAccountsList() => erpNodeDBContext.Accounts
+        public List<Account> All() => erpNodeDBContext.Accounts
             .Where(i => i.IsFolder == false)
             .ToList();
         public List<Account> Folders => erpNodeDBContext.Accounts
@@ -183,8 +183,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public void UpdateBalance()
         {
+            var fistDate = organization.FiscalYears.FirstPeriod.StartDate;
 
             var accountBalances = erpNodeDBContext.TransactionLedgers
+                .Where(l=>l.Transaction.Date >= fistDate)
                 .GroupBy(t => t.AccountId)
                 .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
                 .ToList();

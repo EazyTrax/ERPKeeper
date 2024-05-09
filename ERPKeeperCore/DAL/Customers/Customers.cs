@@ -32,7 +32,15 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         public void UpdateSalesBalance()
         {
-            throw new NotImplementedException();
+
+                    erpNodeDBContext.Customers.ToList()
+                            .ForEach(x =>
+                            {
+                                x.UpdateBalance();
+                            });
+
+
+            erpNodeDBContext.SaveChanges();
         }
     }
 }

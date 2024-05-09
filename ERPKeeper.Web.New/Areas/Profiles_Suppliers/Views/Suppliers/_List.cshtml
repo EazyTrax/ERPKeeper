@@ -43,9 +43,20 @@
             .HeaderCellTemplate(@<text>Customer</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.TotalPurchases).Width(130).HeaderCellTemplate(@<text>Purchase</text>).Format("#,##0.00");
-                columns.AddFor(m => m.TotalBalance).Width(130).HeaderCellTemplate(@<text>Balance</text>).Format("#,##0.00");
+                columns.AddFor(m => m.TotalPurchases)
+            .Width(120).HeaderCellTemplate(@<text>Purchase</text>)
+            .Format(Format.FixedPoint);
 
+                columns.AddFor(m => m.TotalPurchasesCount)
+            .Width(60).HeaderCellTemplate(@<text>Purchase</text>)
+            ;
+
+                columns.AddFor(m => m.TotalBalance)
+            .Width(120)
+            .HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
+
+                columns.AddFor(m => m.TotalBalanceCount)
+            .Width(60).HeaderCellTemplate(@<text>Balance</text>);
             })
         )
 </div>

@@ -23,6 +23,7 @@
         .ColumnAutoWidth(false)
         .ColumnChooser(m=>m.Enabled(true))
         .Paging(pagging => pagging.Enabled(false))
+        .GroupPanel(g=>g.Visible(true))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         .Columns(columns =>
             {
@@ -113,7 +114,16 @@
 
 
 
+        }).GroupItems(items =>
+        {
+            items.AddFor(m => m.CurrentDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.CurrentCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
+
+            items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
+
         })
+       
     )
     )
 </div>

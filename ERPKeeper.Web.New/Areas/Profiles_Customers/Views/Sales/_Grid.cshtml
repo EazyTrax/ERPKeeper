@@ -70,14 +70,9 @@
             .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
+            .AllowEditing(false)
             .HeaderCellTemplate(@<text>TaxPeriod</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
-
-
-
-
-
-
 
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false)
