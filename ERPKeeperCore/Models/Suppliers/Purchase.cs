@@ -41,35 +41,48 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public DateTime Date { get; set; } = DateTime.Now;
 
 
+
         public Decimal LinesTotal { get; set; }
+        public Decimal Discount { get; set; }
+        public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;
+
         public Decimal Tax { get; set; }
-        public Decimal Total => LinesTotal + Tax;
+        public Decimal Total => LinesTotalAfterDiscount + Tax;
 
         public virtual ICollection<PurchaseItem> Items { get; set; }
             = new List<PurchaseItem>();
+
         public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }
             = new List<SupplierPayment>();
-
 
 
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
         public virtual TaxCode? TaxCode { get; set; }
 
+
         public Guid? TaxPeriodId { get; set; }
         [ForeignKey("TaxPeriodId")]
         public virtual TaxPeriod? TaxPeriod { get; set; }
+
 
         public Guid? PayableAccountId { get; set; }
         [ForeignKey("PayableAccountId")]
         public virtual Account PayableAccount { get; set; }
 
+
+        public Guid? IncomeAccount_DiscountTakenId { get; set; }
+        [ForeignKey("IncomeAccount_DiscountTakenId")]
+        public virtual Account? IncomeAccount_DiscountTaken { get; set; }
+
+
+
         public void UpdateBalance()
         {
-            this.LinesTotal = this.Items.Sum(i => i.LineTotal);
+            this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);
 
             if (this.TaxCode != null)
-                this.Tax = this.TaxCode.Rate * this.LinesTotal / 100;
+                this.Tax = this.TaxCode.Rate * this.LinesTotalAfterDiscount / 100;
             else
                 this.Tax = 0;
         }
@@ -91,13 +104,20 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
             //Dr. Post Items
             foreach (var item in this.Items.Where(i => i.LineTotal > 0))
-                this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal,$"{item.Quantity} x {item.PartNumber}");
+                this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal, $"{item.Quantity} x {item.PartNumber}");
             //Post Taxes
             if (this.TaxCode != null && this.TaxCode.InputTaxAccountId != null)
                 this.Transaction.AddDebit(this.TaxCode.InputTaxAccount, this.Tax);
+
+
             //Cr. Post Receivable
             if (this.PayableAccount != null)
                 this.Transaction.AddCredit(this.PayableAccount, this.Total);
+
+            if (this.Discount != 0 && this.IncomeAccount_DiscountTaken != null)
+                this.Transaction.AddCredit(this.IncomeAccount_DiscountTaken, this.Discount);
+
+
 
             this.Transaction.UpdateBalance();
             this.IsPosted = true;

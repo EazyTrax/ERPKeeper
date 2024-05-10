@@ -11,74 +11,74 @@
         .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
         .Paging(pagging => pagging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         @*  .AllowColumnResizing(true)*@
-
-        .Columns(columns =>
-        {
-            columns.AddFor(m => m.Name)
+        .ColumnChooser(c => c.Enabled(true))
+            .GroupPanel(g => g.Visible(true))
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.Name)
             .SortOrder(SortOrder.Asc)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.Id %>/"><%= data.Name %></a></text>);
-        
-            
-            columns.AddFor(m => m.StartDate).Format(Format.ShortDate);
-            columns.AddFor(m => m.EndDate).Format(Format.ShortDate);
-            columns.AddFor(m => m.DayCount);
-            columns.AddFor(m => m.Status).Width(130).Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.FiscalYearStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
 
 
-@*      columns.AddFor(m => m.AssetBalance).CssClass("bg-fb1").Width(130).Format("#,##0.00");
-            columns.AddFor(m => m.LiabilityBalance).CssClass("bg-fb1").Width(130).Format("#,##0.00");
-            columns.AddFor(m => m.EquityBalance).CssClass("bg-fb1").Width(130).Format("#,##0.00");
- *@
+                columns.AddFor(m => m.StartDate).Format(Format.ShortDate);
+                columns.AddFor(m => m.EndDate).Format(Format.ShortDate);
+                columns.AddFor(m => m.DayCount);
+                columns.AddFor(m => m.Status).Width(130).Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.FiscalYearStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
 
-            columns.AddFor(m => m.IncomeBalance)
-            .CssClass("bg-fb1")
-            .Width(130)
-            .HeaderCellTemplate("Income")
-            .Format("#,##0.00");
 
-            columns.AddFor(m => m.ExpenseBalance)
-            .CssClass("bg-fb1")
+                @*      columns.AddFor(m => m.AssetBalance).Width(130).Format("#,##0.00");
+    columns.AddFor(m => m.LiabilityBalance).Width(130).Format("#,##0.00");
+    columns.AddFor(m => m.EquityBalance).Width(130).Format("#,##0.00");
+    *@
+
+                columns.AddFor(m => m.IncomeBalance)
+
+        .Width(130)
+        .HeaderCellTemplate("Income")
+        .Format("#,##0.00");
+
+                columns.AddFor(m => m.ExpenseBalance)
+
             .Width(130)
             .HeaderCellTemplate("Expense")
             .Format("#,##0.00");
 
-            columns.AddFor(m => m.ProfitBalance)
-            .CssClass("bg-fb1")
+                columns.AddFor(m => m.ProfitBalance)
+
             .HeaderCellTemplate("Profit")
             .Width(130)
             .Format("#,##0.00");
 
-           
+                columns.AddFor(m => m.Debit)
+            .HeaderCellTemplate("Debit")
+            .Width(130)
+            .Format("#,##0.00");
 
-            columns.AddFor(m => m.IsPosted)
+                columns.AddFor(m => m.Credit)
+            .HeaderCellTemplate("Credit")
+            .Width(130)
+            .Format("#,##0.00");
+
+
+                columns.AddFor(m => m.IsPosted)
             .AllowEditing(false)
             .Width(30)
             .HeaderCellTemplate(@<text> </text>)
-            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
-        })
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            })
         .Summary(s => s.TotalItems(items =>
         {
             items.AddFor(m => m.IncomeBalance).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.ExpenseBalance).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.ProfitBalance).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
-
-
+            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
         }))
         )
 </div>
-
-
-
-
-
-
-
-
-
-

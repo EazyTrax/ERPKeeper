@@ -37,9 +37,13 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
+
         public Decimal LinesTotal { get; set; }
+        public Decimal Discount { get; set; }
+        public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;
+
         public Decimal Tax { get; set; }
-        public Decimal Total => LinesTotal + Tax;
+        public Decimal Total => LinesTotalAfterDiscount + Tax;
 
         public virtual ICollection<SaleItem> Items { get; set; }
             = new List<SaleItem>();
@@ -47,13 +51,13 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public virtual ICollection<ReceivePayment> ReceivePayments { get; set; }
             = new List<ReceivePayment>();
 
-
-
         public Guid? ReceivableAccountId { get; set; }
         [ForeignKey("ReceivableAccountId")]
         public virtual Account? ReceivableAccount { get; set; }
 
-
+        public Guid? Discount_Given_Expense_AccountId { get; set; }
+        [ForeignKey("DiscountAccountId")]
+        public virtual Accounting.Account? Discount_Given_Expense_Account { get; set; }
 
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
@@ -83,27 +87,23 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.Reference = this.Reference;
             this.Transaction.Name = this.Name;
 
-            // Post ITEMS
-            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
-            {
-                Console.WriteLine($"{item.Item.IncomeAccount.Name} {item.LineTotal}");
-                var ledgerItem = this.Transaction.AddCredit(item.Item.IncomeAccount, item.LineTotal);
-                ledgerItem.Memo = $"{item.Quantity} x {item.PartNumber}";
-            }
 
-            //Post Taxs
-            if (this.TaxCode != null && this.TaxCode.OutputTaxAccountId != null)
-            {
-                Console.WriteLine($"{this.TaxCode.OutputTaxAccount.Name} {this.Tax}");
-                this.Transaction.AddCredit(this.TaxCode.OutputTaxAccount, this.Tax);
-            }
 
-            //Post Receivable
+            //Dr. Post Receivable
             if (this.ReceivableAccount != null)
-            {
-                Console.WriteLine($"{this.ReceivableAccount.Name} {this.Total}");
                 this.Transaction.AddDebit(this.ReceivableAccount, this.Total);
-            }
+
+            if (this.Discount != 0 && this.Discount_Given_Expense_Account != null)
+                this.Transaction.AddDebit(this.Discount_Given_Expense_Account, this.Discount);
+
+            //Cr. Post ITEMS
+            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
+                this.Transaction.AddCredit(item.Item.IncomeAccount, item.LineTotal, $"{item.Quantity} x {item.PartNumber}");
+            //Cr. Post Taxs
+            if (this.TaxCode != null && this.TaxCode.OutputTaxAccountId != null)
+                this.Transaction.AddCredit(this.TaxCode.OutputTaxAccount, this.Tax);
+
+
 
 
             this.Transaction.UpdateBalance();
@@ -113,10 +113,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         }
         public void UpdateBalance()
         {
-            this.LinesTotal = this.Items.Sum(i => i.LineTotal);
+            this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);
 
             if (this.TaxCode != null)
-                this.Tax = this.TaxCode.Rate * this.LinesTotal / 100;
+                this.Tax = this.TaxCode.Rate * this.LinesTotalAfterDiscount / 100;
             else
                 this.Tax = 0;
         }

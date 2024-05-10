@@ -19,7 +19,7 @@
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .AllowColumnResizing(true)
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .FilterRow(m => m.Visible(true))
             .ColumnAutoWidth(false)
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
@@ -37,11 +37,15 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name).AllowEditing(false).AllowEditing(false).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+                columns.AddFor(m => m.Name)
+                .AllowEditing(false)
+                .AllowEditing(false)
+                .Width(130)
+                .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-                columns.AddFor(m => m.CustomerId).Lookup(lookup => lookup
+                columns.AddFor(m => m.CustomerId)
+                .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
@@ -49,11 +53,18 @@
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
-                columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("LinesTotal").AllowEditing(false).Width(130).Format("#,##0.00");
-                columns.Add().DataField("Total").AllowEditing(false).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Reference)
+            .Width(180);
 
+                columns.AddFor(m => m.LinesTotalAfterDiscount)
+            .AllowEditing(false)
+            .Width(130)
+            .Format("#,##0.00");
 
+                columns.AddFor(m => m.Total)
+            .AllowEditing(false)
+            .Width(130)
+            .Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId).Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
@@ -61,7 +72,7 @@
             .ValueExpr("Value"))
             .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -78,7 +89,7 @@
             .AllowEditing(false)
             .Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
 
             })
@@ -88,7 +99,7 @@
         s.TotalItems(items =>
         {
 
-            items.AddFor(m => m.LinesTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.LinesTotalAfterDiscount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
             items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
         }))
 

@@ -59,10 +59,10 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         public void UpdateBalance()
             {
-                this.TotalPurchases = this.Purchases.Sum(x => x.LinesTotal);
+                this.TotalPurchases = this.Purchases.Sum(x => x.LinesTotalAfterDiscount);
                 this.TotalPurchasesCount = this.Purchases.Count();
 
-                this.TotalBalance = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Sum(x => x.LinesTotal);
+                this.TotalBalance = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
                 this.TotalBalanceCount = this.Purchases.Where(x => x.Status ==  PurchaseStatus.Invoice).Count();
 
             }

@@ -76,7 +76,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public void UpdateBalance()
         {
             SalesTaxBalance = Sales.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
-            SalesBalance = Sales.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
+            SalesBalance = Sales.Select(t => t.LinesTotalAfterDiscount).DefaultIfEmpty(0).Sum();
             SalesCount = Sales.Count;
 
             if (this.SaleTaxAccount == null)
@@ -84,7 +84,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
 
             PurchasesTaxBalance = Purchases.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
-            PuchasesBalance = Purchases.Select(t => t.LinesTotal).DefaultIfEmpty(0).Sum();
+            PuchasesBalance = Purchases.Select(t => t.LinesTotalAfterDiscount).DefaultIfEmpty(0).Sum();
             PurchasesCount = Purchases.Count;
 
             if (this.PurchaseTaxAccount == null)

@@ -46,7 +46,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual ICollection<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
         public int DayCount => (EndDate - StartDate).Days + 1;
 
-
+        public decimal Debit { get; private set; }
+        public decimal Credit { get; private set; }
 
         public FiscalYear()
         {
@@ -141,7 +142,12 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 accBalance.ClosedDebit = Math.Max(ClosedDebit - ClosedCredit, 0);
                 accBalance.ClosedCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
 
+
+
             }
+
+            this.Debit = FiscalYearAccountBalances.Sum(a => a.Debit);
+            this.Credit = FiscalYearAccountBalances.Sum(a => a.Debit);
         }
 
         public void PostToTransaction()

@@ -87,20 +87,15 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             this.SaveChanges();
         }
 
-
         public void Close(FiscalYear fy)
         {
             fy.Status = FiscalYearStatus.Close;
             this.erpNodeDBContext.SaveChanges();
         }
 
-
-
-
-
         public void UpdateTransactionsFiscalYears(bool reUpdate)
         {
-            Console.WriteLine($">Trasnsactions >UpdateFiscalYear");
+            Console.WriteLine($"> Trasnsactions > UpdateFiscalYear");
 
             foreach (var fiscalYear in this.GetAll())
             {
@@ -114,11 +109,13 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 organization.SaveChanges();
             }
         }
+
         public void UpdateBalance()
         {
 
 
         }
+
         public void UpdateAccountBalance()
         {
             Console.WriteLine("> FISCALs > Update");
@@ -133,7 +130,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 this.UpdateAccountBalance(fiscalYear);
                 organization.SaveChanges();
             }
-
         }
 
         public void UpdateAccountBalance(FiscalYear fiscalYear)

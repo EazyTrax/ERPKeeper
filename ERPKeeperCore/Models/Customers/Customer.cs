@@ -46,10 +46,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         }
         public void UpdateBalance()
         {
-            this.TotalSales = this.Sales.Sum(x => x.LinesTotal);
+            this.TotalSales = this.Sales.Sum(x => x.LinesTotalAfterDiscount);
             this.TotalSalesCount = this.Sales.Count();
 
-            this.TotalBalance = this.Sales.Where(x=>x.Status == SaleStatus.Invoice).Sum(x => x.LinesTotal);
+            this.TotalBalance = this.Sales.Where(x=>x.Status == SaleStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
             this.TotalBalanceCount = this.Sales.Where(x => x.Status == SaleStatus.Invoice).Count();
           
         }

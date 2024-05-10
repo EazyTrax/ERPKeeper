@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240510030438_DB-1.106")]
+    partial class DB1106
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -785,15 +788,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<Guid?>("DiscountAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("Discount_Given_Expense_AccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
 
@@ -833,8 +827,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("DiscountAccountId");
 
                     b.HasIndex("ReceivableAccountId");
 
@@ -1940,12 +1932,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<Guid?>("IncomeAccount_DiscountTakenId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
 
@@ -1989,8 +1975,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IncomeAccount_DiscountTakenId");
 
                     b.HasIndex("PayableAccountId");
 
@@ -2718,10 +2702,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany("Sales")
                         .HasForeignKey("CustomerId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Discount_Given_Expense_Account")
-                        .WithMany()
-                        .HasForeignKey("DiscountAccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ReceivableAccount")
                         .WithMany()
                         .HasForeignKey("ReceivableAccountId");
@@ -2739,8 +2719,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Customers.Sale", "TransactionId");
 
                     b.Navigation("Customer");
-
-                    b.Navigation("Discount_Given_Expense_Account");
 
                     b.Navigation("ReceivableAccount");
 
@@ -3110,10 +3088,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "IncomeAccount_DiscountTaken")
-                        .WithMany()
-                        .HasForeignKey("IncomeAccount_DiscountTakenId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayableAccount")
                         .WithMany()
                         .HasForeignKey("PayableAccountId");
@@ -3133,8 +3107,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("Purchase")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "TransactionId");
-
-                    b.Navigation("IncomeAccount_DiscountTaken");
 
                     b.Navigation("PayableAccount");
 

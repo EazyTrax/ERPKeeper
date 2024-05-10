@@ -62,6 +62,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public void ClearLedger()
         {
             this.Ledgers.Clear();
+            Debit = 0;
+            Credit = 0;
             this.PostedDate = null;
         }
 

@@ -10,6 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 
 namespace ERPKeeperCore.Enterprise.DAL.Customers
 {
@@ -74,11 +75,15 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                     sale.ReceivableAccountId = sale.ReceivableAccount.Id;
                 }
 
-                sale.PostToTransaction();
+                if (sale.Discount_Given_Expense_Account == null && sale.Discount > 0)
+                {
+                    sale.Discount_Given_Expense_Account = organization.SystemAccounts.GetAccount(DefaultAccountType.DiscountGiven);
+                    sale.Discount_Given_Expense_AccountId = sale.Discount_Given_Expense_Account.Id;
+                }
 
+                sale.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
-
         }
     }
 }

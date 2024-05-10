@@ -4,23 +4,24 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
-    .ID("gridList")
-    .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Profiles/Suppliers/Purchases/All")
-    )
-        .RowAlternationEnabled(true)
-    .KeyExpr("Id")
-    
-        
-    .ShowRowLines(false)
-    .ShowBorders(false)
-    .Paging(paging => paging.PageSize(100))
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Profiles/Suppliers/Purchases/All")
+            )
+            .RowAlternationEnabled(true)
+            .KeyExpr("Id")
 
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
 
-    .ColumnAutoWidth(false)
-    .ColumnChooser(columnChooser => columnChooser.Enabled(true))
-    .Columns(columns => {
+            .ShowRowLines(false)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+
+            .ColumnAutoWidth(false)
+            .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+            .Columns(columns =>
+            {
 
 
                 columns.AddFor(m => m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
@@ -43,18 +44,18 @@
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
-                columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("LinesTotal").Width(130).Format("#,##0.00");
-                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Reference).Width(180);
+                columns.AddFor(m => m.LinesTotalAfterDiscount).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Total).Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
-                .Lookup(lookup => lookup
+            .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
@@ -62,19 +63,19 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TaxPeriod</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
 
-                
-                
-           columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
-    })
-    .Summary(s =>
+
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+            })
+        .Summary(s =>
         s.TotalItems(items =>
         {
-            items.AddFor(m => m.LinesTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.LinesTotalAfterDiscount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
             items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
         }))
-    )
+        )
 </div>
 

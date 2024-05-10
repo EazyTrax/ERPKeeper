@@ -45,6 +45,11 @@ namespace ERPKeeperCore.Enterprise.DAL
                     purchase.PayableAccount = organization.SystemAccounts.AccountPayable;
                     purchase.PayableAccountId = purchase.PayableAccount.Id;
                 }
+                if (purchase.IncomeAccount_DiscountTaken == null && purchase.Discount > 0)
+                {
+                    purchase.IncomeAccount_DiscountTaken = organization.SystemAccounts.GetAccount( Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
+                    purchase.IncomeAccount_DiscountTakenId = purchase.IncomeAccount_DiscountTaken.Id;
+                }
 
                 purchase.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
