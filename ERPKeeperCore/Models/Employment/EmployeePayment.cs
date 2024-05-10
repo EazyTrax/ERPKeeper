@@ -76,18 +76,18 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         public void PostToTransaction()
         {
-            Console.WriteLine($">Post  EmployeePayment:{this.Name}");
+            Console.WriteLine($">Post >EmployeePayment:{this.Name}");
 
-            this.UpdateBalance();
-
-            if (this.Transaction == null)
-                return;
-
+            if (this.Transaction == null) return;
             this.Transaction.ClearLedger();
             this.IsPosted = false;
-
+            this.Transaction.Date = this.EmployeePaymentPeriod.Date;
+            this.Transaction.Reference = this.Name;
+            this.Transaction.PostedDate = DateTime.Now;
 
             //Prepare Data
+
+            this.UpdateBalance();
             var earningItems = this.PaymentItems
                 .Where(i => i.EmployeePaymentType.PayDirection == PayDirection.Eanring)
                 .ToList();
@@ -98,23 +98,15 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             //Dr.
             foreach (var paymentItem in earningItems)
                 this.Transaction.AddDebit(paymentItem.EmployeePaymentType.ExpenseAccount, paymentItem.Amount);
-
             //Cr.
             this.Transaction.AddCredit(this.EmployeePaymentPeriod.PayFromAccount, this.TotalEarning - this.TotalDeduction);
 
             foreach (var paymentItem in dedectionItems)
                 this.Transaction.AddCredit(paymentItem.EmployeePaymentType.ExpenseAccount, paymentItem.Amount);
 
-
-            this.Transaction.Date = this.EmployeePaymentPeriod.Date;
-            this.Transaction.Reference = this.Name;
             this.Transaction.UpdateBalance();
-            this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
         }
-
-
     }
-
 }
 

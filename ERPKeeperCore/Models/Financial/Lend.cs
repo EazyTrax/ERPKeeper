@@ -76,8 +76,6 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
                     Lend = this,
                 };
             }
-            this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
         }
 
         public void PostToTransaction()
@@ -91,14 +89,16 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
 
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+
             // Dr.
             this.Transaction.AddDebit(this.Lending_AssetAccount, this.AmountLend);
 
             // Cr.
             this.Transaction.AddCredit(this.PayFrom_AssetAccount, this.AmountLend);
 
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
+
             this.Transaction.PostedDate = DateTime.Now;
             this.Transaction.UpdateBalance();
             this.IsPosted = true;

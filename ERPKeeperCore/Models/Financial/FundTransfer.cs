@@ -57,32 +57,28 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void PostToTransaction()
         {
-
-
             Console.WriteLine($">Post  FT:{this.Name}");
 
+            if (this.Transaction == null) return;
+            this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
+
+
+            //Step 2. Prepare Data
             this.UpdateBalance();
 
-
-
-            if (this.Transaction == null)
-                return;
-
-
-            this.Transaction.ClearLedger();
+            //Step 3. Post Data
             // Dr.
             foreach (var item in this.FundTransferDepositLines)
-            {
                 this.Transaction.AddDebit(item.Account, item.Debit);
-            }
             // Cr.
             this.Transaction.AddCredit(this.WithDrawAccount, this.WithDrawAmount);
 
 
-
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            // Step 4 Finalize
+            this.Transaction.UpdateBalance();
             this.IsPosted = true;
 
         }

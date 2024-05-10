@@ -24,9 +24,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
         public Guid? FiscalYearId { get; set; }
-        [ForeignKey("FiscalYearId")]
-        public virtual FiscalYear? FiscalYear { get; set; }
-
         public String? Name { get; set; }
         public String? Reference { get; set; }
         public DateTime? PostedDate { get; set; }
@@ -34,7 +31,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Decimal Credit { get; set; }
         public Decimal Debit { get; set; }
-
         public Decimal Diff => Debit - Credit;
 
         public virtual ICollection<TransactionLedger> Ledgers { get; set; } = new List<TransactionLedger>();
@@ -51,39 +47,46 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Financial.LoanReturn? LoanReturn { get; set; }
         public virtual Taxes.IncomeTax? IncomeTax { get; set; }
         public virtual Employees.EmployeePayment? EmployeePayment { get; set; }
-        public virtual Assets.Asset? Asset { get;  set; }
-        public virtual Assets.AssetDeprecateSchedule? AssetDeprecateSchedule { get;  set; }
-        public virtual Taxes.TaxPeriod? TaxPeriod { get;  set; }
+        public virtual Assets.Asset? Asset { get; set; }
+        public virtual Assets.AssetDeprecateSchedule? AssetDeprecateSchedule { get; set; }
+        public virtual Taxes.TaxPeriod? TaxPeriod { get; set; }
+        public virtual Accounting.FiscalYear? FiscalYearClosing { get; set; }
+
 
         public void UpdateBalance()
         {
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
         }
+
         public void ClearLedger()
         {
             this.Ledgers.Clear();
             this.PostedDate = null;
         }
 
-        public TransactionLedger AddDebit(Account account, decimal debit = 0)
+        public TransactionLedger AddDebit(Account account, decimal debit = 0, String? memo = null)
         {
             var ledger = new TransactionLedger()
             {
                 AccountId = account.Id,
                 Debit = debit,
                 Credit = 0,
+                Date = this.Date,
+                Memo = memo,
             };
             this.Ledgers.Add(ledger);
             return ledger;
         }
-        public TransactionLedger AddCredit(Account account, decimal credit = 0)
+        public TransactionLedger AddCredit(Account account, decimal credit = 0, String? memo = null)
         {
             var ledger = new TransactionLedger()
             {
                 AccountId = account.Id,
                 Debit = 0,
                 Credit = credit,
+                Date = this.Date,
+                Memo = memo,
             };
             this.Ledgers.Add(ledger);
             return ledger;

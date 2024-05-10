@@ -74,9 +74,6 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 this.Tax = 0;
         }
 
-
-
-
         public void PostToTransaction()
         {
             Console.WriteLine($">Post  PUR:{this.Name}");
@@ -87,34 +84,22 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 return;
 
             this.Transaction.ClearLedger();
-
-            // Post Items
-            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
-            {
-                Console.WriteLine($"{item.Item.PurchaseAccount.Name} {item.LineTotal}");
-                var ledgerItem = this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal);
-                ledgerItem.Memo = $"{item.Quantity} x {item.PartNumber}";
-            }
-
-            //Post Taxes
-            if (this.TaxCode != null && this.TaxCode.InputTaxAccountId != null)
-            {
-                Console.WriteLine($"{this.TaxCode.InputTaxAccount.Name} {this.Tax}");
-                this.Transaction.AddDebit(this.TaxCode.InputTaxAccount, this.Tax);
-            }
-
-            //Post Receivable
-            if (this.PayableAccount != null)
-            {
-                Console.WriteLine($"{this.PayableAccount.Name} {this.Total}");
-                this.Transaction.AddCredit(this.PayableAccount, this.Total);
-            }
-
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
             this.Transaction.Name = this.Name;
-            this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
+
+            //Dr. Post Items
+            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
+                this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal,$"{item.Quantity} x {item.PartNumber}");
+            //Post Taxes
+            if (this.TaxCode != null && this.TaxCode.InputTaxAccountId != null)
+                this.Transaction.AddDebit(this.TaxCode.InputTaxAccount, this.Tax);
+            //Cr. Post Receivable
+            if (this.PayableAccount != null)
+                this.Transaction.AddCredit(this.PayableAccount, this.Total);
+
+            this.Transaction.UpdateBalance();
             this.IsPosted = true;
 
         }

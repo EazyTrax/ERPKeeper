@@ -52,24 +52,23 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
         public void PostToTransaction()
         {
-            Console.WriteLine($">Post  AssetDeprecateSchedule:{this.Name}");
+            Console.WriteLine($">Post >AssetDeprecateSchedule:{this.Name}");
 
-            if (this.Transaction == null)
-                return;
+            if (this.Transaction == null) return;
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.StartDate;
+            this.Transaction.Name = this.Name;
+            this.Transaction.PostedDate = DateTime.Now;
+
 
             // Dr.
             this.Transaction.AddDebit(this.Asset.AssetType.AmortizeExpenseAccount, this.DepreciationValue);
-
             // Cr.
             this.Transaction.AddCredit(this.Asset.AssetType.AccumulateDeprecateAcc, this.DepreciationValue);
 
-            this.Transaction.Date = this.StartDate;
-           // this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+
             this.IsPosted = true;
             this.Transaction.UpdateBalance();
-
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] { "tec"/*, "bit" */};
+            string[] Enterprises = new string[] { "tec", "bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -36,7 +36,7 @@ namespace ERPKeeperCore.CMD
 
                 //  newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
                 newOrganization.Transactions.PostLedgers();
-              //  newOrganization.FiscalYears.UpdateAccountBalance();
+                newOrganization.FiscalYears.UpdateAccountBalance();
             }
         }
 
@@ -54,48 +54,6 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 });
         }
-        private static void CreateTransactionForSales(EnterpriseRepo newOrganization)
-        {
-            var sales = newOrganization.ErpCOREDBContext.Sales
-                .Where(x => x.TransactionId == null)
-                .OrderBy(x => x.Date)
-                .ToList();
-            sales.ForEach(sale =>
-            {
-                Console.WriteLine($"SALE: {sale.No}-{sale.Name}");
-                var transaction = new ERPKeeperCore.Enterprise.Models.Accounting.Transaction()
-                {
-                    Date = sale.Date,
-                    Type = TransactionType.Sale,
-                };
 
-                newOrganization.ErpCOREDBContext.Transactions.Add(transaction);
-                sale.TransactionId = transaction.Id;
-                newOrganization.ErpCOREDBContext.SaveChanges();
-
-            });
-        }
-        private static void CreateTransactionForPurchases(EnterpriseRepo newOrganization)
-        {
-            var purchases = newOrganization.ErpCOREDBContext.Purchases
-                .Where(x => x.TransactionId == null)
-                .OrderBy(x => x.Date)
-                .ToList();
-
-            purchases.ForEach(purchase =>
-            {
-                Console.WriteLine($"PUR: {purchase.No}-{purchase.Name}");
-                var transaction = new ERPKeeperCore.Enterprise.Models.Accounting.Transaction()
-                {
-                    Date = purchase.Date,
-                    Type = TransactionType.Purchase,
-                };
-
-                newOrganization.ErpCOREDBContext.Transactions.Add(transaction);
-                purchase.TransactionId = transaction.Id;
-                newOrganization.ErpCOREDBContext.SaveChanges();
-
-            });
-        }
     }
 }

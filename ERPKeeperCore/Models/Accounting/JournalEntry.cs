@@ -83,7 +83,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 return;
 
             this.Transaction.ClearLedger();
-
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Name;
 
             foreach (var item in this.JournalEntryItems)
             {
@@ -97,8 +98,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
 
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Name;
+
             this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;

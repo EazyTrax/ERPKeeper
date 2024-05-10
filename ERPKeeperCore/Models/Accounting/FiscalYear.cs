@@ -46,7 +46,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual ICollection<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
         public int DayCount => (EndDate - StartDate).Days + 1;
 
-      
+
 
         public FiscalYear()
         {
@@ -92,9 +92,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 }
             }
         }
-
-
-
         public void UpdateBalance()
         {
             var balanceSummary = FiscalYearAccountBalances?
@@ -140,13 +137,41 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
                 var ClosedDebit = accBalance.OpeningDebit + accBalance.Debit + accBalance.ClosingDebit;
                 var ClosedCredit = accBalance.OpeningCredit + accBalance.Credit + accBalance.ClosingCredit;
-               
+
                 accBalance.ClosedDebit = Math.Max(ClosedDebit - ClosedCredit, 0);
                 accBalance.ClosedCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
 
             }
         }
 
+        public void PostToTransaction()
+        {
+            Console.WriteLine($">Post >FiscalYear:{this.Name}");
+
+            if (this.Transaction == null)
+                return;
+
+            this.Transaction.ClearLedger();
+            this.Transaction.Date = this.EndDate;
+            this.Transaction.Reference = this.Name;
+
+            // Dr.
+            this.FiscalYearAccountBalances
+                .Where(a => a.ClosingDebit > 0)
+                .ToList()
+                .ForEach(a => this.Transaction.AddDebit(a.Account, a.ClosingDebit));
+
+            // Cr.
+            this.FiscalYearAccountBalances
+                .Where(a => a.ClosingCredit > 0)
+                .ToList()
+                .ForEach(a => this.Transaction.AddCredit(a.Account, a.ClosingCredit));
+
+
+            this.Transaction.UpdateBalance();
+            this.Transaction.PostedDate = DateTime.Now;
+            this.IsPosted = true;
+        }
 
     }
 }

@@ -100,13 +100,17 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public void UpdateTransactionsFiscalYears(bool reUpdate)
         {
+            Console.WriteLine($">Trasnsactions >UpdateFiscalYear");
 
             foreach (var fiscalYear in this.GetAll())
             {
-                Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateTransaction");
+                DateTime startDate = fiscalYear.StartDate.Date;
+                DateTime endDate = fiscalYear.EndDate.Date.AddDays(1);
+
                 organization.ErpCOREDBContext.Transactions
-                    .Where(t => (reUpdate || t.FiscalYearId == null) && t.Date >= fiscalYear.StartDate.Date && t.Date < fiscalYear.EndDate.Date.AddDays(1))
+                    .Where(t => (reUpdate || t.FiscalYearId == null) && t.Date >= startDate && t.Date < endDate)
                     .Update(t => new Transaction { FiscalYearId = fiscalYear.Id });
+
                 organization.SaveChanges();
             }
         }
@@ -125,8 +129,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
                 var accounts = organization.ChartOfAccount.All();
                 fiscalYear.PrepareFiscalBalance(accounts, true);
-                this.UpdateAccountBalance(fiscalYear);
 
+                this.UpdateAccountBalance(fiscalYear);
                 organization.SaveChanges();
             }
 
@@ -136,13 +140,20 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         {
             Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateBalance");
 
+            this.UpdateTransactionsFiscalYears(false);
+
+            DateTime startDate = fiscalYear.StartDate.Date;
+            DateTime endDate = fiscalYear.EndDate.Date.AddDays(1);
+
             // Step 1. Clear Account Balance
             organization.SaveChanges();
 
             // Step 2. Collecting Account Balance
             var currentYearAccBalances = organization.ErpCOREDBContext
                 .TransactionLedgers
-                .Where(t => t.Transaction.Type != TransactionType.FiscalYearClosing && t.Transaction.FiscalYearId == fiscalYear.Id)
+                .Where(t =>
+                    t.Transaction.Type != TransactionType.FiscalYearClosing
+                    && t.Transaction.FiscalYearId == fiscalYear.Id)
                 .GroupBy(t => t.AccountId)
                 .Select(t => new
                 {
@@ -192,6 +203,62 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             fiscalYear.UpdateBalance();
             organization.SaveChanges();
+        }
+
+        public void PostToTransactions(bool rePost = false)
+        {
+            this.CreateTransactions();
+
+            var fys = erpNodeDBContext.FiscalYears
+                .Where(s => s.TransactionId != null)
+                .Where(s => s.Status == FiscalYearStatus.Close)
+                .Where(s => !s.IsPosted || rePost)
+                .ToList();
+
+            fys.OrderBy(x => x.EndDate)
+                .ToList()
+                .ForEach(fy =>
+                {
+                    fy.PostToTransaction();
+                    erpNodeDBContext.SaveChanges();
+                });
+        }
+
+        public void CreateTransactions()
+        {
+            var FiscalYears = erpNodeDBContext
+                .FiscalYears
+                .Where(s => s.TransactionId == null)
+                .ToList();
+
+            FiscalYears.ForEach(FiscalYear =>
+            {
+                var transaction = erpNodeDBContext.Transactions.Find(FiscalYear.Id);
+
+                if (transaction == null)
+                {
+                    Console.WriteLine($">Create >FiscalYear:{FiscalYear.Name}");
+
+                    transaction = new Transaction()
+                    {
+                        Id = FiscalYear.Id,
+                        Date = FiscalYear.EndDate,
+                        Reference = FiscalYear.Name,
+                        Type = Models.Accounting.Enums.TransactionType.FiscalYearClosing,
+                        FiscalYearClosing = FiscalYear,
+                    };
+
+                    erpNodeDBContext.Transactions.Add(transaction);
+                    erpNodeDBContext.SaveChanges();
+
+                }
+                else
+                {
+                    Console.WriteLine($">Exist >FiscalYears");
+                    FiscalYear.TransactionId = transaction.Id;
+                    erpNodeDBContext.SaveChanges();
+                }
+            });
         }
     }
 }

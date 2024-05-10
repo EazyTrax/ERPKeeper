@@ -25,6 +25,7 @@
         .Paging(pagging => pagging.Enabled(false))
         .GroupPanel(g=>g.Visible(true))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        
         .Columns(columns =>
             {
             columns.AddFor(m => m.No).Width(90).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);

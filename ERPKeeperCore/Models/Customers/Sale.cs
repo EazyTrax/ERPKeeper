@@ -79,6 +79,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 return;
 
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.Name = this.Name;
 
             // Post ITEMS
             foreach (var item in this.Items.Where(i => i.LineTotal > 0))
@@ -102,9 +105,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 this.Transaction.AddDebit(this.ReceivableAccount, this.Total);
             }
 
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.Name = this.Name;
+
             this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;

@@ -66,7 +66,9 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
 
             this.Transaction.ClearLedger();
-
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
 
             // Dr.
             this.Transaction.AddDebit(this.LiabilityAccount, this.Amount);
@@ -78,13 +80,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
                 this.Transaction.AddCredit(item.Account, item.Amount);
             }
 
-
-
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.UpdateBalance();
             this.IsPosted = true;
-
         }
     }
 }

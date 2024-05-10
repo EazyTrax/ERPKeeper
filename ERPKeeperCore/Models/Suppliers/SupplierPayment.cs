@@ -87,8 +87,6 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                     SupplierPayment = this,
                 };
             }
-            this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
         }
 
 
@@ -99,6 +97,9 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             if (this.Transaction == null)
                 return;
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
 
             // Dr. 
             this.Transaction.AddDebit(this.LiablityAccount_SupplierPayable, this.Amount);
@@ -120,9 +121,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             }
 
 
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+
             this.Transaction.UpdateBalance();
             this.IsPosted = true;
         }

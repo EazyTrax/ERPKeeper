@@ -100,6 +100,9 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
                 return;
 
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.EndDate;
+            this.Transaction.Name = this.Name;  
+            this.Transaction.PostedDate = DateTime.Now;
 
             // Dr.
             if (this.PurchasesTaxBalance > 0)
@@ -122,11 +125,9 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
                 return;
             }
 
+
+
             this.Transaction.UpdateBalance();
-            this.Transaction.Date = this.EndDate;
-            this.Transaction.Name = this.Name;
-            this.Transaction.UpdateBalance();
-            this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
         }
     }

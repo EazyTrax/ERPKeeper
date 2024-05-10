@@ -157,11 +157,14 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
         internal void PostToTransaction()
         {
-            Console.WriteLine($">Post  Assets:{this.Name}");
+            Console.WriteLine($">Post >Assets:{this.Name}");
 
-            if (this.Transaction == null)
-                return;
+            if (this.Transaction == null) return;
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.PurchaseDate;
+            this.Transaction.Name = this.Name;
+            this.Transaction.Reference = this.Reference;
+            this.Transaction.PostedDate = DateTime.Now;
 
             // Dr.
             this.Transaction.AddDebit(this.AssetType.AwaitDeprecateAccount, this.AssetValue);
@@ -169,10 +172,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             // Cr.
             this.Transaction.AddCredit(this.AssetType.Purchase_Asset_Account, this.AssetValue);
 
-            this.Transaction.Date = this.PurchaseDate;
-            this.Transaction.Name = this.Name;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+
             this.IsPosted = true;
             this.Transaction.UpdateBalance();
         }

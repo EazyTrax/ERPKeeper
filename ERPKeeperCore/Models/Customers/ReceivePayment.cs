@@ -76,24 +76,25 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 return;
 
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
 
             // Dr.
             this.Transaction.AddDebit(this.PayToAccount, this.AmountTotalReceive);
 
             if (this.AmountDiscount > 0)
                 this.Transaction.AddDebit(this.Discount_Given_Expense_Account, this.AmountDiscount);
-            
+
             if (this.RetentionTypeId != null)
                 this.Transaction.AddDebit(this.RetentionType.RetentionToAccount, this.AmountRetention);
-            
+
             if (this.AmountBankFee > 0)
                 this.Transaction.AddDebit(this.BankFee_Expense_Account, this.AmountBankFee);
 
             // Cr.
             this.Transaction.AddCredit(this.Receivable_Asset_Account, this.Amount);
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+
+
             this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;

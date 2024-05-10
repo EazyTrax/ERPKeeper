@@ -53,8 +53,6 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
                     LendReturn = this,
                 };
             }
-            this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
         }
 
     }

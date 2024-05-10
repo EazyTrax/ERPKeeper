@@ -64,8 +64,6 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
                     IncomeTax = this,
                 };
             }
-            this.Transaction.ClearLedger();
-            this.Transaction.UpdateBalance();
         }
 
         public void PostToTransaction()
@@ -74,10 +72,13 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
             this.UpdateBalance();
 
-            if (this.Transaction == null)
-                return;
+            if (this.Transaction == null) return;
 
             this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference; 
+            this.Transaction.PostedDate = DateTime.Now;
+
             // Dr.
             this.Transaction.AddDebit(this.ExpenseAccount, this.TaxAmount);
 
@@ -85,10 +86,6 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             this.Transaction.AddCredit(this.LiabilityAccount, this.TaxAmount);
 
             this.Transaction.UpdateBalance();
-            this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference;
-            this.Transaction.UpdateBalance();
-            this.Transaction.PostedDate = DateTime.Now;
             this.IsPosted = true;
 
         }
