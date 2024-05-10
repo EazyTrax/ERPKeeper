@@ -113,19 +113,25 @@
         {
             items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
-
             items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
-
             items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
-
             items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.ClosedCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
-
-
         })
-        )
+        .GroupItems(items =>
+        {
+            items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.ClosedCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+        }))
+
         )
 </div>
 

@@ -63,15 +63,53 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public Decimal TotalCredit { get { return Math.Max(CurrentCredit - CurrentDebit, 0); } }
 
         public virtual ICollection<TransactionLedger> TransactionLedgers { get; set; }
+        public virtual ICollection<AccountBalance> AccountBalances { get; set; }
 
         public void Refresh()
         {
-       
+
             CurrentDebit = this.TransactionLedgers.Sum(x => x.Debit);
             CurrentCredit = this.TransactionLedgers.Sum(x => x.Credit);
 
             Console.WriteLine(this.TransactionLedgers.Count);
             Console.WriteLine($"Dr.{CurrentDebit} Cr.{CurrentCredit}");
         }
+
+        public void CreateBalance()
+        {
+            // Clear existing balances
+            this.AccountBalances.Clear();
+
+            // Group transactions by date
+            var groupedTransactions = TransactionLedgers.GroupBy(d => d.Date).OrderBy(x => x.Key);
+
+            Decimal TotalDebit = 0;
+            Decimal TotalCredit = 0;
+            // Iterate over each group
+            foreach (var group in groupedTransactions)
+            {
+                // Calculate totals
+                var Debit = group.Sum(x => x.Debit);
+                var Credit = group.Sum(x => x.Credit);
+
+                TotalDebit = TotalDebit + Debit;
+                TotalCredit = TotalCredit + Credit;
+
+                // Create new balance
+                var balance = new AccountBalance
+                {
+                    AccountId = this.Id,
+                    Date = group.Key,
+                    Credit = Credit,
+                    Debit = Debit,
+                    TotalCredit = Math.Max(TotalCredit - TotalDebit, 0),
+                    TotalDebit = Math.Max(TotalDebit - TotalCredit, 0),
+                };
+
+                // Add to account balances
+                this.AccountBalances.Add(balance);
+            }
+        }
+
     }
 }

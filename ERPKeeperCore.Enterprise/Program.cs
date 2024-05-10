@@ -24,9 +24,25 @@ namespace ERPKeeperCore.CMD
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
+
+
+                //newOrganization.ErpCOREDBContext.TransactionLedgers
+                //    .Include(t => t.Transaction)
+                //    .ToList()
+                //    .ForEach(model => model.Date = model.Transaction.Date);
+                //newOrganization.SaveChanges();
+
+
+                //newOrganization.ErpCOREDBContext.Accounts
+                //    .ToList()
+                //    .ForEach(model => model.CreateBalance());
+
                 newOrganization.SaveChanges();
 
-                //    GeneralOperations(newOrganization);
+
+
+
+                //GeneralOperations(newOrganization);
                 //newOrganization.ErpCOREDBContext.TransactionLedgers.Where(t => t.Debit == 0 && t.Credit == 0)
                 //.ExecuteDelete();
                 //newOrganization.SaveChanges();
@@ -34,7 +50,7 @@ namespace ERPKeeperCore.CMD
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 // migrationTool.Migrate();
                 // newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-                newOrganization.Transactions.PostLedgers();
+                 newOrganization.Transactions.PostLedgers();
                 newOrganization.FiscalYears.UpdateAccountBalance();
                 // }
             }

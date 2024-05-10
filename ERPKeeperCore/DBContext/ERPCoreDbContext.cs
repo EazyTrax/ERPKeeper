@@ -72,6 +72,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<AccountBalance> AccountBalances { get; set; }
 
 
         public DbSet<JournalEntry> JournalEntries { get; set; }
