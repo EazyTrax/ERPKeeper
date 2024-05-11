@@ -27,6 +27,7 @@
 <div class="lh-120 bg-fb1 p-2 rounded border">
     @{
         Template("FundTransfers", "FundTransfers", Organization.FundTransfers.Count());
+        Template("Liabilities", "Liabilities", Organization.ChartOfAccount.LiabilityAccounts.Count());
         Template("LiabilityPayments", "LiabilityPayments", Organization.ErpCOREDBContext.LiabilityPayments.Count());
         Template("Lends", "Lends", Organization.ErpCOREDBContext.Lends.Count());
         Template("Loans", "Loans", Organization.ErpCOREDBContext.Loans.Count());

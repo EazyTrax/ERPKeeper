@@ -2,9 +2,15 @@
 @model ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment
 
 <div class="row font-weight-600  text-uppercase">
-    <div class="p-2">
-        <a href="/@CompanyId/Profiles/Financial"> Financial</a>
-        / <a href="/@CompanyId/Profiles/Financial/LiabilityPayments">LiabilityPayments</a>
-        / <a href="/@CompanyId/Profiles/Financial/LiabilityPayments/@Model.Id">@Model.Name</a>
+    <div class="col-8 p-2">
+        <a href="/@CompanyId/Financial"> Financial</a>
+        / <a href="/@CompanyId/Financial/LiabilityPayments">LiabilityPayments</a>
+        / <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id">@Model.Name</a>
+    </div>
+    <div class="col text-right">
+        @if (Model.IsPosted)
+        {
+            <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id/UnPost">UnPost</a>
+        }
     </div>
 </div>

@@ -9,13 +9,9 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Financial.Controllers
 {
-    public class LiabilityPaymentsController : Financial_BaseController
+    public class LiabilitiesController : Financial_BaseController
     {
         public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult New()
         {
             return View();
         }

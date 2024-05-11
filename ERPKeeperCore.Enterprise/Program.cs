@@ -32,10 +32,8 @@ namespace ERPKeeperCore.CMD
                 //    .ForEach(model => model.Date = model.Transaction.Date);
                 //newOrganization.SaveChanges();
 
+               
 
-                //newOrganization.ErpCOREDBContext.Accounts
-                //    .ToList()
-                //    .ForEach(model => model.CreateBalance());
 
                 newOrganization.SaveChanges();
 
@@ -50,11 +48,18 @@ namespace ERPKeeperCore.CMD
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 // migrationTool.Migrate();
                 // newOrganization.ChartOfAccount.CreateOpeningJournalEntry();
-                 newOrganization.Transactions.PostLedgers();
-                newOrganization.FiscalYears.UpdateAccountBalance();
-                // }
-            }
 
+
+
+                newOrganization.Transactions.PostLedgers();
+                newOrganization.FiscalYears.UpdateAccountBalance();
+
+                newOrganization.ErpCOREDBContext.Accounts
+                    .ToList()
+                    .ForEach(model => model.CreateBalance());
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            }
 
             static void GeneralOperations(EnterpriseRepo newOrganization)
             {

@@ -1,0 +1,110 @@
+﻿<div class="mb-2 border-top">
+    @(
+        Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
+        .ID("AssetsTreeList")
+        .KeyExpr("Id")
+        .DataSource(d => d.RemoteController()
+        .Key("Id")
+        .LoadUrl($"/api/{CompanyId}/Financial/Liabilities/All"))
+        .KeyExpr("Id")
+        .AllowColumnReordering(true)
+        .AllowColumnResizing(true)
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("AssetsTree" + CompanyId.ToString()))
+        .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
+        .ShowColumnLines(true)
+        .ShowBorders(false)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+        .ColumnAutoWidth(false)
+        .ColumnChooser(m => m.Enabled(true))
+        .Paging(pagging => pagging.Enabled(false))
+        .GroupPanel(g => g.Visible(true))
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.No).Width(90).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);
+
+         
+
+
+            columns.AddFor(m => m.SubType)
+        .Width(160)
+        .HeaderCellTemplate("SubType").SortOrder(SortOrder.Asc).SortIndex(2).Width(200).Lookup(lookup => lookup
+        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+        .DisplayExpr("Text")
+        .ValueExpr("Value")
+        );
+
+
+
+
+
+            columns.AddFor(m => m.Name)
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/Liabilities/<%= data.Id %>/"><%= data.Name %></a></text>);
+
+     @*        columns.Add()
+        .Caption("Current")
+        .Columns(b =>
+        {
+                b.AddFor(m => m.CurrentDebit)
+            .Width(120)
+            .Format("#,##0.00")
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
+
+                b.AddFor(m => m.CurrentCredit)
+            .Width(120)
+            .Format("#,##0.00")
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+ *@
+
+
+            columns.Add()
+        .Caption("Total")
+        .Columns(b =>
+        {
+                b.AddFor(m => m.TotalDebit)
+            .Width(120)
+            .Format("#,##0.00")
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>DR</text>);
+
+                b.AddFor(m => m.TotalCredit)
+            .Width(120)
+            .Format("#,##0.00")
+            .CssClass("bg-fb1")
+            .HeaderCellTemplate(@<text>CR</text>);
+            });
+
+
+
+
+
+
+        })
+        .Summary(s => s.TotalItems(items =>
+        {
+
+
+
+            items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+            items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+
+
+
+
+        }).GroupItems(items =>
+        {
+          items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
+
+        }))
+        )
+</div>
+
+
+
+

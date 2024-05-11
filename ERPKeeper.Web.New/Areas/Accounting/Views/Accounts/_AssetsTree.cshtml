@@ -101,8 +101,7 @@
 
 
             })
-        .Summary(s =>
-            s.TotalItems(items => {
+        .Summary(s => s.TotalItems(items => {
 
 
 
@@ -123,9 +122,7 @@
             items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
             items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
 
-        })
-       
-    )
+        }))
     )
 </div>
 
