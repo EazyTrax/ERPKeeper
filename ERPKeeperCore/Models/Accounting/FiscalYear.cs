@@ -174,9 +174,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 .ForEach(a => this.Transaction.AddCredit(a.Account, a.ClosingCredit));
 
 
-            this.Transaction.UpdateBalance();
+            this.IsPosted = this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
-            this.IsPosted = true;
+
         }
 
     }

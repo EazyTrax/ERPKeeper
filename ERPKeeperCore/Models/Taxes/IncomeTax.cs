@@ -1,4 +1,5 @@
 ﻿
+using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,26 +29,34 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public Decimal ProfitAmount { get; set; }
         public Decimal TaxAmount { get; set; }
 
+        public Decimal TaxReceivable_Amount { get; set; }
+        public Decimal PayFrom_TaxReceiveableAccount_Amount { get; set; }
+        public Decimal Ramain_TaxReceiveableAccount_Amount => Math.Max(TaxReceivable_Amount - PayFrom_TaxReceiveableAccount_Amount, 0);
+
+        public Decimal Remain_Liability_Amount => TaxAmount - PayFrom_TaxReceiveableAccount_Amount;
+
+
         public String? Memo { get; set; }
-
-
 
         public Guid? FiscalYearId { get; set; }
         [ForeignKey("FiscalYearId")]
         public virtual Accounting.FiscalYear FiscalYear { get; set; }
 
-        public Guid? LiabilityAccountId { get; set; }
-        [ForeignKey("LiabilityAccountId")]
-        public virtual Accounting.Account LiabilityAccount { get; set; }
-
-
         public Guid? ExpenseAccountId { get; set; }
         [ForeignKey("ExpenseAccountId")]
         public virtual Accounting.Account ExpenseAccount { get; set; }
 
+        //Cr.
+        public Guid? PayFrom_AssetAccountId { get; set; }
+        [ForeignKey("PayFrom_AssetAccountId")]
+        public virtual Accounting.Account PayFrom_AssetAccount { get; set; }
 
+        public Guid? LiabilityAccountId { get; set; }
+        [ForeignKey("LiabilityAccountId")]
+        public virtual Accounting.Account LiabilityAccount { get; set; }
 
         public string? Reference { get; set; }
+        public IncomeTaxStatus Status { get; set; }
 
         public void CreateTransaction()
         {
@@ -76,18 +85,19 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.Date;
-            this.Transaction.Reference = this.Reference; 
+            this.Transaction.Reference = this.Reference;
             this.Transaction.PostedDate = DateTime.Now;
 
             // Dr.
             this.Transaction.AddDebit(this.ExpenseAccount, this.TaxAmount);
 
             // Cr.
-            this.Transaction.AddCredit(this.LiabilityAccount, this.TaxAmount);
+            if (this.PayFrom_AssetAccount != null)
+                this.Transaction.AddCredit(this.PayFrom_AssetAccount, this.PayFrom_TaxReceiveableAccount_Amount);
 
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            this.Transaction.AddCredit(this.LiabilityAccount, this.Remain_Liability_Amount);
 
+            this.IsPosted = this.Transaction.UpdateBalance();
         }
 
         private void UpdateBalance()

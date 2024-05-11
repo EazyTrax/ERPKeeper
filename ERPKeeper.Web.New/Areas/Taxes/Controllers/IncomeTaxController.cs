@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 {
-    [Route("/{CompanyId}/Taxes/IncomeTaxes/{IncomeTaxId:Guid}/{action=Index}/{id?}")]
+    [Route("/{CompanyId}/Taxes/IncomeTaxes/{Id:Guid}/{action=Index}")]
     public class IncomeTaxController : Base_TaxesController
     {
-        public IActionResult Index(Guid IncomeTaxId)
+        public IActionResult Index(Guid Id)
         {
-            var IncomeTax = OrganizationCore.IncomeTaxes.Find(IncomeTaxId);
+            var IncomeTax = OrganizationCore.IncomeTaxes.Find(Id);
             return View(IncomeTax);
         }
 
@@ -37,5 +37,28 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        public IActionResult UnPost(Guid Id)
+        {
+            var model = OrganizationCore.ErpCOREDBContext.IncomeTaxes.Find(Id);
+            model.IsPosted = false;
+            model.Transaction.ClearLedger();
+            OrganizationCore.ErpCOREDBContext.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
+        public IActionResult Issue(Guid Id)
+        {
+            var model = OrganizationCore.ErpCOREDBContext.IncomeTaxes.Find(Id);
+
+
+            model.Status = Enterprise.Models.Taxes.Enums.IncomeTaxStatus.Issued;
+            OrganizationCore.ErpCOREDBContext.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240511034140_DB-1.110")]
+    partial class DB1110
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2320,11 +2323,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("PayFrom_Amount")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<Guid?>("PayFrom_AssetAccountId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("PayFrom_TaxReceiveableAccount_Amount")
-                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal>("ProfitAmount")
                         .HasColumnType("decimal(18, 2)");
@@ -2332,13 +2335,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TaxAmount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TaxReceivable_Amount")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<Guid?>("TransactionId")

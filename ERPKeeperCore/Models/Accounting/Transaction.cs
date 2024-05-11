@@ -53,10 +53,16 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Accounting.FiscalYear? FiscalYearClosing { get; set; }
 
 
-        public void UpdateBalance()
+        public bool UpdateBalance(decimal? amount = null)
         {
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
+
+            if (Debit != Credit)
+                return false;
+            if (amount != null && Debit != amount)
+                return false;
+            return true;
         }
 
         public void ClearLedger()

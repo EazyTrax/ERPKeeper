@@ -37,11 +37,8 @@ namespace ERPKeeperCore.Enterprise.DAL
             //Commercial Section
             organization.Sales.PostToTransactions();
             organization.ReceivePayments.PostToTransactions();
-
             organization.Purchases.PostToTransactions();
             organization.SupplierPayments.PostToTransactions();
-
-
 
             //Financial Section
             organization.FundTransfers.PostToTransactions();
@@ -65,13 +62,22 @@ namespace ERPKeeperCore.Enterprise.DAL
 
             //organization.RetirementFixedAssets.UnPost();
             //organization.RetirementFixedAssets.PostLedger();
- 
+
 
             //Other Section
             organization.IncomeTaxes.PostToTransactions();
             organization.TaxPeriods.PostToTransactions();
             organization.FiscalYears.PostToTransactions();
 
+        }
+
+        public void ClearEmpthyLedgers()
+        {
+
+            organization.ErpCOREDBContext.TransactionLedgers
+                .Where(t => t.Debit == 0 && t.Credit == 0)
+                .ExecuteDelete();
+            organization.SaveChanges();
         }
     }
 }

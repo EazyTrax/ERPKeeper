@@ -2,62 +2,101 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax>()
-        .ID("gridList")
-        .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/All")
-        .InsertUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Update")
-        .UpdateMethod("Post")
-        )
-        .KeyExpr("Id")
-        .Width("100%")
-        .RowAlternationEnabled(true)
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/All")
+            .InsertUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Update")
+            .UpdateMethod("Post")
+            )
+            .KeyExpr("Id")
+            .Width("100%")
+            .RowAlternationEnabled(true)
 
 
-        .ShowRowLines(true)
-        .ShowBorders(false)
-        .Paging(paging => paging.PageSize(100))
-        .AllowColumnResizing(true)
-        .Paging(pagging => pagging.PageSize(100))
-        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .AllowColumnResizing(true)
+            .Paging(pagging => pagging.PageSize(100))
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
 
-        .ColumnAutoWidth(false)
+            .ColumnAutoWidth(false)
 
-        .Columns(columns =>
-        {
-            columns.AddFor(m => m.Date);
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.Date);
 
-            columns.AddFor(m => m.Name)
+                columns.AddFor(m => m.Name)
             .CellTemplate(@<text> <a href="/@CompanyId/Taxes/IncomeTaxes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-            columns.AddFor(m => m.ProfitAmount)
-            .Width(120)
+                columns.AddFor(m => m.ProfitAmount)
+            .Width(100)
             .HeaderCellTemplate("Profit");
 
-            columns.AddFor(m => m.TaxAmount)
-            .Width(120)
+
+
+                columns.AddFor(m => m.TaxAmount)
+            .Width(100)
             .HeaderCellTemplate("Tax");
 
-
-
-
-            columns.AddFor(m => m.LiabilityAccountId)
+                columns.AddFor(m => m.ExpenseAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200)
-            .HeaderCellTemplate(@<text>Dr.Liability</text>)
+            .Width(150)
+            .HeaderCellTemplate(@<text>Dr.ExpenseAcc</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.PayFrom_AssetAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(150)
+            .HeaderCellTemplate(@<text>Cr.PayFrom</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>
+            );
+
+
+
+                columns.Add()
+            .Caption("TaxReceivable")
+            .Columns(subColumns =>
+            {
+                subColumns.AddFor(m => m.TaxReceivable_Amount)
+            .Width(100)
+            .HeaderCellTemplate("Having");
+
+                subColumns.AddFor(m => m.PayFrom_TaxReceiveableAccount_Amount)
+            .Width(100)
+            .HeaderCellTemplate("Pay");
+
+                subColumns.AddFor(m => m.Ramain_TaxReceiveableAccount_Amount)
+            .Width(100)
+            .HeaderCellTemplate("Remain");
+
+            });
+
+
+                columns.Add()
+            .Caption("TaxPayable")
+            .Columns(subColumns =>
+            {
+
+                subColumns.AddFor(m => m.LiabilityAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(150)
+            .HeaderCellTemplate(@<text>Cr.Liability</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
 
 
 
-             columns.AddFor(m => m.ExpenseAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200)
-            .HeaderCellTemplate(@<text>Cr.ExpenseAcc</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
+                subColumns.AddFor(m => m.Remain_Liability_Amount)
+            .Width(100)
+            .HeaderCellTemplate("Remain");
 
+            });
 
 
 
@@ -67,7 +106,7 @@
             .HeaderCellTemplate(@<text> </text>)
         .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
-        })
+            })
         .Summary(s => s.TotalItems(items =>
         {
             @*items.AddFor(m => m.AssetValue).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");*@

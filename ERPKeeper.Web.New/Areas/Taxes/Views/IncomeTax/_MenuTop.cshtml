@@ -9,6 +9,9 @@
         <a href="/@CompanyId/Taxes/IncomeTaxes/@Model.Id"> @Model.Name</a>
     </div>
     <div class="col-4 p-0 text-right">
-
+        @if (Model.IsPosted)
+        {
+            <a href="/@CompanyId/Taxes/IncomeTaxes/@Model.Id/UnPost"> UnPost</a>
+        }
     </div>
 </div>

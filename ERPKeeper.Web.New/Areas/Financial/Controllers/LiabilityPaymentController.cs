@@ -44,6 +44,8 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+
         public IActionResult Issue()
         {
             var model = OrganizationCore.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
