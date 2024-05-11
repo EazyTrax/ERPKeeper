@@ -16,17 +16,10 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         [Key]
         public Guid Id { get; set; }
 
-
         public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
-
-
-
-
-
-
 
 
         public int No { get; set; }
@@ -38,24 +31,15 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         public DateTime StartDeprecationDate { get; set; }
         public DateTime EndDeprecationDate => StartDeprecationDate.AddYears(AssetType?.UseFulLifeYear ?? 1).AddDays(-1);
 
-
         public int RemainAgeDay => (int)Math.Max(0, (EndDeprecationDate - DateTime.Now).TotalDays);
         private DateTime LastDateOfMonth(DateTime date) => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
         private decimal TotalDaysInYear(int year) => DateTime.IsLeapYear(year) ? 366 : 365;
 
 
-
         public Decimal AssetValue { get; set; }
-
-
         public Decimal SavageValue { get; set; }
-
-
         public Decimal TotalDepreciationValue => AssetValue - SavageValue;
-
-
         public Decimal DepreciationPerYear { get; set; }
-
 
         public void UpdateDeprecation()
         {
@@ -77,18 +61,14 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
         public DateTime? LastCreateSchedule { get; set; }
 
-        public Asset()
-        {
 
-        }
+        public virtual ObsoleteAsset? ObsoleteAsset { get; set; }
+
 
         public void RemoveSchedule()
         {
-
             foreach (var schedule in DepreciationSchedules.ToList())
-            {
                 DepreciationSchedules.Remove(schedule);
-            }
         }
 
         public void CreateDepreciationSchedule()
@@ -137,7 +117,6 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
             LastCreateSchedule = DateTime.Now;
         }
-
         private int NewDepreciationSchedule(DateTime _startDate, int index, DateTime _endDate, decimal _openingValue, decimal _deprecateValue, decimal _newAccDeprecation, decimal _remainValue)
         {
             var _schedule = new AssetDeprecateSchedule()
@@ -154,7 +133,6 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             DepreciationSchedules.Add(_schedule);
             return index;
         }
-
         internal void PostToTransaction()
         {
             Console.WriteLine($">Post >Assets:{this.Name}");

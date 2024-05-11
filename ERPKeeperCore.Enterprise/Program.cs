@@ -1,6 +1,8 @@
 ﻿using ERPKeeper.Node.DAL;
 using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Assets;
+using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +16,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] { "tec", "bit" };
+            string[] Enterprises = new string[] { /*"tec", */"bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -25,31 +27,20 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
-
-                //newOrganization.ErpCOREDBContext.TransactionLedgers
-                //    .Include(t => t.Transaction)
-                //    .ToList()
-                //    .ForEach(model => model.Date = model.Transaction.Date);
-                //newOrganization.SaveChanges();
-
                 // GeneralOperations(newOrganization);
-                // newOrganization.Transactions.ClearEmpthyLedgers();
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
                 // migrationTool.Migrate();
 
-
                 if (true)
                 {
                     newOrganization.Transactions.PostLedgers();
-                    newOrganization.FiscalYears.UpdateAccountBalance();
-                    newOrganization.ChartOfAccount.CreateBalance();
-
-               
-
-                    newOrganization.ErpCOREDBContext.SaveChanges();
+                    //newOrganization.FiscalYears.UpdateAccountBalance();
+                    //  newOrganization.ChartOfAccount.CreateBalance();
+                    //  newOrganization.Transactions.ClearEmpthyLedgers();
+                    //newOrganization.FiscalYears.UpdateAccountBalance();
+                    //  newOrganization.ErpCOREDBContext.SaveChanges();
                 }
-
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization)

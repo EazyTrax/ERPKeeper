@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240511104257_DB-1.116")]
+    partial class DB1116
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -563,10 +566,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AssetId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsPosted")
@@ -579,10 +578,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssetId")
-                        .IsUnique()
-                        .HasFilter("[AssetId] IS NOT NULL");
 
                     b.HasIndex("TransactionId")
                         .IsUnique()
@@ -2705,7 +2700,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Assets.Asset", "Asset")
                         .WithOne("ObsoleteAsset")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", "AssetId");
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("ObsoleteAsset")

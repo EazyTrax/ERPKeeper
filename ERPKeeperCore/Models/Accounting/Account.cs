@@ -75,13 +75,13 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             Console.WriteLine($"Dr.{CurrentDebit} Cr.{CurrentCredit}");
         }
 
-        public void CreateBalance()
+        public void CreateHostoriesBalances()
         {
             // Clear existing balances
             this.AccountBalances.Clear();
 
             // Group transactions by date
-            var groupedTransactions = TransactionLedgers.GroupBy(d => d.Date).OrderBy(x => x.Key);
+            var groupedTransactions = TransactionLedgers.GroupBy(d => d.Date.Date).OrderBy(x => x.Key);
 
             Decimal TotalDebit = 0;
             Decimal TotalCredit = 0;

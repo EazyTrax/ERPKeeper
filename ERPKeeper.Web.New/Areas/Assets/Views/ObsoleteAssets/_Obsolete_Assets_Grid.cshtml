@@ -1,0 +1,59 @@
+﻿
+<div id="treeListDemo" class="mb-3border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset>()
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Assets/ObsoleteAssets/All"))
+            .KeyExpr("Id")
+            .Width("100%")
+            .RowAlternationEnabled(true)
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .AllowColumnResizing(true)
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .ColumnAutoWidth(false)
+            .Columns(columns =>
+            {
+            
+                columns.AddFor(m => m.Asset.Status).Width(130).Lookup(lookup => lookup
+                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                .DisplayExpr("Text")
+                .ValueExpr("Value")); 
+
+
+                columns.AddFor(m => m.Asset.PurchaseDate)
+                .Width(130).SortOrder(SortOrder.Desc)
+                .SortIndex(1)
+                .HeaderCellTemplate(@<text>Purchase</text>);
+
+
+                columns.AddFor(m => m.ObsoleteDate)
+                .Width(130).SortOrder(SortOrder.Desc)
+                .SortIndex(1)
+                .HeaderCellTemplate(@<text>Obsolete</text>);
+
+                columns.AddFor(m => m.Asset.Name)
+                .CellTemplate(@<text> <a href="/@CompanyId/Assets/ObsoleteAssets/<%= data.Id %>/"><%= data.Asset.Name %></a></text>);
+
+                columns.AddFor(m => m.Asset.AssetTypeId)
+                .HeaderCellTemplate(@<text>Type</text>)
+                .Lookup(lookup => lookup
+                .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }))
+                .DisplayExpr("Text")
+                .ValueExpr("Value"))
+                .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
+               
+                columns.AddFor(m => m.Asset.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
+                columns.AddFor(m => m.Asset.TotalDepreciationValue).HeaderCellTemplate(@<text>DepreciationValue</text>).Format(",##0.00");
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            })
+        .Summary(s => s.TotalItems(items =>
+        {
+            items.AddFor(m => m.Asset.AssetValue).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+        }))
+        .OnInitNewRow("function(e) { e.data.Status = 4;  }")
+        )
+</div>

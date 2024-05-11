@@ -25,7 +25,7 @@
             {
 
 
-                columns.AddFor(m => m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+                columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
 
                 columns.AddFor(m => m.Status).Width(80).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.QuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))

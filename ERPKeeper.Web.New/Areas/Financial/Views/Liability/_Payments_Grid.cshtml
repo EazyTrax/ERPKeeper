@@ -19,7 +19,7 @@
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
-                columns.AddFor(m => m.Date).Alignment(HorizontalAlignment.Right).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+                columns.AddFor(m => m.Date).Alignment(HorizontalAlignment.Right).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
                 columns.AddFor(m => m.Status).Width(80).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Financial.Enums.LiabilityPaymentStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")

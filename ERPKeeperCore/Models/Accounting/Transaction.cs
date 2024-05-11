@@ -51,17 +51,20 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Assets.AssetDeprecateSchedule? AssetDeprecateSchedule { get; set; }
         public virtual Taxes.TaxPeriod? TaxPeriod { get; set; }
         public virtual Accounting.FiscalYear? FiscalYearClosing { get; set; }
-
+        public virtual ObsoleteAsset? ObsoleteAsset { get; set; }
 
         public bool UpdateBalance(decimal? amount = null)
         {
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
 
+            Console.WriteLine($">Dr. {this.Debit} Cr.{this.Credit}");
+
             if (Debit != Credit)
                 return false;
             if (amount != null && Debit != amount)
                 return false;
+          
             return true;
         }
 

@@ -3,6 +3,7 @@ using ERPKeeperCore.Enterprise.DAL.Assets;
 using ERPKeeperCore.Enterprise.DAL.Customers;
 using ERPKeeperCore.Enterprise.DAL.Employees;
 using ERPKeeperCore.Enterprise.DAL.Financial;
+using ERPKeeperCore.Enterprise.DAL.ObsoleteAssets;
 using ERPKeeperCore.Enterprise.DAL.Products;
 using ERPKeeperCore.Enterprise.DAL.Taxes;
 using ERPKeeperCore.Enterprise.DBContext;
@@ -27,8 +28,10 @@ namespace ERPKeeperCore.Enterprise
         private Projects _Projects;
         private Assets _Assets;
         private AssetTypes _AssetTypes;
-        public AssetDeprecateSchedules AssetDeprecateSchedules;
 
+
+        public AssetDeprecateSchedules AssetDeprecateSchedules;
+        public ObsoleteAssets ObsoleteAssets;
 
 
         private Members _Members;
@@ -80,7 +83,7 @@ namespace ERPKeeperCore.Enterprise
             EmployeePositions = new DAL.Employees.EmployeePositions(this);
             EmployeePaymentTypes = new DAL.Employees.EmployeePaymentTypes(this);
             EmployeePayments = new DAL.Employees.EmployeePayments(this);
-            AssetDeprecateSchedules = new AssetDeprecateSchedules(this);
+
             Investors = new Investors(this);
             Brands = new Brands(this);
             ItemGroups = new ItemGroups(this);
@@ -96,6 +99,9 @@ namespace ERPKeeperCore.Enterprise
             ReceivePayments = new DAL.Customers.ReceivePayments(this);
             SupplierPayments = new SupplierPayments(this);
             LiabilityPayments = new LiabilityPayments(this);
+
+            AssetDeprecateSchedules = new AssetDeprecateSchedules(this);
+            ObsoleteAssets = new ObsoleteAssets(this);
         }
 
 

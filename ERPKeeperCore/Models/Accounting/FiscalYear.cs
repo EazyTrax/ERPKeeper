@@ -93,7 +93,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 }
             }
         }
-        public void UpdateBalance()
+
+        public void UpdateClosingBalance()
         {
             var balanceSummary = FiscalYearAccountBalances?
                 .GroupBy(a => a.Account.Type)
@@ -117,18 +118,26 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                     accBalance.ClosingDebit = accBalance.Credit;
                     accBalance.ClosingCredit = accBalance.Debit;
                 }
+
                 else if (accBalance.Account.Type == AccountTypes.Capital && accBalance.Account.SubType == AccountSubTypes.Equity_RetainEarning)
                 {
+                    Console.WriteLine($">> {accBalance.Account.Name} {accBalance.Balance} {this.ProfitBalance}");
+
+
                     if (this.ProfitBalance > 0)
                     {
-                        accBalance.ClosingCredit = this.ProfitBalance;
-                        accBalance.ClosedDebit = 0;
+                        accBalance.ClosingCredit = Math.Abs(this.ProfitBalance);
+                        accBalance.ClosingDebit = 0;
                     }
                     else
                     {
                         accBalance.ClosingCredit = 0;
-                        accBalance.ClosedDebit = this.ProfitBalance;
+                        accBalance.ClosingDebit = Math.Abs(this.ProfitBalance);
                     }
+
+                    Console.WriteLine($">>  {accBalance.ClosedDebit} {accBalance.ClosingCredit}");
+
+
                 }
                 else
                 {
@@ -141,9 +150,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
                 accBalance.ClosedDebit = Math.Max(ClosedDebit - ClosedCredit, 0);
                 accBalance.ClosedCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
-
-
-
             }
 
             this.Debit = FiscalYearAccountBalances.Sum(a => a.Debit);
@@ -153,6 +159,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public void PostToTransaction()
         {
             Console.WriteLine($">Post >FiscalYear:{this.Name}");
+
+            this.UpdateClosingBalance();
 
             if (this.Transaction == null)
                 return;

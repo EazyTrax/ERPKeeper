@@ -39,7 +39,7 @@
     .Columns(columns =>
     {
 
-    columns.AddFor(m=>m.Date).Format("dd-MM-yyyy").SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
+    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
             columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Profiles/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 

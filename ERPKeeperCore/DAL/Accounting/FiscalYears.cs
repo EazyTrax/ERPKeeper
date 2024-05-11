@@ -47,7 +47,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             return fiscalYear;
         }
-
         public FiscalYear Create(DateTime date)
         {
             if (date < organization.DataItems.FirstDate)
@@ -72,7 +71,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                     Status = FiscalYearStatus.Open
                 };
 
-
                 erpNodeDBContext.FiscalYears.Add(fiscalYear);
                 erpNodeDBContext.SaveChanges();
             }
@@ -80,12 +78,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             return fiscalYear;
         }
         public bool IsFirstPeriod(FiscalYear fy) => fy.Id == this.FirstPeriod.Id;
-
-        public void UpdateBalance(FiscalYear fy)
-        {
-            Console.WriteLine($"> Update {fy.Name} Balance");
-            this.SaveChanges();
-        }
+      
 
         public void Close(FiscalYear fy)
         {
@@ -110,12 +103,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             }
         }
 
-        public void UpdateBalance()
-        {
-
-
-        }
-
         public void UpdateAccountBalance()
         {
             Console.WriteLine("> FISCALs > Update");
@@ -123,10 +110,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             foreach (var fiscalYear in this.GetAll())
             {
-
                 var accounts = organization.ChartOfAccount.All();
                 fiscalYear.PrepareFiscalBalance(accounts, true);
-
                 this.UpdateAccountBalance(fiscalYear);
                 organization.SaveChanges();
             }
@@ -194,13 +179,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                     accBalance.OpeningCredit = Math.Max(priorAccBalance.Credit - priorAccBalance.Debit, 0);
                 }
             }
-
-            erpNodeDBContext.SaveChanges();
-
-            fiscalYear.UpdateBalance();
             organization.SaveChanges();
         }
-
         public void PostToTransactions(bool rePost = false)
         {
             this.CreateTransactions();
@@ -215,6 +195,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 .ToList()
                 .ForEach(fy =>
                 {
+                    this.UpdateTransactionsFiscalYears(false);
+                    this.UpdateAccountBalance(fy);
+                    fy.UpdateClosingBalance();
+                    erpNodeDBContext.SaveChanges();
+
                     fy.PostToTransaction();
                     erpNodeDBContext.SaveChanges();
                 });

@@ -30,7 +30,6 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void PostLedgers()
         {
-
             //Capital Activities
             //organization.CapitalActivities.PostLedger();
 
@@ -59,9 +58,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             //Assets
             organization.Assets.PostToTransactions();
             organization.AssetDeprecateSchedules.PostToTransactions();
-
-            //organization.RetirementFixedAssets.UnPost();
-            //organization.RetirementFixedAssets.PostLedger();
+            organization.ObsoleteAssets.PostToTransactions();
 
 
             //Other Section

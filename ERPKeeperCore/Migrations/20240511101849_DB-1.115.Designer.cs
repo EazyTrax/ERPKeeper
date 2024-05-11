@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240511101849_DB-1.115")]
+    partial class DB1115
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -429,6 +432,12 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("RetirementDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("RetirementId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("SavageValue")
                         .HasColumnType("decimal(18, 2)");
 
@@ -558,37 +567,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("Purchase_Asset_AccountId");
 
                     b.ToTable("AssetTypes");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AssetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsPosted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ObsoleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssetId")
-                        .IsUnique()
-                        .HasFilter("[AssetId] IS NOT NULL");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique()
-                        .HasFilter("[TransactionId] IS NOT NULL");
-
-                    b.ToTable("ObsoleteAssets");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.CapitalActivity", b =>
@@ -2701,21 +2679,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Purchase_Asset_Account");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Assets.Asset", "Asset")
-                        .WithOne("ObsoleteAsset")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", "AssetId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
-                        .WithOne("ObsoleteAsset")
-                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Assets.ObsoleteAsset", "TransactionId");
-
-                    b.Navigation("Asset");
-
-                    b.Navigation("Transaction");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.CapitalActivity", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "AssetAccount")
@@ -3522,8 +3485,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Navigation("LoanReturn");
 
-                    b.Navigation("ObsoleteAsset");
-
                     b.Navigation("Purchase");
 
                     b.Navigation("ReceivePayment");
@@ -3538,8 +3499,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.Asset", b =>
                 {
                     b.Navigation("DepreciationSchedules");
-
-                    b.Navigation("ObsoleteAsset");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Assets.AssetType", b =>

@@ -46,6 +46,22 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             return View(model);
         }
+        public IActionResult UpdateCurrentBalance()
+        {
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
+            OrganizationCore.ChartOfAccount.UpdateBalance();
+            OrganizationCore.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public IActionResult UpdateHistoryBalance()
+        {
+            var model = OrganizationCore.ChartOfAccount.Find(AccountId);
+            model.CreateHostoriesBalances();
+            OrganizationCore.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
         public IActionResult Chart()
         {
             var model = OrganizationCore.ChartOfAccount.Find(AccountId);
@@ -54,15 +70,19 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
 
 
+
+
+
+
+
+        [HttpPost]
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Accounting.Account accountItem)
         {
             var model = OrganizationCore.ChartOfAccount.Find(AccountId);
             model.No = accountItem.No;
             model.Name = accountItem.Name;
-
             model.Type = accountItem.Type;
             model.SubType = accountItem.SubType;
-
             model.IsLiquidity = accountItem.IsLiquidity;
             model.IsCashEquivalent = accountItem.IsCashEquivalent;
             model.Description = accountItem.Description;

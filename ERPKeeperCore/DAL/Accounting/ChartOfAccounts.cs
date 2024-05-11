@@ -205,6 +205,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             }
         }
+
+
+
+
+
         public void GenerateHistoryBalance()
         {
             throw new NotImplementedException();
@@ -264,7 +269,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                      .ToList()
                      .ForEach(model =>
                      {
-                         model.CreateBalance();
+                         model.CreateHostoriesBalances();
                          erpNodeDBContext.SaveChanges();
                      });
         }

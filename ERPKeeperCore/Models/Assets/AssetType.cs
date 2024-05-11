@@ -45,11 +45,6 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         [ForeignKey("AwaitDeprecateAccId")]
         public virtual Account AwaitDeprecateAccount { get; set; }
 
-
-
-      
-
-
         [Column("AmortizeExpenseAccId")]
         public Guid? AmortizeExpenseAccId { get; set; }
         [ForeignKey("AmortizeExpenseAccId")]

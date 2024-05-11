@@ -56,6 +56,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
 
             TaxPeriods.ForEach(TaxPeriod =>
             {
+         
                 TaxPeriod.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
