@@ -18,7 +18,8 @@
         EarnestLiability = 20,
         Expense_BankFee = 21,
         CostOfGoodSold = 23,
-        OverRecivePayment = 24
+        OverRecivePayment = 24,
+        WriteOff_TaxReceiveable_Expense = 25,
 
     }
 }

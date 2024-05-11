@@ -43,10 +43,9 @@ namespace ERPKeeperCore.CMD
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.FiscalYears.UpdateAccountBalance();
+                    newOrganization.ChartOfAccount.CreateBalance();
 
-                    newOrganization.ErpCOREDBContext.Accounts
-                        .ToList()
-                        .ForEach(model => model.CreateBalance());
+               
 
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }

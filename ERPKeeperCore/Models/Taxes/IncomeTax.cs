@@ -31,8 +31,10 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
         public Decimal TaxReceivable_Amount { get; set; }
         public Decimal PayFrom_TaxReceiveableAccount_Amount { get; set; }
-        public Decimal Ramain_TaxReceiveableAccount_Amount => Math.Max(TaxReceivable_Amount - PayFrom_TaxReceiveableAccount_Amount, 0);
 
+
+
+        public Decimal Ramain_TaxReceiveableAccount_Amount => Math.Max(TaxReceivable_Amount - PayFrom_TaxReceiveableAccount_Amount, 0);
         public Decimal Remain_Liability_Amount => TaxAmount - PayFrom_TaxReceiveableAccount_Amount;
 
 
@@ -54,6 +56,16 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public Guid? LiabilityAccountId { get; set; }
         [ForeignKey("LiabilityAccountId")]
         public virtual Accounting.Account LiabilityAccount { get; set; }
+
+        public Guid? WriteOff_TaxReceiveable_ExpenseAccountId { get; set; }
+        [ForeignKey("WriteOff_TaxReceiveable_ExpenseAccountId")]
+        public virtual Accounting.Account WriteOff_TaxReceiveable_ExpenseAccount { get; set; }
+
+
+
+
+
+
 
         public string? Reference { get; set; }
         public IncomeTaxStatus Status { get; set; }
@@ -90,12 +102,14 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
             // Dr.
             this.Transaction.AddDebit(this.ExpenseAccount, this.TaxAmount);
+            if (this.Remain_Liability_Amount < 0)
+                this.Transaction.AddDebit(this.WriteOff_TaxReceiveable_ExpenseAccount, this.Remain_Liability_Amount * -1);
 
             // Cr.
             if (this.PayFrom_AssetAccount != null)
                 this.Transaction.AddCredit(this.PayFrom_AssetAccount, this.PayFrom_TaxReceiveableAccount_Amount);
-
-            this.Transaction.AddCredit(this.LiabilityAccount, this.Remain_Liability_Amount);
+            if (this.Remain_Liability_Amount > 0)
+                this.Transaction.AddCredit(this.LiabilityAccount, this.Remain_Liability_Amount);
 
             this.IsPosted = this.Transaction.UpdateBalance();
         }

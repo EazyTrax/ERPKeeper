@@ -112,11 +112,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
         public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.Accounts
                 .Where(account => account.SubType == subType)
-                
+
                 .ToList();
         public List<Account> GetAccountByType(AccountTypes accountType) => erpNodeDBContext.Accounts
                 .Where(account => account.Type == accountType)
-                
+
                 .OrderBy(i => i.No)
                 .ToList();
         public IEnumerable<Account> GetFocusAccount(AccountTypes? accountType) => erpNodeDBContext.Accounts
@@ -137,19 +137,19 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             {
                 return erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset || account.Type == AccountTypes.Liability)
-              
+
               .ToList();
             }
         }
         public List<Account> GetCashEquivalentAccounts() => erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset)
-              
+
               .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
               .OrderBy(account => account.SubType)
               .ToList();
         public List<Account> GetCashOrBankAccounts() => erpNodeDBContext.Accounts
             .Where(account => account.Type == AccountTypes.Asset)
-            
+
             .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
             .OrderBy(account => account.SubType)
             .ToList();
@@ -158,12 +158,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> ExpenseAccounts => this.GetAccountByType(AccountTypes.Expense);
         public List<Account> TaxRelatedAccountItems => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxOutput || account.SubType == AccountSubTypes.TaxExpense)
-                 
+
                  .OrderBy(i => i.No)
                  .ToList();
         public List<Account> TaxClosingAccount => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxPayable || account.SubType == AccountSubTypes.TaxReceivable)
-                 
+
                  .OrderBy(i => i.No)
                  .ToList();
         public List<Account> ListTaxAccounts(TaxDirection direction)
@@ -171,12 +171,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
             if (direction == TaxDirection.Input)
                 return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxInput)
-                             
+
                              .OrderBy(i => i.No)
                              .ToList();
             else
                 return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxOutput)
-                                
+
                                 .OrderBy(i => i.No)
                                 .ToList();
         }
@@ -186,7 +186,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             var fistDate = organization.FiscalYears.FirstPeriod.StartDate;
 
             var accountBalances = erpNodeDBContext.TransactionLedgers
-                .Where(l=>l.Transaction.Date >= fistDate)
+                .Where(l => l.Transaction.Date >= fistDate)
                 .GroupBy(t => t.AccountId)
                 .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
                 .ToList();
@@ -258,7 +258,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
 
-
+        public void CreateBalance()
+        {
+            erpNodeDBContext.Accounts
+                     .ToList()
+                     .ForEach(model =>
+                     {
+                         model.CreateBalance();
+                         erpNodeDBContext.SaveChanges();
+                     });
+        }
 
         public List<Account> IncomeExpenseAccounts
         {
@@ -280,7 +289,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> TaxReceivableAccounts => this.GetItemBySubType(AccountSubTypes.TaxReceivable);
         public List<Account> TaxInputAndTaxExpenseAccounts => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxExpense)
-                 
+
                  .OrderBy(i => i.No)
                  .ToList();
     }

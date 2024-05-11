@@ -46,6 +46,13 @@ namespace ERPKeeperCore.Enterprise.DAL
 
             incomeTaxes.ForEach(incomeTax =>
             {
+                if (incomeTax.WriteOff_TaxReceiveable_ExpenseAccount == null)
+                {
+                    incomeTax.WriteOff_TaxReceiveable_ExpenseAccount
+                    = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.WriteOff_TaxReceiveable_Expense);
+                    incomeTax.WriteOff_TaxReceiveable_ExpenseAccountId = incomeTax.WriteOff_TaxReceiveable_ExpenseAccount.Id;
+                }
+
                 incomeTax.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
