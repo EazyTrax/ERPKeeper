@@ -16,7 +16,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] { /*"tec", */"bit" };
+            string[] Enterprises = new string[] { "tec", "bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -35,11 +35,11 @@ namespace ERPKeeperCore.CMD
                 if (true)
                 {
                     newOrganization.Transactions.PostLedgers();
-                    //newOrganization.FiscalYears.UpdateAccountBalance();
-                    //  newOrganization.ChartOfAccount.CreateBalance();
-                    //  newOrganization.Transactions.ClearEmpthyLedgers();
-                    //newOrganization.FiscalYears.UpdateAccountBalance();
-                    //  newOrganization.ErpCOREDBContext.SaveChanges();
+                    newOrganization.ChartOfAccount.CreateHostoriesBalances();
+                    newOrganization.Transactions.ClearEmpthyLedgers();
+
+
+                    newOrganization.ErpCOREDBContext.SaveChanges();
                 }
             }
 

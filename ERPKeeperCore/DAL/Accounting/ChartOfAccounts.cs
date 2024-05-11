@@ -263,7 +263,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
 
-        public void CreateBalance()
+        public void CreateHostoriesBalances()
         {
             erpNodeDBContext.Accounts
                      .ToList()
