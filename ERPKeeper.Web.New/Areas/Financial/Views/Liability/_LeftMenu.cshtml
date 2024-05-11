@@ -32,7 +32,7 @@
 <div class="lh-120 bg-fb1 p-2 rounded border">
     @{
         Template("Home", $"/{CompanyId}/Financial/Liabilities/{Model.Id}", Organization.FundTransfers.Count());
-        Template("Ledgers", $"/{CompanyId}/Financial/Liabilities/{Model.Id}/Ledgers");
+        Template("Balances", $"/{CompanyId}/Financial/Liabilities/{Model.Id}/Balances");
         Template("Payments", $"/{CompanyId}/Financial/Liabilities/{Model.Id}/Payments");
 
     }

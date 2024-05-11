@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
             return View(transcation);
         }
 
-        public IActionResult Ledgers()
+        public IActionResult Balances()
         {
             var transcation = OrganizationCore.ChartOfAccount.Find(AccountId);
             return View(transcation);

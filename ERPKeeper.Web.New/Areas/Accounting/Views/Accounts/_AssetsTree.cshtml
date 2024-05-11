@@ -54,7 +54,7 @@
                 columns.AddFor(m => m.Name).CellTemplate(
             @<text>
                 <div>
-                    <a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a>
+                    <a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/">N:<%= data.Name %></a>
                 </div>
             </text>
         );
@@ -77,7 +77,6 @@
             });
 
 
-
             columns.Add()
         .Caption("Total")
         .Columns(b =>
@@ -94,12 +93,6 @@
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>CR</text>);
             });
-
-
-
-
-
-
             })
         .Summary(s => s.TotalItems(items => {
 
@@ -118,59 +111,9 @@
         {
             items.AddFor(m => m.CurrentDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
             items.AddFor(m => m.CurrentCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
-
             items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
             items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00").ShowInGroupFooter(true);
 
         }))
     )
 </div>
-
-
-
-
-
-
-
-<script>
-    function onDragChange(e) {
-        var treeList = e.component,
-            visibleRows = treeList.getVisibleRows(),
-            sourceNode = treeList.getNodeByKey(e.itemData.Id),
-            targetNode = visibleRows[e.toIndex].node;
-
-        while (targetNode && targetNode.data) {
-            if (targetNode.data.Id === sourceNode.data.Id) {
-                e.cancel = true;
-                break;
-            }
-            targetNode = targetNode.parent;
-        }
-    }
-    function onDragEnd(e) {
-        var treeList = e.component,
-            visibleRows = treeList.getVisibleRows(),
-            sourceNode = treeList.getNodeByKey(e.itemData.Id),
-            targetNode = visibleRows[e.toIndex].node;
-
-        //alert()
-
-        if (e.dropInsideItem) {
-            console.info("onDragEnd=>" + e.dropInsideItem + "   fromIndex=>" + e.fromIndex + "   itemData=>" + e.itemData.Id + "   toData=>" + targetNode.data.Id);
-
-            var updatedUrl = "/api/@CompanyId/Accounts/Inventory/Assets/" + e.itemData.Id + "/AssignParent?ParentId=" + targetNode.data.Id;
-            $.get(updatedUrl, function (data) {
-                console.info(data);
-                treeList.refresh();
-            });
-        }
-    }
-
-
-    function getTreeList() {
-        return $("#treeList").dxTreeList("instance");
-    }
-</script>
-
-
-

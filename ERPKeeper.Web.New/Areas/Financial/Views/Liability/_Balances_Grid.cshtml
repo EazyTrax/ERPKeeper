@@ -17,39 +17,57 @@
         .Columns(columns =>
         {
             columns.AddFor(m => m.Date);
-            columns.AddFor(m => m.Debit).Width(130).Format("#,##0.00");
-            columns.AddFor(m => m.Credit).Width(130).Format("#,##0.00");
+
+            columns.AddFor(m => m.Debit)
+            .Width(130)
+            .Format("#,##0.00");
+
+            columns.AddFor(m => m.Credit)
+            .Width(130)
+            .Format("#,##0.00");
 
             columns.AddFor(m => m.TotalDebit)
             .Width(130)
+            .CellTemplate(new JS("cellElementTotalDebit"))
             .Format("#,##0.00"); // Apply the JavaScript function for TotalDebit
 
             columns.AddFor(m => m.TotalCredit)
             .Width(130)
+            .CellTemplate(new JS("cellElementTotalCredit"))
             .Format("#,##0.00"); // Apply the JavaScript function for TotalCredit
 
-
-
-
-
             columns.Add()
-        .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/New?AccountId=<%= data.Id %>&amount=<%= data.TotalCredit %>&Date=<%= data.Date %>">+Pay</a></text>);
-
-
-
-        })
-        .Summary(s => s.TotalItems(items =>
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/New?AccountId=@Model.Id&amount=<%= data.TotalCredit %>&Date=<%= data.Date %>">+Pay</a></text>);
+        }).Summary(s => s.TotalItems(items =>
         {
             items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
-        })
-        .GroupItems(groupItems =>
+        }).GroupItems(groupItems =>
         {
             groupItems.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("Sum: {0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
             groupItems.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("Sum: {0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
-        })
-        )
-        )
-
+        })))
 </div>
 
+            columns.AddFor(m => m.CustomerName)
+
+<script>
+    function cellElementTotalDebit(element, info) {
+        var cell = element.append(info.text);
+
+        console.log("Value-" + info.data.TotalDebit);
+
+        if (info.data.TotalDebit == "0")
+            cell.css("background", "lightgray");
+    }
+    function cellElementTotalCredit(element, info) {
+        var cell = element.append(info.text);
+
+        console.log("Value-" + info.data.TotalCredit);
+
+        if (info.data.TotalCredit == "0")
+            cell.css("background", "lightgray");
+    }
+
+
+</script>

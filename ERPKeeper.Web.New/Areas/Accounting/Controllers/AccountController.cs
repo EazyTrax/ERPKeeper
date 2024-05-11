@@ -35,6 +35,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
         public IActionResult Ledgers()
         {
             var model = OrganizationCore.ChartOfAccount.Find(AccountId);

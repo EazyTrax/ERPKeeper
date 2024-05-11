@@ -22,11 +22,15 @@
 
             columns.AddFor(m => m.TotalDebit)
             .Width(130)
+            .CellTemplate(new JS("cellElementTotalDebit"))
             .Format("#,##0.00"); // Apply the JavaScript function for TotalDebit
 
             columns.AddFor(m => m.TotalCredit)
             .Width(130)
+            .CellTemplate(new JS("cellElementTotalCredit"))
             .Format("#,##0.00"); // Apply the JavaScript function for TotalCredit
+
+            
         })
         .Summary(s => s.TotalItems(items =>
         {
@@ -43,3 +47,25 @@
 
 </div>
 
+
+
+<script>
+    function cellElementTotalDebit(element, info) {
+        var cell = element.append(info.text);
+
+        console.log("Value-" + info.data.TotalDebit);
+
+        if (info.data.TotalDebit == "0")
+            cell.css("background", "lightgray");
+    }
+    function cellElementTotalCredit(element, info) {
+        var cell = element.append(info.text);
+
+        console.log("Value-" + info.data.TotalCredit);
+
+        if (info.data.TotalCredit == "0")
+            cell.css("background", "lightgray");
+    }
+
+
+</script>

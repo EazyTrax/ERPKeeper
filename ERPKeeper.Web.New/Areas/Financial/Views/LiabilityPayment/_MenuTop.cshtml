@@ -11,6 +11,10 @@
         @if (Model.IsPosted)
         {
             <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id/UnPost">UnPost</a>
+        } 
+        @if (Model.Status == ERPKeeperCore.Enterprise.Models.Financial.Enums.LiabilityPaymentStatus.Draft)
+        {
+            <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id/Issue">Issue</a>
         }
     </div>
 </div>
