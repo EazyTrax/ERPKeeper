@@ -11,12 +11,11 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 {
-    public class QuotesController : API_Profiles_Customers_BaseController
+    public class CustomerQuotesController : API_Profiles_Customers_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Sales
-                .Where(x => x.Status == SaleStatus.Quote)
+            var returnModel = Organization.ErpCOREDBContext.CustomerQuotes
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -26,12 +25,12 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Customers.Sale();
+            var model = new Enterprise.Models.Customers.CustomerQuote();
             JsonConvert.PopulateObject(values, model);
 
-            model.Status = SaleStatus.Quote;
+            model.Status = QuoteStatus.Draft;
 
-            Organization.ErpCOREDBContext.Sales.Add(model);
+            Organization.ErpCOREDBContext.CustomerQuotes.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -41,7 +40,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.CustomerQuotes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();

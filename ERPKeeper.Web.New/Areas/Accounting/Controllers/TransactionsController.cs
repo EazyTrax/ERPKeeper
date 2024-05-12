@@ -19,7 +19,6 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Post()
         {
-            OrganizationCore.FiscalYears.UpdateTransactionsFiscalYears(false);
             OrganizationCore.Transactions.PostLedgers();
             OrganizationCore.SaveChanges();
 

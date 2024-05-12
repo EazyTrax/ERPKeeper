@@ -181,7 +181,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                                 .ToList();
         }
 
-        public void UpdateBalance()
+        public void RefreshCurrentBalance()
         {
             var fistDate = organization.FiscalYears.FirstPeriod.StartDate;
 
@@ -263,7 +263,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
 
-        public void CreateHostoriesBalances()
+        public void RefreshHostoriesBalances()
         {
             erpNodeDBContext.Accounts
                      .ToList()

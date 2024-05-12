@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240512030528_DB-1.120")]
+    partial class DB1120
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,6 +179,12 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("ClosedCredit")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("ClosedDebit")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal>("ClosingCredit")
                         .HasColumnType("decimal(18, 2)");
@@ -1155,17 +1164,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("BankFeeAmount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<Guid?>("BankFee_Expense_AccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("Deposit_Asset_AccountId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
@@ -1192,10 +1192,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BankFee_Expense_AccountId");
-
-                    b.HasIndex("Deposit_Asset_AccountId");
 
                     b.HasIndex("TransactionId")
                         .IsUnique()
@@ -2957,14 +2953,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "BankFee_Expense_Account")
-                        .WithMany()
-                        .HasForeignKey("BankFee_Expense_AccountId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Deposit_Asset_Account")
-                        .WithMany()
-                        .HasForeignKey("Deposit_Asset_AccountId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("FundTransfer")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "TransactionId");
@@ -2972,10 +2960,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "WithDrawAccount")
                         .WithMany()
                         .HasForeignKey("WithDrawAccountId");
-
-                    b.Navigation("BankFee_Expense_Account");
-
-                    b.Navigation("Deposit_Asset_Account");
 
                     b.Navigation("Transaction");
 

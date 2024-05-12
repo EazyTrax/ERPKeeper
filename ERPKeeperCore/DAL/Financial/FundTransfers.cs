@@ -78,10 +78,21 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             fundTransfers.ForEach(fundTransfer =>
             {
+                if (fundTransfer.BankFeeAmount > 0)
+                    fundTransfer.BankFee_Expense_Account = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Expense_BankFee);
+
                 fundTransfer.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
 
+        }
+
+        public void UnPost(FundTransfer model)
+        {
+            model.Transaction.ClearLedger();
+            model.IsPosted = false;
+
+            erpNodeDBContext.SaveChanges();
         }
     }
 }

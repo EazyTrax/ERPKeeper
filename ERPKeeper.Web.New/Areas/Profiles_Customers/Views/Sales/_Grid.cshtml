@@ -29,16 +29,21 @@
 
 
 
-                columns.AddFor(m => m.Date).AllowEditing(false).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+                columns.AddFor(m => m.Date)
+                .AllowEditing(false)
+                .SortOrder(SortOrder.Desc)
+                .SortIndex(1).Width(130);
 
-                columns.AddFor(m => m.Status).AllowEditing(false).Width(80).Lookup(lookup => lookup
+                columns.AddFor(m => m.Status)
+                .AllowEditing(false)
+                .Width(80)
+                .Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
 
                 columns.AddFor(m => m.Name)
-                .AllowEditing(false)
                 .AllowEditing(false)
                 .Width(130)
                 .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
@@ -49,7 +54,6 @@
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
@@ -73,9 +77,6 @@
             .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
-
-
-
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
@@ -102,6 +103,7 @@
             items.AddFor(m => m.LinesTotalAfterDiscount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
             items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
         }))
+        
 
 
 

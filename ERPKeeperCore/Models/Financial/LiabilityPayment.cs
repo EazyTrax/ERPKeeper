@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void UpdateBalance()
         {
-            this.PayFromAmount = this.LiabilityPaymentPayFromAccounts.Sum(x => x.Amount);
+            this.Amount = this.LiabilityPaymentPayFromAccounts.Sum(x => x.Amount);
             this.PayFromCount = this.LiabilityPaymentPayFromAccounts.Count();
         }
 
@@ -58,12 +58,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
             this.UpdateBalance();
 
-            if (this.PayFromAmount != this.Amount)
-                return;
-
             if (this.Transaction == null)
                 return;
-
 
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.Date;

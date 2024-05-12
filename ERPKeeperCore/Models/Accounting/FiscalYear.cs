@@ -28,9 +28,14 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public FiscalYearStatus Status { get; set; }
         public String? Memo { get; set; }
 
+        public decimal IncomeBalance => FiscalYearAccountBalances
+            .Where(b => b.Account.Type == AccountTypes.Income)
+            .Sum(a => a.Credit);
 
-        public decimal IncomeBalance { get; set; }
-        public decimal ExpenseBalance { get; set; }
+        public decimal ExpenseBalance => FiscalYearAccountBalances
+            .Where(b => b.Account.Type == AccountTypes.Expense)
+            .Sum(a => a.Debit);
+
         public decimal ProfitBalance => IncomeBalance - ExpenseBalance;
 
         public decimal ProfitPercent
@@ -43,7 +48,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                     return (IncomeBalance - ExpenseBalance) / IncomeBalance * 100;
             }
         }
+
         public virtual ICollection<FiscalYearAccountBalance> FiscalYearAccountBalances { get; set; }
+
         public int DayCount => (EndDate - StartDate).Days + 1;
 
         public decimal Debit { get; private set; }
@@ -96,62 +103,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public void UpdateClosingBalance()
         {
-            var balanceSummary = FiscalYearAccountBalances?
-                .GroupBy(a => a.Account.Type)
-                .Select(g => new { Type = g.Key, TotalBalance = g.Sum(x => x.Balance) })
-                .ToList();
-
-            IncomeBalance = balanceSummary?
-                .FirstOrDefault(x => x.Type == AccountTypes.Income)?
-                .TotalBalance ?? 0;
-
-            ExpenseBalance = balanceSummary?
-                .FirstOrDefault(x => x.Type == AccountTypes.Expense)?
-                .TotalBalance ?? 0;
-
-            foreach (var accBalance in FiscalYearAccountBalances.ToList())
-            {
-                if (accBalance == null)
-                    continue;
-                else if (accBalance.Account.Type == AccountTypes.Income || accBalance.Account.Type == AccountTypes.Expense)
-                {
-                    accBalance.ClosingDebit = accBalance.Credit;
-                    accBalance.ClosingCredit = accBalance.Debit;
-                }
-
-                else if (accBalance.Account.Type == AccountTypes.Capital && accBalance.Account.SubType == AccountSubTypes.Equity_RetainEarning)
-                {
-                    Console.WriteLine($">> {accBalance.Account.Name} {accBalance.Balance} {this.ProfitBalance}");
-
-
-                    if (this.ProfitBalance > 0)
-                    {
-                        accBalance.ClosingCredit = Math.Abs(this.ProfitBalance);
-                        accBalance.ClosingDebit = 0;
-                    }
-                    else
-                    {
-                        accBalance.ClosingCredit = 0;
-                        accBalance.ClosingDebit = Math.Abs(this.ProfitBalance);
-                    }
-
-                    Console.WriteLine($">>  {accBalance.ClosedDebit} {accBalance.ClosingCredit}");
-
-
-                }
-                else
-                {
-                    accBalance.ClosingDebit = 0;
-                    accBalance.ClosingCredit = 0;
-                }
-
-                var ClosedDebit = accBalance.OpeningDebit + accBalance.Debit + accBalance.ClosingDebit;
-                var ClosedCredit = accBalance.OpeningCredit + accBalance.Credit + accBalance.ClosingCredit;
-
-                accBalance.ClosedDebit = Math.Max(ClosedDebit - ClosedCredit, 0);
-                accBalance.ClosedCredit = Math.Max(ClosedCredit - ClosedDebit, 0);
-            }
-
             this.Debit = FiscalYearAccountBalances.Sum(a => a.Debit);
             this.Credit = FiscalYearAccountBalances.Sum(a => a.Debit);
         }
@@ -159,11 +110,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public void PostToTransaction()
         {
             Console.WriteLine($">Post >FiscalYear:{this.Name}");
-
-            this.UpdateClosingBalance();
-
-            if (this.Transaction == null)
-                return;
+            if (this.Transaction == null) return;
 
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.EndDate;
@@ -184,8 +131,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
             this.IsPosted = this.Transaction.UpdateBalance();
             this.Transaction.PostedDate = DateTime.Now;
-
         }
-
     }
 }

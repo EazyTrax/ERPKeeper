@@ -49,7 +49,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         public IActionResult UpdateCurrentBalance()
         {
             var model = OrganizationCore.ChartOfAccount.Find(AccountId);
-            OrganizationCore.ChartOfAccount.UpdateBalance();
+            OrganizationCore.ChartOfAccount.RefreshCurrentBalance();
             OrganizationCore.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }

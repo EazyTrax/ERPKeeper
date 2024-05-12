@@ -44,8 +44,6 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             return View(model);
         }
 
-
-
         public IActionResult Balances()
         {
             var model = OrganizationCore.FiscalYears.Find(FiscalYearId);

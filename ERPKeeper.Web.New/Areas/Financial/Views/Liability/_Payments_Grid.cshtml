@@ -36,7 +36,7 @@
 
                 columns.AddFor(m => m.LiabilityAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200)
+            .Width(150)
             .HeaderCellTemplate(@<text>Liability Acc</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
 

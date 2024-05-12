@@ -52,20 +52,20 @@
 
             columns.AddFor(m => m.InputTaxAccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .Width(200).HeaderCellTemplate(@<text>Input</text>);
+        .Width(150).HeaderCellTemplate(@<text>Input</text>);
 
             columns.AddFor(m => m.OutputTaxAccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .Width(200).HeaderCellTemplate(@<text>Output</text>);
+        .Width(150).HeaderCellTemplate(@<text>Output</text>);
 
 
             columns.AddFor(m => m.AssignAccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .Width(200).HeaderCellTemplate(@<text>Assign</text>);
+        .Width(150).HeaderCellTemplate(@<text>Assign</text>);
 
             columns.AddFor(m => m.CloseToAccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .Width(200).HeaderCellTemplate(@<text>Close</text>);
+        .Width(150).HeaderCellTemplate(@<text>Close</text>);
 
 
             @*   columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Taxes</text>);
@@ -74,15 +74,15 @@
             
             columns.AddFor(m => m.PurchaseAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200).HeaderCellTemplate(@<text>Asset Acc</text>);
+            .Width(150).HeaderCellTemplate(@<text>Asset Acc</text>);
 
             columns.AddFor(m => m.AmortizeExpenseAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AmortizeExpense).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200).HeaderCellTemplate(@<text>Amortize Acc</text>);
+            .Width(150).HeaderCellTemplate(@<text>Amortize Acc</text>);
 
              columns.AddFor(m => m.AccumulateDeprecateAccId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200).HeaderCellTemplate(@<text>Accumulate Acc</text>);
+            .Width(150).HeaderCellTemplate(@<text>Accumulate Acc</text>);
  *@
 
              @*

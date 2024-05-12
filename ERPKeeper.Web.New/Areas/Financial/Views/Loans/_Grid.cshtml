@@ -39,14 +39,14 @@
                 columns.AddFor(m => m.RecevingAccountId)
 
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200)
+            .Width(150)
             .HeaderCellTemplate(@<text>Dr.Recev</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RecevingAccountId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.LoanAccountId)
 
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200)
+            .Width(150)
             .HeaderCellTemplate(@<text>Cr. Liab Acc</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LoanAccountId %>/"><%= displayValue %></a></text>);
 

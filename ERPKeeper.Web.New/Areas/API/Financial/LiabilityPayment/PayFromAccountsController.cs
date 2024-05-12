@@ -34,6 +34,15 @@ namespace ERPKeeperCore.Web.New.API.Financials.LiabilityPayment
             Organization.ErpCOREDBContext.LiabilityPaymentPayFromAccounts.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
+            var payment = Organization.ErpCOREDBContext
+                .LiabilityPayments
+                .Include(a => a.LiabilityPaymentPayFromAccounts)
+                .Where(a => a.Id == Id)
+                .First();
+            payment.UpdateBalance();
+            Organization.SaveChanges();
+
+
             return Ok();
         }
 
@@ -44,6 +53,16 @@ namespace ERPKeeperCore.Web.New.API.Financials.LiabilityPayment
             var model = Organization.ErpCOREDBContext.LiabilityPaymentPayFromAccounts.Find(key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
+
+
+            var payment = Organization.ErpCOREDBContext
+            .LiabilityPayments
+            .Include(a => a.LiabilityPaymentPayFromAccounts)
+            .Where(a => a.Id == Id)
+            .First();
+            payment.UpdateBalance();
+            Organization.SaveChanges();
+
 
             return Ok();
         }

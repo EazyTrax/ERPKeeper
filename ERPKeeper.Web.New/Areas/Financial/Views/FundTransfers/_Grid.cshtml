@@ -9,8 +9,7 @@
             .InsertUrl($"/API/{CompanyId}/Financial/FundTransfers/Insert")
             .InsertMethod("Post")
             .UpdateUrl($"/API/{CompanyId}/Financial/FundTransfers/Update")
-            .UpdateMethod("Post")
-            )
+            .UpdateMethod("Post"))
             .Width("100%")
             .RowAlternationEnabled(true)
             .ShowRowLines(false)
@@ -40,21 +39,34 @@
                 columns.AddFor(m => m.WithDrawAccountId)
 
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200)
-            .HeaderCellTemplate(@<text>WithDrawAccount</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
-
-
-
-
+            .Width(150)
+            .HeaderCellTemplate(@<text>WithDraw</text>)
+                .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.WithDrawAmount)
                 .HeaderCellTemplate("Amount")
-                .Width(130)
+                .Width(120)
                 .Format("#,##0.00");
 
 
+                columns.AddFor(m => m.BankFeeAmount)
+                .HeaderCellTemplate("BankFee")
+                .Width(80)
+                .Format("#,##0.00");
+
+                columns.AddFor(m => m.Deposit_Asset_AccountId)
+
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(150)
+            .HeaderCellTemplate(@<text>Deposit</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
+
+
+                columns.AddFor(m => m.DepositAmount)
+            .HeaderCellTemplate("Amount")
+            .Width(120)
+            .Format("#,##0.00");
 
 
 

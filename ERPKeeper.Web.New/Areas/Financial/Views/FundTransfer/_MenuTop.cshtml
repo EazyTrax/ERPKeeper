@@ -1,14 +1,14 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Financial.FundTransfer
 
 <div class="row font-weight-600  text-uppercase">
-    <div class="p-2">
-
+    <div class="col-8 p-2">
         <a href="/@CompanyId/Financial">Financial</a>
         /
         <a href="/@CompanyId/Financial/FundTransfers">FundTransfers</a>
         /
         <a href="/@CompanyId/Financial/FundTransfers/@Model.Id">@Model.Name</a>
     </div>
+    <div class="col p-2">
+        <a href="/@CompanyId/Financial/FundTransfers/@Model.Id/Unpost">Unpost</a>
+    </div>
 </div>
-
-      

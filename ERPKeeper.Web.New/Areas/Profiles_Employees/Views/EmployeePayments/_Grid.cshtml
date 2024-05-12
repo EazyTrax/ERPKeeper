@@ -16,9 +16,10 @@
         .ShowBorders(false)
         .Width("100%")
         .Paging(paging => paging.PageSize(100))
-        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
-        )
-
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
+        .GroupPanel(gp => gp.Visible(true)) 
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
         .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
         .FilterRow(filterRow => filterRow
@@ -93,22 +94,27 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
+        );
 
 
 
 
 
 
-            }).Summary(s =>
-    s.TotalItems(items =>
-    {
+                })
+                .Summary(s =>
+            s.TotalItems(items =>{
 
-            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
-            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+                items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+                items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            })
+            .GroupItems(items =>
+            {
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
+
         }))
-
-
         )
 </div>
 

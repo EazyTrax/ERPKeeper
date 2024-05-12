@@ -15,35 +15,39 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         [ForeignKey("AccountId")]
         public virtual Account Account { get; set; }
 
+
+
+
         public Decimal OpeningDebit { get; set; }
         public Decimal OpeningCredit { get; set; }
-
         public Decimal Debit { get; set; }
         public Decimal Credit { get; set; }
+        public Decimal ClosingDebit { get; set; }
+        public Decimal ClosingCredit { get; set; }
 
-        public Decimal Balance
+
+
+
+
+       
+        public Decimal ClosedDebit
         {
             get
             {
-                switch (Account.Type)
-                {
-                    case AccountTypes.Asset:
-                    case AccountTypes.Expense:
-                        return Debit - Credit;
-
-                    case AccountTypes.Liability:
-                    case AccountTypes.Capital:
-                    case AccountTypes.Income:
-                    default:
-                        return Credit - Debit;
-                }
+                var curDebit = OpeningDebit + Debit + ClosingDebit;
+                var curCredit = OpeningCredit + Credit + ClosingCredit;
+                return Math.Max(curDebit - curCredit, 0);
             }
         }
-
-        public Decimal ClosingDebit { get; set; }
-        public Decimal ClosingCredit { get; set; }
-        public Decimal ClosedDebit { get; set; }
-        public Decimal ClosedCredit { get; set; }
+        public Decimal ClosedCredit
+        {
+            get
+            {
+                var curDebit = OpeningDebit + Debit + ClosingDebit;
+                var curCredit = OpeningCredit + Credit + ClosingCredit;
+                return Math.Max(curCredit - curDebit, 0);
+            }
+        }
 
         public void ClearBalance()
         {
@@ -51,8 +55,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             this.OpeningCredit = 0;
             this.Debit = 0;
             this.Credit = 0;
-            this.ClosedDebit = 0;
-            this.ClosedCredit = 0;
         }
     }
 }

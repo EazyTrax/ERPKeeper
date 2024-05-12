@@ -43,7 +43,7 @@
 
 
             columns.AddFor(m => m.CodePrefix).Width(80).HeaderCellTemplate(@<text>Purchased</text>).SortOrder(SortOrder.Asc).SortIndex(1);
-            columns.AddFor(m => m.Name).Width(200).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Assets</text>);
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
 

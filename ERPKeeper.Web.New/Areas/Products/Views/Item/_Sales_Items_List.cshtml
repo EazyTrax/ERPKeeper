@@ -37,14 +37,14 @@
         </text>);
 
                 columns.AddFor(m => m.Sale.Name).HeaderCellTemplate(@<text>Customer</text>)
-    .Width(200)
+    .Width(150)
     .CellTemplate(@<text>
             <a href="/Sales/Customers/<%= data.Commercial.Profile.Id %>/">
                 <%= data.Commercial.Profile.Name %>
             </a>
         </text>);
 
-                columns.AddFor(m => m.Sale.Reference).Width(200);
+                columns.AddFor(m => m.Sale.Reference).Width(150);
     columns.Add().DataField("Amount").Width(80).Format("#,##0.00");
     columns.Add().DataField("SalePrice").Width(80).Format("#,##0.00");
     columns.Add().DataField("LineTotal").Width(80).Format("#,##0.00");

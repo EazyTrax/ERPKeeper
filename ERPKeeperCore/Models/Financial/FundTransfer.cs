@@ -22,8 +22,6 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public virtual Accounting.Transaction? Transaction { get; set; }
 
 
-
-
         public DateTime Date { get; set; }
         public String? Reference { get; set; }
         public FundTransferStatus Status { get; set; }
@@ -37,6 +35,19 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public virtual Accounting.Account WithDrawAccount { get; set; }
 
         public Decimal WithDrawAmount { get; set; }
+
+        public Guid? BankFee_Expense_AccountId { get; set; }
+        [ForeignKey("BankFee_Expense_AccountId")]
+        public virtual Accounting.Account BankFee_Expense_Account { get; set; }
+
+        public Decimal BankFeeAmount { get; set; }
+        public Guid? Deposit_Asset_AccountId { get; set; }
+        [ForeignKey("Deposit_Asset_AccountId")]
+        public virtual Accounting.Account Deposit_Asset_Account { get; set; }
+
+        public Decimal DepositAmount => WithDrawAmount - BankFeeAmount;
+
+
 
         public virtual ICollection<FundTransferItem> FundTransferDepositLines { get; set; } = new List<FundTransferItem>();
 
@@ -71,8 +82,9 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
             //Step 3. Post Data
             // Dr.
-            foreach (var item in this.FundTransferDepositLines)
-                this.Transaction.AddDebit(item.Account, item.Debit);
+            this.Transaction.AddDebit(this.Deposit_Asset_Account, this.DepositAmount);
+            if (this.BankFeeAmount > 0)
+                this.Transaction.AddDebit(this.BankFee_Expense_Account, this.BankFeeAmount);
             // Cr.
             this.Transaction.AddCredit(this.WithDrawAccount, this.WithDrawAmount);
 

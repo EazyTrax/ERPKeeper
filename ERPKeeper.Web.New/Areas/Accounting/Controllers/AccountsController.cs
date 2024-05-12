@@ -19,14 +19,14 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult UpdateCurrentBalance()
         {
-            OrganizationCore.ChartOfAccount.UpdateBalance();
+            OrganizationCore.ChartOfAccount.RefreshCurrentBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
       
         public IActionResult UpdateHistoryBalance()
         {
-            OrganizationCore.ChartOfAccount.UpdateBalance();
+            OrganizationCore.ChartOfAccount.RefreshCurrentBalance();
             OrganizationCore.ChartOfAccount.GenerateHistoryBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }

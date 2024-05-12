@@ -11,7 +11,7 @@
             .UpdateUrl($"/api/{CompanyId}/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/Update")
             .UpdateMethod("Post"))
             .AllowColumnReordering(true)
-            .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
+            .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
             .ShowColumnLines(true)
             .ShowBorders(false)
             .ColumnAutoWidth(false)
@@ -23,7 +23,7 @@
             {
                 columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(200).HeaderCellTemplate(@<text>Account</text>)
+            .Width(150).HeaderCellTemplate(@<text>Account</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
 

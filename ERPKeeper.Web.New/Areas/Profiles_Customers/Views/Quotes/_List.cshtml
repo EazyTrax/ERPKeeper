@@ -12,6 +12,8 @@
             .InsertUrl($"/API/{CompanyId}/Profiles/Customers/CustomerQuotes/Update")
             .UpdateMethod("Post")
             )
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
             .RowAlternationEnabled(true)
             .KeyExpr("Id")
             .ShowRowLines(false)
@@ -23,11 +25,14 @@
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
+                columns.AddFor(m => m.Date)
+                .SortOrder(SortOrder.Desc)
+                .SortIndex(1)
+                .Width(130);
 
-
-                columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
-
-                columns.AddFor(m => m.Status).Width(80).Lookup(lookup => lookup
+                columns.AddFor(m => m.Status)
+                .Width(80)
+                .Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.QuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
@@ -37,11 +42,11 @@
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/CustomerQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-                columns.AddFor(m => m.CustomerId).Lookup(lookup => lookup
+                columns.AddFor(m => m.CustomerId)
+                .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 

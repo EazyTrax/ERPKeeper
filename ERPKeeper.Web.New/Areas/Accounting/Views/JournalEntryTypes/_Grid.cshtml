@@ -9,7 +9,7 @@
         .UpdateUrl($"/api/{CompanyId}/Accounting/JournalEntryTypes/Update")
         .UpdateMethod("Post"))
         .AllowColumnReordering(true)
-        .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
+        .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))

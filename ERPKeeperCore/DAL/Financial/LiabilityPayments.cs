@@ -69,6 +69,9 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
         public void PostToTransactions()
         {
+
+
+            RemoveUnreferenceTransactions();
             CreateTransactions();
 
             var LiabilityPayments = erpNodeDBContext.LiabilityPayments
@@ -82,6 +85,46 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                 erpNodeDBContext.SaveChanges();
             });
 
+        }
+
+        private void RemoveUnreferenceTransactions()
+        {
+            erpNodeDBContext.Transactions
+                .Where(t=>t.Type == Models.Accounting.Enums.TransactionType.LiabilityPayment && t.LiabilityPayment ==null)
+                .ToList()
+                 .ForEach(a =>
+                 {
+                     Console.WriteLine($"Delete {a.Id} {a.Debit} {a.Credit}");
+                     erpNodeDBContext.Transactions.Remove(a);
+                     SaveChanges();
+                 });
+        }
+
+        public void ClearEmpties()
+        {
+            erpNodeDBContext.LiabilityPaymentPayFromAccounts
+                  .Where(a => a.Account == null || a.Amount == 0)
+                  .ToList()
+                  .ForEach(a =>
+                  {
+                      Console.WriteLine($"Delete {a.LiabilityPayment.Name} {a.Amount}");
+                      erpNodeDBContext.LiabilityPaymentPayFromAccounts.Remove(a);
+                      SaveChanges();
+                  });
+
+            erpNodeDBContext.LiabilityPayments
+                 .Where(a => a.Amount == 0)
+                 .ToList()
+                 .ForEach(a =>
+                 {
+                     Console.WriteLine($"Delete {a.Name} {a.Amount}");
+                     Console.WriteLine($"Delete {a.LiabilityPaymentPayFromAccounts.Sum(m => m.Amount)}");
+
+                     erpNodeDBContext.LiabilityPayments.Remove(a);
+                     SaveChanges();
+                 });
+
+            RemoveUnreferenceTransactions();
         }
     }
 }

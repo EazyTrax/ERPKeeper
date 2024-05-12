@@ -81,5 +81,48 @@ namespace ERPKeeperCore.Enterprise.DAL
             });
 
         }
+
+
+        private void RemoveUnreferenceTransactions()
+        {
+            erpNodeDBContext.Transactions
+                .Where(t => t.Type == Models.Accounting.Enums.TransactionType.JournalEntry && t.JournalEntry == null)
+                .ToList()
+                 .ForEach(a =>
+                 {
+                     Console.WriteLine($"Delete {a.Id} {a.Debit} {a.Credit}");
+                     erpNodeDBContext.Transactions.Remove(a);
+                     SaveChanges();
+                 });
+        }
+
+        public void ClearEmpties()
+        {
+            erpNodeDBContext.JournalEntryItems
+                  .Where(a => a.Account == null
+                  || (a.Debit == 0 && a.Credit == 0)
+                  || (a.Debit == 0 && a.Credit == null)
+                  || (a.Debit == null && a.Credit == 0))
+                  .ToList()
+                  .ForEach(a =>
+                  {
+                      Console.WriteLine($"Delete {a.JournalEntry.Name} {a.Debit} {a.Credit}");
+                      erpNodeDBContext.JournalEntryItems.Remove(a);
+                      SaveChanges();
+                  });
+
+            erpNodeDBContext.JournalEntries
+                 .Where(a => a.Debit == 0 && a.Credit == 0 && a.JournalEntryItems.Count == 0)
+                 .ToList()
+                 .ForEach(a =>
+                 {
+                     Console.WriteLine($"Delete {a.Name}");
+                     erpNodeDBContext.JournalEntries.Remove(a);
+                     SaveChanges();
+                 });
+
+            RemoveUnreferenceTransactions();
+
+        }
     }
 }

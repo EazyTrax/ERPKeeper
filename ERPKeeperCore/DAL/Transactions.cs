@@ -68,7 +68,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         }
 
-        public void ClearEmpthyLedgers()
+        public void ClearEmptyLedgers()
         {
 
             organization.ErpCOREDBContext.TransactionLedgers

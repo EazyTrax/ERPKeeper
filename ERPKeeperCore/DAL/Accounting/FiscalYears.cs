@@ -78,7 +78,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             return fiscalYear;
         }
         public bool IsFirstPeriod(FiscalYear fy) => fy.Id == this.FirstPeriod.Id;
-      
+
 
         public void Close(FiscalYear fy)
         {
@@ -103,26 +103,33 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             }
         }
 
-        public void UpdateAccountBalance()
+        public void UpdateAllYearsAccountsBalance()
         {
             Console.WriteLine("> FISCALs > Update");
             this.UpdateTransactionsFiscalYears(false);
 
             foreach (var fiscalYear in this.GetAll())
             {
-                var accounts = organization.ChartOfAccount.All();
-                fiscalYear.PrepareFiscalBalance(accounts, true);
                 this.UpdateAccountBalance(fiscalYear);
                 organization.SaveChanges();
             }
         }
 
+
         public void UpdateAccountBalance(FiscalYear fiscalYear)
         {
             Console.WriteLine($"> FISCAL: {fiscalYear.Name} > UpdateBalance");
+            var accounts = organization.ChartOfAccount.All();
 
-            this.UpdateTransactionsFiscalYears(false);
+            fiscalYear.PrepareFiscalBalance(accounts, true);
+            erpNodeDBContext.SaveChanges();
 
+            UpdateOpeningBalance(fiscalYear);
+            UpdateCurrentAndClosingAccountBalance(fiscalYear);
+
+        }
+        private void UpdateCurrentAndClosingAccountBalance(FiscalYear fiscalYear)
+        {
             DateTime startDate = fiscalYear.StartDate.Date;
             DateTime endDate = fiscalYear.EndDate.Date.AddDays(1);
 
@@ -130,11 +137,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             organization.SaveChanges();
 
             // Step 2. Collecting Account Balance
-            var currentYearAccBalances = organization.ErpCOREDBContext
+            var incomingAccBalances = organization.ErpCOREDBContext
                 .TransactionLedgers
-                .Where(t =>
-                    t.Transaction.Type != TransactionType.FiscalYearClosing
-                    && t.Transaction.FiscalYearId == fiscalYear.Id)
+                .Where(t => t.Transaction.Type != TransactionType.FiscalYearClosing
+                    && t.Transaction.Date >= startDate && t.Transaction.Date < endDate)
                 .GroupBy(t => t.AccountId)
                 .Select(t => new
                 {
@@ -145,27 +151,52 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 })
                 .ToList();
 
-            // Step 3. Collecting Account Balance
-            currentYearAccBalances.ForEach(x =>
+            var YearProfit = incomingAccBalances
+                .Where(x => x.Account.Type == AccountTypes.Income || x.Account.Type == AccountTypes.Expense)
+                .Sum(x => x.Credit - x.Debit);
+
+            // Step 3. Update Current & Closing Balance
+            var accountBalances = organization.ErpCOREDBContext.FiscalYearAccountBalances
+                    .Where(b => b.FiscalYearId == fiscalYear.Id)
+                    .ToList();
+
+            accountBalances.ForEach(accountBalance =>
             {
-                var accountBalance = organization.ErpCOREDBContext.FiscalYearAccountBalances
-                    .Where(b => b.AccountId == x.AccountId && b.FiscalYearId == fiscalYear.Id)
-                    .First();
+                var x = incomingAccBalances
+                    .Where(x => x.AccountId == accountBalance.AccountId)
+                    .FirstOrDefault();
 
-                accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
-                accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
+                if (x != null)
+                {
+                    accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
+                    accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
+                }
+
+                if (accountBalance.Account.Type == AccountTypes.Income || accountBalance.Account.Type == AccountTypes.Expense)
+                {
+                    accountBalance.ClosingCredit = accountBalance.Debit;
+                    accountBalance.ClosingDebit = accountBalance.Credit;
+                }
+                else if (accountBalance.Account.Type == AccountTypes.Capital && accountBalance.Account.SubType == AccountSubTypes.Equity_RetainEarning)
+                {
+                    Console.WriteLine($">> {accountBalance.Account.Name} {YearProfit}");
+                    accountBalance.ClosingDebit = Math.Abs(Math.Min(YearProfit, 0));
+                    accountBalance.ClosingCredit = Math.Max(YearProfit, 0);
+                }
             });
+
             organization.SaveChanges();
-
-
-            // Step 3. Collecting Opening Balance
+        }
+        private void UpdateOpeningBalance(FiscalYear fiscalYear)
+        {
             var firstDate = organization.FiscalYears.FirstPeriod.StartDate.Date;
 
+            // Step 3. Update Opening Balance
             var priorAccountBalances = erpNodeDBContext.TransactionLedgers
             .Where(t => t.Transaction.Date >= firstDate && t.Transaction.Date < fiscalYear.StartDate.Date)
               .GroupBy(t => t.AccountId)
-           .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
-           .ToList();
+               .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
+               .ToList();
 
             foreach (var priorAccBalance in priorAccountBalances)
             {
@@ -195,16 +226,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 .ToList()
                 .ForEach(fy =>
                 {
-                    this.UpdateTransactionsFiscalYears(false);
-                    this.UpdateAccountBalance(fy);
-                    fy.UpdateClosingBalance();
-                    erpNodeDBContext.SaveChanges();
+                    this.UpdateCurrentAndClosingAccountBalance(fy);
 
                     fy.PostToTransaction();
                     erpNodeDBContext.SaveChanges();
                 });
         }
-
         public void CreateTransactions()
         {
             var FiscalYears = erpNodeDBContext

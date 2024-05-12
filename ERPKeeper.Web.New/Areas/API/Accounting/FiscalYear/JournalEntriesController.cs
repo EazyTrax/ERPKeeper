@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
 
             var returnModel = Organization.ErpCOREDBContext
                 .JournalEntries
-                .Where(a => a.Date > fiscalYear.StartDate && a.Date < fiscalYear.EndDate.AddDays(1));
+                .Where(a => a.Date >= fiscalYear.StartDate && a.Date < fiscalYear.EndDate.AddDays(1));
 
 
             return DataSourceLoader.Load(returnModel, loadOptions);

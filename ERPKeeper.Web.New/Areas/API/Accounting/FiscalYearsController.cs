@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Accounting
@@ -15,8 +16,11 @@ namespace ERPKeeperCore.Web.API.Accounting
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.FiscalYears;
-
+            var returnModel = Organization.ErpCOREDBContext.FiscalYears
+                .Include(a => a.FiscalYearAccountBalances)
+                .ThenInclude(a => a.Account)
+                .ToList();
+                
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 

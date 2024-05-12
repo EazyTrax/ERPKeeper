@@ -6,7 +6,7 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/Expenses/All"))
             .AllowColumnReordering(true)
-            .RowAlternationEnabled(false).ShowRowLines(true).HoverStateEnabled(true)
+            .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
             .ShowColumnLines(true)
             .ShowBorders(false)
             .ColumnAutoWidth(false)
@@ -24,7 +24,7 @@
                 );
 
                 columns.AddFor(m => m.Account.SubType).SortOrder(SortOrder.Asc).SortIndex(2)
-                .HeaderCellTemplate("SubType").Width(200).Lookup(lookup => lookup
+                .HeaderCellTemplate("SubType").Width(150).Lookup(lookup => lookup
                 .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                 .DisplayExpr("Text")
                 .ValueExpr("Value")

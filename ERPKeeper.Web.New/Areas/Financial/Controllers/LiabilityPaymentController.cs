@@ -31,6 +31,9 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
                 existModel.Amount = model.Amount;
                 existModel.Date = model.Date;
                 OrganizationCore.SaveChanges();
+
+                existModel.UpdateBalance();
+                OrganizationCore.SaveChanges();
             }
 
             return Redirect(Request.Headers["Referer"].ToString());

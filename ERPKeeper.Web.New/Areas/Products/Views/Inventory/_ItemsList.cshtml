@@ -70,7 +70,7 @@
                 columns.Add().DataField("PartNumber")
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
-            .Width(200)
+            .Width(150)
             .CellTemplate(@<text>
         <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
             <span ><%= data.PartNumber %></span>
