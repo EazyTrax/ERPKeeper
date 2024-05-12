@@ -51,13 +51,8 @@
 
 
 
-                columns.AddFor(m => m.Name).CellTemplate(
-            @<text>
-                <div>
-                    <a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/">N:<%= data.Name %></a>
-                </div>
-            </text>
-        );
+                columns.AddFor(m => m.Name)
+                .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/">N:<%= data.Name %></a></text>);
 
             columns.Add()
         .Caption("Current")
