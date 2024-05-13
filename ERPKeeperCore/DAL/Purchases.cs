@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Enterprise.DAL
                 }
                 if (purchase.IncomeAccount_DiscountTaken == null && purchase.Discount > 0)
                 {
-                    purchase.IncomeAccount_DiscountTaken = organization.SystemAccounts.GetAccount( Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
+                    purchase.IncomeAccount_DiscountTaken = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
                     purchase.IncomeAccount_DiscountTakenId = purchase.IncomeAccount_DiscountTaken.Id;
                 }
 
@@ -84,5 +84,12 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         }
 
+        public void UnPost(Purchase model)
+        {
+            model.Transaction.ClearLedger();
+            model.IsPosted = false;
+
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

@@ -1,0 +1,20 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+
+<div class="row">
+    <div class="col-8 p-3 col-center mh-100v border-right border-2">
+
+        <div class="text-center font-weight-600  mb-3">
+            บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+            งบแสดงการคำนวณภาษี
+        </div>
+
+        <partial name="_Report_SupportingDocuments_CashEquivalent" />
+        <partial name="_Report_SupportingDocuments_Recevable" />
+        
+        <partial name="_Report_SupportingDocuments_Payable" />
+        <partial name="_Report_SupportingDocuments_Assets" />
+        
+    </div>
+</div>

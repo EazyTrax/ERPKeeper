@@ -25,10 +25,39 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
+        [AllowAnonymous]
+        public object Export(DataSourceLoadOptions loadOptions)
+        {
+            var returnModel = Organization.ErpCOREDBContext.FiscalYearAccountBalances
+                .Where(m => m.FiscalYearId == FiscalYearId)
+                .Include(m => m.Account)
+                .Select(line => new
+                {
+                    AccName = line.Account.Name,
+                    AccCode = line.Account.Code,
+
+                    AccType = line.Account.Type.ToString(),
+                    AccSubType = line.Account.SubType.ToString(),
+
+                    OpeningDebit = line.OpeningDebit,
+                    OpeningCredit = line.OpeningCredit,
+
+                    CurrentDebit = line.Debit,
+                    CurrentCredit = line.Credit,
+
+                    ClosingDebit = line.ClosingDebit,
+                    ClosingCredit = line.ClosingCredit,
+
+                    ClosedDebit = line.ClosedDebit,
+                    ClosedCrdit = line.ClosedCredit
 
 
 
 
 
+                });
+
+            return DataSourceLoader.Load(returnModel, loadOptions);
+        }
     }
 }

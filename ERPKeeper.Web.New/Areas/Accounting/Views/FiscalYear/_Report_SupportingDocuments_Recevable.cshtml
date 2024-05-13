@@ -1,0 +1,67 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+
+
+
+<div class="row mb-3">
+    <div class="col-12  font-weight-600 ">
+        ลูกหนี้การค้าและลูกหนี้อื่น
+    </div>
+    @{
+        var lines = Model.FiscalYearAccountBalances
+        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
+        .Where(m => !(m.Debit == 0 && m.Credit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
+        .Where(m => m.Account.SubType != AccountSubTypes.Cash)
+        .Where(m => m.Account.SubType != AccountSubTypes.Bank)
+        .Where(m => m.Account.SubType != AccountSubTypes.FixedAsset)
+        .Where(m => m.Account.SubType != AccountSubTypes.AccDepreciation)
+        .Where(m => m.Account.SubType != AccountSubTypes.Inventory)
+        .Where(m => m.Account.SubType != AccountSubTypes.TaxReceivable)
+        .Where(m => m.Account.SubType != AccountSubTypes.TaxInput)
+        .OrderBy(m => m.Account.SubType)
+        .ToList();
+
+
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            2565
+        </div>
+        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+            2566
+        </div>
+
+        foreach (var line in lines)
+        {
+            <div class="col-4">
+                <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                    @line.Account.Name
+                </a>
+            </div>
+            <div class="col-4">
+                @line.Account.SubType.ToString()
+            </div>
+            <div class="col-2 text-right">
+                @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+            </div>
+        }
+
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+        </div>
+        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+            @(lines.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+        </div>
+    }
+</div>
+

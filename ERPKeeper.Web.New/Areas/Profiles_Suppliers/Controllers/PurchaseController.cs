@@ -18,6 +18,14 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Suppliers.Controllers
             var transcation = OrganizationCore.Purchases.Find(transactionId);
             return View(transcation);
         }
+        public IActionResult UnPost(Guid transactionId)
+        {
+            var model =   OrganizationCore.Purchases.Find(transactionId);
+            OrganizationCore.Purchases.UnPost(model);
+            OrganizationCore.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
 
         public IActionResult Items(Guid transactionId)

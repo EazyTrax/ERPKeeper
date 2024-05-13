@@ -1,9 +1,15 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
 <div class="row font-weight-600  text-uppercase">
-    <div class="p-2">
+    <div class="col-8 p-2">
         / <a href="/@CompanyId/Profiles/Suppliers"> Suppliers</a>
         / <a href="/@CompanyId/Profiles/Suppliers/Purchases"> Purchases</a>
         / <a href="/@CompanyId/Profiles/Suppliers/Purchases/@Model.Id"> @Model.Name</a>
+    </div>
+
+    <div class="col">
+         <a href="/@CompanyId/Profiles/Suppliers/Purchases/@Model.Id/Unpost">UnPost</a>
+
+
     </div>
 </div>

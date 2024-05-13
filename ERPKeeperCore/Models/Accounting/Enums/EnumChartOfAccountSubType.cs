@@ -75,12 +75,12 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         TaxExpense = 560,
         IncomeTax = 563,
         PurchaseAsset = 564,
-
-
         IncomeTaxExpense = 562,
         AccumulateExpense = 561,
         AmortizeExpense = 582,
         AwaitingDepreciation = 583,
         InvestmentRevenue = 584,
+        UnCliamableExpense = 585,
+
     }
 }

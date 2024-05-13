@@ -1,0 +1,139 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+
+<div class="row mb-3">
+    <div class="col-12  font-weight-600 ">
+        ที่ดิน อาคารและอุปกรณ์
+    </div>
+
+    @{
+        var assetsTypes = Organization.AssetTypes.GetAll();
+        Decimal TotalOpening = 0;
+        Decimal TotalDebit = 0;
+        Decimal TotalCredit = 0;
+        Decimal TotalClosing = 0;
+
+        <div class="col-4 font-weight-600 ">
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            ยอดคงเหลือ<br />
+            @(Model.EndDate.Year - 1)
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            เพิ่มขึ้น
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            ลดลง
+        </div>
+        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+            ยอดคงเหลือ<br />
+            @(Model.EndDate.Year)
+        </div>
+
+        <div class="col-12 font-weight-600 ">
+            ราคาทุน
+        </div>
+        foreach (var assetType in assetsTypes)
+        {
+            var purchaseBalance = Model.FiscalYearAccountBalances.Where(m => m.AccountId == assetType.AwaitDeprecateAccId).First();
+
+            TotalOpening += (purchaseBalance.OpeningDebit - purchaseBalance.OpeningCredit);
+            TotalDebit += purchaseBalance.Debit;
+            TotalCredit += purchaseBalance.Credit;
+            TotalClosing += (purchaseBalance.ClosedDebit - purchaseBalance.ClosedCredit);
+
+            <div class="col-4">
+                <a href="/@CompanyId/Assets/AssetTypes/@assetType.Id/" target="_blank">
+                    @assetType.Name
+                </a>
+            </div>
+            <div class="col-2 text-right">
+                @((purchaseBalance.OpeningDebit - purchaseBalance.OpeningCredit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((purchaseBalance.Debit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((purchaseBalance.Credit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((purchaseBalance.ClosedDebit - purchaseBalance.ClosedCredit).ToString("N2"))
+            </div>
+        }
+
+        <div class="col-4">
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalOpening.ToString("N2"))
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalDebit.ToString("N2"))
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalCredit.ToString("N2"))
+        </div>
+        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalClosing.ToString("N2"))
+        </div>
+    }
+
+    @{
+        TotalOpening = 0;
+        TotalDebit = 0;
+        TotalCredit = 0;
+        TotalClosing = 0;
+
+        <div class="col-12 font-weight-600 mt-3">
+            ค่าเสื่อมราคา
+        </div>
+        foreach (var assetType in assetsTypes)
+        {
+            var accumulateBalance = Model.FiscalYearAccountBalances.Where(m => m.AccountId == assetType.AccumulateDeprecateAccId).FirstOrDefault();
+            if (accumulateBalance == null)
+                continue;
+
+            TotalOpening += (accumulateBalance.OpeningCredit - accumulateBalance.OpeningDebit);
+            TotalDebit += accumulateBalance.Debit;
+            TotalCredit += accumulateBalance.Credit;
+            TotalClosing += (accumulateBalance.ClosedCredit - accumulateBalance.ClosedDebit);
+
+            <div class="col-4">
+                <a href="/@CompanyId/Assets/AssetTypes/@assetType.Id/" target="_blank">
+                    @assetType.Name
+                </a>
+            </div>
+
+            <div class="col-2 text-right">
+                @((accumulateBalance.OpeningCredit - accumulateBalance.OpeningDebit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((accumulateBalance.Credit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((accumulateBalance.Debit).ToString("N2"))
+            </div>
+            <div class="col-2 text-right">
+                @((accumulateBalance.ClosedCredit - accumulateBalance.ClosedDebit).ToString("N2"))
+
+            </div>
+        }
+
+        <div class="col-4">
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalOpening.ToString("N2"))
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalDebit.ToString("N2"))
+        </div>
+        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalCredit.ToString("N2"))
+        </div>
+        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+            @(TotalClosing.ToString("N2"))
+        </div>
+    }
+
+</div>
+
