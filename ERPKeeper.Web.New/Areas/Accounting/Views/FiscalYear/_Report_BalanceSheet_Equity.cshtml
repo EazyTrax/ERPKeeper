@@ -1,0 +1,101 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+
+
+<div class="row mb-3">
+
+    <div class="col-4">
+    </div>
+    <div class="col-4">
+    </div>
+    <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        @(Model.EndDate.Year - 1)
+    </div>
+    <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        @(Model.EndDate.Year)
+    </div>
+
+</div>
+
+<div class="row mb-3">
+
+    @{
+        var stock = Model.FiscalYearAccountBalances
+        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Capital)
+        .Where(m => m.Account.SubType == AccountSubTypes.Stock)
+        .First();
+
+
+
+        <div class="col-12  font-weight-600 ">
+            ส่วนของผู้ถือหุ้น<br />
+            ทุนเรือนหุ้น<br />
+            ทุนจดทะเบียน
+        </div>
+
+        <div class="col-4">
+            <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_blank">
+                ทุนจดทะเบียน<br />
+                หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
+            </a>
+        </div>
+        <div class="col-4">
+            @stock.Account.SubType.ToString()
+        </div>
+        <div class="col-2 text-right">
+            @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
+        </div>
+        <div class="col-2 text-right">
+            @((stock.ClosingCredit - stock.ClosedDebit).ToString("N2"))
+        </div>
+
+
+
+
+        <div class="col-4">
+            <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_blank">
+                ทุนเรียกชำระแล้ว<br />
+                หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
+            </a>
+        </div>
+        <div class="col-4">
+            @stock.Account.SubType.ToString()
+        </div>
+        <div class="col-2 text-right">
+            @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
+        </div>
+        <div class="col-2 text-right">
+            @((stock.ClosingCredit - stock.ClosedDebit).ToString("N2"))
+        </div>
+    }
+</div>
+
+
+
+@{
+    var retainEaring = Model.FiscalYearAccountBalances
+                .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Capital)
+                .Where(m => m.Account.SubType == AccountSubTypes.Equity_RetainEarning)
+                .First();
+
+
+}
+
+
+<div class="row mb-3">
+    <div class="col-12">
+        กำไร (ขาดทุน) สะสม
+    </div>
+    <div class="col-4 font-weight-600 ">
+        กำไรสะสม
+    </div>
+    <div class="col-4">
+    </div>
+    <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        @(retainEaring.OpeningCredit.ToString("N2"))
+    </div>
+    <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        @(retainEaring.ClosedCredit.ToString("N2"))
+    </div>
+</div>

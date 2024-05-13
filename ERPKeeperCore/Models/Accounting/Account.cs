@@ -53,7 +53,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         }
 
         public DateTime? BalanceCalulatedDate { get; set; }
-
         public Decimal OpeningCredit { get; set; } = 0;
         public Decimal OpeningDebit { get; set; } = 0;
         public Decimal CurrentCredit { get; set; } = 0;
@@ -110,6 +109,5 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 this.AccountBalances.Add(balance);
             }
         }
-
     }
 }
