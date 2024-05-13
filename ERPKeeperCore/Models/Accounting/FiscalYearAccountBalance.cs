@@ -20,8 +20,18 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Decimal OpeningDebit { get; set; }
         public Decimal OpeningCredit { get; set; }
+
+
+
+
         public Decimal Debit { get; set; }
         public Decimal Credit { get; set; }
+
+        public Decimal TotalDebit => Math.Max(this.Debit - this.Credit, 0);
+        public Decimal TotalCredit => Math.Max(this.Credit - this.Debit, 0);
+
+
+
         public Decimal ClosingDebit { get; set; }
         public Decimal ClosingCredit { get; set; }
 
@@ -29,13 +39,13 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
 
-       
+
         public Decimal ClosedDebit
         {
             get
             {
-                var curDebit = OpeningDebit + Debit + ClosingDebit;
-                var curCredit = OpeningCredit + Credit + ClosingCredit;
+                var curDebit = OpeningDebit + TotalDebit + ClosingDebit;
+                var curCredit = OpeningCredit + TotalCredit + ClosingCredit;
                 return Math.Max(curDebit - curCredit, 0);
             }
         }
@@ -43,8 +53,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         {
             get
             {
-                var curDebit = OpeningDebit + Debit + ClosingDebit;
-                var curCredit = OpeningCredit + Credit + ClosingCredit;
+                var curDebit = OpeningDebit + TotalDebit + ClosingDebit;
+                var curCredit = OpeningCredit + TotalCredit + ClosingCredit;
                 return Math.Max(curCredit - curDebit, 0);
             }
         }

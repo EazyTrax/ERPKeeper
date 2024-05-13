@@ -32,8 +32,8 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
                     m.Account.Code,
                     type = m.Account.Type.ToString(),
                     subType = m.Account.SubType.ToString(),
-                    m.Debit,
-                    m.Credit
+                    m.TotalDebit,
+                    m.TotalCredit
                 })
                 .OrderBy(m => m.Code)
                 .ToList();

@@ -94,7 +94,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             }
 
 
-            if (exist.SubType == AccountSubTypes.Cash || exist.SubType == AccountSubTypes.Bank)
+            if (exist.SubType == AccountSubTypes.Asset_Cash || exist.SubType == AccountSubTypes.Asset_Bank)
                 exist.IsCashEquivalent = true;
 
 
@@ -144,20 +144,20 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> GetCashEquivalentAccounts() => erpNodeDBContext.Accounts
               .Where(account => account.Type == AccountTypes.Asset)
 
-              .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
+              .Where(account => account.SubType == AccountSubTypes.Asset_Bank || account.SubType == AccountSubTypes.Asset_Cash || account.IsCashEquivalent)
               .OrderBy(account => account.SubType)
               .ToList();
         public List<Account> GetCashOrBankAccounts() => erpNodeDBContext.Accounts
             .Where(account => account.Type == AccountTypes.Asset)
 
-            .Where(account => account.SubType == AccountSubTypes.Bank || account.SubType == AccountSubTypes.Cash || account.IsCashEquivalent)
+            .Where(account => account.SubType == AccountSubTypes.Asset_Bank || account.SubType == AccountSubTypes.Asset_Cash || account.IsCashEquivalent)
             .OrderBy(account => account.SubType)
             .ToList();
-        public List<Account> GetCOGSExpenseAccounts() => this.GetItemBySubType(AccountSubTypes.CostOfGoodsSold);
+        public List<Account> GetCOGSExpenseAccounts() => this.GetItemBySubType(AccountSubTypes.Expense_CostOfGoodsSold);
         public List<Account> EquityAccounts => this.GetAccountByType(AccountTypes.Capital);
         public List<Account> ExpenseAccounts => this.GetAccountByType(AccountTypes.Expense);
         public List<Account> TaxRelatedAccountItems => erpNodeDBContext.Accounts
-                 .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxOutput || account.SubType == AccountSubTypes.TaxExpense)
+                 .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxOutput || account.SubType == AccountSubTypes.Expense_TaxExpense)
 
                  .OrderBy(i => i.No)
                  .ToList();
@@ -293,7 +293,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> TaxPayableAccounts => this.GetItemBySubType(AccountSubTypes.TaxPayable);
         public List<Account> TaxReceivableAccounts => this.GetItemBySubType(AccountSubTypes.TaxReceivable);
         public List<Account> TaxInputAndTaxExpenseAccounts => erpNodeDBContext.Accounts
-                 .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxExpense)
+                 .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.Expense_TaxExpense)
 
                  .OrderBy(i => i.No)
                  .ToList();

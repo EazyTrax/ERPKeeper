@@ -66,13 +66,13 @@
             .Caption("Current")
             .Columns(b =>
             {
-                b.AddFor(m => m.Debit)
+                b.AddFor(m => m.TotalDebit)
             .Width(110)
             .Format(Format.FixedPoint)
             .CssClass("bg-fb1")
             .HeaderCellTemplate(@<text>DR</text>);
 
-                b.AddFor(m => m.Credit)
+                b.AddFor(m => m.TotalCredit)
             .Width(110)
             .Format(Format.FixedPoint)
             .HeaderCellTemplate(@<text>CR</text>);
@@ -116,8 +116,8 @@
         {
             items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
-            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
+            items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
             items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint);
@@ -127,8 +127,8 @@
         {
             items.AddFor(m => m.OpeningDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
             items.AddFor(m => m.OpeningCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
-            items.AddFor(m => m.Debit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
-            items.AddFor(m => m.Credit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
             items.AddFor(m => m.ClosingDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
             items.AddFor(m => m.ClosingCredit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);
             items.AddFor(m => m.ClosedDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(Format.FixedPoint).ShowInGroupFooter(true);

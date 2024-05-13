@@ -10,8 +10,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         /// Asset Types
         /// </summary>
         /// 
-        Cash = 100,
-        Bank = 120,
+        Asset_Cash = 100,
+        Asset_Bank = 120,
         ShotTermLending = 125,
         LongTermLending = 126,
         ShotTermInvestment = 130,
@@ -46,11 +46,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         /// Equity Type
         /// </summary>
         Equity = 300,
-        Stock = 301,
+        Equity_Stock = 301,
         Equity_RetainEarning = 302,
-        OverStockValue = 303,
-        OpeningBalance = 304,
-        Dividend = 305,
+        Equity_OverStockValue = 303,
+        Equity_OpeningBalance = 304,
+        Equity_Dividend = 305,
 
 
         /// <summary>
@@ -68,13 +68,13 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         /// </summary>
         Expense = 500,
         OtherExpense = 550,
-        CostOfGoodsSold = 570,
-        PayrollExpense = 580,
-        DiscountGiven = 555,
-        BankFee = 556,
-        TaxExpense = 560,
-        IncomeTax = 563,
-        PurchaseAsset = 564,
+        Expense_CostOfGoodsSold = 570,
+        Expense_Payroll = 580,
+        Expense_DiscountGiven = 555,
+        Expense_BankFee = 556,
+        Expense_TaxExpense = 560,
+        Expense_IncomeTax = 563,
+        Expense_PurchaseAsset = 564,
         IncomeTaxExpense = 562,
         AccumulateExpense = 561,
         AmortizeExpense = 582,

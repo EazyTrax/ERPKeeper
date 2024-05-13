@@ -156,32 +156,32 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 .Sum(x => x.Credit - x.Debit);
 
             // Step 3. Update Current & Closing Balance
-            var accountBalances = organization.ErpCOREDBContext.FiscalYearAccountBalances
+            var fiscalYearAccountBalances = organization.ErpCOREDBContext.FiscalYearAccountBalances
                     .Where(b => b.FiscalYearId == fiscalYear.Id)
                     .ToList();
 
-            accountBalances.ForEach(accountBalance =>
+            fiscalYearAccountBalances.ForEach(fiscalYearAccountBalance =>
             {
-                var x = incomingAccBalances
-                    .Where(x => x.AccountId == accountBalance.AccountId)
+                var incomingAccBalance = incomingAccBalances
+                    .Where(x => x.AccountId == fiscalYearAccountBalance.AccountId)
                     .FirstOrDefault();
 
-                if (x != null)
+                if (incomingAccBalance != null)
                 {
-                    accountBalance.Debit = Math.Max(x.Debit - x.Credit, 0);
-                    accountBalance.Credit = Math.Max(x.Credit - x.Debit, 0);
+                    fiscalYearAccountBalance.Debit = incomingAccBalance.Debit;
+                    fiscalYearAccountBalance.Credit = incomingAccBalance.Credit;
                 }
 
-                if (accountBalance.Account.Type == AccountTypes.Income || accountBalance.Account.Type == AccountTypes.Expense)
+                if (fiscalYearAccountBalance.Account.Type == AccountTypes.Income || fiscalYearAccountBalance.Account.Type == AccountTypes.Expense)
                 {
-                    accountBalance.ClosingCredit = accountBalance.Debit;
-                    accountBalance.ClosingDebit = accountBalance.Credit;
+                    fiscalYearAccountBalance.ClosingCredit = fiscalYearAccountBalance.TotalDebit;
+                    fiscalYearAccountBalance.ClosingDebit = fiscalYearAccountBalance.TotalCredit;
                 }
-                else if (accountBalance.Account.Type == AccountTypes.Capital && accountBalance.Account.SubType == AccountSubTypes.Equity_RetainEarning)
+                else if (fiscalYearAccountBalance.Account.Type == AccountTypes.Capital && fiscalYearAccountBalance.Account.SubType == AccountSubTypes.Equity_RetainEarning)
                 {
-                    Console.WriteLine($">> {accountBalance.Account.Name} {YearProfit}");
-                    accountBalance.ClosingDebit = Math.Abs(Math.Min(YearProfit, 0));
-                    accountBalance.ClosingCredit = Math.Max(YearProfit, 0);
+                    Console.WriteLine($">> {fiscalYearAccountBalance.Account.Name} {YearProfit}");
+                    fiscalYearAccountBalance.ClosingDebit = Math.Abs(Math.Min(YearProfit, 0));
+                    fiscalYearAccountBalance.ClosingCredit = Math.Max(YearProfit, 0);
                 }
             });
 

@@ -2,18 +2,27 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
-
-<div class="row mb-3">
-
-    <div class="col-4">
+<div class="mh-150">
+</div>
+<div class="font-weight-600 text-center">
+    หนี้สิน
+</div>
+<div class="row mt-4">
+    <div class="col-9">
+    </div>
+    <div class="col-3 font-weight-600 text-center">
+        หน่วย:บาท
+    </div>
+    <div class="col-4  font-weight-600 ">
+        หนี้สิน
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
-        @(Model.EndDate.Year - 1)
+    <div class="col-2  text-right font-weight-600 border-dark border-top">
+        @(Model.EndDate.Year - 1 + 543)
     </div>
-    <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
-        @(Model.EndDate.Year)
+    <div class="col-2 text-right font-weight-600 border-dark border-top">
+        @(Model.EndDate.Year + 543)
     </div>
 
 </div>
@@ -21,10 +30,8 @@
 <div class="row mb-3">
     @{
         var lines = Model.FiscalYearAccountBalances
-        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Liability)
-        .Where(m => m.Account.SubType == AccountSubTypes.Cash
-        || m.Account.SubType == AccountSubTypes.Bank)
-        .Where(m => !(m.Debit == 0 && m.Credit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
+        .Where(m => m.Account.Type == AccountTypes.Liability)
+        .Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
         .OrderBy(m => m.Account.SubType)
         .ToList();
 
@@ -43,10 +50,10 @@
                 @line.Account.SubType.ToString()
             </div>
             <div class="col-2 text-right">
-                @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+                @((line.OpeningCredit - line.OpeningDebit).ToString("N2"))
             </div>
             <div class="col-2 text-right">
-                @((line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+                @((line.ClosedCredit - line.ClosedDebit).ToString("N2"))
             </div>
         }
 
@@ -54,11 +61,11 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
-            @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
+            @(lines.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
-            @(lines.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
+            @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
         </div>
     }
 </div>
@@ -66,10 +73,9 @@
 <div class="row mb-3">
     @{
         lines = Model.FiscalYearAccountBalances
-        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Liability)
-        .Where(m => m.Account.SubType != AccountSubTypes.Cash)
-        .Where(m => m.Account.SubType != AccountSubTypes.Bank)
-        .Where(m => !(m.Debit == 0 && m.Credit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
+        .Where(m => m.Account.Type == AccountTypes.Liability)
+        .Where(m => m.Account.SubType == AccountSubTypes.Asset_Cash)
+        .Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
         .OrderBy(m => m.Account.SubType)
         .ToList();
 
@@ -88,10 +94,10 @@
                 @line.Account.SubType.ToString()
             </div>
             <div class="col-2 text-right">
-                @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+                @((line.OpeningCredit - line.OpeningDebit).ToString("N2"))
             </div>
             <div class="col-2 text-right">
-                @((line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+                @((line.ClosedCredit - line.ClosedDebit).ToString("N2"))
             </div>
         }
 
@@ -99,11 +105,11 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
-            @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
+            @(lines.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
-            @(lines.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
+            @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
         </div>
     }
 </div>
@@ -111,7 +117,7 @@
 <div class="row mb-3">
     @{
         lines = Model.FiscalYearAccountBalances
-        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Liability)
+        .Where(m => m.Account.Type == AccountTypes.Liability)
         .ToList();
 
     }
@@ -120,10 +126,10 @@
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
-        @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+    <div class="col-2  text-right font-weight-600 border-dark border-top">
+        @(lines.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
     </div>
-    <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
-        @(lines.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+    <div class="col-2 text-right font-weight-600 border-dark border-top">
+        @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
     </div>
 </div>

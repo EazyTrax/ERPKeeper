@@ -42,8 +42,8 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
                     OpeningDebit = line.OpeningDebit,
                     OpeningCredit = line.OpeningCredit,
 
-                    CurrentDebit = line.Debit,
-                    CurrentCredit = line.Credit,
+                    CurrentDebit = line.TotalDebit,
+                    CurrentCredit = line.TotalCredit,
 
                     ClosingDebit = line.ClosingDebit,
                     ClosingCredit = line.ClosingCredit,

@@ -46,7 +46,7 @@ namespace ERPKeeperCore.CMD
                 }
                 else
                 {
-                 //   GeneralOperations(newOrganization);
+                    GeneralOperations(newOrganization);
                 }
 
 

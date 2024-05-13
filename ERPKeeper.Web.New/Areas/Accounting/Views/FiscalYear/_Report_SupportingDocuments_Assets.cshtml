@@ -16,19 +16,19 @@
 
         <div class="col-4 font-weight-600 ">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             ยอดคงเหลือ<br />
-            @(Model.EndDate.Year - 1)
+            @(Model.EndDate.Year - 1 + 543)
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             เพิ่มขึ้น
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             ลดลง
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
             ยอดคงเหลือ<br />
-            @(Model.EndDate.Year)
+            @(Model.EndDate.Year + 543)
         </div>
 
         <div class="col-12 font-weight-600 ">
@@ -39,8 +39,8 @@
             var purchaseBalance = Model.FiscalYearAccountBalances.Where(m => m.AccountId == assetType.AwaitDeprecateAccId).First();
 
             TotalOpening += (purchaseBalance.OpeningDebit - purchaseBalance.OpeningCredit);
-            TotalDebit += purchaseBalance.Debit;
-            TotalCredit += purchaseBalance.Credit;
+            TotalDebit += purchaseBalance.TotalDebit;
+            TotalCredit += purchaseBalance.TotalCredit;
             TotalClosing += (purchaseBalance.ClosedDebit - purchaseBalance.ClosedCredit);
 
             <div class="col-4">
@@ -64,16 +64,16 @@
 
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(TotalOpening.ToString("N2"))
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(TotalDebit.ToString("N2"))
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(TotalCredit.ToString("N2"))
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
             @(TotalClosing.ToString("N2"))
         </div>
     }
@@ -94,8 +94,8 @@
                 continue;
 
             TotalOpening += (accumulateBalance.OpeningCredit - accumulateBalance.OpeningDebit);
-            TotalDebit += accumulateBalance.Debit;
-            TotalCredit += accumulateBalance.Credit;
+            TotalDebit += accumulateBalance.TotalDebit;
+            TotalCredit += accumulateBalance.TotalCredit;
             TotalClosing += (accumulateBalance.ClosedCredit - accumulateBalance.ClosedDebit);
 
             <div class="col-4">
@@ -115,22 +115,21 @@
             </div>
             <div class="col-2 text-right">
                 @((accumulateBalance.ClosedCredit - accumulateBalance.ClosedDebit).ToString("N2"))
-
             </div>
         }
 
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(TotalOpening.ToString("N2"))
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(TotalDebit.ToString("N2"))
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(TotalCredit.ToString("N2"))
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
             @(TotalClosing.ToString("N2"))
         </div>
     }

@@ -11,9 +11,9 @@
     @{
         var lines = Model.FiscalYearAccountBalances
         .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
-        .Where(m => !(m.Debit == 0 && m.Credit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
-        .Where(m => m.Account.SubType != AccountSubTypes.Cash)
-        .Where(m => m.Account.SubType != AccountSubTypes.Bank)
+        .Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_Cash)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_Bank)
         .Where(m => m.Account.SubType != AccountSubTypes.FixedAsset)
         .Where(m => m.Account.SubType != AccountSubTypes.AccDepreciation)
         .Where(m => m.Account.SubType != AccountSubTypes.Inventory)
@@ -27,10 +27,10 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             2565
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
             2566
         </div>
 
@@ -56,10 +56,10 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2  text-right font-weight-600 border-dark border-top">
             @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
         </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top  border-bottom">
+        <div class="col-2 text-right font-weight-600 border-dark border-top">
             @(lines.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
         </div>
     }

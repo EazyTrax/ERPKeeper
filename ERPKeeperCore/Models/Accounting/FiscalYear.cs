@@ -30,11 +30,11 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public decimal IncomeBalance => FiscalYearAccountBalances
             .Where(b => b.Account.Type == AccountTypes.Income)
-            .Sum(a => a.Credit);
+            .Sum(a => a.TotalCredit);
 
         public decimal ExpenseBalance => FiscalYearAccountBalances
             .Where(b => b.Account.Type == AccountTypes.Expense)
-            .Sum(a => a.Debit);
+            .Sum(a => a.TotalDebit);
 
         public decimal ProfitBalance => IncomeBalance - ExpenseBalance;
 
@@ -103,8 +103,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public void UpdateClosingBalance()
         {
-            this.Debit = FiscalYearAccountBalances.Sum(a => a.Debit);
-            this.Credit = FiscalYearAccountBalances.Sum(a => a.Debit);
+            this.Debit = FiscalYearAccountBalances.Sum(a => a.TotalDebit);
+            this.Credit = FiscalYearAccountBalances.Sum(a => a.TotalDebit);
         }
 
         public void PostToTransaction()
