@@ -36,7 +36,9 @@
                             items.AddSimpleFor(m => m.No);
 
 
-                            items.AddSimpleFor(m => m.Type).Editor(e => e.SelectBox()
+                            items.AddSimpleFor(m => m.Type)
+                            .Editor(e => e.SelectBox()
+                            .ReadOnly(true)
                             .SearchEnabled(true)
                             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
                             .DisplayExpr("Text").ValueExpr("Value"));

@@ -268,5 +268,29 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 }
             });
         }
+
+        public void UpdatePreviusFiscalYear()
+        {
+            erpNodeDBContext.FiscalYears.OrderBy(x => x.StartDate)
+               .ToList()
+               .ForEach(currentYear =>
+               {
+                   Console.WriteLine($"> FiscalYear > UpdatePreviusFiscalYear > {currentYear.Name}");
+
+
+                   var previuseYear = erpNodeDBContext.FiscalYears
+                   .ToList()
+                   .Where(x => x.EndDate == currentYear.StartDate.AddDays(-1)).FirstOrDefault();
+
+                   if (previuseYear != null)
+                   {
+                       Console.WriteLine(previuseYear.Name);
+                       currentYear.PreviusFiscalYear = previuseYear;
+                   }
+                   Console.WriteLine("-----------");
+               });
+
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

@@ -5,6 +5,7 @@ using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 
@@ -112,11 +113,15 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         }
         public List<Account> GetItemBySubType(AccountSubTypes subType) => erpNodeDBContext.Accounts
                 .Where(account => account.SubType == subType)
+        .ToList();
 
-                .ToList();
+        public List<Account> GetItemBySubType(AccountSubTypes subType, AccountSubTypes subtype_other) => erpNodeDBContext.Accounts
+              .Where(account => account.SubType == subType || account.SubType == subtype_other)
+              .ToList();
+
+
         public List<Account> GetAccountByType(AccountTypes accountType) => erpNodeDBContext.Accounts
                 .Where(account => account.Type == accountType)
-
                 .OrderBy(i => i.No)
                 .ToList();
         public IEnumerable<Account> GetFocusAccount(AccountTypes? accountType) => erpNodeDBContext.Accounts
@@ -157,12 +162,15 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> EquityAccounts => this.GetAccountByType(AccountTypes.Capital);
         public List<Account> ExpenseAccounts => this.GetAccountByType(AccountTypes.Expense);
         public List<Account> TaxRelatedAccountItems => erpNodeDBContext.Accounts
-                 .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.TaxOutput || account.SubType == AccountSubTypes.Expense_TaxExpense)
-
+                 .Where(account => account.SubType == AccountSubTypes.Asset_TaxInput
+                 || account.SubType == AccountSubTypes.Liability_TaxOutput
+                 || account.SubType == AccountSubTypes.Expense_NonRefundableTax)
                  .OrderBy(i => i.No)
                  .ToList();
         public List<Account> TaxClosingAccount => erpNodeDBContext.Accounts
-                 .Where(account => account.SubType == AccountSubTypes.TaxPayable || account.SubType == AccountSubTypes.TaxReceivable)
+                 .Where(account =>
+                 account.SubType == AccountSubTypes.Liability_TaxPayable ||
+                 account.SubType == AccountSubTypes.Asset_TaxReceivable)
 
                  .OrderBy(i => i.No)
                  .ToList();
@@ -170,12 +178,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         {
 
             if (direction == TaxDirection.Input)
-                return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxInput)
+                return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.Asset_TaxInput)
 
                              .OrderBy(i => i.No)
                              .ToList();
             else
-                return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.TaxOutput)
+                return erpNodeDBContext.Accounts.Where(account => account.SubType == AccountSubTypes.Liability_TaxOutput)
 
                                 .OrderBy(i => i.No)
                                 .ToList();
@@ -283,17 +291,19 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             }
         }
         public List<Account> IncomeAccounts => this.GetAccountByType(AccountTypes.Income);
-        public List<Account> InventoryAssetAccounts => this.GetItemBySubType(AccountSubTypes.Inventory);
+        public List<Account> InventoryAssetAccounts => this.GetItemBySubType(AccountSubTypes.Asset_Inventory);
         public List<Account> LiabilityAccounts => this.GetAccountByType(AccountTypes.Liability);
-        public List<Account> CurrentLiabilityAccounts => this.GetItemBySubType(AccountSubTypes.CurrentLiability);
-        public List<Account> AccountReceivableAccounts => this.GetItemBySubType(AccountSubTypes.AccountReceivable);
-        public List<Account> AccountPayableAccounts => this.GetItemBySubType(AccountSubTypes.AccountPayable);
-        public List<Account> TaxInputAccounts => this.GetItemBySubType(AccountSubTypes.TaxInput);
-        public List<Account> TaxOutputAccounts => this.GetItemBySubType(AccountSubTypes.TaxOutput);
-        public List<Account> TaxPayableAccounts => this.GetItemBySubType(AccountSubTypes.TaxPayable);
-        public List<Account> TaxReceivableAccounts => this.GetItemBySubType(AccountSubTypes.TaxReceivable);
+        public List<Account> CurrentLiabilityAccounts => this.GetItemBySubType(AccountSubTypes.Liability_Current);
+        public List<Account> AccountReceivableAccounts => this.GetItemBySubType(AccountSubTypes.Asset_AccountReceivable);
+        public List<Account> AccountPayableAccounts => this.GetItemBySubType(AccountSubTypes.Liability_AccountPayable);
+        public List<Account> TaxInputAccounts => this.GetItemBySubType(AccountSubTypes.Asset_TaxInput);
+        public List<Account> TaxOutputAccounts => this.GetItemBySubType(AccountSubTypes.Liability_TaxOutput);
+        public List<Account> TaxPayableAccounts => this.GetItemBySubType(AccountSubTypes.Liability_TaxPayable);
+        public List<Account> TaxReceivableAccounts => this.GetItemBySubType(AccountSubTypes.Asset_TaxReceivable);
         public List<Account> TaxInputAndTaxExpenseAccounts => erpNodeDBContext.Accounts
-                 .Where(account => account.SubType == AccountSubTypes.TaxInput || account.SubType == AccountSubTypes.Expense_TaxExpense)
+                 .Where(account =>
+                 account.SubType == AccountSubTypes.Asset_TaxInput ||
+                 account.SubType == AccountSubTypes.Expense_NonRefundableTax)
 
                  .OrderBy(i => i.No)
                  .ToList();

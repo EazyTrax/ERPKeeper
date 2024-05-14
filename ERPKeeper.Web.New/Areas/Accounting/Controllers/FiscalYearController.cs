@@ -88,8 +88,12 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
-
-
+        public IActionResult Report_Tax_Calculation()
+        {
+            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
         
+
     }
 }

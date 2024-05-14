@@ -4,35 +4,50 @@
 
 
 
-<div class="row mb-3">
+<div class="mh-100">
+</div>
+
+<div class="row">
     <div class="col-12  font-weight-600 ">
-        ลูกหนี้การค้าและลูกหนี้อื่น
+        4. ลูกหนี้การค้าและลูกหนี้อื่น
     </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+    </div>
+    <div class="col-3 p-0 font-weight-600 text-center">
+        หน่วย:บาท
+    </div>
+    <div class="col-4  font-weight-600 ">
+    </div>
+    <div class="col-4">
+    </div>
+    <div class="col-2 p-0  text-right font-weight-600 border-dark border-top border-bottom">
+        @(Model.EndDate.Year + 543)
+    </div>
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top border-bottom">
+        @(Model.EndDate.Year - 1 + 543)
+    </div>
+</div>
+
+<div class="row">
     @{
         var lines = Model.FiscalYearAccountBalances
         .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
         .Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
         .Where(m => m.Account.SubType != AccountSubTypes.Asset_Cash)
         .Where(m => m.Account.SubType != AccountSubTypes.Asset_Bank)
-        .Where(m => m.Account.SubType != AccountSubTypes.FixedAsset)
-        .Where(m => m.Account.SubType != AccountSubTypes.AccDepreciation)
-        .Where(m => m.Account.SubType != AccountSubTypes.Inventory)
-        .Where(m => m.Account.SubType != AccountSubTypes.TaxReceivable)
-        .Where(m => m.Account.SubType != AccountSubTypes.TaxInput)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_FixedAsset)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_AccDepreciation)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_Inventory)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_TaxReceivable)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_TaxInput)
         .OrderBy(m => m.Account.SubType)
         .ToList();
 
 
-        <div class="col-4">
-        </div>
-        <div class="col-4">
-        </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top">
-            2565
-        </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top">
-            2566
-        </div>
+      
 
         foreach (var line in lines)
         {
@@ -44,11 +59,12 @@
             <div class="col-4">
                 @line.Account.SubType.ToString()
             </div>
-            <div class="col-2 text-right">
-                @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
-            </div>
-            <div class="col-2 text-right">
+
+            <div class="col-2 p-0 text-right">
                 @((line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+            </div>
+            <div class="col-2 p-0 text-right">
+                @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
             </div>
         }
 
@@ -56,11 +72,12 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2  text-right font-weight-600 border-dark border-top">
-            @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
-        </div>
-        <div class="col-2 text-right font-weight-600 border-dark border-top">
+
+        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
             @(lines.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+        </div>
+        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+            @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
         </div>
     }
 </div>

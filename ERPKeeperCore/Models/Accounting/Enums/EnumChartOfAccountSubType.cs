@@ -12,29 +12,30 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         /// 
         Asset_Cash = 100,
         Asset_Bank = 120,
-        ShotTermLending = 125,
-        LongTermLending = 126,
-        ShotTermInvestment = 130,
-        OtherCurrentAsset = 140,
-        Inventory = 160,
-        OtherAsset = 180,
-        AccountReceivable = 170,
-        FixedAsset = 190,
-        AccDepreciation = 198,
-        EarnestPayment = 191,
-        TaxInput = 181,
-        TaxReceivable = 183,
+        Asset_ShotTermLending = 125,
+        Asset_LongTermLending = 126,
+        Asset_ShotTermInvestment = 130,
+        Asset_OtherCurrent = 140,
+        Asset_Inventory = 160,
+        Asset_OtherAsset = 180,
+        Asset_AccountReceivable = 170,
+        Asset_FixedAsset = 190,
+        Asset_AwaitingDepreciation = 583,
+        Asset_AccDepreciation = 198,
+        Asset_EarnestPayment = 191,
+        Asset_TaxInput = 181,
+        Asset_TaxReceivable = 183,
 
 
         /// <summary>
         /// Liability Type
         /// </summary>
-        PayrollLiability = 220,
-        CurrentLiability = 240,
-        LongTermLiability = 260,
-        AccountPayable = 270,
-        TaxOutput = 281,
-        TaxPayable = 282,
+        Liability_Payroll = 220,
+        Liability_Current = 240,
+        Liability_LongTerm = 260,
+        Liability_AccountPayable = 270,
+        Liability_TaxOutput = 281,
+        Liability_TaxPayable = 282,
 
 
         EarnestReceive = 291,
@@ -57,30 +58,30 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         /// Income
         /// </summary>
         Income = 400,
-        Interest = 402,
-        OtherIncome = 450,
-        DiscountTaken = 452,
-
+        Income_Interest = 402,
+        Income_Other = 450,
+        Income_DiscountTaken = 452,
+        Income_InvestmentRevenue = 584,
 
 
         /// <summary>
         /// Expense Type
         /// </summary>
         Expense = 500,
-        OtherExpense = 550,
+        Expense_Administrative = 510,
+        Expense_Selling = 520,
+        Expense_Other = 550,
+        Expense_Interest = 552,
         Expense_CostOfGoodsSold = 570,
         Expense_Payroll = 580,
         Expense_DiscountGiven = 555,
         Expense_BankFee = 556,
-        Expense_TaxExpense = 560,
+        Expense_Prohibit = 560,
         Expense_IncomeTax = 563,
         Expense_PurchaseAsset = 564,
-        IncomeTaxExpense = 562,
-        AccumulateExpense = 561,
-        AmortizeExpense = 582,
-        AwaitingDepreciation = 583,
-        InvestmentRevenue = 584,
-        UnCliamableExpense = 585,
+        Expense_Asset_Deprecate = 561,
+        Expense_Asset_Amortize = 582,
+        Expense_NonRefundableTax = 585,
 
     }
 }

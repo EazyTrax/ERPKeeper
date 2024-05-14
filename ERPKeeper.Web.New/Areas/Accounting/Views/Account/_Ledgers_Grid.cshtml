@@ -30,7 +30,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.FiscalYears.ToList().Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Fiscal</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYearห/<%= data.Transaction.FiscalYearId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYearห/<%= data.Transaction.FiscalYearId %>/">FY:<%= displayValue %></a></text>);
 
 
 

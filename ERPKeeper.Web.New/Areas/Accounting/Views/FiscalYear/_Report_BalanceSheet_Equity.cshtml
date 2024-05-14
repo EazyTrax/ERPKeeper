@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
-<div class="mh-150">
+<div class="mh-50">
     
 </div>
 <div class="font-weight-600 text-center">
@@ -18,11 +18,12 @@
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2  text-right font-weight-600 border-dark border-top">
-        @(Model.EndDate.Year - 1 + 543)
-    </div>
-    <div class="col-2 text-right font-weight-600 border-dark border-top">
+  
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
         @(Model.EndDate.Year + 543)
+    </div> 
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        @(Model.EndDate.Year - 1 + 543)
     </div>
 </div>
 
@@ -60,11 +61,12 @@
             หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
         </a>
     </div>
-    <div class="col-2 text-right">
-        @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
-    </div>
-    <div class="col-2 text-right">
+   
+    <div class="col-2 p-0 text-right">
         @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
+    </div>
+    <div class="col-2 p-0 text-right">
+        @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
     </div>
 
 
@@ -85,13 +87,13 @@
             หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
         </a>
     </div>
-    <div class="col-2 text-right">
-        @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
-    </div>
-    <div class="col-2 text-right">
+ 
+    <div class="col-2 p-0 text-right">
         @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
     </div>
-    
+    <div class="col-2 p-0 text-right">
+        @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
+    </div>
 </div>
 
 
@@ -113,11 +115,12 @@
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2  text-right font-weight-600 border-dark border-top">
-        @(retainEaring.OpeningCredit.ToString("N2"))
-    </div>
-    <div class="col-2 text-right font-weight-600 border-dark border-top">
+
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
         @(retainEaring.ClosedCredit.ToString("N2"))
+    </div>  
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        @(retainEaring.OpeningCredit.ToString("N2"))
     </div>
 </div>
 
@@ -133,11 +136,12 @@
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2  text-right font-weight-600 border-dark border-top">
-        @(totalEquity.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
-    </div>
-    <div class="col-2 text-right font-weight-600 border-dark border-top">
+   
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
         @(totalEquity.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
+    </div> 
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        @(totalEquity.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
     </div>
 </div>
 
@@ -155,10 +159,15 @@
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2  text-right font-weight-600 border-dark border-top">
+ 
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        @(totalEquityandLiability.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
+    </div> 
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
         @(totalEquityandLiability.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
     </div>
-    <div class="col-2 text-right font-weight-600 border-dark border-top">
-        @(totalEquityandLiability.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
-    </div>
+</div>
+
+<div class="mt-4">
+    งบแสดงฐานะการเงินฉบับนี้ได้รับการอนุมัติจากที่ประชุมสามัญผู้ถือหุ้นครั้งที่ 1/@(Model.EndDate.Year - 1 + 543) เมื่อวันที่ 30 เมษายน @(Model.EndDate.Year + 1 + 543)
 </div>

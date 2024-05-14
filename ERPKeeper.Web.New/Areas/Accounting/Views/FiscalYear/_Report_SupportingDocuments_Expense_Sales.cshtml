@@ -1,0 +1,78 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+<div class="mh-100">
+</div>
+
+<div class="row">
+    <div class="col-12  font-weight-600 ">
+        9. ค่าใช้จ่ายในการขาย
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+    </div>
+    <div class="col-3 p-0 font-weight-600 text-center">
+        หน่วย:บาท
+    </div>
+    <div class="col-4  font-weight-600 ">
+    </div>
+    <div class="col-4">
+    </div>
+    <div class="col-2 p-0  text-right font-weight-600 border-dark border-top border-bottom">
+        @(Model.EndDate.Year + 543)
+    </div>
+    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top border-bottom">
+        @(Model.EndDate.Year - 1 + 543)
+    </div>
+</div>
+
+<div class="row">
+    @{
+        var currentFiscalYearExpenses = Model.FiscalYearAccountBalances
+        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
+        .Where(e => e.Account.SubType == AccountSubTypes.Expense_Selling)
+        .OrderBy(x => x.Account.SubType)
+        .ToList();
+
+        var previusFiscalYearExpenses = Model.PreviusFiscalYear.FiscalYearAccountBalances
+        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
+        .Where(e => e.Account.SubType == AccountSubTypes.Expense_Selling)
+        .OrderBy(x => x.Account.SubType)
+        .ToList();
+
+
+        foreach (var line in currentFiscalYearExpenses)
+        {
+            <div class="col-4">
+                <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                    @line.Account.Name
+                </a>
+            </div>
+            <div class="col-4">
+                @line.Account.SubType
+            </div>
+            <div class="col-2 p-0 text-right">
+                @line.TotalDebit.ToString("N2")
+            </div>
+            <div class="col-2 p-0 text-right">
+                @previusFiscalYearExpenses.Where(a => a.AccountId == line.AccountId).First().TotalDebit.ToString("N2")
+            </div>
+        }
+
+    }
+
+
+    <div class="col-8 font-weight-600">
+        รวมค่าใช้จ่าย
+    </div>
+    <div class="col-2 p-0 text-right  border-dark border-top">
+        @currentFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
+    </div>
+    <div class="col-2 p-0 text-right  border-dark border-top">
+        @previusFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
+    </div>
+
+
+</div>

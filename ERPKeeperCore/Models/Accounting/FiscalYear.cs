@@ -20,6 +20,12 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
+        public Guid? PreviusFiscalYearId { get; set; }
+        [ForeignKey("PreviusFiscalYearId")]
+        public virtual FiscalYear? PreviusFiscalYear { get; set; }
+
+        public virtual FiscalYear? NextFiscalYear { get; set; }
+
 
         public String Name => string.Format("{0}", EndDate.Year.ToString());
 

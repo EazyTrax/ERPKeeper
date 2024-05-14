@@ -34,7 +34,7 @@ namespace ERPKeeperCore.CMD
 
 
 
-                if (true)
+                if (false)
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.ChartOfAccount.RefreshCurrentBalance();
@@ -56,6 +56,9 @@ namespace ERPKeeperCore.CMD
             {
                 newOrganization.LiabilityPayments.ClearEmpties();
                 newOrganization.JournalEntries.ClearEmpties();
+
+                newOrganization.FiscalYears.UpdatePreviusFiscalYear();
+
             }
         }
     }
