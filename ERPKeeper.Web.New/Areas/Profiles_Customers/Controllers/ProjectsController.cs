@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
          
         //    EnterpriseRepo.SaveChanges();
 
-        //    return Redirect($"/Customers/Projects/{Project.Id}");
+        //    return Redirect($"/@CompanyId/Profiles/Customers/Projects/{Project.Id}");
         //}
 
     }

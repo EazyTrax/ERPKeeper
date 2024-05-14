@@ -3,7 +3,7 @@
 
 
 <div class="row mb-3">
-    <div class="col-12  font-weight-600 ">
+    <div class="col-12   ">
        5. ที่ดิน อาคารและอุปกรณ์
     </div>
 
@@ -14,24 +14,24 @@
         Decimal TotalCredit = 0;
         Decimal TotalClosing = 0;
 
-        <div class="col-4 font-weight-600 ">
+        <div class="col-4  ">
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             ยอดคงเหลือ<br />
             @(Model.EndDate.Year - 1 + 543)
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             เพิ่มขึ้น
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             ลดลง
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             ยอดคงเหลือ<br />
             @(Model.EndDate.Year + 543)
         </div>
 
-        <div class="col-12 font-weight-600 ">
+        <div class="col-12  ">
             ราคาทุน
         </div>
         foreach (var assetType in assetsTypes)
@@ -64,16 +64,16 @@
 
         <div class="col-4">
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalOpening.ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalDebit.ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalCredit.ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalClosing.ToString("N2"))
         </div>
     }
@@ -84,7 +84,7 @@
         TotalCredit = 0;
         TotalClosing = 0;
 
-        <div class="col-12 font-weight-600 mt-3">
+        <div class="col-12  mt-3">
             ค่าเสื่อมราคา
         </div>
         foreach (var assetType in assetsTypes)
@@ -120,16 +120,16 @@
 
         <div class="col-4">
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalOpening.ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalDebit.ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalCredit.ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right  border-dark border-top">
             @(TotalClosing.ToString("N2"))
         </div>
     }
