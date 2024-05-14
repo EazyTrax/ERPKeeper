@@ -669,15 +669,17 @@ img {
   background-color: rgba(0, 0, 0, 0.1) !important;
   font-weight: 600;
 }
-@page {
-  size: A4;
-  margin: 0;
-}
 @media print {
+  .page-break {
+    page-break-before: always;
+  }
   html,
   body {
     width: 210mm;
     height: 297mm;
   }
-  /* ... the rest of the rules ... */
+}
+@page {
+  size: A4;
+  margin: 0;
 }
