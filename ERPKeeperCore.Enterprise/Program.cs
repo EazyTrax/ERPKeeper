@@ -27,14 +27,16 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
-
-
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                // migrationTool.Migrate();
+                //  migrationTool.Migrate();
 
 
 
-                if (false)
+                if (true)
+                    GeneralOperations(newOrganization);
+
+
+                if (true)
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.ChartOfAccount.RefreshCurrentBalance();
@@ -44,10 +46,7 @@ namespace ERPKeeperCore.CMD
 
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
-                else
-                {
-                    GeneralOperations(newOrganization);
-                }
+
 
 
             }
@@ -56,9 +55,15 @@ namespace ERPKeeperCore.CMD
             {
                 newOrganization.LiabilityPayments.ClearEmpties();
                 newOrganization.JournalEntries.ClearEmpties();
-
                 newOrganization.FiscalYears.UpdatePreviusFiscalYear();
 
+                foreach (var tp in newOrganization.ErpCOREDBContext.IncomeTaxes)
+                {
+                    if(tp.IsPosted)
+                        tp.Status =  Enterprise.Models.Taxes.Enums.IncomeTaxStatus.Issued;
+                }
+
+                newOrganization.SaveChanges();
             }
         }
     }

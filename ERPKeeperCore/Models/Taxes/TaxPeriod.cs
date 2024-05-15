@@ -14,21 +14,31 @@ using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
+using ERPKeeperCore.Enterprise.Helpers;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Taxes
 {
+
+    public enum TaxPeriodStatus
+    {
+        Draft = 0,
+        Active = 1
+    }
+
     public class TaxPeriod
     {
         [Key]
         public Guid Id { get; set; }
+
+
 
         public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-
+        public TaxPeriodStatus Status { get; set; }
 
         public int? No { get; set; }
         public Guid? FiscalYearId { get; set; }
@@ -101,7 +111,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.EndDate;
-            this.Transaction.Name = this.Name;  
+            this.Transaction.Name = this.Name;
             this.Transaction.PostedDate = DateTime.Now;
 
             // Dr.
@@ -116,7 +126,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             else if (ClosingAmount < 0 && this.CloseToAccount.Type == AccountTypes.Liability)
                 this.Transaction.AddCredit(this.CloseToAccount, Math.Abs(this.ClosingAmount));
             else if (ClosingAmount == 0)
-            { 
+            {
 
             }
             else

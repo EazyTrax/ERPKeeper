@@ -34,8 +34,12 @@
 
 
 
-                columns.AddFor(m => m.Transaction.Name);
-                columns.AddFor(m => m.Transaction.Reference);
+                columns.AddFor(m => m.Transaction.Name)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/">N:<%= displayValue %></a></text>);
+
+                columns.AddFor(m => m.Transaction.Reference)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYearห/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);
+
                 columns.AddFor(m => m.Debit).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Credit).Width(130).Format("#,##0.00");
             })

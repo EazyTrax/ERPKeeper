@@ -24,6 +24,11 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.Profiles.ToList();
         }
 
+        public Profile GetSelf()
+        {
+            return erpNodeDBContext.Profiles.Where(p => p.IsSelfOrganization).First();
+        }
+
 
         public int Count() => erpNodeDBContext.Profiles.Count();
         public Profile? Find(Guid Id) => erpNodeDBContext.Profiles.Find(Id);

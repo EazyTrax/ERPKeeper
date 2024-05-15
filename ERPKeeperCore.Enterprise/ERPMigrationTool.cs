@@ -34,44 +34,42 @@ namespace ERPKeeperCore.CMD
 
         public void Migrate()
         {
-
-            Copy_Employees();
-            Copy_Taxes();
-
+            // Copy_Employees();
+            // Copy_Taxes();
 
             //newOrganization.FiscalYears.PrepareFiscalYearBalances();
             //newOrganization.FiscalYears.UpdateTransactionFiscalYears();
 
-            //CopyProfiles();
+            // Copy_Profiles_Profiles();
+            // Copy_Profiles_ProfileAddresss();
+
             //CopySuppliers();
 
             //CopyAccounts();
             //Copy_Financial_LiabilityPayments();
             //Copy_Financial_Loans();
             //Copy_Financial_Lends();
+            Copy_Items_Items();
+            //Copy_Taxes_TaxPeriod();
+
 
             //Copy_Customers_Sales();
             //Copy_Customers_SaleItems();
             ////CopyReceivePayments();
 
-            //Copy_Suppliers_Purchases();
-            //Copyy_Suppliers_PurchaseItems();
+            Copy_Suppliers_Purchases();
+            Copyy_Suppliers_PurchaseItems();
+
             ////CopySupplierPayments();
-
-
-
-
-
-            //CopyProfiles();
             //CopyBrands();
             //CopyItemGroups();
-            //CopyItems();
+            //
             //CopyProjects();
             //CopyCustomers();
             //CopySuppliers();
             //CopyFiscalYear();
             //CopyTaxCode();
-            //CopyTaxPeriod();
+    
             //CopySales();
             //CopySaleItems();
             //CopyPurchases();
@@ -112,37 +110,7 @@ namespace ERPKeeperCore.CMD
             Copy_Taxes_IncomeTaxes();
         }
 
-        private void CopyProfiles()
-        {
-            var oldModels = oldOrganization.ErpNodeDBContext.Profiles.ToList();
 
-            oldModels.ForEach(a =>
-            {
-                Console.WriteLine($"PROF:{a.Uid}-{a.Name}");
-
-                var exist = newOrganization.ErpCOREDBContext.Profiles.FirstOrDefault(x => x.Id == a.Uid);
-
-                if (exist == null)
-                {
-                    exist = new ERPKeeperCore.Enterprise.Models.Profiles.Profile()
-                    {
-                        Id = a.Uid,
-                        Name = a.Name,
-                        Detail = a.Detail,
-                        TaxNumber = a.TaxNumber,
-                        Note = a.Note,
-
-                    };
-                    newOrganization.ErpCOREDBContext.Profiles.Add(exist);
-                }
-                else
-                {
-
-                }
-
-                newOrganization.ErpCOREDBContext.SaveChanges();
-            });
-        }
         private void CopyProjects()
         {
             var oldModels = oldOrganization.ErpNodeDBContext.Projects.ToList();

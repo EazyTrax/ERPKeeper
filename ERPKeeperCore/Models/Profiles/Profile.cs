@@ -36,10 +36,10 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
         public DateTime? CreatedDate { get; set; }
         public String? Pin { get; set; }
 
-        public virtual ICollection<ProfileContact> Contacts { get; set; }
-        public virtual ICollection<ProfileAddress> Addresses { get; set; }
-        public virtual ICollection<ProfileBankAccount> BankAccounts { get; set; }
-        public virtual ICollection<ProfileRole> ProfileRoles { get; set; }
+        public virtual ICollection<ProfileContact> Contacts { get; set; } = new List<ProfileContact>();
+        public virtual ICollection<ProfileAddress> Addresses { get; set; } = new List<ProfileAddress>();
+        public virtual ICollection<ProfileBankAccount> BankAccounts { get; set; } = new List<ProfileBankAccount>();
+        public virtual ICollection<ProfileRole> ProfileRoles { get; set; } = new List<ProfileRole>();
 
 
 

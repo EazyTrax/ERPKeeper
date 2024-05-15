@@ -8,7 +8,8 @@
         Model.ShotName,
         Model.TaxNumber,
         Model.WebSite,
-        Model.PhoneNumber
+        Model.PhoneNumber,
+        Model.IsSelfOrganization
     };
 }
 
@@ -19,23 +20,44 @@
             <div class="col-6 p-0">
                 <div class="p-2 bg-fb1 rouned mb-2">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
-                    .ID("form_0")
-                    .FormData(profile)
-                    .LabelMode(FormLabelMode.Static)
-                    .LabelLocation(FormLabelLocation.Left)
-                    .MinColWidth(300)
-                    .ReadOnly(false)
-                    .ShowColonAfterLabel(true)
-                    .ColCount(1)
-                    .Items(items => {
-                    items.AddSimpleFor(m=>m.Name);
-                    items.AddSimpleFor(m=>m.ShotName);
-                    items.AddSimpleFor(m=>m.TaxNumber);
-                    })
-                    )
+                        .ID("form_0")
+                        .FormData(profile)
+                        .LabelMode(FormLabelMode.Static)
+                        .LabelLocation(FormLabelLocation.Left)
+                        .MinColWidth(300)
+                        .ReadOnly(false)
+                        .ShowColonAfterLabel(true)
+                        .ColCount(1)
+                        .Items(items =>
+                        {
+                            items.AddSimpleFor(m => m.Name);
+                            items.AddSimpleFor(m => m.ShotName);
+                            items.AddSimpleFor(m => m.TaxNumber);
+                        })
+                        )
                 </div>
-                  <div class="p-2 bg-fb1 rouned">
+                <div class="p-2 bg-fb1 rouned">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
+                        .ID("form_1")
+                        .FormData(profile)
+                        .LabelMode(FormLabelMode.Static)
+                        .LabelLocation(FormLabelLocation.Left)
+                        .MinColWidth(300)
+                        .ReadOnly(false)
+                        .ShowColonAfterLabel(true)
+                        .ColCount(1)
+                        .Items(items =>
+                        {
+                            items.AddSimpleFor(m => m.WebSite);
+                            items.AddSimpleFor(m => m.PhoneNumber);
+                            items.AddSimpleFor(m => m.Note).Editor(e => e.TextArea().MinHeight(100));
+                        })
+                        )
+                </div>
+            </div>
+            <div class="col-6 p-0 mb-2">
+
+                @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                     .ID("form_1")
                     .FormData(profile)
                     .LabelMode(FormLabelMode.Static)
@@ -44,16 +66,12 @@
                     .ReadOnly(false)
                     .ShowColonAfterLabel(true)
                     .ColCount(1)
-                    .Items(items => {
-                    items.AddSimpleFor(m=>m.WebSite);
-                    items.AddSimpleFor(m=>m.PhoneNumber);
-                    items.AddSimpleFor(m=>m.Note).Editor(e=>e.TextArea().MinHeight(100));
+                    .Items(items =>
+                    {
+                        items.AddSimpleFor(m => m.IsSelfOrganization);
                     })
                     )
-                </div>
-            </div>
-            <div class="col-6 p-0 mb-2">
-              
+
             </div>
             <div class="col-12 text-right">
                 <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">

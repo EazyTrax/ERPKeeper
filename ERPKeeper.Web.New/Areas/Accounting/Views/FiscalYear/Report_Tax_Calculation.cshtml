@@ -2,16 +2,29 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
+@{
+    Layout = "_Layout_Empty";
+}
+<style>
+    @@media print {
+        .page-break {
+            page-break-before: always;
+        }
+    }
+</style>
+
+
+
 <div class="row">
-    <div class="col-8 p-3 col-center mh-100v border-right border-2">
-
-
+    <div class="col px-3 col-center mh-100v">
+        <div class="mh-50"></div>
         <div class="text-center font-weight-600  mb-3">
             บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
             งบแสดงการคำนวณภาษี<br />
             สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
         </div>
 
+        <div class="mh-50"></div>
         <div class="row mb-3">
             <div class="col-12  font-weight-600 ">
                 รายได้
@@ -29,28 +42,39 @@
                             @line.Account.Name
                         </a>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         @line.Account.SubType.ToString()
                     </div>
                     <div class="col-2">
                     </div>
-                    <div class="col-3 text-right">
+                    <div class="col-2 p-0 text-right">
                         @line.TotalCredit.ToString("N2")
                     </div>
                 }
 
                 <div class="col-4">
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                 </div>
                 <div class="col-2  border-dark border-top">
                     รวมรายได้
                 </div>
-                <div class="col-3 text-right font-weight-600 border-dark border-top">
+                <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
                     @incomes.Sum(m => m.TotalCredit).ToString("N2")
                 </div>
             }
         </div>
+
+
+
+
+        <div class="mh-50  page-break"></div>
+        <div class="text-center font-weight-600  mb-3">
+            บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+            งบแสดงการคำนวณภาษี<br />
+            สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+        </div>
+        <div class="mh-50"></div>
         <div class="row">
             <div class="col-12  font-weight-600 ">
                 ค่าใช้จ่าย
@@ -86,10 +110,10 @@
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="col-2  border-dark border-top">
+                <div class="col-3  border-dark border-top">
                     รวมค่าใช้จ่าย
                 </div>
-                <div class="col-3 text-right font-weight-600 border-dark border-top">
+                <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
                     @expenses.Sum(m => m.TotalDebit).ToString("N2")
                 </div>
 
@@ -98,10 +122,10 @@
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="col-2  border-dark border-top">
-                    กำไร(ขาดทุน) ก่อนภาษีเงินได้
+                <div class="col-3  border-dark border-top">
+                    กำไรก่อนภาษีเงินได้
                 </div>
-                <div class="col-3 text-right font-weight-600 border-dark border-top">
+                <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
                     @{
                         var grossMargin = incomes.Sum(m => m.TotalCredit) - expenses.Sum(m => m.TotalDebit);
                     }
@@ -119,12 +143,12 @@
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="col-2  border-dark border-top">
+                <div class="col-3  border-dark border-top">
                     <a href="/@CompanyId/Accounting/Accounts/@IncomeTaxBalance.Account.Id/" target="_blank">
                         ภาษีเงินได้
                     </a>
                 </div>
-                <div class="col-3 text-right font-weight-600 border-dark border-top">
+                <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
                     @if (IncomeTaxBalance != null)
                     {
                         <span>@(IncomeTaxBalance.TotalDebit.ToString("N2"))</span>
@@ -138,10 +162,10 @@
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="col-2  border-dark border-top">
+                <div class="col-3  border-dark border-top">
                     กำไรสุทธิ
                 </div>
-                <div class="col-3 text-right font-weight-600 border-dark border-top">
+                <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
                     @((grossMargin - IncomeTaxBalance.TotalDebit).ToString("N2"))
                 </div>
 
@@ -150,72 +174,78 @@
 
             }
 
-            <div class="col-12 mt-4"></div>
-            <div class="col-12  font-weight-600 ">
-                ค่าใช้จ่ายต้องห้าม
+            <div class="mh-50 page-break"></div>
+            <div class="text-center font-weight-600  mb-3">
+                บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+                งบแสดงการคำนวณภาษี<br />
+                สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
             </div>
-            @{
-                var UnClaimExpenses = Model.FiscalYearAccountBalances
-                .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
-                .Where(m => 
-                    m.Account.SubType == AccountSubTypes.Expense_NonRefundableTax || 
-                    m.Account.SubType == AccountSubTypes.Expense_Prohibit 
-                )
-                .OrderBy(x => x.Account.SubType)
-                .ToList();
+            <div class="mh-50"></div>
+            <div class="row">
+                <div class="col-12  font-weight-600 ">
+                    ค่าใช้จ่ายต้องห้าม
+                </div>
+                @{
+                    var UnClaimExpenses = Model.FiscalYearAccountBalances
+                    .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
+                    .Where(m =>
+                    m.Account.SubType == AccountSubTypes.Expense_NonRefundableTax ||
+                    m.Account.SubType == AccountSubTypes.Expense_Prohibit
+                    )
+                    .OrderBy(x => x.Account.SubType)
+                    .ToList();
 
 
-                foreach (var line in UnClaimExpenses)
-                {
+                    foreach (var line in UnClaimExpenses)
+                    {
+                        <div class="col-4">
+                            <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                                @line.Account.Name
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            @line.Account.SubType
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-2 p-0 text-right">
+                            @line.TotalDebit.ToString("N2")
+                        </div>
+                    }
+
                     <div class="col-4">
-                        <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
-                            @line.Account.Name
-                        </a>
                     </div>
                     <div class="col-3">
-                        @line.Account.SubType
                     </div>
-                    <div class="col-2">
+                    <div class="col-3  border-dark border-top">
+                        รวม
                     </div>
-                    <div class="col-3 text-right">
-                        @line.TotalDebit.ToString("N2")
+                    <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+                        @UnClaimExpenses.Sum(m => m.TotalDebit).ToString("N2")
+                    </div>
+
+
+                    <div class="col-4">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-3 border-dark border-top">
+                        กำไรสำหรับคำนวนภาษี
+                    </div>
+                    <div class="col-2 p-0 text-right border-dark border-top">
+
+                        @{
+                            var totalProfitFortax = incomes.Sum(m => m.TotalCredit) - expenses.Sum(m => m.TotalDebit) + UnClaimExpenses.Sum(m => m.TotalDebit);
+
+                        }
+                        @(totalProfitFortax.ToString("N2"))
                     </div>
                 }
 
-                <div class="col-4">
-                </div>
-                <div class="col-3">
-                </div>
-                <div class="col-2  border-dark border-top">
-                    รวม
-                </div>
-                <div class="col-3 text-right font-weight-600 border-dark border-top">
-                    @UnClaimExpenses.Sum(m => m.TotalDebit).ToString("N2")
-                </div>
 
 
-                <div class="col-4">
-                </div>
-                <div class="col-3">
-                </div>
-                <div class="col-3 border-dark border-top">
-                    กำไรสำหรับคำนวนภาษี
-                </div>
-                <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
-
-                    @{
-                        var totalProfitFortax = incomes.Sum(m => m.TotalCredit) - expenses.Sum(m => m.TotalDebit) + UnClaimExpenses.Sum(m => m.TotalDebit);
-
-                    }
-                    @(totalProfitFortax.ToString("N2"))
-                </div>
-            }
-
-
-
+            </div>
         </div>
-
-
 
 
         <div class="row mt-4">
@@ -243,7 +273,7 @@
                     <span>@dedecut</span>
                 </div>
 
-                <div class="col-3 text-right ">
+                <div class="col-2 p-0 text-right ">
                     @((dedecut * 0).ToString("N2"))
                 </div>
                 <div class="col-4">
@@ -254,7 +284,7 @@
                 <div class="col-2 ">
                     @remainIncomeTax
                 </div>
-                <div class="col-3 text-right ">
+                <div class="col-2 p-0 text-right ">
                     @((remainIncomeTax * 15 / 100).ToString("N2"))
                 </div>
 
@@ -265,7 +295,7 @@
                 <div class="col-2 font-weight-600 border-dark border-top">
                     @totalProfitFortax
                 </div>
-                <div class="col-3 text-right font-weight-600  border-dark border-top">
+                <div class="col-2 p-0 text-right font-weight-600  border-dark border-top">
                     @((remainIncomeTax * 15 / 100).ToString("N2"))
                 </div>
             }

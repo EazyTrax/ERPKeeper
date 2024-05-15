@@ -1,8 +1,110 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 <div class="row">
     <div class="col p-0 col-center mh-100v border-right border-2">
         <partial name="_Ledgers_Grid" />
     </div>
-</div>
 
+    <div class="col-4 p-0 col-center">
+        <div class="row border bg-fb1">
+            <div class="col-4">
+                Type
+            </div>
+            <div class="col-8">
+                @Model.Type.ToString()
+            </div>
+
+            <div class="col-4">
+                Name
+            </div>
+            <div class="col-8">
+                @{
+                    switch (Model.Type)
+                    {
+                        case TransactionType.Sale:
+                            <a href="/@CompanyId/Profiles/Customers/Sales/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.ReceivePayment:
+                            <a href="/@CompanyId/Profiles/Customers/ReceivePayments/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.Purchase:
+                            <a href="/@CompanyId/Profiles/Suppliers/Purchases/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.SupplierPayment:
+                            <a href="/@CompanyId/Profiles/Suppliers/SupplierPayments/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.JournalEntry:
+                            <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.LiabilityPayment:
+                            <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.FundTransfer:
+                            <a href="/@CompanyId/Financial/FundTransfers/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.Lend:
+                            <a href="/@CompanyId/Financial/Lends/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.IncomeTax:
+                            <a href="/@CompanyId/Taxes/IncomeTaxs/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.TaxPeriod:
+                            <a href="/@CompanyId/Taxes/TaxPeriods/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.EmployeePayment:
+                            <a href="/@CompanyId/Profiles/Employees/EmployeePayments/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.Asset:
+                            <a href="/@CompanyId/Assets/Assets/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.AssetDeprecateSchedule:
+                            <a href="/@CompanyId/Assets/AssetDeprecateSchedules/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.ObsoleteAsset:
+                            <a href="/@CompanyId/Assets/ObsoleteAssets/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        case TransactionType.FiscalYearClosing:
+                            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">
+                                N:@Model.Name
+                            </a>
+                            break;
+                        default:
+                            <span>N:@Model.Name</span>
+                            break;
+                    }
+                }
+            </div>
+            <div class="col-4">Referece</div>
+            <div class="col-8">R:@Model.Reference</div>
+        </div>
+    </div>
+</div>

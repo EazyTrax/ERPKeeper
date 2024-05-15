@@ -4,7 +4,8 @@
 
 
 @{
-    var account = Organization
+    var organizationUntrack = new ERPKeeperCore.Enterprise.EnterpriseRepo(CompanyId, false);
+    var account = organizationUntrack
     .ErpCOREDBContext
     .Accounts
     .AsNoTracking()
@@ -20,7 +21,7 @@
         <div class="row">
             <div class="col-6 p-1 mb-2">
                 <div class="p-1">
-             
+
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
                         .ID("form_0")
                         .FormData(account)

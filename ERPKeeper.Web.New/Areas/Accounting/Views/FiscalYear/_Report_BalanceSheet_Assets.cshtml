@@ -43,9 +43,16 @@
 }
 
 
-<div class="page-break">
-
-
+<div class="mt-4">
+    <div class="mh-50">
+    </div>
+    <div class="text-center font-weight-600 mb-3">
+        บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+        งบแสดงฐานะทางการเงิน<br />
+        ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+    </div>
+    <div class="mh-50">
+    </div>
     <div class="font-weight-600 text-center">
         สินทรัพย์
     </div>
@@ -55,14 +62,14 @@
         <div class="col-3 font-weight-600 text-center">
             หน่วย:บาท
         </div>
-        <div class="col-4  font-weight-600 ">
+        <div class="col-4 p-0  font-weight-600 ">
         </div>
-        <div class="col-4">
+        <div class="col-4 p-0">
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right border-dark border-top border-bottom">
             @(Model.EndDate.Year + 543)
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="col-2 p-0 text-right border-dark border-top border-bottom">
             @(Model.EndDate.Year - 1 + 543)
         </div>
     </div>
@@ -70,17 +77,17 @@
 
 
     <div class="row">
-        <div class="col-12  font-weight-600 ">
+        <div class="col-12 p-0  font-weight-600 ">
             สินทรัพย์หมุนเวียน
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 p-0">
             <a href="/@CompanyId/Accounting/Fiscals/@Model.Id/Report_SupportingDocuments" target="_blank">
                 เงินสดและรายการเทียบเท่าเงินสด
             </a>
         </div>
-        <div class="col-4">
+        <div class="col-4 p-0">
         </div>
 
         <div class="col-2 p-0 text-right">
@@ -91,12 +98,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 p-0">
             <a href="/@CompanyId/Accounting/Fiscals/@Model.Id/Report_SupportingDocuments" target="_blank">
                 ลูกหนี้การค้าและลูกหนี้อื่นๆ
             </a>
         </div>
-        <div class="col-4">
+        <div class="col-4 p-0">
         </div>
 
         <div class="col-2 p-0 text-right">
@@ -107,12 +114,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 p-0">
             <a href="/@CompanyId/Accounting/Fiscals/@Model.Id/Report_SupportingDocuments" target="_blank">
                 สินค้าคงเหลือ
             </a>
         </div>
-        <div class="col-4">
+        <div class="col-4 p-0">
         </div>
 
         <div class="col-2 p-0 text-right">
@@ -123,12 +130,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 p-0">
             <a href="/@CompanyId/Accounting/Fiscals/@Model.Id/Report_SupportingDocuments" target="_blank">
                 สินทรัพย์หมุนเวียนอื่น
             </a>
         </div>
-        <div class="col-4">
+        <div class="col-4 p-0">
         </div>
 
         <div class="col-2 p-0 text-right">
@@ -145,17 +152,17 @@
             รวมสินทรัพย์หมุนเวียน
         </div>
 
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top ">
+        <div class="col-2 p-0 text-right border-dark border-top ">
             @(currentAssetsBalance.Sum(line => line.ClosedDebit - line.ClosedCredit).ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top ">
+        <div class="col-2 p-0 text-right border-dark border-top ">
             @(currentAssetsBalance.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
         </div>
     </div>
 
 
 
-    <div class="row mt-4">
+    <div class="row mt-2">
         @{
             var nonCurrentAssetsBalance = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
@@ -180,20 +187,20 @@
 
 
 
-            <div class="col-12  font-weight-600 ">
+            <div class="col-12 p-0  font-weight-600 ">
                 สินทรัพย์ไม่หมุนเวียน
             </div>
 
 
             foreach (var line in nonCurrentAssetsBalance)
             {
-                <div class="col-4">
+                <div class="col-4 p-0">
                     <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
                         @line.Account.Name
                     </a>
                 </div>
-                <div class="col-4">
-                    @line.Account.SubType.ToString()
+                <div class="col-4 p-0">
+            
                 </div>
 
                 <div class="col-2 p-0 text-right">
@@ -204,12 +211,12 @@
                 </div>
             }
 
-            <div class="col-4">
+            <div class="col-4 p-0">
                 <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
                     ที่ดิน และอุปกรณ์
                 </a>
             </div>
-            <div class="col-4">
+            <div class="col-4 p-0">
             </div>
 
             <div class="col-2 p-0 text-right">
@@ -227,30 +234,29 @@
                 รวมสินทรัพย์ไม่หมุนเวียน
             </div>
 
-            <div class="col-2 p-0 text-right font-weight-600 border-dark border-top ">
+            <div class="col-2 p-0 text-right border-dark border-top border-bottom">
                 @((nonCurrentAssetsBalance.Sum(line => line.ClosedDebit - line.ClosedCredit) + fixedAssetsBalance.Sum(line => line.ClosedDebit - line.ClosedCredit)).ToString("N2"))
             </div>
-            <div class="col-2 p-0 text-right font-weight-600 border-dark border-top ">
+            <div class="col-2 p-0 text-right border-dark border-top border-bottom ">
                 @((nonCurrentAssetsBalance.Sum(line => line.OpeningDebit - line.OpeningCredit) + fixedAssetsBalance.Sum(line => line.OpeningDebit - line.OpeningCredit)).ToString("N2"))
             </div>
         }
     </div>
-    <div class="row mb-4">
+    <div class="row mt-2 mb-4">
         @{
             cashAndBankBalance = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
             .ToList();
         }
-        <div class="col-4 font-weight-600 ">
+        <div class="col-4 p-0 font-weight-600 ">
             รวมสินทรัพย์
         </div>
-        <div class="col-4">
+        <div class="col-4 p-0">
         </div>
-
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top ">
+        <div class="col-2 p-0 text-right  ">
             @(cashAndBankBalance.Sum(line => line.ClosedDebit - line.ClosedCredit).ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top ">
+        <div class="col-2 p-0 text-right  ">
             @(cashAndBankBalance.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
         </div>
     </div>

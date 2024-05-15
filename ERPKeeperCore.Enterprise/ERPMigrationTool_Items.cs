@@ -70,9 +70,18 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-        private void CopyItems()
+        private void Copy_Items_Items()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Items/*.Where(i => i.ParentUid != null)*/.ToList();
+            var existModelIds = newOrganization.ErpCOREDBContext.Items
+                .Select(x => x.Id)
+                .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.Items
+                .Where(i => i.ItemType != ERPKeeper.Node.Models.Items.Enums.ItemTypes.Group)
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+
 
             oldModels.ForEach(a =>
             {

@@ -1,0 +1,70 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
+@{
+    Layout = "_Layout_Empty";
+    var selfOrganization = Organization.Profiles.GetSelf();
+    // var selfOrganizationAddress = selfOrganization.Addresses.FirstOrDefault();
+}
+<style>
+    @@media print {
+        .page-break {
+            page-break-before: always;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="col px-3 col-center mh-100v">
+
+
+        <div class="row" id="SelfOrganizationDetail">
+            <div class="col-2">
+                LOGO
+            </div>
+            <div class="col">
+                <div>
+                    <a href="/@CompanyId/Profiles/@selfOrganization.Id">
+                        <b>@selfOrganization.Name</b>
+                    </a>
+                </div>
+                <div>
+                    @* @selfOrganizationAddress.AddressLine *@
+                    @selfOrganization.Addresses.First().AddressLine
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <b>Invoice</b>
+                </div>
+                <div>
+                    @Model.Name
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row" id="BuyerDetail">
+
+            <div class="col">
+                <div>
+                    <a href="/@CompanyId/Profiles/Customers/Customers/@Model.CustomerId">
+                        <b>@Model.Customer.Profile.Name</b>
+                    </a>
+                </div>
+                <div>
+                    @* @selfOrganizationAddress.AddressLine *@
+                    @Model.Customer.Profile.Addresses.Count()
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <b>Invoice</b>
+                </div>
+                <div>
+                    @Model.Name
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

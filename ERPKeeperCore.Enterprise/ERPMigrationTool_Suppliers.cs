@@ -127,6 +127,7 @@ namespace ERPKeeperCore.CMD
                 .CommercialItems
                 .Where(i => !existModelIds.Contains(i.Uid))
                 .Where(i => i.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase)
+                .Where(i => i.Amount > 0 && i.UnitPrice > 0)
                 .ToList();
 
             oldModels.ForEach(oldModel =>
@@ -164,7 +165,7 @@ namespace ERPKeeperCore.CMD
 
 
         }
-        private  void CopySupplierPayments()
+        private void CopySupplierPayments()
         {
             oldOrganization.ErpNodeDBContext
                 .Purchases

@@ -22,6 +22,9 @@
 
         .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .ColumnChooser(m => m.Enabled(true))
+        .GroupPanel(g => g.Visible(true))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxPeriods" + CompanyId.ToString())) 
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -48,6 +51,19 @@
     );
 
             columns.AddFor(m => m.StartDate).SortOrder(SortOrder.Desc).SortIndex(1);
+
+
+
+
+            columns.AddFor(m => m.Status)
+        .HeaderCellTemplate("Type")
+        .Width(120).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
+        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriodStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+        .DisplayExpr("Text")
+        .ValueExpr("Value")
+        );
+
+        
 
             columns.Add()
         .Caption("Purchases")

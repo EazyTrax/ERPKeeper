@@ -6,6 +6,12 @@
 
 <div class="row ">
     <div class="col p-0 col-center mh-100v border-right border-2">
+
+        <div class="row">
+            <div class="col-10"></div>
+            <div class="col-2"></div>
+        </div>
+
         <div class="border p-2">
             @if (Model.PreviusFiscalYear != null)
             {
@@ -29,8 +35,11 @@
 
 
         </div>
+
+
+
     </div>
-    <div class="col-4 pr-0">
+    <div class="col-4 p-0">
         <partial name="_Chart_ProfitAndLost" />
         <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
 

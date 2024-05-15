@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ERPKeeperCore.Web.Controllers;
+using Z.EntityFramework.Plus;
+using ERPKeeperCore.Enterprise.Models.Profiles;
 
 namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
 {
@@ -45,10 +47,22 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
             profile.TaxNumber = model.TaxNumber;
             profile.WebSite = model.WebSite;
             profile.PhoneNumber = model.PhoneNumber;
+            profile.IsSelfOrganization = model.IsSelfOrganization;
             OrganizationCore.SaveChanges();
+
+            if (profile.IsSelfOrganization)
+            {
+                Console.WriteLine("IsSelfOrganization");
+
+                OrganizationCore.ErpCOREDBContext.Profiles
+                    .Where(p => p.Id != profile.Id)
+                    .Update(p => new Profile { IsSelfOrganization = false });
+
+                OrganizationCore.SaveChanges();
+            }
+            Console.WriteLine(profile.IsSelfOrganization);
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
-
-
     }
 }

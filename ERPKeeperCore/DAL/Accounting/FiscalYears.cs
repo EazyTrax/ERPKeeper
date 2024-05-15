@@ -275,7 +275,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                .ToList()
                .ForEach(currentYear =>
                {
-                   Console.WriteLine($"> FiscalYear > UpdatePreviusFiscalYear > {currentYear.Name}");
+                  // Console.WriteLine($"> FiscalYear > UpdatePreviusFiscalYear > {currentYear.Name}");
 
 
                    var previuseYear = erpNodeDBContext.FiscalYears
@@ -284,10 +284,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
                    if (previuseYear != null)
                    {
-                       Console.WriteLine(previuseYear.Name);
+                     //  Console.WriteLine(previuseYear.Name);
                        currentYear.PreviusFiscalYear = previuseYear;
                    }
-                   Console.WriteLine("-----------");
+               //    Console.WriteLine("-----------");
                });
 
             erpNodeDBContext.SaveChanges();
