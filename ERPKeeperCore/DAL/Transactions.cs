@@ -63,7 +63,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
             //Other Section
             organization.IncomeTaxes.PostToTransactions();
-            organization.TaxPeriods.PostToTransactions();
+            organization.TaxPeriods.PostToTransactions(true);
             organization.FiscalYears.PostToTransactions();
 
         }

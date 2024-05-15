@@ -8,33 +8,42 @@
     <div class="col p-0 col-center mh-100v border-right border-2">
 
         <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2"></div>
+            <div class="col-10">
+                <div class="border p-2">
+                    @if (Model.PreviusFiscalYear != null)
+                    {
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
+                            FY @Model.PreviusFiscalYear?.Name >
+                        </a>
+
+
+                    }
+
+                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">FY @Model.Name</a>
+
+                    @if (Model.NextFiscalYear != null)
+                    {
+
+
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
+                            > FY @Model.NextFiscalYear.Name
+                        </a>
+                    }
+
+
+                </div>
+
+
+
+            </div>
+            <div class="col-2">
+                <div class="border p-2 text-uppercase">
+                    @Model.Status.ToString()
+                </div>
+
+            </div>
         </div>
 
-        <div class="border p-2">
-            @if (Model.PreviusFiscalYear != null)
-            {
-                <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
-                    FY @Model.PreviusFiscalYear?.Name >
-                </a>
-
-
-            }
-
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">FY @Model.Name</a>
-
-            @if (Model.NextFiscalYear != null)
-            {
-
-
-                <a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
-                    > FY @Model.NextFiscalYear.Name
-                </a>
-            }
-
-
-        </div>
 
 
 

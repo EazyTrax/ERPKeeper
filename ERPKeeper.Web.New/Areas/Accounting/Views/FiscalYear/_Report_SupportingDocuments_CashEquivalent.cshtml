@@ -7,10 +7,10 @@
 
 
 
-<div class="mh-100">
+<div class="mt-5 page-break">
 </div>
 
-<div class="row">
+<div class="row ">
     <div class="col-12  font-weight-600 ">
         3. เงินสดและรายการเทียบเท่าเงินสด
     </div>
@@ -43,10 +43,6 @@
         .Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
         .OrderBy(m => m.Account.SubType)
         .ToList();
-
-
-
-
 
         foreach (var line in lines)
         {

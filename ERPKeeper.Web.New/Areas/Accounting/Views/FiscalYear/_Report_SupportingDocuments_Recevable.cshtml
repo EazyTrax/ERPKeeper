@@ -3,10 +3,6 @@
 
 
 
-
-<div class="mh-100">
-</div>
-
 <div class="row">
     <div class="col-12  font-weight-600 ">
         4. ลูกหนี้การค้าและลูกหนี้อื่น
@@ -43,11 +39,9 @@
         .Where(m => m.Account.SubType != AccountSubTypes.Asset_Inventory)
         .Where(m => m.Account.SubType != AccountSubTypes.Asset_TaxReceivable)
         .Where(m => m.Account.SubType != AccountSubTypes.Asset_TaxInput)
+        .Where(m => m.Account.SubType != AccountSubTypes.Asset_LongTermLending)
         .OrderBy(m => m.Account.SubType)
         .ToList();
-
-
-      
 
         foreach (var line in lines)
         {
@@ -82,3 +76,73 @@
     }
 </div>
 
+
+
+<div class="row">
+    <div class="col-12  font-weight-600 ">
+        5. สินทรัพย์หมุนเวียนอื่น
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+    </div>
+    <div class="col-3 p-0  text-center">
+        หน่วย:บาท
+    </div>
+    <div class="col-4   ">
+    </div>
+    <div class="col-4">
+    </div>
+    <div class="col-2 p-0  text-right  border-dark border-top border-bottom">
+        @(Model.EndDate.Year + 543)
+    </div>
+    <div class="col-2 p-0 text-right  border-dark border-top border-bottom">
+        @(Model.EndDate.Year - 1 + 543)
+    </div>
+</div>
+
+<div class="row">
+    @{
+
+        var OtherLiquidityAssetBalance = Model.FiscalYearAccountBalances
+        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
+        .Where(m => m.Account.SubType == AccountSubTypes.Asset_TaxInput || m.Account.SubType == AccountSubTypes.Asset_TaxReceivable)
+        .Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
+        .OrderBy(m => m.Account.SubType)
+        .ToList();
+
+
+
+        foreach (var line in OtherLiquidityAssetBalance)
+        {
+            <div class="col-4">
+                <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                    @line.Account.Name
+                </a>
+            </div>
+            <div class="col-4">
+                @line.Account.SubType.ToString()
+            </div>
+
+            <div class="col-2 p-0 text-right">
+                @((line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+            </div>
+            <div class="col-2 p-0 text-right">
+                @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+            </div>
+        }
+
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+        </div>
+
+        <div class="col-2 p-0 text-right  border-dark border-top">
+            @(OtherLiquidityAssetBalance.Sum(line => line.ClosedDebit - line.ClosingCredit).ToString("N2"))
+        </div>
+        <div class="col-2 p-0 text-right  border-dark border-top">
+            @(OtherLiquidityAssetBalance.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
+        </div>
+    }
+</div>

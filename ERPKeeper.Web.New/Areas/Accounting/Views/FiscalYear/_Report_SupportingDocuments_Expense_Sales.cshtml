@@ -1,8 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
-<div class="mh-100">
-</div>
 
 <div class="row">
     <div class="col-12  font-weight-600 ">
@@ -73,6 +71,4 @@
     <div class="col-2 p-0 text-right  border-dark border-top">
         @previusFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
     </div>
-
-
 </div>
