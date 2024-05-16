@@ -9,14 +9,14 @@ using System.ComponentModel;
 
 namespace ERPKeeperCore.Enterprise.Models.Customers
 {
-    public class CustomerQuoteItem
+    public class SaleQuoteItem
     {
         [Key]
         public Guid Id { get; set; }
 
         public Guid? QuoteId { get; set; }
         [ForeignKey("QuoteId")]
-        public virtual CustomerQuote Quote { get; set; }
+        public virtual SaleQuote Quote { get; set; }
 
         public Guid ItemId { get; set; }
         [ForeignKey("ItemId")]
@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? PartNumber { get; set; }
         public String? Description { get; set; }
 
-        public CustomerQuoteItem()
+        public SaleQuoteItem()
         {
 
         }

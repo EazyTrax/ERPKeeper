@@ -30,7 +30,7 @@
     @{
         MenuTemplate(0, "Customers", $"/{CompanyId}/Profiles/Customers/Customers", Organization.Customers.Count());
         MenuTemplate(0, "Projects", $"/{CompanyId}/Profiles/Customers/Projects", Organization.ErpCOREDBContext.Projects.Count());
-        MenuTemplate(0, "Quotes", $"/{CompanyId}/Profiles/Customers/Quotes", Organization.ErpCOREDBContext.CustomerQuotes.Count());
+        MenuTemplate(0, "Quotes", $"/{CompanyId}/Profiles/Customers/Quotes", Organization.ErpCOREDBContext.SaleQuotes.Count());
         MenuTemplate(0, "Sales", $"/{CompanyId}/Profiles/Customers/Sales", Organization.ErpCOREDBContext.Sales.Count());
         MenuTemplate(1, "Payments", $"/{CompanyId}/Profiles/Customers/ReceivePayments", Organization.ErpCOREDBContext.ReceivePayments.Count());
     }

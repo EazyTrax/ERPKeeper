@@ -19,7 +19,7 @@
     <div class="col px-3 col-center mh-100v">
         <div class="mh-50"></div>
         <div class="text-center font-weight-600  mb-3">
-            บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+            @Organization.Profiles.GetSelf().Name<br />
             งบแสดงการคำนวณภาษี<br />
             สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
         </div>
@@ -70,7 +70,7 @@
 
         <div class="mh-50  page-break"></div>
         <div class="text-center font-weight-600  mb-3">
-            บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+            @Organization.Profiles.GetSelf().Name<br />
             งบแสดงการคำนวณภาษี<br />
             สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
         </div>
@@ -176,7 +176,7 @@
 
             <div class="mh-50 page-break"></div>
             <div class="text-center font-weight-600  mb-3">
-                บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+                @Organization.Profiles.GetSelf().Name<br />
                 งบแสดงการคำนวณภาษี<br />
                 สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
             </div>

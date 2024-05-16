@@ -36,7 +36,7 @@ namespace ERPKeeperCore.CMD
                     GeneralOperations(newOrganization);
 
 
-                if (true)
+                if (false)
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.ChartOfAccount.RefreshCurrentBalance();
@@ -56,12 +56,6 @@ namespace ERPKeeperCore.CMD
                 newOrganization.LiabilityPayments.ClearEmpties();
                 newOrganization.JournalEntries.ClearEmpties();
                 newOrganization.FiscalYears.UpdatePreviusFiscalYear();
-
-                foreach (var tp in newOrganization.ErpCOREDBContext.IncomeTaxes)
-                {
-                    if(tp.IsPosted)
-                        tp.Status =  Enterprise.Models.Taxes.Enums.IncomeTaxStatus.Issued;
-                }
 
                 newOrganization.SaveChanges();
             }

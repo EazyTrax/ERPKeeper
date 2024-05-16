@@ -1,8 +1,8 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
 
 <div id="treeListDemo" class="mb-3 border">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuoteItem>()
     .ID("gridList")
     .KeyExpr("Id")
     .ShowRowLines(true)
@@ -14,11 +14,11 @@
     .DataSource(d =>
     d.RemoteController()
     .Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Profiles/Customers/Estimates/{Model.Id}/Products/All")
-    .InsertUrl($"/API/{CompanyId}/Profiles/Customers/Estimates/{Model.Id}/Products/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/Estimates/{Model.Id}/Products/Update")
+    .LoadUrl($"/API/{CompanyId}/Profiles/Customers/CustomerQuotes/{Model.Id}/Products/All")
+            .InsertUrl($"/API/{CompanyId}/Profiles/Customers/CustomerQuotes/{Model.Id}/Products/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/CustomerQuotes/{Model.Id}/Products/Update")
     .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Profiles/Customers/Estimates/{Model.Id}/Products/Delete")
+            .DeleteUrl($"/API/{CompanyId}/Profiles/Customers/CustomerQuotes/{Model.Id}/Products/Delete")
     .DeleteMethod("Post")
     )
 
@@ -41,6 +41,6 @@
     columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");
     columns.AddFor(m=>m.LineTotal).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));
     })
-    .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
+    .OnInitNewRow("function(e) { e.data.QuotePrice = 0;e.data.Amount = 1; }")
     )
 </div>

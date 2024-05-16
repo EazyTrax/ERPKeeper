@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.CustomerQuotes
+            var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -25,12 +25,12 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Customers.CustomerQuote();
+            var model = new Enterprise.Models.Customers.SaleQuote();
             JsonConvert.PopulateObject(values, model);
 
-            model.Status = QuoteStatus.Draft;
+            model.Status = SaleQuoteStatus.Draft;
 
-            Organization.ErpCOREDBContext.CustomerQuotes.Add(model);
+            Organization.ErpCOREDBContext.SaleQuotes.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.CustomerQuotes.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();

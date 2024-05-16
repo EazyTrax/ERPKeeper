@@ -1,8 +1,10 @@
 ﻿namespace ERPKeeperCore.Enterprise.Models.Customers.Enums
 {
-    public enum QuoteStatus
+    public enum SaleQuoteStatus
     {
         Draft = 0,
-        Paid = 1,
+        Issue = 1,
+        Order = 2,
+        Void = 1,
     }
 }

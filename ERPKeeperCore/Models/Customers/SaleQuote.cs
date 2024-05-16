@@ -13,11 +13,11 @@ using System.Linq;
 
 namespace ERPKeeperCore.Enterprise.Models.Customers
 {
-    public class CustomerQuote
+    public class SaleQuote
     {
         [Key]
         public Guid Id { get; set; }
-        public QuoteStatus Status { get; set; }
+        public SaleQuoteStatus Status { get; set; }
         public bool IsPosted { get; set; }
 
     
@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal Tax { get; set; }
         public Decimal Total => LinesTotal + Tax;
 
-        public virtual ICollection<CustomerQuoteItem> Items { get; set; } = new List<CustomerQuoteItem>();
+        public virtual ICollection<SaleQuoteItem> Items { get; set; } = new List<SaleQuoteItem>();
 
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public Guid? CustomerAddressId { get; set; }
 
-        public void AddItem(CustomerQuoteItem existItem)
+        public void AddItem(SaleQuoteItem existItem)
         {
             this.Items.Add(existItem);
         }
