@@ -16,67 +16,113 @@
 <div class="">
     <div class="mh-50"></div>
     <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
-        <div class="col-3 lh-1 font-weight-600 text-fs-24 text-danger">
-            Engineering
-            Craft
-        </div>
-        <div class="col">
+        <div class="col-12 p-0 text-center">
             <div>
-                <a href="/@CompanyId/Profiles/@selfOrganization.Id">
-                    <b>@selfOrganization.Name</b>
-                </a><br />
+                รายงานภาษีซื้อ
+            </div>
+            <div>
+                @selfOrganization.Name
+            </div>
+            <div>
                 เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
             </div>
             <div>
-                @selfOrganization.Addresses.First().AddressLine
-            </div>
-            <div>
-                <i class="fa-solid fa-phone"></i> @selfOrganization.Addresses.First().PhoneNumber
-                <i class="fa-solid fa-globe"></i> www.engineeringcraft.com
+                @Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()
             </div>
 
         </div>
-        <div class="col-3 p-0 text-right">
-            <div>
-                <b>รายงานภาษีซื้อ</b>
+    </div>
+
+    @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
+    {
+        <div class="row border-bottom">
+            <div class="col-1 p-0">
+                @item.Date.ToShortDateString()
             </div>
+            <div class="col-2">
+                @item.Name
+            </div>
+            <div class="col p-0">
+                @item.Supplier.Profile.Name
+            </div>
+            <div class="col-2 p-0">
+                @item.Supplier.Profile.TaxNumber
+            </div>
+            <div class="col-1 p-0 text-right">
+                @item.LinesTotalAfterDiscount.ToString("N2")
+            </div>
+            <div class="col-1 p-0 text-right">
+                @item.Tax.ToString("N2")
+            </div>
+        </div>
+    }
+
+    <div class="row border-bottom font-weight-600">
+        <div class="col p-0">
+        </div>
+        <div class="col-1 p-0 text-right">
+            @Model.Purchases.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
+        </div>
+        <div class="col-1 p-0 text-right">
+            @Model.Purchases.Sum(m => m.Tax).ToString("N2")
+        </div>
+    </div>
+</div>
 
 
 
-            @{
-                foreach (var item in Model.Purchases.ToList())
-                {
-                    <div class="row border-bottom">
-                        <div class="col">
-                            @item.Date.ToShortDateString()
-                        </div>
-                        <div class="col">
-                            @item.Name
-                        </div>
-                        <div class="col">
-                            @item.Supplier.Profile.Name
-                        </div>
-                        <div class="col">
-                            @item.LinesTotalAfterDiscount
-                        </div>
-                        <div class="col">
-                            @item.Tax
-                        </div>
-                    </div>
-                }
-
-            }
-
+<div class="">
+    <div class="mh-50"></div>
+    <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
+        <div class="col-12 p-0 text-center">
+            <div>
+                รายงานภาษีขาย
+            </div>
+            <div>
+                @selfOrganization.Name
+            </div>
+            <div>
+                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
+            </div>
+            <div>
+                @Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()
+            </div>
 
         </div>
+    </div>
 
+    @foreach (var item in Model.Sales.OrderBy(m => m.Date).ToList())
+    {
+        <div class="row border-bottom">
+            <div class="col-1 p-0">
+                @item.Date.ToShortDateString()
+            </div>
+            <div class="col-2">
+                @item.Name
+            </div>
+            <div class="col p-0">
+                @item.Customer.Profile.Name
+            </div>
+            <div class="col-2 p-0">
+                @item.Customer.Profile.TaxNumber
+            </div>
+            <div class="col-1 p-0 text-right">
+                @item.LinesTotalAfterDiscount.ToString("N2")
+            </div>
+            <div class="col-1 p-0 text-right">
+                @item.Tax.ToString("N2")
+            </div>
+        </div>
+    }
 
-        <div class="col-3 p-0 text-right">
-            <div>
-                <b>รายงานภาษีซื้อ</b>
-            </div>
-            <div>
-            </div>
+    <div class="row border-bottom font-weight-600">
+        <div class="col p-0">
+        </div>
+        <div class="col-1 p-0 text-right">
+            @Model.Sales.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
+        </div>
+        <div class="col-1 p-0 text-right">
+            @Model.Sales.Sum(m => m.Tax).ToString("N2")
         </div>
     </div>
 </div>
