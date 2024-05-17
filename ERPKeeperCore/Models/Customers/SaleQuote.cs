@@ -27,7 +27,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public virtual Customers.Customer? Customer { get; set; }
 
 
-
+        public Guid? ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
+        public virtual Projects.Project? Project { get; set; }
 
         public String? Reference { get; set; }
         public String? Memo { get; set; }

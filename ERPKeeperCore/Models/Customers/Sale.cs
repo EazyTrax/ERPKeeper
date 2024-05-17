@@ -45,11 +45,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal Tax { get; set; }
         public Decimal Total => LinesTotalAfterDiscount + Tax;
 
-        public virtual ICollection<SaleItem> Items { get; set; }
-            = new List<SaleItem>();
+        public virtual ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();
 
-        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; }
-            = new List<ReceivePayment>();
+        public virtual ICollection<ReceivePayment> ReceivePayments { get; set; } = new List<ReceivePayment>();
 
         public Guid? ReceivableAccountId { get; set; }
         [ForeignKey("ReceivableAccountId")]
@@ -67,6 +65,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TaxPeriodId")]
         public virtual TaxPeriod? TaxPeriod { get; set; }
         public Guid? CustomerAddressId { get; set; }
+
+        public Guid? ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
+        public virtual Projects.Project? Project { get; set; }
 
         public void AddItem(SaleItem existItem)
         {

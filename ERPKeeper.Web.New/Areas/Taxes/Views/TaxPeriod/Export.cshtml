@@ -1,0 +1,82 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
+
+@{
+    Layout = "_Layout_Empty";
+    var selfOrganization = Organization.Profiles.GetSelf();
+
+}
+<style>
+    @@media print {
+        .page-break {
+            page-break-before: always;
+        }
+    }
+</style>
+
+<div class="">
+    <div class="mh-50"></div>
+    <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
+        <div class="col-3 lh-1 font-weight-600 text-fs-24 text-danger">
+            Engineering
+            Craft
+        </div>
+        <div class="col">
+            <div>
+                <a href="/@CompanyId/Profiles/@selfOrganization.Id">
+                    <b>@selfOrganization.Name</b>
+                </a><br />
+                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
+            </div>
+            <div>
+                @selfOrganization.Addresses.First().AddressLine
+            </div>
+            <div>
+                <i class="fa-solid fa-phone"></i> @selfOrganization.Addresses.First().PhoneNumber
+                <i class="fa-solid fa-globe"></i> www.engineeringcraft.com
+            </div>
+
+        </div>
+        <div class="col-3 p-0 text-right">
+            <div>
+                <b>รายงานภาษีซื้อ</b>
+            </div>
+
+
+
+            @{
+                foreach (var item in Model.Purchases.ToList())
+                {
+                    <div class="row border-bottom">
+                        <div class="col">
+                            @item.Date.ToShortDateString()
+                        </div>
+                        <div class="col">
+                            @item.Name
+                        </div>
+                        <div class="col">
+                            @item.Supplier.Profile.Name
+                        </div>
+                        <div class="col">
+                            @item.LinesTotalAfterDiscount
+                        </div>
+                        <div class="col">
+                            @item.Tax
+                        </div>
+                    </div>
+                }
+
+            }
+
+
+        </div>
+
+
+        <div class="col-3 p-0 text-right">
+            <div>
+                <b>รายงานภาษีซื้อ</b>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>

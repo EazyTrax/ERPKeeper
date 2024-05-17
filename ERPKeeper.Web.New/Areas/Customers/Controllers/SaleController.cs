@@ -25,15 +25,17 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(sale);
         }
 
+        [HttpPost]
         public IActionResult Update(Sale model)
         {
-            var transcation = OrganizationCore.SaleQuotes.Find(TransactionId);
+            var transcation = OrganizationCore.Sales.Find(TransactionId);
 
             if (transcation.IsPosted)
                 return Redirect(Request.Headers["Referer"].ToString());
 
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
+            transcation.ProjectId = model.ProjectId;
 
             transcation.UpdateBalance();
             OrganizationCore.SaveChanges();

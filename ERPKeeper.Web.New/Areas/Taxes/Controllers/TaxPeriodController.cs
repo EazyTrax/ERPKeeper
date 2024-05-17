@@ -16,6 +16,11 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
             return View(TaxPeriod);
         }
+        public IActionResult Export(Guid TaxPeriodId)
+        {
+            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            return View(TaxPeriod);
+        }
         public IActionResult Sales(Guid TaxPeriodId)
         {
             var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);

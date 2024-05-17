@@ -35,6 +35,8 @@
                 .SortOrder(SortOrder.Desc)
                 .SortIndex(1).Width(130);
 
+                columns.AddFor(m => m.No).Width(60).ShowInColumnChooser(true);
+
                 columns.AddFor(m => m.Status)
                 .AllowEditing(false)
                 .Width(80)

@@ -43,6 +43,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
                         .Max() ?? 0;
 
                     model.No = maxNo + 1;
+                    model.UpdateBalance();
 
                     context.SaleQuotes.Add(model);
                     context.SaveChanges();

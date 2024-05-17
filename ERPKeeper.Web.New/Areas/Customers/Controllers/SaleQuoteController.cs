@@ -28,6 +28,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(transcation);
         }
 
+        [HttpPost]
         public IActionResult Update(SaleQuote model)
         {
             var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);

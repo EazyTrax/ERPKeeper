@@ -3,31 +3,34 @@
 
 <div id="treeListDemo" class="mb-3 border">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
-            .ID("gridList")
-            .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/All")
-            .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/Insert")
-            .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/Update")
-            .UpdateMethod("Post"))
-            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
-            .RowAlternationEnabled(true)
-            .KeyExpr("Id")
-            .ShowRowLines(false)
-            .ShowBorders(false)
-            .Paging(paging => paging.PageSize(100))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+    @(
+        Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
+                .ID("gridList")
+                .DataSource(d => d.RemoteController().Key("Id")
+                .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/All")
+                .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/Insert")
+                .InsertMethod("Post")
+                .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/Update")
+                .UpdateMethod("Post"))
+                .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+                .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
+                .RowAlternationEnabled(true)
+                .KeyExpr("Id")
+                .ShowRowLines(false)
+                .ShowBorders(false)
+                .Paging(paging => paging.PageSize(100))
+                .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
 
-            .ColumnAutoWidth(false)
-            .ColumnChooser(columnChooser => columnChooser.Enabled(true))
-            .Columns(columns =>
-            {
-                columns.AddFor(m => m.Date)
-            .SortOrder(SortOrder.Desc)
-            .SortIndex(1)
-            .Width(130);
+                .ColumnAutoWidth(false)
+                .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+                .Columns(columns =>
+                {
+                    columns.AddFor(m => m.Date)
+                .SortOrder(SortOrder.Desc)
+                .SortIndex(1)
+                .Width(130);
+
+                    columns.AddFor(m => m.No).Width(60).ShowInColumnChooser(true);
 
                 columns.AddFor(m => m.Status)
             .Width(80)

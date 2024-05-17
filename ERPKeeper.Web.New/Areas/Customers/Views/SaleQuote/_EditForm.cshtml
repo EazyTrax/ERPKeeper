@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
 
 <form id="EditForm" action="/@CompanyId/Customers/SaleQuotes/@Model.Id/Update" method="post">
-    <div >
+    <div>
         <div class="row">
 
             <div class="col-6 p-0 border">
@@ -22,7 +22,7 @@
 
 
 
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
                 </div>
@@ -31,20 +31,20 @@
             <div class="col-6 p-0 border">
                 <div class=" bg-fb1 p-2 mb-2 rounded">
                     <div class="mb-3 font-weight-600">General</div>
-                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("Name").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("Name").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.No).Label("No").LabelMode(EditorLabelMode.Static)</div>
 
-                    <div class="mb-2">@Html.DevExtreme().DateBoxFor(m=>m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">
-                        @(Html.DevExtreme().SelectBoxFor(m=>m.TaxCodeId)
-                        .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
-                        .Placeholder("Choose Tax Code")
-                        .DisplayExpr("Name")
-                        .ValueExpr("Id")
-                        .Label("Tax")
-                        .ShowClearButton(true)
-                        .LabelMode(EditorLabelMode.Static)
-                        )
+                        @(Html.DevExtreme().SelectBoxFor(m => m.TaxCodeId)
+                            .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
+                            .Placeholder("Choose Tax Code")
+                            .DisplayExpr("Name")
+                            .ValueExpr("Id")
+                            .Label("Tax")
+                            .ShowClearButton(true)
+                            .LabelMode(EditorLabelMode.Static)
+                            )
                     </div>
                 </div>
             </div>
@@ -54,7 +54,15 @@
                     <div class="mb-2">
                         <div class="mb-3 font-weight-600">Projects</div>
 
-                   
+                        @(Html.DevExtreme().SelectBoxFor(m => m.ProjectId)
+                            .DataSource(Organization.ErpCOREDBContext.Projects.Select(t => new { t.Id, t.Name }).ToList())
+                            .Placeholder("Projects")
+                            .DisplayExpr("Name")
+                            .ValueExpr("Id")
+                            .Label("Tax")
+                            .ShowClearButton(true)
+                            .LabelMode(EditorLabelMode.Static)
+                            )
                     </div>
                 </div>
             </div>
@@ -69,7 +77,7 @@
             <div class="col-6 p-0">
                 <div class=" bg-fb1 p-2 mb-2 rounded">
                     <div class="mb-3 font-weight-600">Memo</div>
-                    <div class="mb-2">@Html.DevExtreme().TextAreaFor(m=>m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
                 </div>
             </div>
         </div>

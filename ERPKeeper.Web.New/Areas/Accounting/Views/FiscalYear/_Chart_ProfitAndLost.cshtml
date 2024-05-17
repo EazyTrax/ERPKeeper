@@ -28,7 +28,10 @@
             <span class="text-white">Income</span>
         </div>
         <div class="ml-2 float-left p-1">
-            @Model.IncomeBalance.ToString("N2")
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Income">
+                @Model.IncomeBalance.ToString("N2")
+            </a>
+
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -37,7 +40,9 @@
             <span class="text-white">Expense</span>
         </div>
         <div class="ml-2 float-left p-1">
-            @Model.ExpenseBalance.ToString("N2")
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expense">
+                @Model.ExpenseBalance.ToString("N2")
+            </a>
         </div>
         <div style="clear:both;"></div>
     </div>
