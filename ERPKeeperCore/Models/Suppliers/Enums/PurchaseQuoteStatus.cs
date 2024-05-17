@@ -4,5 +4,6 @@
     {
         Draft = 0,
         Issue = 1,
+        Order=2
     }
 }

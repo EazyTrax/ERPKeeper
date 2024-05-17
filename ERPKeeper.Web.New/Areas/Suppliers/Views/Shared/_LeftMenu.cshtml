@@ -1,0 +1,36 @@
+﻿@{
+    void MenuTemplate(int level, string displayName, string url, int? count = null)
+    {
+        <div>
+            <div class="row e-r">
+                <div class="col-10 p-l@(level)">
+                    <a href="@url">
+                        @if (level > 0)
+                        {
+                            <i class="fa-solid fa-l"></i>
+                        }
+                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
+                    </a>
+                </div>
+                <div class="col-2 p-0 text-right p-0">
+                    <span class="menuCount">@count</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+    <a href="/@CompanyId/Profiles">Profiles</a> :
+    <a href="/@CompanyId/Suppliers">Suppliers</a>
+</div>
+
+<div class="lh-120 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers", Organization.Customers.Count());
+        MenuTemplate(0, "PurchaseQuotes", $"/{CompanyId}/Suppliers/PurchaseQuotes");
+        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Count());
+        MenuTemplate(1, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments", Organization.ErpCOREDBContext.SupplierPayments.Count());
+    }
+</div>

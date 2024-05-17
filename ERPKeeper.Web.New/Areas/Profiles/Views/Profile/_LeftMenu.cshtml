@@ -44,16 +44,16 @@
 <div class="lh-120 bg-fb1 p-2 border">
     @{
         if (Model.Customer != null)
-            MenuTemplate(0, "Customers", $"/{CompanyId}/Profiles/Customers/Customers/{Model.Id}");
+            MenuTemplate(0, "Customers", $"/{CompanyId}/Customers/Customers/{Model.Id}");
 
         if (Model.Supplier != null)
-            MenuTemplate(0, "Suppliers", $"/{CompanyId}/Profiles/Suppliers/Suppliers/{Model.Id}");
+            MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}");
 
         if (Model.Investor != null)
-            MenuTemplate(0, "Investors", $"/{CompanyId}/Profiles/Investors/Investors/{Model.Id}");
+            MenuTemplate(0, "Investors", $"/{CompanyId}/Investors/Investors/{Model.Id}");
 
         if (Model.Employee != null)
-            MenuTemplate(0, "Employees", $"/{CompanyId}/Profiles/Employees/Employees/{Model.Id}");
+            MenuTemplate(0, "Employees", $"/{CompanyId}/Employees/Employees/{Model.Id}");
 
     }
 </div>

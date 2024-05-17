@@ -1,0 +1,11 @@
+﻿
+<div class="row bg-fb1 ">
+    <div class="col-4  p-1">
+        <a href="/@CompanyId/Customers/Estimates">
+            Estimates
+        </a>
+    </div>
+    <div class="col-4  p-1">
+        @Organization.ErpCOREDBContext.Sales.Where(s => s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Draft).Count()
+    </div>
+</div>

@@ -24,6 +24,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
         {
             return erpNodeDBContext.TaxCodes.ToList();
         }
+        public TaxCode? GetDefault(TaxDirection direction)
+        {
+            return erpNodeDBContext.TaxCodes.Where(t => t.TaxDirection == direction).FirstOrDefault();
+        }
 
 
 

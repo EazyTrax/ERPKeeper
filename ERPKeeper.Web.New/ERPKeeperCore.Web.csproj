@@ -25,9 +25,9 @@
     <Compile Remove="Areas\Portal\Views\Shared\Components\**" />
     <Compile Remove="Areas\Products\Data\**" />
     <Compile Remove="Areas\Products\Models\**" />
-    <Compile Remove="Areas\Profiles_Employees\Views\Payment Stubs\**" />
-    <Compile Remove="Areas\Profiles_Employees\Views\PaymentPeriod\**" />
-    <Compile Remove="Areas\Profiles_Employees\Views\Position\**" />
+    <Compile Remove="Areas\Employees\Views\Payment Stubs\**" />
+    <Compile Remove="Areas\Employees\Views\PaymentPeriod\**" />
+    <Compile Remove="Areas\Employees\Views\Position\**" />
     <Compile Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <Compile Remove="wwwroot\js\jquery-ui-1.13.1\**" />
     <Content Remove="Areas\API\Accounting - Copy\**" />
@@ -47,9 +47,9 @@
     <Content Remove="Areas\Portal\Views\Shared\Components\**" />
     <Content Remove="Areas\Products\Data\**" />
     <Content Remove="Areas\Products\Models\**" />
-    <Content Remove="Areas\Profiles_Employees\Views\Payment Stubs\**" />
-    <Content Remove="Areas\Profiles_Employees\Views\PaymentPeriod\**" />
-    <Content Remove="Areas\Profiles_Employees\Views\Position\**" />
+    <Content Remove="Areas\Employees\Views\Payment Stubs\**" />
+    <Content Remove="Areas\Employees\Views\PaymentPeriod\**" />
+    <Content Remove="Areas\Employees\Views\Position\**" />
     <Content Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <Content Remove="wwwroot\js\jquery-ui-1.13.1\**" />
     <EmbeddedResource Remove="Areas\API\Accounting - Copy\**" />
@@ -69,9 +69,9 @@
     <EmbeddedResource Remove="Areas\Portal\Views\Shared\Components\**" />
     <EmbeddedResource Remove="Areas\Products\Data\**" />
     <EmbeddedResource Remove="Areas\Products\Models\**" />
-    <EmbeddedResource Remove="Areas\Profiles_Employees\Views\Payment Stubs\**" />
-    <EmbeddedResource Remove="Areas\Profiles_Employees\Views\PaymentPeriod\**" />
-    <EmbeddedResource Remove="Areas\Profiles_Employees\Views\Position\**" />
+    <EmbeddedResource Remove="Areas\Employees\Views\Payment Stubs\**" />
+    <EmbeddedResource Remove="Areas\Employees\Views\PaymentPeriod\**" />
+    <EmbeddedResource Remove="Areas\Employees\Views\Position\**" />
     <EmbeddedResource Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <EmbeddedResource Remove="wwwroot\js\jquery-ui-1.13.1\**" />
     <None Remove="Areas\API\Accounting - Copy\**" />
@@ -91,9 +91,9 @@
     <None Remove="Areas\Portal\Views\Shared\Components\**" />
     <None Remove="Areas\Products\Data\**" />
     <None Remove="Areas\Products\Models\**" />
-    <None Remove="Areas\Profiles_Employees\Views\Payment Stubs\**" />
-    <None Remove="Areas\Profiles_Employees\Views\PaymentPeriod\**" />
-    <None Remove="Areas\Profiles_Employees\Views\Position\**" />
+    <None Remove="Areas\Employees\Views\Payment Stubs\**" />
+    <None Remove="Areas\Employees\Views\PaymentPeriod\**" />
+    <None Remove="Areas\Employees\Views\Position\**" />
     <None Remove="wwwroot\font-awesome-pro-v6-6\.github\**" />
     <None Remove="wwwroot\js\jquery-ui-1.13.1\**" />
   </ItemGroup>
@@ -128,9 +128,7 @@
     <Folder Include="Areas\Authen\Models\" />
     <Folder Include="Areas\Authen\Views\Shared\Components\" />
     <Folder Include="Areas\Products\Views\Shared\Components\" />
-    <Folder Include="Areas\Profiles_Employees\Views\Shared\Components\" />
-    <Folder Include="Areas\Profiles_Suppliers\Data\" />
-    <Folder Include="Areas\Profiles_Suppliers\Models\" />
+    <Folder Include="Areas\Employees\Views\Shared\Components\" />
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\js\autogrow.min.js" />
     <None Include="wwwroot\js\html5-qrcode-scanner.js" />
@@ -156,19 +154,19 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Profiles_Employees\Views\Employees\_List.cshtml">
+    <Content Update="Areas\Employees\Views\Employees\_List.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Profiles_Employees\Views\Home\Index.cshtml">
+    <Content Update="Areas\Employees\Views\Home\Index.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Profiles_Employees\Views\_ViewImports.cshtml">
+    <Content Update="Areas\Employees\Views\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Profiles_Employees\Views\_ViewStart.cshtml">
+    <Content Update="Areas\Employees\Views\_ViewStart.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

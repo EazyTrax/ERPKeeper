@@ -1,0 +1,82 @@
+﻿<div id="treeListDemo" class="mb-3 border">
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment>()
+        .ID("gridList")
+        .KeyExpr("Id")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Suppliers/SupplierPayments/All")
+        @*  .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/Update")
+            .UpdateMethod("Post")
+            .DeleteUrl($"/API/{CompanyId}/Suppliers/Suppliers/Delete")
+            .DeleteMethod("Post")*@
+        )
+        .RowAlternationEnabled(true)
+        .ShowRowLines(false)
+        .ShowBorders(false)
+        .Paging(paging => paging.PageSize(100))
+        .AllowColumnResizing(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .ColumnAutoWidth(false)
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+        
+            .Columns(columns =>
+            {
+
+                columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+
+                columns.AddFor(m => m.Status).Width(80).Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            );
+
+                columns.Add().DataField("Name").Width(130)
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/">SP:<%= data.Name %></a></text>);
+
+
+                columns.AddFor(m => m.PurchaseId)
+            .Width(130)
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
+            lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+
+                columns.AddFor(m => m.PayFrom_AssetAccountId).Lookup(lookup =>
+            lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
+                columns.AddFor(m => m.RetentionTypeId).Lookup(lookup =>
+            lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
+
+
+                columns.AddFor(m => m.Reference).Width(180);
+
+                columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            })
+        )
+</div>
+

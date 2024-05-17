@@ -35,7 +35,7 @@
             );
 
                 columns.AddFor(m => m.Name).AllowEditing(false).AllowEditing(false).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.CustomerId).Lookup(lookup => lookup
@@ -43,7 +43,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference)

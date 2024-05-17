@@ -1,0 +1,41 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
+
+<form id="EditForm" action="/@CompanyId/Customers/Projects/@Model.Id/Update" method="post">
+    <div class="border">
+        <div class="row">
+            <div class="col-6 p-0">
+                <div class=" bg-fb1 p-2 mb-2 border">
+                    <div class="mb-3 font-weight-600">General</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("Name").LabelMode(EditorLabelMode.Floating)</div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Code).Label("Code").LabelMode(EditorLabelMode.Floating)</div>
+                    
+                </div>
+            </div>
+            <div class="col-6 p-0">
+                <div class=" bg-fb1 p-2 mb-2 border">
+                    <div class="mb-2">
+                        <div class="mb-3 font-weight-600">Dates</div>
+                        <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.StartDate).Label("StartDate").LabelMode(EditorLabelMode.Floating)</div>
+                     </div>
+                </div>
+            </div>
+            <div class="col-6 p-0">
+                <div class=" bg-fb1 p-2 mb-2 border">
+
+                  
+                </div>
+            </div>
+
+        
+            <div class="col-6 p-0">
+                <div class=" bg-fb1 p-2 mb-2 border">
+                    <div class="mb-3 font-weight-600">Memo</div>
+                    <div class="mb-2">@Html.DevExtreme().TextAreaFor(m=>m.Detail).Height(150).Label("Detail").LabelMode(EditorLabelMode.Floating)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+        Save
+    </button>
+</form>

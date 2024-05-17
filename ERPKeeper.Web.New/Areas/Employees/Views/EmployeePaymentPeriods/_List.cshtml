@@ -1,0 +1,71 @@
+﻿
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod>()
+    .ID("gridList")
+    .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/All")
+        .InsertUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Update")
+    .UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Delete")
+    .DeleteMethod("Post")
+    )
+    .KeyExpr("Id")
+    .RowAlternationEnabled(true)
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Width("100%")
+    .Paging(paging => paging.PageSize(100))
+    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
+    )
+
+    .AllowColumnResizing(true)
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+    .FilterRow(filterRow => filterRow
+    .Visible(true)
+    .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .Columns(columns =>
+    {
+
+    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
+            columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
+            columns.AddFor(m => m.PayFromAccountId).Width(250)
+        .Lookup(lookup => lookup
+        .DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
+        .DisplayExpr("Text")
+        .ValueExpr("Value"))
+        .HeaderCellTemplate(@<text>Pay From</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounts/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+
+
+            columns.AddFor(m => m.PaymentCount).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+
+
+
+            columns.AddFor(m=>m.TotalEarning).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+  
+            columns.AddFor(m=>m.TotalDeduction).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
+  
+
+
+
+})
+
+    )
+</div>
+
+

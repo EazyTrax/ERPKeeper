@@ -1,0 +1,54 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
+
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
+    .ID("gridList")
+    .KeyExpr("Id")
+    .DataSource(d => d.RemoteController().Key("Id")
+    .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/All")
+    .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/Insert")
+    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/Update")
+    .UpdateMethod("Post")
+    )
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Paging(paging => paging.PageSize(100))
+
+    .AllowColumnResizing(true)
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+
+    .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+            .OnDragEnd("onDragEnd")
+            .ShowDragIcons(false)*@
+    )
+    .Columns(columns => {
+
+    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+    columns.AddFor(m=>m.Status).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+    .DisplayExpr("Text")
+    .ValueExpr("Value")
+    );
+    columns.Add().DataField("Name")
+    .Width(130)
+    .CellTemplate(@<text>
+            <a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a>
+        </text>);
+
+
+
+    columns.Add().DataField("Reference");
+    columns.Add().DataField("Total").Format("#,##0.00");
+    //columns.Add().DataField("Id");
+    })
+    )
+</div>
+

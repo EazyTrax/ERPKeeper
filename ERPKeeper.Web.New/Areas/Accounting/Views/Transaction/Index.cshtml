@@ -23,22 +23,22 @@
                     switch (Model.Type)
                     {
                         case TransactionType.Sale:
-                            <a href="/@CompanyId/Profiles/Customers/Sales/@Model.Id">
+                            <a href="/@CompanyId/Customers/Sales/@Model.Id">
                                 N:@Model.Name
                             </a>
                             break;
                         case TransactionType.ReceivePayment:
-                            <a href="/@CompanyId/Profiles/Customers/ReceivePayments/@Model.Id">
+                            <a href="/@CompanyId/Customers/ReceivePayments/@Model.Id">
                                 N:@Model.Name
                             </a>
                             break;
                         case TransactionType.Purchase:
-                            <a href="/@CompanyId/Profiles/Suppliers/Purchases/@Model.Id">
+                            <a href="/@CompanyId/Suppliers/Purchases/@Model.Id">
                                 N:@Model.Name
                             </a>
                             break;
                         case TransactionType.SupplierPayment:
-                            <a href="/@CompanyId/Profiles/Suppliers/SupplierPayments/@Model.Id">
+                            <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.Id">
                                 N:@Model.Name
                             </a>
                             break;
@@ -73,7 +73,7 @@
                             </a>
                             break;
                         case TransactionType.EmployeePayment:
-                            <a href="/@CompanyId/Profiles/Employees/EmployeePayments/@Model.Id">
+                            <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id">
                                 N:@Model.Name
                             </a>
                             break;
