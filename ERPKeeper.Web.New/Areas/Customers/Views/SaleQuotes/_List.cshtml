@@ -10,10 +10,9 @@
             .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/Insert")
             .InsertMethod("Post")
             .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/Update")
-            .UpdateMethod("Post")
-            )
+            .UpdateMethod("Post"))
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
             .RowAlternationEnabled(true)
             .KeyExpr("Id")
             .ShowRowLines(false)

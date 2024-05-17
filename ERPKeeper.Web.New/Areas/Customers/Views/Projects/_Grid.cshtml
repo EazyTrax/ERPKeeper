@@ -14,7 +14,8 @@
     .KeyExpr("Id")
     .Width("100%")
     .RowAlternationEnabled(true)
-
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
         
     .ShowRowLines(true)
     .ShowBorders(false)

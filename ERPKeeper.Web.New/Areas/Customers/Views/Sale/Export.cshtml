@@ -24,18 +24,24 @@
             <div>
                 <a href="/@CompanyId/Profiles/@selfOrganization.Id">
                     <b>@selfOrganization.Name</b>
-                </a>
+                </a><br />
+                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
             </div>
             <div>
                 @selfOrganization.Addresses.First().AddressLine
             </div>
+            <div>
+                <i class="fa-solid fa-phone"></i> @selfOrganization.Addresses.First().PhoneNumber 
+                <i class="fa-solid fa-globe"></i> www.engineeringcraft.com
+            </div>
+
         </div>
-        <div class="col-4 p-0 text-right">
+        <div class="col-3 p-0 text-right">
             <div>
                 <b>ใบแจ้งหนี้ / ใบกำกับภาษี</b>
             </div>
             <div>
-                @Model.Name
+               
             </div>
         </div>
     </div>
@@ -60,8 +66,8 @@
             <div>
                 @if (customerAddress != null)
                 {
-                    <div>
-                        @customerAddress.AddressLine<br />
+                    <div style="">
+                        @customerAddress.AddressLine.Trim()<br />
                         @customerAddress.PhoneNumber
                     </div>
                 }
@@ -72,27 +78,27 @@
         <div class="col-4 p-0">
 
             <div class="row mb-4">
-                <div class="col-4 p-0">
+                <div class="col-4 font-weight-600 p-0">
                     เลขที่
                 </div>
                 <div class="col-8 p-0 text-right">
                     @Model.Name
                 </div>
-                <div class="col-4 p-0">
+                <div class="col-4 font-weight-600 p-0">
                     วันที่
                 </div>
                 <div class="col-8 p-0 text-right">
                     @Model.Date.ToShortDateString()
                 </div>
 
-                <div class="col-4 p-0">
+                <div class="col-4 font-weight-600 p-0">
                     อ้างอิง
                 </div>
                 <div class="col-8 p-0 text-right">
                     @Model.Reference
                 </div>
 
-                <div class="col-4 p-0">
+                <div class="col-4 font-weight-600 p-0">
                     กำหนดชำระ
                 </div>
                 <div class="col-8 p-0 text-right">
@@ -159,7 +165,7 @@
 
 
 
-        <div class="row border-top">
+        <div class="row ">
             <div class="col">
             </div>
             <div class="col-3 text-right">
@@ -171,7 +177,7 @@
         </div>
 
 
-        <div class="row border-top">
+        <div class="row ">
             <div class="col">
             </div>
             <div class="col-3 text-right">
@@ -183,7 +189,7 @@
         </div>
 
 
-        <div class="row border-top">
+        <div class="row ">
             <div class="col">
             </div>
             <div class="col-3 text-right">
@@ -194,7 +200,7 @@
             </div>
         </div>
 
-        <div class="row border-top">
+        <div class="row ">
             <div class="col">
             </div>
             <div class="col-3 text-right">
@@ -208,7 +214,7 @@
 
 
 
-        <div class="row border-top border-bottom">
+        <div class="row ">
 
             <div class="col text-right p-0">
                 ( @ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total) )
