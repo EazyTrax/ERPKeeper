@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Sales
-                .Where(s => s.Status == Enterprise.Models.Customers.Enums.SaleStatus.Quote)
+                .Where(s => s.Status == Enterprise.Models.Customers.Enums.SaleStatus.Draft)
                 .Where(r => r.CustomerId == ProfileId)
                 .ToList();
 
@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         {
             var model = new Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
-            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Quote;
+            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Draft;
 
             model.CustomerId = ProfileId;
             Organization.ErpCOREDBContext.Sales.Add(model);

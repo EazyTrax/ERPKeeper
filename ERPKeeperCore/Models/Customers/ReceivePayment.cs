@@ -95,9 +95,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Transaction.AddCredit(this.Receivable_Asset_Account, this.Amount);
 
 
-            this.Transaction.UpdateBalance();
-            this.Transaction.PostedDate = DateTime.Now;
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
         }
 
         public void UpdateBalance()

@@ -17,6 +17,9 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public Guid Id { get; set; }
         public String? Name { get; set; }
         public String? Reference { get; set; }
+
+
+
         public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
@@ -55,5 +58,35 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             }
         }
 
+        public void PostToTransaction()
+        {
+            Console.WriteLine($">Post  LendReturns:{this.Name}");
+
+            this.UpdateBalance();
+
+            if (this.Transaction == null)
+                return;
+            this.Transaction.ClearLedger();
+            this.Transaction.Date = this.Date;
+            this.Transaction.Reference = this.Reference;
+
+
+            // Dr.
+            this.Transaction.AddDebit(this.ReturnToAccount, this.Amount);
+            // Cr.
+            this.Transaction.AddCredit(this.Lend.Lending_AssetAccount, this.Amount);
+
+
+
+            this.Transaction.PostedDate = DateTime.Now;
+            IsPosted = this.Transaction.UpdateBalance();
+     
+
+        }
+
+        private void UpdateBalance()
+        {
+            
+        }
     }
 }

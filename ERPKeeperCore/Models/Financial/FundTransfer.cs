@@ -47,23 +47,9 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public Decimal DepositAmount => WithDrawAmount - BankFeeAmount;
 
-
-
-        public virtual ICollection<FundTransferItem> FundTransferDepositLines { get; set; } = new List<FundTransferItem>();
-
-        public void AddDepositLine(Guid AccountGuid, decimal amount)
-        {
-            var item = new FundTransferItem()
-            {
-                AccountId = AccountGuid,
-                Debit = amount,
-            };
-            this.FundTransferDepositLines.Add(item);
-        }
-
         public void UpdateBalance()
         {
-            WithDrawAmount = FundTransferDepositLines.Sum(x => x.Debit);
+           
         }
 
         public void PostToTransaction()
@@ -90,8 +76,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
 
             // Step 4 Finalize
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
 
         }
 

@@ -1,0 +1,62 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.Lend
+
+
+<div class="mb-2 border-top">
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Financial.LendReturn>()
+            .ID("LedgerList")
+            .KeyExpr("Id")
+            .DataSource(d => d.RemoteController()
+            .Key("Id")
+            .LoadUrl($"/api/{CompanyId}/Financial/Lends/{Model.Id}/LendReturns/All")
+            .InsertUrl($"/api/{CompanyId}/Financial/Lends/{Model.Id}/LendReturns/Insert")
+            .UpdateUrl($"/api/{CompanyId}/Financial/Lends/{Model.Id}/LendReturns/Update")
+            .UpdateMethod("Post"))
+            .AllowColumnReordering(true)
+            .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
+            .ShowColumnLines(true)
+            .ShowBorders(false)
+            .ColumnAutoWidth(false)
+            .Paging(pagging => pagging.PageSize(100))
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.Date);
+                columns.AddFor(m => m.Amount);
+                columns.AddFor(m => m.Reference)
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/LendReturns/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
+                columns.AddFor(m => m.ReturnToAccountId)
+
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Width(150)
+            .HeaderCellTemplate(@<text>Dr.Lending Acc</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LendingAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.IsPosted)
+            .AllowEditing(false).Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+
+            })
+        .Summary(s => s.TotalItems(items =>
+        {
+            items.AddFor(m => m.Amount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+        }))
+        )
+</div>
+
+
+
+
+
+
+
+
+
+

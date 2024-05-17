@@ -1,0 +1,85 @@
+﻿
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Profiles/Customers/SaleQuotes/All")
+            .InsertUrl($"/API/{CompanyId}/Profiles/Customers/SaleQuotes/Insert")
+            .InsertMethod("Post")
+            .UpdateUrl($"/API/{CompanyId}/Profiles/Customers/SaleQuotes/Update")
+            .UpdateMethod("Post")
+            )
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
+            .RowAlternationEnabled(true)
+            .KeyExpr("Id")
+            .ShowRowLines(false)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+
+            .ColumnAutoWidth(false)
+            .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.Date)
+            .SortOrder(SortOrder.Desc)
+            .SortIndex(1)
+            .Width(130);
+
+                columns.AddFor(m => m.Status)
+            .Width(80)
+            .Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            );
+
+                columns.AddFor(m => m.Name).Width(130)
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/SaleQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
+
+
+                columns.AddFor(m => m.CustomerId)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+
+
+                columns.Add().DataField("Reference").Width(180);
+                columns.Add().DataField("LinesTotal").Width(130).Format("#,##0.00");
+                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
+
+                columns.AddFor(m => m.TaxCodeId)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .HeaderCellTemplate(@<text>TaxCode</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+
+
+
+            })
+        .Summary(s =>
+        s.TotalItems(items =>
+        {
+            items.AddFor(m => m.LinesTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        }))
+        .OnInitNewRow("onInitNewRow")
+        )
+</div>
+
+<script>
+
+    function onInitNewRow(e) {
+        const today = new Date();
+        e.data.Date = today;
+        e.data.Status = 0;
+    }
+</script>

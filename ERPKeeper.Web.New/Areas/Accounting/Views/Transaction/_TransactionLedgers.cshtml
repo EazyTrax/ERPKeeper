@@ -5,10 +5,16 @@
 {
     <div class="row border">
 
-        <div class="col-12  border font-weight-600">
+        <div class="col-6  border font-weight-600">
+
             <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
-                TR# @Model.Ledgers.Count()
+                TR: @(Model.Name ?? Model.Reference)  #(@Model.Ledgers.Count())
             </a>
+
+
+        </div>
+        <div class="col-6  border font-weight-600">
+            @Model.Date
         </div>
 
         @{

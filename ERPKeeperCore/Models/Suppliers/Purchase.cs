@@ -119,8 +119,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
 
 
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
 
         }
     }

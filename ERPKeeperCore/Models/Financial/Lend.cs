@@ -99,9 +99,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             this.Transaction.AddCredit(this.PayFrom_AssetAccount, this.AmountLend);
 
 
-            this.Transaction.PostedDate = DateTime.Now;
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
 
         }
 

@@ -5,6 +5,7 @@ using ERPKeeperCore.Enterprise.DAL.Employees;
 using ERPKeeperCore.Enterprise.DAL.Financial;
 using ERPKeeperCore.Enterprise.DAL.ObsoleteAssets;
 using ERPKeeperCore.Enterprise.DAL.Products;
+using ERPKeeperCore.Enterprise.DAL.Suppliers;
 using ERPKeeperCore.Enterprise.DAL.Taxes;
 using ERPKeeperCore.Enterprise.DBContext;
 using ERPKeeperCore.Enterprise.Models;
@@ -32,17 +33,28 @@ namespace ERPKeeperCore.Enterprise
 
         public AssetDeprecateSchedules AssetDeprecateSchedules;
         public ObsoleteAssets ObsoleteAssets;
-
-
         private Members _Members;
         private Items _Items;
-        public DAL.Customers.Sales Sales;
-        public DAL.Purchases Purchases;
+
+
+        /// <summary>
+        /// Customers
+        /// </summary>
         public DAL.Customers.Customers Customers;
+        public DAL.Customers.Sales Sales;
+        public DAL.Customers.SaleQuotes SaleQuotes;
         public DAL.Customers.ReceivePayments ReceivePayments;
+
+
+        /// <summary>
+        /// Suppliers
+        /// </summary>
+        public Suppliers Suppliers;
+        public Purchases Purchases;
+        public PurchaseQuotes PurchaseQuotes;
         public SupplierPayments SupplierPayments;
 
-        public Suppliers Suppliers;
+
 
         public Employees Employees;
         public DAL.Employees.EmployeePositions EmployeePositions;
@@ -65,6 +77,7 @@ namespace ERPKeeperCore.Enterprise
         public IncomeTaxes IncomeTaxes;
         public Loans Loans;
         public Lends Lends;
+        public LendReturns LendReturns;
 
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
@@ -75,18 +88,27 @@ namespace ERPKeeperCore.Enterprise
 
         public void Initial()
         {
-            Sales = new Sales(this);
-            Purchases = new Purchases(this);
+
+            Brands = new Brands(this);
+            ItemGroups = new ItemGroups(this);
+
             Customers = new Customers(this);
+            SaleQuotes = new SaleQuotes(this);
+            Sales = new Sales(this);
+
+
             Suppliers = new Suppliers(this);
+            PurchaseQuotes = new PurchaseQuotes(this);
+            Purchases = new Purchases(this);
+
+
             Employees = new Employees(this);
             EmployeePositions = new DAL.Employees.EmployeePositions(this);
             EmployeePaymentTypes = new DAL.Employees.EmployeePaymentTypes(this);
             EmployeePayments = new DAL.Employees.EmployeePayments(this);
 
             Investors = new Investors(this);
-            Brands = new Brands(this);
-            ItemGroups = new ItemGroups(this);
+
             Profiles = new Profiles(this);
             TaxCodes = new TaxCodes(this);
             TaxPeriods = new TaxPeriods(this);
@@ -94,6 +116,7 @@ namespace ERPKeeperCore.Enterprise
             Transactions = new Transactions(this);
             Loans = new Loans(this);
             Lends = new Lends(this);
+            LendReturns = new LendReturns(this);
             IncomeTaxes = new IncomeTaxes(this);
 
             ReceivePayments = new DAL.Customers.ReceivePayments(this);
@@ -102,6 +125,8 @@ namespace ERPKeeperCore.Enterprise
 
             AssetDeprecateSchedules = new AssetDeprecateSchedules(this);
             ObsoleteAssets = new ObsoleteAssets(this);
+
+
         }
 
 

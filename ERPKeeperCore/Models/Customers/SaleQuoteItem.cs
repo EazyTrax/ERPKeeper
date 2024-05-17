@@ -24,9 +24,18 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public int Quantity { get; set; }
         public Decimal Price { get; set; }
+        public Decimal DiscountPercent { get; set; }
+        public Decimal PriceAfterDiscount => this.Price * (((decimal)100 - DiscountPercent) / (decimal)100);
         public String? Memo { get; set; }
         public String? Serial { get; set; }
-        public Decimal LineTotal => Quantity * Price;
+        public Decimal LineTotal => Quantity * PriceAfterDiscount;
+
+
+
+
+
+
+
 
         public String? PartNumber { get; set; }
         public String? Description { get; set; }

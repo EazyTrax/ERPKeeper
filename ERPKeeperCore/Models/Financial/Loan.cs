@@ -96,9 +96,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
 
 
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
-    
+            IsPosted = this.Transaction.UpdateBalance();
 
         }
 

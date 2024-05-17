@@ -43,6 +43,9 @@ namespace ERPKeeperCore.Enterprise.DAL
             organization.FundTransfers.PostToTransactions();
             organization.Loans.PostToTransactions();
             organization.Lends.PostToTransactions();
+            organization.LendReturns.PostToTransactions();
+
+
             organization.LiabilityPayments.PostToTransactions();
 
             //Taxes Section

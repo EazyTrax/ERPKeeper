@@ -118,8 +118,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
         public DbSet<SupplierPayment> SupplierPayments { get; set; }
-        public DbSet<SupplierQuote> SupplierQuotes { get; set; }
-        public DbSet<SupplierQuoteItem> SupplierQuoteItems { get; set; }
+        public DbSet<PurchaseQuote> PurchaseQuotes { get; set; }
+        public DbSet<PurchaseQuoteItem> PurchaseQuoteItems { get; set; }
 
 
 

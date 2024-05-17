@@ -98,10 +98,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
 
-
-            this.Transaction.UpdateBalance();
-            this.Transaction.PostedDate = DateTime.Now;
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
 
         }
 

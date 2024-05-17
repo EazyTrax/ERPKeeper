@@ -30,16 +30,12 @@ namespace ERPKeeperCore.CMD
                         Date = oldFundTransfer.TrnDate,
                         Reference = oldFundTransfer.Reference,
                         Status = (ERPKeeperCore.Enterprise.Models.Financial.Enums.FundTransferStatus)oldFundTransfer.Status,
-                        WithDrawAccountId = (Guid)oldFundTransfer.WithDrawAccountGuid
+                        WithDrawAccountId = (Guid)oldFundTransfer.WithDrawAccountGuid,
+                        BankFeeAmount = oldFundTransfer.AmountFee,
+                        WithDrawAmount = oldFundTransfer.AmountwithDraw,
+
                     };
 
-                    if (oldFundTransfer.BankFeeAccountGuid != null)
-                        exist.AddDepositLine((Guid)oldFundTransfer.BankFeeAccountGuid, oldFundTransfer.AmountFee);
-
-                    if (oldFundTransfer.DepositAccountGuid != null)
-                        exist.AddDepositLine((Guid)oldFundTransfer.DepositAccountGuid, oldFundTransfer.AmountDeposit);
-
-                    exist.UpdateBalance();
 
                     newOrganization.ErpCOREDBContext.FundTransfers.Add(exist);
                     newOrganization.ErpCOREDBContext.SaveChanges();
@@ -129,7 +125,7 @@ namespace ERPKeeperCore.CMD
                     }
                     else
                     {
-                       
+
                     }
 
 
@@ -152,12 +148,12 @@ namespace ERPKeeperCore.CMD
                     {
                         Console.WriteLine("----------------------------------------------");
                         Console.WriteLine($"> Loans: {oldPurchase.Name} ");
-                       
+
                         existLoan = new Enterprise.Models.Financial.Loan()
                         {
                             Id = oldPurchase.Uid,
                             Date = oldPurchase.TrnDate,
-                            Memo =  "NA",
+                            Memo = "NA",
                             AmountLoan = oldPurchase.Amount,
                             RecevingAccountId = oldPurchase.AssetAccountGuid,
                             LoanAccountId = oldPurchase.LiabilityAccount.Uid,
@@ -167,7 +163,7 @@ namespace ERPKeeperCore.CMD
                     }
                     else
                     {
- 
+
                     }
 
                 });

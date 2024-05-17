@@ -75,9 +75,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             {
                 this.Transaction.AddCredit(item.Account, item.Amount);
             }
-
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
         }
     }
 }

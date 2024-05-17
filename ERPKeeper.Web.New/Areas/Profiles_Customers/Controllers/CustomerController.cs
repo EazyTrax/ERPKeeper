@@ -22,6 +22,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
             var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
+
         public IActionResult Quotes(Guid customerUid)
         {
             var customer = OrganizationCore.Customers.Find(customerUid);
@@ -33,13 +34,12 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
             var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
+
         public IActionResult EstimateItems(Guid customerUid)
         {
             var customer = OrganizationCore.Customers.Find(customerUid);
             return View(customer);
         }
-
-
 
     }
 }

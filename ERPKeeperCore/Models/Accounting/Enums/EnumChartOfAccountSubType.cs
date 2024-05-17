@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         Asset_EarnestPayment = 191,
         Asset_TaxInput = 181,
         Asset_TaxReceivable = 183,
-
+        Asset_FixedAsset_Purchase = 564,
 
         /// <summary>
         /// Liability Type
@@ -78,7 +78,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         Expense_BankFee = 556,
         Expense_Prohibit = 560,
         Expense_IncomeTax = 563,
-        Expense_PurchaseAsset = 564,
+
         Expense_Asset_Deprecate = 561,
         Expense_Asset_Amortize = 582,
         Expense_NonRefundableTax = 585,

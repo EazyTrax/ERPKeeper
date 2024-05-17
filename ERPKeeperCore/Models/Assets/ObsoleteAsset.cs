@@ -42,9 +42,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
             // Cr.
             this.Transaction.AddCredit(this.Asset.AssetType.AwaitDeprecateAccount, this.Asset.TotalDepreciationValue);
-
-            this.IsPosted = true;
-            this.Transaction.UpdateBalance();
+            IsPosted = this.Transaction.UpdateBalance();
         }
 
     }

@@ -104,8 +104,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             foreach (var paymentItem in dedectionItems)
                 this.Transaction.AddCredit(paymentItem.EmployeePaymentType.ExpenseAccount, paymentItem.Amount);
 
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
         }
     }
 }

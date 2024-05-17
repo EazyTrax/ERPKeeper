@@ -67,8 +67,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             this.Transaction.AddCredit(this.Asset.AssetType.AccumulateDeprecateAcc, this.DepreciationValue);
 
 
-            this.IsPosted = true;
-            this.Transaction.UpdateBalance();
+            IsPosted = this.Transaction.UpdateBalance();
         }
     }
 }

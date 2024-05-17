@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,7 +25,20 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
             return View(sale);
         }
 
+        public IActionResult Update(Sale model)
+        {
+            var transcation = OrganizationCore.SaleQuotes.Find(TransactionId);
 
+            if (transcation.IsPosted)
+                return Redirect(Request.Headers["Referer"].ToString());
+
+            transcation.Memo = model.Memo;
+            transcation.Discount = model.Discount;
+
+            transcation.UpdateBalance();
+            OrganizationCore.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
         public IActionResult Items()
         {
@@ -55,6 +69,8 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Customers.Controllers
         public IActionResult Export()
         {
             var transcation = OrganizationCore.Sales.Find(TransactionId);
+            transcation.UpdateBalance();
+
             return View(transcation);
         }
     }

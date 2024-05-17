@@ -1,0 +1,42 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+
+<div class="row row bg-fb1 mb-2 ">
+
+    <div class="col-4 font-weight-600">
+        Status
+    </div>
+    <div class="col-8 ">
+        @Model.Status
+    </div>
+
+
+
+    <div class="col-4 font-weight-600">
+        Lines
+    </div>
+    <div class="col-8 ">
+        @Model.LinesTotal
+    </div>
+
+    <div class="col-4 font-weight-600">
+        Discouunt
+    </div>
+    <div class="col-8 ">
+        @Model.Discount
+    </div>
+
+
+    <div class="col-4 font-weight-600">
+        Tax
+    </div>
+    <div class="col-8 ">
+        @Model.Tax
+    </div>
+
+    <div class="col-4 font-weight-600">
+        Total
+    </div>
+    <div class="col-8 ">
+        @Model.Total
+    </div>
+</div>

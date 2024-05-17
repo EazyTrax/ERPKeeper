@@ -55,6 +55,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public bool UpdateBalance(decimal? amount = null)
         {
+            this.PostedDate = DateTime.Now;
+
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
 

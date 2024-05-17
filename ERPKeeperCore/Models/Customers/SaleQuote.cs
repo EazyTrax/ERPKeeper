@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public SaleQuoteStatus Status { get; set; }
         public bool IsPosted { get; set; }
 
-    
+
 
         public Guid? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
@@ -34,10 +34,17 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-
         public Decimal LinesTotal { get; set; }
+        public Decimal Discount { get; set; }
+        public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;
         public Decimal Tax { get; set; }
-        public Decimal Total => LinesTotal + Tax;
+        public Decimal Total => LinesTotalAfterDiscount + Tax;
+
+
+
+
+
+
 
         public virtual ICollection<SaleQuoteItem> Items { get; set; } = new List<SaleQuoteItem>();
 
@@ -52,6 +59,17 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Items.Add(existItem);
         }
 
-    
+        public void UpdateBalance()
+        {
+
+            this.Name = $"SQ-{Date.Year}{Date.Month}-{this.No.ToString()}";
+
+            this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);
+
+            if (this.TaxCode != null)
+                this.Tax = this.TaxCode.Rate * this.LinesTotalAfterDiscount / 100;
+            else
+                this.Tax = 0;
+        }
     }
 }

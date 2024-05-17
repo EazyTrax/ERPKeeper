@@ -151,8 +151,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             this.Transaction.AddCredit(this.AssetType.Purchase_Asset_Account, this.AssetValue);
 
 
-            this.IsPosted = true;
-            this.Transaction.UpdateBalance();
+            IsPosted = this.Transaction.UpdateBalance();
         }
     }
 }

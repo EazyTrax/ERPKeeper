@@ -137,8 +137,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
 
 
-            this.Transaction.UpdateBalance();
-            this.IsPosted = true;
+            IsPosted = this.Transaction.UpdateBalance();
         }
     }
 }

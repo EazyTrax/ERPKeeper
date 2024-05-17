@@ -873,6 +873,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
 
@@ -917,6 +920,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountPercent")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
@@ -2119,6 +2125,102 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("PurchaseItems");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("LinesTotal")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("No")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("SupplierAddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SupplierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("TaxCodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("TaxCodeId");
+
+                    b.ToTable("PurchaseQuotes");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuoteItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountPercent")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PartNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("QuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Serial")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SupplierQuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("SupplierQuoteId");
+
+                    b.ToTable("PurchaseQuoteItems");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2240,96 +2342,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("SupplierPayments");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("LinesTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Memo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("No")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("SupplierAddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("SupplierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<Guid?>("TaxCodeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
-
-                    b.HasIndex("TaxCodeId");
-
-                    b.ToTable("SupplierQuotes");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuoteItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Memo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Serial")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("SupplierQuoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("SupplierQuoteId");
-
-                    b.ToTable("SupplierQuoteItems");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", b =>
@@ -3007,7 +3019,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .IsRequired();
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", "FundTransfer")
-                        .WithMany("FundTransferDepositLines")
+                        .WithMany()
                         .HasForeignKey("FundTransferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3300,6 +3312,40 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Purchase");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxCode", "TaxCode")
+                        .WithMany()
+                        .HasForeignKey("TaxCodeId");
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("TaxCode");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuoteItem", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Items.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote", "SupplierQuote")
+                        .WithMany("Items")
+                        .HasForeignKey("SupplierQuoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("SupplierQuote");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxCode", "DefaultTaxCode")
@@ -3362,38 +3408,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("RetentionType");
 
                     b.Navigation("Transaction");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuote", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxCode", "TaxCode")
-                        .WithMany()
-                        .HasForeignKey("TaxCodeId");
-
-                    b.Navigation("Supplier");
-
-                    b.Navigation("TaxCode");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuoteItem", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Items.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuote", "SupplierQuote")
-                        .WithMany("Items")
-                        .HasForeignKey("SupplierQuoteId");
-
-                    b.Navigation("Item");
-
-                    b.Navigation("SupplierQuote");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax", b =>
@@ -3615,11 +3629,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
-                {
-                    b.Navigation("FundTransferDepositLines");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.Lend", b =>
                 {
                     b.Navigation("LendReturns");
@@ -3689,14 +3698,14 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("SupplierPayments");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", b =>
                 {
                     b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierQuote", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod", b =>

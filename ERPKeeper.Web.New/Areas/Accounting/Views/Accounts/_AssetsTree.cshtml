@@ -39,9 +39,9 @@
         .ValueExpr("Value")
         );
 
-                    columns.AddFor(m => m.SubType);
+          
                     columns.AddFor(m => m.SubType)
-  .Width(160)
+  .Width(300)
   .HeaderCellTemplate("SubType").SortOrder(SortOrder.Asc).SortIndex(2).Width(150).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -26,8 +27,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             var model = new Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
+            model.Status = SaleStatus.Draft;
+            model.No = Organization.ErpCOREDBContext
+                .SaleQuotes
+                .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
+                .Max(a => a.No) + 1;
 
             Organization.ErpCOREDBContext.Sales.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

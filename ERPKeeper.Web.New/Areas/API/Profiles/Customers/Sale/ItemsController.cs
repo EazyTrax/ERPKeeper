@@ -13,7 +13,6 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 
     public class ItemsController : _SaleBaseController
     {
-
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SaleItems

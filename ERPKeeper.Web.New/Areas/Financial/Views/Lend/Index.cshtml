@@ -1,0 +1,15 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.Lend
+
+<div class="row">
+    <div class="col p-0 col-center">
+        <div class="border bg-fb2 px-2 py-1">
+        </div>
+        <div class="border p-2 mb-2">
+            <partial name="_Lend_Returns_Grid" />
+        </div>
+    </div>
+    <div class="col-4 p-0 col-right">
+        <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+    </div>
+</div>
+
