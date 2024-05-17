@@ -8,15 +8,15 @@ using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
-    public class QuotesController : API_Profiles_Suppliers_BaseController
+    public class PurchaseQuotesController : API_Profiles_Suppliers_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Purchases
-                .Where(x => x.Status == Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -29,7 +29,14 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             var model = new Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            model.Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Quote;
+       
+
+            model.Status = PurchaseQuoteStatus.Draft;
+            model.No = Organization.ErpCOREDBContext
+                .SaleQuotes
+                .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
+                .Max(a => a.No) + 1;
+
 
             Organization.ErpCOREDBContext.Purchases.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

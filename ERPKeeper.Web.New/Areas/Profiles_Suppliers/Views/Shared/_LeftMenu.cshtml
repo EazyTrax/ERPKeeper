@@ -29,7 +29,7 @@
 <div class="lh-120 bg-fb1 p-2 rounded border">
     @{
         MenuTemplate(0, "Suppliers", $"/{CompanyId}/Profiles/Suppliers/Suppliers", Organization.Customers.Count());
-        MenuTemplate(0, "Quotes", $"/{CompanyId}/Profiles/Suppliers/Quotes");
+        MenuTemplate(0, "PurchaseQuotes", $"/{CompanyId}/Profiles/Suppliers/PurchaseQuotes");
         MenuTemplate(0, "Purchases", $"/{CompanyId}/Profiles/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Count());
         MenuTemplate(1, "Payments", $"/{CompanyId}/Profiles/Suppliers/SupplierPayments", Organization.ErpCOREDBContext.SupplierPayments.Count());
     }

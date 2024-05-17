@@ -34,7 +34,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
 
         public String? Reference { get; set; }
-        public PurchaseStatus Status { get; set; }
+        public PurchaseQuoteStatus Status { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
