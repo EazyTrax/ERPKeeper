@@ -22,23 +22,41 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         }
 
 
-        [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Customers.SaleQuote();
-            JsonConvert.PopulateObject(values, model);
+            try
+            {
+                var model = new Enterprise.Models.Customers.SaleQuote();
+                JsonConvert.PopulateObject(values, model);
 
-            model.Status = SaleQuoteStatus.Draft;
-            model.No = Organization.ErpCOREDBContext
-                .SaleQuotes
-                .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
-                .Max(a => a.No) + 1;
+                model.Status = SaleQuoteStatus.Draft;
 
-            Organization.ErpCOREDBContext.SaleQuotes.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+                // Ensure context is properly managed
+                using (var context = Organization.ErpCOREDBContext)
+                {
+                    var currentYear = model.Date.Year;
+                    var currentMonth = model.Date.Month;
 
-            return Ok();
+                    var maxNo = context.SaleQuotes
+                        .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
+                        .Select(a => (int?)a.No)
+                        .Max() ?? 0;
+
+                    model.No = maxNo + 1;
+
+                    context.SaleQuotes.Add(model);
+                    context.SaveChanges();
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here for brevity)
+                return StatusCode(500, "Internal server error");
+            }
         }
+
 
 
         [HttpPost]

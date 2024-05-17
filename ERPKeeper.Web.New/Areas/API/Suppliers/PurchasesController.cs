@@ -26,8 +26,15 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             var model = new Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
+            var currentYear = model.Date.Year;
+            var currentMonth = model.Date.Month;
+
+            var maxNo = Organization.ErpCOREDBContext.SaleQuotes
+                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
+
+            model.No = maxNo + 1;
 
             Organization.ErpCOREDBContext.Purchases.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

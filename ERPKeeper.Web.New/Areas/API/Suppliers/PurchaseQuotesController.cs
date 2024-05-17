@@ -33,7 +33,10 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             model.No = Organization.ErpCOREDBContext
                 .SaleQuotes
                 .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
-                .Max(a => a.No) + 1;
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
+
+
 
 
             Organization.ErpCOREDBContext.PurchaseQuotes.Add(model);

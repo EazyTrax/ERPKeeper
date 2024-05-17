@@ -28,10 +28,15 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             JsonConvert.PopulateObject(values, model);
 
             model.Status = SaleStatus.Draft;
-            model.No = Organization.ErpCOREDBContext
-                .SaleQuotes
-                .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
-                .Max(a => a.No) + 1;
+            var currentYear = model.Date.Year;
+            var currentMonth = model.Date.Month;
+
+            var maxNo = Organization.ErpCOREDBContext.SaleQuotes
+                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
+
+            model.No = maxNo + 1;
 
             Organization.ErpCOREDBContext.Sales.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
