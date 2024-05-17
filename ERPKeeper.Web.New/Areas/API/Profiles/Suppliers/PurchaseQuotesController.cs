@@ -8,7 +8,6 @@ using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
@@ -16,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Purchases
+            var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -26,19 +25,18 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Suppliers.Purchase();
+            var model = new Enterprise.Models.Suppliers.PurchaseQuote();
             JsonConvert.PopulateObject(values, model);
 
-       
 
-            model.Status = PurchaseQuoteStatus.Draft;
+            model.Status = Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Draft;
             model.No = Organization.ErpCOREDBContext
                 .SaleQuotes
                 .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
                 .Max(a => a.No) + 1;
 
 
-            Organization.ErpCOREDBContext.Purchases.Add(model);
+            Organization.ErpCOREDBContext.PurchaseQuotes.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -48,7 +46,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
