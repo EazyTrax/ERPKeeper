@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeperCore.Web.Areas.Financial.Controllers
+namespace ERPKeeperCore.Web.Areas.Investors.Controllers
 {
-    public class StocksController : Financial_BaseController
+    public class StocksController : _Investors_Base_Controller
     {
         public IActionResult Index()
         {

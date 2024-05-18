@@ -14,6 +14,11 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Index(Guid ProjectId)
         {
             var Project = OrganizationCore.Projects.Find(ProjectId);
+
+            if (Project == null)
+                return NotFound();
+
+
             return View(Project);
         }
 

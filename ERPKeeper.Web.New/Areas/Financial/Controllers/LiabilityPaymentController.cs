@@ -19,6 +19,11 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
         public IActionResult Index()
         {
             var transcation = OrganizationCore.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
+
+            if (transcation == null)
+                return NotFound();
+
+
             return View(transcation);
         }
         public IActionResult Update(LiabilityPayment model)

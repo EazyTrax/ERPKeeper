@@ -14,7 +14,14 @@ namespace ERPKeeperCore.CMD
     {
         private void CopyRetentions_Types()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.RetentionTypes.ToList();
+            var existModelIds = newOrganization.ErpCOREDBContext.RetentionTypes
+            .Select(x => x.Id)
+            .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.RetentionTypes
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
 
             oldModels.ForEach(oldModel =>
             {
@@ -47,11 +54,18 @@ namespace ERPKeeperCore.CMD
                 }
             });
 
-            newOrganization.ErpCOREDBContext.SaveChanges();
+            //newOrganization.ErpCOREDBContext.SaveChanges();
         }
         private void CopyRetentions_Groups()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.RetentionGroups.ToList();
+            
+            var existModelIds = newOrganization.ErpCOREDBContext.RetentionGroups
+            .Select(x => x.Id)
+            .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.RetentionGroups
+                .Where(i => !existModelIds.Contains(i.Id) )
+                .ToList();
 
             oldModels.ForEach(oldModel =>
             {

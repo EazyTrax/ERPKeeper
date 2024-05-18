@@ -93,6 +93,9 @@ namespace ERPKeeperCore.CMD
                 });
         }
 
+
+
+
         private void Copy_Customers_Sales()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.Sales
@@ -190,9 +193,6 @@ namespace ERPKeeperCore.CMD
 
 
         }
-
-
-
 
 
 

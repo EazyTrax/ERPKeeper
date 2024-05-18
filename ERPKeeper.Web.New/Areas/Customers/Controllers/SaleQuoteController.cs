@@ -18,6 +18,10 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Index()
         {
             var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);
+
+            if (transcation == null)
+                return NotFound();
+
             return View(transcation);
         }
 

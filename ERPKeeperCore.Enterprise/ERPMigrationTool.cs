@@ -27,50 +27,55 @@ namespace ERPKeeperCore.CMD
             // Copy_Employees();
             // Copy_Taxes();
 
-            //newOrganization.FiscalYears.PrepareFiscalYearBalances();
-            //newOrganization.FiscalYears.UpdateTransactionFiscalYears();
+            // newOrganization.FiscalYears.PrepareFiscalYearBalances();
+            // newOrganization.FiscalYears.UpdateTransactionFiscalYears();
 
             Copy_Profiles_Profiles();
             Copy_Profiles_ProfileAddresss();
 
-            //CopySuppliers();
+            // CopySuppliers();
 
-            //CopyAccounts();
-            //Copy_Financial_LiabilityPayments();
-            //Copy_Financial_Loans();
-            //Copy_Financial_Lends();
+            // CopyAccounts();
+            // Copy_Financial_LiabilityPayments();
+            // Copy_Financial_Loans();
+            // Copy_Financial_Lends();
             Copy_Items_Items();
             Copy_Taxes_TaxPeriod();
 
             Copy_Customers_Customers();
             Copy_Customers_Sales();
             Copy_Customers_SaleItems();
-            Copy_Customers_SaleQuotes();
-            Copy_Customers_SaleQuoteItems();
+            
+          //  Copy_Customers_SaleQuotes();
+          //  Copy_Customers_SaleQuoteItems();
 
 
-            ////CopyReceivePayments();
-            ///
+            // CopyReceivePayments();
+            //
 
             Copy_Suppliers_Suppliers();
             Copy_Suppliers_Purchases();
-            Copyy_Suppliers_PurchaseItems();
+            Copy_Suppliers_PurchaseItems();
 
-            ////CopySupplierPayments();
-            //CopyBrands();
-            //CopyItemGroups();
+           // Copy_Suppliers_PurchaseQuotes();
+           // Copy_Suppliers_PurchaseQuoteItems();
+
+
+            // CopySupplierPayments();
+            // CopyBrands();
+            // CopyItemGroups();
             //
-            //CopyProjects();
-  
-            //CopyFiscalYear();
-            //CopyTaxCode();
-    
-            //CopySales();
-            //CopySaleItems();
-            //CopyPurchases();
-            //CopyPurchaseItems();
-            //CreateTransactionForSales(newOrganization);
-            //CreateTransactionForPurchases(newOrganization);
+            // CopyProjects();
+
+            // CopyFiscalYear();
+            // CopyTaxCode();
+
+            // CopySales();
+            // CopySaleItems();
+            // CopyPurchases();
+            // CopyPurchaseItems();
+            // CreateTransactionForSales(newOrganization);
+            // CreateTransactionForPurchases(newOrganization);
             //CopyFundTransfers();
             //CopyAssetTypes();
             //CopyAssets();

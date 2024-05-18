@@ -14,10 +14,7 @@ namespace ERPKeeperCore.Web.Areas.My.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("ViewMode") == null)
-                HttpContext.Session.SetString("ViewMode", "Tile");
-
-            return Redirect("/Enterprises");
+            return View();
         }
 
     }

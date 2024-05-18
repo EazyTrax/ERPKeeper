@@ -19,6 +19,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             var sale = OrganizationCore.Sales.Find(TransactionId);
 
+            if (sale == null)
+                return NotFound();
 
             return View(sale);
         }

@@ -18,6 +18,11 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
         public IActionResult Index()
         {
             var transcation = OrganizationCore.Lends.Find(Id);
+
+            if (transcation == null)
+                return NotFound();
+
+
             return View(transcation);
         }
 

@@ -3,11 +3,24 @@
 
 <div class="row">
     <div class="col-8 p-0 col-left">
-        
-@*         <partial name="_Tile" /> *@
-
     </div>
-    <div class="col-3 pr-0 col-center">
+    <div class="col-4 pr-0 col-center">
+
+        <div class="border">
+            @foreach (var customer in Organization.ErpCOREDBContext.Customers.OrderByDescending(c => c.TotalSales).Take(20).ToList())
+            {
+                <div class="row border-bottom">
+                    <div class="col-9">
+                        <a href="/@CompanyId/Customers/Customers/@customer.Id">
+                            @customer.Profile.Name
+                        </a>
+                    </div>
+                    <div class="col-3 text-right">
+                        @customer.TotalSales.ToString("N0") <br />
+                        (@customer.TotalSalesCount)
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
-

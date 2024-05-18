@@ -1,6 +1,7 @@
 ﻿using ERPKeeper.Node.DAL;
 using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,7 +126,7 @@ namespace ERPKeeperCore.CMD
             });
             newOrganization.ErpCOREDBContext.SaveChanges();
         }
-        private void Copyy_Suppliers_PurchaseItems()
+        private void Copy_Suppliers_PurchaseItems()
         {
             var existModelIds = newOrganization.ErpCOREDBContext.PurchaseItems
                 .Select(x => x.Id)
@@ -232,5 +233,110 @@ namespace ERPKeeperCore.CMD
                 });
         }
 
+
+        private void Copy_Suppliers_PurchaseQuotes()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.PurchaseQuotes
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.PurchaseEstimates
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"Purchase:{oldModel.Name}-{oldModel.Uid}");
+                var exist = newOrganization.ErpCOREDBContext.PurchaseQuotes.FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"> Add PurchaseQuote: {oldModel.Name}");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote()
+                    {
+                        Id = oldModel.Uid,
+                        Date = oldModel.TrnDate,
+                        No = oldModel.No,
+                        Name = oldModel.Name,
+                        Memo = oldModel.Memo,
+                        Status = (PurchaseQuoteStatus)oldModel.Status,
+                        TaxCodeId = oldModel.TaxCodeGuid,
+                        SupplierId = oldModel.ProfileGuid,
+                        SupplierAddressId = oldModel.ProfileAddressGuid,
+                        LinesTotal = oldModel.LinesTotal,
+                        Tax = oldModel.Tax,
+                        Reference = oldModel.Reference,
+                    };
+
+                    newOrganization.ErpCOREDBContext.PurchaseQuotes.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+                    exist.Reference = oldModel.Reference;
+                }
+
+
+            });
+
+            newOrganization.ErpCOREDBContext.SaveChanges();
+        }
+        private void Copy_Suppliers_PurchaseQuoteItems()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.PurchaseQuoteItems
+                .Select(x => x.Id)
+                .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EstimateItems
+                .Where(i => !existModelIds.Contains(i.Uid) && i.QuoteId != null)
+                .Where(i => i.Quote.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.PurchaseQuote)
+                .Where(i => i.Amount > 0 && i.UnitPrice > 0)
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                var existItem = newOrganization.ErpCOREDBContext
+                .PurchaseQuoteItems
+                .Find(oldModel.Uid);
+
+                if (existItem == null)
+                {
+                    Console.WriteLine($"> Add PurchaseQuoteItems {oldModel.Uid}: {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
+
+                    try
+                    {
+                        existItem = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuoteItem()
+                        {
+                            Id = oldModel.Uid,
+                            QuoteId = oldModel.QuoteId,
+                            ItemId = (Guid)oldModel.ItemGuid,
+                            Quantity = (int)oldModel.Amount,
+                            Price = oldModel.UnitPrice,
+                            PartNumber = oldModel.ItemPartNumber,
+                            Description = oldModel.ItemDescription,
+                            Memo = oldModel.Memo,
+                            DiscountPercent = oldModel.DiscountPercent,
+                        };
+
+                        newOrganization.ErpCOREDBContext.PurchaseQuoteItems.Add(existItem);
+                        newOrganization.ErpCOREDBContext.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine($"> Exists {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
+                }
+            });
+
+
+        }
     }
 }

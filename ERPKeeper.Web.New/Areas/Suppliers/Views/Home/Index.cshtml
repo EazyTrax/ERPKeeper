@@ -1,8 +1,25 @@
 ﻿
-<div class="row">
 
-    <div class="col-9 pl-0 col-left">
-        
-        <partial name="_Tile" />
+<div class="row">
+    <div class="col-8 p-0 col-left">
+    </div>
+    <div class="col-4 pr-0 col-center">
+
+        <div class="border">
+            @foreach (var supplier in Organization.ErpCOREDBContext.Suppliers.OrderByDescending(c => c.TotalPurchases).Take(20).ToList())
+            {
+                <div class="row border-bottom">
+                    <div class="col-9">
+                        <a href="/@CompanyId/Customers/Customers/@supplier.Id">
+                            @supplier.Profile.Name
+                        </a>
+                    </div>
+                    <div class="col-3 text-right">
+                        @supplier.TotalPurchases.ToString("N0") <br />
+                        (@supplier.TotalPurchasesCount)
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
