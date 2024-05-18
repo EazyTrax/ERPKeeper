@@ -22,13 +22,13 @@
 
 @*<div class="mb-1 font-weight-bold bg-fb2 p-2">@Model.Name Profit and Lost</div>*@
 
-<div class="mb-1 p-2" style="position:relative;">
+<div class="mb-1 p-2 border" style="position:relative;">
     <div class="mb-2">
         <div class="float-left p-1 bg-info" style="width:@(incomeWidth)px;">
             <span class="text-white">Income</span>
         </div>
         <div class="ml-2 float-left p-1">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Income">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes">
                 @Model.IncomeBalance.ToString("N2")
             </a>
 
@@ -40,7 +40,7 @@
             <span class="text-white">Expense</span>
         </div>
         <div class="ml-2 float-left p-1">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expense">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses">
                 @Model.ExpenseBalance.ToString("N2")
             </a>
         </div>

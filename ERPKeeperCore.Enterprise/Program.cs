@@ -18,7 +18,7 @@ namespace ERPKeeperCore.CMD
         static void Main(string[] args)
         {
             string[] Enterprises = new string[] {
-                "tec",
+                //"tec",
                 "bit"
             };
 
@@ -32,7 +32,7 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                migrationTool.Migrate();
+                //migrationTool.Migrate();
 
 
 
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.CMD
                     GeneralOperations(newOrganization, oldOrganization);
 
 
-                if (false)
+                if (true)
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.ChartOfAccount.RefreshCurrentBalance();

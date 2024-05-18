@@ -28,7 +28,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
         public void UnPost(Models.Financial.LendReturn model)
         {
-            throw new NotImplementedException();
+            model.Transaction.ClearLedger();
+            model.IsPosted = false;
+
+            erpNodeDBContext.SaveChanges();
         }
 
 

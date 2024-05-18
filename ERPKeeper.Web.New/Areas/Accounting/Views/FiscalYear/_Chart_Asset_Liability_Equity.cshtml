@@ -1,0 +1,52 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+
+
+@{
+    decimal maxValue = Math.Max(Math.Max(Model.AssetsBalance, Model.LiabilityBalance), Model.EquityBalance);
+    int width = 120;
+
+    int AssetWidth = (int)(width * Model.AssetsBalance / maxValue) + 20;
+    int LiabilityWidth = (int)(width * Model.LiabilityBalance / maxValue) + 20;
+    int EquityWidth = (int)(width * Model.EquityBalance / maxValue) + 20;
+}
+
+@*<div class="mb-1 font-weight-bold bg-fb2 p-2">@Model.Name Profit and Lost</div>*@
+
+<div class="mb-1 p-2 border" style="position:relative;">
+    <div class="mb-2">
+        <div class="float-left p-1 bg-info" style="width:@(AssetWidth)px;">
+            <span class="text-white">Asset</span>
+        </div>
+        <div class="ml-2 float-left p-1">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Assets">
+                @Model.AssetsBalance.ToString("N2")
+            </a>
+
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="mb-2">
+        <div class="float-left p-1 bg-danger" style="width:@(LiabilityWidth)px;">
+            <span class="text-white">Liabilities</span>
+        </div>
+        <div class="ml-2 float-left p-1">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Liabilities">
+                @Model.LiabilityBalance.ToString("N2")
+            </a>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div>
+        <div class="float-left p-1 bg-warning overflow-hidden" style="width:@(EquityWidth)px;white-space:nowrap">
+            <b>Equities</b>
+        </div>
+        <div class="ml-2 float-left p-1">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Equities">
+                @Model.EquityBalance.ToString("N2")
+            </a>
+
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div style="clear:both;"></div>
+</div>

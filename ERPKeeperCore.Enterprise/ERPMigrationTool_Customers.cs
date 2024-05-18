@@ -14,7 +14,7 @@ namespace ERPKeeperCore.CMD
     {
         private void Copy_Customers_Customers()
         {
-         
+
             var existModelIds = newOrganization.ErpCOREDBContext.Customers
               .Select(x => x.Id)
               .ToList();
@@ -191,5 +191,109 @@ namespace ERPKeeperCore.CMD
 
         }
 
+
+
+
+
+
+
+
+        private void Copy_Customers_SaleQuotes()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.SaleQuotes
+               .Select(x => x.Id)
+               .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.SaleEstimates
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"SALE:{oldModel.Name}-{oldModel.Uid}");
+                var exist = newOrganization.ErpCOREDBContext.SaleQuotes.FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"> Add SaleQuote: {oldModel.Name}");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Customers.SaleQuote()
+                    {
+                        Id = oldModel.Uid,
+                        Date = oldModel.TrnDate,
+                        No = oldModel.No,
+                        Name = oldModel.Name,
+                        Memo = oldModel.Memo,
+                        Status = (SaleQuoteStatus)oldModel.Status,
+                        TaxCodeId = oldModel.TaxCodeGuid,
+                        CustomerId = oldModel.ProfileGuid,
+                        CustomerAddressId = oldModel.ProfileAddressGuid,
+                        LinesTotal = oldModel.LinesTotal,
+                        Tax = oldModel.Tax,
+                        Reference = oldModel.Reference,
+                    };
+
+                    newOrganization.ErpCOREDBContext.SaleQuotes.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+                    exist.Reference = oldModel.Reference;
+                }
+
+
+            });
+
+            newOrganization.ErpCOREDBContext.SaveChanges();
+        }
+        private void Copy_Customers_SaleQuoteItems()
+        {
+            var existModelIds = newOrganization.ErpCOREDBContext.SaleQuoteItems
+                .Select(x => x.Id)
+                .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext
+                .EstimateItems
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .Where(i => i.Quote.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.SaleQuote)
+                .Where(i => i.Amount > 0 && i.UnitPrice > 0)
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                var existItem = newOrganization.ErpCOREDBContext
+                .SaleQuoteItems
+                .Find(oldModel.Uid);
+
+                if (existItem == null)
+                {
+                    Console.WriteLine($"> Add SaleQuoteItems {oldModel.Uid}: {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
+
+
+                    existItem = new ERPKeeperCore.Enterprise.Models.Customers.SaleQuoteItem()
+                    {
+                        Id = oldModel.Uid,
+                        QuoteId = oldModel.QuoteId,
+                        ItemId = (Guid)oldModel.ItemGuid,
+                        Quantity = (int)oldModel.Amount,
+                        Price = oldModel.UnitPrice,
+                        PartNumber = oldModel.ItemPartNumber,
+                        Description = oldModel.ItemDescription,
+                        Memo = oldModel.Memo,
+                        DiscountPercent = oldModel.DiscountPercent,
+                    };
+
+                    newOrganization.ErpCOREDBContext.SaleQuoteItems.Add(existItem);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine($"> Exists {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
+                }
+            });
+
+
+        }
     }
 }

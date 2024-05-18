@@ -45,7 +45,7 @@
 
                 columns.AddFor(m => m.ExpenseAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(150)
+            .Width(130)
             .HeaderCellTemplate(@<text>Dr.ExpenseAcc</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
 
@@ -72,9 +72,6 @@
             .Width(100)
             .HeaderCellTemplate("Pay");
 
-                subColumns.AddFor(m => m.Ramain_TaxReceiveableAccount_Amount)
-            .Width(100)
-            .HeaderCellTemplate("Remain");
 
             });
 

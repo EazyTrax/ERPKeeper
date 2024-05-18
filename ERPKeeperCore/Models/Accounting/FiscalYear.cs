@@ -42,6 +42,20 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             .Where(b => b.Account.Type == AccountTypes.Expense)
             .Sum(a => a.TotalDebit);
 
+
+        public decimal AssetsBalance => FiscalYearAccountBalances
+         .Where(b => b.Account.Type == AccountTypes.Asset)
+         .Sum(a => a.ClosedDebit);
+
+        public decimal LiabilityBalance => FiscalYearAccountBalances
+            .Where(b => b.Account.Type == AccountTypes.Liability)
+            .Sum(a => a.ClosedCredit);
+
+        public decimal EquityBalance => FiscalYearAccountBalances
+      .Where(b => b.Account.Type == AccountTypes.Capital)
+      .Sum(a => a.ClosedCredit);
+
+
         public decimal ProfitBalance => IncomeBalance - ExpenseBalance;
 
         public decimal ProfitPercent
