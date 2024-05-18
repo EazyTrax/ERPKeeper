@@ -15,7 +15,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 {
     [Area("Taxes")]
-    public class Base_TaxesController : BaseNodeController
+    public class Base_TaxesController : DefaultController
     {
        
 

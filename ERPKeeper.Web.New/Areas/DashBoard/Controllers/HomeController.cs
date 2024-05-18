@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
-    public class HomeController : BaseNodeController
+    public class HomeController : DefaultController
     {
         public IActionResult Index()
         {

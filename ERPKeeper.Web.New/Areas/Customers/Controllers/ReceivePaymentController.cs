@@ -19,5 +19,20 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var receivePayment = OrganizationCore.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
             return View(receivePayment);
         }
+
+        public IActionResult Export()
+        {
+            var receivePayment = OrganizationCore.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
+            return View(receivePayment);
+        }
+
+        public IActionResult Update()
+        {
+            var receivePayment = OrganizationCore.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
+
+            receivePayment.UpdateBalance();
+            OrganizationCore.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

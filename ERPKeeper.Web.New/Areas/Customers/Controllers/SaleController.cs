@@ -19,8 +19,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             var sale = OrganizationCore.Sales.Find(TransactionId);
 
-            sale.PostToTransaction();
-            OrganizationCore.SaveChanges();
 
             return View(sale);
         }

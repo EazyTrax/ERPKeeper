@@ -1,0 +1,203 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment
+
+@{
+    Layout = "_Layout_Empty";
+    var selfOrganization = Organization.Profiles.GetSelf();
+}
+<style>
+    @@media print {
+        .page-break {
+            page-break-before: always;
+        }
+    }
+</style>
+
+<div class="">
+    <div class="mh-50"></div>
+    <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
+        <div class="col-3 lh-1 font-weight-600 text-fs-24 text-danger">
+            Engineering
+            Craft
+        </div>
+        <div class="col">
+            <div>
+                <a href="/@CompanyId/Profiles/@selfOrganization.Id">
+                    <b>@selfOrganization.Name</b>
+                </a><br />
+                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
+            </div>
+            <div>
+                @selfOrganization.Addresses.First().AddressLine
+            </div>
+            <div>
+                <i class="fa-solid fa-phone"></i> @selfOrganization.Addresses.First().PhoneNumber
+                <i class="fa-solid fa-globe"></i> www.engineeringcraft.com
+            </div>
+
+        </div>
+        <div class="col-3 p-0 text-right">
+            <div>
+                <b>ใบเสร็จรับเงิน</b>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+
+
+    @{
+        var customerAddress = Model.Sale.Customer.Profile.Addresses.FirstOrDefault();
+    }
+
+    <div class="row mt-4  mb-3" id="BuyerDetail">
+        <div class="col">
+            <div class="font-weight-600">
+                ผู้ซื้อ
+
+                <a href="/@CompanyId/Customers/Customers/@Model.Sale.CustomerId">
+                    <b>@Model.Sale.Customer.Profile.Name</b>
+                </a>
+            </div>
+            <div>
+                เลขที่ผู้เสียภาษี @Model.Sale.Customer.Profile.TaxNumber สาขา @customerAddress?.Number
+            </div>
+            <div>
+                @if (customerAddress != null)
+                {
+                    <div style="">
+                        @customerAddress.AddressLine.Trim()<br />
+                        @customerAddress.PhoneNumber
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-4 p-0">
+
+            <div class="row mb-4">
+                <div class="col-4 font-weight-600 p-0">
+                    เลขที่
+                </div>
+                <div class="col-8 p-0 text-right">
+                    @Model.Name
+                </div>
+                <div class="col-4 font-weight-600 p-0">
+                    วันที่
+                </div>
+                <div class="col-8 p-0 text-right">
+                    @Model.Date.ToShortDateString()
+                </div>
+
+                <div class="col-4 font-weight-600 p-0">
+                    อ้างอิง
+                </div>
+                <div class="col-8 p-0 text-right">
+                    @Model.Reference
+                </div>
+
+              
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+    <div id="Items">
+
+
+        <div class="row  font-weight-600">
+            <div class="col-2">
+                ใบแจ้งหนี้
+            </div>
+            <div class="col-2 ">
+                วันที่ในใบแจ้งหนี้
+            </div>
+            <div class="col">
+                อ้างอิง
+            </div>
+            <div class="col">
+            </div>
+            <div class="col-2  p-0 text-right">
+                จำนวนเงิน
+            </div>
+        </div>
+
+
+        <div class="row border-top">
+            <div class="col-2">
+                @Model.Sale.Name
+            </div>
+            <div class="col-2 ">
+                @Model.Sale.Date.ToShortDateString()
+            </div>
+            <div class="col">
+                @Model.Sale.Reference
+            </div>
+            <div class="col">
+            </div>
+            <div class="col-2  p-0 text-right">
+                @Model.Amount.ToString("N2")
+            </div>
+        </div>
+
+
+        <div class="row border-top">
+            <div class="col">
+            </div>
+            <div class="col-3 text-right">
+                ยอดรวม
+            </div>
+            <div class="col-2 p-0 text-right">
+                @Model.Amount.ToString("N2")
+            </div>
+        </div>
+
+
+
+        <div class="row ">
+            <div class="col">
+            </div>
+            <div class="col-3 text-right">
+                ส่วนลด
+            </div>
+            <div class="col-2 p-0 text-right ">
+                @Model.AmountDiscount.ToString("N2")
+            </div>
+        </div>
+
+
+        <div class="row ">
+            <div class="col">
+            </div>
+            <div class="col-3 text-right">
+                ยอดรวมหลังส่วนลด
+            </div>
+            <div class="col-2 p-0 text-right">
+                @Model.AmountTotalReceive.ToString("N2")
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row ">
+
+            <div class="col text-right p-0">
+                ( @ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.AmountTotalReceive) )
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col p-0">
+                Issuer: @User.Identity.Name
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

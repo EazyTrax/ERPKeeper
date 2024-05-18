@@ -3,9 +3,9 @@
 
 @if (Model != null)
 {
-    <div class="row border">
+    <div class="row border p-2 bg-fb1">
 
-        <div class="col-6  border font-weight-600">
+        <div class="col-7  border font-weight-600  px-1">
 
             <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
                 TR: @(Model.Name ?? Model.Reference)  #(@Model.Ledgers.Count())
@@ -13,8 +13,8 @@
 
 
         </div>
-        <div class="col-6  border font-weight-600">
-            @Model.Date
+        <div class="col-5  border font-weight-600  px-1">
+            @Model.Date.ToShortDateString()
         </div>
 
         @{
@@ -24,7 +24,7 @@
             {
                 @if (transactionLedger.Debit > 0)
                 {
-                    <div class="col-7 border">
+                    <div class="col-7 border  px-1">
                         <a href="/@CompanyId/Accounting/Accounts/@transactionLedger.AccountId">
                             @transactionLedger.Account.Name
                         </a><br />
@@ -52,9 +52,7 @@
 }
 else
 {
-    <div class="row border">
+    <div class="row border p-2 bg-fb1">
         No Tansaction
     </div>
-
 }
-

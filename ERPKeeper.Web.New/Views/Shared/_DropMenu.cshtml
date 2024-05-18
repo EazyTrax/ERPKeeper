@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims;
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    var makerId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+    <div>
+        <div class="float-left">
+            <a href="/My"> @User.Identity.Name</a>
+        </div>
+
+        <div class="float-right px-1">
+            <partial name="_DropMenu_Signout" />
+        </div>
+        <div class="float-right px-1">
+            <partial name="_DropMenu_Edit_Mode" />
+        </div>
+    </div>
+}

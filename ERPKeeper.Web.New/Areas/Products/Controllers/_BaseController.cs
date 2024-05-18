@@ -11,7 +11,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
     [Authorize]
     [Area("Products")]
-    public class Base_ProductsController : BaseNodeController
+    public class Base_ProductsController : DefaultController
     {
         public Base_ProductsController()
         {

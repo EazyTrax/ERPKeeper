@@ -66,8 +66,8 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
 
 
-        public String? Code
-        { get; set; }
+        public String? Code { get; set; }
+        public bool AbleToAssignToTaxPeriod { get; set; }
 
         public TaxCode()
         {

@@ -40,8 +40,8 @@ namespace ERPKeeperCore.CMD
             //newOrganization.FiscalYears.PrepareFiscalYearBalances();
             //newOrganization.FiscalYears.UpdateTransactionFiscalYears();
 
-            // Copy_Profiles_Profiles();
-            // Copy_Profiles_ProfileAddresss();
+            Copy_Profiles_Profiles();
+            Copy_Profiles_ProfileAddresss();
 
             //CopySuppliers();
 
@@ -50,13 +50,15 @@ namespace ERPKeeperCore.CMD
             //Copy_Financial_Loans();
             //Copy_Financial_Lends();
             Copy_Items_Items();
-            //Copy_Taxes_TaxPeriod();
+            Copy_Taxes_TaxPeriod();
 
-
-            //Copy_Customers_Sales();
-            //Copy_Customers_SaleItems();
+            Copy_Customers_Customers();
+            Copy_Customers_Sales();
+            Copy_Customers_SaleItems();
             ////CopyReceivePayments();
+            ///
 
+            Copy_Suppliers_Suppliers();
             Copy_Suppliers_Purchases();
             Copyy_Suppliers_PurchaseItems();
 
@@ -65,8 +67,7 @@ namespace ERPKeeperCore.CMD
             //CopyItemGroups();
             //
             //CopyProjects();
-            //CopyCustomers();
-            //CopySuppliers();
+  
             //CopyFiscalYear();
             //CopyTaxCode();
     

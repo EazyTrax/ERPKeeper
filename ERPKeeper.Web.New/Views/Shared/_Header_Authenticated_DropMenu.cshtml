@@ -1,8 +1,0 @@
-﻿@using Microsoft.AspNetCore.Http
-@using System.Security.Claims;
-
-
-@if (User.Identity.IsAuthenticated)
-{
-    var makerId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-}

@@ -12,11 +12,14 @@ namespace ERPKeeperCore.Web.Views
     public abstract class BasePage<TModel> : RazorPage<TModel>
     {
         public String ApiUrl = @"";
-        public Guid CurrentMakerId => Guid.Parse(this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+        public Guid AuthorizeUserId => Guid.Parse(this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
         public String CompanyId =>  ViewContext.RouteData.Values["CompanyId"]?.ToString();
         public String GetRouteAtrribute(string key) => ViewContext.RouteData.Values[key]?.ToString();
 
-        public bool IsOnEditMode = true;
+
+        public bool IsOnEditMode => (!string.IsNullOrEmpty(Context.Request.Cookies["EditMode"]) && Context.Request.Cookies["EditMode"] == "Edit");
+
+
 
         private EnterpriseRepo _Organization;
         public EnterpriseRepo Organization

@@ -1,4 +1,5 @@
 ﻿using ERPKeeper.Node.DAL;
+using ERPKeeper.Node.Models.Taxes;
 using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Assets;
@@ -31,12 +32,12 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                //  migrationTool.Migrate();
+               // migrationTool.Migrate();
 
 
 
                 if (true)
-                    GeneralOperations(newOrganization);
+                    GeneralOperations(newOrganization, oldOrganization);
 
 
                 if (false)
@@ -53,13 +54,32 @@ namespace ERPKeeperCore.CMD
 
             }
 
-            static void GeneralOperations(EnterpriseRepo newOrganization)
+            static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                newOrganization.LiabilityPayments.ClearEmpties();
-                newOrganization.JournalEntries.ClearEmpties();
-                newOrganization.FiscalYears.UpdatePreviusFiscalYear();
+                //newOrganization.LiabilityPayments.ClearEmpties();
+                //newOrganization.JournalEntries.ClearEmpties();
+                //newOrganization.FiscalYears.UpdatePreviusFiscalYear();
+                //newOrganization.SaveChanges();
 
-                newOrganization.SaveChanges();
+
+
+
+                newOrganization.ErpCOREDBContext.Purchases.Where(s => s.TaxPeriodId == null && s.TaxCodeId !=null)
+                    .ToList()
+                    .ForEach(s =>
+                {
+                    Console.WriteLine($"SaleItem: {s.Id} {s.Name} ");
+
+                    var oldsale = oldOrganization.Purchases.Find(s.Id);
+
+                    if(oldsale.TaxPeriodId !=null)
+                    {
+                        s.TaxPeriodId = oldsale.TaxPeriodId;
+                    }
+                    newOrganization.SaveChanges();
+                });
+
+
             }
         }
     }

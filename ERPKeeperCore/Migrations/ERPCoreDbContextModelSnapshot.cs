@@ -2433,6 +2433,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("AbleToAssignToTaxPeriod")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("AssignAccountId")
                         .HasColumnType("uniqueidentifier");
 

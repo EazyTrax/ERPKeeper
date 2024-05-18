@@ -14,8 +14,39 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
         public IActionResult Index(Guid TaxPeriodId)
         {
             var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            TaxPeriod.UpdateBalance();
+            OrganizationCore.SaveChanges();
+
             return View(TaxPeriod);
         }
+
+        public IActionResult AutoAssign(Guid TaxPeriodId)
+        {
+            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+
+            var assignAbleSales = OrganizationCore.ErpCOREDBContext.Sales
+                .Where(x => x.TaxPeriodId == null && x.TaxCode != null)
+                .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
+                .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
+                .ToList();
+            Console.WriteLine("assignAbleSales.Count: " + assignAbleSales.Count);
+            assignAbleSales.ForEach(x => x.TaxPeriodId = TaxPeriodId);
+
+            var assignAblePurchases = OrganizationCore.ErpCOREDBContext.Purchases
+                .Where(x => x.TaxPeriodId == null && x.TaxCode != null)
+                .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
+               .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
+               .ToList();
+            Console.WriteLine("assignAblePurchases.Count: " + assignAblePurchases.Count);
+            assignAblePurchases.ForEach(x => x.TaxPeriodId = TaxPeriodId);
+
+            TaxPeriod.UpdateBalance();
+            OrganizationCore.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
         public IActionResult Export(Guid TaxPeriodId)
         {
             var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);

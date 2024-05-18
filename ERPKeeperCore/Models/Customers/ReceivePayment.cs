@@ -100,7 +100,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void UpdateBalance()
         {
-
+            this.Name = $"CRP-{Date.Year}{Date.Month}-{this.No.ToString()}";
         }
 
         public ReceivePayment()

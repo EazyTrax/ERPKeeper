@@ -13,9 +13,9 @@ namespace ERPKeeperCore.Web.Controllers
     [Authorize]
     [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/{action=Index}/{id?}")]
 
-    public class BaseNodeController : Controller
+    public class DefaultController : Controller
     {
-        public Guid CurrentMakerId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        public Guid AuthorizeUserId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
 
 
@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Web.Controllers
         }
 
 
-        public BaseNodeController()
+        public DefaultController()
         {
 
         }

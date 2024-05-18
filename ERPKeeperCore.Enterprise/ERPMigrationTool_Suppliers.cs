@@ -11,9 +11,17 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void CopySuppliers()
+        private void Copy_Suppliers_Suppliers()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Suppliers.ToList();
+
+            var existModelIds = newOrganization.ErpCOREDBContext.Suppliers
+              .Select(x => x.Id)
+              .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.Suppliers
+                .Where(i => !existModelIds.Contains(i.ProfileUid))
+                .ToList();
+
 
             oldModels.ForEach(a =>
             {

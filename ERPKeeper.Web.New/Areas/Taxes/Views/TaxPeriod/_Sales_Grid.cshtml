@@ -15,7 +15,8 @@
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
-
+            .ColumnChooser(columnChooser => columnChooser.Enabled(true).Mode(GridColumnChooserMode.DragAndDrop))
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxPeriod_Sales"))
             .AllowColumnResizing(true)
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .FilterRow(m => m.Visible(true))

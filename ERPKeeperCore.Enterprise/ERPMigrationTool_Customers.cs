@@ -12,9 +12,16 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void CopyCustomers()
+        private void Copy_Customers_Customers()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.Customers.ToList();
+         
+            var existModelIds = newOrganization.ErpCOREDBContext.Customers
+              .Select(x => x.Id)
+              .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.Customers
+                .Where(i => !existModelIds.Contains(i.ProfileUid))
+                .ToList();
 
             oldModels.ForEach(a =>
             {
@@ -67,7 +74,7 @@ namespace ERPKeeperCore.CMD
                             PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
                             Receivable_Asset_AccountId = oldSale.GeneralPayment.ReceivableAccountUid,
                             RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid,
-      
+
 
                         };
 
@@ -145,6 +152,7 @@ namespace ERPKeeperCore.CMD
                 .CommercialItems
                 .Where(i => !existModelIds.Contains(i.Uid))
                 .Where(i => i.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Sale)
+                .Where(i => i.Amount > 0 && i.UnitPrice > 0)
                 .ToList();
 
             oldModels.ForEach(oldModel =>

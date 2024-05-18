@@ -19,7 +19,8 @@
         .Paging(pagging => pagging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
-
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true).Mode(GridColumnChooserMode.DragAndDrop))
+        .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxCodes"))
         .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
 
@@ -49,7 +50,7 @@
 
             columns.AddFor(m => m.Rate);
 
-
+            columns.AddFor(m => m.AbleToAssignToTaxPeriod).HeaderCellTemplate("Assignable");
 
 
             columns.AddFor(m => m.TaxDirection)

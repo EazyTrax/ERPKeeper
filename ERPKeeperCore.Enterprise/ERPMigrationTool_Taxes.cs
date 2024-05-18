@@ -53,7 +53,15 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Taxes_TaxPeriod()
         {
-            var oldModels = oldOrganization.ErpNodeDBContext.TaxPeriods.ToList();
+            var existModelIds = newOrganization.ErpCOREDBContext.TaxPeriods
+              .Select(x => x.Id)
+              .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.TaxPeriods
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+          
 
             oldModels.ForEach(a =>
             {

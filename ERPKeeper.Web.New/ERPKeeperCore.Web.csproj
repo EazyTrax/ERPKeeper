@@ -129,6 +129,16 @@
     <Folder Include="Areas\Authen\Views\Shared\Components\" />
     <Folder Include="Areas\Products\Views\Shared\Components\" />
     <Folder Include="Areas\Employees\Views\Shared\Components\" />
+    <None Include="Areas\My\Views\Home\Index.cshtml" />
+    <None Include="Areas\My\Views\Home\_MenuTop.cshtml" />
+    <None Include="Areas\My\Views\Home\_Navigation.cshtml" />
+    <None Include="Areas\My\Views\Profile\Index.cshtml" />
+    <None Include="Areas\My\Views\Shared\Components\_Portal_Brands_Summary\Default.cshtml" />
+    <None Include="Areas\My\Views\Shared\Components\_Portal_Contents\Default.cshtml" />
+    <None Include="Areas\My\Views\Shared\Components\_Portal_Header\Default.cshtml" />
+    <None Include="Areas\My\Views\Shared\_Left_Menu.cshtml" />
+    <None Include="Areas\My\Views\_ViewImports.cshtml" />
+    <None Include="Areas\My\Views\_ViewStart.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\js\autogrow.min.js" />
     <None Include="wwwroot\js\html5-qrcode-scanner.js" />
