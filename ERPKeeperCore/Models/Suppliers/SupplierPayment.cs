@@ -39,12 +39,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         public Decimal Amount { get; set; }
         public Decimal AmountExcludeTax { get; set; }
+        public Decimal AmountDiscount { get; set; }
+        public Decimal AmountTotal => Amount - AmountDiscount;
 
         public Decimal AmountRetention { get; set; }
-        public Decimal AmountDiscount { get; set; }
-        public Decimal AmountTotal => Amount - (AmountRetention + AmountDiscount);
-
+        public Decimal AmountTotalReceive => AmountTotal - AmountRetention ;
         public Decimal AmountBankFee { get; set; }
+
+
 
 
         //Cr.
@@ -63,6 +65,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("RetentionTypeId")]
         public virtual Financial.RetentionType? RetentionType { get; set; }
 
+        public Guid? RetentionGroupId { get; set; }
+        [ForeignKey("RetentionGroupId")]
+        public virtual Financial.RetentionGroup? RetentionGroup { get; set; }
+
+
+
+
+
         public Guid? IncomeAccount_DiscountTakenId { get; set; }
         [ForeignKey("IncomeAccount_DiscountTakenId")]
         public virtual Account? IncomeAccount_DiscountTaken { get; set; }
@@ -71,6 +81,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Guid? ExpenseAccount_BankFeeId { get; set; }
         [ForeignKey("ExpenseAccount_BankFeeId")]
         public virtual Account? ExpenseAccount_BankFee { get; set; }
+
 
 
         public void CreateTransaction()

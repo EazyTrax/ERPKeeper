@@ -140,6 +140,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Models.Financial.FundTransfer> FundTransfers { get; set; }
         public DbSet<Models.Financial.FundTransferItem> FundTransferItems { get; set; }
         public DbSet<Models.Financial.RetentionType> RetentionTypes { get; set; }
+        public DbSet<Models.Financial.RetentionGroup> RetentionGroups { get; set; }
         public DbSet<Models.Financial.LiabilityPayment> LiabilityPayments { get; set; }
         public DbSet<Models.Financial.LiabilityPaymentPayFromAccount> LiabilityPaymentPayFromAccounts { get; set; }
 
@@ -153,7 +154,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
 
-        #region Financial
+        #region Employement
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
         public DbSet<EmployeePayment> EmployeePayments { get; set; }

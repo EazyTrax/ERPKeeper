@@ -32,7 +32,7 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-               // migrationTool.Migrate();
+                migrationTool.Migrate();
 
 
 
@@ -64,20 +64,6 @@ namespace ERPKeeperCore.CMD
 
 
 
-                newOrganization.ErpCOREDBContext.Purchases.Where(s => s.TaxPeriodId == null && s.TaxCodeId !=null)
-                    .ToList()
-                    .ForEach(s =>
-                {
-                    Console.WriteLine($"SaleItem: {s.Id} {s.Name} ");
-
-                    var oldsale = oldOrganization.Purchases.Find(s.Id);
-
-                    if(oldsale.TaxPeriodId !=null)
-                    {
-                        s.TaxPeriodId = oldsale.TaxPeriodId;
-                    }
-                    newOrganization.SaveChanges();
-                });
 
 
             }

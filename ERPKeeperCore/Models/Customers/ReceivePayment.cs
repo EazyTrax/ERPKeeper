@@ -38,12 +38,14 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public Decimal Amount { get; set; }
         public Decimal AmountExcludeTax { get; set; }
+        public Decimal AmountDiscount { get; set; }
+        public Decimal AmountTotal => Amount - AmountDiscount;
 
         public Decimal AmountRetention { get; set; }
-        public Decimal AmountDiscount { get; set; }
+        public Decimal AmountTotalReceive => AmountTotal - AmountRetention;
+
+
         public Decimal AmountBankFee { get; set; }
-        public Decimal AmountTotalReceive =>
-            Amount - (AmountRetention + AmountDiscount + AmountBankFee);
 
 
         public Guid? PayToAccountId { get; set; }
@@ -58,6 +60,12 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Guid? RetentionTypeId { get; set; }
         [ForeignKey("RetentionTypeId")]
         public virtual Financial.RetentionType? RetentionType { get; set; }
+
+        public Guid? RetentionGroupId { get; set; }
+        [ForeignKey("RetentionGroupId")]
+        public virtual Financial.RetentionGroup? RetentionGroup { get; set; }
+
+
 
         public Guid? Discount_Given_Expense_AccountId { get; set; }
         [ForeignKey("DiscountAccountId")]
@@ -81,18 +89,29 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
             // Dr.
             this.Transaction.AddDebit(this.PayToAccount, this.AmountTotalReceive);
-
             if (this.AmountDiscount > 0)
                 this.Transaction.AddDebit(this.Discount_Given_Expense_Account, this.AmountDiscount);
-
             if (this.RetentionTypeId != null)
                 this.Transaction.AddDebit(this.RetentionType.RetentionToAccount, this.AmountRetention);
 
-            if (this.AmountBankFee > 0)
-                this.Transaction.AddDebit(this.BankFee_Expense_Account, this.AmountBankFee);
-
             // Cr.
             this.Transaction.AddCredit(this.Receivable_Asset_Account, this.Amount);
+
+
+
+            if (this.AmountBankFee > 0 && this.BankFee_Expense_Account != null)
+            {
+                this.Transaction.AddDebit(this.BankFee_Expense_Account, this.AmountBankFee);
+    
+                this.Transaction.AddCredit(this.PayToAccount, this.AmountBankFee);
+            }
+
+
+
+
+
+
+
 
 
             IsPosted = this.Transaction.UpdateBalance();

@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240518060415_DB-1.138")]
+    partial class DB1138
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2843,7 +2846,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("Receivable_Asset_AccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup", "RetentionGroup")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup", null)
                         .WithMany("ReceivePayments")
                         .HasForeignKey("RetentionGroupId");
 
@@ -2866,8 +2869,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("PayToAccount");
 
                     b.Navigation("Receivable_Asset_Account");
-
-                    b.Navigation("RetentionGroup");
 
                     b.Navigation("RetentionType");
 
@@ -3470,7 +3471,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup", "RetentionGroup")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup", null)
                         .WithMany("SupplierPayments")
                         .HasForeignKey("RetentionGroupId");
 
@@ -3491,8 +3492,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("LiablityAccount_SupplierPayable");
 
                     b.Navigation("Purchase");
-
-                    b.Navigation("RetentionGroup");
 
                     b.Navigation("RetentionType");
 

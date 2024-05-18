@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ERPKeeper.Node.DAL;
-using ERPKeeper.Node.DAL.Employees;
+﻿using ERPKeeper.Node.DAL;
 using ERPKeeperCore.Enterprise;
-using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
-using ERPKeeperCore.Enterprise.Models.Customers.Enums;
-using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
@@ -88,8 +78,9 @@ namespace ERPKeeperCore.CMD
             //CopyEmployees();
             //CopyAccounts();
             //CopyDefaultAccounts();
-            //CopyRetentionTypes();
 
+            CopyRetentions_Types();
+            CopyRetentions_Groups();
 
 
         }
@@ -108,7 +99,6 @@ namespace ERPKeeperCore.CMD
         private void Copy_Taxes()
         {
             //Taxes
-            Copy_Taxes_IncomeTaxes();
         }
 
 
@@ -143,43 +133,7 @@ namespace ERPKeeperCore.CMD
             });
         }
 
-        private void CopyRetentionTypes()
-        {
-            var oldModels = oldOrganization.ErpNodeDBContext.RetentionTypes.ToList();
 
-            oldModels.ForEach(oldModel =>
-            {
-                Console.WriteLine($"RetentionTypes:{oldModel.Name}-{oldModel.Uid}");
-                var exist = newOrganization.ErpCOREDBContext
-                .RetentionTypes
-                .FirstOrDefault(x => x.Id == oldModel.Uid);
-
-                if (exist == null)
-                {
-                    Console.WriteLine($"> Add");
-
-                    exist = new ERPKeeperCore.Enterprise.Models.Financial.RetentionType()
-                    {
-                        Id = oldModel.Uid,
-                        IsActive = oldModel.IsActive,
-                        Description = oldModel.Description ?? "NA",
-                        Name = oldModel.Name,
-                        Direction = (Enterprise.Models.Financial.Enums.RetentionDirection)oldModel.RetentionDirection,
-                        Rate = oldModel.Rate,
-                        RetentionToAccountId = oldModel.RetentionToAccountGuid,
-                    };
-
-                    newOrganization.ErpCOREDBContext.RetentionTypes.Add(exist);
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                }
-                else
-                {
-
-                }
-            });
-
-            newOrganization.ErpCOREDBContext.SaveChanges();
-        }
         private void CopyJournalEntryTypes()
         {
             var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryTypes.ToList();
