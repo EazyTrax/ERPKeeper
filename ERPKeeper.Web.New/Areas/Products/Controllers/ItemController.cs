@@ -19,6 +19,8 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         public IActionResult Quotes() => View(Item);
         public IActionResult Purchases() => View(Item);
         public IActionResult Sales() => View(Item);
+        public IActionResult Customers() => View(Item);
+        public IActionResult Suppliers() => View(Item);
 
         [HttpPost]
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Items.Item model)

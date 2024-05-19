@@ -1,0 +1,40 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
+
+
+<style>
+    .dx-treelist .dx-row > td {
+        padding: 2px !important;
+    }
+</style>
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierItem>()
+        .ID("gridList")
+        .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/api/{CompanyId}/Products/Items/{Model.Id}/SupplierItems/All"))
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Paging(paging => paging.PageSize(100))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .Width("100%")
+        .ColumnAutoWidth(false)
+        .Columns(columns =>
+        {
+
+
+            columns.AddFor(m => m.Supplier.Profile.Name).HeaderCellTemplate(@<text>Supplier</text>)
+        .CellTemplate(@<text>
+        <a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/">
+            <%= data.Supplier.Profile.Name %>
+        </a>
+    </text>);
+
+            columns.AddFor(m => m.AmountPurchase).Width(120).Format("#,##");
+            columns.AddFor(m => m.AmountPurchaseQuote).Width(120).Format("#,##");
+        })
+        )
+</div>
+

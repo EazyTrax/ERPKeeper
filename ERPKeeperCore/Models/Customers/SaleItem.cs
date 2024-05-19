@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [Key]
         public Guid Id { get; set; }
 
-        public Guid? SaleId { get; set; }
+        public Guid SaleId { get; set; }
         [ForeignKey("SaleId")]
         public virtual Sale Sale { get; set; }
 

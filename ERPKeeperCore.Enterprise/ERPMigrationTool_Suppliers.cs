@@ -107,7 +107,7 @@ namespace ERPKeeperCore.CMD
                         Memo = oldModel.Memo,
                         Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Invoice,
                         TaxCodeId = oldModel.TaxCodeId,
-                        SupplierId = oldModel.ProfileGuid,
+                        SupplierId = (Guid)oldModel.ProfileGuid,
                         SupplierAddressId = oldModel.ProfileAddressGuid,
                         TaxPeriodId = oldModel.TaxPeriodId,
                         LinesTotal = oldModel.LinesTotal,
@@ -153,7 +153,7 @@ namespace ERPKeeperCore.CMD
                     existItem = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseItem()
                     {
                         Id = oldModel.Uid,
-                        PurchaseId = oldModel.TransactionGuid,
+                        PurchaseId = (Guid)oldModel.TransactionGuid,
                         ItemId = oldModel.ItemGuid,
                         Quantity = oldModel.Amount,
                         Price = oldModel.UnitPrice,
@@ -263,7 +263,7 @@ namespace ERPKeeperCore.CMD
                         Memo = oldModel.Memo,
                         Status = (PurchaseQuoteStatus)oldModel.Status,
                         TaxCodeId = oldModel.TaxCodeGuid,
-                        SupplierId = oldModel.ProfileGuid,
+                        SupplierId = (Guid)oldModel.ProfileGuid,
                         SupplierAddressId = oldModel.ProfileAddressGuid,
                         LinesTotal = oldModel.LinesTotal,
                         Tax = oldModel.Tax,
@@ -311,7 +311,7 @@ namespace ERPKeeperCore.CMD
                         existItem = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuoteItem()
                         {
                             Id = oldModel.Uid,
-                            QuoteId = oldModel.QuoteId,
+                            SupplierQuoteId = (Guid)oldModel.QuoteId,
                             ItemId = (Guid)oldModel.ItemGuid,
                             Quantity = (int)oldModel.Amount,
                             Price = oldModel.UnitPrice,

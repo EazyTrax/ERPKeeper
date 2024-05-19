@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.PurchaseQuoteItems
-                .Where(r => r.QuoteId == Id)
+                .Where(r => r.SupplierQuoteId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
 
                 model.Description = item.Description;
                 model.PartNumber = item.PartNumber;
-                model.QuoteId = Id;
+                model.SupplierQuoteId = Id;
 
                 Organization.ErpCOREDBContext.PurchaseQuoteItems.Add(model);
                 Organization.ErpCOREDBContext.SaveChanges();

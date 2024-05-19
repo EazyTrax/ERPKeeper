@@ -21,9 +21,17 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         }
         public ActionResult UpdateStock()
         {
-            
             return Redirect(Request.Headers["Referer"].ToString());
         }
-
+        public ActionResult UpdateCustomerItems()
+        {
+            OrganizationCore.Items.UpdateCustomerItems();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public ActionResult UpdateSupplierItems()
+        {
+            OrganizationCore.Items.UpdateSupplierItems();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

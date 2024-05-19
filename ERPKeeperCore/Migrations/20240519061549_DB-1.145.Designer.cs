@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    [Migration("20240519045623_DB-1.140")]
-    partial class DB1140
+    [Migration("20240519061549_DB-1.145")]
+    partial class DB1145
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -662,10 +662,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("AmountOrdered")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountQuote")
+                    b.Property<int>("AmountSale")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountSale")
+                    b.Property<int>("AmountSaleQuote")
                         .HasColumnType("int");
 
                     b.Property<Guid>("CustomerId")
@@ -683,7 +683,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("CustomerItem");
+                    b.ToTable("CustomerItems");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment", b =>
@@ -787,7 +787,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("CustomerAddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -889,7 +889,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("SaleId")
+                    b.Property<Guid>("SaleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Serial")
@@ -990,7 +990,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("QuoteId")
+                    b.Property<Guid>("QuoteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Serial")
@@ -2131,7 +2131,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<Guid?>("SupplierAddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SupplierId")
+                    b.Property<Guid>("SupplierId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Tax")
@@ -2351,10 +2351,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("AmountOrdered")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountQuote")
+                    b.Property<int>("AmountPurchase")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountPurchase")
+                    b.Property<int>("AmountPurchaseQuote")
                         .HasColumnType("int");
 
                     b.Property<Guid>("ItemId")
@@ -2372,7 +2372,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("SupplierItem");
+                    b.ToTable("SupplierItems");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", b =>
@@ -2968,7 +2968,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Customers.Customer", "Customer")
                         .WithMany("Sales")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "Discount_Given_Expense_Account")
                         .WithMany()
@@ -3019,7 +3021,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Customers.Sale", "Sale")
                         .WithMany("Items")
-                        .HasForeignKey("SaleId");
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Item");
 
@@ -3057,7 +3061,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Customers.SaleQuote", "Quote")
                         .WithMany("Items")
-                        .HasForeignKey("QuoteId");
+                        .HasForeignKey("QuoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Item");
 
@@ -3439,7 +3445,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Supplier", "Supplier")
                         .WithMany("Purchases")
-                        .HasForeignKey("SupplierId");
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Taxes.TaxCode", "TaxCode")
                         .WithMany()

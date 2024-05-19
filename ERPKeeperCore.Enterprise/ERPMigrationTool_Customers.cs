@@ -125,7 +125,7 @@ namespace ERPKeeperCore.CMD
                         Memo = oldModel.Memo,
                         Status = SaleStatus.Invoice,
                         TaxCodeId = oldModel.TaxCodeId,
-                        CustomerId = oldModel.ProfileGuid,
+                        CustomerId = (Guid)oldModel.ProfileGuid,
                         CustomerAddressId = oldModel.ProfileAddressGuid,
                         TaxPeriodId = oldModel.TaxPeriodId,
                         LinesTotal = oldModel.LinesTotal,
@@ -172,7 +172,7 @@ namespace ERPKeeperCore.CMD
                     existItem = new ERPKeeperCore.Enterprise.Models.Customers.SaleItem()
                     {
                         Id = oldModel.Uid,
-                        SaleId = oldModel.TransactionGuid,
+                        SaleId = (Guid)oldModel.TransactionGuid,
                         ItemId = oldModel.ItemGuid,
                         Quantity = oldModel.Amount,
                         Price = oldModel.UnitPrice,
@@ -227,7 +227,7 @@ namespace ERPKeeperCore.CMD
                         Memo = oldModel.Memo,
                         Status = (SaleQuoteStatus)oldModel.Status,
                         TaxCodeId = oldModel.TaxCodeGuid,
-                        CustomerId = oldModel.ProfileGuid,
+                        CustomerId = (Guid)oldModel.ProfileGuid,
                         CustomerAddressId = oldModel.ProfileAddressGuid,
                         LinesTotal = oldModel.LinesTotal,
                         Tax = oldModel.Tax,
@@ -274,7 +274,7 @@ namespace ERPKeeperCore.CMD
                     existItem = new ERPKeeperCore.Enterprise.Models.Customers.SaleQuoteItem()
                     {
                         Id = oldModel.Uid,
-                        QuoteId = oldModel.QuoteId,
+                        QuoteId = (Guid)oldModel.QuoteId,
                         ItemId = (Guid)oldModel.ItemGuid,
                         Quantity = (int)oldModel.Amount,
                         Price = oldModel.UnitPrice,

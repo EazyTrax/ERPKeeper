@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AmountQuote = table.Column<int>(type: "int", nullable: false),
                     AmountOrdered = table.Column<int>(type: "int", nullable: false),
-                    AmouuntSale = table.Column<int>(type: "int", nullable: false),
+                    AmountSale = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -49,7 +49,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AmountQuote = table.Column<int>(type: "int", nullable: false),
                     AmountOrdered = table.Column<int>(type: "int", nullable: false),
-                    AmouuntPurchase = table.Column<int>(type: "int", nullable: false),
+                    AmountPurchase = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

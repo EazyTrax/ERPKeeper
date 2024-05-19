@@ -665,7 +665,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("AmountQuote")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmouuntSale")
+                    b.Property<int>("AmountSale")
                         .HasColumnType("int");
 
                     b.Property<Guid>("CustomerId")
@@ -2354,7 +2354,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("AmountQuote")
                         .HasColumnType("int");
 
-                    b.Property<int>("AmouuntPurchase")
+                    b.Property<int>("AmountPurchase")
                         .HasColumnType("int");
 
                     b.Property<Guid>("ItemId")

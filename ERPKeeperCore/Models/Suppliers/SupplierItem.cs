@@ -11,6 +11,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 {
     public class SupplierItem
     {
+
+
+        public SupplierItem(Guid itemId, Guid supplierId)
+        {
+            ItemId = itemId;
+            SupplierId = supplierId;
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -22,9 +30,9 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("ItemId")]
         public virtual Items.Item Item { get; set; }
 
-        public int AmountQuote { get; set; }
+        public int AmountPurchaseQuote { get; set; }
         public int AmountOrdered { get; set; }
-        public int AmouuntPurchase { get; set; }
+        public int AmountPurchase { get; set; }
 
         public DateTime LastUpdated { get; set; }
     }

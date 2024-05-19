@@ -63,11 +63,13 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 .FirstOrDefault();
 
                 if (customerItem == null)
-                    customerItem = new Enterprise.Models.Customers.CustomerItem(si.Key);
+                {
+                    customerItem = new Enterprise.Models.Customers.CustomerItem(si.Key, customerId);
+                    customer.Items.Add(customerItem);
+                }
 
                 customerItem.AmountSale = si.Amount;
 
-                customer.Items.Add(customerItem);
             });
 
             OrganizationCore.SaveChanges();
@@ -88,12 +90,16 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 .Where(ct => ct.CustomerId == customerId && ct.ItemId == si.Key)
                 .FirstOrDefault();
 
+
                 if (customerItem == null)
-                    customerItem = new Enterprise.Models.Customers.CustomerItem(si.Key);
+                {
+                    customerItem = new Enterprise.Models.Customers.CustomerItem(si.Key, customerId);
+                    customer.Items.Add(customerItem);
+                }
 
-                customerItem.AmountQuote = si.Amount;
+                customerItem.AmountSaleQuote = si.Amount;
 
-                customer.Items.Add(customerItem);
+
             });
 
             OrganizationCore.SaveChanges();

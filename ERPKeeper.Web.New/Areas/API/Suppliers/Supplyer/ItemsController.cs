@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplier
@@ -16,6 +17,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplier
         {
             var returnModel = Organization.ErpCOREDBContext.SupplierItems
                 .Where(r => r.SupplierId == ProfileId)
+                .Include(m => m.Item)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

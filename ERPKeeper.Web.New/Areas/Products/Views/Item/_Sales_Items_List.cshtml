@@ -15,6 +15,8 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
     .ID("gridList")
     .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/api/{CompanyId}/Products/Items/{Model.Id}/SaleItems/All"))
     .ShowRowLines(true)
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
@@ -23,11 +25,7 @@
     .ColumnAutoWidth(false)
     .Columns(columns => {
     columns.AddFor(m=>m.Sale.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
-                columns.AddFor(m => m.Sale.Status).Width(60).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
-    .DisplayExpr("Text")
-    .ValueExpr("Value")
-    );
+             
                 columns.AddFor(m => m.Sale.Name)
     .Width(150)
     .CellTemplate(@<text>

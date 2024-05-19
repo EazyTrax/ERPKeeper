@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [Key]
         public Guid Id { get; set; }
 
-        public Guid? QuoteId { get; set; }
+        public Guid SupplierQuoteId { get; set; }
         [ForeignKey("SupplierQuoteId")]
         public virtual PurchaseQuote SupplierQuote { get; set; }
 

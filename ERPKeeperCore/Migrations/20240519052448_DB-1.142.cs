@@ -11,7 +11,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "AmouuntSale",
+                name: "AmountSale",
                 table: "CustomerItems",
                 newName: "AmountSale");
         }
@@ -22,7 +22,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
             migrationBuilder.RenameColumn(
                 name: "AmountSale",
                 table: "CustomerItems",
-                newName: "AmouuntSale");
+                newName: "AmountSale");
         }
     }
 }
