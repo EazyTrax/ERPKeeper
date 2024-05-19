@@ -1,14 +1,15 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
-
-
 <div class="row">
     <div class="col p-0 col-center">
-        
         <partial name="_ItemsList" />
     </div>
     <div class="col-4 p-0 col-right">
         <partial name="_Summary" />
+
+        <div class="p-2 bg-fb2">
+            <a href="/@CompanyId/Customers/Customers/@Model.Id/UpdateItems">Update Items</a>
+        </div>
     </div>
 </div>
 

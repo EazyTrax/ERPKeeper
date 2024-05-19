@@ -42,7 +42,8 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public int CreditAgeLimit { get; set; }
 
 
-        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
+        public virtual ICollection<SupplierItem> SupplierItems { get; set; } = new List<SupplierItem>();
 
 
         public void SetActive()
@@ -58,14 +59,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         }
 
         public void UpdateBalance()
-            {
-                this.TotalPurchases = this.Purchases.Sum(x => x.LinesTotalAfterDiscount);
-                this.TotalPurchasesCount = this.Purchases.Count();
+        {
+            this.TotalPurchases = this.Purchases.Sum(x => x.LinesTotalAfterDiscount);
+            this.TotalPurchasesCount = this.Purchases.Count();
 
-                this.TotalBalance = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
-                this.TotalBalanceCount = this.Purchases.Where(x => x.Status ==  PurchaseStatus.Invoice).Count();
+            this.TotalBalance = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
+            this.TotalBalanceCount = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Count();
 
-            }
-        
+        }
+
     }
 }

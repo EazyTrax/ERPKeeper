@@ -1,0 +1,42 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
+
+
+@{
+    void MenuTemplate(int level, string displayName, string url, int? count = null)
+    {
+        <div>
+            <div class="row e-r">
+                <div class="col-10 p-l@(level)">
+                    <a href="@url">
+                        @if (level > 0)
+                        {
+                            <i class="fa-solid fa-l"></i>
+                        }
+                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
+                    </a>
+                </div>
+                <div class="col-2 p-0 text-right p-0">
+                    <span class="menuCount">@count</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+    <a href="/@CompanyId/Profiles">Profiles</a> :
+    <a href="/@CompanyId/Suppliers">Suppliers</a>
+</div>
+<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id">@Model.Profile.Name</a>
+</div>
+<div class="lh-120 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Home", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}");
+        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s=>s.SupplierId == Model.Id).Count());
+        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id).Count());
+        MenuTemplate(0, "Payments", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}/ReceivePayments", Organization.ErpCOREDBContext.SupplierPayments.Where(s => s.Purchase.SupplierId == Model.Id).Count());
+        MenuTemplate(0, "Items", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Items");
+    }
+</div>

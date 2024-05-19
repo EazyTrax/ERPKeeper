@@ -32,7 +32,7 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                migrationTool.Migrate();
+            //    migrationTool.Migrate();
 
 
 

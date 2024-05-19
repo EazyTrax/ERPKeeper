@@ -37,21 +37,18 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
 
 
-        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
+        public virtual ICollection<CustomerItem> Items { get; set; } = new List<CustomerItem>(); 
 
 
-        public void Update(Customer customer)
-        {
-
-        }
         public void UpdateBalance()
         {
             this.TotalSales = this.Sales.Sum(x => x.LinesTotalAfterDiscount);
             this.TotalSalesCount = this.Sales.Count();
 
-            this.TotalBalance = this.Sales.Where(x=>x.Status == SaleStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
+            this.TotalBalance = this.Sales.Where(x => x.Status == SaleStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
             this.TotalBalanceCount = this.Sales.Where(x => x.Status == SaleStatus.Invoice).Count();
-          
+
         }
 
     }

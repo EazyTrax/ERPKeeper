@@ -158,7 +158,7 @@ namespace ERPKeeperCore.CMD
                 .Where(i => i.Amount > 0 && i.UnitPrice > 0)
                 .ToList();
 
-            oldModels.ForEach(oldModel =>
+            oldModels.ForEach((Action<ERPKeeper.Node.Models.Transactions.CommercialItem>)(oldModel =>
             {
                 var existItem = newOrganization.ErpCOREDBContext
                 .SaleItems
@@ -189,7 +189,7 @@ namespace ERPKeeperCore.CMD
                 {
                     Console.WriteLine($"> Exists {oldModel.ItemPartNumber}: {oldModel.Amount}:{oldModel.UnitPrice}: ");
                 }
-            });
+            }));
 
 
         }

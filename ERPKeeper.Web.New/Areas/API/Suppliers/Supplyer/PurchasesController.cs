@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
 {
-    public class PurchasesController : Base_API_Suppliers_Supplier_Controller
+    public class PurchasesController : _API_Suppliers_Supplier_BaseController
     {
 
         public object All(DataSourceLoadOptions loadOptions)

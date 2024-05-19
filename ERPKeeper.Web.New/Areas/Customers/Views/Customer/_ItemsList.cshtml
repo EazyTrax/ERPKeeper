@@ -1,8 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
-@{
-    var items = Organization.ErpCOREDBContext.SaleItems.Where(s=>s.Sale.CustomerId == Model.Id).ToList();
-}
+
 
 <style>
     .dx-treelist .dx-row > td {
@@ -11,9 +9,11 @@
 </style>
 
 <div id="treeListDemo" class="mb-3 border">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.CustomerItem>()
     .ID("gridList")
-    .DataSource(items)
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Items/All"))
+        .RowAlternationEnabled(true)
     .KeyExpr("Id")
     .ShowRowLines(true)
     .ShowBorders(false)
@@ -26,6 +26,7 @@
     .AllowReordering(false)
     )
     .Columns(columns => {
+
     columns.Add().DataField("Commercial.Date").HeaderCellTemplate(@<text>TrnDate</text>).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
     columns.Add().DataField("Item.PartNumber")
     .Width(130)

@@ -117,32 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>เกี่ยวกับ</value>
+  <data name="Accounting" xml:space="preserve">
+    <value>บัญชี</value>
   </data>
-  <data name="AboutMe" xml:space="preserve">
-    <value>เกี่ยวกับฉัน</value>
+  <data name="Assets" xml:space="preserve">
+    <value>สินทรัพย์</value>
   </data>
-  <data name="Achieves" xml:space="preserve">
-    <value>ความสำเร็จ</value>
-  </data>
-  <data name="Avaliable-jobs" xml:space="preserve">
-    <value>ตำแหน่งงานว่าง</value>
-  </data>
-  <data name="Code" xml:space="preserve">
-    <value>รหัส</value>
-  </data>
-  <data name="Content" xml:space="preserve">
-    <value>เนื้อหา</value>
-  </data>
-  <data name="Contents" xml:space="preserve">
-    <value>หลักสูตร</value>
-  </data>
-  <data name="Course" xml:space="preserve">
-    <value>หลักสูตร</value>
-  </data>
-  <data name="Courses" xml:space="preserve">
-    <value>หลักสูตร</value>
+  <data name="Customers" xml:space="preserve">
+    <value>ลูกค้า</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>รายละเอียด</value>
@@ -152,6 +134,9 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>อีเมล์</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>พนักงาน</value>
   </data>
   <data name="Enterprises" xml:space="preserve">
     <value>องค์กร</value>
@@ -171,6 +156,9 @@
   <data name="Feeds" xml:space="preserve">
     <value>ข่าวสาร</value>
   </data>
+  <data name="Financial" xml:space="preserve">
+    <value>การเงิน</value>
+  </data>
   <data name="General" xml:space="preserve">
     <value>ทั่วไป</value>
   </data>
@@ -182,6 +170,9 @@
   </data>
   <data name="Images" xml:space="preserve">
     <value>รูปภาพ</value>
+  </data>
+  <data name="Investors" xml:space="preserve">
+    <value>นักลงทุน</value>
   </data>
   <data name="Job" xml:space="preserve">
     <value>ตำแหน่งงาน</value>
@@ -225,6 +216,9 @@
   <data name="Privacy" xml:space="preserve">
     <value>ความเป็นส่วนตัว</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>สินค้า</value>
+  </data>
   <data name="Project" xml:space="preserve">
     <value>โครงการ</value>
   </data>
@@ -254,6 +248,12 @@
   </data>
   <data name="sponsors" xml:space="preserve">
     <value>ผู้สนับสนุน</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>ผู้ขาย</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>ภาษี</value>
   </data>
   <data name="TestHistories" xml:space="preserve">
     <value>ประวัติการทดสอบ</value>

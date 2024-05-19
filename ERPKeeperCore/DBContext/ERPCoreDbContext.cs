@@ -102,6 +102,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
          */
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerItem> CustomerItems { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleItem> SaleItems { get; set; }
         public DbSet<ReceivePayment> ReceivePayments { get; set; }
@@ -116,6 +117,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<SupplierItem> SupplierItems { get; set; }
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
         public DbSet<SupplierPayment> SupplierPayments { get; set; }
         public DbSet<PurchaseQuote> PurchaseQuotes { get; set; }
