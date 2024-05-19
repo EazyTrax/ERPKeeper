@@ -19,7 +19,7 @@ namespace ERPKeeperCore.CMD
         {
             string[] Enterprises = new string[] {
                 "tec",
-                "bit"
+                //"bit"
             };
 
             foreach (var enterpriseDB in Enterprises)
@@ -35,12 +35,10 @@ namespace ERPKeeperCore.CMD
                 //    migrationTool.Migrate();
 
 
-
                 if (true)
                     GeneralOperations(newOrganization, oldOrganization);
 
-
-                if (false)
+                if (true)
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.ChartOfAccount.RefreshCurrentBalance();
@@ -49,8 +47,6 @@ namespace ERPKeeperCore.CMD
                     newOrganization.FiscalYears.UpdateAllYearsAccountsBalance();
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
-
-
 
             }
 
@@ -62,10 +58,30 @@ namespace ERPKeeperCore.CMD
                 //newOrganization.SaveChanges();
 
 
+                //  newOrganization.Items.UpdateSupplierItems();
+
+
+                //var jurnalEntry = newOrganization.JournalEntries.Find(Guid.Parse("210fa8ae-625e-4997-f7a9-08dc77f4309d"));
+                //var invertJurnalEntry = new Enterprise.Models.Accounting.JournalEntry()
+                //{
+                //    Date = jurnalEntry.Date.AddDays(1),
+                //    JournalEntryTypeId = jurnalEntry.JournalEntryTypeId,
+                //    Description = "กลับรายการปีแล้ว"
+                //};
+
+                //jurnalEntry.JournalEntryItems.ToList().ForEach(jei =>
+                //{
+                //    invertJurnalEntry.AddAcount(jei.AccountId, jei.Credit, jei.Debit);
+                //});
+
+
+                //newOrganization.ErpCOREDBContext.JournalEntries.Add(invertJurnalEntry);
+                //newOrganization.SaveChanges();
 
 
 
-             //  newOrganization.Items.UpdateSupplierItems();
+
+
 
             }
         }

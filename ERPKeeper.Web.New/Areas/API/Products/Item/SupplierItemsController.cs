@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ERPKeeperCore.Web.New.API.Products.Item
 {
-    public class SuppliersItemsController : API_Products_Item_BaseController
+    public class SupplierItemsController : API_Products_Item_BaseController
     {
         [AllowAnonymous]
         public object All(DataSourceLoadOptions loadOptions)
