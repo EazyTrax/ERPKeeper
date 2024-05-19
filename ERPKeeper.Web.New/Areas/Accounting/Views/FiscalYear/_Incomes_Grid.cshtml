@@ -1,10 +1,38 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.2.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+
+<script>
+    function exporting(e) {
+        alert("Exporting");
+
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Incomes');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            return workbook.xlsx.writeBuffer();
+        }).then(function (buffer) {
+            saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '@(Model.Name)-@(CompanyId)-Incomes.xlsx');
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+</script>
+
+
 <div class="mb-2 border-top">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.FiscalYearAccountBalance>()
             .ID("LedgerList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/Incomes/All"))
+            .Export(e => e.Enabled(true))
+            .OnExporting("exporting")
             .AllowColumnReordering(true)
             .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
             .ShowColumnLines(true)

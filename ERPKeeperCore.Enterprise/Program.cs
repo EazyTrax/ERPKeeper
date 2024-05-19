@@ -18,8 +18,8 @@ namespace ERPKeeperCore.CMD
         static void Main(string[] args)
         {
             string[] Enterprises = new string[] {
-                "tec",
-                //"bit"
+                ///"tec",
+                "bit"
             };
 
             foreach (var enterpriseDB in Enterprises)
@@ -61,22 +61,6 @@ namespace ERPKeeperCore.CMD
                 //  newOrganization.Items.UpdateSupplierItems();
 
 
-                //var jurnalEntry = newOrganization.JournalEntries.Find(Guid.Parse("210fa8ae-625e-4997-f7a9-08dc77f4309d"));
-                //var invertJurnalEntry = new Enterprise.Models.Accounting.JournalEntry()
-                //{
-                //    Date = jurnalEntry.Date.AddDays(1),
-                //    JournalEntryTypeId = jurnalEntry.JournalEntryTypeId,
-                //    Description = "กลับรายการปีแล้ว"
-                //};
-
-                //jurnalEntry.JournalEntryItems.ToList().ForEach(jei =>
-                //{
-                //    invertJurnalEntry.AddAcount(jei.AccountId, jei.Credit, jei.Debit);
-                //});
-
-
-                //newOrganization.ErpCOREDBContext.JournalEntries.Add(invertJurnalEntry);
-                //newOrganization.SaveChanges();
 
 
 
