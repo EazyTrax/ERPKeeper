@@ -34,14 +34,16 @@
     );
 
 
-
-
     columns.AddFor(m => m.PartNumber).Width(150);
     columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
     columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
     columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");
     columns.AddFor(m=>m.LineTotal).AllowEditing(false).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));
     })
-        .OnInitNewRow("function(e) { e.data.Price = 0;e.data.Quantity = 1; }")
+    .Summary(s => s.TotalItems(items =>
+        {
+            items.AddFor(m => m.LineTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+    }))
+    .OnInitNewRow("function(e) { e.data.Price = 0;e.data.Quantity = 1; }")
     )
 </div>

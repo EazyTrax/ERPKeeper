@@ -1,8 +1,10 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
-<div class="bg-fb2 p-2 rounded mb-2">
+<div class="bg-fb2 border p-2">
     <div class="font-weight-bold">
         @Model.Profile.Name
     </div>
-    @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName<br />
+    <div>
+        @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName
+    </div>
 </div>

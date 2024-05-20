@@ -28,15 +28,20 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
             var model = new Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
+          
 
+            model.Status =  Enterprise.Models.Suppliers.Enums.PurchaseStatus.Draft;
             model.SupplierId = ProfileId;
-            Organization.ErpCOREDBContext.Purchases.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+
+            Organization.Purchases.New(model);
+            Organization.SaveChanges();
+
 
             return Ok();
         }
+
+        
+
 
 
         [HttpPost]

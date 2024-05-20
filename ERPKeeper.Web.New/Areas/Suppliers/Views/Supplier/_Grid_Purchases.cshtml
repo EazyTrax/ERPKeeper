@@ -2,23 +2,18 @@
 
 
 
-@{
-    var Purchases = Model.Purchases.ToList();
-}
-
-
-<style>
-    .dx-treelist .dx-row > td {
-        padding: 2px !important;
-    }
-</style>
-
-
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
         .ID("gridList")
-        .DataSource(Purchases)
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/All")
+        .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/Update")
+        .UpdateMethod("Post")
+        .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/Insert")
+        .UpdateMethod("Post"))
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Supplier_Purchases"))
 
         .KeyExpr("Id")
 

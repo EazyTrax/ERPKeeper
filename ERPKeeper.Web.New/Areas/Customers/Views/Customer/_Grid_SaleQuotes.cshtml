@@ -1,24 +1,26 @@
-﻿
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
 
 <div id="treeListDemo" class="mb-3 border">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote>()
+    @(
+            Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/All")
-            .UpdateUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Update")
-            .UpdateMethod("Post")
-            )
-            .Editing(editing => editing.Mode(GridEditMode.Row).UseIcons(true))
-
+            .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/All")
+            .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/Insert")
+            .InsertMethod("Post")
+            .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/Update")
+            .UpdateMethod("Post"))
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Customer_SaleQuotes"))
             .RowAlternationEnabled(true)
             .KeyExpr("Id")
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-
+            .AllowColumnResizing(true)
             .ColumnAutoWidth(false)
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
@@ -31,21 +33,15 @@
                 columns.AddFor(m => m.Status)
             .Width(80)
             .Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
-
-
-                columns.AddFor(m => m.SupplierId)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Suppliers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+                columns.AddFor(m => m.Name)
+            .Width(130)
+            .AllowEditing(false)
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
 
 
                 columns.Add().DataField("Reference").Width(180);
@@ -74,10 +70,20 @@
 </div>
 
 <script>
-
-    function onInitNewRow(e) {
-        const today = new Date();
-        e.data.Date = today;
-        e.data.Status = 0;
+    @{
+        var taxCode = Organization.TaxCodes.GetDefault(ERPKeeperCore.Enterprise.Models.Taxes.Enums.TaxDirection.Output);
     }
+
+        function onInitNewRow(e) {
+            const today = new Date();
+            e.data.Date = today;
+            e.data.Status = 0;
+
+    @if (taxCode != null)
+    {
+        <text>
+                    e.data.TaxCodeId = '@taxCode.Id';
+        </text>
+    }
+            }
 </script>

@@ -18,18 +18,18 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             return View(supplier);
         }
 
-        public IActionResult Sales(Guid supplierUid)
+        public IActionResult Purchases(Guid supplierUid)
         {
             var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 
-        public IActionResult SaleQuotes(Guid supplierUid)
+        public IActionResult PurchaseQuotes(Guid supplierUid)
         {
             var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);
         }
-        public IActionResult ReceivePayments(Guid supplierUid)
+        public IActionResult Payments(Guid supplierUid)
         {
             var supplier = OrganizationCore.Suppliers.Find(supplierUid);
             return View(supplier);

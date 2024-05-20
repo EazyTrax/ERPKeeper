@@ -31,9 +31,21 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
         public PurchaseQuote? Find(Guid Id) => erpNodeDBContext.PurchaseQuotes.Find(Id);
 
-        
+        public void New(PurchaseQuote model)
+        {
+            var currentYear = model.Date.Year;
+            var currentMonth = model.Date.Month;
 
+            var maxNo = erpNodeDBContext.PurchaseQuotes
+                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
 
-    
+            model.No = maxNo + 1;
+            model.UpdateBalance();
+
+            erpNodeDBContext.PurchaseQuotes.Add(model);
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

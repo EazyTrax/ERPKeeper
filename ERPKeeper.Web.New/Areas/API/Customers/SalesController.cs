@@ -22,31 +22,6 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 
 
         [HttpPost]
-        public IActionResult Insert(string values)
-        {
-            var model = new Enterprise.Models.Customers.Sale();
-            JsonConvert.PopulateObject(values, model);
-
-            model.Status = SaleStatus.Draft;
-            var currentYear = model.Date.Year;
-            var currentMonth = model.Date.Month;
-
-            var maxNo = Organization.ErpCOREDBContext.SaleQuotes
-                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
-                .Select(a => (int?)a.No)
-                .Max() ?? 0;
-
-            model.No = maxNo + 1;
-            model.UpdateBalance();
-
-            Organization.ErpCOREDBContext.Sales.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
-
-            return Ok();
-        }
-
-
-        [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
@@ -55,12 +30,5 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             return Ok();
         }
 
-        //[HttpPost]
-        //public void Delete(Guid key)
-        //{
-        //    var model = Organization.erpNodeDBContext.Sales.First(a => a.Id == key);
-        //    Organization.erpNodeDBContext.Sales.Remove(model);
-        //    Organization.erpNodeDBContext.SaveChanges();
-        //}
     }
 }

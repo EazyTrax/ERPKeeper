@@ -91,5 +91,24 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             erpNodeDBContext.SaveChanges();
         }
+
+        public void New(Purchase model)
+        {
+            var currentYear = model.Date.Year;
+            var currentMonth = model.Date.Month;
+
+            var maxNo = erpNodeDBContext.Purchases
+                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
+
+            model.No = maxNo + 1;
+            model.UpdateBalance();
+
+            erpNodeDBContext.Purchases.Add(model);
+            erpNodeDBContext.SaveChanges();
+        }
+
+       
     }
 }

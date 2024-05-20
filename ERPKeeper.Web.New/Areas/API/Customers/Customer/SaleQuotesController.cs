@@ -4,18 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Web.API.Profiles.Profile;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
 {
-    public class QuotesController : _API_Customers_Customer_BaseController
+    public class SaleQuotesController : _API_Customers_Customer_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Sales
-                .Where(s => s.Status == Enterprise.Models.Customers.Enums.SaleStatus.Draft)
+            var returnModel = Organization.ErpCOREDBContext.SaleQuotes
+                .Where(s => s.Status == Enterprise.Models.Customers.Enums.SaleQuoteStatus.Draft)
                 .Where(r => r.CustomerId == ProfileId)
                 .ToList();
 
@@ -26,13 +27,14 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Customers.Sale();
+            var model = new Enterprise.Models.Customers.SaleQuote();
             JsonConvert.PopulateObject(values, model);
-            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Draft;
 
+            model.Status = Enterprise.Models.Customers.Enums.SaleQuoteStatus.Draft;
             model.CustomerId = ProfileId;
-            Organization.ErpCOREDBContext.Sales.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+
+            Organization.SaleQuotes.CreateNew(model);
+            Organization.SaveChanges();
 
             return Ok();
         }
@@ -41,7 +43,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -50,8 +52,8 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
-            Organization.ErpCOREDBContext.Sales.Remove(model);
+            var model = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.SaleQuotes.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
     }

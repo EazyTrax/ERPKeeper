@@ -27,12 +27,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
             var model = new Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
-
+            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Draft;
             model.CustomerId = ProfileId;
-            Organization.ErpCOREDBContext.Sales.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+
+            Organization.Sales.New(model);
+            Organization.SaveChanges();
 
             return Ok();
         }

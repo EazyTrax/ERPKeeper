@@ -9,12 +9,11 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
 {
-    public class QuotesController : _API_Suppliers_Supplier_BaseController
+    public class PurchaseQuotesController : _API_Suppliers_Supplier_BaseController
     {
-
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Purchases
+            var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
                 .Where(r => r.SupplierId == ProfileId)
                 .ToList();
 
@@ -25,24 +24,27 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Suppliers.Purchase();
+            var model = new Enterprise.Models.Suppliers.PurchaseQuote();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
 
+
+            model.Status = Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Draft;
             model.SupplierId = ProfileId;
-            Organization.ErpCOREDBContext.Purchases.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+
+            Organization.PurchaseQuotes.New(model);
+            Organization.SaveChanges();
+
 
             return Ok();
         }
 
 
+
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
@@ -51,8 +53,8 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
-            Organization.ErpCOREDBContext.Purchases.Remove(model);
+            var model = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == key);
+            Organization.ErpCOREDBContext.PurchaseQuotes.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
     }

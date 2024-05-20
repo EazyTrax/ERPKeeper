@@ -9,7 +9,6 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Customers/Sales/All")
-            .InsertUrl($"/API/{CompanyId}/Customers/Customers/Insert")
             .UpdateUrl($"/API/{CompanyId}/Customers/Customers/Update")
             .UpdateMethod("Post")
             )

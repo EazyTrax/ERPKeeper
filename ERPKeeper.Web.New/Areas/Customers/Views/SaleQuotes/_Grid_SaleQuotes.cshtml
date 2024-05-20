@@ -8,8 +8,6 @@
                 .ID("gridList")
                 .DataSource(d => d.RemoteController().Key("Id")
                 .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/All")
-                .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/Insert")
-                .InsertMethod("Post")
                 .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/Update")
                 .UpdateMethod("Post"))
                 .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
@@ -20,39 +18,36 @@
                 .ShowBorders(false)
                 .Paging(paging => paging.PageSize(100))
                 .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-
                 .ColumnAutoWidth(false)
                 .ColumnChooser(columnChooser => columnChooser.Enabled(true))
                 .Columns(columns =>
                 {
                     columns.AddFor(m => m.Date)
-                .SortOrder(SortOrder.Desc)
-                .SortIndex(1)
-                .Width(130);
-
-                    columns.AddFor(m => m.No).Width(60).ShowInColumnChooser(true);
+                    .SortOrder(SortOrder.Desc)
+                    .SortIndex(1)
+                    .Width(130);
 
                 columns.AddFor(m => m.Status)
-            .Width(80)
-            .Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value")
-            );
+                    .Width(80)
+                    .Lookup(lookup => lookup
+                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value")
+                    );
 
                 columns.AddFor(m => m.Name)
-            .Width(130)
-            .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
+                    .Width(130)
+                    .AllowEditing(false)
+                    .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.CustomerId)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .HeaderCellTemplate("Customer")
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+                    .Lookup(lookup => lookup
+                    .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value"))
+                    .HeaderCellTemplate("Customer")
+                    .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
                 columns.Add().DataField("Reference").Width(180);
@@ -60,16 +55,13 @@
                 columns.Add().DataField("Total").Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
-
-
-
-            })
+                    .Lookup(lookup => lookup
+                    .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value"))
+                    .HeaderCellTemplate(@<text>TaxCode</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+                })
         .Summary(s =>
         s.TotalItems(items =>
         {
