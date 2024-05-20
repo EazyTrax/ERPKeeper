@@ -121,11 +121,12 @@
             <div class="col-3">
             </div>
             <div class="col-2 p-0 text-right">
-                @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType != AccountSubTypes.Expense_Asset_Deprecate).Sum(m => m.TotalDebit).ToString("N2")
+                @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType == AccountSubTypes.Expense_Asset_Deprecate || e.Account.SubType == AccountSubTypes.Expense_Prohibit).Sum(m => m.TotalDebit).ToString("N2")
             </div>
             <div class="col-2 p-0 text-right">
-                @previusFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType != AccountSubTypes.Expense_Asset_Deprecate).Sum(m => m.TotalDebit).ToString("N2")
+                @previusFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType == AccountSubTypes.Expense_Asset_Deprecate || e.Account.SubType == AccountSubTypes.Expense_Prohibit).Sum(m => m.TotalDebit).ToString("N2")
             </div>
+
 
 
 
@@ -165,6 +166,8 @@
             .Where(e => e.Account.SubType != AccountSubTypes.Expense_Asset_Deprecate)
             .Where(e => e.Account.SubType != AccountSubTypes.Expense_CostOfGoodsSold)
             .Where(e => e.Account.SubType != AccountSubTypes.Expense_Interest)
+            .Where(e => e.Account.SubType != AccountSubTypes.Expense_Prohibit)
+
             .ToList();
 
 
@@ -174,44 +177,11 @@
             .Where(e => e.Account.SubType != AccountSubTypes.Expense_Asset_Deprecate)
             .Where(e => e.Account.SubType != AccountSubTypes.Expense_CostOfGoodsSold)
             .Where(e => e.Account.SubType != AccountSubTypes.Expense_Interest)
+            .Where(e => e.Account.SubType != AccountSubTypes.Expense_Prohibit)
             .ToList();
 
 
-            // foreach (var line in currentFiscalYearExpenses)
-            // {
-            //     <div class="col-1">
-            //     </div>
-            //     <div class="col-4">
-            //         <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
-            //             @line.Account.Name
-            //         </a>
-            //     </div>
-            //     <div class="col-3">
-            //         @line.Account.SubType
-            //     </div>
-            //     <div class="col-2 p-0 text-right">
-            //         @line.TotalDebit.ToString("N2")
-            //     </div>
-            //     <div class="col-2 p-0 text-right">
-            //         @previusFiscalYearExpenses.Where(a => a.AccountId == line.AccountId).First().TotalDebit.ToString("N2")
-            //     </div>
-            // }
-
-            <div class="col-1">
-            </div>
-            <div class="col-4">
-                ต้นทุนทางการเงิน
-            </div>
-            <div class="col-3">
-            </div>
-            <div class="col-2 p-0 text-right">
-                @remainCurrentFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
-            </div>
-            <div class="col-2 p-0 text-right">
-                @remainPreviusFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
-            </div>
-
-
+  
 
 
 

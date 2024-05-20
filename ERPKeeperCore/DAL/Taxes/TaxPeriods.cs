@@ -49,7 +49,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
 
             var TaxPeriods = erpNodeDBContext.TaxPeriods
                 .Where(s => s.TransactionId != null)
-                .Where(s => s.Status != TaxPeriodStatus.Draft)
+              //  .Where(s => s.Status != TaxPeriodStatus.Draft)
                 .Where(s => !s.IsPosted || rePost)
                 .ToList()
                 .OrderBy(s => s.EndDate)

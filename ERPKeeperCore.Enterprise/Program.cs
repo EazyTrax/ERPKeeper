@@ -18,7 +18,7 @@ namespace ERPKeeperCore.CMD
         static void Main(string[] args)
         {
             string[] Enterprises = new string[] {
-                ///"tec",
+                //"tec",
                 "bit"
             };
 
