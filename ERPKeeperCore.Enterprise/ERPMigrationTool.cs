@@ -45,9 +45,9 @@ namespace ERPKeeperCore.CMD
             Copy_Customers_Customers();
             Copy_Customers_Sales();
             Copy_Customers_SaleItems();
-            
-          //  Copy_Customers_SaleQuotes();
-          //  Copy_Customers_SaleQuoteItems();
+
+            Copy_Customers_SaleQuotes();
+            Copy_Customers_SaleQuoteItems();
 
 
             // CopyReceivePayments();
@@ -57,8 +57,8 @@ namespace ERPKeeperCore.CMD
             Copy_Suppliers_Purchases();
             Copy_Suppliers_PurchaseItems();
 
-           // Copy_Suppliers_PurchaseQuotes();
-           // Copy_Suppliers_PurchaseQuoteItems();
+             Copy_Suppliers_PurchaseQuotes();
+            Copy_Suppliers_PurchaseQuoteItems();
 
 
             // CopySupplierPayments();

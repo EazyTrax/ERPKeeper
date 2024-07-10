@@ -27,10 +27,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
             var model = new Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Draft;
-            model.CustomerId = ProfileId;
-
-            Organization.Sales.New(model);
+            Organization.Sales.CreateDraft(model, ProfileId);
             Organization.SaveChanges();
 
             return Ok();

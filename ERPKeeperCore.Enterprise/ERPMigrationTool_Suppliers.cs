@@ -134,7 +134,7 @@ namespace ERPKeeperCore.CMD
 
             var oldModels = oldOrganization.ErpNodeDBContext
                 .CommercialItems
-                .Where(i => !existModelIds.Contains(i.Uid))
+                .Where(i => !existModelIds.Contains(i.Uid) && i.TransactionGuid != null)
                 .Where(i => i.TransactionType == ERPKeeper.Node.Models.Accounting.Enums.ERPObjectType.Purchase)
                 .Where(i => i.Amount > 0 && i.UnitPrice > 0)
                 .ToList();

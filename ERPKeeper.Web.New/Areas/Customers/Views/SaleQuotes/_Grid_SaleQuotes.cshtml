@@ -36,7 +36,7 @@
                     );
 
                 columns.AddFor(m => m.Name)
-                    .Width(130)
+                    .Width(150)
                     .AllowEditing(false)
                     .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
 
@@ -59,6 +59,7 @@
                     .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
                     .DisplayExpr("Text")
                     .ValueExpr("Value"))
+                    .Width(150)
                     .HeaderCellTemplate(@<text>TaxCode</text>)
                     .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
                 })

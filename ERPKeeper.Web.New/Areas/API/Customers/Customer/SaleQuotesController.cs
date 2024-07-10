@@ -30,7 +30,6 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
             var model = new Enterprise.Models.Customers.SaleQuote();
             JsonConvert.PopulateObject(values, model);
 
-            model.Status = Enterprise.Models.Customers.Enums.SaleQuoteStatus.Draft;
             model.CustomerId = ProfileId;
 
             Organization.SaleQuotes.CreateNew(model);

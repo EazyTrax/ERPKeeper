@@ -18,7 +18,7 @@ namespace ERPKeeperCore.CMD
         static void Main(string[] args)
         {
             string[] Enterprises = new string[] {
-                //"tec",
+                "tec",
                 "bit"
             };
 
@@ -32,13 +32,13 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
                 var migrationTool = new ERPMigrationTool(enterpriseDB);
-                //    migrationTool.Migrate();
+                //  migrationTool.Migrate();
 
 
                 if (true)
                     GeneralOperations(newOrganization, oldOrganization);
 
-                if (true)
+                if (false)
                 {
                     newOrganization.Transactions.PostLedgers();
                     newOrganization.ChartOfAccount.RefreshCurrentBalance();
@@ -62,7 +62,9 @@ namespace ERPKeeperCore.CMD
 
 
 
-
+                newOrganization.ErpCOREDBContext.SaleQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
+                newOrganization.ErpCOREDBContext.PurchaseQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
+                newOrganization.SaveChanges();
 
 
 

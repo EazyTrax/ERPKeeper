@@ -86,15 +86,17 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             });
         }
 
-        public void New(Sale model)
+        public void CreateDraft(Sale model, Guid customerId)
         {
             var currentYear = model.Date.Year;
             var currentMonth = model.Date.Month;
 
             var maxNo = erpNodeDBContext.Sales
-                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
+
+            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Draft;
+            model.CustomerId = customerId;
 
             model.No = maxNo + 1;
             model.UpdateBalance();

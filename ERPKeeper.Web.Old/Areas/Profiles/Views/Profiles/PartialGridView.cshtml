@@ -77,7 +77,7 @@
             {
                 string ProfileGuid = ((Guid)DataBinder.Eval(t.DataItem, "Uid")).ToString("N");
                 string DisplayName = (DataBinder.Eval(t.DataItem, "DisplayName") ?? "N/A").ToString();
-                var linkTag = Html.ActionLink(DisplayName, "Home", "Profile", new { Area = "Profiles", id = ProfileGuid }, null);
+                var linkTag = Html.ActionLink("PR: " + DisplayName, "Home", "Profile", new { Area = "Profiles", id = ProfileGuid }, null);
                 ViewContext.Writer.Write(string.Format("<div style='text-overflow:ellipsis;overflow:hidden; white-space:nowrap ; width:350px;'>{0}</div>", linkTag));
             });
         });
