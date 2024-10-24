@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Index()
         {
-            var sale = OrganizationCore.Sales.Find(TransactionId);
+            var sale = Organization.Sales.Find(TransactionId);
 
             if (sale == null)
                 return NotFound();
@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         [HttpPost]
         public IActionResult Update(Sale model)
         {
-            var transcation = OrganizationCore.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(TransactionId);
 
             if (transcation.IsPosted)
                 return Redirect(Request.Headers["Referer"].ToString());
@@ -38,25 +38,25 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             transcation.ProjectId = model.ProjectId;
 
             transcation.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult Items()
         {
-            var transcation = OrganizationCore.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Payments()
         {
-            var transcation = OrganizationCore.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Shipments()
         {
-            var transcation = OrganizationCore.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(TransactionId);
             return View(transcation);
         }
 
@@ -64,13 +64,13 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = OrganizationCore.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Export()
         {
-            var transcation = OrganizationCore.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(TransactionId);
             transcation.UpdateBalance();
 
             return View(transcation);

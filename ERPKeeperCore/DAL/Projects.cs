@@ -25,7 +25,10 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.Projects.ToList();
         }
 
-
+        public int Count()
+        {
+            return erpNodeDBContext.Projects.Count();
+        }   
 
         public Project? Find(Guid Id) => erpNodeDBContext.Projects.Find(Id);
 

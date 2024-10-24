@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.FundTransfers.Find(TransactionId);
+            var transcation = Organization.FundTransfers.Find(TransactionId);
 
             if (transcation == null)
                 return NotFound();
@@ -28,28 +28,28 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult UnPost()
         {
-            var model = OrganizationCore.FundTransfers.Find(TransactionId);
-            OrganizationCore.FundTransfers.UnPost(model);
-            OrganizationCore.SaveChanges();
+            var model = Organization.FundTransfers.Find(TransactionId);
+            Organization.FundTransfers.UnPost(model);
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult Items()
         {
-            var transcation = OrganizationCore.FundTransfers.Find(TransactionId);
+            var transcation = Organization.FundTransfers.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Payments()
         {
-            var transcation = OrganizationCore.FundTransfers.Find(TransactionId);
+            var transcation = Organization.FundTransfers.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Shipments()
         {
-            var transcation = OrganizationCore.FundTransfers.Find(TransactionId);
+            var transcation = Organization.FundTransfers.Find(TransactionId);
             return View(transcation);
         }
 
@@ -57,13 +57,13 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = OrganizationCore.FundTransfers.Find(TransactionId);
+            var transcation = Organization.FundTransfers.Find(TransactionId);
             return View(transcation);
         }
 
         public IActionResult Export()
         {
-            var transcation = OrganizationCore.FundTransfers.Find(TransactionId);
+            var transcation = Organization.FundTransfers.Find(TransactionId);
             return View(transcation);
         }
     }

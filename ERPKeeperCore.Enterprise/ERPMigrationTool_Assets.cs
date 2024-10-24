@@ -12,18 +12,29 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
+        public void Copy_Assets()
+        {
+            Console.WriteLine("> Copy_Assets");
+
+            Copy_Assets_AssetTypes();
+            Copy_Assets_Assets();
+            Copy_Assets_AssetDeprecreates();
+        }
+
         private void Copy_Assets_AssetTypes()
         {
+            Console.WriteLine("> Copy_Assets_AssetTypes");
             var oldModels = oldOrganization.ErpNodeDBContext.AssetTypes.ToList();
 
             oldModels.ForEach(a =>
             {
-                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
-
+              
                 var exist = newOrganization.ErpCOREDBContext.AssetTypes.FirstOrDefault(x => x.Id == a.Uid);
 
                 if (exist == null)
                 {
+                    Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
                     exist = new ERPKeeperCore.Enterprise.Models.Assets.AssetType()
                     {
                         Id = a.Uid,
@@ -52,16 +63,18 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Assets_Assets()
         {
+            Console.WriteLine("> Copy_Assets_Assets");
             var oldModels = oldOrganization.ErpNodeDBContext.Assets.ToList();
 
             oldModels.ForEach(a =>
             {
-                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
-
+              
                 var exist = newOrganization.ErpCOREDBContext.Assets.FirstOrDefault(x => x.Id == a.Uid);
 
                 if (exist == null)
                 {
+                    Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
                     exist = new ERPKeeperCore.Enterprise.Models.Assets.Asset()
                     {
                         Id = a.Uid,
@@ -92,16 +105,18 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Assets_AssetDeprecreates()
         {
+            Console.WriteLine("> Copy_Assets_AssetDeprecreates");
             var oldModels = oldOrganization.ErpNodeDBContext.DeprecateSchedules.ToList();
 
             oldModels.ForEach(a =>
             {
-                Console.WriteLine($"PROF:{a.Name}-{a.Name}");
-
+            
                 var exist = newOrganization.ErpCOREDBContext.AssetDeprecateSchedules.FirstOrDefault(x => x.Id == a.Uid);
 
                 if (exist == null)
                 {
+                    Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
                     exist = new ERPKeeperCore.Enterprise.Models.Assets.AssetDeprecateSchedule()
                     {
                         Id = a.Uid,

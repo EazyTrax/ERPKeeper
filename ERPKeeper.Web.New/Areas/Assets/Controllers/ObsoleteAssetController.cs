@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
     {
         public IActionResult Index(Guid AssetId)
         {
-            var Asset = OrganizationCore.ObsoleteAssets.Find(AssetId);
+            var Asset = Organization.ObsoleteAssets.Find(AssetId);
             return View(Asset);
         }
 

@@ -15,14 +15,14 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public IActionResult Index(Guid transactionId)
         {
-            var transcation = OrganizationCore.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(transactionId);
             return View(transcation);
         }
         public IActionResult UnPost(Guid transactionId)
         {
-            var model =   OrganizationCore.Purchases.Find(transactionId);
-            OrganizationCore.Purchases.UnPost(model);
-            OrganizationCore.SaveChanges();
+            var model =   Organization.Purchases.Find(transactionId);
+            Organization.Purchases.UnPost(model);
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -30,31 +30,31 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public IActionResult Items(Guid transactionId)
         {
-            var transcation = OrganizationCore.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Payments(Guid transactionId)
         {
-            var transcation = OrganizationCore.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Shipments(Guid transactionId)
         {
-            var transcation = OrganizationCore.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Documents(Guid transactionId)
         {
-            var transcation = OrganizationCore.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(transactionId);
             return View(transcation);
         }
 
         public IActionResult Export(Guid transactionId)
         {
-            var transcation = OrganizationCore.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(transactionId);
             return View(transcation);
         }
     }

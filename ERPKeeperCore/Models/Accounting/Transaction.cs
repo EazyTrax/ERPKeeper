@@ -60,13 +60,14 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             Debit = Ledgers.Sum(x => x.Debit);
             Credit = Ledgers.Sum(x => x.Credit);
 
-            Console.WriteLine($">Dr. {this.Debit} Cr.{this.Credit}");
+            if (this.Credit != this.Debit || this.Credit == 0)
+                Console.WriteLine($"ERROR:> Dr. {this.Debit} Cr.{this.Credit}");
 
             if (Debit != Credit)
                 return false;
             if (amount != null && Debit != amount)
                 return false;
-          
+
             return true;
         }
 

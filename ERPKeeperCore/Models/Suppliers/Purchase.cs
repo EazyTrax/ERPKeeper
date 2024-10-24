@@ -52,14 +52,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public virtual ICollection<PurchaseItem> Items { get; set; }
             = new List<PurchaseItem>();
 
-        public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }
-            = new List<SupplierPayment>();
-
+        public virtual SupplierPayment SupplierPayment { get; set; }
 
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
         public virtual TaxCode? TaxCode { get; set; }
-
 
         public Guid? TaxPeriodId { get; set; }
         [ForeignKey("TaxPeriodId")]
@@ -76,6 +73,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public virtual Account? IncomeAccount_DiscountTaken { get; set; }
 
 
+        public Guid? ExpenseAccountId { get; set; }
+        [ForeignKey("ExpenseAccountId")]
+        public virtual Account? ExpenseAccount { get; set; }
+
+
 
         public void UpdateBalance()
         {
@@ -87,13 +89,17 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 this.Tax = 0;
         }
 
-        public void PostToTransaction()
+        public void Post_Ledgers(int order)
         {
-            Console.WriteLine($">Post  PUR:{this.Name}");
+            Console.WriteLine($">{order} Post PUR:{this.Name}");
 
             this.UpdateBalance();
 
             if (this.Transaction == null)
+                return;
+            if (this.ExpenseAccount == null)
+                return;
+            if (this.Total == 0)
                 return;
 
             this.Transaction.ClearLedger();
@@ -103,12 +109,10 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.Transaction.PostedDate = DateTime.Now;
 
             //Dr. Post Items
-            foreach (var item in this.Items.Where(i => i.LineTotal > 0))
-                this.Transaction.AddDebit(item.Item.PurchaseAccount, item.LineTotal, $"{item.Quantity} x {item.PartNumber}");
-            //Post Taxes
+            this.Transaction.AddDebit(this.ExpenseAccount, this.LinesTotal, $"");
+
             if (this.TaxCode != null && this.TaxCode.InputTaxAccountId != null)
                 this.Transaction.AddDebit(this.TaxCode.InputTaxAccount, this.Tax);
-
 
             //Cr. Post Receivable
             if (this.PayableAccount != null)
@@ -117,10 +121,48 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             if (this.Discount != 0 && this.IncomeAccount_DiscountTaken != null)
                 this.Transaction.AddCredit(this.IncomeAccount_DiscountTaken, this.Discount);
 
-
-
             IsPosted = this.Transaction.UpdateBalance();
 
+        }
+
+        public void UnPostLedger()
+        {
+            Console.WriteLine($">UnPost  SL:{this.Name}");
+
+            if (Transaction == null)
+            {
+                this.IsPosted = false;
+                return;
+            }
+            else
+            {
+                this.Transaction.ClearLedger();
+                this.Transaction.Date = this.Date;
+                this.Transaction.Reference = this.Reference;
+                this.Transaction.Name = this.Name;
+                this.IsPosted = false;
+            }
+        }
+
+        internal void AssignDefaultAccount(Account expenseAccount, Account incomeAccount_DiscountTaken, Account payableAccount)
+        {
+            if (this.PayableAccount == null)
+            {
+                this.PayableAccount = payableAccount;
+                this.PayableAccountId = this.PayableAccount?.Id;
+            }
+
+            if (this.IncomeAccount_DiscountTaken == null)
+            {
+                this.IncomeAccount_DiscountTaken = incomeAccount_DiscountTaken;
+                this.IncomeAccount_DiscountTakenId = this.IncomeAccount_DiscountTaken?.Id;
+            }
+
+            if (this.ExpenseAccount == null)
+            {
+                this.ExpenseAccount = this.Items.FirstOrDefault()?.Item?.PurchaseAccount;
+                this.ExpenseAccountId = this.ExpenseAccount?.Id;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = OrganizationCore.ErpCOREDBContext.Transactions.Find(TransactionId);
+            var model = Organization.ErpCOREDBContext.Transactions.Find(TransactionId);
             return View(model);
         }
 

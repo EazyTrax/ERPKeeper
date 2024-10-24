@@ -14,35 +14,35 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
     {
         public IActionResult Index(Guid supplierUid)
         {
-            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
+            var supplier = Organization.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 
         public IActionResult Purchases(Guid supplierUid)
         {
-            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
+            var supplier = Organization.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 
         public IActionResult PurchaseQuotes(Guid supplierUid)
         {
-            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
+            var supplier = Organization.Suppliers.Find(supplierUid);
             return View(supplier);
         }
         public IActionResult Payments(Guid supplierUid)
         {
-            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
+            var supplier = Organization.Suppliers.Find(supplierUid);
             return View(supplier);
         }
         public IActionResult Items(Guid supplierUid)
         {
-            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
+            var supplier = Organization.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 
         public IActionResult EstimateItems(Guid supplierUid)
         {
-            var supplier = OrganizationCore.Suppliers.Find(supplierUid);
+            var supplier = Organization.Suppliers.Find(supplierUid);
             return View(supplier);
         }
 

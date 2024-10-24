@@ -13,18 +13,18 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
     {
         public IActionResult Index(Guid TaxPeriodId)
         {
-            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
             TaxPeriod.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return View(TaxPeriod);
         }
 
         public IActionResult AutoAssign(Guid TaxPeriodId)
         {
-            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
 
-            var assignAbleSales = OrganizationCore.ErpCOREDBContext.Sales
+            var assignAbleSales = Organization.ErpCOREDBContext.Sales
                 .Where(x => x.TaxPeriodId == null && x.TaxCode != null)
                 .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
                 .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             Console.WriteLine("assignAbleSales.Count: " + assignAbleSales.Count);
             assignAbleSales.ForEach(x => x.TaxPeriodId = TaxPeriodId);
 
-            var assignAblePurchases = OrganizationCore.ErpCOREDBContext.Purchases
+            var assignAblePurchases = Organization.ErpCOREDBContext.Purchases
                 .Where(x => x.TaxPeriodId == null && x.TaxCode != null)
                 .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
                .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
@@ -41,7 +41,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             assignAblePurchases.ForEach(x => x.TaxPeriodId = TaxPeriodId);
 
             TaxPeriod.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -49,24 +49,24 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 
         public IActionResult Export(Guid TaxPeriodId)
         {
-            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
             return View(TaxPeriod);
         }
         public IActionResult Sales(Guid TaxPeriodId)
         {
-            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
             return View(TaxPeriod);
         }
         public IActionResult Purchases(Guid TaxPeriodId)
         {
-            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
             return View(TaxPeriod);
         }
 
         [HttpPost]
         public IActionResult Update(Guid TaxPeriodId, ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod model)
         {
-            var TaxPeriod = OrganizationCore.TaxPeriods.Find(TaxPeriodId);
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
 
             if (TaxPeriod != null)
             {
@@ -79,7 +79,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
                 //TaxPeriod.ProjectUid = model.ProjectUid;
                 //TaxPeriod.Detail = model.Detail;
 
-                OrganizationCore.SaveChanges();
+                Organization.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

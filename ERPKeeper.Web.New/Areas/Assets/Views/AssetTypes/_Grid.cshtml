@@ -47,16 +47,20 @@
             columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Assets</text>);
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
-
+           
+            
+            
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
 
+
+
             columns.AddFor(m => m.Purchase_Asset_AccountId)
-        .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .HeaderCellTemplate(@<text>Purchase Acc</text>)
     .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Purchase_Asset_AccountId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.AwaitDeprecateAccId)
-        .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+        .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .HeaderCellTemplate(@<text>AwaitDep Acc</text>)
     .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AwaitDeprecateAccId %>/"><%= displayValue %></a></text>);
 

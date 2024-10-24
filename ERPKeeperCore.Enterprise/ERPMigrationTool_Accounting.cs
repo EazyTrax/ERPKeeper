@@ -11,8 +11,120 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void CopyAccounts()
+        private void Copy_Accounting()
         {
+            Console.WriteLine("> Copy_Accounting");
+
+            Copy_Accounting_Accounts();
+            Copy_Accounting_DefaultAccounts();
+            Copy_Accounting_FiscalYear();
+            Copy_Accounting_JournalEntryTypes();
+            Copy_Accounting_JournalEntries();
+            Copy_Accounting_JournalEntryItems();
+        }
+
+        private void Copy_Accounting_JournalEntryTypes()
+        {
+            Console.WriteLine("> Copy_Accounting_JournalEntryTypes");
+            var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryTypes.ToList();
+
+            oldModels.ForEach(a =>
+            {
+             
+                var exist = newOrganization.ErpCOREDBContext.JournalEntryTypes.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType()
+                    {
+                        Id = a.Uid,
+                        Name = a.Name,
+                        Detail = a.Detail,
+                        IsActive = a.IsActive,
+                    };
+
+                    newOrganization.ErpCOREDBContext.JournalEntryTypes.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private void Copy_Accounting_JournalEntries()
+        {
+            Console.WriteLine("Copy_Accounting_JournalEntries");
+
+            var oldModels = oldOrganization.ErpNodeDBContext.JournalEntries.ToList();
+
+            oldModels.ForEach(a =>
+            {
+             
+                var exist = newOrganization.ErpCOREDBContext.JournalEntries.FirstOrDefault(x => x.Id == a.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"PROF:{a.Name}-{a.Name}");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry()
+                    {
+                        Id = a.Uid,
+                        Date = a.TrnDate,
+                        No = a.No,
+                        Credit = a.Credit,
+                        Debit = a.Debit,
+                        Memo = a.Memo,
+                        JournalEntryTypeId = a.JournalEntryTypeGuid,
+                    };
+
+                    newOrganization.ErpCOREDBContext.JournalEntries.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private void Copy_Accounting_JournalEntryItems()
+        {
+            Console.WriteLine("Copy_Accounting_JournalEntryItems");
+            var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryItems.ToList();
+
+            oldModels.ForEach(a =>
+            {
+                var exist = newOrganization.ErpCOREDBContext.JournalEntryItems.FirstOrDefault(x => x.Id == a.JournalEntryItemId);
+
+                if (exist == null)
+                {
+                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem()
+                    {
+                        Id = a.JournalEntryItemId,
+                        Credit = a.Credit,
+                        Debit = a.Debit,
+                        Memo = a.Memo,
+                        JournalEntryId = a.JournalEntryId,
+                        AccountId = a.AccountUid,
+                    };
+
+                    newOrganization.ErpCOREDBContext.JournalEntryItems.Add(exist);
+                }
+                else
+                {
+
+                }
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+            });
+        }
+        private void Copy_Accounting_Accounts()
+        {
+            Console.WriteLine("> Copy_Accounting_Accounts");
             var oldAccounts = oldOrganization.ErpNodeDBContext.AccountItems.ToList();
 
 
@@ -51,19 +163,20 @@ namespace ERPKeeperCore.CMD
                 }
             });
         }
-        private void CopyDefaultAccounts()
+        private void Copy_Accounting_DefaultAccounts()
         {
+            Console.WriteLine("> Copy_Accounting_DefaultAccounts");
             var oldModels = oldOrganization.ErpNodeDBContext.SystemAccounts.ToList();
 
             oldModels.ForEach(oldSystemAccount =>
             {
-                Console.WriteLine($"PROF:{oldSystemAccount.AccountType}-{oldSystemAccount.AccountItem.Name}");
-
                 var exist = newOrganization.ErpCOREDBContext.DefaultAccounts
                 .FirstOrDefault(x => x.Type == (DefaultAccountType)oldSystemAccount.AccountType);
 
                 if (exist == null)
                 {
+                    Console.WriteLine($"PROF:{oldSystemAccount.AccountType}-{oldSystemAccount.AccountItem.Name}");
+
                     exist = new ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccount()
                     {
                         Type = (DefaultAccountType)oldSystemAccount.AccountType,
@@ -81,18 +194,19 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-        private void CopyFiscalYear()
+        private void Copy_Accounting_FiscalYear()
         {
+            Console.WriteLine("> Copy_Accounting_FiscalYear");
             var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();
 
             oldModels.ForEach(a =>
             {
-                Console.WriteLine($"PROF:{a.Name}-{a.StartDate}");
-
                 var exist = newOrganization.ErpCOREDBContext.FiscalYears.FirstOrDefault(x => x.Id == a.Uid);
 
                 if (exist == null)
                 {
+                    Console.WriteLine($"PROF:{a.Name}-{a.StartDate}");
+
                     exist = new ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear()
                     {
                         Id = a.Uid,

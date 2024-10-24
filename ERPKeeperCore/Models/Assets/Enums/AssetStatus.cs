@@ -7,7 +7,8 @@ namespace ERPKeeperCore.Enterprise.Models.Assets.Enums
     public enum AssetStatus
     {
         Draft = 0,
-        Active = 1,
-        Obsoleted = 2,
+        PartialDeplicate = 1,
+        Depreciated = 2,
+        Sold = 3,
     }
 }

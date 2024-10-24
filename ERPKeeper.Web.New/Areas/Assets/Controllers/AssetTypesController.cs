@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
         }
         public IActionResult Refresh()
         {
-            OrganizationCore.AssetTypes.Refresh();
+            Organization.AssetTypes.Refresh();
             return View();
         }
     }

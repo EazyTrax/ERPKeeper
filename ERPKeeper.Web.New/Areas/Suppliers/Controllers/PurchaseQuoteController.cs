@@ -17,35 +17,35 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
             return View(transcation);
         }
 
 
         public IActionResult Items()
         {
-            var transcation = OrganizationCore.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
             return View(transcation);
         }
 
         public IActionResult Update(PurchaseQuote model)
         {
-            var transcation = OrganizationCore.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
 
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.No = model.No;
 
             transcation.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult Export()
         {
-            var transcation = OrganizationCore.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
             transcation.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return View(transcation);
         }
@@ -53,7 +53,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = OrganizationCore.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
             return View(transcation);
         }
 

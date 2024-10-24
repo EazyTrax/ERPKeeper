@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 
         public IActionResult Refresh()
         {
-            OrganizationCore.TaxPeriods.Refresh();
+            Organization.TaxPeriods.Refresh();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

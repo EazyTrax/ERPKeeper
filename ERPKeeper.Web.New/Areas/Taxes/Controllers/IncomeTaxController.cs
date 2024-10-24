@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
     {
         public IActionResult Index(Guid Id)
         {
-            var IncomeTax = OrganizationCore.IncomeTaxes.Find(Id);
+            var IncomeTax = Organization.IncomeTaxes.Find(Id);
             return View(IncomeTax);
         }
 
@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
         [HttpPost]
         public IActionResult Update(Guid IncomeTaxId, ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax model)
         {
-            var IncomeTax = OrganizationCore.IncomeTaxes.Find(IncomeTaxId);
+            var IncomeTax = Organization.IncomeTaxes.Find(IncomeTaxId);
 
             if (IncomeTax != null)
             {
@@ -33,17 +33,17 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
                 //IncomeTax.ProjectUid = model.ProjectUid;
                 //IncomeTax.Detail = model.Detail;
 
-                OrganizationCore.SaveChanges();
+                Organization.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult UnPost(Guid Id)
         {
-            var model = OrganizationCore.ErpCOREDBContext.IncomeTaxes.Find(Id);
+            var model = Organization.ErpCOREDBContext.IncomeTaxes.Find(Id);
             model.IsPosted = false;
             model.Transaction.ClearLedger();
-            OrganizationCore.ErpCOREDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -51,11 +51,11 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 
         public IActionResult Issue(Guid Id)
         {
-            var model = OrganizationCore.ErpCOREDBContext.IncomeTaxes.Find(Id);
+            var model = Organization.ErpCOREDBContext.IncomeTaxes.Find(Id);
 
 
             model.Status = Enterprise.Models.Taxes.Enums.IncomeTaxStatus.Issued;
-            OrganizationCore.ErpCOREDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

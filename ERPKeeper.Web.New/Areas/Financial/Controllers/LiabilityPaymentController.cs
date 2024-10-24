@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
+            var transcation = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
 
             if (transcation == null)
                 return NotFound();
@@ -28,27 +28,27 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
         }
         public IActionResult Update(LiabilityPayment model)
         {
-            var existModel = OrganizationCore.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
+            var existModel = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
 
             if (!existModel.IsPosted)
             {
                 existModel.Reference = model.Reference;
                 existModel.Amount = model.Amount;
                 existModel.Date = model.Date;
-                OrganizationCore.SaveChanges();
+                Organization.SaveChanges();
 
                 existModel.UpdateBalance();
-                OrganizationCore.SaveChanges();
+                Organization.SaveChanges();
             }
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult UnPost()
         {
-            var model = OrganizationCore.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
+            var model = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
             model.IsPosted = false;
             model.Transaction.ClearLedger();
-            OrganizationCore.ErpCOREDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -56,11 +56,11 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Issue()
         {
-            var model = OrganizationCore.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
+            var model = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
 
 
             model.Status = Enterprise.Models.Financial.Enums.LiabilityPaymentStatus.Paid;
-            OrganizationCore.ErpCOREDBContext.SaveChanges();
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

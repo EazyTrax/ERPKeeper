@@ -19,8 +19,8 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Post()
         {
-            OrganizationCore.Transactions.PostLedgers();
-            OrganizationCore.SaveChanges();
+            Organization.Transactions.Post_Ledgers();
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

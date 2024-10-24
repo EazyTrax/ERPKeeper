@@ -3,9 +3,9 @@
 
 <form id="EditForm" action="/@CompanyId/Financial/LiabilityPayments/@Model.Id/Update" method="post">
     <div>
-        <div class="row">
-            <div class="col-6 p-2 bg-fb1 border">
-                <div class="row">
+        <div class="flex">
+            <div class="col-6 p-2 bg-gray-100 border">
+                <div class="flex">
                     <div class="col-12 p-0">
                         <div class="mb-3 font-weight-600">Liability Payment</div>
                         <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 p-2 bg-fb1 border">
+            <div class="col-6 p-2 bg-gray-100 border">
                 <div class="mb-3 font-weight-600">General</div>
                 <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                 <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>

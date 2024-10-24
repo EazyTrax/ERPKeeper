@@ -1,10 +1,10 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment
 
-<div class="row">
-    <div class="col p-0 col-center">
+<div class="flex">
+    <div class="col-center grow">
         <partial name="_EditForm" />
     </div>
-    <div class="col-4 p-0 col-right">
+    <div class="col-right w3/12">
         <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
     </div>
 </div>

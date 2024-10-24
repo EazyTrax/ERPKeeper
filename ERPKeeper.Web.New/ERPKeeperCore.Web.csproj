@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Accounting\Views\Shared\Components\" />
+    <Folder Include="Areas\API\Projects\" />
     <Folder Include="Areas\Authen\Data\" />
     <Folder Include="Areas\Authen\Models\" />
     <Folder Include="Areas\Authen\Views\Shared\Components\" />

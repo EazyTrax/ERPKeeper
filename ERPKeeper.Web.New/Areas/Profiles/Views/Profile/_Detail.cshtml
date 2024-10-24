@@ -16,9 +16,9 @@
 
 <div class="mb-3 border">
     <form id="EditForm" method="post" action="/@CompanyId/Profiles/@Model.Id/Update">
-        <div class="row">
+        <div class="flex">
             <div class="col-6 p-0">
-                <div class="p-2 bg-fb1 rouned mb-2">
+                <div class="p-2 bg-gray-100 rouned mb-2">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                         .ID("form_0")
                         .FormData(profile)
@@ -36,7 +36,7 @@
                         })
                         )
                 </div>
-                <div class="p-2 bg-fb1 rouned">
+                <div class="p-2 bg-gray-100 rouned">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                         .ID("form_1")
                         .FormData(profile)

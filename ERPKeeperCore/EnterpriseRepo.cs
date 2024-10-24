@@ -79,6 +79,16 @@ namespace ERPKeeperCore.Enterprise
         public Lends Lends;
         public LendReturns LendReturns;
 
+        public Projects Projects
+        {
+            get
+            {
+                if (_Projects == null)
+                    _Projects = new Projects(this);
+                return _Projects;
+            }
+        }
+
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
             DatabaseName = dbName;
@@ -157,15 +167,7 @@ namespace ERPKeeperCore.Enterprise
                 return _DataItems;
             }
         }
-        public Projects Projects
-        {
-            get
-            {
-                if (_Projects == null)
-                    _Projects = new Projects(this);
-                return _Projects;
-            }
-        }
+      
         public Assets Assets
         {
             get

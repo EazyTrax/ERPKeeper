@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Update()
         {
-            OrganizationCore.ChartOfAccount.CreateOpeningJournalEntry();
+            Organization.ChartOfAccount.CreateOpeningJournalEntry();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

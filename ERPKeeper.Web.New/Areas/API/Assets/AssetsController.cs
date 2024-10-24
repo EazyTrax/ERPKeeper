@@ -38,7 +38,7 @@ namespace ERPKeeperCore.Web.API.Assets
         {
             var model = new ERPKeeperCore.Enterprise.Models.Assets.Asset();
             JsonConvert.PopulateObject(values, model);
-            model.Status = Enterprise.Models.Assets.Enums.AssetStatus.Active;
+            model.Status = Enterprise.Models.Assets.Enums.AssetStatus.PartialDeplicate;
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());

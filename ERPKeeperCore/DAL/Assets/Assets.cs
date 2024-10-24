@@ -77,6 +77,29 @@ namespace ERPKeeperCore.Enterprise.DAL.Assets
 
         }
 
+        public void Refresh()
+        {
 
+
+            foreach (var asset in erpNodeDBContext.Assets.ToList())
+            {
+
+                if (asset.AssetType.UseFulLifeYear == 0)
+                    asset.SavageValue = asset.AssetValue;
+                else if (asset.AssetType.UseFulLifeYear != 0 && asset.SavageValue == 0)
+                    asset.SavageValue = 1;
+
+                if (asset.Status == AssetStatus.Sold)
+                    return;
+
+                if (DateTime.Today > asset.EndDeprecationDate)
+                    asset.Status = AssetStatus.Depreciated;
+
+                if (DateTime.Today <= asset.EndDeprecationDate)
+                    asset.Status = AssetStatus.PartialDeplicate;
+            }
+
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

@@ -3,13 +3,13 @@
 
 
 
-<div class="row">
+<div class="flex">
     <div class="col-12  font-weight-600 ">
         4. ลูกหนี้การค้าและลูกหนี้อื่น
     </div>
 </div>
 
-<div class="row">
+<div class="flex">
     <div class="col-9">
     </div>
     <div class="col-3 p-0  text-center">
@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="flex">
     @{
         var lines = Model.FiscalYearAccountBalances
         .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
@@ -78,13 +78,13 @@
 
 
 
-<div class="row">
+<div class="flex">
     <div class="col-12  font-weight-600 ">
         5. สินทรัพย์หมุนเวียนอื่น
     </div>
 </div>
 
-<div class="row">
+<div class="flex">
     <div class="col-9">
     </div>
     <div class="col-3 p-0  text-center">
@@ -102,7 +102,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="flex">
     @{
 
         var OtherLiquidityAssetBalance = Model.FiscalYearAccountBalances

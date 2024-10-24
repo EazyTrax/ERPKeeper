@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Web.API;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
+namespace ERPKeeperCore.Web.Areas.API
 {
-    public class ProjectsController : API_Profiles_Customers_BaseController
+    [Route("/API/{CompanyId}/{controller}/{action=Index}")]
+    public class ProjectsController : API_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {

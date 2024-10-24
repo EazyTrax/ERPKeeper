@@ -23,21 +23,21 @@ namespace ERPKeeperCore.Web.Areas.Financial.Controllers
             {
                 Date = date,
                 Amount = amount,
-                LiabilityAccount = OrganizationCore.ChartOfAccount.Find(accountId),
+                LiabilityAccount = Organization.ChartOfAccount.Find(accountId),
                 LiabilityAccountId = accountId,
                 Status = Enterprise.Models.Financial.Enums.LiabilityPaymentStatus.Draft,
             };
 
-            OrganizationCore.ErpCOREDBContext.LiabilityPayments.Add(newLiabilityPayment);
-            OrganizationCore.SaveChanges();
+            Organization.ErpCOREDBContext.LiabilityPayments.Add(newLiabilityPayment);
+            Organization.SaveChanges();
 
             newLiabilityPayment.LiabilityPaymentPayFromAccounts.Add(new LiabilityPaymentPayFromAccount()
             {
                 Amount = amount,
-                Account = OrganizationCore.SystemAccounts.Cash,
+                Account = Organization.SystemAccounts.Cash,
             });
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return Redirect($"/{CompanyId}/Financial/LiabilityPayments/{newLiabilityPayment.Id}");
 

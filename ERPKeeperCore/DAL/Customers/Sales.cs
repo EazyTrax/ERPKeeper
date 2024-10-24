@@ -32,6 +32,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         public void CreateTransactions()
         {
+
             var sales = erpNodeDBContext
                 .Sales
                 .Where(s => s.TransactionId == null)
@@ -56,35 +57,32 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                     erpNodeDBContext.SaveChanges();
                 }
             });
-
         }
-
 
         public void PostToTransactions(bool rePost = false)
         {
+            CreateTransactions();
+
             var sales = erpNodeDBContext.Sales
                 .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted || rePost)
                 .OrderBy(s => s.Date).ToList();
 
+
+            var ReceivableAccount = organization.SystemAccounts.AccountReceivable;
+            var Discount_Given_Expense_Account = organization.SystemAccounts.GetAccount(DefaultAccountType.DiscountGiven);
+            var IncomeAccount = organization.SystemAccounts.Income;
+
+            int maxNo = sales.Count();
             sales.ForEach(sale =>
             {
-                if (sale.ReceivableAccount == null)
-                {
-                    sale.ReceivableAccount = organization.SystemAccounts.AccountReceivable;
-                    sale.ReceivableAccountId = sale.ReceivableAccount.Id;
-                }
-
-                if (sale.Discount_Given_Expense_Account == null && sale.Discount > 0)
-                {
-                    sale.Discount_Given_Expense_Account = organization.SystemAccounts.GetAccount(DefaultAccountType.DiscountGiven);
-                    sale.Discount_Given_Expense_AccountId = sale.Discount_Given_Expense_Account.Id;
-                }
-
-                sale.PostToTransaction();
+                sale.AssignDefaultAccount(IncomeAccount, Discount_Given_Expense_Account, ReceivableAccount);
+                sale.Post_Ledgers(maxNo--);
                 erpNodeDBContext.SaveChanges();
             });
+
         }
+
 
         public void CreateDraft(Sale model, Guid customerId)
         {
@@ -103,6 +101,32 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
             erpNodeDBContext.Sales.Add(model);
             erpNodeDBContext.SaveChanges();
+        }
+
+        public void UnPostAll()
+        {
+            var sales = erpNodeDBContext.Sales
+                .Where(s => s.IsPosted)
+                .Include(s => s.Transaction)
+                .ThenInclude(s => s.Ledgers)
+                .ToList();
+
+            sales.ForEach(sale =>
+            {
+                sale.UnPostLedger();
+            });
+
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void UpdateStatus()
+        {
+            var paidSalesButInvices = erpNodeDBContext.Sales
+                .Where(s => s.Status != SaleStatus.Paid && s.ReceivePayment != null)
+                .ToList();
+            paidSalesButInvices.ForEach(sale => sale.Status = SaleStatus.Paid);
+            erpNodeDBContext.SaveChanges();
+
         }
     }
 }

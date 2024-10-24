@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
 
         public IActionResult UpdateAmount()
         {
-            OrganizationCore.Brands.UpdateAmount();
+            Organization.Brands.UpdateAmount();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

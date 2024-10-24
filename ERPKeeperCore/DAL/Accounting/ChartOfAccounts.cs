@@ -134,8 +134,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> Folders => erpNodeDBContext.Accounts
             .Where(i => i.IsFolder)
             .ToList();
-        public List<Account> AssetAccounts => this.GetAccountByType(AccountTypes.Asset);
-        public List<Account> Assets => erpNodeDBContext.Accounts.Where(a => a.Type == AccountTypes.Asset).ToList();
+
+        public List<Account> AssetsAndExpenses => erpNodeDBContext.Accounts
+             .Where(a => a.Type == AccountTypes.Asset || a.Type == AccountTypes.Expense)
+             .ToList();
+
+
+        public List<Account> Assets => erpNodeDBContext.Accounts
+            .Where(a => a.Type == AccountTypes.Asset)
+            .ToList();
+
         public List<Account> AssetAndLiability
         {
             get
@@ -189,7 +197,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                                 .ToList();
         }
 
-        public void RefreshCurrentBalance()
+        public void Refresh_CurrentBalance()
         {
             var fistDate = organization.FiscalYears.FirstPeriod.StartDate;
 
@@ -271,7 +279,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             erpNodeDBContext.SaveChanges();
         }
 
-        public void RefreshHostoriesBalances()
+        public void Refresh_HostoriesBalances()
         {
             erpNodeDBContext.Accounts
                      .ToList()

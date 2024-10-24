@@ -18,57 +18,43 @@ namespace ERPKeeperCore.CMD
         static void Main(string[] args)
         {
             string[] Enterprises = new string[] {
-                "tec",
+               "tec",
                 "bit"
             };
 
             foreach (var enterpriseDB in Enterprises)
             {
-                Console.WriteLine($"###{enterpriseDB}########################################################");
+                Console.WriteLine($"> ########################################################");
+                Console.WriteLine($"> {enterpriseDB}");
+                Console.WriteLine($"> ########################################################");
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
-                newOrganization.ErpCOREDBContext.Database.Migrate();
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
-                Console.WriteLine($">{newOrganization.ErpCOREDBContext.Database.GetConnectionString()}");
-                Console.WriteLine("###########################################################" + Environment.NewLine + Environment.NewLine);
 
-                var migrationTool = new ERPMigrationTool(enterpriseDB);
-                //  migrationTool.Migrate();
-
-
-                if (true)
-                    GeneralOperations(newOrganization, oldOrganization);
+                newOrganization.ErpCOREDBContext.Database.Migrate();
 
                 if (false)
+                    (new ERPMigrationTool(enterpriseDB)).Migrate();
+
+
+                if (false)
+                    GeneralOperations(newOrganization, oldOrganization);
+
+                if (false && newOrganization != null)
                 {
-                    newOrganization.Transactions.PostLedgers();
-                    newOrganization.ChartOfAccount.RefreshCurrentBalance();
-                    newOrganization.ChartOfAccount.RefreshHostoriesBalances();
-                    newOrganization.Transactions.ClearEmptyLedgers();
-                    newOrganization.FiscalYears.UpdateAllYearsAccountsBalance();
+                    newOrganization.Transactions.Post_Ledgers();
+                    newOrganization.ChartOfAccount.Refresh_CurrentBalance();
+                    newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
+                    newOrganization.Transactions.Clear_EmptyLedgers();
+                    newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
-
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                //newOrganization.LiabilityPayments.ClearEmpties();
-                //newOrganization.JournalEntries.ClearEmpties();
-                //newOrganization.FiscalYears.UpdatePreviusFiscalYear();
-                //newOrganization.SaveChanges();
-
-
-                //  newOrganization.Items.UpdateSupplierItems();
-
-
-
-                newOrganization.ErpCOREDBContext.SaleQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
-                newOrganization.ErpCOREDBContext.PurchaseQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
+                // newOrganization.ErpCOREDBContext.SaleQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
+                // newOrganization.ErpCOREDBContext.PurchaseQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
                 newOrganization.SaveChanges();
-
-
-
-
             }
         }
     }

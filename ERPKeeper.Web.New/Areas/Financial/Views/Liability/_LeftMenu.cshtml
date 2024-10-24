@@ -22,14 +22,14 @@
     }
 }
 
-<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+<div class="lh-120 bg-gray-100 p-2 rounded border font-weight-600">
     <a href="/@CompanyId/Financial">Financial</a>
 </div>
 
-<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+<div class="lh-120 bg-gray-100 p-2 rounded border font-weight-600">
     <a href="/@CompanyId/Financial/Liabilities">Liabilities</a>: @Model.Name
 </div>
-<div class="lh-120 bg-fb1 p-2 rounded border">
+<div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         Template("Home", $"/{CompanyId}/Financial/Liabilities/{Model.Id}", Organization.FundTransfers.Count());
         Template("Balances", $"/{CompanyId}/Financial/Liabilities/{Model.Id}/Balances");

@@ -25,12 +25,12 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         }
         public ActionResult UpdateCustomerItems()
         {
-            OrganizationCore.Items.UpdateCustomerItems();
+            Organization.Items.UpdateCustomerItems();
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public ActionResult UpdateSupplierItems()
         {
-            OrganizationCore.Items.UpdateSupplierItems();
+            Organization.Items.UpdateSupplierItems();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

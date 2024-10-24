@@ -103,7 +103,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             }
         }
 
-        public void UpdateAllYearsAccountsBalance()
+        public void Update_AllYearsAccountsBalance()
         {
             Console.WriteLine("> FISCALs > Update");
             this.UpdateTransactionsFiscalYears(false);

@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Financial.Controllers
         }
         public IActionResult UpdateCurrentBalance()
         {
-            OrganizationCore.ChartOfAccount.RefreshCurrentBalance();
+            Organization.ChartOfAccount.Refresh_CurrentBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

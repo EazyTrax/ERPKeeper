@@ -16,37 +16,37 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Index()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
             return View(customer);
         }
 
         public IActionResult Sales()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
             return View(customer);
         }
 
         public IActionResult SaleQuotes()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
             return View(customer);
         }
         public IActionResult ReceivePayments()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
             return View(customer);
         }
         public IActionResult Items()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
             return View(customer);
         }
 
         public IActionResult UpdateItems()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
 
-            var saleItems = OrganizationCore.ErpCOREDBContext.SaleItems
+            var saleItems = Organization.ErpCOREDBContext.SaleItems
                 .Where(si => si.Sale.CustomerId == customerId)
                 .GroupBy(si => si.ItemId)
                 .Select(si => new
@@ -58,7 +58,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             saleItems.ForEach(si =>
             {
-                var customerItem = OrganizationCore.ErpCOREDBContext.CustomerItems
+                var customerItem = Organization.ErpCOREDBContext.CustomerItems
                 .Where(ct => ct.CustomerId == customerId && ct.ItemId == si.Key)
                 .FirstOrDefault();
 
@@ -72,10 +72,10 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             });
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
 
-            var quoteItems = OrganizationCore.ErpCOREDBContext.SaleQuoteItems
+            var quoteItems = Organization.ErpCOREDBContext.SaleQuoteItems
                .Where(si => si.Quote.CustomerId == customerId)
                .GroupBy(si => si.ItemId)
                .Select(si => new
@@ -86,7 +86,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             quoteItems.ForEach(si =>
             {
-                var customerItem = OrganizationCore.ErpCOREDBContext.CustomerItems
+                var customerItem = Organization.ErpCOREDBContext.CustomerItems
                 .Where(ct => ct.CustomerId == customerId && ct.ItemId == si.Key)
                 .FirstOrDefault();
 
@@ -102,16 +102,16 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             });
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult EstimateItems()
         {
-            var customer = OrganizationCore.Customers.Find(customerId);
+            var customer = Organization.Customers.Find(customerId);
             return View(customer);
         }
 

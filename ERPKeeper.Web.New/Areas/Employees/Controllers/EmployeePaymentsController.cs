@@ -14,9 +14,9 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
         public IActionResult Index() => View();
         public ActionResult Refresh()
         {
-            foreach (var payment in OrganizationCore.ErpCOREDBContext.EmployeePayments.ToList())
+            foreach (var payment in Organization.ErpCOREDBContext.EmployeePayments.ToList())
                 payment.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

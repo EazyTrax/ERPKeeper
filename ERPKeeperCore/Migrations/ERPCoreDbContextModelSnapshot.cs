@@ -766,7 +766,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("RetentionTypeId");
 
-                    b.HasIndex("SaleId");
+                    b.HasIndex("SaleId")
+                        .IsUnique()
+                        .HasFilter("[SaleId] IS NOT NULL");
 
                     b.HasIndex("TransactionId")
                         .IsUnique()
@@ -797,6 +799,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("Discount_Given_Expense_AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("IncomeAccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsPosted")
@@ -843,6 +848,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("DiscountAccountId");
+
+                    b.HasIndex("IncomeAccountId");
 
                     b.HasIndex("ProjectId");
 
@@ -2098,6 +2105,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<Guid?>("ExpenseAccountId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("IncomeAccount_DiscountTakenId")
                         .HasColumnType("uniqueidentifier");
 
@@ -2144,6 +2154,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExpenseAccountId");
 
                     b.HasIndex("IncomeAccount_DiscountTakenId");
 
@@ -2445,7 +2457,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("PayFrom_AssetAccountId");
 
-                    b.HasIndex("PurchaseId");
+                    b.HasIndex("PurchaseId")
+                        .IsUnique();
 
                     b.HasIndex("RetentionGroupId");
 
@@ -2934,8 +2947,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("RetentionTypeId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Customers.Sale", "Sale")
-                        .WithMany("ReceivePayments")
-                        .HasForeignKey("SaleId");
+                        .WithOne("ReceivePayment")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment", "SaleId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("ReceivePayment")
@@ -2970,6 +2983,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("DiscountAccountId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "IncomeAccount")
+                        .WithMany()
+                        .HasForeignKey("IncomeAccountId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Projects.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
@@ -2993,6 +3010,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Discount_Given_Expense_Account");
+
+                    b.Navigation("IncomeAccount");
 
                     b.Navigation("Project");
 
@@ -3431,6 +3450,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
                 {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "ExpenseAccount")
+                        .WithMany()
+                        .HasForeignKey("ExpenseAccountId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "IncomeAccount_DiscountTaken")
                         .WithMany()
                         .HasForeignKey("IncomeAccount_DiscountTakenId");
@@ -3456,6 +3479,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
                         .WithOne("Purchase")
                         .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "TransactionId");
+
+                    b.Navigation("ExpenseAccount");
 
                     b.Navigation("IncomeAccount_DiscountTaken");
 
@@ -3580,8 +3605,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("PayFrom_AssetAccountId");
 
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", "Purchase")
-                        .WithMany("SupplierPayments")
-                        .HasForeignKey("PurchaseId")
+                        .WithOne("SupplierPayment")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment", "PurchaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3807,7 +3832,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 {
                     b.Navigation("Items");
 
-                    b.Navigation("ReceivePayments");
+                    b.Navigation("ReceivePayment")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Customers.SaleQuote", b =>
@@ -3908,7 +3934,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 {
                     b.Navigation("Items");
 
-                    b.Navigation("SupplierPayments");
+                    b.Navigation("SupplierPayment")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote", b =>

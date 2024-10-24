@@ -53,13 +53,8 @@
             .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
-
             columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Asset</text>).Format(",##0.00");
             columns.AddFor(m => m.SavageValue).HeaderCellTemplate(@<text>Savage</text>).Format(",##0.00");
-
-
-
-
             columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
         
             })

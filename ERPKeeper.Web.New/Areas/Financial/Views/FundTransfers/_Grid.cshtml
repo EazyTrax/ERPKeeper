@@ -33,7 +33,7 @@
 
                 columns.Add().DataField("Name").Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Financial/FundTransfers/<%= data.Id %>/"><%= data.Name %></a></text>);
-                columns.AddFor(m => m.Reference).Width(180);
+
 
 
                 columns.AddFor(m => m.WithDrawAccountId)
@@ -76,7 +76,7 @@
             .HeaderCellTemplate(@<text> </text>)
         .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
-
+                columns.AddFor(m => m.Reference).Width(180);
 
 
             })

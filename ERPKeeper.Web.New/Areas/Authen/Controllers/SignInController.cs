@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
 using ERPKeeperCore.Enterprise.Models.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
@@ -23,8 +24,21 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
             organizationRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo();
         }
 
-        public IActionResult Index() => View(new LogInModel());
+        public IActionResult Index()
+        {
+            string[] Enterprises = new string[] {
+               "tec",
+                "bit"
+            };
 
+            foreach (var enterpriseDB in Enterprises)
+            {
+                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
+                newOrganization.ErpCOREDBContext.Database.Migrate();
+            }
+
+            return View(new LogInModel());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Authen(LogInModel logInModel)

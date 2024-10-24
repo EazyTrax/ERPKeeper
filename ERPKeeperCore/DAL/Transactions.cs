@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Transaction? Find(Guid Id) => erpNodeDBContext.Transactions.Find(Id);
 
-        public void PostLedgers()
+        public void Post_Ledgers()
         {
             //Capital Activities
             //organization.CapitalActivities.PostLedger();
@@ -36,7 +36,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             //Commercial Section
             organization.Sales.PostToTransactions();
             organization.ReceivePayments.PostToTransactions();
-            organization.Purchases.PostToTransactions();
+            organization.Purchases.Post_Ledgers();
             organization.SupplierPayments.PostToTransactions();
 
             //Financial Section
@@ -71,7 +71,7 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         }
 
-        public void ClearEmptyLedgers()
+        public void Clear_EmptyLedgers()
         {
 
             organization.ErpCOREDBContext.TransactionLedgers

@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
         public IActionResult Index() =>  View();
         public ActionResult Refresh()
         {
-            OrganizationCore.EmployeePaymentTypes.UpdateBalance();
+            Organization.EmployeePaymentTypes.UpdateBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

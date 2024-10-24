@@ -13,9 +13,15 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
     {
         public IActionResult Index()
         {
+            Organization.Assets.Refresh();
             return View();
         }
 
+        public IActionResult Refresh()
+        {
+            Organization.Assets.Refresh();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
     }
 }

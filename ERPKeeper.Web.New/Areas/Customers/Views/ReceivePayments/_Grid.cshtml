@@ -31,6 +31,7 @@
 
                 columns.Add().DataField("Name")
                 .Width(130)
+                .Visible(false)
             .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP:<%= data.Name %></a></text>);
 
 

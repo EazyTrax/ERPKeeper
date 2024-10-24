@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
 
             if (transcation == null)
                 return NotFound();
@@ -28,40 +28,40 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult UnPost()
         {
-            var model = OrganizationCore.Lends.Find(Id);
-            OrganizationCore.Lends.UnPost(model);
-            OrganizationCore.SaveChanges();
+            var model = Organization.Lends.Find(Id);
+            Organization.Lends.UnPost(model);
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult Items()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
             return View(transcation);
         }
 
         public IActionResult Payments()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
             return View(transcation);
         }
 
         public IActionResult Shipments()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
             return View(transcation);
         }
 
         public IActionResult Documents()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
             return View(transcation);
         }
 
         public IActionResult Export()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
             return View(transcation);
         }
     }

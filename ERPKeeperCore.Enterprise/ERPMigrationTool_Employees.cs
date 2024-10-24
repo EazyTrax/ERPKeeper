@@ -12,8 +12,20 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
+        private void Copy_Employees()
+        {
+            Console.WriteLine("> Copy_Employees");
+            Copy_EmployeesEmployeePositions();
+            Copy_Employees_PaymentTypes();
+            Copy_Employees_Employees();
+            Copy_Employees_EmployeePaymentPeriods();
+            Copy_Employees_EmployeePayments();
+            Copy_Employees_EmployeePaymentItems();
+        }
         private void Copy_EmployeesEmployeePositions()
         {
+            Console.WriteLine("> Copy_EmployeesEmployeePositions");
+
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePositions
               .Select(x => x.Id)
               .ToList();
@@ -50,9 +62,11 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Employees_PaymentTypes()
         {
+
+            Console.WriteLine("> Copy_EmployeesEmployeePositions");
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentTypes
-              .Select(x => x.Id)
-              .ToList();
+          .Select(x => x.Id)
+          .ToList();
 
             var oldModels = oldOrganization.ErpNodeDBContext
                 .EmployeePaymentTypes
@@ -90,6 +104,7 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Employees_Employees()
         {
+            Console.WriteLine("> Copy_Employees_Employees");
             var existModelIds = newOrganization.ErpCOREDBContext.Employees
                .Select(x => x.Id)
                .ToList();
@@ -125,6 +140,7 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Employees_EmployeePaymentPeriods()
         {
+            Console.WriteLine("> Copy_Employees_EmployeePaymentPeriods");
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentPeriods
                .Select(x => x.Id)
                .ToList();
@@ -164,6 +180,7 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Employees_EmployeePayments()
         {
+            Console.WriteLine("> Copy_Employees_EmployeePayments");
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePayments
                .Select(x => x.Id)
                .ToList();
@@ -204,6 +221,7 @@ namespace ERPKeeperCore.CMD
 
         private void Copy_Employees_EmployeePaymentItems()
         {
+            Console.WriteLine("> Copy_Employees_EmployeePaymentItems");
             var existModelIds = newOrganization.ErpCOREDBContext.EmployeePaymentItems
                .Select(x => x.Id)
                .ToList();

@@ -10,6 +10,8 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 
 namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 {
@@ -29,7 +31,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
         public Purchase? Find(Guid Id) => erpNodeDBContext.Purchases.Find(Id);
 
-        public void PostToTransactions(bool rePost = false)
+        public void Post_Ledgers(bool rePost = false)
         {
             CreateTransactions();
 
@@ -38,20 +40,19 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                 .Where(s => !s.IsPosted || rePost)
                 .OrderBy(s => s.Date).ToList();
 
+
+
+            var PayableAccount = organization.SystemAccounts.AccountPayable;
+            var IncomeAccount_DiscountTaken = organization.SystemAccounts.GetAccount(DefaultAccountType.Income_DiscountTaken);
+            var ExpenseAccount = organization.SystemAccounts.Expense;
+
+            int maxNo = purchases.Count();
+
             purchases.ForEach(purchase =>
             {
-                if (purchase.PayableAccount == null)
-                {
-                    purchase.PayableAccount = organization.SystemAccounts.AccountPayable;
-                    purchase.PayableAccountId = purchase.PayableAccount.Id;
-                }
-                if (purchase.IncomeAccount_DiscountTaken == null && purchase.Discount > 0)
-                {
-                    purchase.IncomeAccount_DiscountTaken = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
-                    purchase.IncomeAccount_DiscountTakenId = purchase.IncomeAccount_DiscountTaken.Id;
-                }
+                purchase.AssignDefaultAccount(ExpenseAccount, IncomeAccount_DiscountTaken, PayableAccount);
+                purchase.Post_Ledgers(maxNo--);
 
-                purchase.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
             });
         }
@@ -109,6 +110,30 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.SaveChanges();
         }
 
-       
+        public void UnPostAll()
+        {
+            var purchase = erpNodeDBContext.Purchases
+                .Where(s => s.IsPosted)
+                .Include(s => s.Transaction)
+                .ThenInclude(s => s.Ledgers)
+                .ToList();
+
+            purchase.ForEach(purchase =>
+            {
+                purchase.UnPostLedger();
+            });
+
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void UpdateStatus()
+        {
+            var paidTransactions = erpNodeDBContext.Purchases
+                .Where(s => s.Status !=  PurchaseStatus.Paid && s.SupplierPayment != null)
+                .ToList();
+            paidTransactions.ForEach(purchase => purchase.Status =  PurchaseStatus.Paid);
+            erpNodeDBContext.SaveChanges();
+
+        }
     }
 }

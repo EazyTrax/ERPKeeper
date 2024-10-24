@@ -10,7 +10,7 @@
                     <a href="@url">
                         @if (level > 0)
                         {
-                            <i class="fa-solid fa-l"></i>
+                            
                         }
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
@@ -24,12 +24,12 @@
 }
 
 
-<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+<div class="lh-120 bg-gray-100 p-2 rounded border font-weight-600">
     <a href="/@CompanyId/Customers/SaleQuotes">SaleQuotes</a>:
     <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">@Model.Name</a>
 </div>
 
-<div class="lh-120 bg-fb1 p-2 rounded border">
+<div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}");
         MenuTemplate(0, "Items", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items", Model.Items.Count());

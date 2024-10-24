@@ -9,7 +9,6 @@
             .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
-
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
             .ColumnAutoWidth(false)
@@ -31,8 +30,9 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
+            .MinWidth(200)
             .HeaderCellTemplate(@<text>SN</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
@@ -41,7 +41,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Customer</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
+             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.TotalSales)
                 .Width(120).HeaderCellTemplate(@<text>Sale</text>)

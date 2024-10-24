@@ -12,8 +12,18 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
+        private void Copy_Taxes()
+        {
+            Console.WriteLine("> Copy_Taxes");
+            Copy_Taxes_TaxCode();
+            Copy_Taxes_TaxPeriod();
+            Copy_Taxes_IncomeTaxes();
+        }
+
         private void Copy_Taxes_TaxCode()
         {
+            Console.WriteLine("> Copy_Taxes_TaxCode");
+
             var oldModels = oldOrganization.ErpNodeDBContext.TaxCodes.ToList();
 
             oldModels.ForEach(a =>
@@ -53,6 +63,8 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Taxes_TaxPeriod()
         {
+            Console.WriteLine("> Copy_Taxes_TaxPeriod");
+
             var existModelIds = newOrganization.ErpCOREDBContext.TaxPeriods
               .Select(x => x.Id)
               .ToList();
@@ -94,7 +106,7 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Taxes_IncomeTaxes()
         {
-
+            Console.WriteLine("> Copy_Taxes_IncomeTaxes");
             var existModelIds = newOrganization.ErpCOREDBContext.IncomeTaxes
                 .Select(x => x.Id)
                 .ToList();

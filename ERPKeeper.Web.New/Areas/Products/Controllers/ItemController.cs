@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
     public class ItemController : Base_ProductsController
     {
         public Guid ItemUid => Guid.Parse(RouteData.Values["ItemUid"].ToString());
-        public Enterprise.Models.Items.Item Item => OrganizationCore.Items.Find(ItemUid);
+        public Enterprise.Models.Items.Item Item => Organization.Items.Find(ItemUid);
 
         public IActionResult Index() => View(Item);
         public IActionResult Quotes() => View(Item);
@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Items.Item model)
         {
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

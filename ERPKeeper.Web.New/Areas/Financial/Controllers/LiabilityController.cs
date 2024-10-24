@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.ChartOfAccount.Find(AccountId);
+            var transcation = Organization.ChartOfAccount.Find(AccountId);
 
             if (transcation == null)
                 return NotFound();
@@ -28,13 +28,13 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Balances()
         {
-            var transcation = OrganizationCore.ChartOfAccount.Find(AccountId);
+            var transcation = Organization.ChartOfAccount.Find(AccountId);
             return View(transcation);
         }
 
         public IActionResult Payments()
         {
-            var transcation = OrganizationCore.ChartOfAccount.Find(AccountId);
+            var transcation = Organization.ChartOfAccount.Find(AccountId);
             return View(transcation);
         }
 

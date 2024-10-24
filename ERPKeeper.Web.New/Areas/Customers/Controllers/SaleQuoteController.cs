@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(QuoteId);
 
             if (transcation == null)
                 return NotFound();
@@ -28,29 +28,29 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Items()
         {
-            var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(QuoteId);
             return View(transcation);
         }
 
         [HttpPost]
         public IActionResult Update(SaleQuote model)
         {
-            var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(QuoteId);
 
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.No = model.No;
 
             transcation.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
         public IActionResult Export()
         {
-            var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(QuoteId);
             transcation.UpdateBalance();
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return View(transcation);
         }
@@ -58,7 +58,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = OrganizationCore.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(QuoteId);
             return View(transcation);
         }
 

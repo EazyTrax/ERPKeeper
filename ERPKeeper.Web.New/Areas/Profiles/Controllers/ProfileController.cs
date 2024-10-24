@@ -17,22 +17,22 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
 
         public IActionResult Index()
         {
-            var customer = OrganizationCore.Profiles.Find(ProfileUid);
+            var customer = Organization.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Addresses()
         {
-            var customer = OrganizationCore.Profiles.Find(ProfileUid);
+            var customer = Organization.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Contacts()
         {
-            var customer = OrganizationCore.Profiles.Find(ProfileUid);
+            var customer = Organization.Profiles.Find(ProfileUid);
             return View(customer);
         }
         public IActionResult Roles()
         {
-            var customer = OrganizationCore.Profiles.Find(ProfileUid);
+            var customer = Organization.Profiles.Find(ProfileUid);
             return View(customer);
         }
 
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
         [HttpPost]
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Profiles.Profile model)
         {
-            var profile = OrganizationCore.Profiles.Find(ProfileUid);
+            var profile = Organization.Profiles.Find(ProfileUid);
 
             profile.Name = model.Name;
             profile.ShotName = model.ShotName;
@@ -48,17 +48,17 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
             profile.WebSite = model.WebSite;
             profile.PhoneNumber = model.PhoneNumber;
             profile.IsSelfOrganization = model.IsSelfOrganization;
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             if (profile.IsSelfOrganization)
             {
                 Console.WriteLine("IsSelfOrganization");
 
-                OrganizationCore.ErpCOREDBContext.Profiles
+                Organization.ErpCOREDBContext.Profiles
                     .Where(p => p.Id != profile.Id)
                     .Update(p => new Profile { IsSelfOrganization = false });
 
-                OrganizationCore.SaveChanges();
+                Organization.SaveChanges();
             }
             Console.WriteLine(profile.IsSelfOrganization);
 

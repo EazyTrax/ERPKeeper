@@ -19,15 +19,15 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult UpdateCurrentBalance()
         {
-            OrganizationCore.ChartOfAccount.RefreshCurrentBalance();
+            Organization.ChartOfAccount.Refresh_CurrentBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
       
         public IActionResult UpdateHistoryBalance()
         {
-            OrganizationCore.ChartOfAccount.RefreshCurrentBalance();
-            OrganizationCore.ChartOfAccount.GenerateHistoryBalance();
+            Organization.ChartOfAccount.Refresh_CurrentBalance();
+            Organization.ChartOfAccount.GenerateHistoryBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
@@ -35,7 +35,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
   
         public IActionResult UpdateNumber()
         {
-            OrganizationCore.ChartOfAccount.ReAssignNumber();
+            Organization.ChartOfAccount.ReAssignNumber();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

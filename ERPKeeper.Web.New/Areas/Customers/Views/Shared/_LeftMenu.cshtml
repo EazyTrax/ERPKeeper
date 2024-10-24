@@ -7,7 +7,7 @@
                     <a href="@url">
                         @if (level > 0)
                         {
-                            <i class="fa-solid fa-l"></i>
+
                         }
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
@@ -21,15 +21,14 @@
 }
 
 
-<div class="lh-120 bg-fb1 p-2 rounded border font-weight-600">
+<div class="lh-120 bg-gray-100 p-2 rounded border font-weight-600">
     <a href="/@CompanyId/Profiles">Profiles</a> :
     <a href="/@CompanyId/Customers">Customers</a>
 </div>
 
-<div class="lh-120 bg-fb1 p-2 rounded border">
+<div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Customers", $"/{CompanyId}/Customers/Customers", Organization.Customers.Count());
-        MenuTemplate(0, "Projects", $"/{CompanyId}/Customers/Projects", Organization.ErpCOREDBContext.Projects.Count());
         MenuTemplate(0, "Quotes", $"/{CompanyId}/Customers/SaleQuotes", Organization.ErpCOREDBContext.SaleQuotes.Count());
         MenuTemplate(0, "Sales", $"/{CompanyId}/Customers/Sales", Organization.ErpCOREDBContext.Sales.Count());
         MenuTemplate(1, "Payments", $"/{CompanyId}/Customers/ReceivePayments", Organization.ErpCOREDBContext.ReceivePayments.Count());

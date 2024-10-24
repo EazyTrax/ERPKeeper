@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 
         public IActionResult Index(Guid Id)
         {
-            var Employee = OrganizationCore.ErpCOREDBContext
+            var Employee = Organization.ErpCOREDBContext
                 .EmployeePayments
                 .Find(Id);
 

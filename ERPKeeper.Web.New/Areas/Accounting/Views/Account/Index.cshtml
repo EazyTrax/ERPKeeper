@@ -1,11 +1,11 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Account
 
-<div class="row">
-    <div class="col p-0 col-center mh-100v border-right border-2">
+<div class="flex">
+    <div class="col-center grow mh-100v border-right border-2">
         <partial name="_Detail" />
     </div>
-    <div class="col-4 p-0 col-right border-right border-2">
-        <div class="row bg-fb1 p-2">
+    <div class="col-right w3/12 border-right border-2">
+        <div class="row bg-gray-100 p-2">
             <div class="col-6">Debit</div>
             <div class="col-6">Credit</div>
             <div class="col-6">@Model.CurrentDebit</div>

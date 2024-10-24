@@ -12,10 +12,17 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-
+        public void Copy_Profiles()
+        {
+            Console.WriteLine("> Copy_Profiles");
+            Copy_Profiles_Profiles();
+            Copy_Profiles_ProfileAddresss();
+             
+        }
 
         private void Copy_Profiles_Profiles()
         {
+            Console.WriteLine("> Copy_Profiles_Profiles");
             var existModelIds = newOrganization.ErpCOREDBContext.Profiles
              .Select(x => x.Id)
              .ToList();
@@ -54,8 +61,8 @@ namespace ERPKeeperCore.CMD
         }
 
         private void Copy_Profiles_ProfileAddresss()
-        {
-
+        { 
+                Console.WriteLine("> Copy_Profiles_ProfileAddresss");
             var existModelIds = newOrganization.ErpCOREDBContext.ProfileAddresses
              .Select(x => x.Id)
              .ToList();

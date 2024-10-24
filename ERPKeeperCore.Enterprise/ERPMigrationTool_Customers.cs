@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,22 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
+        private void Copy_Customers()
+        {
+            Console.WriteLine("> Copy_Customers");
+
+            Copy_Customers_Customers();
+            Copy_Customers_Sales();
+            Copy_Customers_SaleItems();
+            Copy_Customers_SaleQuotes();
+            Copy_Customers_SaleQuoteItems();
+            Copy_Customers_ReceivePayments();
+
+
+        }
         private void Copy_Customers_Customers()
         {
+            Console.WriteLine("> Copy_Customers_Customers");
 
             var existModelIds = newOrganization.ErpCOREDBContext.Customers
               .Select(x => x.Id)
@@ -46,23 +61,111 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void CopyReceivePayments()
+
+
+        private void Copy_Customers_ReceivePayments()
         {
-            oldOrganization.ErpNodeDBContext
+            Console.WriteLine("> Copy_Customers_ReceivePayments");
+
+            // Use HashSet for more efficient lookups
+            var existingReceivePaymentIds = newOrganization.ErpCOREDBContext.ReceivePayments
+                .Select(x => x.Id)
+                .ToHashSet();
+
+            // Include necessary related data in single query
+            var oldSalesWithPayments = oldOrganization.ErpNodeDBContext.Sales
+                .Where(s => s.GeneralPaymentUid != null)
+                .Include(s => s.GeneralPayment)
+                .Include(s => s.GeneralPayment.RetentionType)
+                .OrderByDescending(s => s.GeneralPayment.TrnDate)
+                .ToList();
+
+            // Batch process payments
+            var batchSize = 100;
+            var paymentsToAdd = new List<Enterprise.Models.Customers.ReceivePayment>();
+            var paymentsToUpdate = new List<Enterprise.Models.Customers.ReceivePayment>();
+
+            foreach (var batch in oldSalesWithPayments.Chunk(batchSize))
+            {
+                var saleIds = batch.Select(s => s.Uid).ToList();
+                var existingPayments = newOrganization.ErpCOREDBContext.ReceivePayments
+                    .Where(rp => rp.SaleId != null && saleIds.Contains((Guid)rp.SaleId))
+                    .ToDictionary(rp => rp.SaleId);
+
+                foreach (var oldSale in batch)
+                {
+                    if (!existingPayments.TryGetValue(oldSale.Uid, out var existReceivePayment))
+                    {
+                        Console.WriteLine($"SALE: {oldSale.Name}");
+                        var newPayment = new Enterprise.Models.Customers.ReceivePayment
+                        {
+                            SaleId = oldSale.Uid,
+                            Amount = oldSale.Total,
+                            Date = oldSale.GeneralPayment.TrnDate,
+                            Reference = oldSale.GeneralPayment.Reference,
+                            AmountBankFee = oldSale.GeneralPayment.BankFeeAmount,
+                            AmountDiscount = oldSale.GeneralPayment.DiscountAmount,
+                            PayToAccountId = oldSale.GeneralPayment.AssetAccountUid,
+                            Receivable_Asset_AccountId = oldSale.GeneralPayment.ReceivableAccountUid,
+                            RetentionTypeId = oldSale.GeneralPayment.RetentionTypeGuid
+                        };
+
+                        if (newPayment.RetentionTypeId != null)
+                        {
+                            newPayment.AmountRetention = oldSale.GeneralPayment.RetentionType.Rate * oldSale.LinesTotal / 100;
+                        }
+
+                        paymentsToAdd.Add(newPayment);
+                    }
+                    else if (existReceivePayment.Receivable_Asset_AccountId != oldSale.GeneralPayment.ReceivableAccountUid)
+                    {
+                        existReceivePayment.Receivable_Asset_AccountId = oldSale.GeneralPayment.ReceivableAccountUid;
+                        paymentsToUpdate.Add(existReceivePayment);
+                    }
+                }
+
+                // Batch save changes
+                if (paymentsToAdd.Any())
+                {
+                    newOrganization.ErpCOREDBContext.ReceivePayments.AddRange(paymentsToAdd);
+                    paymentsToAdd.Clear();
+                }
+
+                if (paymentsToUpdate.Any())
+                {
+                    newOrganization.ErpCOREDBContext.ReceivePayments.UpdateRange(paymentsToUpdate);
+                    paymentsToUpdate.Clear();
+                }
+
+                newOrganization.SaveChanges();
+            }
+        }
+        private void Copy_Customers_ReceivePayments_oldWay()
+        {
+            Console.WriteLine("> Copy_Customers_ReceivePayments");
+
+
+            var existReceivePaymentIds = newOrganization.ErpCOREDBContext
+                .ReceivePayments
+                .Select(x => x.Id)
+                .ToList();
+
+            var oldSalesWithPayments = oldOrganization.ErpNodeDBContext
                 .Sales
                 .Where(s => s.GeneralPaymentUid != null)
                 .OrderByDescending(s => s.GeneralPayment.TrnDate)
-                .ToList()
-                .ForEach(oldSale =>
-                {
-                    Console.WriteLine($"SALE: {oldSale.Name}");
+                .ToList();
 
+            oldSalesWithPayments.ForEach(oldSale =>
+                {
                     var existReceivePayment = newOrganization.ErpCOREDBContext
                         .ReceivePayments
                         .FirstOrDefault(s => s.SaleId == oldSale.Uid);
 
                     if (existReceivePayment == null)
                     {
+                        Console.WriteLine($"SALE: {oldSale.Name}");
+
                         existReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
                         {
                             SaleId = oldSale.Uid,
@@ -95,9 +198,11 @@ namespace ERPKeeperCore.CMD
 
 
 
-
         private void Copy_Customers_Sales()
         {
+
+            Console.WriteLine("> Copy_Customers_Sales");
+
             var existModelIds = newOrganization.ErpCOREDBContext.Sales
                .Select(x => x.Id)
                .ToList();
@@ -147,6 +252,8 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Customers_SaleItems()
         {
+            Console.WriteLine("> Copy_Customers_SaleItems");
+
             var existModelIds = newOrganization.ErpCOREDBContext.SaleItems
                 .Select(x => x.Id)
                 .ToList();
@@ -194,13 +301,10 @@ namespace ERPKeeperCore.CMD
 
 
         }
-
-
-
-
-
         private void Copy_Customers_SaleQuotes()
         {
+
+            Console.WriteLine("> Copy_Customers_SaleQuotes");
             var existModelIds = newOrganization.ErpCOREDBContext.SaleQuotes
                .Select(x => x.Id)
                .ToList();
@@ -250,6 +354,10 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Customers_SaleQuoteItems()
         {
+
+            Console.WriteLine("> Copy_Customers_SaleQuoteItems");
+
+
             var existModelIds = newOrganization.ErpCOREDBContext.SaleQuoteItems
                 .Select(x => x.Id)
                 .ToList();

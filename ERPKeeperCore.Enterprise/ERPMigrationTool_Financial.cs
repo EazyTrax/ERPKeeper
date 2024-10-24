@@ -11,8 +11,21 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
+        public void Copy_Financial()
+        {
+            Console.WriteLine("> Copy_Financial");
+
+            Copy_Financial_FundTransfers();
+            Copy_Financial_LiabilityPayments();
+            Copy_Financial_Loans();
+            Copy_Financial_Lends();
+            Copy_Financial_Retentions_Types();
+            Copy_Financial_Retentions_Groups();
+        }
+
         private void Copy_Financial_FundTransfers()
         {
+            Console.WriteLine("> Copy_Financial_FundTransfers");
             var oldModels = oldOrganization.ErpNodeDBContext.FundTransfers.ToList();
 
             oldModels.ForEach(oldFundTransfer =>
@@ -24,6 +37,7 @@ namespace ERPKeeperCore.CMD
                 if (exist == null)
                 {
                     Console.WriteLine($"FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
+                
                     exist = new ERPKeeperCore.Enterprise.Models.Financial.FundTransfer()
                     {
                         Id = oldFundTransfer.Uid,
@@ -46,9 +60,9 @@ namespace ERPKeeperCore.CMD
                 }
                 else
                 {
-                    Console.WriteLine($"> Update > FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
+                   // Console.WriteLine($"> Update > FT:{oldFundTransfer.Name}-{oldFundTransfer.TrnDate}");
 
-                    exist.WithDrawAccountId = oldFundTransfer.WithDrawAccountGuid;
+                 //   exist.WithDrawAccountId = oldFundTransfer.WithDrawAccountGuid;
                 }
 
                 newOrganization.ErpCOREDBContext.SaveChanges();
@@ -56,6 +70,8 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Financial_LiabilityPayments()
         {
+            Console.WriteLine("> Copy_Financial_LiabilityPayments");
+
             var existModelIds = newOrganization.ErpCOREDBContext.LiabilityPayments
                 .Select(x => x.Id)
                 .ToList();
@@ -66,7 +82,6 @@ namespace ERPKeeperCore.CMD
 
             oldModels.ForEach(oldPurchase =>
                 {
-                    Console.WriteLine($"PURCHASE: {oldPurchase.Name}");
 
                     var existLiabilityPayment = newOrganization.ErpCOREDBContext
                         .LiabilityPayments
@@ -74,12 +89,15 @@ namespace ERPKeeperCore.CMD
 
                     if (existLiabilityPayment == null)
                     {
-                        Console.WriteLine("----------------------------------------------");
+
+                        Console.WriteLine($"PURCHASE: {oldPurchase.Name}");
+
+                        //ฝฝ   Console.WriteLine("----------------------------------------------");
                         Console.WriteLine($"> Liability Payment: {oldPurchase.Name} ");
-                        Console.WriteLine($"> Amount   {oldPurchase.Amount} ");
-                        Console.WriteLine($"> Disount  {oldPurchase.DiscountAmount} ");
-                        Console.WriteLine($"> BankFee  {oldPurchase.BankFeeAmount} ");
-                        Console.WriteLine($"> Lib Acc  {oldPurchase.LiabilityAccount.Name} ");
+                        //Console.WriteLine($"> Amount   {oldPurchase.Amount} ");
+                        //Console.WriteLine($"> Disount  {oldPurchase.DiscountAmount} ");
+                        //Console.WriteLine($"> BankFee  {oldPurchase.BankFeeAmount} ");
+                        //Console.WriteLine($"> Lib Acc  {oldPurchase.LiabilityAccount.Name} ");
 
                         if (oldPurchase.OptionalAssetAccount != null)
                             Console.WriteLine($"> Pay From {oldPurchase.AmountPayFromOptionalAcc} {oldPurchase.OptionalAssetAccount.Name} ");
@@ -131,9 +149,10 @@ namespace ERPKeeperCore.CMD
 
                 });
         }
-
         private void Copy_Financial_Loans()
         {
+            Console.WriteLine("> Copy_Financial_Loans");
+
             oldOrganization.ErpNodeDBContext
                 .Loans
                 .OrderByDescending(s => s.TrnDate)
@@ -170,6 +189,8 @@ namespace ERPKeeperCore.CMD
         }
         private void Copy_Financial_Lends()
         {
+            Console.WriteLine("> Copy_Financial_Lends");
+
             oldOrganization.ErpNodeDBContext
                 .Lends
                 .OrderByDescending(s => s.TrnDate)
@@ -203,6 +224,96 @@ namespace ERPKeeperCore.CMD
                     }
 
                 });
+        }
+        private void Copy_Financial_Retentions_Types()
+        {
+
+            Console.WriteLine("> Copy_Financial_Retentions_Types");
+            var existModelIds = newOrganization.ErpCOREDBContext.RetentionTypes
+            .Select(x => x.Id)
+            .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.RetentionTypes
+                .Where(i => !existModelIds.Contains(i.Uid))
+                .ToList();
+
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"RetentionTypes:{oldModel.Name}-{oldModel.Uid}");
+                var exist = newOrganization.ErpCOREDBContext
+                .RetentionTypes
+                .FirstOrDefault(x => x.Id == oldModel.Uid);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"> Add");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Financial.RetentionType()
+                    {
+                        Id = oldModel.Uid,
+                        IsActive = oldModel.IsActive,
+                        Description = oldModel.Description ?? "NA",
+                        Name = oldModel.Name,
+                        Direction = (Enterprise.Models.Financial.Enums.RetentionDirection)oldModel.RetentionDirection,
+                        Rate = oldModel.Rate,
+                        RetentionToAccountId = oldModel.RetentionToAccountGuid,
+                    };
+
+                    newOrganization.ErpCOREDBContext.RetentionTypes.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+
+                }
+            });
+
+            //newOrganization.ErpCOREDBContext.SaveChanges();
+        }
+        private void Copy_Financial_Retentions_Groups()
+        {
+            Console.WriteLine("> Copy_Financial_Retentions_Groups");
+
+            var existModelIds = newOrganization.ErpCOREDBContext.RetentionGroups
+            .Select(x => x.Id)
+            .ToList();
+
+            var oldModels = oldOrganization.ErpNodeDBContext.RetentionGroups
+                .Where(i => !existModelIds.Contains(i.Id))
+                .ToList();
+
+            oldModels.ForEach(oldModel =>
+            {
+                Console.WriteLine($"RetentionGroups:{oldModel.Id}");
+                var exist = newOrganization.ErpCOREDBContext
+                .RetentionGroups
+                .FirstOrDefault(x => x.Id == oldModel.Id);
+
+                if (exist == null)
+                {
+                    Console.WriteLine($"> Add");
+
+                    exist = new ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup()
+                    {
+                        Id = oldModel.Id,
+                        AmountCommercial = oldModel.AmountCommercial,
+                        Date = oldModel.TrnDate,
+                        AmountRetention = oldModel.AmountRetention,
+                        Count = oldModel.Count,
+                        RetentionTypeId = oldModel.RetentionTypeId,
+                    };
+
+                    newOrganization.ErpCOREDBContext.RetentionGroups.Add(exist);
+                    newOrganization.ErpCOREDBContext.SaveChanges();
+                }
+                else
+                {
+
+                }
+            });
+
+            newOrganization.ErpCOREDBContext.SaveChanges();
         }
     }
 }

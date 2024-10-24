@@ -18,79 +18,79 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult TrialBalance()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult Incomes()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult Expenses()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult JournalEntries()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult Balances()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult UpdateBalance()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
-            OrganizationCore.FiscalYears.UpdateAccountBalance(model);
-            OrganizationCore.SaveChanges();
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            Organization.FiscalYears.UpdateAccountBalance(model);
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult CreateNextFiscalYear()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
-            OrganizationCore.FiscalYears.Find(model.EndDate.AddDays(1));
-            OrganizationCore.SaveChanges();
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            Organization.FiscalYears.Find(model.EndDate.AddDays(1));
+            Organization.SaveChanges();
             return Redirect($"/{CompanyId}/Accounting/FiscalYears/{FiscalYearId}");
         }
 
          public IActionResult Report_Changes_in_Equity()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult Report_BalanceSheet()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult Report_ProfitandLoss_Statement()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
 
         public IActionResult Report_SupportingDocuments()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         public IActionResult Report_Tax_Calculation()
         {
-            var model = OrganizationCore.FiscalYears.Find(FiscalYearId);
+            var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
         

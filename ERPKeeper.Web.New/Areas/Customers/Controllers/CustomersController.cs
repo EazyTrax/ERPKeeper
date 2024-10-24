@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public ActionResult Refresh()
         {
-            OrganizationCore.Customers.UpdateSalesBalance();
+            Organization.Customers.UpdateSalesBalance();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

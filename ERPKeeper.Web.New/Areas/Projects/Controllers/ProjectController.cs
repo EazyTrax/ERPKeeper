@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Web.Areas.Customers.Controllers;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,14 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace ERPKeeperCore.Web.Areas.Customers.Controllers
+namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 {
-    [Route("/{CompanyId}/Customers/Projects/{ProjectId:Guid}/{action=Index}/{id?}")]
+    [Route("/{CompanyId}/Projects/{ProjectId:Guid}/{action=Index}/{id?}")]
     public class ProjectController : _Customers_Base_Controller
     {
         public IActionResult Index(Guid ProjectId)
         {
-            var Project = OrganizationCore.Projects.Find(ProjectId);
+            var Project = Organization.Projects.Find(ProjectId);
 
             if (Project == null)
                 return NotFound();
@@ -24,33 +25,33 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Close(Guid ProjectId)
         {
-            var Project = OrganizationCore.Projects.Find(ProjectId);
+            var Project = Organization.Projects.Find(ProjectId);
             Project.ChangeStatus(Enterprise.Models.Projects.Enums.ProjectStatus.Close);
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return View(Project);
         }
 
         public IActionResult Open(Guid ProjectId)
         {
-            var Project = OrganizationCore.Projects.Find(ProjectId);
+            var Project = Organization.Projects.Find(ProjectId);
             Project.ChangeStatus(Enterprise.Models.Projects.Enums.ProjectStatus.Open);
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
             return View(Project);
         }
 
         [HttpPost]
-        public IActionResult Update(Guid ProjectId, ERPKeeperCore.Enterprise.Models.Projects.Project model)
+        public IActionResult Update(Guid ProjectId, Enterprise.Models.Projects.Project model)
         {
-            var Project = OrganizationCore.Projects.Find(ProjectId);
+            var Project = Organization.Projects.Find(ProjectId);
 
             if (Project != null)
             {
                 Project.Name = model.Name;
                 Project.Detail = model.Detail;
 
-                OrganizationCore.SaveChanges();
+                Organization.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

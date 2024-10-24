@@ -1,0 +1,49 @@
+﻿@{
+    void MenuTemplate(int level, string displayName, string url, int? count = null)
+    {
+        <div>
+            <div class="row e-r">
+                <div class="col-10 p-l@(level)">
+                    <a href="@url">
+                        @if (level > 0)
+                        {
+                            
+                        }
+                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
+                    </a>
+                </div>
+                <div class="col-2 p-0 text-right p-0">
+                    <span class="menuCount">@count</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div class="lh-120 bg-fb1 font-weight-600 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Home", $"/{CompanyId}");
+    }
+</div>
+<div class="lh-120 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Customers", $"/{CompanyId}/Customers", Organization.Customers.Count());
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers", Organization.Suppliers.Count());
+        MenuTemplate(0, "Employees", $"/{CompanyId}/Employees", Organization.Employees.Count());
+        MenuTemplate(0, "Investors", $"/{CompanyId}/Investors", Organization.Investors.Count());
+        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles", Organization.Profiles.Count());
+    }
+</div>
+
+<div class="lh-120 bg-fb1 p-2 rounded border">
+   @{ MenuTemplate(0, "Products", $"/{CompanyId}/Products", Organization.Items.Count()); }
+</div>
+
+<div class="lh-120 bg-fb1 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
+        MenuTemplate(0, "Financial", $"/{CompanyId}/Financial");
+        MenuTemplate(0, "Assets", $"/{CompanyId}/Assets", Organization.Assets.Count());
+        MenuTemplate(0, "Taxes", $"/{CompanyId}/Taxes");
+    }
+</div>

@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Web.Controllers
 
 
         private EnterpriseRepo _Organization;
-        public EnterpriseRepo OrganizationCore
+        public EnterpriseRepo Organization
         {
             get
             {

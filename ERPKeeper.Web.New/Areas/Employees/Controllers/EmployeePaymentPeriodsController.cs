@@ -14,10 +14,10 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
         public IActionResult Index() =>  View();
         public ActionResult Refresh()
         {
-            foreach (var paymentPeriod in OrganizationCore.ErpCOREDBContext.EmployeePaymentPeriods.ToList())
+            foreach (var paymentPeriod in Organization.ErpCOREDBContext.EmployeePaymentPeriods.ToList())
                 paymentPeriod.UpdateBalance();
 
-            OrganizationCore.SaveChanges();
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }

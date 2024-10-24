@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Index()
         {
-            var transcation = OrganizationCore.LendReturns.Find(Id);
+            var transcation = Organization.LendReturns.Find(Id);
 
             if (transcation == null)
                 return NotFound();
@@ -28,9 +28,9 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult UnPost()
         {
-            var model = OrganizationCore.LendReturns.Find(Id);
-            OrganizationCore.LendReturns.UnPost(model);
-            OrganizationCore.SaveChanges();
+            var model = Organization.LendReturns.Find(Id);
+            Organization.LendReturns.UnPost(model);
+            Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -38,7 +38,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
         public IActionResult Export()
         {
-            var transcation = OrganizationCore.Lends.Find(Id);
+            var transcation = Organization.Lends.Find(Id);
             return View(transcation);
         }
     }

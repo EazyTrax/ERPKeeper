@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
     {
         public IActionResult Index(Guid itemGroupUid)
         {
-            var i = OrganizationCore.ItemGroups.Find(itemGroupUid);
+            var i = Organization.ItemGroups.Find(itemGroupUid);
             return View(i);
         }
     }

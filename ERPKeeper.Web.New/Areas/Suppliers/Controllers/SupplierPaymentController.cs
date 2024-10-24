@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public IActionResult Index()
         {
-            var SupplierPayment = OrganizationCore.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
+            var SupplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
             return View(SupplierPayment);
         }
     }

@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
         public IActionResult Index()
         {
-            var model = OrganizationCore.JournalEntryTypes.Find(JournalEntryTypeId);
+            var model = Organization.JournalEntryTypes.Find(JournalEntryTypeId);
             return View(model);
         }
 

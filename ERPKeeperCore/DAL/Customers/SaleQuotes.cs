@@ -49,5 +49,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
             return model;
         }
+
+        public void CreateNew(SaleQuote model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
