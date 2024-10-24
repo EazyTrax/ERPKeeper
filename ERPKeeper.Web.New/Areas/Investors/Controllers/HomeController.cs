@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Investors.Controllers
 {
-
     public class HomeController : _Investors_Base_Controller
     {
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/tec/Investors/Investors");
         }
 
         public ActionResult Refresh()

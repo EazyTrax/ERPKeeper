@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/tec/Suppliers/Suppliers");
         }
 
         public ActionResult Refresh()
