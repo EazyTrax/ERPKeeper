@@ -13,17 +13,17 @@
     <div class="flex">
         <div class="col-9">
         </div>
-        <div class="col-2 p-0 font-weight-600 text-center">
+        <div class="w-2/12 p-0 font-weight-600 text-center">
             หน่วย:บาท
         </div>
         <div class="col-4  font-weight-600 ">
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2 p-0  text-right font-weight-600 border-dark border-top">
+        <div class="w-2/12 p-0  text-right font-weight-600 border-dark border-top">
             @(Model.EndDate.Year + 543)
         </div>
-        <div class="col-2 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
             @(Model.EndDate.Year - 1 + 543)
         </div>
     </div>
@@ -56,10 +56,10 @@
                 <div class="col-3">
                     @line.Account.SubType.ToString()
                 </div>
-                <div class="col-2 p-0 text-right">
+                <div class="w-2/12 p-0 text-right">
                     @line.TotalCredit.ToString("N2")
                 </div>
-                <div class="col-2 p-0 text-right">
+                <div class="w-2/12 p-0 text-right">
                     @previusFiscalYearIncomes.Where(a => a.AccountId == line.AccountId).First().TotalCredit.ToString("N2")
                 </div>
             }
@@ -69,10 +69,10 @@
             <div class="col-6 font-weight-600">
                 รวมรายได้
             </div>
-            <div class="col-2 p-0 text-right border-dark border-top">
+            <div class="w-2/12 p-0 text-right border-dark border-top">
                 @currentFiscalYearIncomes.Sum(m => m.TotalCredit).ToString("N2")
             </div>
-            <div class="col-2 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 p-0 text-right  border-dark border-top">
                 @previusFiscalYearIncomes.Sum(m => m.TotalCredit).ToString("N2")
             </div>
         }
@@ -104,10 +104,10 @@
             </div>
             <div class="col-3">
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_CostOfGoodsSold).Sum(m => m.TotalDebit).ToString("N2")
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @previusFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_CostOfGoodsSold).Sum(m => m.TotalDebit).ToString("N2")
             </div>
 
@@ -120,10 +120,10 @@
             </div>
             <div class="col-3">
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType == AccountSubTypes.Expense_Asset_Deprecate || e.Account.SubType == AccountSubTypes.Expense_Prohibit).Sum(m => m.TotalDebit).ToString("N2")
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @previusFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType == AccountSubTypes.Expense_Asset_Deprecate || e.Account.SubType == AccountSubTypes.Expense_Prohibit).Sum(m => m.TotalDebit).ToString("N2")
             </div>
 
@@ -137,10 +137,10 @@
             </div>
             <div class="col-3">
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Selling).Sum(m => m.TotalDebit).ToString("N2")
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @previusFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Selling).Sum(m => m.TotalDebit).ToString("N2")
             </div>
 
@@ -151,10 +151,10 @@
             </div>
             <div class="col-3">
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Interest).Sum(m => m.TotalDebit).ToString("N2")
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @previusFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Interest).Sum(m => m.TotalDebit).ToString("N2")
             </div>
 
@@ -190,10 +190,10 @@
             <div class="col-6 font-weight-600">
                 รวมค่าใช้จ่าย
             </div>
-            <div class="col-2 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 p-0 text-right  border-dark border-top">
                 @currentFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
             </div>
-            <div class="col-2 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 p-0 text-right  border-dark border-top">
                 @previusFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
             </div>
 
@@ -205,13 +205,13 @@
             </div>
             <div class="col-4">
             </div>
-            <div class="col-2 p-0 text-right border-dark">
+            <div class="w-2/12 p-0 text-right border-dark">
                 @{
                     var currentYearGrossMargin = currentFiscalYearIncomes.Sum(m => m.TotalCredit) - currentFiscalYearExpenses.Sum(m => m.TotalDebit);
                 }
                 @(currentYearGrossMargin.ToString("N2"))
             </div>
-            <div class="col-2 p-0 text-right border-dark">
+            <div class="w-2/12 p-0 text-right border-dark">
                 @{
                     var previusYearGrossMargin = previusFiscalYearIncomes.Sum(m => m.TotalCredit) - previusFiscalYearExpenses.Sum(m => m.TotalDebit);
                 }
@@ -236,13 +236,13 @@
             </div>
             <div class="col-4">
             </div>
-            <div class="col-2 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 p-0 text-right  border-dark border-top">
                 @if (currentYearIncomeTaxBalance != null)
                 {
                     <span>@(currentYearIncomeTaxBalance.TotalDebit.ToString("N2"))</span>
                 }
             </div>
-            <div class="col-2 p-0 text-right border-dark border-top">
+            <div class="w-2/12 p-0 text-right border-dark border-top">
                 @if (currentYearIncomeTaxBalance != null)
                 {
                     <span>@(previusYearIncomeTaxBalance.TotalDebit.ToString("N2"))</span>
@@ -255,10 +255,10 @@
             </div>
             <div class="col-4">
             </div>
-            <div class="col-2 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 p-0 text-right  border-dark border-top">
                 @((currentYearGrossMargin - currentYearIncomeTaxBalance.TotalDebit).ToString("N2"))
             </div>
-            <div class="col-2 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 p-0 text-right  border-dark border-top">
                 @((previusYearGrossMargin - previusYearIncomeTaxBalance.TotalDebit).ToString("N2"))
             </div>
         }

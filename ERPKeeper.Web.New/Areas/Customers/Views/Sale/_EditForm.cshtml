@@ -2,16 +2,16 @@
 
 <form id="EditForm" action="/@CompanyId/Customers/Sales/@Model.Id/Update" method="post">
     <div>
-        <div class="flex">
+        <div class="grid grid-cols-3 gap-2">
 
-            <div class="col-6 p-0 border">
+            <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
 
                     <div class="flex">
-                        <div class="col-10 p-0">
+                        <div class="w-10/12 p-0">
                             <div class="mb-3 font-weight-600">Customer</div>
                         </div>
-                        <div class="col-2 p-0 text-right">
+                        <div class="w-2/12 p-0 text-right">
                             <a href="/@CompanyId/Profiles/@Model.CustomerId">
                                 <span class="material-icons-outlined">
                                     badge
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="col-6 p-0 border">
+            <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
                     <div class="mb-3 font-weight-600">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 p-0 border">
+            <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
 
                     <div class="mb-2">

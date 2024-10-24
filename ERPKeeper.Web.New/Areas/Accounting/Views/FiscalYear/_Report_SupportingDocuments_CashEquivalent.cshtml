@@ -19,17 +19,17 @@
 <div class="flex">
     <div class="col-9">
     </div>
-    <div class="col-3 p-0  text-center">
+    <div class="w-3/12 p-0  text-center">
         หน่วย:บาท
     </div>
     <div class="col-4   ">
     </div>
     <div class="col-4">
     </div>
-    <div class="col-2 p-0  text-right  border-dark border-top border-bottom">
+    <div class="w-2/12 p-0  text-right  border-dark border-top border-bottom">
         @(Model.EndDate.Year + 543)
     </div>
-    <div class="col-2 p-0 text-right  border-dark border-top border-bottom">
+    <div class="w-2/12 p-0 text-right  border-dark border-top border-bottom">
         @(Model.EndDate.Year - 1 + 543)
     </div>
 </div>
@@ -54,10 +54,10 @@
             <div class="col-4">
                 @line.Account.SubType.ToString()
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @((line.ClosedDebit - line.ClosedCredit).ToString("N2"))
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
             </div>
 
@@ -67,10 +67,10 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-2 p-0 text-right  border-dark border-top">
+        <div class="w-2/12 p-0 text-right  border-dark border-top">
             @(lines.Sum(line => line.ClosedDebit - line.ClosedCredit).ToString("N2"))
         </div>
-        <div class="col-2 p-0 text-right  border-dark border-top">
+        <div class="w-2/12 p-0 text-right  border-dark border-top">
             @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
         </div>
 

@@ -15,7 +15,7 @@
 <div class="">
     <div class="mh-50"></div>
     <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
-        <div class="col-3 lh-1 font-weight-600 text-fs-24 text-danger">
+        <div class="w-3/12 lh-1 font-weight-600 text-fs-24 text-danger">
             Engineering
             Craft
         </div>
@@ -35,7 +35,7 @@
             </div>
 
         </div>
-        <div class="col-3 p-0 text-right">
+        <div class="w-3/12 p-0 text-right">
             <div>
                 <b>ใบเสร็จรับเงิน</b>
             </div>
@@ -113,7 +113,7 @@
             <div class="col-2">
                 ใบแจ้งหนี้
             </div>
-            <div class="col-2 ">
+            <div class="w-2/12 ">
                 วันที่ในใบแจ้งหนี้
             </div>
             <div class="col">
@@ -121,7 +121,7 @@
             </div>
             <div class="col">
             </div>
-            <div class="col-2  p-0 text-right">
+            <div class="w-2/12  p-0 text-right">
                 จำนวนเงิน
             </div>
         </div>
@@ -131,7 +131,7 @@
             <div class="col-2">
                 @Model.Sale.Name
             </div>
-            <div class="col-2 ">
+            <div class="w-2/12 ">
                 @Model.Sale.Date.ToShortDateString()
             </div>
             <div class="col">
@@ -139,7 +139,7 @@
             </div>
             <div class="col">
             </div>
-            <div class="col-2  p-0 text-right">
+            <div class="w-2/12  p-0 text-right">
                 @Model.Amount.ToString("N2")
             </div>
         </div>
@@ -148,10 +148,10 @@
         <div class="row border-top">
             <div class="col">
             </div>
-            <div class="col-3 text-right">
+            <div class="w-3/12 text-right">
                 ยอดรวม
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @Model.Amount.ToString("N2")
             </div>
         </div>
@@ -161,10 +161,10 @@
         <div class="row ">
             <div class="col">
             </div>
-            <div class="col-3 text-right">
+            <div class="w-3/12 text-right">
                 ส่วนลด
             </div>
-            <div class="col-2 p-0 text-right ">
+            <div class="w-2/12 p-0 text-right ">
                 @Model.AmountDiscount.ToString("N2")
             </div>
         </div>
@@ -173,10 +173,10 @@
         <div class="row ">
             <div class="col">
             </div>
-            <div class="col-3 text-right">
+            <div class="w-3/12 text-right">
                 ยอดรวมหลังส่วนลด
             </div>
-            <div class="col-2 p-0 text-right">
+            <div class="w-2/12 p-0 text-right">
                 @Model.AmountTotalReceive.ToString("N2")
             </div>
         </div>

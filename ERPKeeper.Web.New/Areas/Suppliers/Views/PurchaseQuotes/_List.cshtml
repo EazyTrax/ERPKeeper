@@ -13,6 +13,7 @@
             .Editing(editing => editing.Mode(GridEditMode.Row).UseIcons(true))
 
             .RowAlternationEnabled(true)
+            .WordWrapEnabled(true)
             .KeyExpr("Id")
             .ShowRowLines(false)
             .ShowBorders(false)
@@ -38,7 +39,7 @@
 
                 columns.AddFor(m => m.Name)
             .Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/">N:<%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.SupplierId)

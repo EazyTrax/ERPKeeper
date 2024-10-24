@@ -35,7 +35,7 @@
 
 
                 columns.AddFor(m => m.Transaction.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/">N:<%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Transaction.Reference)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);

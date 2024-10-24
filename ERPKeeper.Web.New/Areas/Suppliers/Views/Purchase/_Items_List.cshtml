@@ -11,6 +11,7 @@
     .Paging(paging => paging.PageSize(100))
     .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
     .Width("100%")
+    .WordWrapEnabled(true)
     .ColumnAutoWidth(false)
     .DataSource(d =>
     d.RemoteController()
