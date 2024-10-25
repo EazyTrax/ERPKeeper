@@ -13,6 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
     {
         public IActionResult Index()
         {
+            Organization.SupplierPayments.CreateTransactions();
             return View();
         }
 

@@ -7,7 +7,7 @@
                     <a href="@url">
                         @if (level > 0)
                         {
-                            
+
                         }
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
@@ -20,12 +20,12 @@
     }
 }
 
-<div class="lh-120 bg-fb1 font-semibold p-2 rounded border">
+<div class="lh-120 bg-fb1 font-semibold p-1 rounded border">
     @{
         MenuTemplate(0, "Home", $"/{CompanyId}");
     }
 </div>
-<div class="lh-120 bg-fb1 p-2 rounded border">
+<div class="lh-120 bg-fb1 p-1 rounded border">
     @{
         MenuTemplate(0, "Customers", $"/{CompanyId}/Customers", Organization.Customers.Count());
         MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers", Organization.Suppliers.Count());
@@ -34,12 +34,13 @@
         MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles", Organization.Profiles.Count());
     }
 </div>
-
-<div class="lh-120 bg-fb1 p-2 rounded border">
-   @{ MenuTemplate(0, "Products", $"/{CompanyId}/Products", Organization.Items.Count()); }
+<div class="lh-120 bg-fb1 p-1 rounded border">
+    @{
+        MenuTemplate(0, "Products", $"/{CompanyId}/Products", Organization.Items.Count());
+    }
 </div>
 
-<div class="lh-120 bg-fb1 p-2 rounded border">
+<div class="lh-120 bg-fb1 p-1 rounded border">
     @{
         MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
         MenuTemplate(0, "Financial", $"/{CompanyId}/Financial");

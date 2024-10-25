@@ -49,6 +49,11 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Items()
         {
             var transcation = Organization.Sales.Find(Id);
+
+
+            transcation.Reorder();
+            Organization.SaveChanges();
+
             return View(transcation);
         }
         public IActionResult Items_Add()

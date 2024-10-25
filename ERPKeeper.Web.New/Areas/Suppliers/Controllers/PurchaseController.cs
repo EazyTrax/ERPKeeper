@@ -33,6 +33,8 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
         public IActionResult Items()
         {
             var transcation = Organization.Purchases.Find(Id);
+            transcation.Reorder();
+            Organization.SaveChanges();
             return View(transcation);
         }
 

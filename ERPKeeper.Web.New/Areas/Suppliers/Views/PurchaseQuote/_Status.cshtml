@@ -11,7 +11,7 @@
 <div class="bg-fb1 p-2 mb-2 ">
     <div class="font-weight-600">
         <span class="text-fs-1e">
-            @if (Model.Status ==  ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Issue)
+            @if (Model.Status != ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Close)
             {
                 <a href="/@CompanyId/Suppliers/Estimates/@Model.Id/Void">Void</a>
             }

@@ -7,11 +7,11 @@
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/All")
+            .InsertUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Insert")
             .UpdateUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Update")
             .UpdateMethod("Post")
             )
-            .Editing(editing => editing.Mode(GridEditMode.Row).UseIcons(true))
-
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
             .RowAlternationEnabled(true)
             .WordWrapEnabled(true)
             .KeyExpr("Id")
@@ -38,8 +38,8 @@
             );
 
                 columns.AddFor(m => m.Name)
-            .Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
+                    .Width(150)
+                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);
 
 
                 columns.AddFor(m => m.SupplierId)

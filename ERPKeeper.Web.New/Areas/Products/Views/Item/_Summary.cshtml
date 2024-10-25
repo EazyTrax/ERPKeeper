@@ -9,20 +9,20 @@
     <div class="col-6 mb-2 font-semibold">
         General
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
     </div>
 
-    <div class="col-6">
+    <div class="w-6/12">
         Sell Price
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         @Model.SalePrice.ToString("N0")
     </div>
 
-    <div class="col-6">
+    <div class="w-6/12">
         Purchase Price
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         @Model.PurchasePrice.ToString("N0")
     </div>
 </div>
@@ -31,39 +31,39 @@
     <div class="col-6 mb-2 font-semibold">
         Stock
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         <a href="/@CompanyId/Products/Items/@Model.Id/Refresh/Stock"></a>
         <span class="material-icons-outlined">
             refresh
         </span>
     </div>
 
-    <div class="col-6">
+    <div class="w-6/12">
         Purchase
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         @Model.AmountPurchase.ToString("N0")
     </div>
 
-    <div class="col-6">
+    <div class="w-6/12">
         Sold
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         @Model.AmountSold.ToString("N0")
     </div>
 
-    <div class="col-6">
+    <div class="w-6/12">
         Adjust
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         @Model.StockAmount.ToString("N0")
     </div>
 
 
-    <div class="col-6">
+    <div class="w-6/12">
         Stock
     </div>
-    <div class="col-6">
+    <div class="w-6/12">
         @Model.AmountOnHand.ToString("N0")
     </div>
 </div>

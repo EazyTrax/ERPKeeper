@@ -39,11 +39,18 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.EmployeePaymentTypes.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            var model = Organization.ErpCOREDBContext.EmployeePaymentTypes
+                .First(a => a.Id == key);
+
+            var value = JsonConvert.DeserializeObject<Enterprise.Models.Employees.EmployeePaymentType>(values);
+            model.Name = value.Name;
+            model.Description = value.Description;
+            model.ExpenseAccountId = value.ExpenseAccountId;
+
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
+
 
         [HttpPost]
         public void Delete(Guid key)

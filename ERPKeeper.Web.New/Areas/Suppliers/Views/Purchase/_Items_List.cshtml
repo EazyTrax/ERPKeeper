@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
-<div>
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Items/Avaliable">Add Item</a>
+<div class="p-2 text-right">
+    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus"></i> Item</a>
 </div>
 
 
@@ -27,19 +27,19 @@
     .DeleteUrl($"/API/{CompanyId}/Suppliers/Purchases/{Model.Id}/Items/Delete")
     .DeleteMethod("Post")
     )
+    .Editing(editing => editing.AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
     .KeyExpr("Id")
     .WordWrapEnabled(true)
             .ColumnChooser(c => c.Enabled(true))
     .Columns(columns => {
 
-    columns.AddFor(m=>m.ItemId).Width(150)
-    .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= displayValue %></a></text>)
-    .Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Id, t.PartNumber }).ToList())
-    .DisplayExpr("PartNumber")
-    .ValueExpr("Id")
-    );
+                columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
+
+
+                columns.AddFor(m => m.PartNumber).Width(150)
+            .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>)
+        .FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
 
    
 

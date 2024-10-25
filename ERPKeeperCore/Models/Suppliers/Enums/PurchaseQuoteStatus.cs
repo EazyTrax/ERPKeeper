@@ -3,7 +3,9 @@
     public enum PurchaseQuoteStatus
     {
         Draft = 0,
-        Issue = 1,
-        Order=2
+        Quote = 1,
+        Order = 2,
+        Close = 3,
+        Void = 99,
     }
 }

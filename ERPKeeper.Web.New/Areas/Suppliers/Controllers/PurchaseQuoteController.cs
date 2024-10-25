@@ -25,6 +25,8 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
         public IActionResult Items()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);
+            transcation.Reorder();
+            Organization.SaveChanges();
             return View(transcation);
         }
 
@@ -42,7 +44,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             transcation.AddItem(item);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Items");
+            return Redirect($"/{CompanyId}/Suppliers/PurchaseQuotes/{Id}/Items");
         }
 
         public IActionResult Update(PurchaseQuote model)

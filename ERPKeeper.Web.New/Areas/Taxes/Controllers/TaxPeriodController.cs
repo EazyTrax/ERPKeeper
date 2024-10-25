@@ -37,6 +37,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
                 .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
                .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
                .ToList();
+
             Console.WriteLine("assignAblePurchases.Count: " + assignAblePurchases.Count);
             assignAblePurchases.ForEach(x => x.TaxPeriodId = TaxPeriodId);
 

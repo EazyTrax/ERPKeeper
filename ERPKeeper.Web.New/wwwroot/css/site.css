@@ -92,6 +92,12 @@ a:focus {
   text-decoration: none !important;
   color: black;
 }
+.text-true {
+  color: blue;
+}
+.text-false {
+  color: red;
+}
 @media print {
   .page-break {
     page-break-before: always;

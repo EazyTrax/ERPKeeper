@@ -1,10 +1,11 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
 
 @{
-    Layout = "_Layout_Empty";
+    Layout = "_Layout_Export";
     var selfOrganization = Organization.Profiles.GetSelf();
-
 }
+
+
 <style>
     @@media print {
         .page-break {
@@ -13,10 +14,10 @@
     }
 </style>
 
-<div class="">
+<div class="page-break">
     <div class="mh-50"></div>
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
-        <div class="col-12 p-0 text-center">
+        <div class="w-full p-0 text-center">
             <div>
                 รายงานภาษีซื้อ
             </div>
@@ -29,41 +30,40 @@
             <div>
                 @Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()
             </div>
-
         </div>
     </div>
 
     @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
     {
-        <div class="flex border-bottom">
-            <div class="col-1 p-0">
+        <div class="flex frex-wrap border-bottom">
+            <div class="w-28">
                 @item.Date.ToShortDateString()
             </div>
-            <div class="w-2/12">
+            <div class="w-28">
                 @item.Name
             </div>
-            <div class="col p-0">
+            <div class="w-64 mr-3">
                 @item.Supplier.Profile.Name
             </div>
-            <div class="w-2/12 p-0">
+            <div class="w-28 ">
                 @item.Supplier.Profile.TaxNumber
             </div>
-            <div class="col-1 p-0 text-right">
+            <div class="w-28 p-0 text-right">
                 @item.LinesTotalAfterDiscount.ToString("N2")
             </div>
-            <div class="col-1 p-0 text-right">
+            <div class="w-28 p-0 text-right">
                 @item.Tax.ToString("N2")
             </div>
         </div>
     }
 
     <div class="flex border-bottom font-semibold">
-        <div class="col p-0">
+        <div class="grow">
         </div>
-        <div class="col-1 p-0 text-right">
+        <div class="w-28 p-0 text-right">
             @Model.Purchases.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
         </div>
-        <div class="col-1 p-0 text-right">
+        <div class="w-28 p-0 text-right">
             @Model.Purchases.Sum(m => m.Tax).ToString("N2")
         </div>
     </div>
@@ -71,7 +71,7 @@
 
 
 
-<div class="">
+<div class="page-break">
     <div class="mh-50"></div>
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="col-12 p-0 text-center">
@@ -94,34 +94,34 @@
     @foreach (var item in Model.Sales.OrderBy(m => m.Date).ToList())
     {
         <div class="flex border-bottom">
-            <div class="col-1 p-0">
+            <div class="w-28">
                 @item.Date.ToShortDateString()
             </div>
-            <div class="w-2/12">
+            <div class="w-28">
                 @item.Name
             </div>
-            <div class="col p-0">
+            <div class="w-64 mr-3">
                 @item.Customer.Profile.Name
             </div>
-            <div class="w-2/12 p-0">
+            <div class="w-28 p-0">
                 @item.Customer.Profile.TaxNumber
             </div>
-            <div class="col-1 p-0 text-right">
+            <div class="w-28 p-0 text-right">
                 @item.LinesTotalAfterDiscount.ToString("N2")
             </div>
-            <div class="col-1 p-0 text-right">
+            <div class="w-28 p-0 text-right">
                 @item.Tax.ToString("N2")
             </div>
         </div>
     }
 
     <div class="flex border-bottom font-semibold">
-        <div class="col p-0">
+        <div class="grow">
         </div>
-        <div class="col-1 p-0 text-right">
+        <div class="w-28 p-0 text-right">
             @Model.Sales.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
         </div>
-        <div class="col-1 p-0 text-right">
+        <div class="w-28 p-0 text-right">
             @Model.Sales.Sum(m => m.Tax).ToString("N2")
         </div>
     </div>

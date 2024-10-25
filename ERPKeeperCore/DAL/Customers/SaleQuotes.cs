@@ -31,7 +31,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         public SaleQuote CreateDraft(SaleQuote model, Guid customerId)
         {
-
             var currentYear = model.Date.Year;
             var currentMonth = model.Date.Month;
 
@@ -39,7 +38,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
 
-            model.Status = SaleQuoteStatus.Draft;
+            model.Status = SaleQuoteStatus.Quote;
             model.CustomerId = customerId;
             model.No = maxNo + 1;
             model.UpdateBalance();

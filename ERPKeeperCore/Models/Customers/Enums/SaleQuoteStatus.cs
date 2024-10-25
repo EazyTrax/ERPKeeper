@@ -3,8 +3,9 @@
     public enum SaleQuoteStatus
     {
         Draft = 0,
-        Issue = 1,
+        Quote = 1,
         Order = 2,
-        Void = 1,
+        Invoice = 3,
+        Void = 99,
     }
 }

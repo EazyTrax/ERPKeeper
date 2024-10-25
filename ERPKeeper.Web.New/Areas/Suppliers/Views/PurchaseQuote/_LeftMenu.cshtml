@@ -1,4 +1,12 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+﻿
+
+
+
+
+
+
+
+@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
 
 @{
@@ -25,19 +33,19 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers/SaleQuotes">SaleQuotes:</a><br />
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">@Model.Name .</a>
+    <a href="/@CompanyId/Suppliers/PurchaseQuotes">PurchaseQuotes</a><br />
+    <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id">@Model.Name</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}");
-        MenuTemplate(0, "Items", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items", Model.Items.Count());
-     }
+        MenuTemplate(0, "Detail", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}");
+        MenuTemplate(0, "Items", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items", Model.Items.Count());
+    }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Export");
+        MenuTemplate(0, "Export", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Export");
     }
 </div>

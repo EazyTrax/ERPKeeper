@@ -1,4 +1,5 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
 @{
     string transactionType = "Sales";
     string profileType = "Customers";
@@ -88,11 +89,7 @@
 
 
                 columns.AddFor(m => m.ItemGroupId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/">Add</a></text>)
-        .HeaderCellTemplate(@<text> </text>);
-
-                columns.AddFor(m => m.ItemGroupId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/{profileType}/{transactionType}/@Model.Id/Items/Add?ItemId=<%= data.Id %>/">Add</a></text>)
+            .CellTemplate(@<text><a href="/@CompanyId/@profileType/@transactionType/@Model.Id/Items/Add?ItemId=<%= data.Id %>">Add</a></text>)
         .HeaderCellTemplate(@<text> </text>);
 
             })

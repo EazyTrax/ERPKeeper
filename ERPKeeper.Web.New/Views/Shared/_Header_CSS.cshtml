@@ -45,9 +45,8 @@
     <script src="https://kit.fontawesome.com/fc6c9ab1e2.js" crossorigin="anonymous"></script>
 *@
 
+
 <script src="/js/jquery.timeago.js" type="text/javascript"></script>
-
-
 
 
 <script>
@@ -62,36 +61,25 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        // Find all elements with a "tooltip" attribute
+        $('a[tooltip]').each(function () {
+            // Set the "title" attribute to the value of the "tooltip" attribute
+            $(this).attr('title', $(this).attr('tooltip'));
+            // Add the "data-toggle" attribute for Bootstrap's tooltip
+            $(this).attr('data-toggle', 'tooltip');
+        });
 
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
-<style>
-    .col-15p {
-        flex: 0 0 auto;
-        width: 15%;
-    }
-
-    .col-20p {
-        flex: 0 0 auto;
-        width: 20%;
-    }
-
-    .col-25p {
-        flex: 0 0 auto;
-        width: 25%;
-    }
-
-    .col-75p {
-        flex: 0 0 auto;
-        width: 75%;
-    }
-
-    .col-80p {
-        flex: 0 0 auto;
-        width: 80%;
-    }
-
-    .col-85p {
-        flex: 0 0 auto;
-        width: 85%;
-    }
-</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>

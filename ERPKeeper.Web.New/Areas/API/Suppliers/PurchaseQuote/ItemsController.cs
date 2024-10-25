@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
 {
-    [Route("/API/{CompanyId}/Customers/PurchaseQuotes/{Id:Guid}/{controller}/{action=Index}")]
+    [Route("/API/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/{controller}/{action=Index}")]
 
     public class ItemsController : API_Suppliers_PurchaseQuote_BaseController
     {
@@ -33,7 +33,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
 
             var purchaseQuote = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == Id);
 
-            if (purchaseQuote.Status != Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Draft)
+            if (purchaseQuote.Status != Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Quote)
             {
                 var item = Organization.ErpCOREDBContext.Items.First(a => a.Id == model.ItemId);
 

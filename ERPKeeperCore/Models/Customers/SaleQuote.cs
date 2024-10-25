@@ -76,6 +76,17 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Items.Add(saleQuoteItem);
         }
 
+        public void Reorder()
+        {
+            int index = 1;
+            this.Items = this.Items.OrderBy(i => i.Order).ToList();
+
+            foreach (var item in Items)
+            {
+                item.Order = index++;
+            }
+        }
+
         public void UpdateBalance()
         {
 

@@ -13,6 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
     {
         public IActionResult Index()
         {
+            Organization.TaxPeriods.CreateTransactions();
             return View();
         }
 

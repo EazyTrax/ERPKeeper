@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
-<div>
-    <a href="/@CompanyId/Customers/Sales/@Model.Id/Items/Avaliable">Add Item</a>
+<div class="p-2 text-right">
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus"></i> Item</a>
 </div>
 
 
@@ -27,6 +27,7 @@
             .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Delete")
             .DeleteMethod("Post")
             )
+            .Editing(editing => editing.AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
             .KeyExpr("Id")
             .WordWrapEnabled(true)

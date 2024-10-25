@@ -16,6 +16,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Index()
         {
+
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
             return View(receivePayment);
         }
