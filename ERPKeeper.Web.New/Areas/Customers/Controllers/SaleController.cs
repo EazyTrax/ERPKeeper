@@ -22,8 +22,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             if (sale == null)
                 return NotFound();
 
-
-
             return View(sale);
         }
 
@@ -49,9 +47,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Items()
         {
             var transcation = Organization.Sales.Find(Id);
+            transcation.UpdateItems();
 
-
-            transcation.Reorder();
             Organization.SaveChanges();
 
             return View(transcation);

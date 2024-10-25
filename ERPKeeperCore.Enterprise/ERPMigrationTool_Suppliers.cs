@@ -48,7 +48,7 @@ namespace ERPKeeperCore.CMD
                     exist = new ERPKeeperCore.Enterprise.Models.Suppliers.Supplier()
                     {
                         Id = a.ProfileUid,
-                        Status = (Enterprise.Models.Suppliers.Enums.SupplierStatus)a.Status,
+                     
                     };
 
                     newOrganization.ErpCOREDBContext.Suppliers.Add(exist);
@@ -103,7 +103,7 @@ namespace ERPKeeperCore.CMD
                             supplier = new ERPKeeperCore.Enterprise.Models.Suppliers.Supplier()
                             {
                                 Id = profile.Id,
-                                Status = Enterprise.Models.Suppliers.Enums.SupplierStatus.Active,
+                                Status =  Enterprise.Models.ProfileStatus.Active,
                             };
                             newOrganization.ErpCOREDBContext.Suppliers.Add(supplier);
                             newOrganization.ErpCOREDBContext.SaveChanges();

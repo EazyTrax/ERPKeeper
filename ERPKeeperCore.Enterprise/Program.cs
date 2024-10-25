@@ -36,7 +36,7 @@ namespace ERPKeeperCore.CMD
                     (new ERPMigrationTool(enterpriseDB)).Migrate();
 
 
-                if (false)
+                if (true)
                     GeneralOperations(newOrganization, oldOrganization);
 
                 if (false && newOrganization != null)
@@ -52,8 +52,24 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                // newOrganization.ErpCOREDBContext.SaleQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
+                newOrganization.ErpCOREDBContext.Purchases.Where(p=>p.ExpenseAccount==null).ToList()
+                    .ForEach(x => x.UnPostLedger());
+                newOrganization.SaveChanges();
+
+                var purchases = newOrganization.ErpCOREDBContext.Purchases
+                    .Where(p => p.ExpenseAccount == null)
+                    .ToList();
+
+                //int i = purchases.Count();
+                //purchases.ForEach(x =>
+                //    {
+                //        x.Post_Ledgers(i--);
+                //    });
+
+
                 // newOrganization.ErpCOREDBContext.PurchaseQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
+
+
                 newOrganization.SaveChanges();
             }
         }

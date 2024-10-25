@@ -186,5 +186,20 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 this.ExpenseAccountId = this.ExpenseAccount?.Id;
             }
         }
+
+        public void UpdateItems()
+        {
+            var removeItems = this.Items
+                 .Where(i => i.Quantity == 0)
+                 .ToList();
+
+            foreach (var item in removeItems)
+            {
+                this.Items.Remove(item);
+            }
+
+            this.Reorder();
+            this.UpdateBalance();
+        }
     }
 }

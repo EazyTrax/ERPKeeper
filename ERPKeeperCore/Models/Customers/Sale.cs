@@ -206,5 +206,19 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Items.Add(saleItem);
         }
 
+        public void UpdateItems()
+        {
+           var removeItems = this.Items
+                .Where(i => i.Quantity == 0)
+                .ToList();
+
+            foreach (var item in removeItems)
+            {
+                this.Items.Remove(item);
+            }
+
+            this.Reorder();
+            this.UpdateBalance();
+        }
     }
 }

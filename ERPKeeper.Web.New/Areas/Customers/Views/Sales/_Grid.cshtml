@@ -63,15 +63,8 @@
                 columns.AddFor(m => m.Reference)
             .Width(180);
 
-                columns.AddFor(m => m.LinesTotalAfterDiscount)
-            .AllowEditing(false)
-            .Width(130)
-            .Format("#,##0.00");
-
-                columns.AddFor(m => m.Total)
-            .AllowEditing(false)
-            .Width(130)
-            .Format("#,##0.00");
+                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
+                columns.Add().DataField("Tax").Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId).Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))

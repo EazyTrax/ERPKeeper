@@ -49,7 +49,6 @@ namespace ERPKeeperCore.CMD
                     exist = new ERPKeeperCore.Enterprise.Models.Customers.Customer()
                     {
                         Id = a.ProfileUid,
-                        Status = (CustomerStatus)a.Status,
                     };
                     newOrganization.ErpCOREDBContext.Customers.Add(exist);
                 }

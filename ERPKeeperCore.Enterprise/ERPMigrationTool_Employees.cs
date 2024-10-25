@@ -126,7 +126,6 @@ namespace ERPKeeperCore.CMD
                     {
                         Id = a.ProfileUid,
                         EmployeePositionId = a.PositionGuid,
-                        Status = (Enterprise.Models.Employees.Enums.EmployeeStatus)a.Status,
                     };
                     newOrganization.ErpCOREDBContext.Employees.Add(exist);
                 }
