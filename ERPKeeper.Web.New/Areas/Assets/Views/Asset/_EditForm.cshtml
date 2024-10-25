@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Assets.Asset
 
 <form id="EditForm" action="/@CompanyId/Assets/Assets/@Model.Id/Update" method="post">
-    <div class="row p-1 border">
+    <div class="flex p-1 border">
         <div class="col-6 p-1">
             <div class="mb-3 font-weight-600">General</div>
             <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("Name")</div>
@@ -19,7 +19,7 @@
                     .ShowClearButton(true)
                     )
             </div>
-            <div class="row mb-2">
+            <div class="flex mb-2">
                 <div class="col-12 p-0 mb-3 font-weight-600">Dates</div>
                 <div class="col-6 pl-0 mb-2">@Html.DevExtreme().DateBoxFor(m=>m.StartDeprecationDate).Label("CreatedDate")</div>
                 <div class="col-6 pr-0 mb-2">@Html.DevExtreme().DateBoxFor(m=>m.EndDeprecationDate).Disabled(true).Label("DueDate")</div>

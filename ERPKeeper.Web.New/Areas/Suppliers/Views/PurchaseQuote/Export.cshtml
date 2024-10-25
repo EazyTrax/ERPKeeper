@@ -15,7 +15,7 @@
 
 <div class="">
     <div class="mh-50"></div>
-    <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
+    <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="w-3/12 lh-1 font-weight-600 text-fs-24 text-danger">
             Engineering
             Craft
@@ -30,7 +30,7 @@
                 @selfOrganization.Addresses.First().AddressLine
             </div>
         </div>
-        <div class="col-4 p-0 text-right">
+        <div class="w-4/12 p-0 text-right">
             <div>
                 <b>ใบเสนอราคา</b>
             </div>
@@ -45,7 +45,7 @@
         var SupplierAddress = Model.Supplier.Profile.Addresses.FirstOrDefault();
     }
 
-    <div class="row mt-4  mb-3" id="BuyerDetail">
+    <div class="flex mt-4  mb-3" id="BuyerDetail">
         <div class="col">
             <div class="font-weight-600">
                 ผู้ซื้อ
@@ -69,30 +69,30 @@
             </div>
         </div>
         <div class="col-1"></div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
 
-            <div class="row mb-4">
-                <div class="col-4 p-0">
+            <div class="flex mb-4">
+                <div class="w-4/12 p-0">
                     เลขที่
                 </div>
                 <div class="col-8 p-0 text-right">
                     @Model.Name
                 </div>
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     วันที่
                 </div>
                 <div class="col-8 p-0 text-right">
                     @Model.Date.ToShortDateString()
                 </div>
 
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     อ้างอิง
                 </div>
                 <div class="col-8 p-0 text-right">
                     @Model.Reference
                 </div>
 
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     กำหนดชำระ
                 </div>
                 <div class="col-8 p-0 text-right">
@@ -109,7 +109,7 @@
     <div id="Items">
 
 
-        <div class="row  font-weight-600">
+        <div class="flex  font-weight-600">
             <div class="col p-0">
                 รายการ
             </div>
@@ -126,7 +126,7 @@
 
         @foreach (var item in Model.Items.ToList())
         {
-            <div class="row  p-0 border-top">
+            <div class="flex  p-0 border-top">
                 <div class="col  p-0">
                     <div class="font-weight-600">
                         @item.PartNumber
@@ -146,7 +146,7 @@
             </div>
         }
 
-        <div class="row border-top">
+        <div class="flex border-top">
             <div class="col">
             </div>
             <div class="w-3/12  p-0 text-right">
@@ -159,7 +159,7 @@
 
 
 
-        <div class="row border-top">
+        <div class="flex border-top">
             <div class="col">
             </div>
             <div class="w-3/12  p-0 text-right">
@@ -171,7 +171,7 @@
         </div>
 
 
-        <div class="row border-top">
+        <div class="flex border-top">
             <div class="col">
             </div>
             <div class="w-3/12  p-0 text-right">
@@ -183,7 +183,7 @@
         </div>
 
 
-        <div class="row border-top">
+        <div class="flex border-top">
             <div class="col">
             </div>
             <div class="w-3/12  p-0 text-right">
@@ -194,7 +194,7 @@
             </div>
         </div>
 
-        <div class="row border-top">
+        <div class="flex border-top">
             <div class="col">
             </div>
             <div class="w-3/12 text-right">
@@ -208,13 +208,13 @@
 
 
 
-        <div class="row border-top border-bottom">
+        <div class="flex border-top border-bottom">
 
             <div class="col  p-0 text-right p-0">
                 ( @ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total) )
             </div>
         </div>
-        <div class="row ">
+        <div class="flex ">
             <div class="col p-0">
                 Issuer: @User.Identity.Name
             </div>

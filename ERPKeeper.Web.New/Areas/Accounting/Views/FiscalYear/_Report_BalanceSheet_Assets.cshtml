@@ -62,9 +62,9 @@
         <div class="w-3/12 font-weight-600 text-center">
             หน่วย:บาท
         </div>
-        <div class="col-4 p-0  font-weight-600 ">
+        <div class="w-4/12 p-0  font-weight-600 ">
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
         <div class="w-2/12 p-0 text-right border-dark border-top border-bottom">
             @(Model.EndDate.Year + 543)
@@ -82,12 +82,12 @@
         </div>
     </div>
     <div class="flex">
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
             <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
                 เงินสดและรายการเทียบเท่าเงินสด
             </a>
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
 
         <div class="w-2/12 p-0 text-right">
@@ -98,12 +98,12 @@
         </div>
     </div>
     <div class="flex">
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
             <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
                 ลูกหนี้การค้าและลูกหนี้อื่นๆ
             </a>
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
 
         <div class="w-2/12 p-0 text-right">
@@ -114,12 +114,12 @@
         </div>
     </div>
     <div class="flex">
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
             <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
                 สินค้าคงเหลือ
             </a>
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
 
         <div class="w-2/12 p-0 text-right">
@@ -130,12 +130,12 @@
         </div>
     </div>
     <div class="flex">
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
             <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
                 สินทรัพย์หมุนเวียนอื่น
             </a>
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
 
         <div class="w-2/12 p-0 text-right">
@@ -162,7 +162,7 @@
 
 
 
-    <div class="row mt-2">
+    <div class="flex mt-2">
         @{
             var nonCurrentAssetsBalance = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
@@ -194,12 +194,12 @@
 
             foreach (var line in nonCurrentAssetsBalance)
             {
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
                         @line.Account.Name
                     </a>
                 </div>
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
             
                 </div>
 
@@ -211,12 +211,12 @@
                 </div>
             }
 
-            <div class="col-4 p-0">
+            <div class="w-4/12 p-0">
                 <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
                     ที่ดิน และอุปกรณ์
                 </a>
             </div>
-            <div class="col-4 p-0">
+            <div class="w-4/12 p-0">
             </div>
 
             <div class="w-2/12 p-0 text-right">
@@ -242,16 +242,16 @@
             </div>
         }
     </div>
-    <div class="row mt-2 mb-4">
+    <div class="flex mt-2 mb-4">
         @{
             cashAndBankBalance = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Asset)
             .ToList();
         }
-        <div class="col-4 p-0 font-weight-600 ">
+        <div class="w-4/12 p-0 font-weight-600 ">
             รวมสินทรัพย์
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
         <div class="w-2/12 p-0 text-right  ">
             @(cashAndBankBalance.Sum(line => line.ClosedDebit - line.ClosedCredit).ToString("N2"))

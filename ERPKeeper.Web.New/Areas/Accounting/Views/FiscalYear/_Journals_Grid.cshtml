@@ -11,7 +11,7 @@
         .ShowColumnLines(true)
         .ShowBorders(false)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-        .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+        .FilterRow(filterflex => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
         .Paging(pagging => pagging.PageSize(100))
         @*  .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))*@

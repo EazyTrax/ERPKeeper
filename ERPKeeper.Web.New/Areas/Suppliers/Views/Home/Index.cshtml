@@ -8,7 +8,7 @@
         <div class="border">
             @foreach (var supplier in Organization.ErpCOREDBContext.Suppliers.OrderByDescending(c => c.TotalPurchases).Take(20).ToList())
             {
-                <div class="row border-bottom">
+                <div class="flex border-bottom">
                     <div class="col-9">
                         <a href="/@CompanyId/Customers/Customers/@supplier.Id">
                             @supplier.Profile.Name

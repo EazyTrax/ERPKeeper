@@ -17,16 +17,16 @@
     <div class="font-weight-600 text-center">
         หนี้สิน
     </div>
-    <div class="row mt-4">
+    <div class="flex mt-4">
         <div class="col-9">
         </div>
         <div class="w-3/12 font-weight-600 text-center">
             หน่วย:บาท
         </div>
-        <div class="col-4 p-0  font-weight-600 ">
+        <div class="w-4/12 p-0  font-weight-600 ">
          
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
 
         <div class="w-2/12 p-0 text-right border-dark border-top">
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="flex mb-3">
         @{
             var lines = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == AccountTypes.Liability)
@@ -51,12 +51,12 @@
             </div>
             foreach (var line in lines)
             {
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
                         @line.Account.Name
                     </a>
                 </div>
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
 
                 </div>
 
@@ -68,9 +68,9 @@
                 </div>
             }
 
-            <div class="col-4 p-0">
+            <div class="w-4/12 p-0">
             </div>
-            <div class="col-4 p-0">
+            <div class="w-4/12 p-0">
             </div>
 
             <div class="w-2/12 p-0 text-right border-dark border-top">
@@ -82,7 +82,7 @@
         }
     </div>
 
-    <div class="row mb-3">
+    <div class="flex mb-3">
         @{
             lines = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == AccountTypes.Liability)
@@ -97,12 +97,12 @@
             </div>
             foreach (var line in lines)
             {
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
                         @line.Account.Name
                     </a>
                 </div>
-                <div class="col-4 p-0">
+                <div class="w-4/12 p-0">
                     @line.Account.SubType.ToString()
                 </div>
 
@@ -114,9 +114,9 @@
                 </div>
             }
 
-            <div class="col-4 p-0">
+            <div class="w-4/12 p-0">
             </div>
-            <div class="col-4 p-0">
+            <div class="w-4/12 p-0">
             </div>
 
             <div class="w-2/12 p-0 text-right border-dark border-top">
@@ -128,17 +128,17 @@
         }
     </div>
 
-    <div class="row mb-3">
+    <div class="flex mb-3">
         @{
             lines = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == AccountTypes.Liability)
             .ToList();
 
         }
-        <div class="col-4 p-0 font-weight-600 ">
+        <div class="w-4/12 p-0 font-weight-600 ">
             รวมหนี้สิน
         </div>
-        <div class="col-4 p-0">
+        <div class="w-4/12 p-0">
         </div>
 
         <div class="w-2/12 p-0 text-right border-dark border-top">

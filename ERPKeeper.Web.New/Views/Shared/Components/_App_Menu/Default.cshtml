@@ -8,7 +8,7 @@
     void Template(string display, string controller, string area, int? count = null)
     {
 
-        <div class="row e  @(checkCurrentController(controller) ? "font-weight-600" : "")">
+        <div class="flex e  @(checkCurrentController(controller) ? "font-weight-600" : "")">
             <div class="col p-0">
                 <a href="/@area/@controller">
                     @SharedLocalizer.GetLocalizedHtmlString(display)

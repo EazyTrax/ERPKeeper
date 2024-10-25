@@ -62,6 +62,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
             }
         }
 
+        public DbSet<Models.Info.Branch> Branches { get; set; }
         public DbSet<DataItem> DataItems { get; set; }
 
         public DbSet<CapitalActivity> CapitalActivities { get; set; }

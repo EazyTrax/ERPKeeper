@@ -15,7 +15,7 @@
 
 <div class="">
     <div class="mh-50"></div>
-    <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
+    <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="col-12 p-0 text-center">
             <div>
                 รายงานภาษีซื้อ
@@ -35,7 +35,7 @@
 
     @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
     {
-        <div class="row border-bottom">
+        <div class="flex border-bottom">
             <div class="col-1 p-0">
                 @item.Date.ToShortDateString()
             </div>
@@ -57,7 +57,7 @@
         </div>
     }
 
-    <div class="row border-bottom font-weight-600">
+    <div class="flex border-bottom font-weight-600">
         <div class="col p-0">
         </div>
         <div class="col-1 p-0 text-right">
@@ -73,7 +73,7 @@
 
 <div class="">
     <div class="mh-50"></div>
-    <div class="row mt-4 mb-3" id="SelfOrganizationDetail">
+    <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="col-12 p-0 text-center">
             <div>
                 รายงานภาษีขาย
@@ -93,7 +93,7 @@
 
     @foreach (var item in Model.Sales.OrderBy(m => m.Date).ToList())
     {
-        <div class="row border-bottom">
+        <div class="flex border-bottom">
             <div class="col-1 p-0">
                 @item.Date.ToShortDateString()
             </div>
@@ -115,7 +115,7 @@
         </div>
     }
 
-    <div class="row border-bottom font-weight-600">
+    <div class="flex border-bottom font-weight-600">
         <div class="col p-0">
         </div>
         <div class="col-1 p-0 text-right">

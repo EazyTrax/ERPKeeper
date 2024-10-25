@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Views
 {
-    public abstract class BasePage<TModel> : RazorPage<TModel>
+    public abstract class Enterprise_BasePage<TModel> : RazorPage<TModel>
     {
         public String ApiUrl = @"";
         public Guid AuthorizeUserId => Guid.Parse(this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
@@ -33,7 +33,7 @@ namespace ERPKeeperCore.Web.Views
         }
 
 
-        protected BasePage()
+        protected Enterprise_BasePage()
         {
 
         }

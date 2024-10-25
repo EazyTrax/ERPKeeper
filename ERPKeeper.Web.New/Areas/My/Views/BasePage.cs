@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.My.Views
 {
-    public abstract class BasePage<TModel> : ERPKeeperCore.Web.Views.BasePage<TModel>
+    public abstract class BasePage<TModel> : ERPKeeperCore.Web.Views.Enterprise_BasePage<TModel>
     {
 
 

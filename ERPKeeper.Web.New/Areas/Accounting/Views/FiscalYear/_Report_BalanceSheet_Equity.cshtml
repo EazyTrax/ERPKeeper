@@ -16,7 +16,7 @@
     <div class="font-weight-600 text-center">
         ส่วนของผู้ถือหุ้น
     </div>
-    <div class="row mt-4">
+    <div class="flex mt-4">
         <div class="col-9">
         </div>
         <div class="w-3/12 font-weight-600 text-center">
@@ -42,7 +42,7 @@
         .First();
     }
 
-    <div class="row mb-3">
+    <div class="flex mb-3">
 
 
         <div class="col-12  font-weight-600 ">
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <div class="row mt-2">
+    <div class="flex mt-2">
         @{
             var totalEquity = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == AccountTypes.Capital)
@@ -157,7 +157,7 @@
     </div>
 
 
-    <div class="row mt-2">
+    <div class="flex mt-2">
         @{
             var totalEquityandLiability = Model.FiscalYearAccountBalances
             .Where(m => m.Account.Type == AccountTypes.Capital

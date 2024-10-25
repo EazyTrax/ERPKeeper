@@ -9,7 +9,7 @@
 
     void Template(string display, string url, int? count = null)
     {
-        <div class="row e pl-0 @(checkCurrentController(url) ? "font-weight-600" : "")">
+        <div class="flex e pl-0 @(checkCurrentController(url) ? "font-weight-600" : "")">
             <div class="col p-0">
                 <a href="@url">
                     @SharedLocalizer.GetLocalizedHtmlString(display)

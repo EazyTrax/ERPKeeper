@@ -1,14 +1,14 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax
 
-<div class="row bg-gray-100 p-2 mb-2 rounded">
-    <div class="col-9 p-0 font-weight-600">
+<div class="flex bg-gray-100 p-2 mb-2 rounded">
+    <div class="w-9/12 p-0 font-weight-600">
         <a href="/@CompanyId/Taxes">Taxes</a>
         /
         <a href="/@CompanyId/Taxes/IncomeTaxs"> IncomeTaxs</a>
         /
         <a href="/@CompanyId/Taxes/IncomeTaxes/@Model.Id"> @Model.Name</a>
     </div>
-    <div class="col-4 p-0 text-right">
+    <div class="w-4/12 p-0 text-right">
         @if (Model.IsPosted)
         {
             <a href="/@CompanyId/Taxes/IncomeTaxes/@Model.Id/UnPost"> UnPost</a>

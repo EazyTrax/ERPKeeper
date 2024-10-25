@@ -3,22 +3,22 @@
 
 <div id="AdvanbrandLoginForm" class="p-2 bg-gray-100">
     <form id="LoginForm" method="post" asp-area="Authen" asp-controller="SignIn" asp-action="Authen">
-        <div class="row mb-2">
+        <div class="flex mb-2">
             <div class="col p-0 text-center">
-                <div class="row p-0 mb-3 font-weight-bold">
+                <div class="flex p-0 mb-3 font-weight-bold">
                     AVD Login
                 </div>
                 @Html.DevExtreme().TextBoxFor(m => m.Email)
             </div>
             <span asp-validation-for="Email"></span>
         </div>
-        <div class="row mt-2">
+        <div class="flex mt-2">
             <div class="col p-0 mb-2">
                 @Html.DevExtreme().TextBoxFor(m => m.Password).Mode(TextBoxMode.Password)
                 <span asp-validation-for="Password"></span>
             </div>
         </div>
-        <div class="row p-0 text-danger text-center">
+        <div class="flex p-0 text-danger text-center">
             @Model.ErrorMessage
         </div>
         <div class="p-0 text-right">
