@@ -1,42 +1,42 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
-<div class="flex flex bg-gray-100 mb-2 ">
+<div class="flex flex-wrap bg-gray-100 p-2 border mb-2">
 
-    <div class="col-4 font-semibold">
+    <div class="w-4/12 font-semibold">
         Status
     </div>
-    <div class="col-8 ">
+    <div class="w-8/12">
         @Model.Status
     </div>
 
 
 
-    <div class="col-4 font-semibold">
+    <div class="w-4/12 font-semibold">
         Lines
     </div>
-    <div class="col-8 ">
+    <div class="w-8/12">
         @Model.LinesTotal
     </div>
 
-    <div class="col-4 font-semibold">
+    <div class="w-4/12 font-semibold">
         Discount
     </div>
-    <div class="col-8 ">
+    <div class="w-8/12">
         @Model.Discount
     </div>
 
 
-    <div class="col-4 font-semibold">
+    <div class="w-4/12 font-semibold">
         Tax
     </div>
-    <div class="col-8 ">
+    <div class="w-8/12">
         @Model.Tax
     </div>
 
-    <div class="col-4 font-semibold">
+    <div class="w-4/12 font-semibold">
         Total
     </div>
-    <div class="col-8 ">
+    <div class="w-8/12">
         @Model.Total
     </div>
 </div>

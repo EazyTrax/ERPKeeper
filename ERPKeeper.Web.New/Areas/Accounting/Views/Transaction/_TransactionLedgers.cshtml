@@ -1,52 +1,52 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
-
+@{
+    var transactionLedgers = Model.Ledgers.ToList();
+}
 
 @if (Model != null)
 {
     <div class="flex border p-2 bg-gray-100">
-
-        <div class="col-7  border font-semibold  px-1">
-
+        <div class="w-8/12 font-semibold">
             <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
                 TR: @(Model.Name ?? Model.Reference)  #(@Model.Ledgers.Count())
             </a>
-
-
         </div>
-        <div class="col-5  border font-semibold  px-1">
+        <div class="w-4/12  font-semibold">
             @Model.Date.ToShortDateString()
         </div>
+    </div>
 
-        @{
-            var transactionLedgers = Model.Ledgers.ToList();
+    <div class="p-1 border">
 
-            foreach (var transactionLedger in transactionLedgers)
-            {
+
+        @foreach (var transactionLedger in transactionLedgers)
+        {
+            <div class="flex px-2">
                 @if (transactionLedger.Debit > 0)
                 {
-                    <div class="col-7 border  px-1">
+                    <div class="w-7/12">
                         <a href="/@CompanyId/Accounting/Accounts/@transactionLedger.AccountId">
                             @transactionLedger.Account.Name
                         </a><br />
                         @transactionLedger.Account.Type.ToString()
                     </div>
-                    <div class="col-5 border px-1">
+                    <div class="grow ">
                         Dr.  @transactionLedger.Debit
                     </div>
                 }
                 else
                 {
-                    <div class="col-8 border">
+                    <div class="w-8/12 ">
                         <a href="/@CompanyId/Accounting/Accounts/@transactionLedger.AccountId">
                             @transactionLedger.Account.Name
                         </a><br />
                         @transactionLedger.Account.Type.ToString()
                     </div>
-                    <div class="col-4 border px-1">
+                    <div class="grow">
                         Cr.  @transactionLedger.Credit
                     </div>
                 }
-            }
+            </div>
         }
     </div>
 }
