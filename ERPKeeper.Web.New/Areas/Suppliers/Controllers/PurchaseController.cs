@@ -5,22 +5,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
 
-    [Route("/{CompanyId}/Suppliers/Purchases/{transactionId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/{action=index}")]
     public class PurchaseController : _Suppliers_Base_Controller
     {
+        public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
 
-        public IActionResult Index(Guid transactionId)
+        public IActionResult Index()
         {
-            var transcation = Organization.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
-        public IActionResult UnPost(Guid transactionId)
+        public IActionResult UnPost()
         {
-            var model =   Organization.Purchases.Find(transactionId);
+            var model =   Organization.Purchases.Find(Id);
             Organization.Purchases.UnPost(model);
             Organization.SaveChanges();
 
@@ -28,33 +30,50 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
         }
 
 
-        public IActionResult Items(Guid transactionId)
+        public IActionResult Items()
         {
-            var transcation = Organization.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
 
-        public IActionResult Payments(Guid transactionId)
+        [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/Items/Avaliable")]
+        public IActionResult Items_Avaliable()
         {
-            var transcation = Organization.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(Id);
+            return View(transcation);
+        }
+        [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/Items/Add")]
+        public IActionResult Items_Add([FromQuery] Guid ItemId)
+        {
+            var transcation = Organization.Purchases.Find(Id);
+            var item = Organization.Items.Find(ItemId);
+            transcation.AddItem(item);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Items");
+        }
+
+        public IActionResult Payments()
+        {
+            var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
 
-        public IActionResult Shipments(Guid transactionId)
+        public IActionResult Shipments()
         {
-            var transcation = Organization.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
 
-        public IActionResult Documents(Guid transactionId)
+        public IActionResult Documents()
         {
-            var transcation = Organization.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
 
-        public IActionResult Export(Guid transactionId)
+        public IActionResult Export()
         {
-            var transcation = Organization.Purchases.Find(transactionId);
+            var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
     }

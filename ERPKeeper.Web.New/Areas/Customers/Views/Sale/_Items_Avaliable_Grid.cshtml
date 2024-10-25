@@ -1,4 +1,5 @@
-﻿
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
 <style>
     .dx-treelist .dx-flex > td {
         padding: 2px !important;
@@ -53,18 +54,7 @@
                     <%= data.Description %>
                 </a>
             </text>);
-                @* columns.Add().DataField("PartNumber").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text>
-    <div>
-    <a href="/Enterprise/@enterpriseId/PartNumber/<%= data.PartNumberId %>/"><%= data.PartNumber %></a>
-    </div>
-    </text>);
-
-    columns.Add().DataField("AssetType").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text>
-    <div>
-    <a href="/Enterprise/@enterpriseId/AssetType/<%= data.AssetTypeId %>/"><%= data.AssetType %></a>
-    </div>
-    </text>);*@
-
+               
 
                 columns.AddFor(m => m.ItemType)
                 .Width(130)
@@ -87,12 +77,20 @@
         );
 
 
-
-
                 columns.AddFor(m => m.OnlineSale).Visible(false).Width(60).HeaderCellTemplate(@<text>Online</text>);
                 columns.Add().DataField("AmountOnHand").Width(80).HeaderCellTemplate(@<text>Stock</text>);
                 @*   columns.Add().DataField("AmountSold").Width(60).HeaderCellTemplate(@<text>Sold</text>);*@
                 columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(@<text>Price</text>);
+
+
+
+                columns.AddFor(m => m.ItemGroupId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/">Add</a></text>)
+        .HeaderCellTemplate(@<text> </text>);
+            
+            
+            
+            
             })
         )
 </div>

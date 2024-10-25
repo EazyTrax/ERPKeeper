@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
@@ -77,7 +78,19 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("ExpenseAccountId")]
         public virtual Account? ExpenseAccount { get; set; }
 
-
+        public void AddItem(Items.Item item)
+        {
+            var purchaseItem = new PurchaseItem()
+            {
+                ItemId = item.Id,
+                PartNumber = item.PartNumber,
+                Description = item.Description,
+                Price = item.PurchasePrice,
+                Quantity = 1,
+                Order = this.Items.Count() + 1,
+            };
+            this.Items.Add(purchaseItem);
+        }
 
         public void UpdateBalance()
         {

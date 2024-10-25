@@ -13,6 +13,8 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
     {
         public IActionResult Index()
         {
+            Organization.Items.RemoveGroupItems();
+
             return View();
         }
         public IActionResult Accounts()

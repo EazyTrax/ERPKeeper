@@ -166,23 +166,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
             erpNodeDBContext.SaveChanges();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public void RemoveGroupItems()
+        {
+            var groupItems = erpNodeDBContext.Items.Where(i => i.ItemType == ItemTypes.Group).ToList();
+            erpNodeDBContext.Items.RemoveRange(groupItems);
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

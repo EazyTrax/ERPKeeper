@@ -51,7 +51,19 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
 
         public Guid? SupplierAddressId { get; set; }
-
+        public void AddItem(Items.Item item)
+        {
+            var quoteItem = new PurchaseQuoteItem()
+            {
+                ItemId = item.Id,
+                PartNumber = item.PartNumber,
+                Description = item.Description,
+                Price = item.PurchasePrice,
+                Quantity = 1,
+                Order = this.Items.Count() + 1,
+            };
+            this.Items.Add(quoteItem);
+        }
         public void UpdateBalance()
         {
 

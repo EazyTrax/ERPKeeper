@@ -18,7 +18,8 @@ namespace ERPKeeperCore.Web.API.Products
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext
-                .Items;
+                .Items
+                .Where(i => i.ItemType != Enterprise.Models.Items.Enums.ItemTypes.Group);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
@@ -27,7 +28,8 @@ namespace ERPKeeperCore.Web.API.Products
         {
             var returnModel = Organization.ErpCOREDBContext
                 .Items
-                .Include(b=>b.Brand);
+                .Where(i => i.ItemType != Enterprise.Models.Items.Enums.ItemTypes.Group)
+                .Include(b => b.Brand);
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

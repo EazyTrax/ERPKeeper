@@ -78,7 +78,7 @@
                 <span class="font-weight-600"><%= data.PartNumber %></span>
             </a>
         </text>);
-    columns.Add().DataField("Description")
+    columns.AddFor(m => m.Description).MinWidth(250)
     .Width(350)
     .CellTemplate(@<text>
             <a href="/@CompanyId/Products/Items/<%= data.Id %>/">

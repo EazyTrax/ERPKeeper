@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
-    [Route("/{CompanyId}/Customers/SaleQuotes/{QuoteId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/{action=index}")]
     public class SaleQuoteController : _Customers_Base_Controller
     {
 
-        public Guid QuoteId => Guid.Parse(RouteData.Values["QuoteId"].ToString());
+        public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
 
         public IActionResult Index()
         {
-            var transcation = Organization.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(Id);
 
             if (transcation == null)
                 return NotFound();
@@ -28,14 +28,33 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Items()
         {
-            var transcation = Organization.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(Id);
             return View(transcation);
+        }
+
+        [Route("/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/Items/Avaliable")]
+        public IActionResult Items_Avaliable()
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+            return View(transcation);
+        }
+
+        [Route("/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/Items/Add")]
+        public IActionResult Items_Add([FromQuery] Guid ItemId)
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+            var item = Organization.Items.Find(ItemId);
+            transcation.AddItem(item);
+
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Customers/SaleQuotes/{Id}/Items");
         }
 
         [HttpPost]
         public IActionResult Update(SaleQuote model)
         {
-            var transcation = Organization.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(Id);
 
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
@@ -48,7 +67,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         }
         public IActionResult Export()
         {
-            var transcation = Organization.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(Id);
             transcation.UpdateBalance();
             Organization.SaveChanges();
 
@@ -58,7 +77,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = Organization.SaleQuotes.Find(QuoteId);
+            var transcation = Organization.SaleQuotes.Find(Id);
             return View(transcation);
         }
 

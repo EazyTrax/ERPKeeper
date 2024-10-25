@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
-    [Route("/{CompanyId}/Customers/Sales/{TransactionId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/{action=index}")]
     public class SaleController : _Customers_Base_Controller
     {
-        public Guid TransactionId => Guid.Parse(RouteData.Values["TransactionId"].ToString());
+        public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
 
         public IActionResult Index()
         {
-            var sale = Organization.Sales.Find(TransactionId);
+            var sale = Organization.Sales.Find(Id);
 
             if (sale == null)
                 return NotFound();
@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         [HttpPost]
         public IActionResult Update(Sale model)
         {
-            var transcation = Organization.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(Id);
 
             if (transcation.IsPosted)
                 return Redirect(Request.Headers["Referer"].ToString());
@@ -48,19 +48,45 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Items()
         {
-            var transcation = Organization.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(Id);
+            return View(transcation);
+        }
+        public IActionResult Items_Add()
+        {
+            var transcation = Organization.Sales.Find(Id);
             return View(transcation);
         }
 
+
+        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Items/Avaliable")]
+        public IActionResult Items_Avaliable()
+        {
+            var transcation = Organization.Sales.Find(Id);
+            return View(transcation);
+        }
+
+        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Items/Add")]
+        public IActionResult Items_Add([FromQuery] Guid ItemId)
+        {
+            var transcation = Organization.Sales.Find(Id);
+            var item = Organization.Items.Find(ItemId);
+            transcation.AddItem(item);
+
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Customers/Sales/{Id}/Items");
+        }
+
+
         public IActionResult Payment()
         {
-            var transcation = Organization.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(Id);
             return View(transcation);
         }
 
         public IActionResult Shipments()
         {
-            var transcation = Organization.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(Id);
             return View(transcation);
         }
 
@@ -68,13 +94,13 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = Organization.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(Id);
             return View(transcation);
         }
 
         public IActionResult Export()
         {
-            var transcation = Organization.Sales.Find(TransactionId);
+            var transcation = Organization.Sales.Find(Id);
             transcation.Reorder();
             transcation.UpdateBalance();
 

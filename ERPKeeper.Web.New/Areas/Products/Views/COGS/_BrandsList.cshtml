@@ -8,7 +8,7 @@
 
 <div id="treeListDemo" class="mb-3 border">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Brand>()
     .ID("gridList")
     .KeyExpr("Id")
     
@@ -28,9 +28,6 @@
     .RowDragging(rd => rd
     .AllowDropInsideItem(false)
     .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
-            .OnDragEnd("onDragEnd")
-            .ShowDragIcons(false)*@
     )
 
 
@@ -41,7 +38,7 @@
                 <%= data.Name %>
             </a>
         </text>);
-         columns.Add().DataField("Description").Format("#,##0.00");
+         columns.AddFor(m => m.Description).MinWidth(250).Format("#,##0.00");
     columns.Add().DataField("ItemsCount").Format("#,##0.00");
     })
     )

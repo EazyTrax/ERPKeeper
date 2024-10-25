@@ -1,5 +1,6 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
 using System;
@@ -59,6 +60,20 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public void AddItem(SaleQuoteItem existItem)
         {
             this.Items.Add(existItem);
+        }
+
+        public void AddItem(Item item)
+        {
+            var saleQuoteItem = new SaleQuoteItem()
+            {
+                ItemId = item.Id,
+                PartNumber = item.PartNumber,
+                Description = item.Description,
+                Price = item.SalePrice,
+                Quantity = 1,
+                Order = this.Items.Count() + 1,
+            };
+            this.Items.Add(saleQuoteItem);
         }
 
         public void UpdateBalance()

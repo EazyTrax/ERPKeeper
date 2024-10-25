@@ -77,7 +77,7 @@
         </a>
     </text>);
 
-    columns.Add().DataField("Description")
+    columns.AddFor(m => m.Description).MinWidth(250)
             .Width(430)
     .CellTemplate(@<text>
             <a href="/@CompanyId/Products/Items/<%= data.Id %>/">

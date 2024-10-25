@@ -9,28 +9,45 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
-    [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{QuoteId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/{action=index}")]
     public class PurchaseQuoteController : _Suppliers_Base_Controller
     {
 
-        public Guid QuoteId => Guid.Parse(RouteData.Values["QuoteId"].ToString());
+        public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
 
         public IActionResult Index()
         {
-            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(Id);
             return View(transcation);
         }
 
 
         public IActionResult Items()
         {
-            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(Id);
             return View(transcation);
+        }
+
+        [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Avaliable")]
+        public IActionResult Items_Avaliable()
+        {
+            var transcation = Organization.PurchaseQuotes.Find(Id);
+            return View(transcation);
+        }
+        [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Add")]
+        public IActionResult Items_Add([FromQuery] Guid ItemId)
+        {
+            var transcation = Organization.PurchaseQuotes.Find(Id);
+            var item = Organization.Items.Find(ItemId);
+            transcation.AddItem(item);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Items");
         }
 
         public IActionResult Update(PurchaseQuote model)
         {
-            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(Id);
 
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
@@ -43,7 +60,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
         }
         public IActionResult Export()
         {
-            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(Id);
             transcation.UpdateBalance();
             Organization.SaveChanges();
 
@@ -53,7 +70,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
         public IActionResult Documents()
         {
-            var transcation = Organization.PurchaseQuotes.Find(QuoteId);
+            var transcation = Organization.PurchaseQuotes.Find(Id);
             return View(transcation);
         }
 
