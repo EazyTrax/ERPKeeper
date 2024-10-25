@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Enterprise.Models.Investors
         public Guid ProfileId => Profile.Id;
 
         public String? Code { get; set; }
-        public CustomerStatus Status { get; set; }
+        public ProfileStatus Status { get; set; }
 
 
 

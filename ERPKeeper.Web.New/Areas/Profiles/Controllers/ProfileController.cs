@@ -35,6 +35,29 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
             var customer = Organization.Profiles.Find(ProfileUid);
             return View(customer);
         }
+        public IActionResult AssignRole(string role)
+        {
+            var profile = Organization.Profiles.Find(ProfileUid);
+
+            switch (role)
+            {
+                case "Customer":
+                    Organization.Customers.Add(profile);
+                    return Redirect($"/{CompanyId}/Customers/Customers/{profile.Id}");
+                case "Supplier":
+                    Organization.Suppliers.Add(profile);
+                    return Redirect($"/{CompanyId}/Suppliers/Suppliers/{profile.Id}");
+                case "Employee":
+                    Organization.Customers.Add(profile);
+                    return Redirect($"/{CompanyId}/Employees/Employeess/{profile.Id}");
+                case "Investor":
+                    Organization.Customers.Add(profile);
+                    return Redirect($"/{CompanyId}/Investors/Investors/{profile.Id}");
+            }
+
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
 
         [HttpPost]

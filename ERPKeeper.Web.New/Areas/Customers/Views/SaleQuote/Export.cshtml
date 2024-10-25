@@ -1,226 +1,120 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
 
 @{
-    Layout = "_Layout_Empty";
-    var selfOrganization = Organization.Profiles.GetSelf();
-    // var selfOrganizationAddress = selfOrganization.Addresses.FirstOrDefault();
+    Layout = "_Layout_Export";
+    var documentNameContent = "ใบเสนอราคา";
+    var customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
 }
-<style>
-    @@media print {
-        .page-break {
-            page-break-before: always;
+
+@await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
+
+
+<div class="grid grid-cols-3 gap-2 mb-3" id="BuyerDetail">
+    <div class="col-span-2 border border-dark rounded-md p-2">
+        <div>
+            <b>ผู้ซื้อ</b>
+            <a href="/@CompanyId/Customers/Customers/@Model.CustomerId">
+                @Model.Customer.Profile.Name
+            </a>
+        </div>
+        <div>
+            เลขที่ผู้เสียภาษี @Model.Customer.Profile.TaxNumber สาขา @customerAddress?.Number
+        </div>
+        @if (customerAddress != null)
+        {
+            <div>
+                @customerAddress.AddressLine.Trim()<br />
+                @customerAddress.PhoneNumber
+            </div>
         }
-    }
-</style>
+    </div>
+    <div class=" border border-dark rounded-md p-2">
+        <div class="grid grid-cols-2 gap-x-2">
+            <div class="font-semibold">เลขที่</div>
+            <div class="text-right">@Model.Name</div>
 
-<div class="">
-    <div class="mh-50"></div>
-    <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
-        <div class="w-3/12 lh-1 font-weight-600 text-fs-24 text-danger">
-            Engineering
-            Craft
-        </div>
-        <div class="col">
-            <div>
-                <a href="/@CompanyId/Profiles/@selfOrganization.Id">
-                    <b>@selfOrganization.Name</b>
-                </a>
-            </div>
-            <div>
-                @selfOrganization.Addresses.First().AddressLine
-            </div>
-        </div>
-        <div class="w-4/12 p-0 text-right">
-            <div>
-                <b>ใบเสนอราคา</b>
-            </div>
-            <div>
-                @Model.Name
-            </div>
+            <div class="font-semibold">วันที่</div>
+            <div class="text-right">@Model.Date.ToShortDateString()</div>
+
+            <div class="font-semibold">อ้างอิง</div>
+            <div class="text-right">@Model.Reference</div>
         </div>
     </div>
+</div>
 
-
-    @{
-        var customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
-    }
-
-    <div class="flex mt-4  mb-3" id="BuyerDetail">
-        <div class="col">
-            <div class="font-weight-600">
-                ผู้ซื้อ
-
-                <a href="/@CompanyId/Customers/Customers/@Model.CustomerId">
-                    <b>@Model.Customer.Profile.Name</b>
-                </a>
-            </div>
-            <div>
-                เลขที่ผู้เสียภาษี @Model.Customer.Profile.TaxNumber สาขา @customerAddress?.Number
-            </div>
-            <div>
-                @if (customerAddress != null)
-                {
-                    <div>
-                        @customerAddress.AddressLine<br />
-                        @customerAddress.PhoneNumber
-                    </div>
-                }
-
-            </div>
-        </div>
-        <div class="col-1"></div>
-        <div class="w-4/12 p-0">
-
-            <div class="flex mb-4">
-                <div class="w-4/12 p-0">
-                    เลขที่
-                </div>
-                <div class="col-8 p-0 text-right">
-                    @Model.Name
-                </div>
-                <div class="w-4/12 p-0">
-                    วันที่
-                </div>
-                <div class="col-8 p-0 text-right">
-                    @Model.Date.ToShortDateString()
-                </div>
-
-                <div class="w-4/12 p-0">
-                    อ้างอิง
-                </div>
-                <div class="col-8 p-0 text-right">
-                    @Model.Reference
-                </div>
-
-                <div class="w-4/12 p-0">
-                    กำหนดชำระ
-                </div>
-                <div class="col-8 p-0 text-right">
-                </div>
-            </div>
-
-
-
-
-
-        </div>
+<!-- Items Table -->
+<div class="mb-3 border  border-dark rounded-md p-2" id="Items">
+    <!-- Table Header -->
+    <div class="grid grid-cols-2 gap-2 font-semibold border-b pb-2">
+        <div class="col-span-7">รายการ</div>
+        <div class="col-span-1 text-right">จำนวน</div>
+        <div class="col-span-2 text-right">หน่วยล่ะ</div>
+        <div class="col-span-2 text-right">รวม</div>
     </div>
-
-    <div id="Items">
-
-
-        <div class="flex  font-weight-600">
-            <div class="col p-0">
-                รายการ
-            </div>
-            <div class="col-1 p-0 text-right">
-                จำนวน
-            </div>
-            <div class="w-2/12  p-0 text-right">
-                หน่วยล่ะ
-            </div>
-            <div class="w-2/12  p-0 text-right">
-                รวม
-            </div>
-        </div>
-
+    <div class="mb-2">
         @foreach (var item in Model.Items.ToList())
         {
-            <div class="flex  p-0 border-top">
-                <div class="col  p-0">
-                    <div class="font-weight-600">
-                        @item.PartNumber
+            <div class="grid grid-cols-12 gap-2 py-1">
+                <div class="flex col-span-7">
+                    <div class="pr-2">
+                        <span class="font-semibold bg-black text-white px-1">@item.Order</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold">@item.PartNumber</div>
+                        <div class="">
+                            @item.Description
+                        </div>
                     </div>
 
-                    @item.Description
                 </div>
-                <div class="col-1  p-0 text-right">
-                    @item.Quantity
-                </div>
-                <div class="w-2/12 p-0 text-right">
-                    @item.PriceAfterDiscount.ToString("N2")
-                </div>
-                <div class="w-2/12 p-0 text-right">
-                    @item.LineTotal.ToString("N2")
-                </div>
+                <div class="col-span-1 text-right">@item.Quantity</div>
+                <div class="col-span-2 text-right">@item.PriceAfterDiscount.ToString("N2")</div>
+                <div class="col-span-2 text-right">@item.LineTotal.ToString("N2")</div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="grid grid-cols-3 gap-2 mb-1 border border-dark rounded-md p-2" id="Summary">
+    <div class="col-span-2">
+        ข้อมูลการชำระเงิน<br />
+        ชื่อบัญชี: บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+        ธนาคาร:  SCB เลขที่บัญชี 667-294439-3
+    </div>
+    <div class="mb-2">
+        @if (@Model.Discount > 0)
+        {
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="text-right">ส่วนลด</div>
+                <div class="text-right ">@Model.Discount.ToString("N2")</div>
             </div>
         }
 
-        <div class="flex border-top">
-            <div class="col">
-            </div>
-            <div class="w-3/12  p-0 text-right">
-                ราคารวม
-            </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
-                @Model.LinesTotal.ToString("N2")
-            </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-right">ราคารวม</div>
+            <div class="text-right ">@Model.LinesTotalAfterDiscount.ToString("N2")</div>
         </div>
 
-
-
-        <div class="flex border-top">
-            <div class="col">
-            </div>
-            <div class="w-3/12  p-0 text-right">
-                ส่วนลด
-            </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
-                @Model.Discount.ToString("N2")
-            </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-right">ภาษีมูลค่าเพิ่ม</div>
+            <div class="text-right ">@Model.Tax.ToString("N2")</div>
         </div>
 
-
-        <div class="flex border-top">
-            <div class="col">
-            </div>
-            <div class="w-3/12  p-0 text-right">
-                ราคารวมหลัง ส่วนลด
-            </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
-                @Model.LinesTotalAfterDiscount.ToString("N2")
-            </div>
+        <div class="grid grid-cols-2 gap-4 ">
+            <div class="text-right">ราคารวมภาษี</div>
+            <div class="text-right ">@Model.Total.ToString("N2")</div>
         </div>
 
-
-        <div class="flex border-top">
-            <div class="col">
-            </div>
-            <div class="w-3/12  p-0 text-right">
-                ภาษีมูลค่าเพิ่ม
-            </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
-                @Model.Tax.ToString("N2")
-            </div>
+        <div class="text-right pt-2">
+            (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total))
         </div>
-
-        <div class="flex border-top">
-            <div class="col">
-            </div>
-            <div class="w-3/12 text-right">
-
-                ราคารวมภาษี
-            </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
-                @Model.Total.ToString("N2")
-            </div>
-        </div>
-
-
-
-        <div class="flex border-top border-bottom">
-
-            <div class="col  p-0 text-right p-0">
-                ( @ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total) )
-            </div>
-        </div>
-        <div class="flex ">
-            <div class="col p-0">
-                Issuer: @User.Identity.Name
-            </div>
-        </div>
-
     </div>
+</div>
 
 
+
+<div class="mb-3">
+  Issuer: @User.Identity.Name
 </div>

@@ -10,6 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
+using ERPKeeperCore.Enterprise.Models.Profiles;
 
 namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 {
@@ -37,6 +38,20 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                     {
                         x.UpdateBalance();
                     });
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void Add(Profile profile)
+        {
+            var supplier = new Supplier
+            {
+                Id = profile.Id,
+                Profile = profile,
+                Code = profile.ShotName,
+                Status = Models.ProfileStatus.Active,
+            };
+
+            erpNodeDBContext.Suppliers.Add(supplier);
             erpNodeDBContext.SaveChanges();
         }
     }

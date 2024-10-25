@@ -37,7 +37,7 @@
 
                 columns.AddFor(m => m.SaleId)
                 .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Name %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
 
 
 

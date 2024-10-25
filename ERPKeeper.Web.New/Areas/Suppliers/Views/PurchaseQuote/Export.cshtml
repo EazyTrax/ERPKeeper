@@ -16,11 +16,11 @@
 <div class="">
     <div class="mh-50"></div>
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
-        <div class="w-3/12 lh-1 font-weight-600 text-fs-24 text-danger">
+        <div class="w-3/12 lh-1 font-semibold text-fs-24 text-danger">
             Engineering
             Craft
         </div>
-        <div class="col">
+        <div class="grow">
             <div>
                 <a href="/@CompanyId/Profiles/@selfOrganization.Id">
                     <b>@selfOrganization.Name</b>
@@ -46,7 +46,7 @@
     }
 
     <div class="flex mt-4  mb-3" id="BuyerDetail">
-        <div class="col">
+        <div class="grow">
             <div class="font-weight-600">
                 ผู้ซื้อ
 
@@ -109,7 +109,7 @@
     <div id="Items">
 
 
-        <div class="flex  font-weight-600">
+        <div class="flex  font-semibold">
             <div class="col p-0">
                 รายการ
             </div>
@@ -147,12 +147,12 @@
         }
 
         <div class="flex border-top">
-            <div class="col">
+            <div class="grow">
             </div>
             <div class="w-3/12  p-0 text-right">
                 ราคารวม
             </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
+            <div class="w-2/12 p-0 text-right font-semibold">
                 @Model.LinesTotal.ToString("N2")
             </div>
         </div>
@@ -160,48 +160,48 @@
 
 
         <div class="flex border-top">
-            <div class="col">
+            <div class="grow">
             </div>
             <div class="w-3/12  p-0 text-right">
                 ส่วนลด
             </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
+            <div class="w-2/12 p-0 text-right font-semibold">
                 @Model.Discount.ToString("N2")
             </div>
         </div>
 
 
         <div class="flex border-top">
-            <div class="col">
+            <div class="grow">
             </div>
             <div class="w-3/12  p-0 text-right">
                 ราคารวมหลัง ส่วนลด
             </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
+            <div class="w-2/12 p-0 text-right font-semibold">
                 @Model.LinesTotalAfterDiscount.ToString("N2")
             </div>
         </div>
 
 
         <div class="flex border-top">
-            <div class="col">
+            <div class="grow">
             </div>
             <div class="w-3/12  p-0 text-right">
                 ภาษีมูลค่าเพิ่ม
             </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
+            <div class="w-2/12 p-0 text-right font-semibold">
                 @Model.Tax.ToString("N2")
             </div>
         </div>
 
         <div class="flex border-top">
-            <div class="col">
+            <div class="grow">
             </div>
             <div class="w-3/12 text-right">
 
                 ราคารวมภาษี
             </div>
-            <div class="w-2/12 p-0 text-right font-weight-600">
+            <div class="w-2/12 p-0 text-right font-semibold">
                 @Model.Total.ToString("N2")
             </div>
         </div>

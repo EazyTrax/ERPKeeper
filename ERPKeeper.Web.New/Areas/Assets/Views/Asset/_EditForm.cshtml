@@ -3,14 +3,14 @@
 <form id="EditForm" action="/@CompanyId/Assets/Assets/@Model.Id/Update" method="post">
     <div class="flex p-1 border">
         <div class="col-6 p-1">
-            <div class="mb-3 font-weight-600">General</div>
+            <div class="mb-3 font-semibold">General</div>
             <div class="mb-2">@Html.DevExtreme().TextBoxFor(m=>m.Name).Label("Name")</div>
             <div class="mb-2">@Html.DevExtreme().TextAreaFor(m=>m.Memo).Height(150).Label("Detail")</div>
         </div>
 
         <div class="col-6 p-1 mb-2 rounded">
             <div class="mb-2">
-                <div class="mb-3 font-weight-600">Type</div>
+                <div class="mb-3 font-semibold">Type</div>
                 @(Html.DevExtreme().SelectBoxFor(m => m.AssetTypeId)
                     .DataSource(Organization.AssetTypes.GetAll().Select(t => new { t.Id, t.Name }).ToList())
                     .Placeholder("Choose Projects")
@@ -20,7 +20,7 @@
                     )
             </div>
             <div class="flex mb-2">
-                <div class="col-12 p-0 mb-3 font-weight-600">Dates</div>
+                <div class="col-12 p-0 mb-3 font-semibold">Dates</div>
                 <div class="col-6 pl-0 mb-2">@Html.DevExtreme().DateBoxFor(m=>m.StartDeprecationDate).Label("CreatedDate")</div>
                 <div class="col-6 pr-0 mb-2">@Html.DevExtreme().DateBoxFor(m=>m.EndDeprecationDate).Disabled(true).Label("DueDate")</div>
             </div>

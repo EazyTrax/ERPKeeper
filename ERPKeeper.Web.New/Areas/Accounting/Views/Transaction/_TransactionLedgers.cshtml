@@ -5,7 +5,7 @@
 {
     <div class="flex border p-2 bg-gray-100">
 
-        <div class="col-7  border font-weight-600  px-1">
+        <div class="col-7  border font-semibold  px-1">
 
             <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
                 TR: @(Model.Name ?? Model.Reference)  #(@Model.Ledgers.Count())
@@ -13,7 +13,7 @@
 
 
         </div>
-        <div class="col-5  border font-weight-600  px-1">
+        <div class="col-5  border font-semibold  px-1">
             @Model.Date.ToShortDateString()
         </div>
 

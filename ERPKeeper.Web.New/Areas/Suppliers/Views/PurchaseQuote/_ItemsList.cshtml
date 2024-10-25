@@ -1,5 +1,9 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
+<div>
+    <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Items/Avaliable">Add Item</a>
+</div>
+
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuoteItem>()

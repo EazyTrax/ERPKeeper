@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Guid? ProfileId => Profile?.Id;
 
         public String? Code { get; set; }
-        public CustomerStatus Status { get; set; }
+        public ProfileStatus Status { get; set; }
 
 
         public Decimal TotalSales { get; set; }

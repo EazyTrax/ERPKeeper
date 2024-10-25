@@ -10,6 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Employees;
 using ERPKeeperCore.Enterprise.Models.Employees.Enums;
+using ERPKeeperCore.Enterprise.Models.Profiles;
 
 namespace ERPKeeperCore.Enterprise.DAL.Employees
 {
@@ -29,6 +30,18 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
 
         public Employee? Find(Guid Id) => erpNodeDBContext.Employees.Find(Id);
 
+        public void Add(Profile profile)
+        {
+            var employee = new Employee
+            {
+                Id = profile.Id,
+                Profile = profile,
+                Code = profile.ShotName,
+                Status = Models.ProfileStatus.Active,
+            };
 
+            erpNodeDBContext.Employees.Add(employee);
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

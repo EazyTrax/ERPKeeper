@@ -22,7 +22,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public virtual Profiles.Profile Profile { get; set; }
         public Guid ProfileId => Profile.Id;
         public String? Code { get; set; }
-        public SupplierStatus Status { get; set; }
+        public ProfileStatus Status { get; set; }
 
         public Guid? DefaultTaxCodeUid { get; set; }
         [ForeignKey("DefaultTaxCodeUid")]
@@ -48,7 +48,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         public void SetActive()
         {
-            this.Status = Enums.SupplierStatus.Active;
+            this.Status = ProfileStatus.Active;
         }
 
         public void Update(Supplier supplier)

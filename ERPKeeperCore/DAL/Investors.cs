@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Investors;
+using ERPKeeperCore.Enterprise.Models.Profiles;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {
@@ -27,7 +28,19 @@ namespace ERPKeeperCore.Enterprise.DAL
         public int Count() => erpNodeDBContext.Investors.Count();
 
         public Investor? Find(Guid Id) => erpNodeDBContext.Investors.Find(Id);
+        public void Add(Profile profile)
+        {
+            var Investor = new Investor
+            {
+                Id = profile.Id,
+                Profile = profile,
+                Code = profile.ShotName,
+                Status =  Models.ProfileStatus.Active,
+            };
 
+            erpNodeDBContext.Investors.Add(Investor);
+            erpNodeDBContext.SaveChanges();
+        }
 
     }
 }

@@ -7,7 +7,7 @@
 <div class="mt-4 page-break">
     <div class="mh-50">
     </div>
-    <div class="text-center font-weight-600  mb-3">
+    <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
         งบแสดงฐานะทางการเงิน<br />
         ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
@@ -20,10 +20,10 @@
     <div class="flex mt-4">
         <div class="col-9">
         </div>
-        <div class="w-3/12 font-weight-600 text-center">
+        <div class="w-3/12 font-semibold text-center">
             หน่วย:บาท
         </div>
-        <div class="w-4/12 p-0  font-weight-600 ">
+        <div class="w-4/12 p-0  font-semibold ">
          
         </div>
         <div class="w-4/12 p-0">
@@ -46,7 +46,7 @@
             .ToList();
 
 
-            <div class="col-12 p-0  font-weight-600 ">
+            <div class="col-12 p-0  font-semibold ">
                 หนี้สินหมุนเวียน
             </div>
             foreach (var line in lines)
@@ -92,7 +92,7 @@
             .ToList();
 
 
-            <div class="col-12 p-0  font-weight-600 ">
+            <div class="col-12 p-0  font-semibold ">
                 หนี้สินไม่หมุนเวียน
             </div>
             foreach (var line in lines)
@@ -135,7 +135,7 @@
             .ToList();
 
         }
-        <div class="w-4/12 p-0 font-weight-600 ">
+        <div class="w-4/12 p-0 font-semibold ">
             รวมหนี้สิน
         </div>
         <div class="w-4/12 p-0">

@@ -18,7 +18,7 @@
 <div class="flex">
     <div class="col px-3 col-center mh-100v">
         <div class="mh-50"></div>
-        <div class="text-center font-weight-600  mb-3">
+        <div class="text-center font-semibold  mb-3">
             @Organization.Profiles.GetSelf().Name<br />
             งบแสดงการคำนวณภาษี<br />
             สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
@@ -26,7 +26,7 @@
 
         <div class="mh-50"></div>
         <div class="flex mb-3">
-            <div class="col-12  font-weight-600 ">
+            <div class="col-12  font-semibold ">
                 รายได้
             </div>
             @{
@@ -45,7 +45,7 @@
                     <div class="col-4">
                         @line.Account.SubType.ToString()
                     </div>
-                    <div class="col-2">
+                    <div class="w-2/12">
                     </div>
                     <div class="w-2/12 p-0 text-right">
                         @line.TotalCredit.ToString("N2")
@@ -59,7 +59,7 @@
                 <div class="w-2/12  border-dark border-top">
                     รวมรายได้
                 </div>
-                <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
                     @incomes.Sum(m => m.TotalCredit).ToString("N2")
                 </div>
             }
@@ -69,14 +69,14 @@
 
 
         <div class="mh-50  page-break"></div>
-        <div class="text-center font-weight-600  mb-3">
+        <div class="text-center font-semibold  mb-3">
             @Organization.Profiles.GetSelf().Name<br />
             งบแสดงการคำนวณภาษี<br />
             สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
         </div>
         <div class="mh-50"></div>
         <div class="flex">
-            <div class="col-12  font-weight-600 ">
+            <div class="col-12  font-semibold ">
                 ค่าใช้จ่าย
             </div>
 
@@ -99,7 +99,7 @@
                     <div class="col-4">
                         @line.Account.SubType
                     </div>
-                    <div class="col-2">
+                    <div class="w-2/12">
                     </div>
                     <div class="w-2/12 p-0 text-right">
                         @line.TotalDebit.ToString("N2")
@@ -113,7 +113,7 @@
                 <div class="w-3/12  border-dark border-top">
                     รวมค่าใช้จ่าย
                 </div>
-                <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
                     @expenses.Sum(m => m.TotalDebit).ToString("N2")
                 </div>
 
@@ -125,7 +125,7 @@
                 <div class="w-3/12  border-dark border-top">
                     กำไรก่อนภาษีเงินได้
                 </div>
-                <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
                     @{
                         var grossMargin = incomes.Sum(m => m.TotalCredit) - expenses.Sum(m => m.TotalDebit);
                     }
@@ -148,7 +148,7 @@
                         ภาษีเงินได้
                     </a>
                 </div>
-                <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
                     @if (IncomeTaxBalance != null)
                     {
                         <span>@(IncomeTaxBalance.TotalDebit.ToString("N2"))</span>
@@ -165,7 +165,7 @@
                 <div class="w-3/12  border-dark border-top">
                     กำไรสุทธิ
                 </div>
-                <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
                     @((grossMargin - IncomeTaxBalance.TotalDebit).ToString("N2"))
                 </div>
 
@@ -175,14 +175,14 @@
             }
 
             <div class="mh-50 page-break"></div>
-            <div class="text-center font-weight-600  mb-3">
+            <div class="text-center font-semibold  mb-3">
                 @Organization.Profiles.GetSelf().Name<br />
                 งบแสดงการคำนวณภาษี<br />
                 สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
             </div>
             <div class="mh-50"></div>
             <div class="flex p-0">
-                <div class="col-12  font-weight-600 ">
+                <div class="col-12  font-semibold ">
                     ค่าใช้จ่ายต้องห้าม
                 </div>
                 @{
@@ -220,7 +220,7 @@
                     <div class="w-3/12  border-dark border-top">
                         รวม
                     </div>
-                    <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+                    <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
                         @UnClaimExpenses.Sum(m => m.TotalDebit).ToString("N2")
                     </div>
 
@@ -249,7 +249,7 @@
 
 
         <div class="flex mt-4">
-            <div class="col-12  font-weight-600 ">
+            <div class="col-12  font-semibold ">
                 ภาษีเงินได้
             </div>
             @{
@@ -258,7 +258,7 @@
                 </div>
                 <div class="col-4">
                 </div>
-                <div class="col-2">
+                <div class="w-2/12">
                     @{
                         decimal dedecut = 0;
                         decimal remainIncomeTax = totalProfitFortax;
@@ -292,10 +292,10 @@
                 </div>
                 <div class="col-4">
                 </div>
-                <div class="w-2/12 font-weight-600 border-dark border-top">
+                <div class="w-2/12 font-semibold border-dark border-top">
                     @totalProfitFortax
                 </div>
-                <div class="w-2/12 p-0 text-right font-weight-600  border-dark border-top">
+                <div class="w-2/12 p-0 text-right font-semibold  border-dark border-top">
                     @((remainIncomeTax * 15 / 100).ToString("N2"))
                 </div>
             }

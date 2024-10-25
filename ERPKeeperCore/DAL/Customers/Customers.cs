@@ -10,6 +10,8 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Profiles;
+using ERPKeeperCore.Enterprise.Models;
 
 namespace ERPKeeperCore.Enterprise.DAL.Customers
 {
@@ -33,13 +35,27 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
         public void UpdateSalesBalance()
         {
 
-                    erpNodeDBContext.Customers.ToList()
-                            .ForEach(x =>
-                            {
-                                x.UpdateBalance();
-                            });
+            erpNodeDBContext.Customers.ToList()
+                    .ForEach(x =>
+                    {
+                        x.UpdateBalance();
+                    });
 
 
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void Add(Profile profile)
+        {
+            var customer = new Customer
+            {
+                Id = profile.Id,
+                Profile = profile,
+                Code = profile.ShotName,
+                Status = ProfileStatus.Active,
+            };
+
+            erpNodeDBContext.Customers.Add(customer);
             erpNodeDBContext.SaveChanges();
         }
     }

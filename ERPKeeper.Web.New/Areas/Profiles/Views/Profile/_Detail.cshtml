@@ -16,8 +16,8 @@
 
 <div class="mb-3 border">
     <form id="EditForm" method="post" action="/@CompanyId/Profiles/@Model.Id/Update">
-        <div class="flex">
-            <div class="col-6 p-0">
+        <div class="grid grid-cols-2">
+            <div class="">
                 <div class="p-2 bg-gray-100 rouned mb-2">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                         .ID("form_0")
@@ -55,7 +55,7 @@
                         )
                 </div>
             </div>
-            <div class="col-6 p-0 mb-2">
+            <div class="">
 
                 @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                     .ID("form_1")
@@ -73,7 +73,7 @@
                     )
 
             </div>
-            <div class="col-12 text-right">
+            <div class="col-span-2 text-right">
                 <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
                     Save
                 </button>

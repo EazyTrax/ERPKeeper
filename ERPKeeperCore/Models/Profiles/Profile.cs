@@ -9,12 +9,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ERPKeeperCore.Enterprise.Models.Profiles
 {
+
     public class Profile
     {
         [Key]
         public Guid Id { get; set; }
         public ProfileType ProfileType { get; set; }
         public ProfileStatus Status { get; set; }
+
+
         public bool IsSelfOrganization { get; set; }
         public bool IsRDVerify { get; set; }
         public String? TitleName { get; set; }
@@ -45,7 +48,6 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
 
         public virtual Customers.Customer Customer { get; set; }
         public virtual Suppliers.Supplier Supplier { get; set; }
-
         public virtual Employees.Employee Employee { get; set; }
         public virtual Investors.Investor Investor { get; set; }
 

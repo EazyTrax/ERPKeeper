@@ -1,5 +1,8 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
-
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+@{
+    string transactionType = "Sales";
+    string profileType = "Customers";
+}
 <style>
     .dx-treelist .dx-flex > td {
         padding: 2px !important;
@@ -23,7 +26,7 @@
             .Paging(paging => paging.PageSize(100))
             .FilterRow(fp => fp.Visible(true))
             .GroupPanel(Panel => Panel.Visible(true))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .ColumnChooser(Panel => Panel.Enabled(true))
             .ColumnAutoWidth(false)
             .RowAlternationEnabled(true)
@@ -31,7 +34,7 @@
             {
                 columns.AddFor(m => m.BrandId).Width(150)
             .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.BrandId %>/"><%= displayValue %></a></text>)
-                .HeaderCellTemplate(@<text>Brand</text>)
+        .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
             .DisplayExpr("Name")
@@ -43,29 +46,29 @@
             .SortIndex(1)
             .MinWidth(200)
             .CellTemplate(@<text>
-                <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
-                    <span ><%= data.PartNumber %></span>
-                </a>
-            </text>);
+        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <span><%= data.PartNumber %></span>
+        </a>
+    </text>);
 
                 columns.AddFor(m => m.Description).MinWidth(250)
             .CellTemplate(@<text>
-                <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
-                    <%= data.Description %>
-                </a>
-            </text>);
-               
+        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <%= data.Description %>
+        </a>
+    </text>);
+
 
                 columns.AddFor(m => m.ItemType)
-                .Width(130)
-                .SortOrder(SortOrder.Asc)
-                .SortIndex(2)
-                .HeaderCellTemplate("Type")
-                .Lookup(lookup => lookup
-                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-                    .DisplayExpr("Text")
-                    .ValueExpr("Value")
-                    );
+            .Width(130)
+            .SortOrder(SortOrder.Asc)
+            .SortIndex(2)
+            .HeaderCellTemplate("Type")
+            .Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            );
 
                 columns.AddFor(m => m.ItemGroupId).Width(150)
             .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/"><%= displayValue %></a></text>)
@@ -87,10 +90,11 @@
                 columns.AddFor(m => m.ItemGroupId).Width(150)
             .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/">Add</a></text>)
         .HeaderCellTemplate(@<text> </text>);
-            
-            
-            
-            
+
+                columns.AddFor(m => m.ItemGroupId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/{profileType}/{transactionType}/@Model.Id/Items/Add?ItemId=<%= data.Id %>/">Add</a></text>)
+        .HeaderCellTemplate(@<text> </text>);
+
             })
         )
 </div>

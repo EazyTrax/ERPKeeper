@@ -6,7 +6,7 @@
 <div class="mt-4 page-break">
     <div class="mh-50">
     </div>
-    <div class="text-center font-weight-600  mb-3">
+    <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
         งบแสดงฐานะทางการเงิน<br />
         ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
@@ -19,10 +19,10 @@
     <div class="flex mt-4">
         <div class="col-9">
         </div>
-        <div class="w-3/12 font-weight-600 text-center">
+        <div class="w-3/12 font-semibold text-center">
             หน่วย:บาท
         </div>
-        <div class="col-4  font-weight-600 ">
+        <div class="col-4  font-semibold ">
         </div>
         <div class="col-4">
         </div>
@@ -45,7 +45,7 @@
     <div class="flex mb-3">
 
 
-        <div class="col-12  font-weight-600 ">
+        <div class="col-12  font-semibold ">
             ส่วนของผู้ถือหุ้น<br />
             ทุนเรือนหุ้น<br />
             ทุนจดทะเบียน
@@ -62,7 +62,7 @@
         <div class="col-8">
         </div>
 
-        <div class="col-2">
+        <div class="w-2/12">
         </div>
         <div class="col-6">
             <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_blank">
@@ -88,7 +88,7 @@
         <div class="col-8">
         </div>
 
-        <div class="col-2">
+        <div class="w-2/12">
         </div>
         <div class="col-6">
             <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_blank">
@@ -116,7 +116,7 @@
     }
 
     <div class="flex">
-        <div class="col-12 font-weight-600">
+        <div class="col-12 font-semibold">
             กำไร (ขาดทุน) สะสม
         </div>
         <div class="col-1">
@@ -142,7 +142,7 @@
             .ToList();
 
         }
-        <div class="col-4 font-weight-600 ">
+        <div class="col-4 font-semibold ">
             รวมส่วนของผู้ถือหุ้น
         </div>
         <div class="col-4">
@@ -165,7 +165,7 @@
             .ToList();
 
         }
-        <div class="col-4 font-weight-600 ">
+        <div class="col-4 font-semibold ">
             รวมส่วนของผู้ถือหุ้นและหนี้สิน
         </div>
         <div class="col-4">

@@ -1,0 +1,52 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
+
+@{
+    string[] profileTypes = { "Customer", "Supplier", "Employee", "Investor" };
+}
+
+<div class="grid grid-cols-2">
+
+    @foreach (string profileType in profileTypes)
+    {
+        var isAssigned = profileType switch
+        {
+            "Customer" => Model.Customer != null,
+            "Supplier" => Model.Supplier != null,
+            "Employee" => Model.Employee != null,
+            "Investor" => Model.Investor != null,
+            _ => false
+        };
+
+        <div class="border h-20">
+            @if (!isAssigned)
+            {
+                <div class="bg-gray-300 h-20 content-center text-center">
+                    <a href="/@CompanyId/Profiles/@Model.Id/AssignRole?Role=@profileType">
+                        <i class="fa-solid fa-circle-plus"></i> @profileType
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="bg-green-300 h-20 content-center text-center">
+                    <a href="/@CompanyId/@(profileType)s/@(profileType)s/@Model.Id">
+                        <i class="fa-solid fa-check"></i> @profileType
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (Model.Customer != null && Model.Supplier != null && Model.Employee != null && Model.Investor != null)
+{
+    <div class="text-green-500 mt-4">
+        All profile types have been assigned.
+    </div>
+}
+else
+{
+    <div class="text-red-500 mt-4">
+        Not all profile types have been assigned.
+    </div>
+}

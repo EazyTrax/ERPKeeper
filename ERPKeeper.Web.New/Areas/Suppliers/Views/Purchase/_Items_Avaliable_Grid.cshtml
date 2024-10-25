@@ -1,0 +1,102 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
+@{
+    string transactionType = "Purchases";
+    string profileType = "Suppliers";
+}
+<style>
+    .dx-treelist .dx-flex > td {
+        padding: 2px !important;
+    }
+</style>
+
+<div id="treeListDemo" class="mb-3 border">
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/api/{CompanyId}/Products/Items/All")
+            .InsertUrl($"/api/{CompanyId}/Products/Items/Insert")
+            .UpdateUrl($"/api/{CompanyId}/Products/Items/Update")
+            .UpdateMethod("Post"))
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Editing(editing => editing.Mode(GridEditMode.Form).AllowUpdating(true).AllowAdding(true))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Products"))
+            .AllowColumnResizing(true)
+            .AllowColumnReordering(true)
+            .Paging(paging => paging.PageSize(100))
+            .FilterRow(fp => fp.Visible(true))
+            .GroupPanel(Panel => Panel.Visible(true))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .ColumnChooser(Panel => Panel.Enabled(true))
+            .ColumnAutoWidth(false)
+            .RowAlternationEnabled(true)
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.BrandId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.BrandId %>/"><%= displayValue %></a></text>)
+        .HeaderCellTemplate(@<text>Brand</text>)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
+            .DisplayExpr("Name")
+            .ValueExpr("Id")
+            );
+
+                columns.Add().DataField("PartNumber")
+            .SortOrder(SortOrder.Asc)
+            .SortIndex(1)
+            .MinWidth(200)
+            .CellTemplate(@<text>
+        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <span><%= data.PartNumber %></span>
+        </a>
+    </text>);
+
+                columns.AddFor(m => m.Description).MinWidth(250)
+            .CellTemplate(@<text>
+        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <%= data.Description %>
+        </a>
+    </text>);
+
+
+                columns.AddFor(m => m.ItemType)
+            .Width(130)
+            .SortOrder(SortOrder.Asc)
+            .SortIndex(2)
+            .HeaderCellTemplate("Type")
+            .Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            );
+
+                columns.AddFor(m => m.ItemGroupId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/"><%= displayValue %></a></text>)
+        .HeaderCellTemplate(@<text>Group</text>)
+        .Lookup(lookup => lookup
+        .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
+        .DisplayExpr("Name")
+        .ValueExpr("Id")
+        );
+
+
+                columns.AddFor(m => m.OnlineSale).Visible(false).Width(60).HeaderCellTemplate(@<text>Online</text>);
+                columns.Add().DataField("AmountOnHand").Width(80).HeaderCellTemplate(@<text>Stock</text>);
+                @*   columns.Add().DataField("AmountSold").Width(60).HeaderCellTemplate(@<text>Sold</text>);*@
+                columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(@<text>Price</text>);
+
+
+
+                columns.AddFor(m => m.ItemGroupId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/">Add</a></text>)
+        .HeaderCellTemplate(@<text> </text>);
+
+                columns.AddFor(m => m.ItemGroupId).Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/{profileType}/{transactionType}/@Model.Id/Items/Add?ItemId=<%= data.Id %>/">Add</a></text>)
+        .HeaderCellTemplate(@<text> </text>);
+
+            })
+        )
+</div>
+
+

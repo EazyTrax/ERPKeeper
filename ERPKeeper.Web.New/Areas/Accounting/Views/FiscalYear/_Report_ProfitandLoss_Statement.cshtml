@@ -4,7 +4,7 @@
 
 <div class="">
     <div class="mh-50"></div>
-    <div class="text-center font-weight-600  mb-3">
+    <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
         งบกำไรขาดทุน<br />
         สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
@@ -13,22 +13,22 @@
     <div class="flex">
         <div class="col-9">
         </div>
-        <div class="w-2/12 p-0 font-weight-600 text-center">
+        <div class="w-2/12 p-0 font-semibold text-center">
             หน่วย:บาท
         </div>
-        <div class="col-4  font-weight-600 ">
+        <div class="col-4  font-semibold ">
         </div>
         <div class="col-4">
         </div>
-        <div class="w-2/12 p-0  text-right font-weight-600 border-dark border-top">
+        <div class="w-2/12 p-0  text-right font-semibold border-dark border-top">
             @(Model.EndDate.Year + 543)
         </div>
-        <div class="w-2/12 p-0 text-right font-weight-600 border-dark border-top">
+        <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
             @(Model.EndDate.Year - 1 + 543)
         </div>
     </div>
     <div class="flex mb-3">
-        <div class="col-12  font-weight-600 ">
+        <div class="col-12  font-semibold ">
             รายได้
         </div>
         @{
@@ -64,9 +64,9 @@
                 </div>
             }
 
-            <div class="col-2">
+            <div class="w-2/12">
             </div>
-            <div class="col-6 font-weight-600">
+            <div class="col-6 font-semibold">
                 รวมรายได้
             </div>
             <div class="w-2/12 p-0 text-right border-dark border-top">
@@ -78,7 +78,7 @@
         }
     </div>
     <div class="flex">
-        <div class="col-12  font-weight-600 ">
+        <div class="col-12  font-semibold ">
             ค่าใช้จ่าย
         </div>
 
@@ -185,9 +185,9 @@
 
 
 
-            <div class="col-2">
+            <div class="w-2/12">
             </div>
-            <div class="col-6 font-weight-600">
+            <div class="col-6 font-semibold">
                 รวมค่าใช้จ่าย
             </div>
             <div class="w-2/12 p-0 text-right  border-dark border-top">
