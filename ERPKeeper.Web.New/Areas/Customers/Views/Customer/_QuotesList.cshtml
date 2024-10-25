@@ -40,7 +40,7 @@
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );
-    columns.Add().DataField("Name")
+    columns.AddFor(m => m.Name)
     .Width(130)
     .CellTemplate(@<text>
             <a href="/@CompanyId/Customers/Estimates/<%= data.Id %>/">

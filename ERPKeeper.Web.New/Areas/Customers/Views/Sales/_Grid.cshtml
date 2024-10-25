@@ -19,11 +19,11 @@
             .Paging(paging => paging.PageSize(100))
             .AllowColumnResizing(true)
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-            .FilterRow(filterflex => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+            .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
 
             .ColumnAutoWidth(false)
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Sales" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Custommer_Sales" + CompanyId.ToString()))
             .Columns(columns =>
             {
 
@@ -49,7 +49,7 @@
                 columns.AddFor(m => m.Name)
             .AllowEditing(false)
             .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.CustomerId)
@@ -57,7 +57,7 @@
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference)

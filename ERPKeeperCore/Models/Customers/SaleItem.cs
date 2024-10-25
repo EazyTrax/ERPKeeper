@@ -22,6 +22,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("ItemId")]
         public virtual Items.Item Item { get; set; }
 
+        public int Order { get; set; }
+
         public int Quantity { get; set; }
         public Decimal Price { get; set; }
         public String? Memo { get; set; }

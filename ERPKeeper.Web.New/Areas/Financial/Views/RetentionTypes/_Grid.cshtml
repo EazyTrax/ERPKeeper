@@ -23,7 +23,7 @@
             {
 
 
-                columns.Add().DataField("Name")
+                columns.AddFor(m => m.Name)
             .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 

@@ -42,7 +42,7 @@
 
         .Columns(columns =>
         {
-            columns.Add().DataField("Name").Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
             columns.AddFor(m => m.WebSite).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
             columns.Add().DataField("Description").Format("#,##0.00");
             columns.AddFor(m => m.ItemsCount).Format("#,##0.00");

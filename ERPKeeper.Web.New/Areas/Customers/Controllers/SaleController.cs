@@ -22,6 +22,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             if (sale == null)
                 return NotFound();
 
+
+
             return View(sale);
         }
 
@@ -37,8 +39,10 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             transcation.Discount = model.Discount;
             transcation.ProjectId = model.ProjectId;
 
+            transcation.Reorder();
             transcation.UpdateBalance();
             Organization.SaveChanges();
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
@@ -48,7 +52,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(transcation);
         }
 
-        public IActionResult Payments()
+        public IActionResult Payment()
         {
             var transcation = Organization.Sales.Find(TransactionId);
             return View(transcation);
@@ -71,7 +75,10 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Export()
         {
             var transcation = Organization.Sales.Find(TransactionId);
+            transcation.Reorder();
             transcation.UpdateBalance();
+
+            Organization.SaveChanges();
 
             return View(transcation);
         }

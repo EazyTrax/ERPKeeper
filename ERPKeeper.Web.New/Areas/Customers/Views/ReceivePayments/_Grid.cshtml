@@ -14,7 +14,7 @@
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-        .FilterRow(filterflex => filterRow.Visible(true))
+        .FilterRow(filterRow => filterRow.Visible(true))
         .ColumnAutoWidth(false)
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         @*.AutoExpandAll(true)*@
@@ -29,7 +29,7 @@
             .ValueExpr("Value")
             );
 
-                columns.Add().DataField("Name")
+                columns.AddFor(m => m.Name)
                 .Width(130)
                 .Visible(false)
             .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP:<%= data.Name %></a></text>);

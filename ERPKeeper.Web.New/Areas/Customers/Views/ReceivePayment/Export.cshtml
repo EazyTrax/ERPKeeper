@@ -1,54 +1,17 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment
 
+
 @{
-    Layout = "_Layout_Empty";
-    var selfOrganization = Organization.Profiles.GetSelf();
+    Layout = "_Layout_Export";
+
+    var documentNameContent = "ใบเสร็จรับเงิน";
+    var customerAddress = Model.Sale.Customer.Profile.Addresses.FirstOrDefault();
 }
-<style>
-    @@media print {
-        .page-break {
-            page-break-before: always;
-        }
-    }
-</style>
+
+@await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
+
 
 <div class="">
-    <div class="mh-50"></div>
-    <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
-        <div class="w-3/12 lh-1 font-weight-600 text-fs-24 text-danger">
-            Engineering
-            Craft
-        </div>
-        <div class="col">
-            <div>
-                <a href="/@CompanyId/Profiles/@selfOrganization.Id">
-                    <b>@selfOrganization.Name</b>
-                </a><br />
-                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
-            </div>
-            <div>
-                @selfOrganization.Addresses.First().AddressLine
-            </div>
-            <div>
-                <i class="fa-solid fa-phone"></i> @selfOrganization.Addresses.First().PhoneNumber
-                <i class="fa-solid fa-globe"></i> www.engineeringcraft.com
-            </div>
-
-        </div>
-        <div class="w-3/12 p-0 text-right">
-            <div>
-                <b>ใบเสร็จรับเงิน</b>
-            </div>
-            <div>
-            </div>
-        </div>
-    </div>
-
-
-    @{
-        var customerAddress = Model.Sale.Customer.Profile.Addresses.FirstOrDefault();
-    }
-
     <div class="flex mt-4  mb-3" id="BuyerDetail">
         <div class="col">
             <div class="font-weight-600">

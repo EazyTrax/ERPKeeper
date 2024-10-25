@@ -21,8 +21,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Guid ItemId { get; set; }
         [ForeignKey("ItemId")]
         public virtual Items.Item Item { get; set; }
-
-
+        public int Order { get; set; }
 
         public int Quantity { get; set; }
         public Decimal Price { get; set; }

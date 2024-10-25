@@ -29,25 +29,23 @@
             .ColumnChooser(c => c.Enabled(true))
             .Columns(columns =>
             {
+                                columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
 
-                columns.AddFor(m => m.ItemId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= displayValue %></a></text>)
-        .Lookup(lookup => lookup
-        .DataSource(Organization.ErpCOREDBContext.Items.Select(t => new { t.Id, t.PartNumber }).ToList())
-        .DisplayExpr("PartNumber")
-        .ValueExpr("Id")
-        );
 
-                columns.AddFor(m => m.PartNumber).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+
+
+                columns.AddFor(m => m.PartNumber).Width(150)
+            .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>)
+                .FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
 
 
                 columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
-                columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
-                columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");
-                columns.AddFor(m => m.PriceAfterDiscount).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Price).Width(100).Format("#,##0.00");
+                columns.AddFor(m => m.DiscountPercent).Width(100).Format("#,##0.00");
+                columns.AddFor(m => m.PriceAfterDiscount).Width(100).Format("#,##0.00");
 
-                columns.AddFor(m => m.Quantity).Width(130).Format("#,##0.00");
-                columns.AddFor(m => m.LineTotal).Width(130).Format("#,##0.00").FormItem(i => i.Visible(false));
+                columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
+                columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.00").FormItem(i => i.Visible(false));
                 columns.AddFor(m => m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
             })
         .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")

@@ -129,6 +129,17 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             IsPosted = this.Transaction.UpdateBalance();
 
         }
+
+        public void Reorder()
+        {
+            int index = 1;
+            this.Items = this.Items.OrderBy(i => i.Order).ToList();
+
+            foreach (var item in Items)
+            {
+                item.Order = index++;
+            }
+        }
         public void UpdateBalance()
         {
             this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);

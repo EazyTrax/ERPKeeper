@@ -5,10 +5,10 @@
     .ID("gridList")
     .DataSource( d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Info/Branches/All")
-            .InsertUrl($"/API/{CompanyId}/Info/Branches/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Info/Branches/Update")
+        .InsertUrl($"/API/{CompanyId}/Info/Branches/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Info/Branches/Update")
             .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Info/Branches/Delete")
+        .DeleteUrl($"/API/{CompanyId}/Info/Branches/Delete")
             .DeleteMethod("Post")
     )
     .KeyExpr("Id")
@@ -52,10 +52,9 @@
     columns.AddFor(m=>m.OrganizationName)
     .SortOrder(SortOrder.Asc)
     .SortIndex(1)
-    .CellTemplate(@<text><a href="/@CompanyId/Setting/Branches/<%= data.Id %>/"><%= data.OrganizationName %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Branches/<%= data.Id %>/"><%= data.OrganizationName %></a></text>);
      
-         columns.AddFor(m=>m.BranchName);
-            columns.AddFor(m => m.TaxNumber);
+
 
         @*
             columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup

@@ -14,8 +14,10 @@ namespace ERPKeeperCore.Enterprise.Models.Info
 
         public Guid Id { get; set; }
         public String OrganizationName { get; set; }
-
+        public String TaxNumber { get; set; }
+        public String WebSite { get; set; }
         public int No { get; set; }
+        public String Number { get; set; }
 
         public String Address { get; set; }
         public String PhoneNumber { get; set; }

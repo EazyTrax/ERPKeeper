@@ -26,7 +26,7 @@
             .ValueExpr("Value")
             );
 
-                columns.Add().DataField("Name").Width(130)
+                columns.AddFor(m => m.Name).Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 

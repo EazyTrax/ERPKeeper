@@ -30,7 +30,7 @@
             .ValueExpr("Value")
             );
 
-                columns.Add().DataField("Name").Width(130)
+                columns.AddFor(m => m.Name).Width(130)
                 .Visible(false)
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/">SP:<%= data.Name %></a></text>);
 

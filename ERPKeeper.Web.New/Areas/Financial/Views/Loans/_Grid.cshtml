@@ -31,7 +31,7 @@
             .ValueExpr("Value")
             );
 
-                columns.Add().DataField("Name").Width(130)
+                columns.AddFor(m => m.Name).Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Financial/Loans/<%= data.Id %>/"><%= data.Name %></a></text>);
                 columns.AddFor(m => m.Reference).Width(180);
 

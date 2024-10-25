@@ -13,7 +13,7 @@
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-        .FilterRow(filterflex => filterRow.Visible(true))
+        .FilterRow(filterRow => filterRow.Visible(true))
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
 
@@ -27,25 +27,9 @@
             .ValueExpr("Value")
             );
 
-                columns.Add().DataField("Name")
+                columns.AddFor(m => m.Name)
                 .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP:<%= data.Name %></a></text>);
-
-
-                columns.AddFor(m => m.SaleId)
-                .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Name %></a></text>);
-
-
-
-
-                columns.AddFor(m => m.Sale.CustomerId).Lookup(lookup => 
-               lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
-       
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.Reference).Width(180);
                 columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
