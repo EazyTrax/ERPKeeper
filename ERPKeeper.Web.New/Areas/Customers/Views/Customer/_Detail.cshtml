@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
-<div class="bg-fb1 p-2 rounded mb-2">
+<div class="bg-fb1 p-2 border bg-gray-100">
     <div class="flex">
         <div class="w-10/12 p-0">
             <div class="font-weight-bold">
@@ -16,6 +16,62 @@
             </a>
         </div>
     </div>
+</div>
+
+<div class="grid grid-cols-4">
+
+
+    <a href="/@CompanyId/Customers/Customers/@Model.Id/SaleQuotes">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.CustomerId == Model.Id).Count()
+            </div>
+            <div class="text-lg text-center">
+                Sale Quote
+            </div>
+        </div>
+    </a>
+
+
+
+
+    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id).Count()
+            </div>
+            <div class="text-lg text-center">
+                Sale
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Invoice).Count()
+            </div>
+            <div class="text-lg text-center">
+                UnPaid Sale
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Customers/Customers/@Model.Id/Items">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.CustomerItems.Where(s => s.CustomerId == Model.Id).Count()
+            </div>
+            <div class="text-lg text-center">
+                Items
+            </div>
+        </div>
+    </a>
+
+
+
 </div>
 
 

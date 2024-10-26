@@ -5,6 +5,7 @@
     <div class="w-4/12 p-0">
         @{
             var currentFiscalYear = Organization.FiscalYears.CurrentPeriod;
+
             if (currentFiscalYear != null)
             {
                 <partial name="/areas/accounting/views/fiscalyear/_chart_profitandlost.cshtml" model="currentFiscalYear" />

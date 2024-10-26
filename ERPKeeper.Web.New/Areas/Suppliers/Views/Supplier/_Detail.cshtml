@@ -1,10 +1,73 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
-<div class="bg-fb2 border p-2">
-    <div class="font-weight-bold">
-        @Model.Profile.Name
-    </div>
-    <div>
-        @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName
+
+<div class="bg-fb1 p-2 border bg-gray-100">
+    <div class="flex">
+        <div class="w-10/12 p-0">
+            <div class="font-weight-bold">
+                @Model.Profile.Name
+            </div>
+            @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName<br />
+        </div>
+        <div class="w-2/12 p-0 text-right">
+            <a href="/@CompanyId/Profiles/@Model.Id">
+                <span class="material-icons-outlined">
+                    badge
+                </span>
+            </a>
+        </div>
     </div>
 </div>
+
+<div class="grid grid-cols-4">
+
+
+    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/PurchaseQuotes">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.SupplierId == Model.Id).Count()
+            </div>
+            <div class="text-lg text-center">
+                Purchase Quote
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id).Count()
+            </div>
+            <div class="text-lg text-center">
+                Purchase
+            </div>
+        </div>
+    </a>
+
+
+
+    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Invoice).Count()
+            </div>
+            <div class="text-lg text-center">
+                UnPaid Purchase
+            </div>
+        </div>
+    </a>
+
+    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Items">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.SupplierItems.Where(s => s.CustomerId == Model.Id).Count()
+            </div>
+            <div class="text-lg text-center">
+                Items
+            </div>
+        </div>
+    </a>
+</div>
+
+

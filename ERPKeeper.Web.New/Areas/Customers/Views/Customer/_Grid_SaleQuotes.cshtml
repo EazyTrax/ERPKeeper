@@ -38,17 +38,16 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name)
-            .Width(130)
+                columns.AddFor(m => m.Name).Width(130)
             .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-                columns.AddFor(m=>m.Reference).Width(180);
+                columns.AddFor(m=>m.Reference);
                  columns.AddFor(m=>m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
-                columns.Add().DataField("Taxl").Width(130).AllowEditing(false).Format("#,##0.00");
+                columns.AddFor(m=>m.Tax).Width(130).AllowEditing(false).Format("#,##0.00");
 
-                columns.AddFor(m => m.TaxCodeId)
+                columns.AddFor(m => m.TaxCodeId).Width(180)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")

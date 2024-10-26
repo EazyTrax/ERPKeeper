@@ -50,7 +50,7 @@
 
     columns.AddFor(m=>m.Reference);
      columns.AddFor(m=>m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
-    columns.Add().DataField("Taxl").Width(130).AllowEditing(false).Format("#,##0.00");
+    columns.AddFor(m=>m.Tax).Width(130).AllowEditing(false).Format("#,##0.00");
     })
     )
 </div>
