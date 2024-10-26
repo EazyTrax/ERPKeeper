@@ -23,7 +23,7 @@
     i.AmountOnHand,
     i.BrandId,
     i.BrandName,
-    i.AmountSold
+    i.SoldAmount
 
     })
 
@@ -104,8 +104,8 @@
     .ValueExpr("Value")
     );
 
-    columns.Add().DataField("AmountOnHand").Width(60).HeaderCellTemplate(@<text>Stock</text>);
-    columns.Add().DataField("AmountSold").Width(60).HeaderCellTemplate(@<text>Sold</text>);
+    columns.AddFor(m => m.AmountOnHand).Width(60).HeaderCellTemplate(@<text>Stock</text>);
+    columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(@<text>Sold</text>);
 
     columns.Add().DataField("SalePrice").Width(130).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);
     //columns.Add().DataField("Id");

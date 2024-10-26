@@ -1,6 +1,4 @@
-﻿
-
-@model ERPKeeperCore.Enterprise.Models.Items.Item
+﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
 
 
 <style>
@@ -13,41 +11,38 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
-    .ID("gridList")
-    .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
+            .ID("gridList")
+            .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/api/{CompanyId}/Products/Items/{Model.Id}/SaleItems/All"))
-    .ShowRowLines(true)
-    .ShowBorders(false)
-    .Paging(paging => paging.PageSize(100))
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-    .Width("100%")
-    .ColumnAutoWidth(false)
-    .Columns(columns => {
-    columns.AddFor(m=>m.Sale.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
-             
-                columns.AddFor(m => m.Sale.Name)
-    .Width(150)
-    .CellTemplate(@<text>
-            <a href="/Sales/Sales/<%= data.Commercial.Id %>/">
-                <%= data.Commercial.Name %>
-            </a>
-        </text>);
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .Width("100%")
+            .ColumnAutoWidth(false)
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.Sale.Date).Width(130)
+                .SortOrder(SortOrder.Desc).SortIndex(1);
 
-                columns.AddFor(m => m.Sale.Name).HeaderCellTemplate(@<text>Customer</text>)
-    .Width(150)
-    .CellTemplate(@<text>
-            <a href="/Sales/Customers/<%= data.Commercial.Profile.Id %>/">
-                <%= data.Commercial.Profile.Name %>
-            </a>
-        </text>);
+                columns.AddFor(m => m.Sale.Name).Width(150)
+                .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Sale.Id %>/"><%= data.Sale.Name %></a></text>);
+
+                columns.AddFor(m => m.Sale.Name).Width(150)
+                .HeaderCellTemplate(@<text>Customer</text>)
+                .CellTemplate(@<text>
+                    <a href="/Customers/Customers/<%= data.Sale.CustomerId %>">
+                        <%= data.Sale.Customer.Profile.Name %>.
+                    </a>
+                </text>);
 
                 columns.AddFor(m => m.Sale.Reference).Width(150);
-    columns.AddFor(m=>m.Quantity).Width(80).Format("#,##0.00");
-    columns.AddFor(m=>m.Price).Width(80).Format("#,##0.00");
-    columns.AddFor(m=>m.LineTotal).AllowEditing(false).Format("#,##0.00");
-    //columns.Add().DataField("Id");
-    })
-    )
+                columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
+                columns.AddFor(m => m.Price).Width(80).Format("#,##0.00");
+                columns.AddFor(m => m.LineTotal).AllowEditing(false).Format("#,##0.00");
+                //columns.Add().DataField("Id");
+            })
+        )
 </div>
 

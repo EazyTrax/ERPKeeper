@@ -57,11 +57,13 @@ namespace ERPKeeperCore.Enterprise.Models.Items
 
         public String? BrandName { get; set; }
         public Guid GroupItemId { get; set; }
-        public int AmountPurchase { get; set; }
+        public int PurchaseAmount { get; set; }
         public int AmountOnHand { get; set; }
-        public int AmountSold { get; set; }
+        public int SoldAmount { get; set; }
         public int AmountOnPurchaseOrder { get; set; }
         public int AmountOnQuotation { get; set; }
         public int AmountOnSaleOrder { get; set; }
+        public decimal SoldValue { get; internal set; }
+        public decimal PurchaseValue { get; internal set; }
     }
 }

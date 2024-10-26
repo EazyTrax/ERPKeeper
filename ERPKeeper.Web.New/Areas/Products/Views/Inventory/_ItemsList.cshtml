@@ -14,9 +14,9 @@
     i.BrandId,
     i.BrandName,
     i.GroupItemId,
-    i.AmountPurchase,
+    i.PurchaseAmount,
     i.AmountOnHand,
-    i.AmountSold,
+    i.SoldAmount,
     i.AmountOnPurchaseOrder,
     i.AmountOnQuotation,
     i.AmountOnSaleOrder,
@@ -54,6 +54,7 @@
         .Type(StateStoringType.LocalStorage)
         .StorageKey("Customers_Inventory")
     )
+    .Width("100%")
     .RowAlternationEnabled(true)
     .Columns(columns => {
 
@@ -78,7 +79,6 @@
     </text>);
 
     columns.AddFor(m => m.Description).MinWidth(250)
-            .Width(430)
     .CellTemplate(@<text>
             <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
                 <%= data.Description %>
@@ -88,10 +88,10 @@
                 columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(@<text>Price</text>);
                 //columns.AddFor(m=>m.AmountPurchase).Width(60).HeaderCellTemplate(@<text>PU</text>);
                 //columns.AddFor(m => m.AmountSold).Width(60).HeaderCellTemplate(@<text>SL</text>);
-                columns.AddFor(m => m.AmountOnHand).Width(60).HeaderCellTemplate(@<text>Stock</text>);
-                columns.AddFor(m => m.AmountOnQuotation).Width(60).HeaderCellTemplate(@<text>QU</text>);
-                columns.AddFor(m => m.AmountOnSaleOrder).Width(60).HeaderCellTemplate(@<text>OR</text>);
-                columns.AddFor(m => m.AmountOnPurchaseOrder).Width(60).HeaderCellTemplate(@<text>PO</text>);
+                columns.AddFor(m => m.AmountOnHand).Width(100).HeaderCellTemplate(@<text>Stock</text>);
+                columns.AddFor(m => m.AmountOnQuotation).Width(100).HeaderCellTemplate(@<text>Quote</text>);
+                columns.AddFor(m => m.AmountOnSaleOrder).Width(100).HeaderCellTemplate(@<text>Order</text>);
+                columns.AddFor(m => m.AmountOnPurchaseOrder).Width(100).HeaderCellTemplate(@<text>Purchase</text>);
     })
     )
 </div>

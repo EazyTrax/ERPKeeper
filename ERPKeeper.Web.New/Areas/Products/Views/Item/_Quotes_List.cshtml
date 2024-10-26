@@ -33,7 +33,7 @@
     columns.AddFor(m=>m.Customer.Profile.Name)
 
     .CellTemplate(@<text>
-            <a href="/Sales/Customers/<%= data.Quote.Profile.Id %>/">
+            <a href="/Customers/Customers/<%= data.Quote.Profile.Id %>/">
                 <%= data.Quote.Profile.Name %>
             </a>
         </text>);

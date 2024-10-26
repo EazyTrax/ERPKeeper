@@ -1,23 +1,43 @@
 ﻿@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
+    string[] companies = new string[] { "tec", "bit" };
 
-    void Template(string display, string controller, string area, int? count = null)
-    {
-        <div class="flex e pl-3 @(checkCurrentController(controller) ? "font-weight-600" : "")">
-            <div class="grow">
-                <a href="/@area/@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="w-2/12 p-0 text-right">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
 }
 
+<div class="grid grid-cols-2">
+    @{
 
+
+        foreach (var company in companies)
+        {
+            var companyRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo(company, true);
+
+
+            <div class="grid grid-cols-6">
+                <div class="col-span-6 bg-gray-100 p-2 border text-2xl font-semibold">
+                    @company
+                </div>
+                <a href="/@company/Customers/Sales">
+                    <div class="bg-gray-100 p-2 border">
+
+                        @companyRepo.ErpCOREDBContext.Sales.Count() <br /> Sales
+
+                    </div>
+                </a>
+
+                <a href="/@company/Suppliers/Purchases">
+                    <div class="bg-gray-100 p-2 border">
+                        @companyRepo.ErpCOREDBContext.Purchases.Count() <br />Purchases
+                    </div>
+                </a>
+
+
+                <a href="/@company/Products/Items">
+                    <div class="bg-gray-100 p-2 border">
+                        @companyRepo.ErpCOREDBContext.Items.Count() <br />Items
+                    </div>
+                </a>
+            </div>
+
+        }
+    }
+</div>

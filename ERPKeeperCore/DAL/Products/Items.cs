@@ -11,6 +11,8 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
 using Azure.Core;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ERPKeeperCore.Enterprise.Models.Customers;
 
 namespace ERPKeeperCore.Enterprise.DAL.Products
 {
@@ -52,6 +54,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
         public void UpdateSupplierItems()
         {
             var saleItems = erpNodeDBContext.PurchaseItems
+                .ToList()
                  .GroupBy(si => new { ItemId = si.ItemId, SupplierId = si.Purchase.SupplierId })
                  .Select(si => new
                  {
@@ -122,7 +125,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
 
             saleItems.ForEach(si =>
             {
-
                 var customerItem = erpNodeDBContext.CustomerItems
                 .Where(ct => ct.CustomerId == si.CustomerId && ct.ItemId == si.ItemId)
                 .FirstOrDefault();
@@ -172,5 +174,66 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
             erpNodeDBContext.Items.RemoveRange(groupItems);
             erpNodeDBContext.SaveChanges();
         }
+
+        public void Update_Sales_Amount()
+        {
+            // Group SaleItems and calculate total Amount for each ItemId
+            var saleItemsAmount = erpNodeDBContext.SaleItems.ToList()
+                .GroupBy(si => si.ItemId)
+                .Select(g => new { Id = g.Key, Amount = g.Sum(s => s.Quantity), Value = g.Sum(s=>s.LineTotal) })
+                .ToList();
+
+            // Fetch all items that need updating in a single query
+            var itemsToUpdate = erpNodeDBContext.Items
+                .Where(i => saleItemsAmount.Select(si => si.Id).Contains(i.Id))
+                .ToList();
+
+            // Update the AmountSold for each item in-memory
+            foreach (var saleItemAmount in saleItemsAmount)
+            {
+                var item = itemsToUpdate.FirstOrDefault(i => i.Id == saleItemAmount.Id);
+                if (item != null)
+                {
+                    item.SoldAmount = saleItemAmount.Amount;
+                    item.SoldValue = saleItemAmount.Value;
+                    item.AmountOnHand = item.PurchaseAmount - item.SoldAmount;
+                }
+            }
+
+            // Save all changes in one go
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void Update_Purchases_Amount()
+        {
+            // Group SaleItems and calculate total Amount for each ItemId
+            var saleItemsAmount = erpNodeDBContext.PurchaseItems.ToList()
+                .GroupBy(si => si.ItemId)
+                .Select(g => new { Id = g.Key, Amount = g.Sum(s => s.Quantity), Value = g.Sum(s => s.LineTotal) })
+                .ToList();
+
+            // Fetch all items that need updating in a single query
+            var itemsToUpdate = erpNodeDBContext.Items
+                .Where(i => saleItemsAmount.Select(si => si.Id).Contains(i.Id))
+                .ToList();
+
+            // Update the AmountSold for each item in-memory
+            foreach (var saleItemAmount in saleItemsAmount)
+            {
+                var item = itemsToUpdate.FirstOrDefault(i => i.Id == saleItemAmount.Id);
+                if (item != null)
+                {
+                    item.PurchaseAmount = saleItemAmount.Amount;
+                    item.PurchaseValue = saleItemAmount.Value;
+                    item.AmountOnHand = item.PurchaseAmount - item.SoldAmount;
+                }
+            }
+
+            // Save all changes in one go
+            erpNodeDBContext.SaveChanges();
+        }
+
+
+
     }
 }
