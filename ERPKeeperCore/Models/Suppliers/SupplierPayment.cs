@@ -40,10 +40,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Decimal Amount { get; set; }
         public Decimal AmountExcludeTax { get; set; }
         public Decimal AmountDiscount { get; set; }
-        public Decimal AmountTotal => Amount - AmountDiscount;
+        public Decimal AmountAfterDiscount => Amount - AmountDiscount;
 
         public Decimal AmountRetention { get; set; }
-        public Decimal AmountTotalReceive => AmountTotal - AmountRetention ;
+        public Decimal AmountAfterDiscountAndRetention => (Amount - AmountDiscount) - AmountRetention ;
+
         public Decimal AmountBankFee { get; set; }
 
 
@@ -118,9 +119,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             // Cr.
             if (this.AmountDiscount > 0)
                 this.Transaction.AddCredit(this.IncomeAccount_DiscountTaken, this.AmountDiscount);
+
             if (this.RetentionTypeId != null)
                 this.Transaction.AddCredit(this.RetentionType.RetentionTo_LiabilityAccount, this.AmountRetention);
-            this.Transaction.AddCredit(this.AssetAccount_PayFrom, this.AmountTotal);
+          
+            this.Transaction.AddCredit(this.AssetAccount_PayFrom, this.AmountAfterDiscountAndRetention);
 
 
             if (this.AmountBankFee > 0)

@@ -1,0 +1,29 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
+
+<div class="flex">
+    <div class="col-center-div grow  mh-100v border-right border-2">
+
+
+        @if (Model.SupplierPayment != null)
+        {
+            <div>
+                Paid, <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.SupplierPayment.Id/">View Payment</a>
+            </div>
+        }
+        else
+        {
+            <div>
+                Create Payment
+            </div>
+        }
+
+
+
+
+
+    </div>
+    <div class="col-right-div w-3/12">
+        <partial name="_Summary" />
+
+    </div>
+</div>

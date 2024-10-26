@@ -30,17 +30,13 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name).Width(130)
-                .Visible(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/">SP:<%= data.Name %></a></text>);
+                columns.AddFor(m => m.Name).Width(50)
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/">SP</a></text>);
 
 
                 columns.AddFor(m => m.PurchaseId)
             .Width(130)
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
-
-
-
 
                 columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))

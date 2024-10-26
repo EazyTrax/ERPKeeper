@@ -56,7 +56,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Items");
         }
 
-        public IActionResult Payments()
+        public IActionResult Payment()
         {
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);

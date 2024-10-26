@@ -83,13 +83,13 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             SupplierPayments.ForEach(payment =>
             {
                 payment.IncomeAccount_DiscountTaken = DiscountTaken_IncomeAccount;
-                payment.IncomeAccount_DiscountTakenId = DiscountTaken_IncomeAccount.Id;
+               // payment.IncomeAccount_DiscountTakenId = DiscountTaken_IncomeAccount.Id;
 
                 payment.LiablityAccount_SupplierPayable = SupplierPayable_LiabilityAccount;
-                payment.LiablityAccount_SupplierPayableId = SupplierPayable_LiabilityAccount.Id;
+               // payment.LiablityAccount_SupplierPayableId = SupplierPayable_LiabilityAccount.Id;
 
                 payment.ExpenseAccount_BankFee = BankFee_ExpenseAccount;
-                payment.ExpenseAccount_BankFeeId = BankFee_ExpenseAccount.Id;
+               // payment.ExpenseAccount_BankFeeId = BankFee_ExpenseAccount.Id;
 
                 erpNodeDBContext.SaveChanges();
 

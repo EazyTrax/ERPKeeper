@@ -2,7 +2,21 @@
 
 <div class="flex">
     <div class="col-center-div grow">
-        <partial name="_Payments_Grid" />
+
+        @if (Model.ReceivePayment != null)
+        {
+            <div>
+                Paid, <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.ReceivePayment.Id/">View Payment</a>
+            </div>
+        }
+        else
+        {
+            <div>
+                Create Payment
+            </div>
+        }
+
+
      
     </div>
 </div>

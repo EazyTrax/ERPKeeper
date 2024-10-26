@@ -52,13 +52,8 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                newOrganization.ErpCOREDBContext.Purchases.Where(p=>p.ExpenseAccount==null).ToList()
-                    .ForEach(x => x.UnPostLedger());
-                newOrganization.SaveChanges();
-
-                var purchases = newOrganization.ErpCOREDBContext.Purchases
-                    .Where(p => p.ExpenseAccount == null)
-                    .ToList();
+           
+                newOrganization.SupplierPayments.PostToTransactions();
 
                 //int i = purchases.Count();
                 //purchases.ForEach(x =>

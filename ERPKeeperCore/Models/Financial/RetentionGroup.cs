@@ -38,7 +38,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         {
             Count = ReceivePayments.Count() + SupplierPayments.Count();
             AmountCommercial = ReceivePayments.Select(t => t.AmountTotal).DefaultIfEmpty(0).Sum() +
-                SupplierPayments.Select(t => t.AmountTotal).DefaultIfEmpty(0).Sum();
+                SupplierPayments.Select(t => t.AmountAfterDiscount).DefaultIfEmpty(0).Sum();
 
 
             AmountRetention = ReceivePayments.Select(t => t.AmountRetention).DefaultIfEmpty(0).Sum() +

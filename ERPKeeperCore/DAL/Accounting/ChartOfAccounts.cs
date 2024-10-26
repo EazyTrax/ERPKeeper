@@ -228,7 +228,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
 
         public void GenerateHistoryBalance()
         {
-            throw new NotImplementedException();
+          erpNodeDBContext.Accounts.ToList()
+                .ForEach(model =>
+                {
+                    model.CreateHostoriesBalances();
+                    erpNodeDBContext.SaveChanges();
+                });
         }
 
         public void CreateOpeningJournalEntry()

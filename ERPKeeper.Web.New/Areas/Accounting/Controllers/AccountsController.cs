@@ -28,6 +28,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         {
             Organization.ChartOfAccount.Refresh_CurrentBalance();
             Organization.ChartOfAccount.GenerateHistoryBalance();
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
