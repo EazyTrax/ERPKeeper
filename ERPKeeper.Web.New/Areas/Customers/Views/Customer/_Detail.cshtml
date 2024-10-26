@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div class="grid grid-cols-4">
+<div class="grid grid-cols-6">
 
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/SaleQuotes">
@@ -38,10 +38,22 @@
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
         <div class="bg-gray-100 h-24 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id).Count()
+                @Model.TotalSalesCount
             </div>
             <div class="text-lg text-center">
                 Sale
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @(Model.TotalSales.ToString("N0"))
+            </div>
+            <div class="text-lg text-center">
+                Revenue
             </div>
         </div>
     </a>
@@ -58,6 +70,16 @@
         </div>
     </a>
 
+    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @(Model.TotalBalance.ToString("N0"))
+            </div>
+            <div class="text-lg text-center">
+                Balance
+            </div>
+        </div>
+    </a>
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Items">
         <div class="bg-gray-100 h-24 content-center border">

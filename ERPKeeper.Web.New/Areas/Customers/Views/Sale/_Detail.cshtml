@@ -1,7 +1,61 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
-<div class="bg-fb1 p-2 mb-2 ">
-    <div class="font-weight-600">
-        <span class="text-fs-1e"@Model.Status></span>
-    </div>
+
+
+<div class="grid grid-cols-6">
+
+
+    <a href="/@CompanyId/Customers/Sales/@Model.Id">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Status
+            </div>
+            <div class="text-lg text-center">
+                Status
+            </div>
+        </div>
+    </a>
+
+
+
+
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.AgeInDays
+            </div>
+            <div class="text-lg text-center">
+                Age
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Invoice).Count()
+            </div>
+            <div class="text-lg text-center">
+                UnPaid Sale
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
+        <div class="bg-gray-100 h-24 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Items.Count()
+            </div>
+            <div class="text-lg text-center">
+                Items
+            </div>
+        </div>
+    </a>
+
+
+
 </div>
+
+

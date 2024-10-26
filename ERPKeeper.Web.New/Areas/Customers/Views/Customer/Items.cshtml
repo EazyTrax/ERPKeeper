@@ -1,15 +1,12 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
 <div class="flex">
-    <div class="col-center-div grow">
+    <div class="col-center-div w-9/12">
+
         <partial name="_ItemsList" />
     </div>
     <div class="col-right-div w-3/12">
         <partial name="_Summary" />
-
-        <div class="p-2 bg-fb2">
-            <a href="/@CompanyId/Customers/Customers/@Model.Id/UpdateItems">Update Items</a>
-        </div>
     </div>
 </div>
 

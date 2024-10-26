@@ -42,72 +42,62 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(customer);
         }
 
-        public IActionResult UpdateItems()
+        public IActionResult UpdateItems(Guid customerId)
         {
+            // Retrieve Customer once
             var customer = Organization.Customers.Find(customerId);
+            if (customer == null)
+                return NotFound();
 
+            // Fetch CustomerItems in bulk to avoid querying in each loop
+            var customerItemsDict = Organization.ErpCOREDBContext.CustomerItems
+                .Where(ct => ct.CustomerId == customerId)
+                .ToDictionary(ct => ct.ItemId, ct => ct);
+
+            // Calculate and update AmountSale from SaleItems
             var saleItems = Organization.ErpCOREDBContext.SaleItems
                 .Where(si => si.Sale.CustomerId == customerId)
                 .GroupBy(si => si.ItemId)
-                .Select(si => new
-                {
-                    si.Key,
-                    Amount = si.Sum(x => x.Quantity),
-                }).ToList();
+                .Select(si => new { ItemId = si.Key, Amount = si.Sum(x => x.Quantity) })
+                .ToList();
 
-
-            saleItems.ForEach(si =>
+            foreach (var item in saleItems)
             {
-                var customerItem = Organization.ErpCOREDBContext.CustomerItems
-                .Where(ct => ct.CustomerId == customerId && ct.ItemId == si.Key)
-                .FirstOrDefault();
-
-                if (customerItem == null)
+                if (!customerItemsDict.TryGetValue(item.ItemId, out var customerItem))
                 {
-                    customerItem = new Enterprise.Models.Customers.CustomerItem(si.Key, customerId);
+                    // Create and add new CustomerItem if it doesn't exist
+                    customerItem = new Enterprise.Models.Customers.CustomerItem(item.ItemId, customerId);
                     customer.Items.Add(customerItem);
+                    customerItemsDict[item.ItemId] = customerItem;
                 }
+                customerItem.AmountSale = item.Amount;
+            }
 
-                customerItem.AmountSale = si.Amount;
-
-            });
-
-            Organization.SaveChanges();
-
-
+            // Calculate and update AmountSaleQuote from SaleQuoteItems
             var quoteItems = Organization.ErpCOREDBContext.SaleQuoteItems
-               .Where(si => si.Quote.CustomerId == customerId)
-               .GroupBy(si => si.ItemId)
-               .Select(si => new
-               {
-                   si.Key,
-                   Amount = si.Sum(x => x.Quantity),
-               }).ToList();
+                .Where(si => si.Quote.CustomerId == customerId)
+                .GroupBy(si => si.ItemId)
+                .Select(si => new { ItemId = si.Key, Amount = si.Sum(x => x.Quantity) })
+                .ToList();
 
-            quoteItems.ForEach(si =>
+            foreach (var item in quoteItems)
             {
-                var customerItem = Organization.ErpCOREDBContext.CustomerItems
-                .Where(ct => ct.CustomerId == customerId && ct.ItemId == si.Key)
-                .FirstOrDefault();
-
-
-                if (customerItem == null)
+                if (!customerItemsDict.TryGetValue(item.ItemId, out var customerItem))
                 {
-                    customerItem = new Enterprise.Models.Customers.CustomerItem(si.Key, customerId);
+                    // Create and add new CustomerItem if it doesn't exist
+                    customerItem = new Enterprise.Models.Customers.CustomerItem(item.ItemId, customerId);
                     customer.Items.Add(customerItem);
+                    customerItemsDict[item.ItemId] = customerItem;
                 }
+                customerItem.AmountSaleQuote = item.Amount;
+            }
 
-                customerItem.AmountSaleQuote = si.Amount;
-
-
-            });
-
+            // Save all changes in one go
             Organization.SaveChanges();
 
-
-            Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
 
         public IActionResult EstimateItems()
         {

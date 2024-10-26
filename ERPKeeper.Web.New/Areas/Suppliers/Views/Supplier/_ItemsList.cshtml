@@ -1,33 +1,59 @@
 ﻿
 
+
 @model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
+<style>
+    .dx-treelist .dx-flex > td {
+        padding: 2px !important;
+    }
+</style>
 
-@{
-    var items = Organization.ErpCOREDBContext.PurchaseItems
-            .Where(i => i.Purchase.SupplierId == Model.Id)
-            .ToList();
-}
+<div class="p-2 bg-fb2 border">
+    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/UpdateItems"><i class="fa-solid fa-arrows-rotate"></i> Update Items</a>
+</div>
+
+<div id="treeListDemo" class="mb-3 border">
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierItem>()
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.ProfileId}/Items/All"))
+            .RowAlternationEnabled(true)
+            .KeyExpr("Id")
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .GroupPanel(groupPanel => groupPanel.Visible(true))
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .ColumnAutoWidth(false)
+            .RowDragging(rd => rd
+            .AllowDropInsideItem(false)
+            .AllowReordering(false)
+            )
+            .Columns(columns =>
+            {
+
+                columns.AddFor(m => m.Item.PartNumber)
+            .Width(180)
+            .CellTemplate(@<text>
+        <a href="/@CompanyId/Products/Items/<%= data.ItemId %>/">
+            <%= data.Item.PartNumber %>
+        </a>
+    </text>
+        ); 
+        columns.AddFor(m => m.Item.Description)
+        .CellTemplate(@<text>
+        <a href="/@CompanyId/Products/Items/<%= data.ItemId %>/">
+            <%= data.Item.Description %>
+        </a>
+    </text>
+        );
 
 
-@foreach (var item in items)
-{
-    <div class="flex bg-gray-100 py-2 border-bottom border-white">
+                columns.AddFor(m => m.AmountOrdered).Width(80);
 
-        <div class="col-8 mb-2">
-            <a href="/@CompanyId/Products/@item.ItemId">
-                <b>  @item.Item.PartNumber</b><br />
-                @item.Item.Description
-            </a>
-        </div>
-        <div class="col-4">
-            <div class="text-right">
-              
-            </div>
-        </div>
+                columns.AddFor(m => m.AmountPurchase).Width(80);
+            })
+        )
+</div>
 
-        <div class="col-12">
-        
-        </div>
-    </div>
-}

@@ -28,9 +28,6 @@
     <a href="/@CompanyId/Profiles">Profiles</a> :
     <a href="/@CompanyId/Customers">Customers</a>
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers/Customers/@Model.Id">@Model.Profile.Name</a>
-</div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Home", $"/{CompanyId}/Customers/Customers/{Model.Id}");

@@ -41,7 +41,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
-
+        public int AgeInDays
+        {
+            get
+            {
+                var endDate = SupplierPayment?.Date ?? DateTime.Now;
+                return (endDate - Date).Days;
+            }
+        }
 
         public Decimal LinesTotal { get; set; }
         public Decimal Discount { get; set; }

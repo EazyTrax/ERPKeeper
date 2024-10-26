@@ -51,6 +51,16 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+
+        public int AgeInDays
+        {
+            get
+            {
+                var endDate = ReceivePayment?.Date ?? DateTime.Now;
+                return (endDate - Date).Days;
+            }
+        }
+
         public Decimal LinesTotal { get; set; }
         public Decimal Discount { get; set; }
         public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;

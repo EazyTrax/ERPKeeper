@@ -16,16 +16,16 @@
             .Columns(columns =>
             {
 
-                columns.AddFor(m => m.ProfileId).MinWidth(250)
+                columns.AddFor(m => m.ProfileId).Width(150)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .HeaderCellTemplate(@<text>TAX</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(@<text>TAX ID</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.ProfileId).Width(80)
+                columns.AddFor(m => m.ProfileId).Width(150)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
             .DisplayExpr("Text")
@@ -44,21 +44,10 @@
             .HeaderCellTemplate(@<text>Customer</text>)
              .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.TotalSales)
-                .Width(120).HeaderCellTemplate(@<text>Sale</text>)
-                .Format(Format.FixedPoint);
-
-                columns.AddFor(m => m.TotalSalesCount)
-                .Width(60).HeaderCellTemplate(@<text>Sale</text>)
-                ;
-
-                columns.AddFor(m => m.TotalBalance)
-                .Width(120)
-            .HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-
-                columns.AddFor(m => m.TotalBalanceCount)
-                .Width(60).HeaderCellTemplate(@<text>Balance</text>);
-
+                columns.AddFor(m => m.TotalSales).Width(120).HeaderCellTemplate(@<text>Sale</text>).Format(Format.FixedPoint);
+                columns.AddFor(m => m.TotalSalesCount).Width(120).HeaderCellTemplate(@<text>Sale</text>);
+                columns.AddFor(m => m.TotalBalance).Width(120).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
+                columns.AddFor(m => m.TotalBalanceCount).Width(120).HeaderCellTemplate(@<text>Balance</text>);
             })
         )
 </div>
