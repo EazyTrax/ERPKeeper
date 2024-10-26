@@ -43,9 +43,9 @@
         </text>);
 
                 columns.AddFor(m => m.Sale.Reference).Width(150);
-    columns.Add().DataField("Amount").Width(80).Format("#,##0.00");
-    columns.Add().DataField("SalePrice").Width(80).Format("#,##0.00");
-    columns.Add().DataField("LineTotal").Width(80).Format("#,##0.00");
+    columns.AddFor(m=>m.Quantity).Width(80).Format("#,##0.00");
+    columns.AddFor(m=>m.Price).Width(80).Format("#,##0.00");
+    columns.AddFor(m=>m.LineTotal).AllowEditing(false).Format("#,##0.00");
     //columns.Add().DataField("Id");
     })
     )

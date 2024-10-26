@@ -83,26 +83,28 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         }
 
-
-        public void CreateDraft(Sale model, Guid customerId)
+        public Sale CreateDraft(Sale model, Guid? customerId = null)
         {
-            var currentYear = model.Date.Year;
-            var currentMonth = model.Date.Month;
+            if (customerId != null)
+                model.CustomerId = (Guid)customerId;
 
             var maxNo = erpNodeDBContext.Sales
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
 
-            model.Status = Enterprise.Models.Customers.Enums.SaleStatus.Draft;
-            model.CustomerId = customerId;
-
+            model.Date = DateTime.Now;
+            model.Status = SaleStatus.Draft;
             model.No = maxNo + 1;
+
             model.UpdateBalance();
+            model.UpdateName();
 
             erpNodeDBContext.Sales.Add(model);
             erpNodeDBContext.SaveChanges();
-        }
 
+            return model;
+        }
+       
         public void UnPostAll()
         {
             var sales = erpNodeDBContext.Sales
@@ -128,5 +130,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             erpNodeDBContext.SaveChanges();
 
         }
+
+       
     }
 }

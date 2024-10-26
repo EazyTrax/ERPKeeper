@@ -9,8 +9,10 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Customers/Sales/All")
-            .UpdateUrl($"/API/{CompanyId}/Customers/Customers/Update")
+            .InsertUrl($"/API/{CompanyId}/Customers/Sales/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Customers/Sales/Update")
             .UpdateMethod("Post")
+            .InsertMethod("Post")
             )
             .RowAlternationEnabled(true)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
@@ -37,7 +39,7 @@
 
                 columns.AddFor(m => m.No).Width(60).ShowInColumnChooser(true);
 
-                columns.AddFor(m => m.Status)
+                columns.AddFor(m => m.Status).AllowEditing(false)
             .AllowEditing(false)
             .Width(80)
             .Lookup(lookup => lookup
@@ -63,8 +65,8 @@
                 columns.AddFor(m => m.Reference)
             .Width(180);
 
-                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
-                columns.Add().DataField("Tax").Width(130).Format("#,##0.00");
+                 columns.AddFor(m=>m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
+                 columns.AddFor(m=>m.Tax).Width(130).AllowEditing(false).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId).Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))

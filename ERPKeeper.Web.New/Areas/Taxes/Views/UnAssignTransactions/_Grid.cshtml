@@ -37,7 +37,7 @@
         )
         .Columns(columns =>
         {
-            @* columns.AddFor(m => m.Status).Width(60).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
+            @* columns.AddFor(m => m.Status).AllowEditing(false).Width(60).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Taxes.Enums.Taxestatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")
@@ -55,7 +55,7 @@
 
 
 
-            columns.AddFor(m => m.Status)
+            columns.AddFor(m => m.Status).AllowEditing(false)
         .HeaderCellTemplate("Type")
         .Width(120).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
         .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriodStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))

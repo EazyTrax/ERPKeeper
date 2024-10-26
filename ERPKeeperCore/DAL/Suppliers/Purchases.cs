@@ -135,5 +135,26 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.SaveChanges();
 
         }
+
+        public Purchase CreateDraft(Purchase model, Guid? SupplierId = null)
+        {
+            if (SupplierId != null)
+                model.SupplierId = (Guid)SupplierId;
+
+            var maxNo = erpNodeDBContext.Purchases
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
+
+            model.Date = DateTime.Now;
+            model.Status = PurchaseStatus.Draft;
+            model.No = maxNo + 1;
+            model.UpdateBalance();
+            model.UpdateName();
+
+            erpNodeDBContext.Purchases.Add(model);
+            erpNodeDBContext.SaveChanges();
+
+            return model;
+        }
     }
 }

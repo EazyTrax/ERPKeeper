@@ -8,6 +8,7 @@ using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
@@ -25,25 +26,16 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Suppliers.PurchaseQuote();
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+            var model = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote();
             JsonConvert.PopulateObject(values, model);
 
-
-            model.Status = Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Draft;
-            model.No = Organization.ErpCOREDBContext
-                .SaleQuotes
-                .Where(a => a.Date.Year == model.Date.Year && a.Date.Month == model.Date.Month)
-                .Select(a => (int?)a.No)
-                .Max() ?? 0;
-
-
-
-
-            Organization.ErpCOREDBContext.PurchaseQuotes.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+            enterpriseRepo.PurchaseQuotes.CreateDraft(model);
+            enterpriseRepo.SaveChanges();
 
             return Ok();
         }
+
 
 
         [HttpPost]

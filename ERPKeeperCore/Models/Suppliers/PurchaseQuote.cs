@@ -77,7 +77,6 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public void UpdateBalance()
         {
 
-            this.Name = $"PQ-{Date.Year}{Date.Month}-{this.No.ToString()}";
 
             this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);
 
@@ -86,7 +85,13 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             else
                 this.Tax = 0;
         }
+        public void UpdateName()
+        {
+            var currentYear = this.Date.Year;
+            var currentMonth = this.Date.Month;
 
+            this.Name = $"PQ-{currentYear}/{currentMonth}/{this.No.ToString()}";
+        }
         public void UpdateItems()
         {
             var removeItems = this.Items

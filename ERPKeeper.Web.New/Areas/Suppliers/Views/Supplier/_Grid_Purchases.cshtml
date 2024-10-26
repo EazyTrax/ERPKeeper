@@ -11,7 +11,7 @@
         .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/Update")
         .UpdateMethod("Post")
         .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/Insert")
-        .UpdateMethod("Post"))
+        .InsertMethod("Post"))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Supplier_Purchases"))
 
@@ -40,12 +40,12 @@
 
 
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
-                columns.AddFor(m => m.Status).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
+                columns.AddFor(m => m.Status).AllowEditing(false).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
-                columns.AddFor(m => m.Name)
+                columns.AddFor(m => m.Name).AllowEditing(false)
             .Width(130)
             .CellTemplate(@<text>
         <a href="/@CompanyId/Suppliers/Purchase/<%= data.Id %>/">
@@ -53,8 +53,8 @@
         </a>
     </text>);
 
-                columns.Add().DataField("Reference");
-                columns.Add().DataField("Total").Format("#,##0.00");
+                columns.AddFor(m=>m.Reference);
+                 columns.AddFor(m=>m.Total).AllowEditing(false).Format("#,##0.00");
                 //columns.Add().DataField("Id");
             })
         )

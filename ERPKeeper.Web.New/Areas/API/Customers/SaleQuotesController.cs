@@ -8,6 +8,7 @@ using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 {
@@ -21,8 +22,20 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
+        [HttpPost]
+        public IActionResult Insert(string values)
+        {
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.SaleQuote();
+            JsonConvert.PopulateObject(values, model);
 
-       
+            enterpriseRepo.SaleQuotes.CreateDraft(model);
+            enterpriseRepo.SaveChanges();
+
+            return Ok();
+        }
+
+
 
         [HttpPost]
         public IActionResult Update(Guid key, string values)
@@ -33,6 +46,6 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             return Ok();
         }
 
-      
+
     }
 }

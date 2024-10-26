@@ -68,6 +68,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
             var modelIdentity = new ClaimsIdentity(claims, "Login");
 
             ClaimsPrincipal principal = new(modelIdentity);
+
             await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     principal,

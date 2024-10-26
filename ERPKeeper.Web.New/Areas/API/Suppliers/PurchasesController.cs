@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Enterprise;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -23,25 +24,15 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Suppliers.Purchase();
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+            var model = new ERPKeeperCore.Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            var currentYear = model.Date.Year;
-            var currentMonth = model.Date.Month;
-
-            var maxNo = Organization.ErpCOREDBContext.SaleQuotes
-                .Where(a => a.Date.Year == currentYear && a.Date.Month == currentMonth)
-                .Select(a => (int?)a.No)
-                .Max() ?? 0;
-
-            model.No = maxNo + 1;
-
-            Organization.ErpCOREDBContext.Purchases.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
+            enterpriseRepo.Purchases.CreateDraft(model);
+            enterpriseRepo.SaveChanges();
 
             return Ok();
         }
-
 
         [HttpPost]
         public IActionResult Update(Guid key, string values)

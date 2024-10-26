@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Enterprise;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -21,14 +22,16 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         }
 
 
+      
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Customers.Sale();
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            Organization.Sales.CreateDraft(model, ProfileId);
-            Organization.SaveChanges();
+            enterpriseRepo.Sales.CreateDraft(model, ProfileId);
+            enterpriseRepo.SaveChanges();
 
             return Ok();
         }

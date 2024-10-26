@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Web.API.Profiles.Profile;
 using Microsoft.AspNetCore.Mvc;
@@ -23,20 +24,19 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
-
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Customers.SaleQuote();
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+            var model = new ERPKeeperCore.Enterprise.Models.Customers.SaleQuote();
             JsonConvert.PopulateObject(values, model);
 
-            model.CustomerId = ProfileId;
-
-            Organization.SaleQuotes.CreateNew(model);
-            Organization.SaveChanges();
+            enterpriseRepo.SaleQuotes.CreateDraft(model, ProfileId);
+            enterpriseRepo.SaveChanges();
 
             return Ok();
         }
+       
 
 
         [HttpPost]

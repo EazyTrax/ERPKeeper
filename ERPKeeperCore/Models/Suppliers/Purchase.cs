@@ -110,7 +110,13 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             else
                 this.Tax = 0;
         }
+        public void UpdateName()
+        {
+            var currentYear = this.Date.Year;
+            var currentMonth = this.Date.Month;
 
+            this.Name = $"PU-{currentYear}/{currentMonth}/{this.No.ToString()}";
+        }
         public void Post_Ledgers(int order)
         {
             Console.WriteLine($">{order} Post PUR:{this.Name}");

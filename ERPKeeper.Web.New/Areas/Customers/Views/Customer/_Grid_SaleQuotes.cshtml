@@ -13,7 +13,7 @@
             .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/Update")
             .UpdateMethod("Post"))
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Customer_SaleQuotes"))
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Customers_Customer_SaleQuotes"))
             .RowAlternationEnabled(true)
             .KeyExpr("Id")
             .ShowRowLines(false)
@@ -30,7 +30,7 @@
             .SortIndex(1)
             .Width(130);
 
-                columns.AddFor(m => m.Status)
+                columns.AddFor(m => m.Status).AllowEditing(false)
             .Width(80)
             .Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
@@ -44,9 +44,9 @@
             .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-                columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
-                columns.Add().DataField("Tax").Width(130).Format("#,##0.00");
+                columns.AddFor(m=>m.Reference).Width(180);
+                 columns.AddFor(m=>m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
+                columns.Add().DataField("Taxl").Width(130).AllowEditing(false).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
             .Lookup(lookup => lookup

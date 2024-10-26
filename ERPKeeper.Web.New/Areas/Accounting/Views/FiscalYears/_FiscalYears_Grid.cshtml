@@ -29,7 +29,7 @@
                 columns.AddFor(m => m.EndDate)
                 .Format(Format.ShortDate);
 
-                columns.AddFor(m => m.Status)
+                columns.AddFor(m => m.Status).AllowEditing(false)
                 .Width(130)
                 .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.FiscalYearStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text })).DisplayExpr("Text").ValueExpr("Value"));
 

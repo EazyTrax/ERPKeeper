@@ -12,6 +12,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 
 namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 {
@@ -46,6 +47,27 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             erpNodeDBContext.PurchaseQuotes.Add(model);
             erpNodeDBContext.SaveChanges();
+        }
+
+        public PurchaseQuote CreateDraft(PurchaseQuote model, Guid? SupplierId = null)
+        {
+            if (SupplierId != null)
+                model.SupplierId = (Guid)SupplierId;
+
+            var maxNo = erpNodeDBContext.PurchaseQuotes
+                .Select(a => (int?)a.No)
+                .Max() ?? 0;
+
+            model.Date = DateTime.Now;
+            model.Status = PurchaseQuoteStatus.Draft;
+            model.No = maxNo + 1;
+            model.UpdateBalance();
+            model.UpdateName();
+
+            erpNodeDBContext.PurchaseQuotes.Add(model);
+            erpNodeDBContext.SaveChanges();
+
+            return model;
         }
     }
 }

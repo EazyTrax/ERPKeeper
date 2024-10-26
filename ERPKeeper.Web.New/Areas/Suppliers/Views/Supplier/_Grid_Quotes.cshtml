@@ -16,7 +16,7 @@
             .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/Update")
             .UpdateMethod("Post")
             .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/Insert")
-            .UpdateMethod("Post"))
+            .InsertMethod("Post"))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Supplier_PurchaseQuotes"))
 
@@ -42,7 +42,7 @@
 
 
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
-                columns.AddFor(m => m.Status).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
+                columns.AddFor(m => m.Status).AllowEditing(false).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
@@ -57,8 +57,8 @@
 
 
 
-                columns.Add().DataField("Reference");
-                columns.Add().DataField("Total").Format("#,##0.00");
+                columns.AddFor(m=>m.Reference);
+                 columns.AddFor(m=>m.Total).AllowEditing(false).Format("#,##0.00");
                 //columns.Add().DataField("Id");
             })
         )

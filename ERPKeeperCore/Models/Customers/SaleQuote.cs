@@ -90,8 +90,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public void UpdateBalance()
         {
 
-            this.Name = $"SQ-{Date.Year}{Date.Month}-{this.No.ToString()}";
-
             this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);
 
             if (this.TaxCode != null)
@@ -113,6 +111,14 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
             this.Reorder();
             this.UpdateBalance();
+        }
+
+        public void UpdateName()
+        {
+            var currentYear = this.Date.Year;
+            var currentMonth = this.Date.Month;
+
+            this.Name= $"SQ-{currentYear}/{currentMonth}/{this.No.ToString()}";
         }
     }
 }

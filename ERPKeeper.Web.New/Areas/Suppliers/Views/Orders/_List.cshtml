@@ -59,9 +59,9 @@
             </a>
         </text>);
 
-    columns.Add().DataField("Reference");
-        columns.Add().DataField("LinesTotal").Format("#,##0.00");
-    columns.Add().DataField("Total").Format("#,##0.00");
+    columns.AddFor(m=>m.Reference);
+         columns.AddFor(m=>m.Tax).AllowEditing(false).Format("#,##0.00");
+     columns.AddFor(m=>m.Total).AllowEditing(false).Format("#,##0.00");
     //columns.Add().DataField("Id");
     })
     )

@@ -39,6 +39,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             transcation.Reorder();
             transcation.UpdateBalance();
+            transcation.UpdateName();
+
             Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());

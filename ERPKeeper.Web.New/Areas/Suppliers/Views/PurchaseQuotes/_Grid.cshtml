@@ -10,6 +10,7 @@
             .InsertUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Insert")
             .UpdateUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Update")
             .UpdateMethod("Post")
+            .InsertMethod("Post")
             )
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
             .RowAlternationEnabled(true)
@@ -29,7 +30,7 @@
             .SortIndex(1)
             .Width(130);
 
-                columns.AddFor(m => m.Status)
+                columns.AddFor(m => m.Status).AllowEditing(false)
             .Width(80)
             .Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
@@ -37,7 +38,7 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name)
+                columns.AddFor(m => m.Name).AllowEditing(false)
                     .Width(150)
                     .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);
 
@@ -50,9 +51,9 @@
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
-                columns.Add().DataField("Reference").Width(180);
-                columns.Add().DataField("LinesTotal").Width(130).Format("#,##0.00");
-                columns.Add().DataField("Total").Width(130).Format("#,##0.00");
+                columns.AddFor(m=>m.Reference).Width(180);
+                 columns.AddFor(m=>m.Tax).Width(130).Format("#,##0.00");
+                 columns.AddFor(m=>m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
             .Lookup(lookup => lookup

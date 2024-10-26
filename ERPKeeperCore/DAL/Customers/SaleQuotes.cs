@@ -29,19 +29,20 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         public SaleQuote? Find(Guid Id) => erpNodeDBContext.SaleQuotes.Find(Id);
 
-        public SaleQuote CreateDraft(SaleQuote model, Guid customerId)
+        public SaleQuote CreateDraft(SaleQuote model, Guid? customerId = null)
         {
-            var currentYear = model.Date.Year;
-            var currentMonth = model.Date.Month;
+            if (customerId != null)
+                model.CustomerId = (Guid)customerId;
 
             var maxNo = erpNodeDBContext.SaleQuotes
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
 
-            model.Status = SaleQuoteStatus.Quote;
-            model.CustomerId = customerId;
+            model.Date = DateTime.Now;
+            model.Status = SaleQuoteStatus.Draft;
             model.No = maxNo + 1;
             model.UpdateBalance();
+            model.UpdateName();
 
             erpNodeDBContext.SaleQuotes.Add(model);
             erpNodeDBContext.SaveChanges();
@@ -49,9 +50,5 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             return model;
         }
 
-        public void CreateNew(SaleQuote model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

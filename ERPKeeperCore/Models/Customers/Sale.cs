@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Customers
@@ -141,6 +142,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 item.Order = index++;
             }
         }
+
+
         public void UpdateBalance()
         {
             this.LinesTotal = this.Items.Where(i => i.LineTotal > 0).Sum(i => i.LineTotal);
@@ -149,6 +152,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 this.Tax = this.TaxCode.Rate * this.LinesTotalAfterDiscount / 100;
             else
                 this.Tax = 0;
+
         }
 
         public void UnPostLedger()
@@ -208,9 +212,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void UpdateItems()
         {
-           var removeItems = this.Items
-                .Where(i => i.Quantity == 0)
-                .ToList();
+            var removeItems = this.Items
+                 .Where(i => i.Quantity == 0)
+                 .ToList();
 
             foreach (var item in removeItems)
             {
@@ -219,6 +223,14 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
             this.Reorder();
             this.UpdateBalance();
+        }
+
+        public void UpdateName()
+        {
+            var currentYear = this.Date.Year;
+            var currentMonth = this.Date.Month;
+
+            this.Name = $"SL-{currentYear}/{currentMonth}/{this.No.ToString()}";
         }
     }
 }
