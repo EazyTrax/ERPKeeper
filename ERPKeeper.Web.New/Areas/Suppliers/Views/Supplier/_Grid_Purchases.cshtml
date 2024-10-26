@@ -26,19 +26,8 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
 
         .ColumnAutoWidth(false)
-        @*.AutoExpandAll(true)*@
-        .RowDragging(rd => rd
-        .AllowDropInsideItem(false)
-        .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
-    .OnDragEnd("onDragEnd")
-    .ShowDragIcons(false)*@
-        )
             .Columns(columns =>
             {
-
-
-
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
                 columns.AddFor(m => m.Status).AllowEditing(false).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
@@ -46,17 +35,22 @@
             .ValueExpr("Value")
             );
                 columns.AddFor(m => m.Name).AllowEditing(false)
-            .Width(130)
-            .CellTemplate(@<text>
-        <a href="/@CompanyId/Suppliers/Purchase/<%= data.Id %>/">
-            <%= data.Name %>
-        </a>
-    </text>);
+                    .Width(130)
+                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.Reference);
                 columns.AddFor(m => m.Total).AllowEditing(false).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Tax).AllowEditing(false).Width(130).Format("#,##0.00");
             })
+        .OnInitNewRow("onInitNewRow")
         )
 </div>
+
+<script>
+    function onInitNewRow(e) {
+        const today = new Date();
+        e.data.Date = today;
+        e.data.Status = 0;
+    }
+</script>
 

@@ -31,14 +31,14 @@
                 columns.AddFor(m => m.Purchase.Name)
             .Width(150)
             .CellTemplate(@<text>
-        <a href="/@CompanyId/Suppliers/Purchase/<%= data.Commercial.Id %>/">
+        <a href="/@CompanyId/Suppliers/Purchases/<%= data.Commercial.Id %>/">
             <%= data.Commercial.Name %>
         </a>
     </text>);
 
                 columns.AddFor(m => m.Purchase.Supplier.Profile.Name).HeaderCellTemplate(@<text>Customer</text>)
     .CellTemplate(@<text>
-        <a href="/@CompanyId/Suppliers/Purchase/<%= data.Commercial.Profile.Id %>/">
+        <a href="/@CompanyId/Suppliers/Purchases/<%= data.Commercial.Profile.Id %>/">
             <%= data.Commercial.Profile.Name %>
         </a>
     </text>);

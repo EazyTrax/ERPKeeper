@@ -38,29 +38,29 @@
         )
             .Columns(columns =>
             {
-
-
-
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
                 columns.AddFor(m => m.Status).AllowEditing(false).SortOrder(SortOrder.Desc).SortIndex(2).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
-                columns.AddFor(m => m.Name)
-            .Width(130)
-            .CellTemplate(@<text>
-        <a href="/Sales/Estimate/<%= data.Id %>/">
-            <%= data.Name %>
-        </a>
-    </text>);
+                columns.AddFor(m => m.Name).Width(130)
+                .CellTemplate(@<text><a href="@CompanyId/Suppliers/PurchaseQuotes<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
 
                 columns.AddFor(m=>m.Reference);
-                 columns.AddFor(m=>m.Total).AllowEditing(false).Width(130).Format("#,##0.00");
-                //columns.Add().DataField("Id");
+                columns.AddFor(m=>m.Total).AllowEditing(false).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Tax).AllowEditing(false).Width(130).Format("#,##0.00");
             })
+        .OnInitNewRow("onInitNewRow")
         )
 </div>
 
+<script>
+    function onInitNewRow(e) {
+        const today = new Date();
+        e.data.Date = today;
+        e.data.Status = 0;
+    }
+</script>

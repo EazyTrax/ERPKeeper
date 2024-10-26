@@ -44,6 +44,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             model.No = maxNo + 1;
             model.UpdateBalance();
+            model.UpdateName();
 
             erpNodeDBContext.PurchaseQuotes.Add(model);
             erpNodeDBContext.SaveChanges();

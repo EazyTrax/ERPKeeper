@@ -61,7 +61,7 @@
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Items">
         <div class="bg-gray-100 h-24 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Organization.ErpCOREDBContext.SupplierItems.Where(s => s.CustomerId == Model.Id).Count()
+                @Organization.ErpCOREDBContext.SupplierItems.Where(s => s.SupplierId == Model.Id).Count()
             </div>
             <div class="text-lg text-center">
                 Items
