@@ -52,8 +52,22 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-           
+                // newOrganization.Sales.UnPostAll();
+                //  newOrganization.SupplierPayments.UnPostAll();
+                newOrganization.ErpCOREDBContext.SupplierPayments
+                    .Include(x => x.Purchase)
+                    .Where(x => x.Date < x.Purchase.Date)
+                    .ToList().ForEach(x =>
+                    {
+                        x.Date = x.Purchase.Date;
+                        x.UnPostLedger();
+
+                    });
+
+                newOrganization.ErpCOREDBContext.SaveChanges();
+
                 newOrganization.SupplierPayments.PostToTransactions();
+
 
                 //int i = purchases.Count();
                 //purchases.ForEach(x =>

@@ -73,7 +73,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             var SupplierPayments = erpNodeDBContext.SupplierPayments
                 .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted || rePost)
-                .OrderBy(s => s.Date).ToList();
+                .Include(s => s.Transaction)
+                .ThenInclude(s => s.Ledgers)
+                .OrderBy(s => s.Date)
+                .ToList();
 
             var DiscountTaken_IncomeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
             var SupplierPayable_LiabilityAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Liability_AccountPayable);
@@ -83,19 +86,28 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             SupplierPayments.ForEach(payment =>
             {
                 payment.IncomeAccount_DiscountTaken = DiscountTaken_IncomeAccount;
-               // payment.IncomeAccount_DiscountTakenId = DiscountTaken_IncomeAccount.Id;
-
                 payment.LiablityAccount_SupplierPayable = SupplierPayable_LiabilityAccount;
-               // payment.LiablityAccount_SupplierPayableId = SupplierPayable_LiabilityAccount.Id;
-
                 payment.ExpenseAccount_BankFee = BankFee_ExpenseAccount;
-               // payment.ExpenseAccount_BankFeeId = BankFee_ExpenseAccount.Id;
-
-                erpNodeDBContext.SaveChanges();
-
                 payment.PostToTransaction();
-                erpNodeDBContext.SaveChanges();
             });
+            erpNodeDBContext.SaveChanges();
+        }
+
+
+        public void UnPostAll()
+        {
+            var payents = erpNodeDBContext.SupplierPayments
+                .Where(s => s.IsPosted)
+                .Include(s => s.Transaction)
+                .ThenInclude(s => s.Ledgers)
+                .ToList();
+
+            payents.ForEach(payment =>
+            {
+                payment.UnPostLedger();
+            });
+
+            erpNodeDBContext.SaveChanges();
         }
     }
 }

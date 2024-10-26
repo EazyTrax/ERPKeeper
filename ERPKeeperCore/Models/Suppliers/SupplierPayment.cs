@@ -139,5 +139,24 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             IsPosted = this.Transaction.UpdateBalance();
         }
 
+
+        public void UnPostLedger()
+        {
+            Console.WriteLine($">UnPost  SP:{this.Name}");
+
+            if (Transaction == null)
+            {
+                this.IsPosted = false;
+                return;
+            }
+            else
+            {
+                this.Transaction.ClearLedger();
+                this.Transaction.Date = this.Date;
+                this.Transaction.Reference = this.Reference;
+                this.Transaction.Name = this.Name;
+                this.IsPosted = false;
+            }
+        }
     }
 }

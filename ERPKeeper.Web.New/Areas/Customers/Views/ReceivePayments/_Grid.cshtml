@@ -82,6 +82,13 @@
 
 
             })
+
+    .Summary(s =>
+    s.TotalItems(items =>
+    {
+
+    items.AddFor(m => m.Amount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+    }))
         )
 </div>
 
