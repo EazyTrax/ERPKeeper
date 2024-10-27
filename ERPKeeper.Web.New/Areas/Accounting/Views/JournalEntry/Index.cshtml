@@ -1,11 +1,9 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry
 
 <div class="flex">
-    <div class="col-center-div grow mh-100v border-right">
-        
+    <div class="col-center-div w-9/12 mh-100v border">
         <partial name="_Items_Grid" />
     </div>
-
     <div class="col-right-div w-3/12">
         <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
     </div>

@@ -15,7 +15,7 @@
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .ColumnAutoWidth(false)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
@@ -27,6 +27,9 @@
             .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
+                columns.AddFor(m => m.Rate);
+
+
                 columns.AddFor(m => m.RetentionToAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Retention Acc.</text>)
@@ -36,15 +39,13 @@
 
                 columns.AddFor(m => m.RetentionToAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Type = t.Type.ToString() }).OrderBy(t => t.Type).ToList()).DisplayExpr("Type").ValueExpr("Id"))
-            .AllowEditing(false)
+
             .HeaderCellTemplate(@<text>AccType</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionToAccountId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.Rate);
 
 
-
-
+                columns.AddFor(m => m.RetentionAccountBalance).Width(130).AllowEditing(false).Format("#,##0.00");
 
 
 

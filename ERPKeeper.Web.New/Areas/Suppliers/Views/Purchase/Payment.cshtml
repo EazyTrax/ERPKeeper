@@ -2,21 +2,30 @@
 
 <div class="flex">
     <div class="col-center-div grow  mh-100v border-right border-2">
+        <partial name="_Summary_Tile" />
 
-
-        @if (Model.SupplierPayment != null)
-        {
-            <div>
-                Paid, <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.SupplierPayment.Id/">View Payment</a>
-            </div>
-        }
-        else
-        {
-            <div>
-                Create Payment
-            </div>
-        }
-
+        <div class="p-2 bg-gray-100">
+            @if (Model.SupplierPayment != null)
+            {
+                <div>
+                    Paid, <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.SupplierPayment.Id/">View Payment</a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <div>
+                        Un Paid
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToShortDateString()</a>
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Pay?Date=Today">Pay Today @DateTime.Today.ToShortDateString()</a>
+                    </div>
+                </div>
+            }
+        </div>
 
 
 

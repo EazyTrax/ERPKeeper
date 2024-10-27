@@ -19,5 +19,21 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var SupplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
             return View(SupplierPayment);
         }
+
+
+        public IActionResult Export()
+        {
+            var SupplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
+            return View(SupplierPayment);
+        }
+
+        public IActionResult Update()
+        {
+            var SupplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
+
+            SupplierPayment.UpdateBalance();
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

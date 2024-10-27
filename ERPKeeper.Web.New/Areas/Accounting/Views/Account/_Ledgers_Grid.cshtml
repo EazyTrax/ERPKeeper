@@ -14,6 +14,8 @@
             .ColumnAutoWidth(false)
             .Paging(pagging => pagging.PageSize(100))
             .GroupPanel(gp => gp.Visible(true))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Accounting_Account_Ledgers" + CompanyId.ToString()))
+
             .Columns(columns =>
             {
             columns.AddFor(m => m.Transaction.Date);
@@ -35,10 +37,10 @@
 
 
                 columns.AddFor(m => m.Transaction.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/">TR: <%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Transaction.Reference)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Debit).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Credit).Width(130).Format("#,##0.00");

@@ -88,7 +88,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                 payment.IncomeAccount_DiscountTaken = DiscountTaken_IncomeAccount;
                 payment.LiablityAccount_SupplierPayable = SupplierPayable_LiabilityAccount;
                 payment.ExpenseAccount_BankFee = BankFee_ExpenseAccount;
-                payment.PostToTransaction();
+                payment.Post_Ledgers();
             });
             erpNodeDBContext.SaveChanges();
         }

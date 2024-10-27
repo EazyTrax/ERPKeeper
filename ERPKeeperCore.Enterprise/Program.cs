@@ -52,31 +52,26 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                // newOrganization.Sales.UnPostAll();
-                //  newOrganization.SupplierPayments.UnPostAll();
-                newOrganization.ErpCOREDBContext.SupplierPayments
-                    .Include(x => x.Purchase)
-                    .Where(x => x.Date < x.Purchase.Date)
-                    .ToList().ForEach(x =>
-                    {
-                        x.Date = x.Purchase.Date;
-                        x.UnPostLedger();
+                int index = 1;
 
+                newOrganization.RetentionGroups.GetAll()
+                    .Where(s=>s.Count>0)
+                    .ToList()
+                    .ForEach(s =>
+                    {
+                        s.Name = $"RG:{index++}";
                     });
 
-                newOrganization.ErpCOREDBContext.SaveChanges();
-
-                newOrganization.SupplierPayments.PostToTransactions();
-
-
-                //int i = purchases.Count();
-                //purchases.ForEach(x =>
+                //newOrganization.ErpCOREDBContext.ReceivePayments
+                //    .Where(s => s.RetentionType != null)
+                //    .ToList()
+                //    .ForEach(s =>
                 //    {
-                //        x.Post_Ledgers(i--);
+                //        s.UpdateBalance();
+                //        Console.WriteLine($"ReceivePayments:{s.Name}  RG: {s.RetentionGroup == null}");
+
                 //    });
 
-
-                // newOrganization.ErpCOREDBContext.PurchaseQuotes.Where(x => x.Items.Count == 0).ExecuteDelete();
 
 
                 newOrganization.SaveChanges();

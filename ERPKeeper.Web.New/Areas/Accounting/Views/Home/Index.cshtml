@@ -2,5 +2,13 @@
     <div class="col-center-div grow">
     </div>
     <div class="col-right-div w-3/12">
+        @{
+            var currentFiscalYear = Organization.FiscalYears.CurrentPeriod;
+
+            if (currentFiscalYear != null)
+            {
+                <partial name="/areas/accounting/views/fiscalyear/_Chart_Asset_Liability_Equity.cshtml" model="currentFiscalYear" />
+            }
+        }
     </div>
 </div>

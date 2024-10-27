@@ -54,5 +54,11 @@
                 columns.AddFor(m => m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
             })
         .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
+        .Summary(s =>
+        s.TotalItems(items =>
+        {
+            items.AddFor(m => m.Quantity).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.LineTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        }))
         )
 </div>

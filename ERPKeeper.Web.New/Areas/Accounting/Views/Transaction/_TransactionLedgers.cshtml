@@ -1,11 +1,10 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
 
-@{
-    var transactionLedgers = Model.Ledgers.ToList();
-}
 
 @if (Model != null)
 {
+    var transactionLedgers = Model.Ledgers.ToList();
+
     <div class="flex border p-2 bg-gray-100">
         <div class="w-8/12 font-semibold">
             <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
@@ -17,9 +16,20 @@
         </div>
     </div>
 
+    @if (!Model.IsPosted)
+    {
+        <div class="bg-red-100 p-3">
+            Not Posted
+        </div>
+    }
+    else
+    {
+        <div class="bg-green-100 p-3">
+            Posted
+        </div>
+    }
+
     <div class="p-1 border">
-
-
         @foreach (var transactionLedger in transactionLedgers)
         {
             <div class="flex px-2">

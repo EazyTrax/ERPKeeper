@@ -1,0 +1,85 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
+
+<div class="grid grid-cols-6">
+    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Status
+            </div>
+            <div class="text-lg text-center">
+                Status
+            </div>
+        </div>
+    </a>
+
+
+
+
+    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Items">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Items.Count()
+            </div>
+            <div class="text-lg text-center">
+                Items
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.AgeInDays
+            </div>
+            <div class="text-lg text-center">
+                Age
+            </div>
+        </div>
+    </a>
+
+
+    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Payment">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @if (Model.SupplierPayment == null)
+                {
+                    <span>Un Paid</span>
+                }
+                else
+                {
+                    <sapn>Paid</sapn>
+                }
+
+            </div>
+            <div class="text-lg text-center">
+                Payment
+            </div>
+        </div>
+    </a>
+
+    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @(Model.Total.ToString("N0"))
+            </div>
+            <div class="text-lg text-center">
+                Total
+            </div>
+        </div>
+    </a>
+
+    <div class="bg-gray-100 h-20 content-center border">
+        <div class="text-3xl text-center font-semibold">
+          
+        </div>
+        <div class="text-lg text-center">
+         
+        </div>
+    </div>
+   
+
+
+</div>
+
+

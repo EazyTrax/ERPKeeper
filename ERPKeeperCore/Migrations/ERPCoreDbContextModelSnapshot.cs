@@ -1607,15 +1607,42 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPosted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("No")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("PayDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("PayFromAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("PostedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RetentionTypeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("PayFromAccountId");
+
                     b.HasIndex("RetentionTypeId");
+
+                    b.HasIndex("TransactionId")
+                        .IsUnique()
+                        .HasFilter("[TransactionId] IS NOT NULL");
 
                     b.ToTable("RetentionGroups");
                 });
@@ -1643,6 +1670,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("RetentionAccountBalance")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<Guid?>("RetentionToAccountId")
@@ -3404,13 +3434,25 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup", b =>
                 {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFromAccount")
+                        .WithMany()
+                        .HasForeignKey("PayFromAccountId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", "RetentionType")
                         .WithMany()
                         .HasForeignKey("RetentionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Transaction", "Transaction")
+                        .WithOne("RetentionGroup")
+                        .HasForeignKey("ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup", "TransactionId");
+
+                    b.Navigation("PayFromAccount");
+
                     b.Navigation("RetentionType");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
@@ -3867,6 +3909,8 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Purchase");
 
                     b.Navigation("ReceivePayment");
+
+                    b.Navigation("RetentionGroup");
 
                     b.Navigation("Sale");
 

@@ -97,7 +97,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             }
 
 
-
             IsPosted = this.Transaction.UpdateBalance();
 
         }

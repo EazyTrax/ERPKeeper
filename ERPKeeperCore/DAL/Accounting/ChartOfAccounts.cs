@@ -222,18 +222,44 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             }
         }
 
+        public void Update_CurrentBalance(List<Account> accounts)
+        {
+            var firstDate = organization.FiscalYears.FirstPeriod.StartDate;
+            var accountIds = accounts.Select(a => a.Id).ToList();
+
+            var accountBalances = erpNodeDBContext.TransactionLedgers
+                .Where(l => accountIds.Contains(l.AccountId) && l.Transaction.Date >= firstDate)
+                .GroupBy(t => t.AccountId)
+                .Select(t => new { AccountId = t.Key, Debit = t.Sum(i => i.Debit), Credit = t.Sum(i => i.Credit) })
+                .ToList();
+
+            foreach (var accBalance in accountBalances)
+            {
+                var account = accounts.FirstOrDefault(a => a.Id == accBalance.AccountId);
+                if (account != null)
+                {
+                    account.CurrentCredit = accBalance.Credit;
+                    account.CurrentDebit = accBalance.Debit;
+                    account.BalanceCalulatedDate = DateTime.Now;
+                }
+            }
+
+            // Save changes once after all updates are made
+            erpNodeDBContext.SaveChanges();
+        }
+
 
 
 
 
         public void GenerateHistoryBalance()
         {
-          erpNodeDBContext.Accounts.ToList()
-                .ForEach(model =>
-                {
-                    model.CreateHostoriesBalances();
-                    erpNodeDBContext.SaveChanges();
-                });
+            erpNodeDBContext.Accounts.ToList()
+                  .ForEach(model =>
+                  {
+                      model.CreateHostoriesBalances();
+                      erpNodeDBContext.SaveChanges();
+                  });
         }
 
         public void CreateOpeningJournalEntry()

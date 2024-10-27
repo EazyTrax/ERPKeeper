@@ -36,18 +36,44 @@
 
                 columns.AddFor(m => m.EndDate);
 
-  
 
-   @*  
 
-    columns.AddFor(m => m.RetentionToAccountId)
-    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Type = t.Type.ToString() }).OrderBy(t => t.Type).ToList()).DisplayExpr("Type").ValueExpr("Id"))
-    .AllowEditing(false)
-    .HeaderCellTemplate(@<text>AccType</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+                columns.AddFor(m => m.Count);
 
-    columns.AddFor(m => m.Rate);
-    *@
+                columns.AddFor(m => m.AmountCommercial).Width(130).AllowEditing(false).Format("#,##0.00");
+                columns.AddFor(m => m.AmountRetention).Width(130).AllowEditing(false).Format("#,##0.00");
+
+
+
+
+
+    
+
+                columns.AddFor(m => m.RetentionType.RetentionToAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                .AllowEditing(false)
+                .HeaderCellTemplate(@<text>Account</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionType.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.PayDate);
+                columns.AddFor(m => m.PayFromAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .HeaderCellTemplate(@<text>PayFrom</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
+
+
+
+                columns.AddFor(m => m.IsPosted)
+            .AllowEditing(false).Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
 
 

@@ -22,7 +22,7 @@
 
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/SaleQuotes">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.CustomerId == Model.Id).Count()
             </div>
@@ -36,7 +36,7 @@
 
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.TotalSalesCount
             </div>
@@ -48,7 +48,7 @@
 
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @(Model.TotalSales.ToString("N0"))
             </div>
@@ -60,7 +60,7 @@
 
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Invoice).Count()
             </div>
@@ -71,7 +71,7 @@
     </a>
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @(Model.TotalBalance.ToString("N0"))
             </div>
@@ -82,7 +82,7 @@
     </a>
 
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Items">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.CustomerItems.Where(s => s.CustomerId == Model.Id).Count()
             </div>

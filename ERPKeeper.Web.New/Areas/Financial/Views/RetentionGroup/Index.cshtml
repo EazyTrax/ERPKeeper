@@ -1,0 +1,18 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup
+
+<div class="flex">
+    <div class="col-center-div w-9/12">
+        <div class="border p-2 mb-2">
+
+            @Model.ReceivePayments.Count()  ReceivePayments<br />
+            @Model.SupplierPayments.Count() SupplierPayments
+
+
+
+        </div>
+    </div>
+    <div class="col-right-div w-3/12">
+        <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+    </div>
+</div>
+

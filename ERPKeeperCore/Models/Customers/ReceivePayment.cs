@@ -108,18 +108,32 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
 
 
-
-
-
-
-
-
             IsPosted = this.Transaction.UpdateBalance();
         }
 
         public void UpdateBalance()
         {
+            this.Amount = this.Sale.Total;
             this.Name = $"CRP-{Date.Year}{Date.Month}-{this.No.ToString()}";
+        }
+
+        public void UnPostLedger()
+        {
+            Console.WriteLine($">UnPost  SP:{this.Name}");
+
+            if (Transaction == null)
+            {
+                this.IsPosted = false;
+                return;
+            }
+            else
+            {
+                this.Transaction.ClearLedger();
+                this.Transaction.Date = this.Date;
+                this.Transaction.Reference = this.Reference;
+                this.Transaction.Name = this.Name;
+                this.IsPosted = false;
+            }
         }
 
         public ReceivePayment()

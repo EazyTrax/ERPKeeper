@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Decimal AmountAfterDiscount => Amount - AmountDiscount;
 
         public Decimal AmountRetention { get; set; }
-        public Decimal AmountAfterDiscountAndRetention => (Amount - AmountDiscount) - AmountRetention ;
+        public Decimal AmountAfterDiscountAndRetention => (Amount - AmountDiscount) - AmountRetention;
 
         public Decimal AmountBankFee { get; set; }
 
@@ -102,7 +102,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         }
 
 
-        public void PostToTransaction()
+        public void Post_Ledgers()
         {
             Console.WriteLine($">Post SupplierPayments:{this.Name} From {this.Purchase.Name}");
 
@@ -122,7 +122,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
             if (this.RetentionTypeId != null)
                 this.Transaction.AddCredit(this.RetentionType.RetentionTo_LiabilityAccount, this.AmountRetention);
-          
+
             this.Transaction.AddCredit(this.AssetAccount_PayFrom, this.AmountAfterDiscountAndRetention);
 
 
@@ -158,5 +158,13 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 this.IsPosted = false;
             }
         }
+        public void UpdateBalance()
+        {
+            this.Amount = this.Purchase.Total;
+            this.Name = $"CRP-{Date.Year}{Date.Month}-{this.No.ToString()}";
+        }
+
+
+
     }
 }

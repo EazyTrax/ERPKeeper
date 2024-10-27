@@ -28,6 +28,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         AssetDeprecateSchedule = 161,
         FiscalYearClosing = 200,
         ObsoleteAsset = 201,
+        RetentionGroup = 202,
     }
 }
 

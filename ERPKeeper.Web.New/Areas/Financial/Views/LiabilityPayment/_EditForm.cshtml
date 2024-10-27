@@ -3,17 +3,8 @@
 
 <form id="EditForm" action="/@CompanyId/Financial/LiabilityPayments/@Model.Id/Update" method="post">
     <div>
-        <div class="flex">
-            <div class="col-6 p-2 bg-gray-100 border">
-                <div class="flex">
-                    <div class="w-full p-0">
-                        <div class="mb-3 font-semibold">Liability Payment</div>
-                        <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 p-2 bg-gray-100 border">
+        <div class="grid grid-cols-2">
+            <div class="p-2 bg-gray-100 border">
                 <div class="mb-3 font-semibold">General</div>
                 <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                 <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>
@@ -30,9 +21,19 @@
                 </div>
                 <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").LabelMode(EditorLabelMode.Static)</div>
             </div>
+            <div class="p-2 bg-gray-100 border">
+                <div class="flex">
+                    <div class="w-full p-0">
+                        <div class="mb-3 font-semibold">Liability Payment</div>
+                        <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 bg-gray-100 border">
+                <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                    Save
+                </button>
+            </div>
         </div>
     </div>
-    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
-        Save
-    </button>
 </form>

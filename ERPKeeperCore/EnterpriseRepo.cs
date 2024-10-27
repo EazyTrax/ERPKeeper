@@ -56,7 +56,7 @@ namespace ERPKeeperCore.Enterprise
 
 
 
-        public Employees Employees;
+        public DAL.Employees.Employees Employees;
         public DAL.Employees.EmployeePositions EmployeePositions;
         public DAL.Employees.EmployeePaymentTypes EmployeePaymentTypes;
         public DAL.Employees.EmployeePayments EmployeePayments;
@@ -75,9 +75,14 @@ namespace ERPKeeperCore.Enterprise
         public LiabilityPayments LiabilityPayments;
 
         public IncomeTaxes IncomeTaxes;
-        public Loans Loans;
-        public Lends Lends;
-        public LendReturns LendReturns;
+
+
+        public DAL.Financial.Loans Loans;
+        public DAL.Financial.Lends Lends;
+        public DAL.Financial.LendReturns LendReturns;
+        public DAL.Financial.RetentionTypes RetentionTypes;
+        public DAL.Financial.RetentionGroups RetentionGroups;
+
 
         public Projects Projects
         {
@@ -122,12 +127,21 @@ namespace ERPKeeperCore.Enterprise
             Profiles = new Profiles(this);
             TaxCodes = new TaxCodes(this);
             TaxPeriods = new TaxPeriods(this);
-            FundTransfers = new FundTransfers(this);
+
             Transactions = new Transactions(this);
-            Loans = new Loans(this);
-            Lends = new Lends(this);
-            LendReturns = new LendReturns(this);
             IncomeTaxes = new IncomeTaxes(this);
+
+
+            FundTransfers = new DAL.Financial.FundTransfers(this);
+            Loans = new DAL.Financial.Loans(this);
+            Lends = new DAL.Financial.Lends(this);
+            LendReturns = new DAL.Financial.LendReturns(this);
+            RetentionTypes = new DAL.Financial.RetentionTypes(this);
+            RetentionGroups = new DAL.Financial.RetentionGroups(this);
+
+
+
+
 
             ReceivePayments = new DAL.Customers.ReceivePayments(this);
             SupplierPayments = new SupplierPayments(this);
@@ -167,7 +181,7 @@ namespace ERPKeeperCore.Enterprise
                 return _DataItems;
             }
         }
-      
+
         public Assets Assets
         {
             get

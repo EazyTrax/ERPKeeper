@@ -48,8 +48,12 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         }
         public IActionResult UpdateCurrentBalance()
         {
-            var model = Organization.ChartOfAccount.Find(AccountId);
-            Organization.ChartOfAccount.Refresh_CurrentBalance();
+            var account = Organization.ChartOfAccount.Find(AccountId);
+            var accounts = new List<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
+            {
+                account
+            };
+            Organization.ChartOfAccount.Update_CurrentBalance(accounts);
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }

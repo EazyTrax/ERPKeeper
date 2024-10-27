@@ -43,5 +43,11 @@
     columns.AddFor(m=>m.LineTotal).AllowEditing(false).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));
     })
         .OnInitNewRow("function(e) { e.data.Price = 0;e.data.Quantity = 1; }")
+        .Summary(s =>
+        s.TotalItems(items =>
+        {
+            items.AddFor(m => m.Quantity).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.LineTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        }))
     )
 </div>

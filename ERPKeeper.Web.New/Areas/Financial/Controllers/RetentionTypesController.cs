@@ -15,5 +15,26 @@ namespace ERPKeeperCore.Web.Areas.Financial.Controllers
         {
             return View();
         }
+
+        public IActionResult UpdateBalance()
+        {
+            var retentionTypes = Organization.RetentionTypes
+                .GetAll();
+
+            var retentionTypeAccounts = retentionTypes
+            .Select(a => a.RetentionToAccount)
+            .ToList();
+
+            Organization.ChartOfAccount.Update_CurrentBalance(retentionTypeAccounts);
+
+            retentionTypes.ForEach(a =>
+            {
+                a.RetentionAccountBalance = a.RetentionToAccount.CurrentBalance;
+            });
+
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

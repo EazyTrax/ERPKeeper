@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ERPKeeperCore.Web.New.API.Financials;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Financials
@@ -15,6 +16,7 @@ namespace ERPKeeperCore.Web.API.Financials
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.RetentionGroups
+                .Include(a => a.RetentionType)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

@@ -27,6 +27,13 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         [ForeignKey("RetentionToAccountId")]
         public virtual Accounting.Account? RetentionToAccount { get; set; }
 
+        public Decimal RetentionAccountBalance { get; set; }
+
+
+
+
+
+
         public Accounting.Account? RetentionTo_AssetAccount
         {
             get

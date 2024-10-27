@@ -9,7 +9,6 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
-
     [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/{action=index}")]
     public class PurchaseController : _Suppliers_Base_Controller
     {
@@ -22,14 +21,12 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
         }
         public IActionResult UnPost()
         {
-            var model =   Organization.Purchases.Find(Id);
+            var model = Organization.Purchases.Find(Id);
             Organization.Purchases.UnPost(model);
             Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
-
-
         public IActionResult Items()
         {
             var transcation = Organization.Purchases.Find(Id);
@@ -55,25 +52,42 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Items");
         }
-
         public IActionResult Payment()
         {
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
+        public IActionResult Pay(String Date)
+        {
+            var purchase = Organization.Purchases.Find(Id);
+            DateTime payDate = DateTime.Today;
 
+            if (Date == "PurchaseDate")
+                payDate = purchase.Date;
+
+            if (purchase.SupplierPayment == null)
+            {
+                purchase.SupplierPayment = new Enterprise.Models.Suppliers.SupplierPayment()
+                {
+                    Date = payDate,
+                    Amount = purchase.Total,
+                    AssetAccount_PayFrom = Organization.SystemAccounts.Cash
+                };
+                Organization.SaveChanges();
+            }
+
+            return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Payment");
+        }
         public IActionResult Shipments()
         {
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
-
         public IActionResult Documents()
         {
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
-
         public IActionResult Export()
         {
             var transcation = Organization.Purchases.Find(Id);

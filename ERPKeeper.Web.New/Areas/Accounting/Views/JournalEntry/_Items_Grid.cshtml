@@ -22,7 +22,7 @@
             {
                 columns.AddFor(m => m.AccountId)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-                    .Width(150)
+                    .Width(250)
             .HeaderCellTemplate(@<text>Account</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
@@ -31,7 +31,7 @@
                 columns.AddFor(m => m.Account.Type)
     .HeaderCellTemplate("Type")
     .AllowEditing(false)
-    .Width(130).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
+    .Width(200).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
     .DisplayExpr("Text")
     .ValueExpr("Value")

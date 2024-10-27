@@ -23,7 +23,7 @@
 
 
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/PurchaseQuotes">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.SupplierId == Model.Id).Count()
             </div>
@@ -35,7 +35,7 @@
 
 
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id).Count()
             </div>
@@ -48,7 +48,7 @@
 
 
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Invoice).Count()
             </div>
@@ -59,7 +59,7 @@
     </a>
 
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Items">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.SupplierItems.Where(s => s.SupplierId == Model.Id).Count()
             </div>

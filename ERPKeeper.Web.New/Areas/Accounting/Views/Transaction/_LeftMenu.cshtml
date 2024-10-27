@@ -1,4 +1,5 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
+﻿@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
 
 @{
     bool checkCurrentController(string controllerName)
@@ -28,20 +29,37 @@
     </div>
 </div>
 <div class="bg-fb1 p-2 text-xl">
-    <div class="font-weight-600">
-        <a href="/@CompanyId/Accounting/Transactions">Transactions</a>
-    </div>
-</div>
-<div class="bg-fb1 p-2 text-xl">
-    <div class="font-weight-600">
-        <a href="/@CompanyId/Accounting/Transactions/@Model.Id">@Model.Reference</a>
-    </div>
-</div>
+    <a href="/@CompanyId/Accounting/Transactions">Transactions</a>
+    <a href="/@CompanyId/Accounting/Transactions/@Model.Id">@Model.Reference</a>
 
 
-<div class="bg-fb1 p-2 text-xl">
-    @{
-        Template("Home", "Home");
+    @switch (Model.Type)
+    {
+        case TransactionType.Sale:
+        case TransactionType.ReceivePayment:
+            <a href="/@CompanyId/Customers/@(Model.Type)s/@Model.Id">@Model.Type</a>
+            break;
+        case TransactionType.Purchase:
+        case TransactionType.SupplierPayment:
+            <a href="/@CompanyId/Suppliers/@(Model.Type)s/@Model.Id">@Model.Type</a>
+            break;
+        case TransactionType.FundTransfer:
+        case TransactionType.Lend:
+        case TransactionType.Loan:
+        case TransactionType.LiabilityPayment:
+            <a href="/@CompanyId/Financial/@(Model.Type)s/@Model.Id">@Model.Type</a>
+            break;
+        case TransactionType.JournalEntry:
+            <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id">@Model.Type</a>
+            break;
+        case TransactionType.FiscalYearClosing:
+            <a href="/@CompanyId/Accounting/@(Model.Type)s/@Model.Id">@Model.Type</a>
+            break;
+        case TransactionType.IncomeTax:
+        case TransactionType.TaxPeriod:
+            <a href="/@CompanyId/Taxes/@(Model.Type)s/@Model.Id">@Model.Type</a>
+            break;
     }
+
 </div>
 

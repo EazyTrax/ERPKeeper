@@ -21,10 +21,12 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         public IActionResult Index()
         {
             var model = Organization.JournalEntries.Find(JournalEntryId);
+            model.UpdateBalance();
+            Organization.SaveChanges();
             return View(model);
         }
 
-        public IActionResult UpdateBalance()
+        public IActionResult Refresh()
         {
             var model = Organization.JournalEntries.Find(JournalEntryId);
             model.UpdateBalance();
@@ -40,6 +42,33 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public IActionResult Post()
+        {
+            var model = Organization.JournalEntries.Find(JournalEntryId);
+            Organization.JournalEntries.UnPost(model);
+            Organization.SaveChanges();
+
+            model.PostToTransaction();
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult Delete()
+        {
+            var model = Organization.JournalEntries.Find(JournalEntryId);
+            Organization.JournalEntries.UnPost(model);
+            Organization.SaveChanges();
+
+            model.RemoveAllItems();
+            Organization.ErpCOREDBContext.JournalEntries.Remove(model);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Accounting/JournalEntries");
+        }
+
+
+
         public IActionResult Clone()
         {
             var model = Organization.JournalEntries.Find(JournalEntryId);

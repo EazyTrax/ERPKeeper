@@ -1,6 +1,7 @@
 ﻿
 using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Employees;
+using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -52,6 +53,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Taxes.TaxPeriod? TaxPeriod { get; set; }
         public virtual Accounting.FiscalYear? FiscalYearClosing { get; set; }
         public virtual ObsoleteAsset? ObsoleteAsset { get; set; }
+        public virtual RetentionGroup? RetentionGroup { get; internal set; }
 
         public bool UpdateBalance(decimal? amount = null)
         {

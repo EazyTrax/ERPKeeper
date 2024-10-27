@@ -1,0 +1,76 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.RetentionType
+
+<div id="treeListDemo" class="mb-3 border">
+    @(
+            Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup>()
+            .ID("gridList")
+            .KeyExpr("Id")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Financial/RetentionTypes/{Model.Id}/RetentionGroups/All")
+            .InsertUrl($"/API/{CompanyId}/Financial/RetentionTypes/{Model.Id}/RetentionGroups/Insert")
+            .InsertMethod("Post")
+            .UpdateUrl($"/API/{CompanyId}/Financial/RetentionTypes/{Model.Id}/RetentionGroups/Update")
+            .UpdateMethod("Post"))
+            .RowAlternationEnabled(true)
+            .ShowRowLines(false)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .ColumnAutoWidth(false)
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
+            .Columns(columns =>
+            {
+
+
+                columns.AddFor(m => m.No)
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
+            );
+
+
+                columns.AddFor(m => m.RetentionTypeId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .HeaderCellTemplate(@<text>Retention Acc.</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+
+
+                columns.AddFor(m => m.StartDate);
+
+                columns.AddFor(m => m.EndDate);
+
+                columns.AddFor(m => m.Count);
+
+                columns.AddFor(m => m.AmountCommercial).Width(130).AllowEditing(false).Format("#,##0.00");
+                columns.AddFor(m => m.AmountRetention).Width(130).AllowEditing(false).Format("#,##0.00");
+
+                columns.AddFor(m => m.RetentionType.RetentionToAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>Account</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionType.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.PayDate);
+                columns.AddFor(m => m.PayFromAccountId)
+            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .HeaderCellTemplate(@<text>PayFrom</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
+                columns.AddFor(m => m.IsPosted)
+            .AllowEditing(false).Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+
+
+
+
+            })
+        )
+</div>
+

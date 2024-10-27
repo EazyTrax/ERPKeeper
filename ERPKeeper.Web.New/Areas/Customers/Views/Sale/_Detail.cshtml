@@ -6,7 +6,7 @@
 
 
     <a href="/@CompanyId/Customers/Sales/@Model.Id">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Status
             </div>
@@ -20,7 +20,7 @@
 
 
     <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.AgeInDays
             </div>
@@ -32,7 +32,7 @@
 
 
     <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Invoice).Count()
             </div>
@@ -44,7 +44,7 @@
 
 
     <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
-        <div class="bg-gray-100 h-24 content-center border">
+        <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Items.Count()
             </div>
