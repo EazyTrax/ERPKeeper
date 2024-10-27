@@ -114,7 +114,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public void UpdateBalance()
         {
             this.Amount = this.Sale.Total;
-            this.Name = $"CRP-{Date.Year}{Date.Month}-{this.No.ToString()}";
+            this.Name = $"CRP-{Date.Year}/{Date.Month}/{this.No.ToString()}";
         }
 
         public void UnPostLedger()

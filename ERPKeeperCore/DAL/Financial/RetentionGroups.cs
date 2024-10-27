@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Financial;
 
 namespace ERPKeeperCore.Enterprise.DAL.Financial
 {
@@ -48,10 +49,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             models.ForEach(model =>
             {
-             
-                    model.PostToTransaction();
-                    erpNodeDBContext.SaveChanges();
-                
+
+                model.PostToTransaction();
+                erpNodeDBContext.SaveChanges();
+
             });
         }
 
@@ -84,6 +85,22 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                 }
             });
 
+        }
+
+        public RetentionGroup? Find(RetentionType? retentionType, DateTime date)
+        {
+            Console.WriteLine($"Find RetentionGroup:{retentionType?.Name} {date}");
+
+            var rgs = erpNodeDBContext.RetentionGroups
+                .Where(s => s.RetentionTypeId == retentionType.Id)
+                .ToList();
+
+            var rg = rgs.Where(rg => rg.StartDate.Date <= date.Date && rg.EndDate.Date >= date).FirstOrDefault();
+
+
+            Console.WriteLine($"Found RetentionGroup:{rg?.Id}");
+
+            return rg;
         }
     }
 }

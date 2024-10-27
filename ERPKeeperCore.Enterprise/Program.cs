@@ -54,25 +54,17 @@ namespace ERPKeeperCore.CMD
             {
                 int index = 1;
 
-                newOrganization.RetentionGroups.GetAll()
-                    .Where(s=>s.Count>0)
+
+
+                newOrganization.ErpCOREDBContext.SupplierPayments
+                    .Where(s => s.RetentionType != null)
                     .ToList()
                     .ForEach(s =>
                     {
-                        s.Name = $"RG:{index++}";
+                        s.UpdateBalance();
+                        s.RetentionGroup = newOrganization.RetentionGroups.Find(s.RetentionType, s.Date);
+                        Console.WriteLine($"{index++} - {s.Name} - {s.RetentionGroup?.Id}");
                     });
-
-                //newOrganization.ErpCOREDBContext.ReceivePayments
-                //    .Where(s => s.RetentionType != null)
-                //    .ToList()
-                //    .ForEach(s =>
-                //    {
-                //        s.UpdateBalance();
-                //        Console.WriteLine($"ReceivePayments:{s.Name}  RG: {s.RetentionGroup == null}");
-
-                //    });
-
-
 
                 newOrganization.SaveChanges();
             }
