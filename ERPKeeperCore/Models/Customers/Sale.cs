@@ -50,13 +50,13 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
 
         public int AgeInDays
         {
             get
             {
-                var endDate = ReceivePayment?.Date ?? DateTime.Now;
+                var endDate = ReceivePayment?.Date ?? DateTime.Today;
                 return (endDate - Date).Days;
             }
         }

@@ -10,7 +10,7 @@ namespace ERPKeeperCore.Enterprise.Helpers
     {
         public static string GetTimeAgo(DateTime dt)
         {
-            var ts = new TimeSpan(DateTime.Now.Ticks - dt.Ticks);
+            var ts = new TimeSpan(DateTime.Today.Ticks - dt.Ticks);
             double delta = Math.Abs(ts.TotalSeconds);
 
             //if (delta < 60)

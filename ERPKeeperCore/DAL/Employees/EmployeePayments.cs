@@ -46,7 +46,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
                     organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Cash).Id;
                 }
 
-                model.PostToTransaction();
+                model.Post_Ledger();
                 erpNodeDBContext.SaveChanges();
             });
         }

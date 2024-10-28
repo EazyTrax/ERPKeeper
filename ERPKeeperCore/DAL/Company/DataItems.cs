@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Company
                 if (firstDateString != null)
                     return DateTime.Parse(firstDateString, System.Globalization.CultureInfo.InvariantCulture);
                 else
-                    return new DateTime(DateTime.Now.Year, 1, 1);
+                    return new DateTime(DateTime.Today.Year, 1, 1);
             }
 
             set

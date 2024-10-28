@@ -1,4 +1,5 @@
 ﻿
+using ERPKeeperCore.Enterprise.DBContext;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public Guid Id { get; set; }
 
         public bool IsPosted { get; set; }
+
         public Guid? TransactionId { get; set; }
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
@@ -26,16 +28,28 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
         public DateTime Date { get; set; }
         public string Name => string.Format("INT{0}-{1}", this.Date.ToString("yyMM"), this.No.ToString().PadLeft(3, '0'));
+
+
         public Decimal ProfitAmount { get; set; }
         public Decimal TaxAmount { get; set; }
-
         public Decimal TaxReceivable_Amount { get; set; }
         public Decimal PayFrom_TaxReceiveableAccount_Amount { get; set; }
+        public Decimal Ramain_TaxReceiveableAccount_Amount { get; set; }
+        public Decimal Remain_Liability_Amount { get; set; }
+
+
+        public void CalculateBalance()
+        {
+            this.Tax_Receiveable_AccountId = Tax_Receiveable_AccountId;
+            this.Tax_Liability_AccountId = Tax_Liability_AccountId;
+            // this.PayFrom_CashEquivalent_AccountId = PayFrom_AssetAccountId;
 
 
 
-        public Decimal Ramain_TaxReceiveableAccount_Amount => Math.Max(TaxReceivable_Amount - PayFrom_TaxReceiveableAccount_Amount, 0);
-        public Decimal Remain_Liability_Amount => TaxAmount - PayFrom_TaxReceiveableAccount_Amount;
+            PayFrom_TaxReceiveableAccount_Amount = Math.Min(TaxReceivable_Amount, TaxAmount);
+            Ramain_TaxReceiveableAccount_Amount = TaxReceivable_Amount - PayFrom_TaxReceiveableAccount_Amount;
+            Remain_Liability_Amount = TaxAmount - PayFrom_TaxReceiveableAccount_Amount;
+        }
 
 
         public String? Memo { get; set; }
@@ -48,23 +62,25 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         [ForeignKey("ExpenseAccountId")]
         public virtual Accounting.Account ExpenseAccount { get; set; }
 
-        //Cr.
-        public Guid? PayFrom_AssetAccountId { get; set; }
-        [ForeignKey("PayFrom_AssetAccountId")]
-        public virtual Accounting.Account PayFrom_AssetAccount { get; set; }
 
-        public Guid? LiabilityAccountId { get; set; }
-        [ForeignKey("LiabilityAccountId")]
-        public virtual Accounting.Account LiabilityAccount { get; set; }
+        //Cr.
+        public Guid? Tax_Receiveable_AccountId { get; set; }
+        [ForeignKey("Tax_Receiveable_AccountId")]
+        public virtual Accounting.Account TaxReceiveable_Account { get; set; }
+
+
+        public Guid? Tax_Liability_AccountId { get; set; }
+        [ForeignKey("Tax_Liability_AccountId")]
+        public virtual Accounting.Account Tax_Liability_Account { get; set; }
+
+        //Cr.
+        public Guid? PayFrom_CashEquivalent_AccountId { get; set; }
+        [ForeignKey("PayFrom_CashEquivalent_AccountId")]
+        public virtual Accounting.Account PayFrom_CashEquivalent_Account { get; set; }
 
         public Guid? WriteOff_TaxReceiveable_ExpenseAccountId { get; set; }
         [ForeignKey("WriteOff_TaxReceiveable_ExpenseAccountId")]
         public virtual Accounting.Account WriteOff_TaxReceiveable_ExpenseAccount { get; set; }
-
-
-
-
-
 
 
         public string? Reference { get; set; }
@@ -91,7 +107,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         {
             Console.WriteLine($">Post > IncomeTaxes:{this.Name}");
 
-            this.UpdateBalance();
+            this.CalculateBalance();
 
             if (this.Transaction == null) return;
 
@@ -102,21 +118,30 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
             // Dr.
             this.Transaction.AddDebit(this.ExpenseAccount, this.TaxAmount);
-            if (this.Remain_Liability_Amount < 0)
-                this.Transaction.AddDebit(this.WriteOff_TaxReceiveable_ExpenseAccount, this.Remain_Liability_Amount * -1);
 
-            // Cr.
-            if (this.PayFrom_AssetAccount != null)
-                this.Transaction.AddCredit(this.PayFrom_AssetAccount, this.PayFrom_TaxReceiveableAccount_Amount);
+            if (this.Ramain_TaxReceiveableAccount_Amount > 0)
+            {
+                this.Transaction.AddDebit(this.WriteOff_TaxReceiveable_ExpenseAccount, this.Ramain_TaxReceiveableAccount_Amount);
+                this.Transaction.AddCredit(this.TaxReceiveable_Account, this.Ramain_TaxReceiveableAccount_Amount);
+            }
+            if (this.TaxReceiveable_Account != null)
+                this.Transaction.AddCredit(this.TaxReceiveable_Account, this.PayFrom_TaxReceiveableAccount_Amount);
             if (this.Remain_Liability_Amount > 0)
-                this.Transaction.AddCredit(this.LiabilityAccount, this.Remain_Liability_Amount);
+                this.Transaction.AddCredit(this.Tax_Liability_Account, this.Remain_Liability_Amount);
 
             this.IsPosted = this.Transaction.UpdateBalance();
         }
 
-        private void UpdateBalance()
+        internal void UnPost()
         {
+            if (this.Transaction != null)
+            {
+                this.Transaction.ClearLedger();
+                this.Transaction.Debit = 0;
+                this.Transaction.Credit = 0;
+            }
 
+            this.IsPosted = false;
         }
     }
 }

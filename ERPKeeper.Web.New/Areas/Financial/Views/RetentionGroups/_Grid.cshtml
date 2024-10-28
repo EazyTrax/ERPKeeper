@@ -23,12 +23,13 @@
             {
 
 
-                columns.AddFor(m => m.No)
+                columns.AddFor(m => m.No).Width(50)
             .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
         );
 
 
                  columns.AddFor(m => m.RetentionTypeId)
+                 .MinWidth(200)
     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
     .HeaderCellTemplate(@<text>Retention Acc.</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
@@ -38,7 +39,7 @@
 
 
 
-                columns.AddFor(m => m.Count);
+                columns.AddFor(m => m.Count).Width(60);
 
                 columns.AddFor(m => m.AmountCommercial).Width(130).AllowEditing(false).Format("#,##0.00");
                 columns.AddFor(m => m.AmountRetention).Width(130).AllowEditing(false).Format("#,##0.00");

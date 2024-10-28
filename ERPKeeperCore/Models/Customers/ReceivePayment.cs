@@ -33,7 +33,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
 
 
         public Decimal Amount { get; set; }

@@ -5,4 +5,14 @@
         <a href="/@CompanyId/Customers/Sales"> Sales</a>
         / <a href="/@CompanyId/Customers/Sales/@Model.Id"> @Model.Name</a>
     </div>
+    <div class="w-3/12 p-0 text-right">
+      
+        @if (Model.Transaction.IsPosted == false)
+        {
+            <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/Post">Post</a>
+        }
+
+
+
+    </div>
 </div>

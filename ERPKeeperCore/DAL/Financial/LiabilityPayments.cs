@@ -90,7 +90,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
         private void RemoveUnreferenceTransactions()
         {
             erpNodeDBContext.Transactions
-                .Where(t=>t.Type == Models.Accounting.Enums.TransactionType.LiabilityPayment && t.LiabilityPayment ==null)
+                .Where(t => t.Type == Models.Accounting.Enums.TransactionType.LiabilityPayment && t.LiabilityPayment == null)
                 .ToList()
                  .ForEach(a =>
                  {
@@ -126,5 +126,25 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             RemoveUnreferenceTransactions();
         }
+
+        public void UnPostAll()
+        {
+            erpNodeDBContext.LiabilityPayments
+                .Where(rg => rg.IsPosted)
+                .ToList()
+                .ForEach(rg => rg.UnPost());
+
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void Delete(LiabilityPayment lp)
+        {
+            lp.UnPost();
+            if (lp.Transaction != null)
+                erpNodeDBContext.Transactions.Remove(lp.Transaction);
+            erpNodeDBContext.LiabilityPayments.Remove(lp);
+            erpNodeDBContext.SaveChanges();
+        }
+
     }
 }

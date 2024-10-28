@@ -7,8 +7,7 @@
             .LoadUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/All")
             .InsertUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Insert")
             .UpdateUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Update")
-            .UpdateMethod("Post")
-            )
+            .UpdateMethod("Post"))
             .KeyExpr("Id")
             .Width("100%")
             .RowAlternationEnabled(true)
@@ -27,36 +26,28 @@
 
             .Columns(columns =>
             {
-                columns.AddFor(m => m.Date).SortIndex(1).SortOrder(SortOrder.Asc);
+                columns.AddFor(m => m.Date).Width(100).SortIndex(1).SortOrder(SortOrder.Asc);
 
-                columns.AddFor(m => m.Name)
+                columns.AddFor(m => m.Name).Width(100)
             .CellTemplate(@<text> <a href="/@CompanyId/Taxes/IncomeTaxes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-                columns.AddFor(m => m.ProfitAmount)
-            .Width(100)
-            .HeaderCellTemplate("Profit");
+            columns.Add()
+            .Caption("Taxes")
+            .Columns(subColumns =>
+            {
 
+                subColumns.AddFor(m => m.ProfitAmount).Width(100).HeaderCellTemplate("Profit");
+                subColumns.AddFor(m => m.TaxAmount).Width(100).HeaderCellTemplate("Tax");
 
+                subColumns.AddFor(m => m.ExpenseAccountId).Width(130)
+                    .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .HeaderCellTemplate(@<text>Dr.ExpenseAcc</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.TaxAmount)
-            .Width(100)
-            .HeaderCellTemplate("Tax");
+            });
 
-                columns.AddFor(m => m.ExpenseAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(130)
-            .HeaderCellTemplate(@<text>Dr.ExpenseAcc</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
-
-
-
-                columns.AddFor(m => m.PayFrom_AssetAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(150)
-            .HeaderCellTemplate(@<text>Cr.PayFrom</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>
-            );
+                
 
 
 
@@ -64,6 +55,13 @@
             .Caption("TaxReceivable")
             .Columns(subColumns =>
             {
+                subColumns.AddFor(m => m.Tax_Receiveable_AccountId)
+                    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .Width(150)
+                    .HeaderCellTemplate(@<text>Account</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>
+            );
+
                 subColumns.AddFor(m => m.TaxReceivable_Amount)
             .Width(100)
             .HeaderCellTemplate("Having");
@@ -72,6 +70,9 @@
             .Width(100)
             .HeaderCellTemplate("Pay");
 
+                subColumns.AddFor(m => m.Ramain_TaxReceiveableAccount_Amount)
+                .Width(100)
+                .HeaderCellTemplate("Remain");
 
             });
 
@@ -80,33 +81,32 @@
             .Caption("TaxPayable")
             .Columns(subColumns =>
             {
-
-                subColumns.AddFor(m => m.LiabilityAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .Width(150)
-            .HeaderCellTemplate(@<text>Cr.Liability</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
-
-
-
                 subColumns.AddFor(m => m.Remain_Liability_Amount)
-            .Width(100)
-            .HeaderCellTemplate("Remain");
+                    .Width(100)
+                    .HeaderCellTemplate("Remain");
 
+                subColumns.AddFor(m => m.Tax_Liability_AccountId)
+                    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .Width(150)
+                    .HeaderCellTemplate(@<text>Cr.Liability</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
             });
 
 
 
                 columns.AddFor(m => m.IsPosted)
-            .AllowEditing(false)
-            .Width(30)
-            .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                    .AllowEditing(false)
+                    .Width(30)
+                    .HeaderCellTemplate(@<text> </text>)
+                    .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
 
             })
         .Summary(s => s.TotalItems(items =>
         {
-            @*items.AddFor(m => m.AssetValue).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");*@
+            items.AddFor(m => m.ProfitAmount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+            items.AddFor(m => m.TaxAmount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0.00");
+
+
         }))
         .OnInitNewRow("function(e) { e.data.Status = 4;  }")
         )

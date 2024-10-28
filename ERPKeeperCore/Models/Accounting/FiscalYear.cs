@@ -150,7 +150,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
 
             this.IsPosted = this.Transaction.UpdateBalance();
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
         }
     }
 }

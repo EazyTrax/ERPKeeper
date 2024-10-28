@@ -92,7 +92,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
 
-            model.Date = DateTime.Now;
+            model.Date = DateTime.Today;
             model.Status = SaleStatus.Draft;
             model.No = maxNo + 1;
 

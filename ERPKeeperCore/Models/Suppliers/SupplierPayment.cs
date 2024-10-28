@@ -35,7 +35,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
 
         public Decimal Amount { get; set; }
         public Decimal AmountExcludeTax { get; set; }
@@ -111,7 +111,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr. 
             this.Transaction.AddDebit(this.LiablityAccount_SupplierPayable, this.Amount);

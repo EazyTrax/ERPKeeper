@@ -115,7 +115,7 @@ namespace ERPKeeperCore.CMD
                 .Where(i => !existModelIds.Contains(i.Uid))
                 .ToList();
 
-            oldModels.ForEach(oldModel =>
+            oldModels.ForEach((Action<ERPKeeper.Node.Models.Taxes.IncomeTax>)(oldModel =>
             {
                 Console.WriteLine($"IncomeTax:{oldModel.Name}");
 
@@ -128,7 +128,7 @@ namespace ERPKeeperCore.CMD
                         Id = oldModel.Uid,
                         FiscalYearId = oldModel.FiscalYearUid,
                         ExpenseAccountId = oldModel.IncomeTaxExpenseAccountGuid,
-                        LiabilityAccountId = oldModel.LiabilityAccountGuid,
+                        Tax_Liability_AccountId = oldModel.LiabilityAccountGuid,
                         ProfitAmount = oldModel.ProfitAmount,
                         TaxAmount = oldModel.TaxAmount,
                         Date = oldModel.TrDate,
@@ -146,7 +146,7 @@ namespace ERPKeeperCore.CMD
                 }
 
 
-            });
+            }));
         }
 
 

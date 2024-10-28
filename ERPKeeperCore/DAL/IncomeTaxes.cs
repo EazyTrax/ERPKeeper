@@ -48,9 +48,8 @@ namespace ERPKeeperCore.Enterprise.DAL
             {
                 if (incomeTax.WriteOff_TaxReceiveable_ExpenseAccount == null)
                 {
-                    incomeTax.WriteOff_TaxReceiveable_ExpenseAccount
-                    = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.WriteOff_TaxReceiveable_Expense);
-                    incomeTax.WriteOff_TaxReceiveable_ExpenseAccountId = incomeTax.WriteOff_TaxReceiveable_ExpenseAccount.Id;
+                    var writeOff_TaxReceiveable_ExpenseAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.WriteOff_TaxReceiveable_Expense);
+                    incomeTax.WriteOff_TaxReceiveable_ExpenseAccount = writeOff_TaxReceiveable_ExpenseAccount;
                 }
 
                 incomeTax.PostToTransaction();
@@ -85,6 +84,27 @@ namespace ERPKeeperCore.Enterprise.DAL
                 }
             });
 
+        }
+
+        public void Recalculate()
+        {
+            erpNodeDBContext.IncomeTaxes.ToList().ForEach(incomeTax =>
+              {
+                  incomeTax.CalculateBalance();
+              });
+
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void UnPost()
+        {
+            
+            erpNodeDBContext.IncomeTaxes.ToList().ForEach(incomeTax =>
+            {
+                incomeTax.UnPost();
+            });
+
+            erpNodeDBContext.SaveChanges();
         }
     }
 }

@@ -18,6 +18,7 @@
         .ColumnAutoWidth(false)
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         @*.AutoExpandAll(true)*@
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("ReceivePayments" + CompanyId.ToString()))
 
         .Columns(columns =>
             {

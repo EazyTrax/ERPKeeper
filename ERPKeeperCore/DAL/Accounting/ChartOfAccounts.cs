@@ -214,7 +214,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 {
                     account.CurrentCredit = accBalance.Credit;
                     account.CurrentDebit = accBalance.Debit;
-                    account.BalanceCalulatedDate = DateTime.Now;
+                    account.BalanceCalulatedDate = DateTime.Today;
 
                     erpNodeDBContext.SaveChanges();
                 }
@@ -240,7 +240,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 {
                     account.CurrentCredit = accBalance.Credit;
                     account.CurrentDebit = accBalance.Debit;
-                    account.BalanceCalulatedDate = DateTime.Now;
+                    account.BalanceCalulatedDate = DateTime.Today;
                 }
             }
 

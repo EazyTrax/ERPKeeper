@@ -58,7 +58,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.StartDate;
             this.Transaction.Name = this.Name;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
 
             // Dr.

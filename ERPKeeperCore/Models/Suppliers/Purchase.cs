@@ -39,13 +39,13 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
 
         public int AgeInDays
         {
             get
             {
-                var endDate = SupplierPayment?.Date ?? DateTime.Now;
+                var endDate = SupplierPayment?.Date ?? DateTime.Today;
                 return (endDate - Date).Days;
             }
         }
@@ -141,7 +141,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
             this.Transaction.Name = this.Name;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             //Dr. Post Items
             this.Transaction.AddDebit(this.ExpenseAccount, this.LinesTotal, $"");

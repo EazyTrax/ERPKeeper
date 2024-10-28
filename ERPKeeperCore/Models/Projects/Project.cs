@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Enterprise.Models.Projects
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int Age => (int)(DateTime.Now - EndDate).TotalDays;
+        public int Age => (int)(DateTime.Today - EndDate).TotalDays;
 
         public ProjectType Type { get; set; }
 

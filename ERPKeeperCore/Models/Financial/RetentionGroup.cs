@@ -12,10 +12,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERPKeeperCore.Enterprise.Models.Financial
 {
+    [Table("RetentionPeriods")]
     public class RetentionGroup
     {
         [Key]
         public Guid Id { get; set; }
+
 
         public bool IsPosted { get; set; }
         public Guid? TransactionId { get; set; }
@@ -27,6 +29,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public DateTime Date { get; set; }
         public DateTime StartDate => new DateTime(Date.Year, Date.Month, 1);
         public DateTime EndDate => new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));
+
+
 
         public Guid RetentionTypeId { get; set; }
         [ForeignKey("RetentionTypeId")]
@@ -50,18 +54,18 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
 
         public DateTime? PostedDate { get; set; }
-        public string? Name { get;  set; }
-        public string? Reference { get;  set; }
+        public string? Name { get; set; }
+        public string? Reference { get; set; }
 
         public void Calculate()
         {
             Count = ReceivePayments.Count() + SupplierPayments.Count();
 
-            AmountCommercial = 
+            AmountCommercial =
                 ReceivePayments.Select(t => t.AmountTotal).DefaultIfEmpty(0).Sum() +
                 SupplierPayments.Select(t => t.AmountAfterDiscount).DefaultIfEmpty(0).Sum();
 
-            AmountRetention = 
+            AmountRetention =
                  ReceivePayments.Select(t => t.AmountRetention).DefaultIfEmpty(0).Sum() +
                  SupplierPayments.Select(t => t.AmountRetention).DefaultIfEmpty(0).Sum();
         }
@@ -75,13 +79,13 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             else
                 return;
 
-            if (this.Transaction == null)
+            if (this.Transaction == null || this.PayDate == null || this.PayFromAccount == null)
                 return;
 
             this.Transaction.ClearLedger();
-            this.Transaction.Date = this.Date;
+            this.Transaction.Date = (DateTime)this.PayDate;
             this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr.
             this.Transaction.AddDebit(this.RetentionType.RetentionToAccount, this.AmountRetention);

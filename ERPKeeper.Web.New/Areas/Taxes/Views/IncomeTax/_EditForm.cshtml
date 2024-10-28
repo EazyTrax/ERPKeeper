@@ -1,0 +1,108 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax
+
+<form id="EditForm" action="/@CompanyId/Financial/LiabilityPayments/@Model.Id/Update" method="post">
+    <div class="grid grid-cols-2 gap-4">
+        <!-- General Information Section -->
+        <div class="p-4 bg-gray-100 border rounded-lg">
+            <h2 class="mb-3 font-semibold">General</h2>
+            <div class="mb-2">
+                @Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)
+            </div>
+            <div class="mb-2">
+                @Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)
+            </div>
+            <div class="mb-2">
+                @Html.DevExtreme().NumberBoxFor(m => m.ProfitAmount).Label("ProfitAmount").LabelMode(EditorLabelMode.Static)
+            </div>
+            <div class="mb-2">
+                @Html.DevExtreme().NumberBoxFor(m => m.TaxAmount).Label("TaxAmount").LabelMode(EditorLabelMode.Static)
+            </div>
+
+            <div class="mb-2">
+                @(Html.DevExtreme().SelectBoxFor(m => m.ExpenseAccountId)
+                    .DataSource(Organization.ErpCOREDBContext.Accounts.ToList()
+                    .Select(t => new { t.Id, t.Name })
+                    .ToList())
+                    .Placeholder("Tax Expense Account")
+                    .DisplayExpr("Name")
+                    .ValueExpr("Id")
+                    .Label("Tax")
+                    .ShowClearButton(true)
+                    .LabelMode(EditorLabelMode.Static))
+            </div>
+
+
+            <div class="mb-2">
+                @(Html.DevExtreme().SelectBoxFor(m => m.Tax_Liability_AccountId)
+                    .DataSource(Organization.ErpCOREDBContext.Accounts.ToList()
+                    .Select(t => new { t.Id, t.Name })
+                    .ToList())
+                    .Placeholder("Tax Liability Account")
+                    .DisplayExpr("Name")
+                    .ValueExpr("Id")
+                    .Label("Tax")
+                    .ShowClearButton(true)
+                    .LabelMode(EditorLabelMode.Static))
+            </div>
+
+            <div class="mb-2">
+                @(Html.DevExtreme().SelectBoxFor(m => m.Tax_Liability_AccountId)
+                    .DataSource(Organization.ErpCOREDBContext.Accounts.ToList()
+                    .Select(t => new { t.Id, t.Name })
+                    .ToList())
+                    .Placeholder("Tax Liability Account")
+                    .DisplayExpr("Name")
+                    .ValueExpr("Id")
+                    .Label("Tax")
+                    .ShowClearButton(true)
+                    .LabelMode(EditorLabelMode.Static))
+            </div>
+        </div>
+
+        <!-- Liability Payment Section -->
+        <div class="p-4 bg-gray-100 border rounded-lg">
+            <h2 class="mb-3 font-semibold">Liability Payment</h2>
+            <div class="mb-2">
+                @Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)
+            </div>
+        </div>
+
+
+
+        <div class="mb-2">
+            @(Html.DevExtreme().SelectBoxFor(m => m.PayFrom_TaxReceiveableAccount_Amount)
+                .DataSource(Organization.ErpCOREDBContext.Accounts.ToList()
+                .Select(t => new { t.Id, t.Name })
+                .ToList())
+                .Placeholder("Tax Liability Account")
+                .DisplayExpr("Name")
+                .ValueExpr("Id")
+                .Label("Tax")
+                .ShowClearButton(true)
+                .LabelMode(EditorLabelMode.Static))
+        </div>
+
+
+
+        <div class="mb-2">
+            @(Html.DevExtreme().SelectBoxFor(m => m.Tax_Liability_AccountId)
+                .DataSource(Organization.ErpCOREDBContext.Accounts.ToList()
+                .Select(t => new { t.Id, t.Name })
+                .ToList())
+                .Placeholder("Tax Liability Account")
+                .DisplayExpr("Name")
+                .ValueExpr("Id")
+                .Label("Tax")
+                .ShowClearButton(true)
+                .LabelMode(EditorLabelMode.Static))
+        </div>
+
+
+        <!-- Save Button -->
+        <div class="col-span-2 flex justify-end p-4">
+            <button class="btn text-white py-1 px-4 rounded-md" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                Save
+            </button>
+        </div>
+    </div>
+</form>

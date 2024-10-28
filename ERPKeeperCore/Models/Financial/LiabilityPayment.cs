@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Financial.Enums;
+﻿using ERPKeeperCore.Enterprise.DBContext;
+using ERPKeeperCore.Enterprise.Models.Financial.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
 
         public Decimal Amount { get; set; }
         public Decimal AmountBankFee { get; set; }
@@ -64,7 +65,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr.
             this.Transaction.AddDebit(this.LiabilityAccount, this.Amount);
@@ -76,6 +77,16 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
                 this.Transaction.AddCredit(item.Account, item.Amount);
             }
             IsPosted = this.Transaction.UpdateBalance();
+        }
+
+        public void UnPost()
+        {
+            if (this.Transaction == null)
+                return;
+
+            this.Transaction.ClearLedger();
+            this.IsPosted = false;
+
         }
     }
 }

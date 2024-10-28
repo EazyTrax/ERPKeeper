@@ -22,10 +22,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<FiscalYear> Periods { get; set; }
         public List<FiscalYear> GetAll() => erpNodeDBContext.FiscalYears.OrderBy(x => x.StartDate).ToList();
         public FiscalYear FirstPeriod => GetAll().OrderBy(f => f.StartDate).FirstOrDefault();
-        public FiscalYear CurrentPeriod => Find(DateTime.Now);
+        public FiscalYear CurrentPeriod => Find(DateTime.Today);
 
         public List<FiscalYear> GetHistoryList() => erpNodeDBContext.FiscalYears
-            .Where(period => (period.StartDate) <= DateTime.Now)
+            .Where(period => (period.StartDate) <= DateTime.Today)
             .OrderBy(period => period.StartDate)
             .ToList();
 

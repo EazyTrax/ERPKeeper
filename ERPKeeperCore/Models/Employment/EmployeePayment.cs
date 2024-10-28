@@ -74,7 +74,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
                 .Select(l => l.Amount).DefaultIfEmpty(0).Sum();
         }
 
-        public void PostToTransaction()
+        public void Post_Ledger()
         {
             Console.WriteLine($">Post >EmployeePayment:{this.Name}");
 
@@ -83,7 +83,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             this.IsPosted = false;
             this.Transaction.Date = this.EmployeePaymentPeriod.Date;
             this.Transaction.Reference = this.Name;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             //Prepare Data
 
@@ -91,6 +91,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             var earningItems = this.PaymentItems
                 .Where(i => i.EmployeePaymentType.PayDirection == PayDirection.Eanring)
                 .ToList();
+
             var dedectionItems = this.PaymentItems
                 .Where(i => i.EmployeePaymentType.PayDirection == PayDirection.Deduction)
                 .ToList();
@@ -106,6 +107,26 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
             IsPosted = this.Transaction.UpdateBalance();
         }
+
+        public void UnPost_Ledger()
+        {
+            Console.WriteLine($">UnPost  SL:{this.Name}");
+
+            if (Transaction == null)
+            {
+                this.IsPosted = false;
+                return;
+            }
+            else
+            {
+                this.Transaction.ClearLedger();
+                this.Transaction.Date = this.EmployeePaymentPeriod.Date;
+                this.Transaction.Reference = this.Name;
+                this.Transaction.Name = this.Name;
+                this.IsPosted = false;
+            }
+        }
+
     }
 }
 

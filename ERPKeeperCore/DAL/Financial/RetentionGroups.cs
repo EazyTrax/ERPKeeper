@@ -42,13 +42,19 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             var models = erpNodeDBContext.RetentionGroups
                 .Where(s => s.TransactionId != null)
-                .Where(s => s.PayDate != null)
                 .Where(s => s.RetentionType.RetentionToAccount.Type == Models.Accounting.Enums.AccountTypes.Liability)
                 .Where(s => !s.IsPosted)
                 .OrderBy(s => s.Date).ToList();
 
             models.ForEach(model =>
             {
+                if (model.PayDate == null)
+                    model.PayDate = model.EndDate;
+
+                if (model.PayFromAccount == null)
+                    model.PayFromAccount = erpNodeDBContext.DefaultAccounts.Find(Models.Accounting.Enums.DefaultAccountType.Cash)?.Account;
+                erpNodeDBContext.SaveChanges();
+
 
                 model.PostToTransaction();
                 erpNodeDBContext.SaveChanges();
@@ -87,7 +93,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
         }
 
-        public RetentionGroup? Find(RetentionType? retentionType, DateTime date)
+        public RetentionGroup? FindOrCreate(RetentionType? retentionType, DateTime date)
         {
             Console.WriteLine($"Find RetentionGroup:{retentionType?.Name} {date}");
 
@@ -97,10 +103,34 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             var rg = rgs.Where(rg => rg.StartDate.Date <= date.Date && rg.EndDate.Date >= date).FirstOrDefault();
 
+            if (rg == null)
+            {
+                rg = new RetentionGroup()
+                {
+                    Id = Guid.NewGuid(),
+                    Date = date,
+                    RetentionTypeId = retentionType.Id,
+                    RetentionType = retentionType,
+                    Name = $"{retentionType.Name} {date:yyyy-MM}",
+                    IsPosted = false,
+                };
+
+                erpNodeDBContext.RetentionGroups.Add(rg);
+                erpNodeDBContext.SaveChanges();
+            }
 
             Console.WriteLine($"Found RetentionGroup:{rg?.Id}");
-
             return rg;
+        }
+
+        public void UnPostAll()
+        {
+            erpNodeDBContext.RetentionGroups
+                .Where(rg => rg.IsPosted)
+                .ToList()
+                .ForEach(rg => UnPost(rg));
+
+            erpNodeDBContext.SaveChanges();
         }
     }
 }

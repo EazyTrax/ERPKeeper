@@ -22,11 +22,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-
-
-
-
-
         public int No { get; set; }
         public String? Name => string.Format("{0}/{1}", this.Date.ToString("yyMM"), this.No.ToString().PadLeft(3, '0'));
 

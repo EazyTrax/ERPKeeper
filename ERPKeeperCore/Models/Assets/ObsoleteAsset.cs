@@ -35,7 +35,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             if (this.Transaction == null) return;
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.ObsoleteDate;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr.
             this.Transaction.AddDebit(this.Asset.AssetType.AccumulateDeprecateAcc, this.Asset.TotalDepreciationValue);

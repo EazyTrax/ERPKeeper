@@ -17,10 +17,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] {
-               "tec",
-                "bit"
-            };
+            string[] Enterprises = new string[] {"tec","bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -52,19 +49,10 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                int index = 1;
 
-
-
-                newOrganization.ErpCOREDBContext.SupplierPayments
-                    .Where(s => s.RetentionType != null)
-                    .ToList()
-                    .ForEach(s =>
-                    {
-                        s.UpdateBalance();
-                        s.RetentionGroup = newOrganization.RetentionGroups.Find(s.RetentionType, s.Date);
-                        Console.WriteLine($"{index++} - {s.Name} - {s.RetentionGroup?.Id}");
-                    });
+                newOrganization.IncomeTaxes.Recalculate();
+                newOrganization.IncomeTaxes.UnPost();
+                newOrganization.IncomeTaxes.PostToTransactions();
 
                 newOrganization.SaveChanges();
             }

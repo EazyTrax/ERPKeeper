@@ -281,7 +281,7 @@ namespace ERPKeeperCore.Enterprise
         private void SetFirstDate(DateTime firstDate)
         {
             Console.WriteLine("> Set FirstDate");
-            DateTime verifyFirstDate = new DateTime(DateTime.Now.Year, firstDate.Month, firstDate.Day);
+            DateTime verifyFirstDate = new DateTime(DateTime.Today.Year, firstDate.Month, firstDate.Day);
             ErpCOREDBContext.SaveChanges();
         }
     }

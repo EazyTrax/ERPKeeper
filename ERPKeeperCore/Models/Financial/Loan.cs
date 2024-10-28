@@ -86,7 +86,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             this.Transaction.ClearLedger();      
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr.
             this.Transaction.AddDebit(this.Receving_AssetAccount, this.AmountLoan);

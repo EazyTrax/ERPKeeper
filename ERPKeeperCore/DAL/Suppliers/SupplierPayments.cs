@@ -109,5 +109,17 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             erpNodeDBContext.SaveChanges();
         }
+
+        public void UpdateRetentionGroups()
+        {
+            erpNodeDBContext.SupplierPayments
+                   .Where(s => s.RetentionType != null && s.RetentionGroupId == null)
+                   .ToList()
+                   .ForEach(s =>
+                   {
+                       s.UpdateBalance();
+                       s.RetentionGroup = organization.RetentionGroups.FindOrCreate(s.RetentionType, s.Date);
+                   });
+        }
     }
 }

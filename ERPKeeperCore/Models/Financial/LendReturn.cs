@@ -78,7 +78,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
 
 
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
             IsPosted = this.Transaction.UpdateBalance();
      
 

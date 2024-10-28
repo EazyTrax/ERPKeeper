@@ -36,7 +36,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Memo { get; set; }
         public int No { get; set; }
         public String? Name { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
         public Decimal LinesTotal { get; set; }
         public Decimal Discount { get; set; }
         public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;

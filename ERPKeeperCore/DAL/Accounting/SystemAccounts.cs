@@ -70,7 +70,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 {
                     defaultAccountItem.AccountId = accountItem.Id;
                     defaultAccountItem.Account = accountItem;
-                    defaultAccountItem.LastUpdate = DateTime.Now;
+                    defaultAccountItem.LastUpdate = DateTime.Today;
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                         Type = defaultAccountType,
                         Account = accountItem,
                         AccountId = accountItem.Id,
-                        LastUpdate = DateTime.Now
+                        LastUpdate = DateTime.Today
                     };
                     erpNodeDBContext.DefaultAccounts.Add(defaultAccountItem);
                 }
@@ -97,7 +97,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 defaultAccountItem = new DefaultAccount()
                 {
                     Type = accountType,
-                    LastUpdate = DateTime.Now
+                    LastUpdate = DateTime.Today
                 };
 
                 erpNodeDBContext.DefaultAccounts.Add(defaultAccountItem);

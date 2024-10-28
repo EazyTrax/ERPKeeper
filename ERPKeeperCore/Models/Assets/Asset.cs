@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         public DateTime StartDeprecationDate { get; set; }
         public DateTime EndDeprecationDate => StartDeprecationDate.AddYears(AssetType?.UseFulLifeYear ?? 1).AddDays(-1);
 
-        public int RemainAgeDay => (int)Math.Max(0, (EndDeprecationDate - DateTime.Now).TotalDays);
+        public int RemainAgeDay => (int)Math.Max(0, (EndDeprecationDate - DateTime.Today).TotalDays);
         private DateTime LastDateOfMonth(DateTime date) => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
         private decimal TotalDaysInYear(int year) => DateTime.IsLeapYear(year) ? 366 : 365;
 
@@ -115,7 +115,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
                 _accDeprecation = _newAccDeprecation;
             }
 
-            LastCreateSchedule = DateTime.Now;
+            LastCreateSchedule = DateTime.Today;
         }
         private int NewDepreciationSchedule(DateTime _startDate, int index, DateTime _endDate, decimal _openingValue, decimal _deprecateValue, decimal _newAccDeprecation, decimal _remainValue)
         {
@@ -142,7 +142,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             this.Transaction.Date = this.PurchaseDate;
             this.Transaction.Name = this.Name;
             this.Transaction.Reference = this.Reference;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr.
             this.Transaction.AddDebit(this.AssetType.AwaitDeprecateAccount, this.AssetValue);

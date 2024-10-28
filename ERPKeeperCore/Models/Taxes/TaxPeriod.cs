@@ -112,7 +112,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.EndDate;
             this.Transaction.Name = this.Name;
-            this.Transaction.PostedDate = DateTime.Now;
+            this.Transaction.PostedDate = DateTime.Today;
 
             // Dr.
             if (this.PurchasesTaxBalance > 0)

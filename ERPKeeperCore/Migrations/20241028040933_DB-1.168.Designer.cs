@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241028040933_DB-1.168")]
+    partial class DB1168
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1644,7 +1647,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .IsUnique()
                         .HasFilter("[TransactionId] IS NOT NULL");
 
-                    b.ToTable("RetentionPeriods");
+                    b.ToTable("RetentionGroups");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.RetentionType", b =>
@@ -2585,11 +2588,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<bool>("IsPosted")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("LiabilityAccountId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Memo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("No")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("PayFrom_AssetAccountId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("PayFrom_CashEquivalent_AccountId")
                         .HasColumnType("uniqueidentifier");
@@ -2635,6 +2644,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("ExpenseAccountId");
 
                     b.HasIndex("FiscalYearId");
+
+                    b.HasIndex("LiabilityAccountId");
+
+                    b.HasIndex("PayFrom_AssetAccountId");
 
                     b.HasIndex("PayFrom_CashEquivalent_AccountId");
 
@@ -3768,6 +3781,14 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("FiscalYearId");
 
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "LiabilityAccount")
+                        .WithMany()
+                        .HasForeignKey("LiabilityAccountId");
+
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFrom_AssetAccount")
+                        .WithMany()
+                        .HasForeignKey("PayFrom_AssetAccountId");
+
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Accounting.Account", "PayFrom_CashEquivalent_Account")
                         .WithMany()
                         .HasForeignKey("PayFrom_CashEquivalent_AccountId");
@@ -3791,6 +3812,10 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("ExpenseAccount");
 
                     b.Navigation("FiscalYear");
+
+                    b.Navigation("LiabilityAccount");
+
+                    b.Navigation("PayFrom_AssetAccount");
 
                     b.Navigation("PayFrom_CashEquivalent_Account");
 
