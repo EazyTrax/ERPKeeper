@@ -24,11 +24,17 @@ namespace ERPKeeperCore.Enterprise.DAL
         {
             return erpNodeDBContext.Projects.ToList();
         }
+        public List<Project> GetActive()
+        {
+            return erpNodeDBContext.Projects
+                .Where(p => p.Status == ProjectStatus.Open)
+                .ToList();
+        }
 
         public int Count()
         {
             return erpNodeDBContext.Projects.Count();
-        }   
+        }
 
         public Project? Find(Guid Id) => erpNodeDBContext.Projects.Find(Id);
 

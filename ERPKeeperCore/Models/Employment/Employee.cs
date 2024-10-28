@@ -31,6 +31,16 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         [ForeignKey("EmployeePositionId")]
         public virtual EmployeePosition? EmployeePosition { get; set; }
 
+        public Decimal Salary { get; set; }
+        public Decimal TotalEarn { get; set; }
+        public Decimal TotalDeduct { get; set; }
 
+        public virtual ICollection<EmployeePayment> Payments { get; set; }
+
+        public void UpdateBalance()
+        {
+            TotalEarn = this.Payments.Sum(p => p.TotalEarning);
+            TotalDeduct = this.Payments.Sum(p => p.TotalDeduction);
+        }
     }
 }

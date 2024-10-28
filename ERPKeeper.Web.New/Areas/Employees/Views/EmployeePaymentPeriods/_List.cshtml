@@ -3,69 +3,85 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod>()
-    .ID("gridList")
-    .DataSource(d => d.RemoteController().Key("Id")
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/All")
         .InsertUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Insert")
         .UpdateUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Update")
-    .UpdateMethod("Post")
+        .UpdateMethod("Post")
         .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Delete")
-    .DeleteMethod("Post")
-    )
-    .KeyExpr("Id")
-    .RowAlternationEnabled(true)
-    .ShowRowLines(true)
-    .ShowBorders(false)
-    .Width("100%")
-    .Paging(paging => paging.PageSize(100))
-    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
-    )
+        .DeleteMethod("Post")
+        )
+        .KeyExpr("Id")
+        .RowAlternationEnabled(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(100))
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true)
+        )
 
-    .AllowColumnResizing(true)
-    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-    .FilterRow(filterRow => filterRow
-    .Visible(true)
-    .ApplyFilter(GridApplyFilterMode.Auto)
-    )
-    .ColumnAutoWidth(false)
+        .AllowColumnResizing(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+        .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
-    .RowDragging(rd => rd
-    .AllowDropInsideItem(false)
-    .AllowReordering(false)
+        .RowDragging(rd => rd
+        .AllowDropInsideItem(false)
+        .AllowReordering(false)
         @*.OnDragChange("onDragChange")
-            .OnDragEnd("onDragEnd")
-            .ShowDragIcons(false)*@
-    )
-    .Columns(columns =>
-    {
+    .OnDragEnd("onDragEnd")
+    .ShowDragIcons(false)*@
+        )
+        .Columns(columns =>
+        {
 
-    columns.AddFor(m=>m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
-            columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>);
+            columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
+            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>
+            );
 
 
+            var accounts = Organization.ChartOfAccount.GetCashOrBankAccounts().Select(i => new { Value = i.Id, Text = i.Name });
             columns.AddFor(m => m.PayFromAccountId).Width(250)
         .Lookup(lookup => lookup
-        .DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
+        .DataSource(accounts)
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Pay From</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounts/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Accounts/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
 
 
-            columns.AddFor(m => m.PaymentCount).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+            columns.AddFor(m => m.PaymentCount).AllowEditing(false).HeaderCellTemplate(@<text>Count</text>);
+            columns.AddFor(m => m.TotalEarning).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+            columns.AddFor(m => m.TotalDeduction).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
 
 
+        })
 
-            columns.AddFor(m=>m.TotalEarning).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
-  
-            columns.AddFor(m=>m.TotalDeduction).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
-  
-
-
-
-})
-
-    )
+        .OnInitNewRow("onInitNewRow")
+        )
 </div>
 
+<script>
+    @{
+        var taxCode = Organization.TaxCodes.GetDefault(ERPKeeperCore.Enterprise.Models.Taxes.Enums.TaxDirection.Output);
+    }
+
+        function onInitNewRow(e) {
+            const today = new Date();
+            e.data.Date = today;
+            e.data.Name = "Draft";
+            e.data.Status = 0;
+
+    @if (taxCode != null)
+    {
+        <text>
+                        e.data.TaxCodeId = '@taxCode.Id';
+        </text>
+    }
+                }
+</script>
 

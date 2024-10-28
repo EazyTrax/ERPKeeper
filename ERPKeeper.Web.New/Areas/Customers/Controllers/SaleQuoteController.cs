@@ -58,14 +58,18 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         [HttpPost]
         public IActionResult Update(SaleQuote model)
         {
-            var transcation = Organization.SaleQuotes.Find(Id);
+            var saleQuote = Organization.SaleQuotes.Find(Id);
 
-            transcation.Memo = model.Memo;
-            transcation.Discount = model.Discount;
-            transcation.No = model.No;
+            saleQuote.Memo = model.Memo;
+            saleQuote.Discount = model.Discount;
+            saleQuote.No = model.No;
+            saleQuote.ProfileAddesssId = model.ProfileAddesssId;
 
-            transcation.UpdateBalance();
-            transcation.UpdateName();
+
+            saleQuote.UpdateBalance();
+            saleQuote.UpdateName();
+
+
 
             Organization.SaveChanges();
 

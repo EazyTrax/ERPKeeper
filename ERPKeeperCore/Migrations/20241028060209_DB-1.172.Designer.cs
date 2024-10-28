@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241028060209_DB-1.172")]
+    partial class DB1172
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,6 +310,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -821,9 +825,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ProfileAddesssId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
@@ -855,8 +856,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("DiscountAccountId");
 
                     b.HasIndex("IncomeAccountId");
-
-                    b.HasIndex("ProfileAddesssId");
 
                     b.HasIndex("ProjectId");
 
@@ -951,9 +950,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ProfileAddesssId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
@@ -972,8 +968,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProfileAddesssId");
 
                     b.HasIndex("ProjectId");
 
@@ -1093,6 +1087,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("No")
@@ -1162,9 +1157,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("PayFromAccountId")
@@ -1193,6 +1190,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ExpenseAccountId")
@@ -1202,6 +1200,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PayDirection")
@@ -1224,12 +1223,14 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Requried")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1674,6 +1675,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentType")
@@ -1702,27 +1704,34 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BranchName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("No")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrganizationName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TaxNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WebSite")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -3097,10 +3106,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("IncomeAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.ProfileAddress", "ProfileAddesss")
-                        .WithMany()
-                        .HasForeignKey("ProfileAddesssId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Projects.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
@@ -3126,8 +3131,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Discount_Given_Expense_Account");
 
                     b.Navigation("IncomeAccount");
-
-                    b.Navigation("ProfileAddesss");
 
                     b.Navigation("Project");
 
@@ -3167,10 +3170,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.ProfileAddress", "ProfileAddesss")
-                        .WithMany()
-                        .HasForeignKey("ProfileAddesssId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Projects.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
@@ -3180,8 +3179,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("TaxCodeId");
 
                     b.Navigation("Customer");
-
-                    b.Navigation("ProfileAddesss");
 
                     b.Navigation("Project");
 

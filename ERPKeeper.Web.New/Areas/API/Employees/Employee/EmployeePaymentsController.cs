@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using ERPKeeperCore.Web.Areas.API.Profiles.Employees.Employee;
 using ERPKeeperCore.Web.Areas.API.Profiles.Employees.EmployeePaymentPeriod;
 using ERPKeeperCore.Web.Areas.API.Profiles.Employees.Payment;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +12,14 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 
-namespace ERPKeeperCore.Web.Areas.API.Employees.EmployeePaymentPeriod
+namespace ERPKeeperCore.Web.Areas.API.Employees.Employee
 {
-    public class PaymentsController : _API_Employees_EmployeePaymentPeriod_BaseController
+    public class EmployeePaymentsController : _API_Employees_Employee_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.EmployeePayments
-                .Where(a => a.EmployeePaymentPeriodId == Id)
+                .Where(a => a.EmployeeId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

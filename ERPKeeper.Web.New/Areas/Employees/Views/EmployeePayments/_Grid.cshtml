@@ -1,4 +1,8 @@
-﻿
+﻿@{
+
+    var employees = Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, TaxNumber = i.TaxNumber, Name = i.Name });
+
+}
 
 <div id="treeListDemo" class="mb-3 border">
 
@@ -18,10 +22,10 @@
         .Paging(paging => paging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true))
         .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
-        .GroupPanel(gp => gp.Visible(true)) 
-        .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
+        .GroupPanel(gp => gp.Visible(true))
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         .AllowColumnResizing(true)
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .FilterRow(filterRow => filterRow
         .Visible(true)
         .ApplyFilter(GridApplyFilterMode.Auto)
@@ -63,21 +67,19 @@
             .Format(Format.ShortDate)
             .HeaderCellTemplate(@<text>Date</text>);
 
-
-
-                columns.AddFor(m => m.EmployeeId).Width(150)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>TAX Id</text>)
+        columns.AddFor(m => m.EmployeeId).Width(150)
+        .Lookup(lookup => lookup
+        .DataSource(employees)
+        .DisplayExpr("TaxNumber")
+        .ValueExpr("Value"))
+        .AllowEditing(false)
+        .HeaderCellTemplate(@<text>TAX Id</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.EmployeeId).Width(250)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
+            .DataSource(employees)
+            .DisplayExpr("Name")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>Name</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
@@ -94,7 +96,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
+        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
         );
 
 
@@ -102,15 +104,16 @@
 
 
 
-                })
-                .Summary(s =>
-            s.TotalItems(items =>{
-
-                items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
-                items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
             })
-            .GroupItems(items =>
-            {
+        .Summary(s =>
+        s.TotalItems(items =>
+        {
+
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+        })
+        .GroupItems(items =>
+        {
             items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
             items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
 

@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
     {
         [Key]
         public Guid Id { get; set; }
-        public String Name { get; set; }
+        public string? Name { get; set; }
         public String? PaymentType { get; set; }
         public String? Description { get; set; }
         public bool IsActive { get; set; }

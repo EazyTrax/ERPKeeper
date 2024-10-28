@@ -17,7 +17,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] {"tec","bit" };
+            string[] Enterprises = new string[] { "tec", "bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -50,9 +50,10 @@ namespace ERPKeeperCore.CMD
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
 
-                newOrganization.IncomeTaxes.Recalculate();
-                newOrganization.IncomeTaxes.UnPost();
-                newOrganization.IncomeTaxes.PostToTransactions();
+                newOrganization.SaleQuotes.GetAll().ForEach(sq =>
+                {
+                    sq.UpdateName();
+                });
 
                 newOrganization.SaveChanges();
             }

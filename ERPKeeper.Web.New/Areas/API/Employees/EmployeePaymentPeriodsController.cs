@@ -27,11 +27,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
             var model = new Enterprise.Models.Employees.EmployeePaymentPeriod();
             JsonConvert.PopulateObject(values, model);
 
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
-
+            model.UpdateName();
             Organization.ErpCOREDBContext.EmployeePaymentPeriods.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
+
+
 
             return Ok();
         }
@@ -43,6 +43,9 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
             var model = Organization.ErpCOREDBContext.EmployeePaymentPeriods.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
+
+
+
             return Ok();
         }
 

@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public int No { get; set; }
 
         public DateTime Date { get; set; }
-        public string Name => string.Format("INT{0}-{1}", this.Date.ToString("yyMM"), this.No.ToString().PadLeft(3, '0'));
+        public string? Name => string.Format("INT{0}-{1}", this.Date.ToString("yyMM"), this.No.ToString().PadLeft(3, '0'));
 
 
         public Decimal ProfitAmount { get; set; }

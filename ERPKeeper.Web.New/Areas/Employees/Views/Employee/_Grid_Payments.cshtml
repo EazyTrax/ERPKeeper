@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
+﻿@model ERPKeeperCore.Enterprise.Models.Employees.Employee
 
 
 <div id="treeListDemo" class="mb-3 border">
@@ -6,10 +6,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/All")
-        .InsertUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Update").UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Delete").DeleteMethod("Post")
+        .LoadUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/All")
+        .InsertUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/Delete").DeleteMethod("Post")
         )
         .KeyExpr("Id")
         .RowAlternationEnabled(true)
@@ -17,9 +17,10 @@
         .ShowBorders(false)
         .Width("100%")
         .Paging(paging => paging.PageSize(100))
-        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true)
-        )
-
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
+        .GroupPanel(gp => gp.Visible(true)) 
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
         .AllowColumnResizing(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
         .FilterRow(filterRow => filterRow
@@ -49,7 +50,6 @@
             .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }))
             .DisplayExpr("Name")
             .ValueExpr("Value"))
-            .AllowEditing(false)
             .CalculateSortValue("Name")
             .SortIndex(1)
             .HeaderCellTemplate(@<text>Period</text>)
@@ -58,29 +58,15 @@
 
 
                 columns.AddFor(m => m.EmployeePaymentPeriod.Date)
-            .Width(130).Format(Format.ShortDate)
+            .Width(130)
+            .SortIndex(1)
+            .AllowEditing(false)
+            .Format(Format.ShortDate)
             .HeaderCellTemplate(@<text>Date</text>);
 
 
 
-                columns.AddFor(m => m.EmployeeId).Width(150)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>TAX Id</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
-
-                columns.AddFor(m => m.EmployeeId).Width(250)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>Name</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
-
+     
 
 
 
@@ -93,22 +79,27 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
+        );
 
 
 
 
 
 
-            }).Summary(s =>
-    s.TotalItems(items =>
-    {
+                })
+                .Summary(s =>
+            s.TotalItems(items =>{
 
-            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
-            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+                items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+                items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            })
+            .GroupItems(items =>
+            {
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
+
         }))
-
-
         )
 </div>
 

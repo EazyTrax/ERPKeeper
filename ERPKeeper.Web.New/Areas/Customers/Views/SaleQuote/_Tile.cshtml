@@ -1,11 +1,9 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
 
 
 
 <div class="grid grid-cols-6">
-
-
-    <a href="/@CompanyId/Customers/Sales/@Model.Id">
+    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Status
@@ -17,9 +15,7 @@
     </a>
 
 
-
-
-    <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
+    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/SaleQuotes">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.AgeInDays
@@ -30,17 +26,20 @@
         </div>
     </a>
 
+
     <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/SaleQuotes">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
-            </div>
+
+              </div>
             <div class="text-lg text-center">
+                
             </div>
         </div>
     </a>
 
 
-    <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
+    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Items">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Items.Count()

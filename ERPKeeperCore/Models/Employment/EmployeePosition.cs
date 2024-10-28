@@ -16,8 +16,8 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
     {
         [Key]
         public Guid Id { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
         public int Requried { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();

@@ -12,10 +12,10 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
     {
         [Key]
         public Guid Id { get; set; }
-        public String Name { get; set; }
+        public string? Name { get; set; }
 
         public DateTime Date { get; set; }
-        public string TrGroup => this.Date.ToString("yy-MM");
+        public string? TrGroup => this.Date.ToString("yy-MM");
 
         public virtual ICollection<EmployeePayment> EmployeePayments { get; set; } = new List<EmployeePayment>();
 
@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
 
 
-        public String Description { get; set; }
+        public string? Description { get; set; }
 
         public Guid? PayFromAccountId { get; set; }
         [ForeignKey("PayFromAccountId")]
@@ -53,6 +53,9 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         }
 
-
+        public void UpdateName()
+        {
+            this.Name = TrGroup;
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
 
         public int No { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
 
 

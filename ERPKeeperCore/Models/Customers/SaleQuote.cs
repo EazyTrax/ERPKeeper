@@ -22,10 +22,15 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public bool IsPosted { get; set; }
 
 
-
         public Guid CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customers.Customer? Customer { get; set; }
+
+        public Guid? ProfileAddesssId { get; set; }
+        [ForeignKey("ProfileAddesssId")]
+        public virtual Profiles.ProfileAddress? ProfileAddesss { get; set; }
+
+
 
 
         public Guid? ProjectId { get; set; }
@@ -44,7 +49,14 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal Total => LinesTotalAfterDiscount + Tax;
 
 
-
+        public int AgeInDays
+        {
+            get
+            {
+                var endDate = DateTime.Today;
+                return (endDate - Date).Days;
+            }
+        }
 
 
 
@@ -55,7 +67,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TaxCodeId")]
         public virtual TaxCode? TaxCode { get; set; }
 
-        public Guid? CustomerAddressId { get; set; }
+
 
         public void AddItem(SaleQuoteItem existItem)
         {
@@ -118,7 +130,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             var currentYear = this.Date.Year;
             var currentMonth = this.Date.Month;
 
-            this.Name= $"SQ-{currentYear}/{currentMonth}/{this.No.ToString()}";
+            this.Name = $"SQ-{currentYear}/{currentMonth}/{this.No.ToString()}";
         }
     }
 }

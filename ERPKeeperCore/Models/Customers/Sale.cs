@@ -35,6 +35,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public virtual Customers.Customer? Customer { get; set; }
 
 
+        public Guid? ProfileAddesssId { get; set; }
+        [ForeignKey("ProfileAddesssId")]
+        public virtual Profiles.ProfileAddress? ProfileAddesss { get; set; }
+
+
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
         public virtual TaxCode? TaxCode { get; set; }
@@ -82,7 +87,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("DiscountAccountId")]
         public virtual Accounting.Account? Discount_Given_Expense_Account { get; set; }
 
-        public Guid? CustomerAddressId { get; set; }
 
         public Guid? ProjectId { get; set; }
         [ForeignKey("ProjectId")]

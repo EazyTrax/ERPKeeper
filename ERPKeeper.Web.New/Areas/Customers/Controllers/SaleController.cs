@@ -36,6 +36,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.ProjectId = model.ProjectId;
+            
+            transcation.ProfileAddesssId = model.ProfileAddesssId;
 
             transcation.Reorder();
             transcation.UpdateBalance();

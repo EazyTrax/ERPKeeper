@@ -2,7 +2,7 @@
 
 <form id="EditForm" action="/@CompanyId/Customers/SaleQuotes/@Model.Id/Update" method="post">
 
-    <div class="grid grid-cols-3 gap-2">
+    <div class="grid grid-cols-3">
         <div class="border">
             <div class=" bg-gray-100 p-2 mb-2 rounded">
                 <div class="flex">
@@ -22,7 +22,24 @@
 
                 <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                 <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+
+                @Model.ProfileAddesssId
+
+                @{
+                    var addresses = Model.Customer.Profile.Addresses.ToList();
+                }
+
+                @(Html.DevExtreme().SelectBoxFor(m => m.ProfileAddesssId)
+                    .Name("ProfileAddesssId") // Manually set the name
+                    .DataSource(addresses.Select(t => new { t.Id, t.Title }).ToList())
+                    .Placeholder("Address")
+                    .DisplayExpr("Title")
+                    .ValueExpr("Id")
+                    .Label("Address")
+                    .ShowClearButton(true)
+                    .LabelMode(EditorLabelMode.Static))
+
+
             </div>
         </div>
         <div class="border">
@@ -51,16 +68,43 @@
                 <div class="mb-2">
                     <div class="mb-3 font-semibold">Projects</div>
 
+                    @{
+                        var projects = Organization.Projects.GetActive();
+
+                        if (Model.ProjectId != null)
+                        {
+                            projects.Add(Organization.Projects.Find((Guid)Model.ProjectId));
+                        }
+
+                    }
+
                     @(Html.DevExtreme().SelectBoxFor(m => m.ProjectId)
-                        .DataSource(Organization.ErpCOREDBContext.Projects.Select(t => new { t.Id, t.Name }).ToList())
+                        .Name("ProjectId") // Manually set the name
+                        .DataSource(projects.Select(t => new { t.Id, t.Name }).ToList())
                         .Placeholder("Projects")
                         .DisplayExpr("Name")
                         .ValueExpr("Id")
-                        .Label("Tax")
+                        .Label("Project")
                         .ShowClearButton(true)
-                        .LabelMode(EditorLabelMode.Static)
-                        )
+                        .LabelMode(EditorLabelMode.Static))
+
+
                 </div>
+            </div>
+        </div>
+
+        <div class="border">
+            <div class=" bg-gray-100 p-2 mb-2 rounded">
+                <div class="flex">
+                    <div class="w-10/12 p-0">
+                        <div class="mb-3 font-semibold">Financial</div>
+                    </div>
+                    <div class="w-2/12 p-0 text-right">
+                      
+                    </div>
+                </div>
+
+  <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
             </div>
         </div>
         <div class="border">

@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
 
 
 
@@ -8,7 +8,7 @@
     <a href="/@CompanyId/Customers/Sales/@Model.Id">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Model.Status
+                xxx
             </div>
             <div class="text-lg text-center">
                 Status
@@ -22,19 +22,22 @@
     <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Model.AgeInDays
+                @Model.Date.ToShortDateString()
             </div>
             <div class="text-lg text-center">
-                Age
+                Date
             </div>
         </div>
     </a>
 
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/SaleQuotes">
+
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
+                @Model.EmployeePayments.Count()
             </div>
             <div class="text-lg text-center">
+                Payments
             </div>
         </div>
     </a>
@@ -43,14 +46,24 @@
     <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Model.Items.Count()
+                @Model.TotalEarning
             </div>
             <div class="text-lg text-center">
-                Items
+                Earning
             </div>
         </div>
     </a>
 
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.TotalDeduction
+            </div>
+            <div class="text-lg text-center">
+                Deduction
+            </div>
+        </div>
+    </a>
 
 
 </div>

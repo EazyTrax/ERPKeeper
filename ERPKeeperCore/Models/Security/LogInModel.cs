@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Enterprise.Models.Security
     {
 
         [Required(ErrorMessage = "Please enter an email address")]
-        public String Email { get; set; }
+        public string? Email { get; set; }
 
         [Required(ErrorMessage = "Please enter an password")]
         [DataType(DataType.Password)]

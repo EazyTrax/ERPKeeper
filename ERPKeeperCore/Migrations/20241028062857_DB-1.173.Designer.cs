@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241028062857_DB-1.173")]
+    partial class DB1173
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -821,9 +824,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ProfileAddesssId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
@@ -855,8 +855,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasIndex("DiscountAccountId");
 
                     b.HasIndex("IncomeAccountId");
-
-                    b.HasIndex("ProfileAddesssId");
 
                     b.HasIndex("ProjectId");
 
@@ -951,9 +949,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Property<int>("No")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ProfileAddesssId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
@@ -972,8 +967,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProfileAddesssId");
 
                     b.HasIndex("ProjectId");
 
@@ -3097,10 +3090,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .WithMany()
                         .HasForeignKey("IncomeAccountId");
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.ProfileAddress", "ProfileAddesss")
-                        .WithMany()
-                        .HasForeignKey("ProfileAddesssId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Projects.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
@@ -3126,8 +3115,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Discount_Given_Expense_Account");
 
                     b.Navigation("IncomeAccount");
-
-                    b.Navigation("ProfileAddesss");
 
                     b.Navigation("Project");
 
@@ -3167,10 +3154,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.ProfileAddress", "ProfileAddesss")
-                        .WithMany()
-                        .HasForeignKey("ProfileAddesssId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Projects.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
@@ -3180,8 +3163,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("TaxCodeId");
 
                     b.Navigation("Customer");
-
-                    b.Navigation("ProfileAddesss");
 
                     b.Navigation("Project");
 

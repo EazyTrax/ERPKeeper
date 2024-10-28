@@ -43,5 +43,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
             erpNodeDBContext.Employees.Add(employee);
             erpNodeDBContext.SaveChanges();
         }
+
+        public void UpdateBalance()
+        {
+          this.GetAll().ForEach(employee => employee.UpdateBalance());
+            this.SaveChanges();
+        }
     }
 }

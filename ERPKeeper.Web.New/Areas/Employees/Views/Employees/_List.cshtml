@@ -27,7 +27,8 @@
 
 
 
-                columns.AddFor(m => m.Id).Lookup(lookup => lookup
+                columns.AddFor(m => m.Id)
+                .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
@@ -47,7 +48,10 @@
         .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePositions/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
+                columns.AddFor(m => m.Salary).Format("#,##0.00").Width(150);
 
+                columns.AddFor(m => m.TotalEarn).Width(150).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+                columns.AddFor(m => m.TotalDeduct).Width(150).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
 
              
             })

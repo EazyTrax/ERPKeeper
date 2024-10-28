@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual FiscalYear? NextFiscalYear { get; set; }
 
 
-        public String Name => string.Format("{0}", EndDate.Year.ToString());
+        public string? Name => string.Format("{0}", EndDate.Year.ToString());
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
