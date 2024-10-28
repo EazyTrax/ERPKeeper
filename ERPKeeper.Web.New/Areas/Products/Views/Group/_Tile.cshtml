@@ -1,0 +1,18 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Items.ItemGroup
+
+
+
+<div class="grid grid-cols-6">
+    <a href="/@CompanyId/Prodects/Items/@Model.Id">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Items.Count()
+            </div>
+            <div class="text-lg text-center">
+                Status
+            </div>
+        </div>
+    </a>
+</div>
+
+

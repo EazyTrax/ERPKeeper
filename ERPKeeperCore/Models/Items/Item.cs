@@ -1,5 +1,7 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,5 +67,21 @@ namespace ERPKeeperCore.Enterprise.Models.Items
         public int AmountOnSaleOrder { get; set; }
         public decimal SoldValue { get; internal set; }
         public decimal PurchaseValue { get; internal set; }
+
+
+
+
+
+        public virtual ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
+        public virtual ICollection<SaleQuoteItem> SaleQuoteItems { get; set; } = new List<SaleQuoteItem>();
+
+        public virtual ICollection<PurchaseItem> PurchaseItems { get; set; } = new List<PurchaseItem>();
+        public virtual ICollection<PurchaseQuoteItem> PurchaseQuoteItems { get; set; } = new List<PurchaseQuoteItem>();
+
+        public virtual ICollection<CustomerItem> CustomerItems { get; set; }
+        public virtual ICollection<SupplierItem> SupplierItems { get; set; }
+
+
+
     }
 }

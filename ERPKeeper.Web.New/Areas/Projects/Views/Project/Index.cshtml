@@ -2,7 +2,7 @@
 
 <div class="flex">
     <div class="col-center-div grow">
-        
+        <partial name="_Tile" />
         <partial name="_EditForm" />
     </div>
     <div class="w-4/12 p-0 col-right">
@@ -12,9 +12,6 @@
             <div class="w-9/12 p-0 font-semibold">
             </div>
             <div class="w-4/12 p-0 text-right">
-
-
-
 
                 @{
                     if (Model.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open)

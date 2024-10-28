@@ -30,6 +30,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public DateTime LastUpdated { get; set; }
 
+
+        
         public CustomerItem(Guid itemId,Guid customerId)
         {
             ItemId = itemId;

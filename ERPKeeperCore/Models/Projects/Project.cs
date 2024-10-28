@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Projects.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERPKeeperCore.Enterprise.Models.Projects
 {
@@ -18,23 +20,38 @@ namespace ERPKeeperCore.Enterprise.Models.Projects
         public virtual Project Parent { get; set; }
 
         [MaxLength(30)]
-        public String? Code { get; set; }
+        public string? Code { get; set; }
 
         [MaxLength(128)]
-        public String? Name { get; set; }
-        public String? Detail { get; set; }
+        public string? Name { get; set; }
+        public string? Detail { get; set; }
         public ProjectStatus Status { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public int Age => (int)(DateTime.Today - EndDate).TotalDays;
+        public int AgeInDays
+        {
+            get
+            {
+                var endDate = EndDate ?? DateTime.Today;
+                return (endDate - StartDate).Days;
+            }
+        }
+
 
         public ProjectType Type { get; set; }
 
         public Decimal Value { get; set; }
 
         public virtual ICollection<Project> Childs { get; set; }
-       
+
+
+        public virtual ICollection<SaleQuote> SaleQuotes { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<PurchaseQuote> PurchaseQuotes { get; set; }
+
+
 
         public void ChangeStatus(ProjectStatus close)
         {

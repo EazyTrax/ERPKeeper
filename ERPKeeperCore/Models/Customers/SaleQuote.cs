@@ -48,16 +48,15 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal Tax { get; set; }
         public Decimal Total => LinesTotalAfterDiscount + Tax;
 
-
+        public DateTime? CloseDate { get; set; }
         public int AgeInDays
         {
             get
             {
-                var endDate = DateTime.Today;
+                var endDate = CloseDate ?? DateTime.Today;
                 return (endDate - Date).Days;
             }
         }
-
 
 
 

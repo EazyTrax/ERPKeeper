@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Web.Areas.Customers.Controllers;
+using ERPKeeperCore.Web.Areas.Investors.Controllers;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,8 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 {
-    [Route("/{CompanyId}/Projects/{action=Index}/{id?}")]
-    public class ProjectsController : _Customers_Base_Controller
+
+    public class ProjectsController : _Projects_Base_Controller
     {
         public IActionResult Index()
         {

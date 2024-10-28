@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Web.Areas.Customers.Controllers;
+using ERPKeeperCore.Web.Areas.Investors.Controllers;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,8 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 {
-    [Route("/{CompanyId}/Projects/{ProjectId:Guid}/{action=Index}/{id?}")]
-    public class ProjectController : _Customers_Base_Controller
+    [Route("/{CompanyId}/Projects/{ProjectId:Guid}/{action=Index}/")]
+    public class ProjectController : _Projects_Base_Controller
     {
         public IActionResult Index(Guid ProjectId)
         {
@@ -18,7 +19,6 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 
             if (Project == null)
                 return NotFound();
-
 
             return View(Project);
         }
@@ -50,10 +50,35 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
             {
                 Project.Name = model.Name;
                 Project.Detail = model.Detail;
+                Project.StartDate = Project.StartDate;
+                Project.EndDate = Project.EndDate;
 
                 Organization.SaveChanges();
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+     
+        public IActionResult Sales(Guid ProjectId)
+        {
+            var Project = Organization.Projects.Find(ProjectId);
+            return View(Project);
+        }
+        public IActionResult SaleQuotes(Guid ProjectId)
+        {
+            var Project = Organization.Projects.Find(ProjectId);
+            return View(Project);
+        }
+        public IActionResult Purchases(Guid ProjectId)
+        {
+            var Project = Organization.Projects.Find(ProjectId);
+            return View(Project);
+        }
+        public IActionResult PurchaseQuotes(Guid ProjectId)
+        {
+            var Project = Organization.Projects.Find(ProjectId);
+            return View(Project);
+        }
+
     }
 }

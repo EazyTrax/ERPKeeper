@@ -64,6 +64,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             saleQuote.Discount = model.Discount;
             saleQuote.No = model.No;
             saleQuote.ProfileAddesssId = model.ProfileAddesssId;
+            saleQuote.ProjectId = model.ProjectId;
 
 
             saleQuote.UpdateBalance();

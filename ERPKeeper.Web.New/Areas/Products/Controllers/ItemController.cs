@@ -27,6 +27,7 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         {
 
             Organization.SaveChanges();
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

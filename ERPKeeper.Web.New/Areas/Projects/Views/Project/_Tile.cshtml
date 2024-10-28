@@ -1,0 +1,83 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
+
+
+
+<div class="grid grid-cols-6">
+
+
+    <a href="/@CompanyId/Projects/@Model.Id">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Status
+            </div>
+            <div class="text-lg text-center">
+                Status
+            </div>
+        </div>
+    </a>
+
+
+
+
+    <a href="/@CompanyId/Projects/@Model.Id/">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.AgeInDays
+            </div>
+            <div class="text-lg text-center">
+                Age
+            </div>
+        </div>
+    </a>
+
+   
+
+    <a href="/@CompanyId/Projects/@Model.Id/SaleQuotes">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.SaleQuotes.Count()
+            </div>
+            <div class="text-lg text-center">
+                SaleQuotes
+            </div>
+        </div>
+    </a>
+
+
+
+
+    <a href="/@CompanyId/Projects/@Model.Id/Sales">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Sales.Count()
+            </div>
+            <div class="text-lg text-center">
+                Sales
+            </div>
+        </div>
+    </a>
+
+    <a href="/@CompanyId/Projects/@Model.Id/PurchaseQuotes">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.PurchaseQuotes.Count()
+            </div>
+            <div class="text-lg text-center">
+                PurchaseQuotes
+            </div>
+        </div>
+    </a>
+    <a href="/@CompanyId/Projects/@Model.Id/Purchases">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-3xl text-center font-semibold">
+                @Model.Purchases.Count()
+            </div>
+            <div class="text-lg text-center">
+                Purchases
+            </div>
+        </div>
+    </a>
+
+</div>
+
+

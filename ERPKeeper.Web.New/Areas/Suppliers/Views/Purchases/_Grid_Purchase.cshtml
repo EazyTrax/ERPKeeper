@@ -27,6 +27,7 @@
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
+                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true);
 
 
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);

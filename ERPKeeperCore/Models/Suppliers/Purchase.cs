@@ -85,6 +85,13 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("ExpenseAccountId")]
         public virtual Account? ExpenseAccount { get; set; }
 
+
+        public Guid? ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
+        public virtual Projects.Project? Project { get; set; }
+
+
+
         public void AddItem(Items.Item item)
         {
             var purchaseItem = new PurchaseItem()

@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
     {
         public IActionResult Index()
         {
-            return Redirect("/tec/Employees/Employees");
+            return Redirect($"/{CompanyId}/Employees/Employees");
         }
 
         public ActionResult Refresh()

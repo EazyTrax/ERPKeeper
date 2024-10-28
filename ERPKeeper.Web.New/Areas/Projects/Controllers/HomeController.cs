@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Web.Areas.Investors.Controllers;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 {
-    [Area("Projects")]
-    public class HomeController : DefaultController
+    public class HomeController : _Projects_Base_Controller
     {
         public IActionResult Index()
         {
