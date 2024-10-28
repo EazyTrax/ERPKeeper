@@ -4,7 +4,7 @@ ADD
 
 @await Component.InvokeAsync("Advertise")
 
-Add-Migration DB-1.169 -Context ERPCoreDbContext -OutputDir Migrations
+Add-Migration DB-1.170 -Context ERPCoreDbContext -OutputDir Migrations
 
 
 ###############

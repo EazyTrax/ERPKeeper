@@ -1,7 +1,7 @@
 ﻿
 <div id="treeListDemo" class="mb-3 border">
     @(
-            Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup>()
+            Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod>()
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")

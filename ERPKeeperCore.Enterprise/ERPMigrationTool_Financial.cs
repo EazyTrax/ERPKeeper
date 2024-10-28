@@ -275,7 +275,7 @@ namespace ERPKeeperCore.CMD
         {
             Console.WriteLine("> Copy_Financial_Retentions_Groups");
 
-            var existModelIds = newOrganization.ErpCOREDBContext.RetentionGroups
+            var existModelIds = newOrganization.ErpCOREDBContext.RetentionPeriods
             .Select(x => x.Id)
             .ToList();
 
@@ -287,14 +287,14 @@ namespace ERPKeeperCore.CMD
             {
                 Console.WriteLine($"RetentionGroups:{oldModel.Id}");
                 var exist = newOrganization.ErpCOREDBContext
-                .RetentionGroups
+                .RetentionPeriods
                 .FirstOrDefault(x => x.Id == oldModel.Id);
 
                 if (exist == null)
                 {
                     Console.WriteLine($"> Add");
 
-                    exist = new ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup()
+                    exist = new ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod()
                     {
                         Id = oldModel.Id,
                         AmountCommercial = oldModel.AmountCommercial,
@@ -304,7 +304,7 @@ namespace ERPKeeperCore.CMD
                         RetentionTypeId = oldModel.RetentionTypeId,
                     };
 
-                    newOrganization.ErpCOREDBContext.RetentionGroups.Add(exist);
+                    newOrganization.ErpCOREDBContext.RetentionPeriods.Add(exist);
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
                 else

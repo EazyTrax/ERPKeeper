@@ -68,7 +68,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         public Guid? RetentionGroupId { get; set; }
         [ForeignKey("RetentionGroupId")]
-        public virtual Financial.RetentionGroup? RetentionGroup { get; set; }
+        public virtual Financial.RetentionPeriod? RetentionGroup { get; set; }
 
 
 

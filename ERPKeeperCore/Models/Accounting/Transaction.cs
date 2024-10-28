@@ -53,7 +53,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public virtual Taxes.TaxPeriod? TaxPeriod { get; set; }
         public virtual Accounting.FiscalYear? FiscalYearClosing { get; set; }
         public virtual ObsoleteAsset? ObsoleteAsset { get; set; }
-        public virtual RetentionGroup? RetentionGroup { get; internal set; }
+        public virtual RetentionPeriod? RetentionGroup { get; internal set; }
 
         public bool UpdateBalance(decimal? amount = null)
         {

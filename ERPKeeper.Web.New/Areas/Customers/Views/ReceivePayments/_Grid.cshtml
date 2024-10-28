@@ -72,7 +72,7 @@
             .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.RetentionGroupId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.RetentionGroups.Select(i => new { Value = i.Id, Text = i.Name }))
+            lookup.DataSource(Organization.ErpCOREDBContext.RetentionPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)

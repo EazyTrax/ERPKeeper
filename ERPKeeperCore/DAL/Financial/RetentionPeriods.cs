@@ -11,23 +11,23 @@ using ERPKeeperCore.Enterprise.Models.Financial;
 
 namespace ERPKeeperCore.Enterprise.DAL.Financial
 {
-    public class RetentionGroups : ERPNodeDalRepository
+    public class RetentionPeriods : ERPNodeDalRepository
     {
-        public RetentionGroups(EnterpriseRepo organization) : base(organization)
+        public RetentionPeriods(EnterpriseRepo organization) : base(organization)
         {
 
         }
 
-        public List<Models.Financial.RetentionGroup> GetAll()
+        public List<Models.Financial.RetentionPeriod> GetAll()
         {
-            return erpNodeDBContext.RetentionGroups.ToList();
+            return erpNodeDBContext.RetentionPeriods.ToList();
         }
 
 
 
-        public Models.Financial.RetentionGroup? Find(Guid Id) => erpNodeDBContext.RetentionGroups.Find(Id);
+        public Models.Financial.RetentionPeriod? Find(Guid Id) => erpNodeDBContext.RetentionPeriods.Find(Id);
 
-        public void UnPost(Models.Financial.RetentionGroup model)
+        public void UnPost(Models.Financial.RetentionPeriod model)
         {
             model.Transaction.ClearLedger();
             model.IsPosted = false;
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
         {
             CreateTransactions();
 
-            var models = erpNodeDBContext.RetentionGroups
+            var models = erpNodeDBContext.RetentionPeriods
                 .Where(s => s.TransactionId != null)
                 .Where(s => s.RetentionType.RetentionToAccount.Type == Models.Accounting.Enums.AccountTypes.Liability)
                 .Where(s => !s.IsPosted)
@@ -65,7 +65,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
         public void CreateTransactions()
         {
             var RetentionGroups = erpNodeDBContext
-                .RetentionGroups
+                .RetentionPeriods
                 .Where(s => s.TransactionId == null)
                 .ToList();
 
@@ -93,11 +93,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
         }
 
-        public RetentionGroup? FindOrCreate(RetentionType? retentionType, DateTime date)
+        public RetentionPeriod? FindOrCreate(RetentionType? retentionType, DateTime date)
         {
             Console.WriteLine($"Find RetentionGroup:{retentionType?.Name} {date}");
 
-            var rgs = erpNodeDBContext.RetentionGroups
+            var rgs = erpNodeDBContext.RetentionPeriods
                 .Where(s => s.RetentionTypeId == retentionType.Id)
                 .ToList();
 
@@ -105,7 +105,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             if (rg == null)
             {
-                rg = new RetentionGroup()
+                rg = new RetentionPeriod()
                 {
                     Id = Guid.NewGuid(),
                     Date = date,
@@ -115,7 +115,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                     IsPosted = false,
                 };
 
-                erpNodeDBContext.RetentionGroups.Add(rg);
+                erpNodeDBContext.RetentionPeriods.Add(rg);
                 erpNodeDBContext.SaveChanges();
             }
 
@@ -125,7 +125,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
         public void UnPostAll()
         {
-            erpNodeDBContext.RetentionGroups
+            erpNodeDBContext.RetentionPeriods
                 .Where(rg => rg.IsPosted)
                 .ToList()
                 .ForEach(rg => UnPost(rg));

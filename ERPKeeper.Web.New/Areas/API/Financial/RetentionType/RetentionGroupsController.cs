@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionType
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.RetentionGroups
+            var returnModel = Organization.ErpCOREDBContext.RetentionPeriods
                 .Where(m => m.RetentionTypeId == RetentionTypeId)
                 .Include(a => a.RetentionType);
 
@@ -26,11 +26,11 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionType
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup();
+            var model = new ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod();
             JsonConvert.PopulateObject(values, model);
             model.RetentionTypeId = RetentionTypeId;
 
-            Organization.ErpCOREDBContext.RetentionGroups.Add(model);
+            Organization.ErpCOREDBContext.RetentionPeriods.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionType
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.RetentionGroups.Find(key);
+            var model = Organization.ErpCOREDBContext.RetentionPeriods.Find(key);
 
 
             JsonConvert.PopulateObject(values, model);
@@ -58,10 +58,10 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionType
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.RetentionGroups.Find(key);
+            var model = Organization.ErpCOREDBContext.RetentionPeriods.Find(key);
 
 
-            Organization.ErpCOREDBContext.RetentionGroups.Remove(model);
+            Organization.ErpCOREDBContext.RetentionPeriods.Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
         }

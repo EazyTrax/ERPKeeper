@@ -13,7 +13,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace ERPKeeperCore.Enterprise.Models.Financial
 {
     [Table("RetentionPeriods")]
-    public class RetentionGroup
+    public class RetentionPeriod
     {
         [Key]
         public Guid Id { get; set; }

@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.API.Financials
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.RetentionGroups
+            var returnModel = Organization.ErpCOREDBContext.RetentionPeriods
                 .Include(a => a.RetentionType)
                 .ToList();
 
@@ -26,10 +26,10 @@ namespace ERPKeeperCore.Web.API.Financials
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Financial.RetentionGroup();
+            var model = new ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod();
             JsonConvert.PopulateObject(values, model);
 
-            Organization.ErpCOREDBContext.RetentionGroups.Add(model);
+            Organization.ErpCOREDBContext.RetentionPeriods.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.API.Financials
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.RetentionGroups.First(a => a.Id == key);
+            var model = Organization.ErpCOREDBContext.RetentionPeriods.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
