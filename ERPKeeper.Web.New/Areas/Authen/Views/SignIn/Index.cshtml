@@ -1,12 +1,12 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Security.LogInModel
+﻿@{
+    Layout = "_Layout_Empty";
+}
 
-<div class="flex">
-    <div class="col-8 p-0">
-        <div class="h-screen border">
+@model ERPKeeperCore.Enterprise.Models.Security.LogInModel
 
-        </div>
-    </div>
-    <div class="w-4/12 p-0 border">
-        <partial name="_SignInBox_Local" />
+
+<div class="bg-gray-100">
+    <div class="flex justify-center content-center">
+        <partial name="_SignInBox_Local">
     </div>
 </div>

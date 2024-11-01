@@ -1,36 +1,75 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Security.LogInModel
 
-
-<div id="AdvanbrandLoginForm" class="p-2 bg-gray-100">
-    <form id="LoginForm" method="post" asp-area="Authen" asp-controller="SignIn" asp-action="Authen">
-        <div class="flex mb-2">
-            <div class="col p-0 text-center">
-                <div class="flex p-0 mb-3 font-weight-bold">
-                    AVD Login
+<div class="flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
+    <div class="min-w-96 space-y-4 bg-white p-4 rounded-lg shadow-md">
+        <div>
+            <h2 class="text-center text-3xl font-extrabold text-gray-900">
+                EazyTrax
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Sign in to your account
+            </p>
+        </div>
+        <form id="LoginForm" method="post" action="/Authen/SignIn/Authen" class="mt-8 space-y-6">
+            <div class="rounded shadow-sm -space-y-px">
+                <div>
+                    <label asp-for="Email" class="sr-only">Email address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                            </svg>
+                        </div>
+                        <input asp-for="Email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+                    </div>
                 </div>
-                @Html.DevExtreme().TextBoxFor(m => m.Email)
+                <div>
+                    <label asp-for="Password" class="sr-only">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input asp-for="Password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
+                    </div>
+                </div>
             </div>
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div class="flex mt-2">
-            <div class="col p-0 mb-2">
-                @Html.DevExtreme().TextBoxFor(m => m.Password).Mode(TextBoxMode.Password)
-                <span asp-validation-for="Password"></span>
+
+            <div class="flex items-center justify-end">
+                <div class="text-sm">
+                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                        Forgot password?
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="flex p-0 text-danger text-center">
-            @Model.ErrorMessage
-        </div>
-        <div class="p-0 text-right">
-            <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="SubmitLogin()">
-                SignIn
-            </button>
-        </div>
-    </form>
+
+            <div>
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    Sign in
+                </button>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="mt-2 text-center text-sm text-red-600">
+                    @Model.ErrorMessage
+                </div>
+            }
+        </form>
+    </div>
 </div>
 
-
-
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
 
 
 <script>

@@ -1,16 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <partial name="_Header_Meta" />
+    <partial name="_Header_CSS_Font" />
     <partial name="_Header_CSS" />
-    <script src="/font-awesome-pro-v6-6/js/pro.min.js"></script>
-    <link rel="stylesheet" href="/font-awesome-pro-v6-6/css/all.min.css">
 </head>
+<body class="bg-gray-50 font-sans">
+    <div class="px-2">
+        <div id="Header" class="flex flex-wrap mh-35 mb-2">
+            <div class="w-2/12 flex pl-1 py-1">
+            </div>
+            <div class="w-10/12 col-right pl-2">
+            </div>
+        </div>
+    </div>
+    <div class="px-2">
+        <div id="MainContent" class="flex flex-wrap">
+            <div class="grow pl-2">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
 
-
-<body class="dx-viewport" style="height:100%;">
-    <div style="max-width:1024px; min-width:1024px;" class="container-non-responsive overflow-hidden pl-2">
-        @RenderBody()
+    <div class="px-4 mx-auto bg-gray-50">
+        <partial name="_Footer" />
     </div>
 </body>
 </html>
