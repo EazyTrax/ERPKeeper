@@ -70,5 +70,37 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             return model;
         }
+
+        public void Delete(PurchaseQuote transcation)
+        {
+
+            transcation.Items.Clear();
+            erpNodeDBContext.PurchaseQuotes.Remove(transcation);
+            erpNodeDBContext.SaveChanges();
+
+        }
+
+        public void Remove(List<PurchaseQuote> expiredSPurchaseQuotes)
+        {
+            erpNodeDBContext.PurchaseQuotes.RemoveRange(expiredSPurchaseQuotes);
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void RemoveExpired(int days)
+        {
+            var expiredQuotes = erpNodeDBContext.PurchaseQuotes
+                .ToList()
+                        .Where(q => q.AgeInDays > days)
+                        .ToList();
+
+            expiredQuotes.ForEach(s =>
+            {
+                s.Items.Clear();
+                erpNodeDBContext.PurchaseQuotes.Remove(s);
+            });
+
+            erpNodeDBContext.PurchaseQuotes.RemoveRange(expiredQuotes);
+
+        }
     }
 }

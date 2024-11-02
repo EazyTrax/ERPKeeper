@@ -50,5 +50,36 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             return model;
         }
 
+        public void Delete(SaleQuote transcation)
+        {
+            transcation.Items.Clear();
+            erpNodeDBContext.SaleQuotes.Remove(transcation);
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void Remove(List<SaleQuote> expiredSalesQuotes)
+        {
+
+            erpNodeDBContext.SaleQuotes.RemoveRange(expiredSalesQuotes);
+            erpNodeDBContext.SaveChanges();
+
+        }
+
+        public void RemoveExpired(int days)
+        {
+            var expiredSalesQuotes = erpNodeDBContext.SaleQuotes
+                        .ToList()
+                        .Where(q => q.AgeInDays > days)
+                        .ToList();
+
+            expiredSalesQuotes.ForEach(s =>
+            {
+                s.Items.Clear();
+                erpNodeDBContext.SaleQuotes.Remove(s);
+            });
+
+            erpNodeDBContext.SaleQuotes.RemoveRange(expiredSalesQuotes);
+
+        }
     }
 }

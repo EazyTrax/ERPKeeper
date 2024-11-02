@@ -71,6 +71,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                 if (transaction == null)
                 {
                     Console.WriteLine($"Create TR:{purchase.Name}");
+
                     transaction = new Transaction()
                     {
                         Id = purchase.Id,

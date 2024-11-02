@@ -1,8 +1,10 @@
 ﻿
 
 
+
 <div class="flex flex-wrap">
     <div class="col-center-div grow">
+        <partial name="_Pie_Chart" />
     </div>
     <div class="col-4 pr-0 col-center">
 
@@ -10,7 +12,7 @@
             @foreach (var customer in Organization.ErpCOREDBContext.Customers.OrderByDescending(c => c.TotalSales).Take(20).ToList())
             {
                 <div class="flex border-bottom">
-                    <div class="col-9">
+                    <div class="w-9/12 p-1 border-right">
                         <a href="/@CompanyId/Customers/Customers/@customer.Id">
                             @customer.Profile.Name
                         </a>

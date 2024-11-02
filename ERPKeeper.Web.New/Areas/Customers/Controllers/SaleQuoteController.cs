@@ -120,7 +120,15 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public IActionResult Delete()
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
 
+            Organization.SaleQuotes.Delete(transcation);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Customers/SaleQuotes");
+        }
 
         public IActionResult ConvertToInvoice()
         {

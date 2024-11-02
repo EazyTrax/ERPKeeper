@@ -27,21 +27,6 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         }
 
 
-        [HttpPost]
-        public IActionResult Insert(string values)
-        {
-            var model = new Enterprise.Models.Suppliers.Supplier();
-            JsonConvert.PopulateObject(values, model);
-
-            //if (!TryValidateModel(RequirementType))
-            //    return BadRequest(ModelState.GetFullErrorMessage());
-
-            Organization.ErpCOREDBContext.Suppliers.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
-
-            return Ok();
-        }
-
 
         [HttpPost]
         public IActionResult Update(Guid key, string values)

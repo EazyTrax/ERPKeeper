@@ -67,7 +67,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 {
                     // Create and add new CustomerItem if it doesn't exist
                     customerItem = new Enterprise.Models.Customers.CustomerItem(item.ItemId, customerId);
-                    customer.Items.Add(customerItem);
+                    customer.CustomerItems.Add(customerItem);
                     customerItemsDict[item.ItemId] = customerItem;
                 }
                 customerItem.AmountSale = item.Amount;
@@ -86,7 +86,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 {
                     // Create and add new CustomerItem if it doesn't exist
                     customerItem = new Enterprise.Models.Customers.CustomerItem(item.ItemId, customerId);
-                    customer.Items.Add(customerItem);
+                    customer.CustomerItems.Add(customerItem);
                     customerItemsDict[item.ItemId] = customerItem;
                 }
                 customerItem.AmountSaleQuote = item.Amount;
@@ -105,5 +105,16 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(customer);
         }
 
+        public IActionResult Delete()
+        {
+            var customer = Organization.Customers.Find(customerId);
+
+            var result = Organization.Customers.Remove(customer);
+
+            if(result)
+                return Redirect($"/{CompanyId}/Customers/Customers");
+            else
+                return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

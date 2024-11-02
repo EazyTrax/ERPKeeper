@@ -33,6 +33,6 @@
         MenuTemplate(0, "Quotes", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status ==  PurchaseQuoteStatus.Quote).Count());
         MenuTemplate(0, "Order", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count());
         MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s => s.Status == PurchaseStatus.Invoice).Count());
-        MenuTemplate(1, "Payments", $"/{CompanyId}/Suppliers/ReceivePayments");
+        MenuTemplate(1, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments");
     }
 </div>

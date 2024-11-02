@@ -3,63 +3,60 @@
 <form id="EditForm" action="/@CompanyId/Customers/SaleQuotes/@Model.Id/Update" method="post">
 
     <div class="grid grid-cols-3">
-        <div class="border">
-            <div class=" bg-gray-100 p-2 mb-2 rounded">
-                <div class="flex flex-wrap">
-                    <div class="w-10/12 p-0">
-                        <div class="mb-3 font-semibold">Customer</div>
-                    </div>
-                    <div class="w-2/12 p-0 text-right">
-                        <a href="/@CompanyId/Profiles/@Model.CustomerId">
-                            <i class="fa-regular fa-id-badge text-xl"></i>
-                        </a>
-                    </div>
-                </div>
+        <div class="border bg-gray-100 p-2 mb-2 rounded">
+            <div class="mb-3 font-semibold">General</div>
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("Name").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.No).Label("No").LabelMode(EditorLabelMode.Static)</div>
 
-
-
-                <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-
-             
-
-                @{
-                    var addresses = Model.Customer.Profile.Addresses.ToList();
-                }
-
-                @(Html.DevExtreme().SelectBoxFor(m => m.ProfileAddesssId)
-                    .Name("ProfileAddesssId") // Manually set the name
-                    .DataSource(addresses.Select(t => new { t.Id, t.Title }).ToList())
-                    .Placeholder("Address")
-                    .DisplayExpr("Title")
+            <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
+            <div class="mb-2">
+                @(Html.DevExtreme().SelectBoxFor(m => m.TaxCodeId)
+                    .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
+                    .Placeholder("Choose Tax Code")
+                    .DisplayExpr("Name")
                     .ValueExpr("Id")
-                    .Label("Address")
+                    .Label("Tax")
                     .ShowClearButton(true)
-                    .LabelMode(EditorLabelMode.Static))
-
-
+                    .LabelMode(EditorLabelMode.Static)
+                    )
             </div>
         </div>
-        <div class="border">
-            <div class=" bg-gray-100 p-2 mb-2 rounded">
-                <div class="mb-3 font-semibold">General</div>
-                <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("Name").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-                <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.No).Label("No").LabelMode(EditorLabelMode.Static)</div>
-
-                <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
-                <div class="mb-2">
-                    @(Html.DevExtreme().SelectBoxFor(m => m.TaxCodeId)
-                        .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
-                        .Placeholder("Choose Tax Code")
-                        .DisplayExpr("Name")
-                        .ValueExpr("Id")
-                        .Label("Tax")
-                        .ShowClearButton(true)
-                        .LabelMode(EditorLabelMode.Static)
-                        )
+        <div class="border bg-gray-100 p-2 mb-2 rounded">
+            <div class="flex flex-wrap">
+                <div class="w-10/12 p-0">
+                    <div class="mb-3 font-semibold">Customer</div>
+                </div>
+                <div class="w-2/12 p-0 text-right">
+                    <a href="/@CompanyId/Profiles/@Model.CustomerId">
+                        <i class="fa-regular fa-id-badge text-xl"></i>
+                    </a>
                 </div>
             </div>
+
+
+
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
+
+
+
+            @{
+                var addresses = Model.Customer.Profile.Addresses.ToList();
+            }
+
+            @(Html.DevExtreme().SelectBoxFor(m => m.ProfileAddesssId)
+                .Name("ProfileAddesssId") // Manually set the name
+                .DataSource(addresses.Select(t => new { t.Id, t.Title }).ToList())
+                .Placeholder("Address")
+                .DisplayExpr("Title")
+                .ValueExpr("Id")
+                .Label("Address")
+                .ShowClearButton(true)
+                .LabelMode(EditorLabelMode.Static))
+
+
         </div>
+
         <div class="border">
             <div class=" bg-gray-100 p-2 mb-2 rounded">
 
@@ -98,11 +95,10 @@
                         <div class="mb-3 font-semibold">Financial</div>
                     </div>
                     <div class="w-2/12 p-0 text-right">
-                      
                     </div>
                 </div>
 
-  <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
             </div>
         </div>
         <div class="border">

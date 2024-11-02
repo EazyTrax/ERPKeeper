@@ -12,6 +12,8 @@ using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Profiles;
 using ERPKeeperCore.Enterprise.Models;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using Azure.Core;
 
 namespace ERPKeeperCore.Enterprise.DAL.Customers
 {
@@ -57,6 +59,74 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
             erpNodeDBContext.Customers.Add(customer);
             erpNodeDBContext.SaveChanges();
+        }
+
+        public void UpdateSalesAndSaleQuoteCount()
+        {
+
+
+            var customers = GetAll();
+            var Sales = erpNodeDBContext.Sales
+                .Where(p => customers.Select(s => s.Id).Contains(p.CustomerId))
+                .ToList();
+
+            // Group Sales by CustomerId for easier aggregation
+            var groupedSales = Sales.GroupBy(p => p.CustomerId).ToDictionary(g => g.Key);
+
+            // Iterate over each supplier and calculate aggregates from in-memory data
+            foreach (var supplier in customers)
+            {
+                if (groupedSales.TryGetValue(supplier.Id, out var supplierSales))
+                {
+                    supplier.TotalSales = supplierSales.Sum(p => p.Total);
+                    supplier.TotalSalesCount = supplierSales.Count();
+
+                    supplier.TotalBalance = supplierSales
+                        .Where(p => p.Status == SaleStatus.Invoice)
+                        .Sum(p => p.Total);
+
+                    supplier.TotalBalanceCount = supplierSales
+                        .Count(p => p.Status == SaleStatus.Invoice);
+                }
+                else
+                {
+                    supplier.TotalSales = 0;
+                    supplier.TotalSalesCount = 0;
+                    supplier.TotalBalance = 0;
+                    supplier.TotalBalanceCount = 0;
+                }
+            }
+
+            // Save all changes once
+            erpNodeDBContext.SaveChanges();
+
+
+
+        }
+
+        public void RemoveNoSaleOrQuote()
+        {
+            var noSalesCustomer = erpNodeDBContext.Customers
+                  .Where(p => p.Sales.Count == 0 && p.SaleQuotes.Count == 0)
+                  .ToList();
+
+            erpNodeDBContext.Customers.RemoveRange(noSalesCustomer);
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public bool Remove(Customer customer)
+        {
+            if (customer.Sales.Count > 0)
+                return false;
+
+            customer.SaleQuotes.Clear();
+            customer.CustomerItems.Clear();
+            erpNodeDBContext.SaveChanges();
+
+            erpNodeDBContext.Customers.Remove(customer);
+            erpNodeDBContext.SaveChanges();
+
+            return true;
         }
     }
 }

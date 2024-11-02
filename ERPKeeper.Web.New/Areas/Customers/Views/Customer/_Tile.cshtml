@@ -8,12 +8,21 @@
             </div>
             @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName<br />
         </div>
-        <div class="w-2/12 p-0 text-right">
-            <a href="/@CompanyId/Profiles/@Model.Id">
+        <div class="w-2/12 justify-end flex gap-2">
 
-                <i class="fa-regular fa-id-badge text-xl"></i>
-       
-            </a>
+            <div>
+                <a href="/@CompanyId/Profiles/@Model.Id">
+                    <i class="fa-regular fa-id-badge text-xl"></i>
+                </a>
+            </div>
+
+            <div>
+                <a href="/@CompanyId/Customers/Customers/@Model.Id/Delete">
+                    Delete
+                </a>
+            </div>
+
+
         </div>
     </div>
 </div>

@@ -20,7 +20,10 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
         public ActionResult Refresh()
         {
 
-            Organization.Suppliers.UpdateSuppliersPurchasesBalance();
+            Organization.Suppliers.UpdatePurchasesBalance();
+            Organization.Suppliers.UpdatePurchasesAndPurchaseQuoteCount();
+
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

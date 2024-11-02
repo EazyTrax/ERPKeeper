@@ -13,41 +13,36 @@
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
             .ColumnAutoWidth(false)
             .StateStoring(ss => ss.Enabled(true).StorageKey("Customers_Customers"))
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).UseIcons(true))
             .Columns(columns =>
             {
 
-                columns.AddFor(m => m.ProfileId).Width(150)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>TAX ID</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
+                columns.AddFor(m => m.Profile.TaxNumber).AllowEditing(false).HeaderCellTemplate("Tax ID").Width(150);
+                columns.AddFor(m => m.Profile.ShotName).AllowEditing(false).HeaderCellTemplate("SN").Width(80);
+                columns.AddFor(m => m.Profile.Name).AllowEditing(false).HeaderCellTemplate("Name")
+                    .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Profile.Id %>/"><%= data.Profile.Name %></a></text>);
 
-                columns.AddFor(m => m.ProfileId).Width(150)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .MinWidth(200)
-            .HeaderCellTemplate(@<text>SN</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
+                columns.AddFor(m => m.TotalSales).AllowEditing(false).Width(120).HeaderCellTemplate(@<text>Sale</text>).Format(Format.FixedPoint);
+                columns.AddFor(m => m.TotalSalesCount).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Sale</text>);
+                columns.AddFor(m => m.TotalBalance).AllowEditing(false).Width(120).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
+                columns.AddFor(m => m.TotalBalanceCount).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Balance</text>);
 
+                columns.AddFor(m => m.DefaultTaxCodeUid)
+                    .Lookup(lookup => lookup
+                    .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value"))
+                    .Width(150)
+                    .AllowEditing(false)
+                    .HeaderCellTemplate(@<text>TaxCode</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>Customer</text>)
-             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Id %>/"><%= displayValue %></a></text>);
+                columns.AddFor(m => m.DefaultIncomeAccountId)
+                    .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                    .Width(150)
+                    .HeaderCellTemplate(@<text>Income Acc</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.DefaultIncomeAccountId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.TotalSales).Width(120).HeaderCellTemplate(@<text>Sale</text>).Format(Format.FixedPoint);
-                columns.AddFor(m => m.TotalSalesCount).Width(120).HeaderCellTemplate(@<text>Sale</text>);
-                columns.AddFor(m => m.TotalBalance).Width(120).HeaderCellTemplate(@<text>Balance</text>).Format(Format.FixedPoint);
-                columns.AddFor(m => m.TotalBalanceCount).Width(120).HeaderCellTemplate(@<text>Balance</text>);
             })
         )
 </div>

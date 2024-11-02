@@ -17,7 +17,6 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuotes
-                .Where(s => s.Status == Enterprise.Models.Customers.Enums.SaleQuoteStatus.Draft)
                 .Where(r => r.CustomerId == ProfileId)
                 .ToList();
 

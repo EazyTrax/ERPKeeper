@@ -1,4 +1,6 @@
-﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+﻿using ERPKeeperCore.Enterprise.DAL.Suppliers;
+using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -24,9 +26,18 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public String? Code { get; set; }
         public ProfileStatus Status { get; set; }
 
+
+
+
         public Guid? DefaultTaxCodeUid { get; set; }
         [ForeignKey("DefaultTaxCodeUid")]
         public virtual Taxes.TaxCode DefaultTaxCode { get; set; }
+
+
+        public Guid? DefaultExpenseAccountId { get; set; }
+        [ForeignKey("DefaultExpenseAccountId")]
+        public virtual Account? DefaultExpenseAccount { get; set; }
+
 
 
         public Decimal TotalPurchases { get; set; }
@@ -41,8 +52,9 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Decimal CreditLimit { get; set; }
         public int CreditAgeLimit { get; set; }
 
-
+        public virtual ICollection<PurchaseQuote> PurchaseQuotes { get; set; } = new List<PurchaseQuote>();
         public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
+
         public virtual ICollection<SupplierItem> SupplierItems { get; set; } = new List<SupplierItem>();
 
 

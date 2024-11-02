@@ -1,0 +1,37 @@
+﻿
+
+
+<div>
+
+    @(Html.DevExtreme().PieChart()
+        .ID("pie")
+        .Size(s => s.Height(500))
+        .Palette(VizPalette.Bright)
+        .Series(s => s
+        .Add()
+        .ArgumentField("Name")
+        .ValueField("TotalSale")
+        .Label(l => l
+        .Visible(true)
+        .Connector(c => c
+        .Visible(true)
+        .Width(1)
+        )
+        )
+        )
+        .OnLegendClick(@<text>
+        function (e) {
+        var arg = e.target;
+        toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
+        }
+    </text>)
+        .DataSource(Organization.ErpCOREDBContext.Customers
+        .Select(c => new { Name = c.Profile.Name, TotalSale = c.TotalSales })
+        .OrderByDescending(x => x.TotalSale)
+        .Take(5).ToList())
+        )
+
+</div>
+
+
+
