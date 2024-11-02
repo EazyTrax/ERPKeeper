@@ -18,6 +18,37 @@
                         @company
                     </div>
                 </a>
+
+
+                <a href="/@company/Customers/Customers">
+                    <div class="bg-gray-100 h-16  p-2 border">
+                        @companyRepo.ErpCOREDBContext.Customers.Count() <br />
+                        Customers
+                    </div>
+                </a>
+
+                <a href="/@company/Suppliers/Suppliers">
+                    <div class="bg-gray-100 h-16  p-2 border">
+                        @companyRepo.ErpCOREDBContext.Suppliers.Count() <br />
+                        Suppliers
+                    </div>
+                </a>
+
+
+
+                <a href="/@company/Employees/Employees">
+                    <div class="bg-gray-100 h-16  p-2 border">
+                        @companyRepo.ErpCOREDBContext.Employees.Count() <br />
+                        Employees
+                    </div>
+                </a>
+
+
+
+
+
+
+
                 <a href="/@company/Customers/SaleQuotes">
                     <div class="bg-gray-100 h-16  p-2 border">
                         @companyRepo.ErpCOREDBContext.SaleQuotes.Count() <br /> SaleQuotes
