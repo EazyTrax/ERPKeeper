@@ -14,12 +14,12 @@
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
-
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" + CompanyId.ToString()))
             .ShowRowLines(false)
             .ShowBorders(false)
-            .Paging(paging => paging.PageSize(100))
-
+            .AllowColumnResizing(true).AllowColumnReordering(true)
+            .Paging(paging => paging.PageSize(300))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
 
@@ -57,13 +57,13 @@
                 columns.AddFor(m => m.Total).Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+                    .Lookup(lookup => lookup
+                    .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value"))
+                    .AllowEditing(false)
+                    .HeaderCellTemplate(@<text>TaxCode</text>)
+                    .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
@@ -75,7 +75,7 @@
         .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.ExpenseAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetsAndExpenses.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.ExpenseAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .Visible(false)
             .HeaderCellTemplate(@<text>Expense</text>)

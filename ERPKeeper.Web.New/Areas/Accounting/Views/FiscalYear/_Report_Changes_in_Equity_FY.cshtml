@@ -14,7 +14,7 @@
     .First();
 }
 
-<div class="flex">
+<div class="flex flex-wrap">
     <div class="col-6   ">
         ยอดคงเหลือ ณ ต้นงวด  @(Model.EndDate.Year - 1 + 543)
     </div>
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<div class="flex">
+<div class="flex flex-wrap">
     <div class="col-6   ">
         จ่ายเงินปันผล
     </div>
@@ -46,7 +46,7 @@
 
 
 
-<div class="flex">
+<div class="flex flex-wrap">
     <div class="col-6   ">
         กำไร(ขาดทุน) สุทธิ สำหรับงวด @(Model.EndDate.Year + 543)
     </div>
@@ -59,7 +59,7 @@
         @retainedEarning.ClosingCredit.ToString("N2")
     </div>
 </div>
-<div class="flex">
+<div class="flex flex-wrap">
     <div class="col-6   ">
         ยอดคงเหลือปลายงวด  @(Model.EndDate.Year + 543)
     </div>

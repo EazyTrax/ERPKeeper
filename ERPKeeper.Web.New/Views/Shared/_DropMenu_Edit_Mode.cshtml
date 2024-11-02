@@ -6,7 +6,7 @@
     <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         @if (IsOnEditMode)
         {
-            <i class="fa-regular fa-lock-open text-fs-21 text-danger"></i>
+            <i class="fa-regular fa-lock-open text-xl text-danger"></i>
         }
         else
         {
@@ -16,9 +16,9 @@
     <div class="dropdown-menu bg-white border-2 border roundedmin-w-64 min-h-40" aria-labelledby="dropdownMenuLink">
         <div class="px-2">
             <a href="/My/Setting/EditMode/View">
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <div class="w-2/12 p-0">
-                        <i class="fa-regular fa-lock  text-xl"></i>
+                        <i class="fa-regular fa-lock text-xl"></i>
                     </div>
                     <div class="w-10/12 text-xl">
                         Locked
@@ -26,9 +26,9 @@
                 </div>
             </a>
             <a href="/My/Setting/EditMode/Edit">
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <div class="w-2/12 p-0">
-                        <i class="fa-regular fa-lock-open  text-xl"></i>
+                        <i class="fa-regular fa-lock-open text-xl"></i>
                     </div>
                     <div class="w-10/12 text-xl">
                         Edit

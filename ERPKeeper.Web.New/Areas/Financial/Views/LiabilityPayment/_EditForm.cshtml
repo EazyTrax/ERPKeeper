@@ -22,7 +22,7 @@
                 <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").LabelMode(EditorLabelMode.Static)</div>
             </div>
             <div class="p-2 bg-gray-100 border">
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <div class="w-full p-0">
                         <div class="mb-3 font-semibold">Liability Payment</div>
                         <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>

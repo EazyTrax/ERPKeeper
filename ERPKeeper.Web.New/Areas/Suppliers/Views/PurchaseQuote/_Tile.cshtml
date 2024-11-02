@@ -1,0 +1,102 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
+
+
+
+<div class="grid grid-cols-6">
+
+    <div class="bg-gray-100 h-20 content-center border relative">
+        <div class="text-2xl text-center font-semibold">
+            @Model.Status
+        </div>
+        <div class="text-lg text-center">
+            Status
+        </div>
+
+
+        <div class="absolute top-1 right-1">
+            <div class="dropdown dropleft ">
+                <a class="" href="#" role="button" id="dropdownStatusChange" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+                <div class="dropdown-menu p-2 bg-white border-2 border rounded w-60" aria-labelledby="dropdownMenuLink">
+                    <div>
+                        <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Void">Void</a>
+                    </div>
+
+                    @if (Model.Status != ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order)
+                    {
+                        <div>
+                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Order">Order</a>
+                        </div>
+                    }
+
+
+                    @if (Model.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order)
+                    {
+                        <div>
+                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to convert to an invoice?');">Convert To Invoice</a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="bg-gray-100 h-20 content-center border  text-@(Model.AgeColor)-500">
+        <div class="text-2xl text-center font-semibold">
+            @Model.AgeInDays
+        </div>
+        <div class="text-lg text-center">
+            Age
+        </div>
+    </div>
+
+
+    <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/PurchaseQuotes">
+        <div class="bg-gray-100 h-20 content-center border">
+            <div class="text-2xl text-center font-semibold">
+            </div>
+            <div class="text-lg text-center">
+            </div>
+        </div>
+    </a>
+
+
+
+    <div class="bg-gray-100 h-20 content-center border relative">
+        <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Items">
+            <div class="text-2xl text-center font-semibold">
+                @Model.Items.Count()
+            </div>
+            <div class="text-lg text-center">
+                Items
+            </div>
+        </a>
+
+
+        <div class="absolute top-1 right-1">
+            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Items/Avaliable">
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="bg-gray-100 h-20 content-center border">
+        <div class="text-2xl text-center font-semibold">
+            @Model.Total.ToString("N2")
+        </div>
+        <div class="text-lg text-center">
+            Total
+        </div>
+    </div>
+
+
+
+</div>
+
+

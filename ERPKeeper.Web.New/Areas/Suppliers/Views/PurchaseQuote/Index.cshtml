@@ -1,9 +1,13 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
-<div class="flex">
+<div class="flex flex-wrap">
+
+
+    <div class="w-full">
+        <partial name="_Tile" />
+    </div>
     <div class="col-center-div grow">
         <partial name="_EditForm" />
-
     </div>
     <div class="col-right-div w-3/12">
         <partial name="_Summary" />

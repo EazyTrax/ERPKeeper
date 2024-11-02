@@ -21,7 +21,7 @@
             .ShowBorders(false)
             .Editing(editing => editing.Mode(GridEditMode.Form).AllowUpdating(true).AllowAdding(true))
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Products"))
-            .AllowColumnResizing(true).AllowColumnReordering(true)
+            .AllowColumnResizing(true)
             .AllowColumnReordering(true)
             .Paging(paging => paging.PageSize(100))
             .FilterRow(fp => fp.Visible(true))
@@ -29,7 +29,7 @@
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .ColumnChooser(Panel => Panel.Enabled(true))
             .ColumnAutoWidth(false)
-            .RowAlternationEnabled(true).AllowColumnReordering(true)
+            .RowAlternationEnabled(true)
             .Columns(columns =>
             {
                 columns.AddFor(m => m.BrandId).Width(150)

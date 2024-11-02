@@ -14,7 +14,8 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Purchases
+            var returnModel = Organization.ErpCOREDBContext
+                .Purchases
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

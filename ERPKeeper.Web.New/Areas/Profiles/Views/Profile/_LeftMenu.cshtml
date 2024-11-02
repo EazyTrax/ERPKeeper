@@ -26,7 +26,7 @@
 
     <a href="/@CompanyId/Profiles/">
         Profiles
-    </a>:
+    </a><br />
     <a href="/@CompanyId/Profiles/@Model.Id">
         @Model.Name
     </a>
@@ -37,7 +37,7 @@
     @{
         MenuTemplate(0, "General", $"/{CompanyId}/Profiles/{Model.Id}");
         MenuTemplate(0, "Addresses", $"/{CompanyId}/Profiles/{Model.Id}/Addresses", Model.Addresses.Count());
-        MenuTemplate(0, "Contacts", $"/{CompanyId}/Profiles/{Model.Id}/Contacts", Model.Addresses.Count());
+        MenuTemplate(0, "Contacts", $"/{CompanyId}/Profiles/{Model.Id}/Contacts", Model.Contacts.Count());
     }
 </div>
 

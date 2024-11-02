@@ -38,6 +38,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             var purchases = erpNodeDBContext.Purchases
                 .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted || rePost)
+                .Where(s => s.ExpenseAccountId != null)
                 .OrderBy(s => s.Date).ToList();
 
 
@@ -129,9 +130,9 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
         public void UpdateStatus()
         {
             var paidTransactions = erpNodeDBContext.Purchases
-                .Where(s => s.Status !=  PurchaseStatus.Paid && s.SupplierPayment != null)
+                .Where(s => s.Status != PurchaseStatus.Paid && s.SupplierPayment != null)
                 .ToList();
-            paidTransactions.ForEach(purchase => purchase.Status =  PurchaseStatus.Paid);
+            paidTransactions.ForEach(purchase => purchase.Status = PurchaseStatus.Paid);
             erpNodeDBContext.SaveChanges();
 
         }

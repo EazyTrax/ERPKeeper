@@ -4,13 +4,13 @@
 
 <div class="mt-5 page-break">
 </div>
-<div class="flex">
+<div class="flex flex-wrap">
     <div class="w-full  font-semibold ">
         9. ค่าใช้จ่ายในการขาย
     </div>
 </div>
 
-<div class="flex">
+<div class="flex flex-wrap">
     <div class="col-9">
     </div>
     <div class="w-3/12 p-0  text-center">
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="flex">
+<div class="flex flex-wrap">
     @{
         var currentFiscalYearExpenses = Model.FiscalYearAccountBalances
         .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
