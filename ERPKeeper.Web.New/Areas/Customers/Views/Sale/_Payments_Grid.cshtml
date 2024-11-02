@@ -8,7 +8,7 @@
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/ReceivePayments/All"))
-        .RowAlternationEnabled(true)
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(false)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))

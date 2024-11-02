@@ -11,7 +11,7 @@
             .UpdateUrl($"/API/{CompanyId}/Financial/RetentionGroups/Update")
             .UpdateMethod("Post")
             )
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))

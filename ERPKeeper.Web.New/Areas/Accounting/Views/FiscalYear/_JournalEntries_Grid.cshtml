@@ -12,7 +12,7 @@
         .UpdateUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/JournalEntries/Update")
         .UpdateMethod("Post"))
         .AllowColumnReordering(true)
-        .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
+        .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
@@ -21,7 +21,7 @@
         .Paging(pagging => pagging.PageSize(100))
         .GroupPanel(gp => gp.Visible(true))
          .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-        @*  .AllowColumnResizing(true)*@
+        @*  .AllowColumnResizing(true).AllowColumnReordering(true)*@
 
         .Columns(columns =>
         {

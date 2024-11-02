@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Customers
@@ -61,10 +62,25 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         {
             get
             {
-                var endDate = ReceivePayment?.Date ?? DateTime.Today;
+                var endDate = this.ReceivePayment?.Date ?? DateTime.Today;
                 return (endDate - Date).Days;
             }
         }
+
+        public string AgeColor
+        {
+            get
+            {
+                if (AgeInDays < 30)
+                    return "blue";
+                else if (AgeInDays < 60)
+                    return "yellow";
+                else
+                    return "red";
+            }
+        }
+
+
 
         public Decimal LinesTotal { get; set; }
         public Decimal Discount { get; set; }
@@ -245,6 +261,44 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             var currentMonth = this.Date.Month;
 
             this.Name = $"SL-{currentYear}/{currentMonth}/{this.No.ToString()}";
+        }
+
+        public void UpdateAddress()
+        {
+            if (this.ProfileAddesssId != null)
+                return;
+
+            this.ProfileAddesssId = this?.Customer?
+                .Profile?
+                .Addresses?
+                .FirstOrDefault()?.Id;
+
+        }
+
+        public void SetStatus(SaleStatus newStatus)
+        {
+            if (Status == SaleStatus.Paid)
+                return;
+
+            if (newStatus == SaleStatus.Void)
+            {
+                this.ClearItems();
+                this.UpdateBalance();
+            }
+                
+
+            this.Status = newStatus;
+        }
+
+        private void ClearItems()
+        {
+            var removeItems = this.Items
+                  .ToList();
+
+            foreach (var item in removeItems)
+            {
+                this.Items.Remove(item);
+            }
         }
     }
 }

@@ -22,6 +22,34 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
+
+
+        public object Quotes(DataSourceLoadOptions loadOptions)
+        {
+            var returnModel = Organization.ErpCOREDBContext.SaleQuotes
+                .Where(m =>
+                    m.Status == SaleQuoteStatus.Draft ||
+                    m.Status == SaleQuoteStatus.Quote ||
+                    m.Status == SaleQuoteStatus.Void ||
+                    m.Status == SaleQuoteStatus.Delete
+                )
+                .ToList();
+
+            return DataSourceLoader.Load(returnModel, loadOptions);
+        }
+
+        public object Orders(DataSourceLoadOptions loadOptions)
+        {
+            var returnModel = Organization.ErpCOREDBContext.SaleQuotes
+                .Where(m =>
+                    m.Status == SaleQuoteStatus.Order ||
+                    m.Status == SaleQuoteStatus.Invoice)
+                .ToList();
+
+            return DataSourceLoader.Load(returnModel, loadOptions);
+        }
+
+
         [HttpPost]
         public IActionResult Insert(string values)
         {

@@ -20,6 +20,8 @@ namespace ERPKeeperCore.Enterprise.Models.Info
         public string? Number { get; set; }
 
         public string? Address { get; set; }
+        public string? AddressLine2 { get; set; }
+
         public string? PhoneNumber { get; set; }
         public string? BranchName { get; set; }
     }

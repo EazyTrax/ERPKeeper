@@ -24,17 +24,28 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($"> ########################################################");
                 Console.WriteLine($"> {enterpriseDB}");
                 Console.WriteLine($"> ########################################################");
-                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
-                var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
+
+                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
-                if (false)
-                    (new ERPMigrationTool(enterpriseDB)).Migrate();
+                var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
 
-                if (true)
-                    GeneralOperations(newOrganization, oldOrganization);
+
+
+
+                //var eRPMigrationTool = new ERPMigrationTool(enterpriseDB);
+                //eRPMigrationTool.Migrate();
+                //eRPMigrationTool.Copy_Profiles();
+                //eRPMigrationTool.Copy_Items();
+                //eRPMigrationTool.Copy_Suppliers();
+                //eRPMigrationTool.Copy_Customers();
+                //eRPMigrationTool.Copy_Employees();
+
+
+
+
 
                 if (false && newOrganization != null)
                 {

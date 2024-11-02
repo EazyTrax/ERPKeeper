@@ -1,13 +1,13 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+@using ERPKeeperCore.Enterprise.Models.Customers.Enums
+
+@{
+    var editAble = IsOnEditMode && Model.Status != SaleQuoteStatus.Invoice;
+}
 
 
 
 
-
-
-<div class="p-2 text-right">
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus"></i> Item</a>
-</div>
 <div id="treeListDemo" class="mb-3 border">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuoteItem>()
             .ID("gridList")
@@ -28,8 +28,7 @@
             .UpdateMethod("Post")
             .DeleteUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Delete")
             .DeleteMethod("Post"))
-            .Editing(editing => editing.AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-
+            .Editing(editing => editing.AllowUpdating(editAble).AllowDeleting(editAble).UseIcons(true))
             .KeyExpr("Id")
             .Columns(columns =>
             {

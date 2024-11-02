@@ -6,7 +6,7 @@
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Projects/{Model.Id}/Purchases/All"))
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
 
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" + CompanyId.ToString()))

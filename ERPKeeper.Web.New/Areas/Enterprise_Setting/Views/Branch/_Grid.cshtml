@@ -14,7 +14,7 @@
     .KeyExpr("Id")
     .Width("100%")
     .WordWrapEnabled(true)
-    .RowAlternationEnabled(true)
+    .RowAlternationEnabled(true).AllowColumnReordering(true)
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
         
@@ -22,7 +22,7 @@
     .ShowBorders(false)
     .Paging(paging => paging.PageSize(100))
 
-    .AllowColumnResizing(true)
+    .AllowColumnResizing(true).AllowColumnReordering(true)
     .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
 
     .ColumnAutoWidth(false)

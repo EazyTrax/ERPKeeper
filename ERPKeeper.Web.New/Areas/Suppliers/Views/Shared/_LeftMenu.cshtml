@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ERPKeeperCore.Enterprise.Models.Suppliers.Enums
+
+@{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
@@ -20,6 +22,19 @@
     }
 }
 
+<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+    <a href="/@CompanyId/Profiles">Profiles</a> :
+    <a href="/@CompanyId/Suppliers">Suppliers</a>
+</div>
+
+<div class="lh-120 bg-gray-100 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers", Organization.Suppliers.Count());
+        MenuTemplate(1, "Quotes", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Count());
+        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Count());
+        MenuTemplate(0, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments", Organization.ErpCOREDBContext.SupplierPayments.Count());
+    }
+</div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
     <a href="/@CompanyId/Profiles">Profiles</a> :
@@ -28,9 +43,10 @@
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers", Organization.Customers.Count());
-        MenuTemplate(1, "Quotes", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Count());
-        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Count());
-        MenuTemplate(0, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments", Organization.ErpCOREDBContext.SupplierPayments.Count());
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers", Organization.Suppliers.Count());
+        MenuTemplate(0, "Quotes", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status ==  PurchaseQuoteStatus.Quote).Count());
+        MenuTemplate(0, "Order", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count());
+        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s => s.Status == PurchaseStatus.Invoice).Count());
+        MenuTemplate(1, "Payments", $"/{CompanyId}/Suppliers/ReceivePayments");
     }
 </div>

@@ -31,7 +31,7 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/FiscalYears/{Model.Id}/AccountBalances/All"))
             .AllowColumnReordering(true)
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .Export(e => e.Enabled(true))
             .OnExporting("exporting")
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("FiscalYearAccountsBalance"))

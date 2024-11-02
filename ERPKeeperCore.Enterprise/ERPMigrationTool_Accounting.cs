@@ -11,7 +11,7 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void Copy_Accounting()
+        public void Copy_Accounting()
         {
             Console.WriteLine("> Copy_Accounting");
 
@@ -23,7 +23,7 @@ namespace ERPKeeperCore.CMD
             Copy_Accounting_JournalEntryItems();
         }
 
-        private void Copy_Accounting_JournalEntryTypes()
+        public void Copy_Accounting_JournalEntryTypes()
         {
             Console.WriteLine("> Copy_Accounting_JournalEntryTypes");
             var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryTypes.ToList();
@@ -55,7 +55,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Accounting_JournalEntries()
+        public void Copy_Accounting_JournalEntries()
         {
             Console.WriteLine("Copy_Accounting_JournalEntries");
 
@@ -91,7 +91,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Accounting_JournalEntryItems()
+        public void Copy_Accounting_JournalEntryItems()
         {
             Console.WriteLine("Copy_Accounting_JournalEntryItems");
             var oldModels = oldOrganization.ErpNodeDBContext.JournalEntryItems.ToList();
@@ -122,7 +122,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Accounting_Accounts()
+        public void Copy_Accounting_Accounts()
         {
             Console.WriteLine("> Copy_Accounting_Accounts");
             var oldAccounts = oldOrganization.ErpNodeDBContext.AccountItems.ToList();
@@ -163,7 +163,7 @@ namespace ERPKeeperCore.CMD
                 }
             });
         }
-        private void Copy_Accounting_DefaultAccounts()
+        public void Copy_Accounting_DefaultAccounts()
         {
             Console.WriteLine("> Copy_Accounting_DefaultAccounts");
             var oldModels = oldOrganization.ErpNodeDBContext.SystemAccounts.ToList();
@@ -194,7 +194,7 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-        private void Copy_Accounting_FiscalYear()
+        public void Copy_Accounting_FiscalYear()
         {
             Console.WriteLine("> Copy_Accounting_FiscalYear");
             var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();

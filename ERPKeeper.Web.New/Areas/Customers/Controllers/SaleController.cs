@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,12 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Index()
         {
             var sale = Organization.Sales.Find(Id);
-
+            
             if (sale == null)
                 return NotFound();
+
+            sale.UpdateAddress();
+            Organization.SaveChanges();
 
             return View(sale);
         }
@@ -90,6 +94,37 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(transcation);
         }
 
+        public IActionResult Pay(String Date)
+        {
+            var Sale = Organization.Sales.Find(Id);
+            DateTime payDate = DateTime.Today;
+
+            if (Date == "SaleDate")
+                payDate = Sale.Date;
+
+            if (Sale.ReceivePayment == null)
+            {
+                Sale.ReceivePayment = new Enterprise.Models.Customers.ReceivePayment()
+                {
+                    Date = payDate,
+                    Amount = Sale.Total,
+                    Receivable_Asset_Account = Organization.SystemAccounts.Cash
+                };
+                Organization.SaveChanges();
+            }
+
+            return Redirect($"/{CompanyId}/Customers/Sales/{Id}/Payment");
+        }
+
+
+        public IActionResult Void()
+        {
+            var transcation = Organization.Sales.Find(Id);
+            transcation.SetStatus(SaleStatus.Void);
+
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         public IActionResult Shipments()
         {
             var transcation = Organization.Sales.Find(Id);

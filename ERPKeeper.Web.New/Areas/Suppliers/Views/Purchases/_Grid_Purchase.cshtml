@@ -12,7 +12,7 @@
             .UpdateMethod("Post")
             .InsertMethod("Post")
             )
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
 
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" + CompanyId.ToString()))
@@ -27,7 +27,8 @@
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
-                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true);
+                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true)
+            .CellTemplate(@<text><span class="text-<%= data.AgeColor %>-400"><%= data.AgeInDays %></span></text>);
 
 
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);

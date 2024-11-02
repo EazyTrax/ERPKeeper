@@ -9,7 +9,7 @@
             .LoadUrl($"/API/{CompanyId}/Projects/{Model.Id}/PurchaseQuotes/All"))
 
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
 
             .KeyExpr("Id")
             .ShowRowLines(false)

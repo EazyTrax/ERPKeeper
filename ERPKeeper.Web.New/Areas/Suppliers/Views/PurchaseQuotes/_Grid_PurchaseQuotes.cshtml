@@ -13,7 +13,7 @@
             .InsertMethod("Post"))
 
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
 
             .KeyExpr("Id")
             .ShowRowLines(false)
@@ -25,7 +25,8 @@
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
-                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true);
+                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true)
+            .CellTemplate(@<text><span class="text-<%= data.AgeColor %>-400"><%= data.AgeInDays %></span></text>);
 
                 columns.AddFor(m => m.Date)
             .SortOrder(SortOrder.Desc)

@@ -11,14 +11,14 @@
         )
         .KeyExpr("Id")
         .Width("100%")
-        .RowAlternationEnabled(true)
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
 
         
         .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
 
-        .AllowColumnResizing(true)
+        .AllowColumnResizing(true).AllowColumnReordering(true)
         .Paging(pagging => pagging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 

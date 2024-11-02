@@ -25,16 +25,23 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers/SaleQuotes">SaleQuotes:</a><br />
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">@Model.Name .</a>
+    <a href="/@CompanyId/Customers/SaleQuotes">SaleQuotes</a><br />
+    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">@Model.Name</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}");
         MenuTemplate(0, "Items", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items", Model.Items.Count());
-     }
+    }
 </div>
+
+@if (Model.SaleId != null)
+{
+    <div class="lh-120 bg-gray-100 p-2 rounded border">
+        <div>Sale</div>
+    </div>
+}
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{

@@ -14,7 +14,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
     .ID("gridList")
     
-    .RowAlternationEnabled(true)
+    .RowAlternationEnabled(true).AllowColumnReordering(true)
     .KeyExpr("Id")
     .ShowRowLines(true)
     .ShowBorders(false)

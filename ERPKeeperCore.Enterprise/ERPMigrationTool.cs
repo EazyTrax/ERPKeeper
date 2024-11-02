@@ -46,7 +46,7 @@ namespace ERPKeeperCore.CMD
         
 
 
-        private void Copy_Projects()
+        public void Copy_Projects()
         {
             var oldModels = oldOrganization.ErpNodeDBContext.Projects.ToList();
 

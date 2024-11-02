@@ -23,7 +23,7 @@ namespace ERPKeeperCore.CMD
             Copy_Financial_Retentions_Groups();
         }
 
-        private void Copy_Financial_FundTransfers()
+        public void Copy_Financial_FundTransfers()
         {
             Console.WriteLine("> Copy_Financial_FundTransfers");
             var oldModels = oldOrganization.ErpNodeDBContext.FundTransfers.ToList();
@@ -68,7 +68,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Financial_LiabilityPayments()
+        public void Copy_Financial_LiabilityPayments()
         {
             Console.WriteLine("> Copy_Financial_LiabilityPayments");
 
@@ -149,7 +149,7 @@ namespace ERPKeeperCore.CMD
 
                 });
         }
-        private void Copy_Financial_Loans()
+        public void Copy_Financial_Loans()
         {
             Console.WriteLine("> Copy_Financial_Loans");
 
@@ -187,7 +187,7 @@ namespace ERPKeeperCore.CMD
 
                 });
         }
-        private void Copy_Financial_Lends()
+        public void Copy_Financial_Lends()
         {
             Console.WriteLine("> Copy_Financial_Lends");
 
@@ -225,7 +225,7 @@ namespace ERPKeeperCore.CMD
 
                 });
         }
-        private void Copy_Financial_Retentions_Types()
+        public void Copy_Financial_Retentions_Types()
         {
 
             Console.WriteLine("> Copy_Financial_Retentions_Types");
@@ -271,7 +271,7 @@ namespace ERPKeeperCore.CMD
 
             //newOrganization.ErpCOREDBContext.SaveChanges();
         }
-        private void Copy_Financial_Retentions_Groups()
+        public void Copy_Financial_Retentions_Groups()
         {
             Console.WriteLine("> Copy_Financial_Retentions_Groups");
 

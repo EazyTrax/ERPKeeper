@@ -13,20 +13,20 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void Copy_Customers()
+        public void Copy_Customers()
         {
             Console.WriteLine("> Copy_Customers");
 
             Copy_Customers_Customers();
             Copy_Customers_Sales();
             Copy_Customers_SaleItems();
-            Copy_Customers_SaleQuotes();
-            Copy_Customers_SaleQuoteItems();
-            Copy_Customers_ReceivePayments();
-
-
+         //   Copy_Customers_SaleQuotes();
+         //   Copy_Customers_SaleQuoteItems();
+         //   Copy_Customers_ReceivePayments();
         }
-        private void Copy_Customers_Customers()
+
+
+        public void Copy_Customers_Customers()
         {
             Console.WriteLine("> Copy_Customers_Customers");
 
@@ -62,7 +62,7 @@ namespace ERPKeeperCore.CMD
         }
 
 
-        private void Copy_Customers_ReceivePayments()
+        public void Copy_Customers_ReceivePayments()
         {
             Console.WriteLine("> Copy_Customers_ReceivePayments");
 
@@ -139,7 +139,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.SaveChanges();
             }
         }
-        private void Copy_Customers_ReceivePayments_oldWay()
+        public void Copy_Customers_ReceivePayments_oldWay()
         {
             Console.WriteLine("> Copy_Customers_ReceivePayments");
 
@@ -197,7 +197,7 @@ namespace ERPKeeperCore.CMD
 
 
 
-        private void Copy_Customers_Sales()
+        public void Copy_Customers_Sales()
         {
 
             Console.WriteLine("> Copy_Customers_Sales");
@@ -248,7 +248,7 @@ namespace ERPKeeperCore.CMD
 
             newOrganization.ErpCOREDBContext.SaveChanges();
         }
-        private void Copy_Customers_SaleItems()
+        public void Copy_Customers_SaleItems()
         {
             Console.WriteLine("> Copy_Customers_SaleItems");
 
@@ -299,7 +299,7 @@ namespace ERPKeeperCore.CMD
 
 
         }
-        private void Copy_Customers_SaleQuotes()
+        public void Copy_Customers_SaleQuotes()
         {
 
             Console.WriteLine("> Copy_Customers_SaleQuotes");
@@ -349,7 +349,7 @@ namespace ERPKeeperCore.CMD
 
             newOrganization.ErpCOREDBContext.SaveChanges();
         }
-        private void Copy_Customers_SaleQuoteItems()
+        public void Copy_Customers_SaleQuoteItems()
         {
 
             Console.WriteLine("> Copy_Customers_SaleQuoteItems");

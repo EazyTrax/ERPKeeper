@@ -5,7 +5,7 @@
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Investors/Investors/All"))
             .KeyExpr("Id")
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))

@@ -44,5 +44,20 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         {
 
         }
+
+        internal SaleItem GetSaleItem()
+        {
+            return new SaleItem()
+            {
+                ItemId = this.ItemId,
+                PartNumber = this.PartNumber,
+                Description = this.Description,
+                Memo = this.Memo,
+                Price = this.Price,
+                Quantity = this.Quantity,
+                Order = this.Order,
+                DiscountPercent = this.DiscountPercent
+            };
+        }
     }
 }

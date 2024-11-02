@@ -49,6 +49,18 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 return (endDate - Date).Days;
             }
         }
+        public string AgeColor
+        {
+            get
+            {
+                if (AgeInDays < 30)
+                    return "blue";
+                else if (AgeInDays < 60)
+                    return "yellow";
+                else
+                    return "red";
+            }
+        }
 
         public Decimal LinesTotal { get; set; }
         public Decimal Discount { get; set; }

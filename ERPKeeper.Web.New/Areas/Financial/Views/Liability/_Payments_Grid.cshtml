@@ -9,7 +9,7 @@
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Financial/Liabilities/{Model.Id}/LiabilityPayments/All"))
             .Width("100%")
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))

@@ -13,18 +13,18 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void Copy_Suppliers()
+        public void Copy_Suppliers()
         {
             Console.WriteLine("> Copy_Suppliers");
 
             Copy_Suppliers_Suppliers();
             Copy_Suppliers_Purchases();
             Copy_Suppliers_PurchaseItems();
-            Copy_Suppliers_PurchaseQuotes();
-            Copy_Suppliers_PurchaseQuoteItems();
-            Copy_Supplier_Payments();
+           // Copy_Suppliers_PurchaseQuotes();
+           //Copy_Suppliers_PurchaseQuoteItems();
+           // Copy_Supplier_Payments();
         }
-        private void Copy_Suppliers_Suppliers()
+        public void Copy_Suppliers_Suppliers()
         {
             Console.WriteLine("> Copy_Suppliers_Suppliers");
 
@@ -48,22 +48,21 @@ namespace ERPKeeperCore.CMD
                     exist = new ERPKeeperCore.Enterprise.Models.Suppliers.Supplier()
                     {
                         Id = a.ProfileUid,
-                     
+                        Status = Enterprise.Models.ProfileStatus.Active,
                     };
 
                     newOrganization.ErpCOREDBContext.Suppliers.Add(exist);
-                }
-                else
-                {
-
                 }
 
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Suppliers_Purchases()
+
+
+        public void Copy_Suppliers_Purchases()
         {
             Console.WriteLine("> Copy_Suppliers_Purchases");
+
             var existModelIds = newOrganization.ErpCOREDBContext.Purchases
                 .Select(x => x.Id)
                 .ToList();
@@ -90,26 +89,26 @@ namespace ERPKeeperCore.CMD
                        .Find(oldModel.ProfileGuid);
 
 
-                    if (supplier == null)
-                    {
-                        var profile = newOrganization.ErpCOREDBContext
-                         .Profiles
-                         .Find(oldModel.ProfileGuid);
+                    //if (supplier == null)
+                    //{
+                    //    var profile = newOrganization.ErpCOREDBContext
+                    //     .Profiles
+                    //     .Find(oldModel.ProfileGuid);
 
-                        if (profile != null)
-                        {
-                            Console.WriteLine($"> profile {profile.Name}");
+                    //    if (profile != null)
+                    //    {
+                    //        Console.WriteLine($"> profile {profile.Name}");
 
-                            supplier = new ERPKeeperCore.Enterprise.Models.Suppliers.Supplier()
-                            {
-                                Id = profile.Id,
-                                Status =  Enterprise.Models.ProfileStatus.Active,
-                            };
-                            newOrganization.ErpCOREDBContext.Suppliers.Add(supplier);
-                            newOrganization.ErpCOREDBContext.SaveChanges();
+                    //        supplier = new ERPKeeperCore.Enterprise.Models.Suppliers.Supplier()
+                    //        {
+                    //            Id = profile.Id,
+                    //            Status =  Enterprise.Models.ProfileStatus.Active,
+                    //        };
+                    //        newOrganization.ErpCOREDBContext.Suppliers.Add(supplier);
+                    //        newOrganization.ErpCOREDBContext.SaveChanges();
 
-                        }
-                    }
+                    //    }
+                    //}
 
                     exist = new ERPKeeperCore.Enterprise.Models.Suppliers.Purchase()
                     {
@@ -140,7 +139,7 @@ namespace ERPKeeperCore.CMD
             newOrganization.ErpCOREDBContext.SaveChanges();
         }
 
-        private void Copy_Suppliers_PurchaseItems()
+        public void Copy_Suppliers_PurchaseItems()
         {
             Console.WriteLine("> Copy_Suppliers_PurchaseItems");
 
@@ -153,6 +152,7 @@ namespace ERPKeeperCore.CMD
 
                 // Get existing IDs in batches
                 var existingItemIds = new HashSet<Guid>();
+
                 foreach (var batch in newOrganization.ErpCOREDBContext.PurchaseItems
                     .Select(x => x.Id)
                     .ToList()
@@ -226,7 +226,7 @@ namespace ERPKeeperCore.CMD
             }
         }
 
-        private void SaveBatch(List<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseItem> items)
+        public void SaveBatch(List<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseItem> items)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace ERPKeeperCore.CMD
             }
         }
 
-        private void Copy_Suppliers_PurchaseItems_Old()
+        public void Copy_Suppliers_PurchaseItems_Old()
         {
             Console.WriteLine("> Copy_Suppliers_PurchaseItems");
 
@@ -294,7 +294,7 @@ namespace ERPKeeperCore.CMD
 
 
         }
-        private void Copy_Supplier_Payments()
+        public void Copy_Supplier_Payments()
         {
             Console.WriteLine("> Copy_Supplier_Payments");
 
@@ -355,7 +355,7 @@ namespace ERPKeeperCore.CMD
 
                 });
         }
-        private void Copy_Suppliers_PurchaseQuotes()
+        public void Copy_Suppliers_PurchaseQuotes()
         {
             Console.WriteLine("> Copy_Suppliers_PurchaseQuotes");
 
@@ -405,7 +405,7 @@ namespace ERPKeeperCore.CMD
 
             newOrganization.ErpCOREDBContext.SaveChanges();
         }
-        private void Copy_Suppliers_PurchaseQuoteItems()
+        public void Copy_Suppliers_PurchaseQuoteItems()
         {
 
             Console.WriteLine("> Copy_Suppliers_PurchaseQuoteItems");

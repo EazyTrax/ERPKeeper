@@ -1,16 +1,8 @@
-﻿
-using ERPKeeperCore.Enterprise.DAL.Company;
-using ERPKeeperCore.Enterprise.DBContext;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using ERPKeeperCore.Enterprise.Models.Enums;
-using ERPKeeperCore.Enterprise.Models.Accounting;
+﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
-using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERPKeeperCore.Enterprise.DAL.Customers
 {
@@ -83,18 +75,14 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         }
 
-        public Sale CreateDraft(Sale model, Guid? customerId = null)
+        public Sale CreateNew(Sale model, Guid? customerId = null)
         {
             if (customerId != null)
                 model.CustomerId = (Guid)customerId;
 
-            var maxNo = erpNodeDBContext.Sales
-                .Select(a => (int?)a.No)
-                .Max() ?? 0;
-
             model.Date = DateTime.Today;
             model.Status = SaleStatus.Draft;
-            model.No = maxNo + 1;
+            model.No = GetNextInvoiceNumber();
 
             model.UpdateBalance();
             model.UpdateName();
@@ -104,7 +92,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
             return model;
         }
-       
+
         public void UnPostAll()
         {
             var sales = erpNodeDBContext.Sales
@@ -131,6 +119,43 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         }
 
-       
+        public int GetNextInvoiceNumber() => (erpNodeDBContext.Sales
+                .Select(a => (int?)a.No)
+                .Max() ?? 0) + 1;
+
+        public Sale CreateInvoice(SaleQuote saleQuote)
+        {
+            var model = new Sale()
+            {
+                Date = DateTime.Today,
+                Status = SaleStatus.Draft,
+                No = GetNextInvoiceNumber(),
+                CustomerId = saleQuote.CustomerId,
+                Reference = saleQuote.Reference,
+                ProfileAddesssId = saleQuote.ProfileAddesssId,
+                Items = new List<SaleItem>()
+            };
+
+            foreach (var saleQuoteItem in saleQuote.Items.ToList())
+            {
+                var saleItem = saleQuoteItem.GetSaleItem();
+                model.Items.Add(saleItem);
+            }
+
+
+            model.UpdateBalance();
+            model.UpdateName();
+
+            erpNodeDBContext.Sales.Add(model);
+            erpNodeDBContext.SaveChanges();
+
+
+            saleQuote.Status = SaleQuoteStatus.Invoice;
+            saleQuote.SaleId = model.Id;
+
+            return model;
+
+
+        }
     }
 }

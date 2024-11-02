@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Index()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
+            transcation.UpdateAddress();
+            Organization.SaveChanges();
 
             if (transcation == null)
                 return NotFound();
@@ -92,5 +95,42 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(transcation);
         }
 
+
+        public IActionResult Void()
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+            transcation.SetStatus(SaleQuoteStatus.Void);
+
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public IActionResult Quote()
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+            transcation.SetStatus(SaleQuoteStatus.Quote);
+
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public IActionResult Order()
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+            transcation.SetStatus(SaleQuoteStatus.Order);
+
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
+        public IActionResult ConvertToInvoice()
+        {
+            var saleQuote = Organization.SaleQuotes.Find(Id);
+            var sale = Organization.Sales.CreateInvoice(saleQuote);
+            Organization.SaveChanges();
+
+            string returnUrl = $"/tec/Customers/Sales/{sale.Id}/";
+
+            return Redirect(returnUrl);
+        }
     }
 }

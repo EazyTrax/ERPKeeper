@@ -14,5 +14,10 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             return View();
         }
+
+        public IActionResult Orders()
+        {
+            return View();
+        }
     }
 }

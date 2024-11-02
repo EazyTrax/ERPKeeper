@@ -7,15 +7,15 @@
             Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/All")
+            .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/Quotes")
             .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/Insert")
             .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/Update")
             .UpdateMethod("Post")
             .InsertMethod("Post")
             )
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
-            .RowAlternationEnabled(true)
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Customers_SaleQuotes"))
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
             .ShowRowLines(false)
             .ShowBorders(false)
@@ -25,7 +25,8 @@
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
             .Columns(columns =>
             {
-                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true);
+                columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true)
+            .CellTemplate(@<text><span class="text-<%= data.AgeColor %>-400"><%= data.AgeInDays %></span></text>);
 
 
                 columns.AddFor(m => m.Date)

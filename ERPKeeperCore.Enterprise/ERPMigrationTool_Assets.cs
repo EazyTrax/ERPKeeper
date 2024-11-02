@@ -21,7 +21,7 @@ namespace ERPKeeperCore.CMD
             Copy_Assets_AssetDeprecreates();
         }
 
-        private void Copy_Assets_AssetTypes()
+        public void Copy_Assets_AssetTypes()
         {
             Console.WriteLine("> Copy_Assets_AssetTypes");
             var oldModels = oldOrganization.ErpNodeDBContext.AssetTypes.ToList();
@@ -61,7 +61,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Assets_Assets()
+        public void Copy_Assets_Assets()
         {
             Console.WriteLine("> Copy_Assets_Assets");
             var oldModels = oldOrganization.ErpNodeDBContext.Assets.ToList();
@@ -103,7 +103,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_Assets_AssetDeprecreates()
+        public void Copy_Assets_AssetDeprecreates()
         {
             Console.WriteLine("> Copy_Assets_AssetDeprecreates");
             var oldModels = oldOrganization.ErpNodeDBContext.DeprecateSchedules.ToList();

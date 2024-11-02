@@ -23,7 +23,7 @@
         .Type(StateStoringType.LocalStorage)
         .StorageKey("ItemGroupsTreeListStorage")
     )
-    .RowAlternationEnabled(true)
+    .RowAlternationEnabled(true).AllowColumnReordering(true)
     .RowDragging(rd => rd
             .AllowDropInsideItem(true)
             .AllowReordering(false)

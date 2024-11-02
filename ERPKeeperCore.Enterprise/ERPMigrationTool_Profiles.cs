@@ -17,10 +17,9 @@ namespace ERPKeeperCore.CMD
             Console.WriteLine("> Copy_Profiles");
             Copy_Profiles_Profiles();
             Copy_Profiles_ProfileAddresss();
-             
         }
 
-        private void Copy_Profiles_Profiles()
+        public void Copy_Profiles_Profiles()
         {
             Console.WriteLine("> Copy_Profiles_Profiles");
             var existModelIds = newOrganization.ErpCOREDBContext.Profiles
@@ -51,16 +50,10 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.Profiles.Add(exist);
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
-                else
-                {
-
-                }
-
-
             });
         }
 
-        private void Copy_Profiles_ProfileAddresss()
+        public void Copy_Profiles_ProfileAddresss()
         { 
                 Console.WriteLine("> Copy_Profiles_ProfileAddresss");
             var existModelIds = newOrganization.ErpCOREDBContext.ProfileAddresses
@@ -95,10 +88,6 @@ namespace ERPKeeperCore.CMD
 
                     newOrganization.ErpCOREDBContext.ProfileAddresses.Add(exist);
                     newOrganization.ErpCOREDBContext.SaveChanges();
-                }
-                else
-                {
-
                 }
 
                 newOrganization.ErpCOREDBContext.SaveChanges();

@@ -12,14 +12,14 @@ namespace ERPKeeperCore.CMD
 {
     public partial class ERPMigrationTool
     {
-        private void Copy_Items()
+        public void Copy_Items()
         {    
             Console.WriteLine("> Copy_Items");
             Copy_Items_Brands();
             Copy_Items_Items();
             Copy_ItemGroups();
         }
-        private void Copy_Items_Brands()
+        public void Copy_Items_Brands()
         {
             Console.WriteLine("> Copy_Items_Brands");   
             var oldModels = oldOrganization.ErpNodeDBContext.Brands.ToList();
@@ -50,7 +50,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.SaveChanges();
             });
         }
-        private void Copy_ItemGroups()
+        public void Copy_ItemGroups()
         {
             Console.WriteLine("> Copy_ItemGroups");
             var oldModels = oldOrganization.ErpNodeDBContext.ItemGroups.ToList();
@@ -79,7 +79,7 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-        private void Copy_Items_Items()
+        public void Copy_Items_Items()
         {
             Console.WriteLine("> Copy_Items_Items");
             var existModelIds = newOrganization.ErpCOREDBContext.Items

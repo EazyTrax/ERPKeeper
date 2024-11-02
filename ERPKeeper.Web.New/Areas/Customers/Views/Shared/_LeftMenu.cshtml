@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ERPKeeperCore.Enterprise.Models.Customers.Enums
+
+@{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
@@ -22,15 +24,16 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Profiles">Profiles</a> :
+    <a href="/@CompanyId/Profiles">Profiles</a> <br />
     <a href="/@CompanyId/Customers">Customers</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Customers", $"/{CompanyId}/Customers/Customers", Organization.Customers.Count());
-        MenuTemplate(0, "Quotes", $"/{CompanyId}/Customers/SaleQuotes", Organization.ErpCOREDBContext.SaleQuotes.Count());
-        MenuTemplate(0, "Sales", $"/{CompanyId}/Customers/Sales", Organization.ErpCOREDBContext.Sales.Count());
+        MenuTemplate(0, "Quotes", $"/{CompanyId}/Customers/SaleQuotes", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Quote).Count());
+        MenuTemplate(0, "Orders", $"/{CompanyId}/Customers/SaleQuotes/Orders", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Order).Count());
+        MenuTemplate(0, "Sales", $"/{CompanyId}/Customers/Sales", Organization.ErpCOREDBContext.Sales.Where(s => s.Status == SaleStatus.Invoice).Count());
         MenuTemplate(1, "Payments", $"/{CompanyId}/Customers/ReceivePayments", Organization.ErpCOREDBContext.ReceivePayments.Count());
     }
 </div>

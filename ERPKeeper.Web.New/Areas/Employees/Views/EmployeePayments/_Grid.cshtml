@@ -15,7 +15,7 @@
         .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePayments/Delete").DeleteMethod("Post")
         )
         .KeyExpr("Id")
-        .RowAlternationEnabled(true)
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(true)
         .ShowBorders(false)
         .Width("100%")
@@ -24,7 +24,7 @@
         .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
         .GroupPanel(gp => gp.Visible(true))
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))
-        .AllowColumnResizing(true)
+        .AllowColumnResizing(true).AllowColumnReordering(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .FilterRow(filterRow => filterRow
         .Visible(true)

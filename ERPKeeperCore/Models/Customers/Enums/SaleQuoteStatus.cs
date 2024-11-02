@@ -7,5 +7,6 @@
         Order = 2,
         Invoice = 3,
         Void = 99,
+        Delete = 100,
     }
 }

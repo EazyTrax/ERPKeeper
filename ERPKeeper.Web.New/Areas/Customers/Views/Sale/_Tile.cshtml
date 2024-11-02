@@ -5,16 +5,40 @@
 <div class="grid grid-cols-6">
 
 
-    <a href="/@CompanyId/Customers/Sales/@Model.Id">
-        <div class="bg-gray-100 h-20 content-center border">
+
+    <div class="bg-gray-100 h-20 content-center border relative">
+        <a href="/@CompanyId/Customers/Sales/@Model.Id">
             <div class="text-3xl text-center font-semibold">
                 @Model.Status
             </div>
             <div class="text-lg text-center">
                 Status
             </div>
+        </a>
+
+        <div class="absolute top-1 right-1">
+            <div class="dropdown dropleft ">
+                <a class="" href="#" role="button" id="dropdownStatusChange" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+                <div class="dropdown-menu p-2 bg-white border-2 border rounded w-60" aria-labelledby="dropdownMenuLink">
+
+                    <div>
+                        <a href="/@CompanyId/Customers/Sales/@Model.Id/Void">Void</a>
+                    </div>
+
+                    @if (Model.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Draft)
+                    {
+                        <div>
+                            <a href="/@CompanyId/Customers/Sales/@Model.Id/Issue">Issue</a>
+                        </div>
+                    }
+
+                </div>
+            </div>
         </div>
-    </a>
+    </div>
+
 
 
 
@@ -30,28 +54,53 @@
         </div>
     </a>
 
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/SaleQuotes">
+
+    <a href="/@CompanyId/Customers/Sales/@Model.Id/Payment">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
+                @if (Model.ReceivePayment == null)
+                {
+                    <span>Un Paid</span>
+                }
+                else
+                {
+                    <sapn>Paid</sapn>
+                }
+
             </div>
             <div class="text-lg text-center">
+                Payment
             </div>
         </div>
     </a>
 
 
-    <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
+    <div class="bg-gray-100 h-20 content-center border relative">
+        <a href="/@CompanyId/Customers/Sales/@Model.Id/Items">
+            <div class="text-2xl text-center font-semibold">
                 @Model.Items.Count()
             </div>
             <div class="text-lg text-center">
                 Items
             </div>
+        </a>
+
+
+        <div class="absolute top-1 right-1">
+            <a href="/@CompanyId/Customers/Sales/@Model.Id/Items/Avaliable">
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
         </div>
-    </a>
+    </div>
 
-
+    <div class="bg-gray-100 h-20 content-center border">
+        <div class="text-2xl text-center font-semibold">
+            @Model.Total.ToString("N2")
+        </div>
+        <div class="text-lg text-center">
+            Total
+        </div>
+    </div>
 
 </div>
 

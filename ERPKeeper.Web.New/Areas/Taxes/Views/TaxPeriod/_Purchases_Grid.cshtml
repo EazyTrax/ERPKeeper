@@ -8,7 +8,7 @@
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Purchases/all")
             )
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
 
 

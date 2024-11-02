@@ -57,7 +57,18 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
                 return (endDate - Date).Days;
             }
         }
-
+        public string AgeColor
+        {
+            get
+            {
+                if (AgeInDays < 30)
+                    return "blue";
+                else if (AgeInDays < 60)
+                    return "yellow";
+                else
+                    return "red";
+            }
+        }
 
 
         public virtual ICollection<SaleQuoteItem> Items { get; set; } = new List<SaleQuoteItem>();
@@ -65,6 +76,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]
         public virtual TaxCode? TaxCode { get; set; }
+
+        public Guid? SaleId { get; internal set; }
 
 
 
@@ -96,6 +109,28 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             {
                 item.Order = index++;
             }
+        }
+
+        public void SetStatus(SaleQuoteStatus newStatus)
+        {
+            if (Status == SaleQuoteStatus.Invoice)
+                return;
+
+            this.Status = newStatus;
+        }
+
+        public void UpdateAddress()
+        {
+            if (this.ProfileAddesssId != null)
+                return;
+
+
+
+            this.ProfileAddesssId = this?.Customer?
+                .Profile?
+                .Addresses?
+                .FirstOrDefault()?.Id;
+
         }
 
         public void UpdateBalance()
@@ -131,5 +166,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
             this.Name = $"SQ-{currentYear}/{currentMonth}/{this.No.ToString()}";
         }
+
+
     }
 }

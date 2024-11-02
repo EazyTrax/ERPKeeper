@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            enterpriseRepo.Sales.CreateDraft(model);
+            enterpriseRepo.Sales.CreateNew(model);
             enterpriseRepo.SaveChanges();
 
             return Ok();

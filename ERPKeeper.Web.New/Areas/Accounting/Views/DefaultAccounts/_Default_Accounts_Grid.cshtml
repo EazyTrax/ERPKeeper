@@ -18,7 +18,7 @@
         .DeleteMethod("Post"))
         .AllowColumnReordering(true)
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true)) 
-        .RowAlternationEnabled(true).ShowRowLines(true).HoverStateEnabled(true)
+        .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ColumnAutoWidth(false)
         .Width("100%")

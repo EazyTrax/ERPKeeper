@@ -18,10 +18,10 @@
     .KeyExpr("Id")
     .ShowRowLines(true)
     .ShowBorders(false)
-    .RowAlternationEnabled(true)
+    .RowAlternationEnabled(true).AllowColumnReordering(true)
     .Paging(paging => paging.PageSize(100))
 
-    .AllowColumnResizing(true)
+    .AllowColumnResizing(true).AllowColumnReordering(true)
     .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
 
     .ColumnAutoWidth(false)

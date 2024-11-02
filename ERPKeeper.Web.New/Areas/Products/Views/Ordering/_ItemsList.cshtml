@@ -45,7 +45,7 @@
     .AllowAdding(true)
     )
     .Paging(pagging=> pagging.PageSize(100))
-    .AllowColumnResizing(true)
+    .AllowColumnResizing(true).AllowColumnReordering(true)
     .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
 
     .ColumnAutoWidth(false)
@@ -58,7 +58,7 @@
             .ShowDragIcons(false)*@
     )
 
-    .RowAlternationEnabled(true)
+    .RowAlternationEnabled(true).AllowColumnReordering(true)
     .Columns(columns => {
     columns.Add().DataField("BrandName").Width(130)
     .CellTemplate(@<text>

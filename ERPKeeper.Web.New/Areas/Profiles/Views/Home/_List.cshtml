@@ -15,7 +15,7 @@
             )
             .Editing(editing => { editing.Mode(GridEditMode.Row); editing.AllowAdding(true); editing.AllowDeleting(true); editing.AllowUpdating(true); editing.UseIcons(true); })
             .KeyExpr("Id")
-            .RowAlternationEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(true)
             .ShowBorders(false)
             .Width("100%")

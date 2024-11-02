@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
             var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            enterpriseRepo.Sales.CreateDraft(model, ProfileId);
+            enterpriseRepo.Sales.CreateNew(model, ProfileId);
             enterpriseRepo.SaveChanges();
 
             return Ok();
