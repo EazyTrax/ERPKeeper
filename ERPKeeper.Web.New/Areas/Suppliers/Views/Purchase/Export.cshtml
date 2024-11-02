@@ -12,7 +12,7 @@
 @await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
 
 <div class="grid grid-cols-3 gap-2 mb-3" id="BuyerDetail">
-    <div class="col-span-2 border border-dark rounded-md p-2">
+    <div class="col-span-2 border border-dark p-2">
         <div>
             <b>ผู้ซื้อ</b>
             <a href="/@CompanyId/Suppliers/Suppliers/@Model.SupplierId">
@@ -30,7 +30,7 @@
             </div>
         }
     </div>
-    <div class=" border border-dark rounded-md p-2">
+    <div class=" border border-dark p-2">
         <div class="grid grid-cols-2 gap-x-2">
             <div class="font-semibold">เลขที่</div>
             <div class="text-right">@Model.Name</div>
@@ -45,9 +45,9 @@
 </div>
 
 <!-- Items Table -->
-<div class="mb-3 border  border-dark rounded-md p-2" id="Items">
+<div class="mb-3 border  border-dark p-2" id="Items">
     <!-- Table Header -->
-    <div class="grid grid-cols-2 gap-2 font-semibold border-b pb-2">
+    <div class="grid grid-cols-12 gap-2 font-semibold border-b pb-2">
         <div class="col-span-7">รายการ</div>
         <div class="col-span-1 text-right">จำนวน</div>
         <div class="col-span-2 text-right">หน่วยล่ะ</div>
@@ -76,7 +76,7 @@
         }
     </div>
 </div>
-<div class="grid grid-cols-3 gap-2 mb-3 border border-dark rounded-md p-2" id="Summary">
+<div class="grid grid-cols-3 gap-2 mb-3 border border-dark p-2" id="Summary">
 
     <div class="col-span-2">
         ข้อมูลการชำระเงิน<br />

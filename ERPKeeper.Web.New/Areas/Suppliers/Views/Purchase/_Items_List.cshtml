@@ -27,7 +27,7 @@
     .DeleteUrl($"/API/{CompanyId}/Suppliers/Purchases/{Model.Id}/Items/Delete")
     .DeleteMethod("Post")
     )
-    .Editing(editing => editing.AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+    .Editing(editing => editing.AllowUpdating(IsOnEditMode).UseIcons(true))
 
     .KeyExpr("Id")
     .WordWrapEnabled(true)
