@@ -35,6 +35,8 @@ namespace ERPKeeperCore.Enterprise.Models.Items
             this.WebSite = brand.WebSite;
             this.Description = brand.Description;
             this.PublishOnline = brand.PublishOnline;
+
+            ItemsCount = this.Items.Count();
         }
     }
 }

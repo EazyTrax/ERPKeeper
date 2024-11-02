@@ -43,9 +43,9 @@
         .Columns(columns =>
         {
             columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
-            columns.AddFor(m => m.WebSite).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
-            columns.AddFor(m => m.Description).MinWidth(250).Format("#,##0.00");
-            columns.AddFor(m => m.ItemsCount).Format("#,##0.00");
+            columns.AddFor(m => m.WebSite).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.WebSite %></a></text>);
+            columns.AddFor(m => m.Description).MinWidth(250);
+            columns.AddFor(m => m.ItemsCount);
         })
         )
 </div>

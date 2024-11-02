@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType
 
 <div class="flex">
-    <div class="col-6 p-2 font-semibold">
+    <div class="grow p-2 font-semibold">
         <a href="/@CompanyId">@CompanyId</a>
         /
         <a href="/@CompanyId/Accounting">Accounting</a>
@@ -10,22 +10,31 @@
         /
         <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id">@Model.Name</a>
     </div>
-    <div class="col-right-div w-3/12">
-    </div>
+
     <div class="w-3/12 p-0 text-right">
-        <div class="btn-group">
-            <a class="dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+
+
+
+        <div class="dropdown dropleft ">
+            <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa-solid fa-arrows-rotate text-xl"></i>
             </a>
-            <ul class="dropdown-menu p-2">
-                <li>
+            <div class="dropdown-menu p-2 bg-white border-2 border roundedmin-w-64 min-h-40" aria-labelledby="dropdownMenuLink">
+                <div>
                     <a href="/@CompanyId/Accounting/TransactionEntryType/@Model.Id/UpdateBalance">Balance</a>
-                </li>
-                <li>
+                </div>
+                <div>
                     <a href="/@CompanyId/Accounting/TransactionEntryType/@Model.Id/Clone">Clone</a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
+
+
+
+
+
+
     </div>
 </div>
 
