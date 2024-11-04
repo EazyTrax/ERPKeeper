@@ -1,30 +1,24 @@
-﻿
-
-@{
+﻿@{
     var branch = Organization.ErpCOREDBContext.Branches.FirstOrDefault();
-
-    if (branch == null)
-    {
-        var self = Organization.Profiles.GetSelf();
-        var firstBranch = self.Addresses.First();
-        branch = new ERPKeeperCore.Enterprise.Models.Info.Branch()
-                {
-                    OrganizationName = self.Name,
-                    BranchName = firstBranch.Name,
-                    TaxNumber = self.TaxNumber,
-                    Address = firstBranch.AddressLine,
-                    Number = firstBranch.Number,
-                    PhoneNumber = firstBranch.PhoneNumber,
-
-                };
-        Organization.ErpCOREDBContext.Branches.Add(branch);
-        Organization.SaveChanges();
-    }
+    var paymentAccounts = Organization.ErpCOREDBContext.Accounts.Where(a => a.IsReceivable).ToList();
 }
 
 
 <div class=" mt-4">
     ข้อมูลการชำระเงิน<br />
     ชื่อบัญชี: @branch.OrganizationName<br />
-    ธนาคาร: SCB เลขที่บัญชี 667-294439-3
+    @{
+        foreach (var acc in paymentAccounts)
+        {
+            <div>
+                @acc.ReceivableDisplayName
+            </div>
+        }
+    }
 </div>
+
+
+
+@{
+
+}

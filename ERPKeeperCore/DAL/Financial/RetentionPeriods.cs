@@ -85,7 +85,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                         Reference = RetentionGroup.Name,
                         Type = Models.Accounting.Enums.TransactionType.RetentionGroup,
                         RetentionGroup = RetentionGroup,
-                    };
+                    }; ;
                     erpNodeDBContext.Transactions.Add(transaction);
                     erpNodeDBContext.SaveChanges();
                 }
@@ -113,6 +113,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                     RetentionType = retentionType,
                     Name = $"{retentionType.Name} {date:yyyy-MM}",
                     IsPosted = false,
+                    No = erpNodeDBContext.RetentionPeriods.Max(x => x.No) + 1
                 };
 
                 erpNodeDBContext.RetentionPeriods.Add(rg);

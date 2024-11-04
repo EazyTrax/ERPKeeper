@@ -5,7 +5,7 @@
 <div class="grid grid-cols-6">
 
 
-    <a href="/@CompanyId/Prodects/Items/@Model.Id">
+    <a href="/@CompanyId/Products/Items/@Model.Id">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Status
@@ -19,7 +19,7 @@
 
 
 
-    <a href="/@CompanyId/Prodects/Brands/@Model.BrandId/">
+    <a href="/@CompanyId/Products/Brands/@Model.BrandId/">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Brand?.Name
@@ -32,7 +32,7 @@
 
 
 
-    <a href="/@CompanyId/Prodects/Items/@Model.Id/SaleQuoteItems">
+    <a href="/@CompanyId/Products/Items/@Model.Id/SaleQuoteItems">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.SaleQuoteItems.Count()  / @Model.SaleQuoteItems.Sum(x => x.Quantity)
@@ -46,7 +46,7 @@
 
 
 
-    <a href="/@CompanyId/Prodects/Items/@Model.Id/Sales">
+    <a href="/@CompanyId/Products/Items/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.SaleItems.Count() / @Model.SaleItems.Sum(x => x.Quantity)
@@ -58,7 +58,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Prodects/Items/@Model.Id/PurchaseQuotes">
+    <a href="/@CompanyId/Products/Items/@Model.Id/PurchaseQuotes">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.PurchaseQuoteItems.Count() / @Model.PurchaseQuoteItems.Sum(x => x.Quantity)
@@ -71,7 +71,7 @@
 
 
 
-    <a href="/@CompanyId/Prodects/Items/@Model.Id/Purchases">
+    <a href="/@CompanyId/Products/Items/@Model.Id/Purchases">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.PurchaseItems.Count() / @Model.PurchaseItems.Sum(x => x.Quantity)
@@ -82,7 +82,7 @@
         </div>
     </a>
 
-    <a href="/@CompanyId/Prodects/Items/@Model.Id/Customers">
+    <a href="/@CompanyId/Products/Items/@Model.Id/Customers">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.CustomerItems.Count()
@@ -92,7 +92,7 @@
             </div>
         </div>
     </a>
-    <a href="/@CompanyId/Prodects/Items/@Model.Id/Suppliers">
+    <a href="/@CompanyId/Products/Items/@Model.Id/Suppliers">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.SupplierItems.Count() 

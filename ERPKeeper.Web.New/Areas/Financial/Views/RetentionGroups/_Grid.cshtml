@@ -11,10 +11,12 @@
             .UpdateUrl($"/API/{CompanyId}/Financial/RetentionGroups/Update")
             .UpdateMethod("Post")
             )
-            .RowAlternationEnabled(true).AllowColumnReordering(true)
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Financial_Retention_Periods" + CompanyId.ToString()))
+            .RowAlternationEnabled(true).AllowColumnReordering(true).AllowColumnResizing(true)
             .ShowRowLines(false)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
+            .GroupPanel(groupPanel => groupPanel.Visible(true))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
             .ColumnAutoWidth(false)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
@@ -24,8 +26,8 @@
 
 
                 columns.AddFor(m => m.No).Width(50)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
-        );
+                    .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.Name %></a></text>
+            );
 
 
                  columns.AddFor(m => m.RetentionTypeId)
@@ -33,9 +35,10 @@
     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
     .HeaderCellTemplate(@<text>Retention Acc.</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
-                columns.AddFor(m => m.StartDate);
+                
+                columns.AddFor(m => m.StartDate).SortIndex(1).SortOrder(SortOrder.Desc);
 
-                columns.AddFor(m => m.EndDate);
+                columns.AddFor(m => m.EndDate).AllowEditing(false);
 
 
 

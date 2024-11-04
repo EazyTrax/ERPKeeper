@@ -85,11 +85,18 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = Organization.ChartOfAccount.Find(AccountId);
             model.No = accountItem.No;
             model.Name = accountItem.Name;
+            model.Description = accountItem.Description;
+
+
             model.Type = accountItem.Type;
             model.SubType = accountItem.SubType;
             model.IsLiquidity = accountItem.IsLiquidity;
             model.IsCashEquivalent = accountItem.IsCashEquivalent;
-            model.Description = accountItem.Description;
+            model.IsReceivable = accountItem.IsReceivable;
+            model.ReceivableDisplayName = accountItem.ReceivableDisplayName;
+
+
+
 
             Organization.SaveChanges();
 

@@ -42,7 +42,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public decimal AmountCommercial { get; set; }
         public decimal AmountRetention { get; set; }
         public int Count { get; set; }
-        public int No { get; internal set; }
+
+        public int No { get; set; }
 
 
 
@@ -59,6 +60,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void Calculate()
         {
+            Name = $"{Date.ToString("yyMM")}-{No}";
             Count = ReceivePayments.Count() + SupplierPayments.Count();
 
             AmountCommercial =

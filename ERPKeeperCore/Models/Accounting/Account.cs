@@ -24,6 +24,10 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public bool IsLiquidity { get; set; } = false;
         public bool IsCashEquivalent { get; set; }
 
+        public bool IsReceivable { get; set; }
+        public String? ReceivableDisplayName { get; set; }
+
+
         [MaxLength(512)]
         public String? Description { get; set; }
         public bool IsFolder { get; set; } = false;
