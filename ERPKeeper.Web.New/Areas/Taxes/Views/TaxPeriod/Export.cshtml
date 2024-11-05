@@ -3,6 +3,8 @@
 @{
     Layout = "_Layout_Export";
     var selfOrganization = Organization.Profiles.GetSelf();
+
+    int index = 1;
 }
 
 
@@ -33,10 +35,15 @@
         </div>
     </div>
 
+
     @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
     {
+
         <div class="flex frex-wrap border-bottom">
-            <div class="w-28">
+            <div class="w-8">
+                @(index++)
+            </div>
+            <div class="w-24">
                 @item.Date.ToShortDateString()
             </div>
             <div class="w-28">
@@ -90,12 +97,14 @@
 
         </div>
     </div>
-
+    @{
+        index = 1;
+    }
     @foreach (var item in Model.Sales.OrderBy(m => m.Date).ToList())
     {
         <div class="flex border-bottom">
             <div class="w-28">
-                @item.Date.ToShortDateString()
+                @(index++)   @item.Date.ToShortDateString()
             </div>
             <div class="w-28">
                 @item.Name
