@@ -24,7 +24,7 @@
     .UpdateMethod("Post")
             .DeleteUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items/Delete")
     .DeleteMethod("Post"))
-    .Editing(editing => editing.AllowUpdating(IsOnEditMode).UseIcons(true))
+    .Editing(editing => editing.Mode(GridEditMode.Form).AllowUpdating(IsOnEditMode).UseIcons(true))
 
     .KeyExpr("Id")
     .Columns(columns => {
@@ -37,7 +37,7 @@
         .FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
 
 
-    columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
     columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
     columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");
     columns.AddFor(m=>m.LineTotal).AllowEditing(false).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));

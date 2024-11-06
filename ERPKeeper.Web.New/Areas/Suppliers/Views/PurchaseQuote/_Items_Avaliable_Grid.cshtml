@@ -19,7 +19,7 @@
             .UpdateMethod("Post"))
             .ShowRowLines(true)
             .ShowBorders(false)
-            .Editing(editing => editing.Mode(GridEditMode.Form).AllowUpdating(true).AllowAdding(true))
+            .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(true).AllowAdding(true))
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Products"))
             .AllowColumnResizing(true)
             .AllowColumnReordering(true)
@@ -51,12 +51,7 @@
         </a>
     </text>);
 
-                columns.AddFor(m => m.Description).MinWidth(250)
-            .CellTemplate(@<text>
-        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
-            <%= data.Description %>
-        </a>
-    </text>);
+                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
 
 
                 columns.AddFor(m => m.ItemType)
@@ -81,7 +76,7 @@
 
 
                 columns.AddFor(m => m.OnlineSale).Visible(false).Width(60).HeaderCellTemplate(@<text>Online</text>);
-                columns.AddFor(m => m.AmountOnHand).Width(80).HeaderCellTemplate(@<text>Stock</text>);
+                columns.AddFor(m => m.AmountOnHand).AllowEditing(false).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Stock</text>);
                 @*   columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(@<text>Sold</text>);*@
                 columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(@<text>Price</text>);
 

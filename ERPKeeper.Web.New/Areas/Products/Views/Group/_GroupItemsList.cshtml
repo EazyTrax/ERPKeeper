@@ -104,7 +104,7 @@
     .ValueExpr("Value")
     );
 
-    columns.AddFor(m => m.AmountOnHand).Width(60).HeaderCellTemplate(@<text>Stock</text>);
+    columns.AddFor(m => m.AmountOnHand).AllowEditing(false).Width(60).HeaderCellTemplate(@<text>Stock</text>);
     columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(@<text>Sold</text>);
 
     columns.Add().DataField("SalePrice").Width(130).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);

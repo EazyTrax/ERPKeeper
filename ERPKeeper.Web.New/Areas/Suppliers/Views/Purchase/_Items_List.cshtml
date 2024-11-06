@@ -41,10 +41,10 @@
             .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>)
         .FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
 
-   
 
 
-    columns.AddFor(m=>m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+
+                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
     columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");

@@ -28,7 +28,7 @@
             .UpdateMethod("Post")
             .DeleteUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Delete")
             .DeleteMethod("Post"))
-            .Editing(editing => editing.AllowUpdating(editAble).AllowDeleting(editAble).UseIcons(true))
+            .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(editAble).AllowDeleting(editAble).UseIcons(true))
             .KeyExpr("Id")
             .Columns(columns =>
             {
@@ -39,7 +39,7 @@
                 .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>)
                 .FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
 
-                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
                 columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Quantity).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.LineTotal).AllowEditing(false).Width(130).Format("#,##0.00").FormItem(i => i.Visible(false));

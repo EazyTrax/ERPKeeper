@@ -27,7 +27,7 @@
             .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Delete")
             .DeleteMethod("Post")
             )
-            .Editing(editing => editing.AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
             .KeyExpr("Id")
             .WordWrapEnabled(true)
@@ -44,14 +44,13 @@
                 .FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
 
 
-                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
+                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
                 columns.AddFor(m => m.Price).Width(100).Format("#,##0.00");
                 columns.AddFor(m => m.DiscountPercent).Width(100).Format("#,##0.00");
                 columns.AddFor(m => m.PriceAfterDiscount).Width(100).Format("#,##0.00");
 
                 columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
                 columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.00").FormItem(i => i.Visible(false));
-                columns.AddFor(m => m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
             })
         .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
         .Summary(s =>
