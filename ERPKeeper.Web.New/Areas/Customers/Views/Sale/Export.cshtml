@@ -48,9 +48,10 @@
 <div class="border  border-dark min-h-96" id="Items">
     <!-- Table Header -->
     <div class="grid grid-cols-12 gap-2 font-semibold border-bottom border-dark p-2">
+
         <div class="col-span-7">รายการ</div>
         <div class="col-span-1 text-right">จำนวน</div>
-        <div class="col-span-2 text-right">หน่วยล่ะ</div>
+        <div class="col-span-2 text-right">หน่วยละ</div>
         <div class="col-span-2 text-right">รวม</div>
     </div>
     <div class="p-2">
@@ -58,17 +59,22 @@
         {
             <div class="grid grid-cols-12 gap-2 py-1">
                 <div class="flex col-span-7">
-                    <div>
-                        <div class="font-semibold">@item.Order  @item.PartNumber</div>
+
+                    <div class="pr-3">@item.Order</div>
+
+                    <div class="">
+                        <div class="font-semibold">
+                            @item.PartNumber
+                        </div>
                         <div class="">
                             @item.Description
                         </div>
 
                         @if (!string.IsNullOrEmpty(item.Serial))
                         {
-                            <p class="whitespace-pre-line">
-                                @item.Serial
-                            </p>
+                            <div class="whitespace-pre-line">
+                                S/N: @item.Serial.Replace("\n",", ")
+                            </div>
                         }
 
                     </div>

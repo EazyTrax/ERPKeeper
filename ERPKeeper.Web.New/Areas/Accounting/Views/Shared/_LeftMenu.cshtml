@@ -1,26 +1,4 @@
-﻿@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
-
-    void Template(string display, string controller, int? count = null)
-    {
-        <div class="flex e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
-            <div class="grow">
-                <a href="/@CompanyId/Accounting/@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="w-2/12 p-0 text-right">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
-}
-
-
+﻿
 
 
 

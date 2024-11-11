@@ -28,6 +28,9 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
+            model.TaxCodeId = enterpriseRepo.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;
+            model.IncomeAccountId = enterpriseRepo.SystemAccounts.Income.Id;
+
             enterpriseRepo.Sales.CreateNew(model);
             enterpriseRepo.SaveChanges();
 
@@ -38,11 +41,22 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
+           
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+
+            var model = enterpriseRepo.ErpCOREDBContext.Sales.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
+
+            if (model.TaxCodeId == null)
+                model.TaxCodeId = enterpriseRepo.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;
+            if (model.IncomeAccountId == null)
+                model.IncomeAccountId = enterpriseRepo.SystemAccounts.Income.Id;
+
+            model.UpdateBalance();
+
             Organization.ErpCOREDBContext.SaveChanges();
+
             return Ok();
         }
-
     }
 }

@@ -38,9 +38,12 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+            var model = enterpriseRepo.ErpCOREDBContext.Purchases.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpCOREDBContext.SaveChanges();
+            model.UpdateBalance();
+
+            enterpriseRepo.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
 
