@@ -1,0 +1,42 @@
+﻿
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Setting.MemoTemplate>()
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Setting/MemoTemplates/All")
+            .InsertUrl($"/API/{CompanyId}/Setting/MemoTemplates/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Setting/MemoTemplates/Update")
+            .UpdateMethod("Post")
+            .DeleteUrl($"/API/{CompanyId}/Setting/MemoTemplates/Delete")
+            .DeleteMethod("Post")
+            )
+            .KeyExpr("Id")
+            .Width("100%")
+            .WordWrapEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("MemoTemplates"))
+
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .AllowColumnResizing(true).AllowColumnReordering(true)
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .ColumnAutoWidth(false)
+            .Columns(columns =>
+            {
+
+
+
+
+                columns.AddFor(m => m.Name);
+       
+
+
+
+            })
+        )
+</div>
+
+

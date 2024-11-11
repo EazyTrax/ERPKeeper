@@ -28,7 +28,9 @@
 <div class="lh-120 bg-fb1 rounded border">
     @{
         MenuTemplate(0, "Branches", $"/{CompanyId}/Setting/Branches", Organization.ErpCOREDBContext.Branches.Count());
-       
+
+        MenuTemplate(0, "MemoTemplates", $"/{CompanyId}/Setting/MemoTemplates", Organization.ErpCOREDBContext.MemoTemplates.Count());
+        
     }
 </div>
 

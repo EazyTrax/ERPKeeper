@@ -7,7 +7,7 @@
     {
         var self = Organization.Profiles.GetSelf();
         var firstBranch = self.Addresses.First();
-        branch = new ERPKeeperCore.Enterprise.Models.Info.Branch()
+        branch = new ERPKeeperCore.Enterprise.Models.Setting.Branch()
                 {
                     OrganizationName = self.Name,
                     BranchName = firstBranch.Name,

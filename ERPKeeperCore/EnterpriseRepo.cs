@@ -84,6 +84,11 @@ namespace ERPKeeperCore.Enterprise
         public DAL.Financial.RetentionPeriods RetentionGroups;
         public DAL.Financial.PaymentTerms PaymentTerms;
 
+
+ 
+
+
+
         public Projects Projects
         {
             get

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using ERPKeeperCore.Enterprise.Models.Enums;
 
-namespace ERPKeeperCore.Enterprise.Models.Info
+namespace ERPKeeperCore.Enterprise.Models.Setting
 {
     public class Branch
     {

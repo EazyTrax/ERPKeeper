@@ -21,7 +21,7 @@ namespace ERPKeeperCore.Web.Areas.Enterprise_Setting.Controllers
                 var self = Organization.Profiles.GetSelf();
                 var firstBranchAddresse = self.Addresses.First();
 
-                branch = new Enterprise.Models.Info.Branch()
+                branch = new Enterprise.Models.Setting.Branch()
                 {
                     OrganizationName = self.Name,
                     BranchName = firstBranchAddresse.Name ?? "สำนักงานใหญ่",

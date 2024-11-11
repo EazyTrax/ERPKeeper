@@ -62,7 +62,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
             }
         }
 
-        public DbSet<Models.Info.Branch> Branches { get; set; }
+        public DbSet<Models.Setting.Branch> Branches { get; set; }
         public DbSet<DataItem> DataItems { get; set; }
 
         public DbSet<CapitalActivity> CapitalActivities { get; set; }
@@ -109,6 +109,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<ReceivePayment> ReceivePayments { get; set; }
         public DbSet<SaleQuote> SaleQuotes { get; set; }
         public DbSet<SaleQuoteItem> SaleQuoteItems { get; set; }
+
 
 
 
@@ -181,6 +182,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
         public DbSet<Models.Security.Member> Members { get; set; }
 
+        public DbSet<Models.Setting.MemoTemplate> MemoTemplates { get; set; }
 
 
     }

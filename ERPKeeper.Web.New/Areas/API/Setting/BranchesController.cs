@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using ERPKeeperCore.Web.New.API.Info;
+using ERPKeeperCore.Web.New.API.Setting;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Info
 {
 
-    public class BranchesController : API_Info_BaseController
+    public class BranchesController : API_Setting_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Web.API.Info
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new ERPKeeperCore.Enterprise.Models.Info.Branch();
+            var model = new ERPKeeperCore.Enterprise.Models.Setting.Branch();
             JsonConvert.PopulateObject(values, model);
 
             //if (!TryValidateModel(RequirementType))

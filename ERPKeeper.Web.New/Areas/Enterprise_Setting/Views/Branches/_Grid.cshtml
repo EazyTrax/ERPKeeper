@@ -1,14 +1,14 @@
 ﻿
 <div id="treeListDemo" class="mb-3 border">
 
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Info.Branch>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Setting.Branch>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Info/Branches/All")
-            .InsertUrl($"/API/{CompanyId}/Info/Branches/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Info/Branches/Update")
+            .LoadUrl($"/API/{CompanyId}/Setting/Branches/All")
+            .InsertUrl($"/API/{CompanyId}/Setting/Branches/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Setting/Branches/Update")
             .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Info/Branches/Delete")
+            .DeleteUrl($"/API/{CompanyId}/Setting/Branches/Delete")
             .DeleteMethod("Post")
             )
             .KeyExpr("Id")
@@ -16,7 +16,7 @@
             .WordWrapEnabled(true)
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Branches"))
 
             .ShowRowLines(true)
             .ShowBorders(false)
