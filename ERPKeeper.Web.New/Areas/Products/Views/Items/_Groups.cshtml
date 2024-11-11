@@ -1,26 +1,5 @@
 ﻿
 
-@{
-    void TraverseChildGroups(ERPKeeperCore.Enterprise.Models.Items.ItemGroup group, int deep = 1)
-    {
-
-        <div class="col-@(deep) p-0">
-
-        </div>
-        <div class="col-@(11-deep) p-0">
-            <a href="/@CompanyId/Products/Groups/@group.Id">
-                -  <span>  @group.Name</span>
-            </a>
-        </div>
-        <div class="w-1/12">
-            <div class="text-right">
-                @group.ItemsCount
-            </div>
-        </div>
-
-     
-    }
-}
 
 <div class="flex bg-gray-100 pl-0 pr-2 py-2 rounded">
   
