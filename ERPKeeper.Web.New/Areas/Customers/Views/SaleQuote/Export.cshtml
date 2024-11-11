@@ -77,7 +77,11 @@
 </div>
 
 
-<div class="grid grid-cols-1 mb-1 border border-dark p-2  no-break" id="Summary">
+<div class="grid grid-cols-2 mb-1 border border-dark p-2  no-break" id="Summary">
+
+    <div>
+        @await Html.PartialAsync("/areas/enterprise_export/view/shared/_Payments_BankAccounts.cshtml")
+    </div>
 
     <div class="mb-2">
         @if (@Model.Discount > 0)
@@ -103,15 +107,13 @@
             <div class="text-right ">@Model.Total.ToString("N2")</div>
         </div>
 
-
+        <div class="text-right pt-2">
+            (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total))
+        </div>
     </div>
-    <div class="text-right pt-2">
-        (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total))
-    </div>
+   
 </div>
 
-
-@await Html.PartialAsync("/areas/enterprise_export/view/shared/_Payments_BankAccounts.cshtml")
 
 
 

@@ -3,7 +3,6 @@
 <form id="EditForm" action="/@CompanyId/Customers/Sales/@Model.Id/Update" method="post">
     <div>
         <div class="grid grid-cols-3">
-
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
 
@@ -35,14 +34,14 @@
                         .Label("Address")
                         .ShowClearButton(true)
                         .LabelMode(EditorLabelMode.Static))
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
                 </div>
             </div>
 
@@ -63,8 +62,11 @@
                             .Disabled(true)
                             )
                     </div>
+                    <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
+
                 </div>
             </div>
+
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
                     <div class="mb-2">
@@ -85,12 +87,11 @@
                             .ValueExpr("Id")
                             .Label("Tax")
                             .ShowClearButton(true)
-                            .LabelMode(EditorLabelMode.Static) )
+                            .LabelMode(EditorLabelMode.Static))
 
                     </div>
                 </div>
             </div>
-
 
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
@@ -102,20 +103,26 @@
                         </div>
                     </div>
 
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
-                </div>
-            <div class="border">
-                <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">Memo</div>
-                    <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
-                </div>
-            </div>
 
-            <div class="border">
-                <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
-                        Save
-                    </button>
+                   
+
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+                  
+                
+                </div>
+                <div class="border">
+                    <div class=" bg-gray-100 p-2 mb-2 rounded">
+                        <div class="mb-3 font-semibold">Memo</div>
+                        <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
+                    </div>
+                </div>
+
+                <div class="border">
+                    <div class=" bg-gray-100 p-2 mb-2 rounded">
+                        <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

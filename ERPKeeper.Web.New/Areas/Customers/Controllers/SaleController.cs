@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.ProjectId = model.ProjectId;
-            
+            transcation.Reference = model.Reference;
             transcation.ProfileAddesssId = model.ProfileAddesssId;
 
             transcation.Reorder();
@@ -139,13 +139,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(transcation);
         }
 
-        public IActionResult Export()
+        public IActionResult Export(string documentName = "ใบกำกับภาษี")
         {
             var transcation = Organization.Sales.Find(Id);
             transcation.Reorder();
             transcation.UpdateBalance();
-
             Organization.SaveChanges();
+
+            ViewBag.DocumentName = documentName;
 
             return View(transcation);
         }

@@ -41,6 +41,7 @@
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export");
+        MenuTemplate(0, "Export", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export?DocumentName=ใบกำกับภาษี");
+        MenuTemplate(0, "Export สำเนา", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export?DocumentName=สำเนาใบกำกับภาษี");
     }
 </div>

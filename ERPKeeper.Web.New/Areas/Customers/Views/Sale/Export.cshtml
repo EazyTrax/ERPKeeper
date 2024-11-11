@@ -5,11 +5,11 @@
 }
 
 @{
-    var documentNameContent = "ใบกำกับภาษี";
+    var documentNameContent = ViewBag.DocumentName;
     var customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
 }
 
-@await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
+<partial name="/areas/enterprise_export/view/shared/_header.cshtml" model="documentNameContent" />
 
 <div class="grid grid-cols-3" id="BuyerDetail">
     <div class="col-span-2 border border-dark  p-2">
@@ -75,12 +75,11 @@
 
 
 
-<div class="grid grid-cols-3 gap-2 mb-3 border border-dark  p-2" id="Summary">
-
-
-    <div class="col-span-2">
-
+<div class="grid grid-cols-2 gap-2 mb-3 border border-dark p-2" id="Summary">
+    <div>
+        @await Html.PartialAsync("/areas/enterprise_export/view/shared/_Payments_BankAccounts.cshtml")
     </div>
+
     <div class="mb-2">
         @if (@Model.Discount > 0)
         {
@@ -112,7 +111,7 @@
     </div>
 </div>
 
-@await Html.PartialAsync("/areas/enterprise_export/view/shared/_Payments_BankAccounts.cshtml")
+
 
 
 <div class="mb-3">
