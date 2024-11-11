@@ -2,6 +2,7 @@
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -50,6 +51,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("TaxPeriodId")]
         public virtual TaxPeriod? TaxPeriod { get; set; }
 
+
+        public Guid? PaymentTermId { get; set; }
+        [ForeignKey("PaymentTermId")]
+        public virtual PaymentTerm? PaymentTerm { get; set; }
 
 
         public String? Reference { get; set; }

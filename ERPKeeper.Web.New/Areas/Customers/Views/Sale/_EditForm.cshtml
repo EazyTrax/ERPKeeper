@@ -53,6 +53,17 @@
                             .LabelMode(EditorLabelMode.Static)
                             .Disabled(true)
                             )
+
+                        @(Html.DevExtreme().SelectBoxFor(m => m.PaymentTermId)
+                            .Name("PaymentTermId") // Manually set the name
+                            .DataSource(Organization.PaymentTerms.GetAll().Select(t => new { t.Id, t.Name }).ToList())
+                            .Placeholder("Payment Term")
+                            .DisplayExpr("Name")
+                            .ValueExpr("Id")
+                            .Label("PaymentTerm")
+                            .ShowClearButton(true)
+                            .LabelMode(EditorLabelMode.Static))
+
                     </div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
 

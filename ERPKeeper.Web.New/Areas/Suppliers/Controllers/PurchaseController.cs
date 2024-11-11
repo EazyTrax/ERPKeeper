@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Suppliers;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,6 +20,28 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
+
+
+        public IActionResult Update(Purchase model)
+        {
+            var transcation = Organization.Purchases.Find(Id);
+
+            transcation.Memo = model.Memo;
+            transcation.Discount = model.Discount;
+            transcation.No = model.No;
+            transcation.Project = model.Project;
+            transcation.Reference = model.Reference;
+            transcation.PaymentTermId = model.PaymentTermId;
+            transcation.TaxCodeId = model.TaxCodeId;
+            transcation.ExpenseAccountId = model.ExpenseAccountId;
+
+            transcation.UpdateBalance();
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
         public IActionResult UnPost()
         {
             var model = Organization.Purchases.Find(Id);

@@ -44,6 +44,16 @@
                         )
                     </div>
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+                 
+                    @(Html.DevExtreme().SelectBoxFor(m => m.PaymentTermId)
+                        .Name("PaymentTermId") // Manually set the name
+                        .DataSource(Organization.PaymentTerms.GetAll().Select(t => new { t.Id, t.Name }).ToList())
+                        .Placeholder("Payment Term")
+                        .DisplayExpr("Name")
+                        .ValueExpr("Id")
+                        .Label("PaymentTerm")
+                        .ShowClearButton(true)
+                        .LabelMode(EditorLabelMode.Static))
 
                 </div>
             </div>

@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace ERPKeeperCore.Enterprise.Models
+namespace ERPKeeperCore.Enterprise.Models.Financial
 {
     public class PaymentTerm
     {
         [Key]
         public Guid Id { get; set; }
-        public String? Name { get; set; }
+        public string? Name { get; set; }
         public int DueDayCount { get; set; }
 
-        
-        public Decimal DiscountPercent { get; set; }
+
+        public decimal DiscountPercent { get; set; }
 
 
         public int MaxDayCount { get; set; }

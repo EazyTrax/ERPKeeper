@@ -1,5 +1,6 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -80,7 +81,9 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Guid? SaleId { get; internal set; }
 
 
-
+        public Guid? PaymentTermId { get; set; }
+        [ForeignKey("PaymentTermId")]
+        public virtual PaymentTerm? PaymentTerm { get; set; }
         public void AddItem(SaleQuoteItem existItem)
         {
             this.Items.Add(existItem);

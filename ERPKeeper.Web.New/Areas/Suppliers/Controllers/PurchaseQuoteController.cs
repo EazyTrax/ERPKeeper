@@ -56,6 +56,11 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.No = model.No;
+            transcation.Project = model.Project;
+            transcation.Reference = model.Reference;
+            transcation.PaymentTermId = model.PaymentTermId;
+            transcation.TaxCodeId = model.TaxCodeId;
+       
 
             transcation.UpdateBalance();
             Organization.SaveChanges();

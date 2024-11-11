@@ -40,18 +40,18 @@ namespace ERPKeeperCore.CMD
                 //    s.Customer.DefaultTaxCode = newOrganization.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output);
                 //});
 
-                int index = 1;
-                newOrganization.ErpCOREDBContext.RetentionPeriods.ToList().OrderBy(x => x.StartDate)
-                    .ToList()
-                    .ForEach(x =>
-                    {
-                        x.Date = x.StartDate;
-                        x.No = index++;
+                //int index = 1;
+                //newOrganization.ErpCOREDBContext.RetentionPeriods.ToList().OrderBy(x => x.StartDate)
+                //    .ToList()
+                //    .ForEach(x =>
+                //    {
+                //        x.Date = x.StartDate;
+                //        x.No = index++;
 
-                        x.Calculate();
-                    });
+                //        x.Calculate();
+                //    });
 
-                newOrganization.SaveChanges();
+                //newOrganization.SaveChanges();
                 //  newOrganization.Sales.PostToTransactions();
 
                 //var eRPMigrationTool = new ERPMigrationTool(enterpriseDB);

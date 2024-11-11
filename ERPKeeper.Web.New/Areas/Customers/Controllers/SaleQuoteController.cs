@@ -69,6 +69,9 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             saleQuote.ProfileAddesssId = model.ProfileAddesssId;
             saleQuote.ProjectId = model.ProjectId;
             saleQuote.Reference = model.Reference;
+            saleQuote.PaymentTermId = model.PaymentTermId;
+
+
             saleQuote.UpdateBalance();
             saleQuote.UpdateName();
 

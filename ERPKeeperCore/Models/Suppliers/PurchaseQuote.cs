@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -73,7 +74,9 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Guid? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         public virtual Projects.Project? Project { get; set; }
-
+        public Guid? PaymentTermId { get; set; }
+        [ForeignKey("PaymentTermId")]
+        public virtual PaymentTerm? PaymentTerm { get; set; }
 
         public Guid? SupplierAddressId { get; set; }
         public void AddItem(Items.Item item)

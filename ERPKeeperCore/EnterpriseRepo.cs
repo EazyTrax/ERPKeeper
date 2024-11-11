@@ -82,7 +82,7 @@ namespace ERPKeeperCore.Enterprise
         public DAL.Financial.LendReturns LendReturns;
         public DAL.Financial.RetentionTypes RetentionTypes;
         public DAL.Financial.RetentionPeriods RetentionGroups;
-
+        public DAL.Financial.PaymentTerms PaymentTerms;
 
         public Projects Projects
         {
@@ -138,7 +138,7 @@ namespace ERPKeeperCore.Enterprise
             LendReturns = new DAL.Financial.LendReturns(this);
             RetentionTypes = new DAL.Financial.RetentionTypes(this);
             RetentionGroups = new DAL.Financial.RetentionPeriods(this);
-
+            PaymentTerms = new DAL.Financial.PaymentTerms(this);
 
 
 

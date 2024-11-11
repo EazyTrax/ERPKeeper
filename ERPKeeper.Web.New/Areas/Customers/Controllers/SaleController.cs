@@ -42,6 +42,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             transcation.ProjectId = model.ProjectId;
             transcation.Reference = model.Reference;
             transcation.ProfileAddesssId = model.ProfileAddesssId;
+            transcation.PaymentTermId = transcation.PaymentTermId;
 
             transcation.Reorder();
             transcation.UpdateBalance();
