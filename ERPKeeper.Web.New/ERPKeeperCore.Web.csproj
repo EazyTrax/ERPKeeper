@@ -128,6 +128,7 @@
     <Folder Include="Areas\Authen\Views\Shared\Components\" />
     <Folder Include="Areas\Products\Views\Shared\Components\" />
     <Folder Include="Areas\Employees\Views\Shared\Components\" />
+    <Folder Include="wwwroot\Images\Logo\" />
     <None Include="Areas\My\Views\Home\Index.cshtml" />
     <None Include="Areas\My\Views\Home\_MenuTop.cshtml" />
     <None Include="Areas\My\Views\Home\_Navigation.cshtml" />

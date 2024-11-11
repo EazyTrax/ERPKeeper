@@ -63,6 +63,14 @@
                         <div class="">
                             @item.Description
                         </div>
+
+                        @if (!string.IsNullOrEmpty(item.Serial))
+                        {
+                            <p class="whitespace-pre-line">
+                                @item.Serial
+                            </p>
+                        }
+
                     </div>
                 </div>
                 <div class="col-span-1 text-right">@item.Quantity</div>
