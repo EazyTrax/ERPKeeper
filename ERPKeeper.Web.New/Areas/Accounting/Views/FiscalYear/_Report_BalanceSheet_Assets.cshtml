@@ -83,7 +83,7 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-4/12 p-0">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
                 เงินสดและรายการเทียบเท่าเงินสด
             </a>
         </div>
@@ -99,7 +99,7 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-4/12 p-0">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
                 ลูกหนี้การค้าและลูกหนี้อื่นๆ
             </a>
         </div>
@@ -115,7 +115,7 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-4/12 p-0">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
                 สินค้าคงเหลือ
             </a>
         </div>
@@ -131,7 +131,7 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-4/12 p-0">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
+            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
                 สินทรัพย์หมุนเวียนอื่น
             </a>
         </div>
@@ -195,7 +195,7 @@
             foreach (var line in nonCurrentAssetsBalance)
             {
                 <div class="w-4/12 p-0">
-                    <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                    <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                         @line.Account.Name
                     </a>
                 </div>
@@ -212,7 +212,7 @@
             }
 
             <div class="w-4/12 p-0">
-                <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_blank">
+                <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
                     ที่ดิน และอุปกรณ์
                 </a>
             </div>

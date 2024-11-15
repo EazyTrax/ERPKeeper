@@ -38,7 +38,7 @@
                 foreach (var line in incomes)
                 {
                     <div class="col-4">
-                        <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                        <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                             @line.Account.Name
                         </a>
                     </div>
@@ -92,7 +92,7 @@
                 foreach (var line in expenses)
                 {
                     <div class="col-4">
-                        <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                        <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                             @line.Account.Name
                         </a>
                     </div>
@@ -144,7 +144,7 @@
                 <div class="col-3">
                 </div>
                 <div class="w-3/12  border-dark border-top">
-                    <a href="/@CompanyId/Accounting/Accounts/@IncomeTaxBalance.Account.Id/" target="_blank">
+                    <a href="/@CompanyId/Accounting/Accounts/@IncomeTaxBalance.Account.Id/" target="_self">
                         ภาษีเงินได้
                     </a>
                 </div>
@@ -199,7 +199,7 @@
                     foreach (var line in UnClaimExpenses)
                     {
                         <div class="col-4">
-                            <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_blank">
+                            <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                                 @line.Account.Name
                             </a>
                         </div>

@@ -1,0 +1,42 @@
+﻿@model string
+
+@{
+    var branch = Organization.ErpCOREDBContext.Branches.FirstOrDefault();
+
+    if (branch == null)
+    {
+        var self = Organization.Profiles.GetSelf();
+        var firstBranch = self.Addresses.First();
+        branch = new ERPKeeperCore.Enterprise.Models.Setting.Branch()
+                {
+                    OrganizationName = self.Name,
+                    BranchName = firstBranch.Name,
+                    TaxNumber = self.TaxNumber,
+                    Address = firstBranch.AddressLine,
+                    Number = firstBranch.Number,
+                    PhoneNumber = firstBranch.PhoneNumber,
+
+                };
+        Organization.ErpCOREDBContext.Branches.Add(branch);
+        Organization.SaveChanges();
+    }
+}
+
+<div class="flex header text-3xl">
+    <div class="font-semibold p-2">ผู้ส่ง</div>
+    <div class="grow p-2 border-right ">
+        <div>
+            <div class="font-semibold">@branch.OrganizationName</div>
+        </div>
+        <div>
+            @branch.Address
+        </div>
+        <div>
+            @branch.AddressLine2
+
+            @branch.PhoneNumber
+            @branch.WebSite
+        </div>
+    </div>
+
+</div>

@@ -31,40 +31,8 @@ namespace ERPKeeperCore.CMD
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
-                //newOrganization.Sales.GetAll().ForEach(s =>
-                //{
-                //    s.UnPostLedger();
-                //    s.IncomeAccount = newOrganization.SystemAccounts.Income;
-                //    s.Customer.DefaultIncomeAccount = newOrganization.SystemAccounts.Income;
-                //    s.TaxCode = newOrganization.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output);
-                //    s.Customer.DefaultTaxCode = newOrganization.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output);
-                //});
-
-                //int index = 1;
-                //newOrganization.ErpCOREDBContext.RetentionPeriods.ToList().OrderBy(x => x.StartDate)
-                //    .ToList()
-                //    .ForEach(x =>
-                //    {
-                //        x.Date = x.StartDate;
-                //        x.No = index++;
-
-                //        x.Calculate();
-                //    });
-
-                //newOrganization.SaveChanges();
-                //  newOrganization.Sales.PostToTransactions();
-
-                //var eRPMigrationTool = new ERPMigrationTool(enterpriseDB);
-                //eRPMigrationTool.Migrate();
-                //eRPMigrationTool.Copy_Profiles();
-                //eRPMigrationTool.Copy_Items();
-                //eRPMigrationTool.Copy_Suppliers();
-                //eRPMigrationTool.Copy_Customers();
-                //eRPMigrationTool.Copy_Employees();
-
-
-
-
+            
+                newOrganization.SaveChanges();
 
                 if (false && newOrganization != null)
                 {

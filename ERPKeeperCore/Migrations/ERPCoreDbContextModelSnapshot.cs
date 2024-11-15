@@ -1909,6 +1909,59 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("ItemGroups");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Logistic.LogisticProvider", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WebSite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LogisticProviders");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Logistic.Shipment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LotNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Person")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ShipmentProviderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TrackingNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShipmentProviderId");
+
+                    b.ToTable("Shipments");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Profiles.Profile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2225,6 +2278,50 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MemoTemplates");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Storage.Document", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
@@ -3633,6 +3730,17 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Logistic.Shipment", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Logistic.LogisticProvider", "ShipmentProvider")
+                        .WithMany("Shipments")
+                        .HasForeignKey("ShipmentProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShipmentProvider");
+                });
+
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Profiles.ProfileAddress", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.Profile", "Profile")
@@ -3676,6 +3784,15 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Storage.Document", b =>
+                {
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Profiles.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Suppliers.Purchase", b =>
@@ -4190,6 +4307,11 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Child");
 
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Logistic.LogisticProvider", b =>
+                {
+                    b.Navigation("Shipments");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Profiles.Profile", b =>

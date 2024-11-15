@@ -32,4 +32,8 @@
     <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.103.6.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DAL\Logistic\" />
+  </ItemGroup>
+
 </Project>

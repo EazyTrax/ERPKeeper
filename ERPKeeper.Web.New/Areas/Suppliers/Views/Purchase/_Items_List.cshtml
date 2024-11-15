@@ -37,7 +37,7 @@
                 columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
 
 
-                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_blank" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
+                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
 
 
 

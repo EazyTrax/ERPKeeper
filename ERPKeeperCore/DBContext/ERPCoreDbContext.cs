@@ -185,6 +185,17 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Models.Setting.MemoTemplate> MemoTemplates { get; set; }
 
 
+
+        public DbSet<Models.Storage.Document> Documents { get; set; }
+
+
+        public DbSet<Models.Logistic.Shipment> Shipments { get; set; }
+
+
+
+        public DbSet<Models.Logistic.LogisticProvider> LogisticProviders { get; set; }
+
+
     }
 
 

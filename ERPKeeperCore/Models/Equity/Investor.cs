@@ -14,6 +14,7 @@ using System.Linq;
 namespace ERPKeeperCore.Enterprise.Models.Investors
 {
     public partial class Investor
+
     {
 
         [Key]

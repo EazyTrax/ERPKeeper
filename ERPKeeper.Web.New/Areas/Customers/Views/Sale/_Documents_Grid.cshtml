@@ -1,0 +1,47 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Storage.Document>()
+            .ID("gridList")
+            .KeyExpr("Id")
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .Width("100%")
+            .ColumnAutoWidth(false)
+            .WordWrapEnabled(true)
+            .DataSource(d =>
+            d.RemoteController()
+            .Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/All")
+        .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/Update")
+            .UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/Delete")
+            .DeleteMethod("Post")
+            )
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
+            .KeyExpr("Id")
+            .WordWrapEnabled(true)
+            .ColumnChooser(c => c.Enabled(true))
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.FileName);
+                columns.AddFor(m => m.CreatedDate);
+                columns.AddFor(m => m.FileExtension);
+                columns.AddFor(m => m.Size);
+
+
+
+
+
+
+            })
+        .OnInitNewRow("function(e) { e.data.Date = new Date(); }")
+
+        )
+</div>

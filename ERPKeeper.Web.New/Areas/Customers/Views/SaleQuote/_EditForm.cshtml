@@ -38,10 +38,8 @@
 
 
 
-            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
-
-
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static)</div>
+            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static)</div>
 
             @{
                 var addresses = Model.Customer.Profile.Addresses.ToList();

@@ -20,22 +20,22 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         }
 
-        public List<Investor> GetAll()
+        public List<Models.Investors.Investor> GetAll()
         {
             return erpNodeDBContext.Investors.ToList();
         }
 
         public int Count() => erpNodeDBContext.Investors.Count();
 
-        public Investor? Find(Guid Id) => erpNodeDBContext.Investors.Find(Id);
+        public Models.Investors.Investor? Find(Guid Id) => erpNodeDBContext.Investors.Find(Id);
         public void Add(Profile profile)
         {
-            var Investor = new Investor
+            var Investor = new Models.Investors.Investor
             {
                 Id = profile.Id,
                 Profile = profile,
                 Code = profile.ShotName,
-                Status =  Models.ProfileStatus.Active,
+                Status = Models.ProfileStatus.Active,
             };
 
             erpNodeDBContext.Investors.Add(Investor);

@@ -1,0 +1,87 @@
+﻿
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Storage.Document>()
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Storage/Documents/All")
+            .InsertUrl($"/API/{CompanyId}/Storage/Documents/Insert")
+            .UpdateUrl($"/API/{CompanyId}/Storage/Documents/Update")
+            .UpdateMethod("Post")
+            .DeleteUrl($"/API/{CompanyId}/Storage/Documents/Delete")
+            .DeleteMethod("Post")
+            )
+            .KeyExpr("Id")
+            .Width("100%")
+            .WordWrapEnabled(true)
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Documents"))
+
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .AllowColumnResizing(true).AllowColumnReordering(true)
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .ColumnAutoWidth(false)
+            .Columns(column =>
+            {
+
+
+             column.AddFor(m => m.FileSizeString)
+            .Width(100)
+            .Caption("File Size")
+            .SortIndex(0)
+            .SortOrder(SortOrder.Desc)
+            .AllowEditing(false)
+            .CalculateSortValue("Size");
+
+                column.AddFor(m => m.FileName)
+            .HeaderCellTemplate("Name")
+            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
+
+
+       
+                column.AddFor(m => m.FileExtension).AllowEditing(false)
+            .HeaderCellTemplate("Ext");
+
+                column.AddFor(m => m.ProfileId)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .Width(150)
+            
+            .HeaderCellTemplate(@<text>Profile</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Profile/<%= data.ProfileId %>/"><%= displayValue %></a></text>);
+
+
+
+
+                column.AddFor(m => m.AgeAgo)
+            .Width(100)
+            .Caption("File Size")
+            .SortIndex(0)
+            .SortOrder(SortOrder.Desc)
+            .AllowEditing(false)
+            .CalculateSortValue("UploadDate");
+
+
+            column.AddFor(m => m.Note)
+                .HeaderCellTemplate("Note")
+                .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
+
+
+
+            column.Add()
+            .Width(40)
+            .AllowSearch(false)
+            .AllowEditing(false)
+            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/Download"><i class="fa-solid fa-cloud-arrow-down text-fs-15"></i></a></text>);
+
+
+            })
+        )
+</div>
+
+

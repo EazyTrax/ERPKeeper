@@ -4,7 +4,7 @@
     <div>
         <div class="grid grid-cols-3">
             <div class="border">
-                <div class=" bg-gray-100 p-2 mb-2 rounded">
+                <div class=" bg-gray-100 p-2 rounded">
 
                     <div class="flex flex-wrap">
                         <div class="w-10/12 p-0">
@@ -35,6 +35,24 @@
                         .ShowClearButton(true)
                         .LabelMode(EditorLabelMode.Static))
                 </div>
+
+
+                <div class=" bg-gray-100 p-2 mb-2 rounded">
+                    <div class="flex flex-wrap">
+                        <div class="w-10/12 p-0">
+                            <div class="mb-3 font-semibold">Financial</div>
+                        </div>
+                        <div class="w-2/12 p-0 text-right">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+
+
+                </div>
             </div>
 
             <div class="border">
@@ -51,7 +69,6 @@
                             .Label("Tax")
                             .ShowClearButton(true)
                             .LabelMode(EditorLabelMode.Static)
-                            .Disabled(true)
                             )
 
                         @(Html.DevExtreme().SelectBoxFor(m => m.PaymentTermId)
@@ -67,13 +84,9 @@
                     </div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
 
-                </div>
-            </div>
 
-            <div class="border">
-                <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-2">
-                        <div class="mb-3 font-semibold">Projects</div>
+                    <div class="mt-2">
+                        <div class="mb-2 font-semibold">Projects</div>
                         @{
                             var projects = Organization.Projects.GetActive();
 
@@ -88,7 +101,7 @@
                             .Placeholder("Projects")
                             .DisplayExpr("Name")
                             .ValueExpr("Id")
-                            .Label("Tax")
+                            .Label("Project")
                             .ShowClearButton(true)
                             .LabelMode(EditorLabelMode.Static))
 
@@ -96,23 +109,9 @@
                 </div>
             </div>
 
+
             <div class="border">
-                <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="flex flex-wrap">
-                        <div class="w-10/12 p-0">
-                            <div class="mb-3 font-semibold">Financial</div>
-                        </div>
-                        <div class="w-2/12 p-0 text-right">
-                        </div>
-                    </div>
 
-
-                   
-
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
-                  
-                
-                </div>
                 <div class="border">
                     <div class=" bg-gray-100 p-2 mb-2 rounded">
                         <div class="mb-3 font-semibold">Memo</div>

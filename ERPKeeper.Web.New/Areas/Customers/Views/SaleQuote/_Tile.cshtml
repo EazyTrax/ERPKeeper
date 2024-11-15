@@ -8,9 +8,7 @@
         <div class="text-2xl text-center font-semibold">
             @Model.Status
         </div>
-        <div class="text-lg text-center">
-            Status
-        </div>
+
 
 
         <div class="absolute top-1 right-1">
@@ -26,7 +24,7 @@
                     @if (Model.Status != ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Order)
                     {
                         <div>
-                            <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Order">Order</a>
+                            <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Order">Receive PO</a>
                         </div>
                     }
 
@@ -34,14 +32,12 @@
                     @if (Model.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Order)
                     {
                         <div>
-                            <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to convert to an invoice?');">Convert To Invoice</a>
+                            <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to convert to an invoice?');">Convert To Sale</a>
                         </div>
                     }
 
 
-                    <div>
-                        <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Delete">Delete</a>
-                    </div>
+
 
 
                 </div>
@@ -61,7 +57,7 @@
     </div>
 
 
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/SaleQuotes">
+    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-2xl text-center font-semibold">
             </div>

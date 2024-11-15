@@ -49,12 +49,13 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 
             if (model.TaxCodeId == null)
                 model.TaxCodeId = enterpriseRepo.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;
+
             if (model.IncomeAccountId == null)
                 model.IncomeAccountId = enterpriseRepo.SystemAccounts.Income.Id;
 
             model.UpdateBalance();
 
-            Organization.ErpCOREDBContext.SaveChanges();
+            enterpriseRepo.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }

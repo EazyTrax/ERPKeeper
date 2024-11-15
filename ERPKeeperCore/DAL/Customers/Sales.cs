@@ -81,7 +81,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 model.CustomerId = (Guid)customerId;
 
             model.Date = DateTime.Today;
-            model.Status = SaleStatus.Draft;
+            model.Status = SaleStatus.Invoice;
             model.No = GetNextInvoiceNumber();
 
             model.UpdateBalance();
@@ -128,7 +128,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             var model = new Sale()
             {
                 Date = DateTime.Today,
-                Status = SaleStatus.Draft,
+                Status = SaleStatus.Invoice,
                 No = GetNextInvoiceNumber(),
                 CustomerId = saleQuote.CustomerId,
                 Reference = saleQuote.Reference,
@@ -150,7 +150,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             erpNodeDBContext.SaveChanges();
 
 
-            saleQuote.Status = SaleQuoteStatus.Invoice;
+            saleQuote.Status = SaleQuoteStatus.Close;
             saleQuote.SaleId = model.Id;
 
             return model;

@@ -2,10 +2,7 @@
 {
     public enum SaleStatus
     {
-        Draft = 0,
-        Order = 1,
-        Invoice = 2,
-        Paid = 3,
-        Void = 4
+        Invoice = 0,
+        Paid = 2,
     }
 }

@@ -46,7 +46,7 @@
                 columns.AddFor(m => m.Name)
             .AllowEditing(false)
             .Width(130)
-            .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.CustomerId)
@@ -54,7 +54,7 @@
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .CellTemplate(@<text><a target="_blank" href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference)

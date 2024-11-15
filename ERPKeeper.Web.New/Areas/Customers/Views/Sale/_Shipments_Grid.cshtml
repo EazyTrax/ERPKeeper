@@ -1,0 +1,68 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Logistic.Shipment>()
+            .ID("gridList")
+            .KeyExpr("Id")
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+            .Width("100%")
+            .ColumnAutoWidth(false)
+            .WordWrapEnabled(true)
+            .DataSource(d =>
+            d.RemoteController()
+            .Key("Id")
+            .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/All")
+        .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Update")
+            .UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Delete")
+            .DeleteMethod("Post")
+            )
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+
+            .KeyExpr("Id")
+            .WordWrapEnabled(true)
+            .ColumnChooser(c => c.Enabled(true))
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.LotNo);
+                columns.AddFor(m => m.Date);
+                columns.AddFor(m => m.Person);
+                columns.AddFor(m => m.Note);
+                columns.AddFor(m => m.TrackingNo);
+
+                columns.AddFor(m => m.ShipmentProviderId)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.LogisticProviders.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .ShowInColumnChooser(true)
+            .HeaderCellTemplate(@<text>Providers</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Logistics/ShipmentProviders/<%= data.ShipmentProviderId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.Add()
+            .AllowEditing(false)
+            .Width(130)
+            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportShipmentLabel">Print Label</a></text>);
+
+
+
+
+
+             
+
+
+
+
+            })
+        .OnInitNewRow("function(e) { e.data.Date = new Date(); }")
+
+        )
+</div>

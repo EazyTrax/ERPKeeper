@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 .Max() ?? 0;
 
             model.Date = DateTime.Today;
-            model.Status = SaleQuoteStatus.Draft;
+            model.Status = SaleQuoteStatus.Quote;
             model.No = maxNo + 1;
             model.UpdateBalance();
             model.UpdateName();

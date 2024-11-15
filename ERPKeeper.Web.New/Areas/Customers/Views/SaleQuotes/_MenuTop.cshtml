@@ -1,10 +1,11 @@
 ﻿@using ERPKeeperCore.Enterprise.Models.Items.Enums
 
-
+@model ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus
 
 <div class="flex font-semibold  text-uppercase">
     <div class="p-2">
        <a href="/@CompanyId/Customers"> Customers</a>
         / <a href="/@CompanyId/Customers/SaleQuotes"> Quotes</a>
+        / <a href="/@CompanyId/Customers/SaleQuotes?status=@Model"> @Model</a>
     </div>
 </div>

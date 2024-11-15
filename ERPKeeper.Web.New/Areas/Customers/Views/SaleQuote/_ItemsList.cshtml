@@ -2,7 +2,7 @@
 @using ERPKeeperCore.Enterprise.Models.Customers.Enums
 
 @{
-    var editAble = IsOnEditMode && Model.Status != SaleQuoteStatus.Invoice;
+    var editAble = IsOnEditMode && Model.Status != SaleQuoteStatus.Close;
 }
 
 
@@ -33,7 +33,7 @@
             .Columns(columns =>
             {
                 columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
-                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_blank" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
+                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
                 columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
                 columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Quantity).Width(130).Format("#,##0.00");

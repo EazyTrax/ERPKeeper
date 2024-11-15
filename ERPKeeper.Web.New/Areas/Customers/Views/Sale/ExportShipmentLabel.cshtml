@@ -1,0 +1,71 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+
+
+
+@{
+    Layout = "_Layout_Export_a5";
+}
+
+@{
+    var Sale = Model;
+    var shipmentId = (Guid)ViewBag.ShipmentId;
+    var shipment = Organization.ErpCOREDBContext.Shipments.FirstOrDefault(x => x.Id == shipmentId);
+    var documentNameContent = ViewBag.DocumentName;
+    var customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
+}
+
+
+
+<div class=" border border-dark text-3xl">
+
+    <div class="flex justify-between p-2">
+        <div class="p-0">
+            <img src="/images/logo/@(CompanyId).png" class="h-20" />
+        </div>
+        <div class="flex justify-end grow p-0">
+            <div>
+                <img src="/image/qr.png" class="w-28" />
+            </div>
+            <div class="">
+                @Sale.Name<br />@Sale.Reference
+            </div>
+        </div>
+    </div>
+
+
+    <partial name="/areas/enterprise_export/view/shared/_Header_shipping_label.cshtml" model="documentNameContent" />
+
+    <div class="flex header border">
+        <div class="font-semibold px-2 py-3">ผู้รับ</div>
+        <div class="grow px-2 py-3 border-right ">
+            <div class="font-semibold">
+                <a href="/@CompanyId/Customers/Customers/@Sale.CustomerId">
+                    @Sale.Customer.Profile.Name
+                </a>
+            </div>
+            @if (customerAddress != null)
+            {
+                <div>
+                    @customerAddress.AddressLine.Trim()<br />
+                    @customerAddress.PhoneNumber
+                </div>
+            }
+
+
+
+            <div>
+                @shipment?.Person @shipment?.Note
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+<div class="mb-3 text-2xl">
+    Issuer: @User.Identity.Name
+</div>

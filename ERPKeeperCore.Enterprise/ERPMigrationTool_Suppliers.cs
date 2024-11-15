@@ -450,7 +450,7 @@ namespace ERPKeeperCore.CMD
                         newOrganization.ErpCOREDBContext.PurchaseQuoteItems.Add(existItem);
                         newOrganization.ErpCOREDBContext.SaveChanges();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
 
                     }

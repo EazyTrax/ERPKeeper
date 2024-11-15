@@ -23,12 +23,21 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         }
 
 
+        [Route("/API/{CompanyId}/Customers/{controller}/{action}/{status}")]
+        public object List(SaleQuoteStatus status, DataSourceLoadOptions loadOptions)
+        {
+            var returnModel = Organization.ErpCOREDBContext.SaleQuotes
+                 .Where(m => m.Status == status)
+                 .ToList();
+
+            return DataSourceLoader.Load(returnModel, loadOptions);
+        }
 
         public object Quotes(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                 .Where(m =>
-                    m.Status == SaleQuoteStatus.Draft ||
+                    m.Status == SaleQuoteStatus.Quote ||
                     m.Status == SaleQuoteStatus.Quote ||
                     m.Status == SaleQuoteStatus.Void ||
                     m.Status == SaleQuoteStatus.Delete
@@ -43,7 +52,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                 .Where(m =>
                     m.Status == SaleQuoteStatus.Order ||
-                    m.Status == SaleQuoteStatus.Invoice)
+                    m.Status == SaleQuoteStatus.Close)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -68,9 +77,22 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == key);
+
+
+
+            var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+
+            var model = enterpriseRepo.ErpCOREDBContext.SaleQuotes.First(a => a.Id == key);
             JsonConvert.PopulateObject(values, model);
-            Organization.ErpCOREDBContext.SaveChanges();
+
+            if (model.TaxCodeId == null)
+                model.TaxCodeId = enterpriseRepo.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;
+
+
+            model.UpdateBalance();
+
+            enterpriseRepo.ErpCOREDBContext.SaveChanges();
+
             return Ok();
         }
 

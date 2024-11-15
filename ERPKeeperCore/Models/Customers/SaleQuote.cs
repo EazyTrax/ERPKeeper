@@ -116,7 +116,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void SetStatus(SaleQuoteStatus newStatus)
         {
-            if (Status == SaleQuoteStatus.Invoice)
+            if (Status == SaleQuoteStatus.Close)
                 return;
 
             this.Status = newStatus;

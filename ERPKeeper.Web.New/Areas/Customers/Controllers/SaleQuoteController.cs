@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Customers;
+﻿using ERPKeeperCore.Enterprise;
+using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +24,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaveChanges();
 
             if (transcation == null)
-                return NotFound();
+                return Redirect($"/{CompanyId}/Customers/SaleQuotes");
 
             return View(transcation);
         }
@@ -64,6 +65,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var saleQuote = Organization.SaleQuotes.Find(Id);
 
             saleQuote.Memo = model.Memo;
+            saleQuote.Date = model.Date.Date;
             saleQuote.Discount = model.Discount;
             saleQuote.No = model.No;
             saleQuote.ProfileAddesssId = model.ProfileAddesssId;
@@ -104,6 +106,9 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+
+
         public IActionResult Quote()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
@@ -134,9 +139,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             var saleQuote = Organization.SaleQuotes.Find(Id);
             var sale = Organization.Sales.CreateInvoice(saleQuote);
+
+            sale.TaxCodeId = Organization.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;
+            sale.IncomeAccountId = Organization.SystemAccounts.Income.Id;
+
+
             Organization.SaveChanges();
 
-            string returnUrl = $"/tec/Customers/Sales/{sale.Id}/";
+            string returnUrl = $"/{CompanyId}/Customers/Sales/{sale.Id}/";
 
             return Redirect(returnUrl);
         }

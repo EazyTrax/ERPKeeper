@@ -2,10 +2,9 @@
 {
     public enum SaleQuoteStatus
     {
-        Draft = 0,
-        Quote = 1,
+        Quote = 0,
         Order = 2,
-        Invoice = 3,
+        Close = 3,
         Void = 99,
         Delete = 100,
     }
