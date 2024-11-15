@@ -5,7 +5,7 @@
         <div class="grid grid-cols-4">
             <div class="border">
                 <div class=" bg-fb1 p-2 mb-2 border">
-                    <div class="mb-3 font-semibold">General</div>
+                    <div class="mb-3 font-semibold text-lg">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("Name").LabelMode(EditorLabelMode.Floating)</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Code).Label("Code").LabelMode(EditorLabelMode.Floating)</div>
 
@@ -14,7 +14,7 @@
             <div class="border">
                 <div class=" bg-fb1 p-2 mb-2 border">
                     <div class="mb-2">
-                        <div class="mb-3 font-semibold">Dates</div>
+                        <div class="mb-3 font-semibold text-lg">Dates</div>
                         <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.StartDate).Label("Start").LabelMode(EditorLabelMode.Floating)</div>
                         <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.EndDate).Label("End").LabelMode(EditorLabelMode.Floating)</div>
 
@@ -29,7 +29,7 @@
 
             <div class="border">
                 <div class=" bg-fb1 p-2 mb-2 border">
-                    <div class="mb-3 font-semibold">Memo</div>
+                    <div class="mb-3 font-semibold text-lg">Memo</div>
                     <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Detail).Height(150).Label("Detail").LabelMode(EditorLabelMode.Floating)</div>
                 </div>
             </div>

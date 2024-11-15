@@ -4,7 +4,7 @@
     <div class="grid grid-cols-2 gap-4">
         <!-- General Information Section -->
         <div class="p-4 bg-gray-100 border rounded-lg">
-            <h2 class="mb-3 font-semibold">General</h2>
+            <h2 class="mb-3 font-semibold text-lg">General</h2>
             <div class="mb-2">
                 @Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)
             </div>
@@ -61,7 +61,7 @@
 
         <!-- Liability Payment Section -->
         <div class="p-4 bg-gray-100 border rounded-lg">
-            <h2 class="mb-3 font-semibold">Liability Payment</h2>
+            <h2 class="mb-3 font-semibold text-lg">Liability Payment</h2>
             <div class="mb-2">
                 @Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)
             </div>

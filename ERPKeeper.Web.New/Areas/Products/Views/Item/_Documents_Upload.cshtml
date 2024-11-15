@@ -1,0 +1,13 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
+
+
+
+<div class="bg-gray-100 p-2 mb-2 min-h-20">
+    @(Html.DevExtreme().FileUploader()
+        .ID("uploadFile")
+        .Name("uploadFile")
+        .Multiple(true)
+        .AllowedFileExtensions(new string[] { ".xlsx", ".docx", ".pdf", ".png", ".jpg" })
+        .UploadMode(FileUploadMode.Instantly)
+        .UploadUrl($"/{CompanyId}/Products/Items/{Model.Id}/DocumentUpload"))
+</div>

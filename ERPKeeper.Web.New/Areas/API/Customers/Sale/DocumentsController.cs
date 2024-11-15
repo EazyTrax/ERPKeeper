@@ -23,21 +23,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         }
 
 
-        [HttpPost]
-        public IActionResult Insert(string values)
-        {
-            var model = new Enterprise.Models.Storage.Document();
-            JsonConvert.PopulateObject(values, model);
-
-            model.TransactionId = SaleId;
-
-            Organization.ErpCOREDBContext.Documents.Add(model);
-            Organization.ErpCOREDBContext.SaveChanges();
-
-            return Ok();
-        }
-
-
+    
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {

@@ -1,20 +1,16 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
-<div class="flex justify-between font-semibold text-xl  text-uppercase">
+<div class="flex justify-between font-semibold text-lg  text-uppercase">
     <div class="p-2">
-        <a href="/@CompanyId/Customers/Sales"> Sales</a>
-        / <a href="/@CompanyId/Customers/Sales/@Model.Id"> @Model.Name</a>
+        <a href="/@CompanyId/Customers/Customers">Customers</a> /
+        <a href="/@CompanyId/Customers/Sales"> Sales</a> /
+        <a href="/@CompanyId/Customers/Sales/@Model.Id"> @Model.Name</a> / 
+        <a href="/@CompanyId/Customers/Sales/@Model.Id/@ActionName"> @ActionName</a>
     </div>
     <div class="p-0 text-right">
-
-
-
         @if (Model.Transaction == null || Model.Transaction.IsPosted == false)
         {
             <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/Post">Post</a>
         }
-
-
-
     </div>
 </div>

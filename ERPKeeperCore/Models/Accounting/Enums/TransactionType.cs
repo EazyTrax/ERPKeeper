@@ -8,7 +8,10 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
     public enum TransactionType
     {
         UnKnow = 0,
+
         Sale = 20,
+        SaleQuote = 21,
+
         Purchase = 30,
         DebtPayment = 40,
         ReceivePayment = 50,
@@ -29,6 +32,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         FiscalYearClosing = 200,
         ObsoleteAsset = 201,
         RetentionGroup = 202,
+        ProductItem = 203,
     }
 }
 

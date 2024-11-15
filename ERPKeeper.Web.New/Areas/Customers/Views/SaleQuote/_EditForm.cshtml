@@ -4,7 +4,7 @@
 
     <div class="grid grid-cols-3">
         <div class="border bg-gray-100 p-2 mb-2 rounded">
-            <div class="mb-3 font-semibold">General</div>
+            <div class="mb-3 font-semibold text-lg">General</div>
             <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("Name").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
             <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.No).Label("No").LabelMode(EditorLabelMode.Static)</div>
 
@@ -27,7 +27,7 @@
         <div class="border bg-gray-100 p-2 mb-2 rounded">
             <div class="flex flex-wrap">
                 <div class="w-10/12 p-0">
-                    <div class="mb-3 font-semibold">Customer</div>
+                    <div class="mb-3 font-semibold text-lg">Customer</div>
                 </div>
                 <div class="w-2/12 p-0 text-right">
                     <a href="/@CompanyId/Profiles/@Model.CustomerId">
@@ -60,9 +60,42 @@
 
         <div class="border">
             <div class=" bg-gray-100 p-2 mb-2 rounded">
+                <div class="flex flex-wrap">
+                    <div class="w-10/12 p-0">
+                        <div class="mb-3 font-semibold text-lg">Financial</div>
+                    </div>
+                    <div class="w-2/12 p-0 text-right">
+                    </div>
+                </div>
+
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.LinesTotal).Label("LinesTotal").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.LinesTotalAfterDiscount).Label("AfterDiscount").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Tax).Label("LinesTotal").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Total).Label("Total").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+
+
+                @(Html.DevExtreme().SelectBoxFor(m => m.PaymentTermId)
+                    .Name("PaymentTermId") // Manually set the name
+                    .DataSource(Organization.PaymentTerms.GetAll().Select(t => new { t.Id, t.Name }).ToList())
+                    .Placeholder("Payment Term")
+                    .DisplayExpr("Name")
+                    .ValueExpr("Id")
+                    .Label("PaymentTerm")
+                    .ShowClearButton(true)
+                    .LabelMode(EditorLabelMode.Static))
+
+
+
+            </div>
+        </div>
+
+
+        <div class="border">
+            <div class=" bg-gray-100 p-2 mb-2 rounded">
 
                 <div class="mb-2">
-                    <div class="mb-3 font-semibold">Projects</div>
+                    <div class="mb-3 font-semibold text-lg">Projects</div>
 
                     @{
                         var projects = Organization.Projects.GetActive();
@@ -89,39 +122,15 @@
             </div>
         </div>
 
+
         <div class="border">
             <div class=" bg-gray-100 p-2 mb-2 rounded">
-                <div class="flex flex-wrap">
-                    <div class="w-10/12 p-0">
-                        <div class="mb-3 font-semibold">Financial</div>
-                    </div>
-                    <div class="w-2/12 p-0 text-right">
-                    </div>
-                </div>
-
-                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
-
-                @(Html.DevExtreme().SelectBoxFor(m => m.PaymentTermId)
-                    .Name("PaymentTermId") // Manually set the name
-                    .DataSource(Organization.PaymentTerms.GetAll().Select(t => new { t.Id, t.Name }).ToList())
-                    .Placeholder("Payment Term")
-                    .DisplayExpr("Name")
-                    .ValueExpr("Id")
-                    .Label("PaymentTerm")
-                    .ShowClearButton(true)
-                    .LabelMode(EditorLabelMode.Static))
-            
-            
-            
-            </div>
-        </div>
-        <div class="border">
-            <div class=" bg-gray-100 p-2 mb-2 rounded">
-                <div class="mb-3 font-semibold">Memo</div>
+                <div class="mb-3 font-semibold text-lg">Memo</div>
                 <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
             </div>
         </div>
-        <div class="border">
+        <div class="border bg-gray-100 p-2 mb-2 rounded text-right">
+
             <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
                 Save
             </button>

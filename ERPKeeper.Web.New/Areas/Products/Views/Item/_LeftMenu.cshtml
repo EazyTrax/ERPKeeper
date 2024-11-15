@@ -1,0 +1,39 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
+
+@{
+    void MenuTemplate(int level, string displayName, string url, int? count = null)
+    {
+        <div>
+            <div class="flex e-r">
+                <div class="w-10/12 pl-@(level)">
+                    <a href="@url">
+                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
+                    </a>
+                </div>
+                <div class="w-2/12 p-0 text-right p-0">
+                    <span class="menuCount">@count</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+    @{
+        MenuTemplate(0, "Products", $"/{CompanyId}/Products");
+    }
+</div>
+
+<div class="lh-120 bg-gray-100 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Detail", $"/{CompanyId}/Products/Items/{Model.Id}");
+        MenuTemplate(0, "Documents", $"/{CompanyId}/Products/Items/{Model.Id}/Documents");
+        MenuTemplate(0, "SaleQuotes", $"/{CompanyId}/Products/Items/{Model.Id}/SaleQuotes");
+        MenuTemplate(3, "Sales", $"/{CompanyId}/Products/Items/{Model.Id}/Sales");
+        MenuTemplate(0, "PurchaseQuotes", $"/{CompanyId}/Products/Items/{Model.Id}/PurchaseQuotes");
+        MenuTemplate(3, "Purchases", $"/{CompanyId}/Products/Items/{Model.Id}/Purchases");
+        MenuTemplate(0, "Customers", $"/{CompanyId}/Products/Items/{Model.Id}/Customers");
+        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Products/Items/{Model.Id}/Suppliers");
+
+    }
+</div>

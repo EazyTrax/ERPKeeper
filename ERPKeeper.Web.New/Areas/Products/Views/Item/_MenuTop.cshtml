@@ -1,15 +1,22 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Items.Item
 
-<div class="border">
-    <div class="flex font-semibold">
+<div class="">
+    <div class="flex text-lg font-semibold">
         <div class="w-10/12 p-2">
-            / <a href="/@CompanyId/Products"> Products</a>
-            / <a href="/@CompanyId/Products/Groups"> Groups</a>
+           <a href="/@CompanyId/Products"> Products</a>
+            <span>
+                / <a href="/@CompanyId/Products/Items">Items</a>
+            </span>
             @if (Model.ItemGroupId != null)
             {
                 <span>/</span>
-                <a href="/@CompanyId/Products/Groups/@Model.ItemGroupId"> @Model.ItemGroup.Name</a>
+                <a href="/@CompanyId/Products/Groups"> Groups</a>
+                <span>/</span>
+                <a href="/@CompanyId/Products/Groups/@Model.ItemGroupId">
+                    @Model.ItemGroup.Name
+                </a>
             }
+           
             / <a href="/@CompanyId/Products/Items/@Model.Id"> @Model.PartNumber</a>
         </div>
 

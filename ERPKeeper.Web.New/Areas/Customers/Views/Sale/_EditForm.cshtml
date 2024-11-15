@@ -8,7 +8,7 @@
 
                     <div class="flex flex-wrap">
                         <div class="w-10/12 p-0">
-                            <div class="mb-3 font-semibold">Customer</div>
+                            <div class="mb-3 font-semibold text-lg">Customer</div>
                         </div>
                         <div class="w-2/12 p-0 text-right">
                             <a href="/@CompanyId/Profiles/@Model.CustomerId">
@@ -34,30 +34,40 @@
                         .Label("Address")
                         .ShowClearButton(true)
                         .LabelMode(EditorLabelMode.Static))
-                </div>
 
 
-                <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="flex flex-wrap">
-                        <div class="w-10/12 p-0">
-                            <div class="mb-3 font-semibold">Financial</div>
-                        </div>
-                        <div class="w-2/12 p-0 text-right">
-                        </div>
+
+
+                    <div class="mt-2">
+                        <div class="mb-2 font-semibold">Projects</div>
+                        @{
+                            var projects = Organization.Projects.GetActive();
+
+                            if (Model.ProjectId != null)
+                            {
+                                projects.Add(Organization.Projects.Find((Guid)Model.ProjectId));
+                            }
+                        }
+
+                        @(Html.DevExtreme().SelectBoxFor(m => m.ProjectId)
+                            .DataSource(projects.Select(t => new { t.Id, t.Name }).ToList())
+                            .Placeholder("Projects")
+                            .DisplayExpr("Name")
+                            .ValueExpr("Id")
+                            .Label("Project")
+                            .ShowClearButton(true)
+                            .LabelMode(EditorLabelMode.Static))
+
                     </div>
-
-
-
-
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
-
-
                 </div>
+
+
+
             </div>
 
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">General</div>
+                    <div class="mb-3 font-semibold text-lg">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">
@@ -85,46 +95,42 @@
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
 
 
-                    <div class="mt-2">
-                        <div class="mb-2 font-semibold">Projects</div>
-                        @{
-                            var projects = Organization.Projects.GetActive();
-
-                            if (Model.ProjectId != null)
-                            {
-                                projects.Add(Organization.Projects.Find((Guid)Model.ProjectId));
-                            }
-                        }
-
-                        @(Html.DevExtreme().SelectBoxFor(m => m.ProjectId)
-                            .DataSource(projects.Select(t => new { t.Id, t.Name }).ToList())
-                            .Placeholder("Projects")
-                            .DisplayExpr("Name")
-                            .ValueExpr("Id")
-                            .Label("Project")
-                            .ShowClearButton(true)
-                            .LabelMode(EditorLabelMode.Static))
-
-                    </div>
+                   
                 </div>
             </div>
 
-
-            <div class="border">
-
-                <div class="border">
-                    <div class=" bg-gray-100 p-2 mb-2 rounded">
-                        <div class="mb-3 font-semibold">Memo</div>
-                        <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
+            <div class="bg-gray-100 p-2 mb-2 rounded">
+                <div class="flex flex-wrap">
+                    <div class="w-10/12 p-0">
+                        <div class="mb-3 font-semibold text-lg">Financial</div>
+                    </div>
+                    <div class="w-2/12 p-0 text-right">
                     </div>
                 </div>
 
+
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.LinesTotal).Label("LinesTotal").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Discount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.LinesTotalAfterDiscount).Label("AfterDiscount").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Tax).Label("LinesTotal").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Total).Label("Total").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+
+
+            </div>
+
+            <div class="border">
                 <div class="border">
                     <div class=" bg-gray-100 p-2 mb-2 rounded">
-                        <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
-                            Save
-                        </button>
+                        <div class="mb-3 font-semibold text-lg">Memo</div>
+                        <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
                     </div>
+                </div>
+            </div>
+            <div class="border">
+                <div class=" bg-gray-100 p-2 mb-2 rounded text-right">
+                    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                        Save
+                    </button>
                 </div>
             </div>
         </div>

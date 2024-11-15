@@ -82,7 +82,7 @@ namespace ERPKeeperCore.Enterprise.Models.Storage
                 return $"{fileSize}B";
         }
 
-        public byte[]? GetOriginalFile(string companyId, Guid makerId)
+        public byte[]? GetOriginalFile(string companyId)
         {
             string filePath = $"C:\\ERP\\Comapny\\{companyId}\\Files\\{Id}";
             if (System.IO.File.Exists(filePath))
@@ -91,7 +91,7 @@ namespace ERPKeeperCore.Enterprise.Models.Storage
                 return null;
         }
 
-        public string GetFilePath(string companyId, Guid makerId)
+        public string GetFilePath(string companyId)
         {
             string filePath = $"C:\\ERP\\Comapny\\{companyId}\\Files\\{Id}";
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));

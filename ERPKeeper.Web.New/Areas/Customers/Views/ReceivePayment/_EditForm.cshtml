@@ -11,7 +11,7 @@
 
                     <div class="flex flex-wrap">
                         <div class="w-10/12 p-0">
-                            <div class="mb-3 font-semibold">Customer</div>
+                            <div class="mb-3 font-semibold text-lg">Customer</div>
                         </div>
                         <div class="w-2/12 p-0 text-right">
                         </div>
@@ -26,7 +26,7 @@
 
             <div class="border bg-gray-100">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">Pay Amount</div>
+                    <div class="mb-3 font-semibold text-lg">Pay Amount</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountBankFee).Label("BankFee").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountDiscount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
@@ -36,7 +36,7 @@
 
             <div class="border bg-gray-100">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">General</div>
+                    <div class="mb-3 font-semibold text-lg">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>
                 </div>
@@ -46,7 +46,7 @@
 
             <div class="border bg-gray-100">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">Retention</div>
+                    <div class="mb-3 font-semibold text-lg">Retention</div>
 
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m => m.RetentionTypeId)
@@ -66,14 +66,14 @@
 
             <div class="border bg-gray-100">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">Memo</div>
+                    <div class="mb-3 font-semibold text-lg">Memo</div>
                     <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Memo).Height(150).Label("Detail").LabelMode(EditorLabelMode.Static)</div>
                 </div>
             </div>
 
             <div class="border bg-gray-100">
                 <div class=" p-2 mb-2 rounded">
-                    <div class="mb-3 font-semibold">
+                    <div class="mb-3 font-semibold text-lg">
                     </div>
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m => m.PayToAccountId)

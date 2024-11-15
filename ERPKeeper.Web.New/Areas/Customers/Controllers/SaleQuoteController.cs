@@ -3,9 +3,11 @@ using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -96,7 +98,42 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var transcation = Organization.SaleQuotes.Find(Id);
             return View(transcation);
         }
+        [HttpPost]
 
+        public IActionResult DocumentUpload(IFormFile uploadFile)
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+
+            var file = new ERPKeeperCore.Enterprise.Models.Storage.Document()
+            {
+                Note = uploadFile.FileName,
+                CreatedDate = DateTime.Now,
+                Size = (int)uploadFile.Length,
+                ContentType = uploadFile.ContentType,
+                FileName = uploadFile.FileName,
+                FileExtension = System.IO.Path.GetExtension(uploadFile.FileName),
+                TransactionId = Id,
+                ProfileId = transcation.Customer.ProfileId,
+                Type = Enterprise.Models.Accounting.Enums.TransactionType.SaleQuote
+
+            };
+
+            Organization.ErpCOREDBContext.Documents.Add(file);
+            Organization.SaveChanges();
+
+            file.AddContent(CompanyId, GetByteArrayFromIFormFile(uploadFile));
+
+
+            return Ok();
+        }
+        public static byte[] GetByteArrayFromIFormFile(IFormFile file)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
 
         public IActionResult Void()
         {

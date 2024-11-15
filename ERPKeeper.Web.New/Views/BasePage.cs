@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Views
         public String CompanyId =>  ViewContext.RouteData.Values["CompanyId"]?.ToString();
         public String GetRouteAtrribute(string key) => ViewContext.RouteData.Values[key]?.ToString();
 
-
+        public string ActionName => ViewContext.RouteData.Values["action"]?.ToString();
         public bool IsOnEditMode => (!string.IsNullOrEmpty(Context.Request.Cookies["EditMode"]) && Context.Request.Cookies["EditMode"] == "Edit");
 
 
