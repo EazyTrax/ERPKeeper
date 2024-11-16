@@ -36,6 +36,8 @@
                 columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
                 columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
                 columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.PriceAfterDiscount).AllowEditing(false).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Quantity).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.LineTotal).AllowEditing(false).Width(130).Format("#,##0.00").FormItem(i => i.Visible(false));
             }) .Summary(s =>

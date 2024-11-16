@@ -8,43 +8,43 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleItem>()
-            .ID("gridList")
-            .KeyExpr("Id")
-            .ShowRowLines(true)
-            .ShowBorders(false)
-            .Paging(paging => paging.PageSize(100))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-            .Width("100%")
-            .ColumnAutoWidth(false)
-            .WordWrapEnabled(true)
-            .DataSource(d =>
-            d.RemoteController()
-            .Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/All")
-            .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Update")
-            .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Delete")
-            .DeleteMethod("Post")
-            )
-            .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        .ID("gridList")
+        .KeyExpr("Id")
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Paging(paging => paging.PageSize(100))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .Width("100%")
+        .ColumnAutoWidth(false)
+        .WordWrapEnabled(true)
+        .DataSource(d =>
+        d.RemoteController()
+        .Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/All")
+        .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Insert")
+        .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Update")
+        .UpdateMethod("Post")
+        .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Items/Delete")
+        .DeleteMethod("Post")
+        )
+        .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(IsOnEditMode).UseIcons(true))
 
-            .KeyExpr("Id")
-            .WordWrapEnabled(true)
-            .ColumnChooser(c => c.Enabled(true))
-            .Columns(columns =>
-            {
-                columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
-                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
-                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
-                columns.AddFor(m => m.Price).Width(100).Format("#,##0.00");
-                columns.AddFor(m => m.DiscountPercent).Width(100).Format("#,##0.00");
-                columns.AddFor(m => m.PriceAfterDiscount).Width(100).Format("#,##0.00");
-                columns.AddFor(m => m.Serial).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
-                columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
-                columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.00").FormItem(i => i.Visible(false));
-       
-            })
+        .KeyExpr("Id")
+        .WordWrapEnabled(true)
+        .ColumnChooser(c => c.Enabled(true))
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
+            columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
+            columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
+            columns.AddFor(m => m.Price).Width(100).Format("#,##0.00");
+            columns.AddFor(m => m.DiscountPercent).Width(100).Format("#,##0.00");
+            columns.AddFor(m => m.PriceAfterDiscount).AllowEditing(false).Width(100).Format("#,##0.00");
+            columns.AddFor(m => m.Serial).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
+            columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
+            columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.00").FormItem(i => i.Visible(false));
+
+        })
         .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
         .Summary(s =>
         s.TotalItems(items =>
