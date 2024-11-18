@@ -8,7 +8,6 @@
 
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 ">
-
                     <div class="flex flex-wrap">
                         <div class="w-10/12 p-0">
                             <div class="mb-3 font-semibold text-lg">Supplier</div>
@@ -30,30 +29,32 @@
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountDiscount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
+                          <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscount).Label("Total").LabelMode(EditorLabelMode.Static)</div>
+
+                </div>
+            </div>
+
+            <div class="border bg-gray-100">
+                <div class=" bg-gray-100 p-2 mb-2 rounded">
+                    <div class="mb-3 font-semibold text-lg">Retention</div>
+
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m => m.RetentionTypeId)
                             .DataSource(Organization.ErpCOREDBContext.RetentionTypes.ToList().Select(t => new { t.Id, t.Name }).ToList())
                             .Placeholder("Retention")
                             .DisplayExpr("Name")
                             .ValueExpr("Id")
-                            .Label("Tax")
+                            .Label("Retention")
                             .ShowClearButton(true)
                             .LabelMode(EditorLabelMode.Static)
                             )
                     </div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountRetention).Label("AmountRetention").LabelMode(EditorLabelMode.Static)</div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscount).Label("Total").LabelMode(EditorLabelMode.Static)</div>
-
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountRetention).Label("Retention").LabelMode(EditorLabelMode.Static)</div>
                 </div>
             </div>
 
-            <div class="border">
-                <div class=" bg-gray-100 p-2 mb-2 ">
-                    <div class="mb-3 font-semibold text-lg">
-                    </div>
 
-                </div>
-            </div>
+
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 ">
                     <div class="mb-3 font-semibold text-lg">Memo</div>

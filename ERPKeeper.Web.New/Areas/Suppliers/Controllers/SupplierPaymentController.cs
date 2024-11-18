@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Suppliers;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,6 +33,27 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var SupplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
 
             SupplierPayment.UpdateBalance();
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
+        public IActionResult Update(SupplierPayment model)
+        {
+            var supplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(TransactionId);
+
+            supplierPayment.Date = model.Date;
+            supplierPayment.Reference = model.Reference;
+
+            supplierPayment.RetentionTypeId = model.RetentionTypeId;
+            supplierPayment.PayFrom_AssetAccountId = model.PayFrom_AssetAccountId;
+
+            supplierPayment.AmountBankFee = model.AmountBankFee;
+            supplierPayment.AmountDiscount = model.AmountDiscount;
+            supplierPayment.Memo = model.Memo;
+
+
+            supplierPayment.UpdateBalance();
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }

@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,9 +28,20 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(receivePayment);
         }
 
-        public IActionResult Update()
+        public IActionResult Update(ReceivePayment model)
         {
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
+
+            receivePayment.Date = model.Date;
+            receivePayment.Reference = model.Reference;
+
+            receivePayment.RetentionTypeId = model.RetentionTypeId;
+            receivePayment.Receivable_Asset_AccountId = model.Receivable_Asset_AccountId;
+
+            receivePayment.AmountBankFee = model.AmountBankFee;
+            receivePayment.AmountDiscount = model.AmountDiscount;
+            receivePayment.Memo = model.Memo;
+
 
             receivePayment.UpdateBalance();
             Organization.SaveChanges();

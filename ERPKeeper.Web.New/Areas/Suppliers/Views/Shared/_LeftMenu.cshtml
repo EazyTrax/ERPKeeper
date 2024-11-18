@@ -5,7 +5,7 @@
     {
         <div>
             <div class="flex e-r">
-                <div class="w-10/12 p-l@(level)">
+                <div class="w-10/12 pl-@(level)">
                     <a href="@url">
                         @if (level > 0)
                         {
@@ -31,8 +31,10 @@
     @{
         MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers", Organization.Suppliers.Count());
         MenuTemplate(0, "Quotes", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status ==  PurchaseQuoteStatus.Quote).Count());
-        MenuTemplate(0, "Order", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count());
+        MenuTemplate(3, "Order", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count());
+        MenuTemplate(3, "Close", $"/{CompanyId}/Suppliers/PurchaseQuotes", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Close).Count());
+
         MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s => s.Status == PurchaseStatus.Invoice).Count());
-        MenuTemplate(1, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments");
+        MenuTemplate(3, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments");
     }
 </div>
