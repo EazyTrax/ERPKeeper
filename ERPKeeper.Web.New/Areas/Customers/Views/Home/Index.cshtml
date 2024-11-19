@@ -3,11 +3,10 @@
 
 
 <div class="flex flex-wrap">
-    <div class="col-center-div grow">
-        <partial name="_Pie_Chart" />
+    <div class="w-6/12">
+ 
     </div>
-    <div class="col-4 pr-0 col-center">
-
+    <div class="w-6/12 pr-0">
         <div class="border">
             @foreach (var customer in Organization.ErpCOREDBContext.Customers.OrderByDescending(c => c.TotalSales).Take(20).ToList())
             {
@@ -17,9 +16,12 @@
                             @customer.Profile.Name
                         </a>
                     </div>
-                    <div class="w-3/12 text-right">
-                        @customer.TotalSales.ToString("N0") <br />
-                        (@customer.TotalSalesCount)
+                    <div class="w-1/12 text-right">
+                        @customer.TotalSalesCount
+                    </div>
+
+                    <div class="w-2/12 text-right">
+                        @customer.TotalSales.ToString("N0") 
                     </div>
                 </div>
             }
