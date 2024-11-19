@@ -1,4 +1,7 @@
 ﻿
+
+
+
 <div id="treeListDemo" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Storage.Document>()
@@ -37,7 +40,7 @@
 
                 column.AddFor(m => m.FileName)
             .HeaderCellTemplate("Name")
-            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/Download"><%= data.FileName %></a></text>);
 
 
        
@@ -57,7 +60,7 @@
 
             column.AddFor(m => m.Note)
                 .HeaderCellTemplate("Note")
-                .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
+                .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/Download"><%= data.Name %></a></text>);
 
 
 

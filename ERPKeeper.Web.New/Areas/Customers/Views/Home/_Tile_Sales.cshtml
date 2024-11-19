@@ -5,6 +5,6 @@
         </a>
     </div>
     <div class="col-4  p-1">
-        @Organization.ErpCOREDBContext.Sales.Where(s=>s.Status== ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Invoice).Count()
+        @Organization.ErpCOREDBContext.Sales.Where(s=>s.Status== ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Open).Count()
     </div>
 </div>

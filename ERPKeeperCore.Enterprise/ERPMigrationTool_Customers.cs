@@ -227,7 +227,7 @@ namespace ERPKeeperCore.CMD
                         No = oldModel.No,
                         Name = oldModel.Name,
                         Memo = oldModel.Memo,
-                        Status = SaleStatus.Invoice,
+                        Status = SaleStatus.Open,
                         TaxCodeId = oldModel.TaxCodeId,
                         CustomerId = (Guid)oldModel.ProfileGuid,
                         TaxPeriodId = oldModel.TaxPeriodId,

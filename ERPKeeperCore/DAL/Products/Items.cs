@@ -180,7 +180,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
             // Group SaleItems and calculate total Amount for each ItemId
             var saleItemsAmount = erpNodeDBContext.SaleItems.ToList()
                 .GroupBy(si => si.ItemId)
-                .Select(g => new { Id = g.Key, Amount = g.Sum(s => s.Quantity), Value = g.Sum(s=>s.LineTotal) })
+                .Select(g => new { Id = g.Key, Amount = g.Sum(s => s.Quantity), Value = g.Sum(s => s.LineTotal) })
                 .ToList();
 
             // Fetch all items that need updating in a single query
@@ -196,7 +196,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
                 {
                     item.SoldAmount = saleItemAmount.Amount;
                     item.SoldValue = saleItemAmount.Value;
-                    item.AmountOnHand = item.PurchaseAmount - item.SoldAmount;
+
+                    if (item.ItemType == ItemTypes.Inventory)
+                        item.AmountOnHand = item.PurchaseAmount - item.SoldAmount;
+                    else
+                        item.AmountOnHand = 0;
                 }
             }
 
@@ -225,7 +229,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
                 {
                     item.PurchaseAmount = saleItemAmount.Amount;
                     item.PurchaseValue = saleItemAmount.Value;
-                    item.AmountOnHand = item.PurchaseAmount - item.SoldAmount;
+
+                    if (item.ItemType == ItemTypes.Inventory)
+                        item.AmountOnHand = item.PurchaseAmount - item.SoldAmount;
+                    else
+                        item.AmountOnHand = 0;
                 }
             }
 
@@ -233,7 +241,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Products
             erpNodeDBContext.SaveChanges();
         }
 
-
-
+      
     }
 }

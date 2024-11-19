@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Sales
-                 .Where(x => x.Status == SaleStatus.Invoice)
+                 .Where(x => x.Status == SaleStatus.Open)
                  .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         {
             var model = new Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
-            model.Status = SaleStatus.Invoice;
+            model.Status = SaleStatus.Open;
 
             Organization.ErpCOREDBContext.Sales.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

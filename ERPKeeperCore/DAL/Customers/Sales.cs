@@ -81,7 +81,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 model.CustomerId = (Guid)customerId;
 
             model.Date = DateTime.Today;
-            model.Status = SaleStatus.Invoice;
+            model.Status = SaleStatus.Open;
             model.No = GetNextInvoiceNumber();
 
             model.UpdateBalance();
@@ -128,7 +128,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             var model = new Sale()
             {
                 Date = DateTime.Today,
-                Status = SaleStatus.Invoice,
+                Status = SaleStatus.Open,
                 No = GetNextInvoiceNumber(),
                 CustomerId = saleQuote.CustomerId,
                 Reference = saleQuote.Reference,

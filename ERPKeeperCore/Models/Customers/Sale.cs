@@ -285,7 +285,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             if (Status == SaleStatus.Paid)
                 return;
 
-            if (newStatus == SaleStatus.Invoice)
+            if (newStatus == SaleStatus.Open)
             {
                 this.ClearItems();
                 this.UpdateBalance();

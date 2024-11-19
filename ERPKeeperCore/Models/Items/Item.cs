@@ -54,6 +54,7 @@ namespace ERPKeeperCore.Enterprise.Models.Items
 
 
         public int StockAmount { get; set; }
+
         public DateTime CreatedDate { get; set; }
 
 

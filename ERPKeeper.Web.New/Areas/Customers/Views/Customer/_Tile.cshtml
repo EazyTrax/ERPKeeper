@@ -71,7 +71,7 @@
     <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Invoice).Count()
+                @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Open).Count()
             </div>
             <div class="text-lg text-center">
                 UnPaid Sale

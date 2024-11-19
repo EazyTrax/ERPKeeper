@@ -149,7 +149,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Quote()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
-            transcation.SetStatus(SaleQuoteStatus.Quote);
+            transcation.SetStatus(SaleQuoteStatus.Open);
 
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
@@ -157,7 +157,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Order()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
-            transcation.SetStatus(SaleQuoteStatus.Order);
+            transcation.SetStatus(SaleQuoteStatus.Ordering);
 
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());

@@ -21,7 +21,7 @@
                         <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Void">Void</a>
                     </div>
 
-                    @if (Model.Status != ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Order)
+                    @if (Model.Status != ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Ordering)
                     {
                         <div>
                             <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Order">Receive PO</a>
@@ -29,7 +29,7 @@
                     }
 
 
-                    @if (Model.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Order)
+                    @if (Model.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Ordering)
                     {
                         <div>
                             <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to convert to an invoice?');">Convert To Sale</a>

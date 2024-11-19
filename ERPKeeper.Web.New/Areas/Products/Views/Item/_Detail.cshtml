@@ -32,40 +32,49 @@
 
 
                     items.AddSimpleFor(m => m.ItemType).Editor(e => e.SelectBox()
-                .SearchEnabled(true)
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-                .DisplayExpr("Text").ValueExpr("Value"));
+                        .SearchEnabled(true)
+                        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                        .DisplayExpr("Text").ValueExpr("Value"));
 
                     items.AddSimpleFor(m => m.BrandId)
-                .Editor(e => e.SelectBox()
-                .SearchEnabled(true)
-                .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
-                .DisplayExpr("Name").ValueExpr("Id"));
+                        .Editor(e => e.SelectBox()
+                        .SearchEnabled(true)
+                        .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
+                        .DisplayExpr("Name").ValueExpr("Id"));
 
                     items.AddSimpleFor(m => m.Status).Editor(e => e.SelectBox()
-                .SearchEnabled(true)
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-                .DisplayExpr("Text").ValueExpr("Value"));
+                        .SearchEnabled(true)
+                        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                        .DisplayExpr("Text").ValueExpr("Value"));
 
                     items.AddSimpleFor(m => m.Description).Editor(e => e.TextArea().MinHeight(100));
                     items.AddSimpleFor(m => m.Specification).Editor(e => e.TextArea().MinHeight(200));
                     items.AddSimpleFor(m => m.SalePrice).Editor(e => e.NumberBox());
                     items.AddSimpleFor(m => m.IncomeAccountId)
-                .Editor(e => e.SelectBox()
-                .SearchEnabled(true)
-                .DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).ToList())
-                .DisplayExpr("Name").ValueExpr("Id"));
+                        .Editor(e => e.SelectBox()
+                        .SearchEnabled(true)
+                        .DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).ToList())
+                        .DisplayExpr("Name").ValueExpr("Id"));
 
                     items.AddSimpleFor(m => m.PurchaseAccountId)
-                .Editor(e => e.SelectBox()
-                .SearchEnabled(true)
-                .DataSource(Organization.ChartOfAccount.All().OrderBy(m => m.Name).Select(t => new { t.Type, t.Id, t.Name }).ToList())
-                .DataSourceOptions(o => o.Group("Type"))
-                .Grouped(true)
-                .GroupTemplate(@<text><div class="custom-icon"><span class="dx-icon-box icon"></span><%- key %></div></text>)
-            .DisplayExpr("Name")
-            .ValueExpr("Id"));
+                        .Editor(e => e.SelectBox()
+                        .SearchEnabled(true)
+                        .DataSource(Organization.ChartOfAccount.All().OrderBy(m => m.Name).Select(t => new { t.Type, t.Id, t.Name }).ToList())
+                        .DataSourceOptions(o => o.Group("Type"))
+                        .Grouped(true)
+                        .GroupTemplate(@<text><div class="custom-icon"><span class="dx-icon-box icon"></span><%- key %></div></text>)
+                    .DisplayExpr("Name")
+                    .ValueExpr("Id"));
                 })
             )
+
+
+        <div class="border">
+            <div class=" bg-gray-100 p-2 mb-2 rounded text-right">
+                <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+                    Save
+                </button>
+            </div>
+        </div>
     </form>
 </div>

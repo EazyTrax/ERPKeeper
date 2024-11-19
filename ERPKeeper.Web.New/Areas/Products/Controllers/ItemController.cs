@@ -28,19 +28,30 @@ namespace ERPKeeperCore.Web.Areas.Products.Controllers
         public IActionResult Update(ERPKeeperCore.Enterprise.Models.Items.Item model)
         {
 
+            Item.PartNumber = model.PartNumber;
+            Item.ItemType = model.ItemType;
+            Item.Description = model.Description;
+            Item.Status = model.Status;
+            Item.BrandId = model.BrandId;
+            Item.UPC = model.UPC;
+
+            Item.SalePrice = model.SalePrice;
+            Item.IncomeAccountId = model.IncomeAccountId;
+            Item.PurchaseAccountId = model.PurchaseAccountId;
+
             Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-      
 
 
-      
+
+
 
         public IActionResult UpdateStock()
         {
-            
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

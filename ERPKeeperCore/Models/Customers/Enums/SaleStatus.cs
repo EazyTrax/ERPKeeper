@@ -2,7 +2,7 @@
 {
     public enum SaleStatus
     {
-        Invoice = 0,
+        Open = 0,
         Paid = 2,
     }
 }

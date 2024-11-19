@@ -59,8 +59,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.TotalSales = this.Sales.Sum(x => x.LinesTotalAfterDiscount);
             this.TotalSalesCount = this.Sales.Count();
 
-            this.TotalBalance = this.Sales.Where(x => x.Status == SaleStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
-            this.TotalBalanceCount = this.Sales.Where(x => x.Status == SaleStatus.Invoice).Count();
+            this.TotalBalance = this.Sales.Where(x => x.Status == SaleStatus.Open).Sum(x => x.LinesTotalAfterDiscount);
+            this.TotalBalanceCount = this.Sales.Where(x => x.Status == SaleStatus.Open).Count();
         }
     }
 }

@@ -14,7 +14,8 @@
             .UpdateMethod("Post")
             .InsertMethod("Post")
             )
-            .RowAlternationEnabled(true).AllowColumnReordering(true)
+            .RowAlternationEnabled(false)
+            .AllowColumnReordering(true)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
             .ShowRowLines(false)
             .ShowBorders(false)
@@ -24,11 +25,9 @@
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
             .ColumnAutoWidth(false)
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Custommer_Sales" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Custommer_Sales"))
             .Columns(columns =>
             {
-
-
                 columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true)
             .CellTemplate(@<text><span class="text-<%= data.AgeColor %>-400"><%= data.AgeInDays %></span></text>);
 
@@ -55,6 +54,7 @@
 
 
                 columns.AddFor(m => m.CustomerId)
+                .MinWidth(250)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
@@ -72,6 +72,8 @@
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
+              .ShowInColumnChooser(true)
+                .Visible(false)
             .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
@@ -119,24 +121,44 @@
 
 
         .OnInitNewRow("onInitNewRow")
+        .OnRowPrepared("onRowPrepared")
         )
 </div>
 
-<script>
-    @{
-        var taxCode = Organization.TaxCodes.GetDefault(ERPKeeperCore.Enterprise.Models.Taxes.Enums.TaxDirection.Output);
-    }
+@{
+    var taxCode = Organization.TaxCodes.GetDefault(ERPKeeperCore.Enterprise.Models.Taxes.Enums.TaxDirection.Output);
+}
 
+<script>
         function onInitNewRow(e) {
             const today = new Date();
             e.data.Date = today;
             e.data.Status = 0;
+            e.data.TaxCodeId = '@(taxCode?.Id)';
+        }
+</script>
 
-    @if (taxCode != null)
-    {
-        <text>
-                            e.data.TaxCodeId = '@taxCode.Id';
-        </text>
-    }
+<script>
+    function onRowPrepared(e) {
+        if (e.rowType === 'data') {
+            let ageColor = e.data.AgeColor;
+            let color;
+            switch (ageColor) {
+                case 'blue':
+                    color = '#cce5ff'; // Light blue
+                    break;
+                case 'yellow':
+                    color = '#fff3cd'; // Light yellow
+                    break;
+                case 'red':
+                    color = '#f8d7da'; // Light red
+                    break;
+                default:
+                    color = '';
             }
+            if (color) {
+                e.rowElement.css('background-color', color);
+            }
+        }
+    }
 </script>

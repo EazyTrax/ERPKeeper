@@ -37,8 +37,8 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                 .Where(m =>
-                    m.Status == SaleQuoteStatus.Quote ||
-                    m.Status == SaleQuoteStatus.Quote ||
+                    m.Status == SaleQuoteStatus.Open ||
+                    m.Status == SaleQuoteStatus.Open ||
                     m.Status == SaleQuoteStatus.Void ||
                     m.Status == SaleQuoteStatus.Delete
                 )
@@ -51,7 +51,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                 .Where(m =>
-                    m.Status == SaleQuoteStatus.Order ||
+                    m.Status == SaleQuoteStatus.Ordering ||
                     m.Status == SaleQuoteStatus.Close)
                 .ToList();
 

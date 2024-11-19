@@ -37,7 +37,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var transcation = Organization.Sales.Find(SaleId);
 
             if (transcation.Status == SaleStatus.Paid)
-                transcation.SetStatus(SaleStatus.Invoice);
+                transcation.SetStatus(SaleStatus.Open);
 
             Organization.SaveChanges();
 
@@ -159,7 +159,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Void()
         {
             var transcation = Organization.Sales.Find(SaleId);
-            transcation.SetStatus(SaleStatus.Invoice);
+            transcation.SetStatus(SaleStatus.Open);
 
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
