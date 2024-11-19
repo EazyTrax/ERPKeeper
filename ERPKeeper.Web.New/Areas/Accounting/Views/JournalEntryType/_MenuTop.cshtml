@@ -1,21 +1,16 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryType
 
-<div class="flex flex-wrap">
-    <div class="grow p-2 font-semibold">
-        <a href="/@CompanyId">@CompanyId</a>
-        /
+<div class="flex justify-between">
+    <div class="font-semibold text-lg text-uppercase">
+
         <a href="/@CompanyId/Accounting">Accounting</a>
-        /
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         <a href="/@CompanyId/Accounting/JournalEntries">JournalEntries</a>
-        /
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id">@Model.Name</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
     </div>
-
-    <div class="w-3/12 p-0 text-right">
-
-
-
-
+    <div class="">
         <div class="dropdown dropleft ">
             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa-solid fa-arrows-rotate text-xl"></i>
@@ -29,12 +24,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
     </div>
 </div>
 

@@ -5,7 +5,7 @@
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
-            <div class="flex e-r">
+            <div class="flex  justify-between e-r">
                 <div class="w-10/12 p-l@(level)">
                     <a href="@url">
                         @if (level > 0)
@@ -15,7 +15,7 @@
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
                 </div>
-                <div class="w-2/12 p-0 text-right p-0">
+                <div class="w-2/12 text-right p-0">
                     <span class="menuCount">@count</span>
                 </div>
             </div>
@@ -24,13 +24,13 @@
 }
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded  border font-semibold">
+<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
 
 
     <a href="/@CompanyId/Customers/Sales/@Model.Id">@Model.Name</a>
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded  border">
+<div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/Sales/{Model.Id}");
         MenuTemplate(0, "Items", $"/{CompanyId}/Customers/Sales/{Model.Id}/Items", Model.Items.Count());
@@ -39,7 +39,7 @@
         MenuTemplate(0, "Documents", $"/{CompanyId}/Customers/Sales/{Model.Id}/Documents");
     }
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded  border">
+<div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Export ต้นฉบับ", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export?DocumentName=ใบกำกับภาษี");
         MenuTemplate(0, "Export สำเนา", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export?DocumentName=สำเนาใบกำกับภาษี");

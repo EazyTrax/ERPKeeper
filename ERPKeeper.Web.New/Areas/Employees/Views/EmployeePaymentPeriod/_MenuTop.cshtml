@@ -1,12 +1,12 @@
-﻿@using ERPKeeperCore.Enterprise.Models.Items.Enums
+﻿
 @model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
 
 
 <div class="flex font-semibold text-lg text-uppercase">
     <div class="w-10/12 p-2">
         <a href="/@CompanyId/Employees"> Employees</a>
-        / <a href="/@CompanyId/Employees/EmployeePaymentPeriods"> Periods</a>
-        / <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id"> @Model.Name</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods"> Periods</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id"> @Model.Name</a>
 
     </div>
 

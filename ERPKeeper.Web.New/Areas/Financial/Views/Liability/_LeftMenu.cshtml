@@ -9,13 +9,13 @@
 
     void Template(string display, string url, int? count = null)
     {
-        <div class="flex e pl-0 @(checkCurrentController(url) ? "font-weight-600" : "")">
-            <div class="grow">
+        <div class="flex  justify-between e pl-0 @(checkCurrentController(url) ? "font-weight-600" : "")">
+            <div class="">
                 <a href="@url">
                     @SharedLocalizer.GetLocalizedHtmlString(display)
                 </a>
             </div>
-            <div class="w-2/12 p-0 text-right">
+            <div class="">
                 <span class="badge badge-light text-dark">@count</span>
             </div>
         </div>

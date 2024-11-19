@@ -4,7 +4,7 @@
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
-            <div class="flex e-r">
+            <div class="flex  justify-between e-r">
                 <div class="w-10/12 p-l@(level)">
                     <a href="@url">
                         @if (level > 0)
@@ -14,7 +14,7 @@
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
                 </div>
-                <div class="w-2/12 p-0 text-right p-0">
+                <div class="w-2/12 text-right p-0">
                     <span class="menuCount">@count</span>
                 </div>
             </div>

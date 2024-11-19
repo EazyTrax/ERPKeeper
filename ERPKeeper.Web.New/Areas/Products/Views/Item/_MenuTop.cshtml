@@ -5,7 +5,7 @@
         <div class="w-10/12 p-2">
            <a href="/@CompanyId/Products"> Products</a>
             <span>
-                / <a href="/@CompanyId/Products/Items">Items</a>
+                <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Products/Items">Items</a>
             </span>
             @if (Model.ItemGroupId != null)
             {
@@ -17,7 +17,7 @@
                 </a>
             }
            
-            / <a href="/@CompanyId/Products/Items/@Model.Id"> @Model.PartNumber</a>
+            <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Products/Items/@Model.Id"> @Model.PartNumber</a>
         </div>
 
         <div class="w-2/12 p-2 text-right">

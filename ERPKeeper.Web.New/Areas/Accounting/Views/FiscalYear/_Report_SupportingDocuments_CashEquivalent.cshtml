@@ -24,12 +24,12 @@
     </div>
     <div class="col-4   ">
     </div>
-    <div class="col-4">
+    <div class="w-4/12">
     </div>
-    <div class="w-2/12 p-0  text-right  border-dark border-top border-bottom">
+    <div class="w-2/12  text-right border-dark border-top border-bottom">
         @(Model.EndDate.Year + 543)
     </div>
-    <div class="w-2/12 p-0 text-right  border-dark border-top border-bottom">
+    <div class="w-2/12 text-right border-dark border-top border-bottom">
         @(Model.EndDate.Year - 1 + 543)
     </div>
 </div>
@@ -46,31 +46,31 @@
 
         foreach (var line in lines)
         {
-            <div class="col-4">
+            <div class="w-4/12">
                 <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                     @line.Account.Name
                 </a>
             </div>
-            <div class="col-4">
+            <div class="w-4/12">
                 @line.Account.SubType.ToString()
             </div>
-            <div class="w-2/12 p-0 text-right">
+            <div class="w-2/12 text-right">
                 @((line.ClosedDebit - line.ClosedCredit).ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right">
+            <div class="w-2/12 text-right">
                 @((line.OpeningDebit - line.OpeningCredit).ToString("N2"))
             </div>
 
         }
 
-        <div class="col-4">
+        <div class="w-4/12">
         </div>
-        <div class="col-4">
+        <div class="w-4/12">
         </div>
-        <div class="w-2/12 p-0 text-right  border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(lines.Sum(line => line.ClosedDebit - line.ClosedCredit).ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right  border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(lines.Sum(line => line.OpeningDebit - line.OpeningCredit).ToString("N2"))
         </div>
 

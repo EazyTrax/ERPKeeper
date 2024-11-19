@@ -1,12 +1,12 @@
-﻿@using ERPKeeperCore.Enterprise.Models.Items.Enums
+﻿
 @model ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment
 
 <div class="flex font-semibold text-lg text-uppercase">
     <div class="p-2">
         <a href="/@CompanyId/Customers"> Customers</a>
-        / <a href="/@CompanyId/Customers/Sales">Sales</a>
-        / <a href="/@CompanyId/Customers/Sales/@Model.SaleId">@Model.Sale.Name</a>
-        / <a href="/@CompanyId/Customers/ReceivePayments">Payments</a>
-        / <a href="/@CompanyId/Customers/ReceivePayments/@Model.Id">@Model.Name</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/Sales">Sales</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/Sales/@Model.SaleId">@Model.Sale.Name</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/ReceivePayments">Payments</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/ReceivePayments/@Model.Id">@Model.Name</a>
     </div>
 </div>

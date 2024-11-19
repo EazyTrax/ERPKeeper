@@ -1,16 +1,13 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Assets.AssetType
 
-<div class="flex p-2 mb-2 rounded ">
-    <div class="w-9/12 p-0 font-semibold">
-        <a href="/@CompanyId">@CompanyId</a>
-        /
+<div class="flex justify-between">
+    <div class="font-semibold text-lg text-uppercase">
         <a href="/@CompanyId/Assets">Assets</a>
-        /
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         <a href="/@CompanyId/Assets/AssetTypes">Types</a>
-        /
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         <a href="/@CompanyId/Assets/AssetTypes/@Model.Id">@Model.Name</a>
-
     </div>
-    <div class="w-4/12 p-0 text-right">
+    <div class="">
     </div>
 </div>

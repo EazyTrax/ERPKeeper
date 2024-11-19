@@ -24,13 +24,13 @@
         </div>
         <div class="col-4  font-semibold ">
         </div>
-        <div class="col-4">
+        <div class="w-4/12">
         </div>
 
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(Model.EndDate.Year + 543)
         </div>
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(Model.EndDate.Year - 1 + 543)
         </div>
     </div>
@@ -70,10 +70,10 @@
             </a>
         </div>
 
-        <div class="w-2/12 p-0 text-right">
+        <div class="w-2/12 text-right">
             @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right">
+        <div class="w-2/12 text-right">
             @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
         </div>
 
@@ -96,10 +96,10 @@
             </a>
         </div>
 
-        <div class="w-2/12 p-0 text-right">
+        <div class="w-2/12 text-right">
             @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right">
+        <div class="w-2/12 text-right">
             @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
         </div>
     </div>
@@ -124,13 +124,13 @@
         <div class="w-3/12  ">
             กำไรสะสม
         </div>
-        <div class="col-4">
+        <div class="w-4/12">
         </div>
 
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(retainEaring.ClosedCredit.ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(retainEaring.OpeningCredit.ToString("N2"))
         </div>
     </div>
@@ -145,13 +145,13 @@
         <div class="col-4 font-semibold ">
             รวมส่วนของผู้ถือหุ้น
         </div>
-        <div class="col-4">
+        <div class="w-4/12">
         </div>
 
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(totalEquity.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(totalEquity.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
         </div>
     </div>
@@ -168,13 +168,13 @@
         <div class="col-4 font-semibold ">
             รวมส่วนของผู้ถือหุ้นและหนี้สิน
         </div>
-        <div class="col-4">
+        <div class="w-4/12">
         </div>
 
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(totalEquityandLiability.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(totalEquityandLiability.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
         </div>
     </div>

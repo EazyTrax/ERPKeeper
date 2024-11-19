@@ -37,29 +37,29 @@
 
                 foreach (var line in incomes)
                 {
-                    <div class="col-4">
+                    <div class="w-4/12">
                         <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                             @line.Account.Name
                         </a>
                     </div>
-                    <div class="col-4">
+                    <div class="w-4/12">
                         @line.Account.SubType.ToString()
                     </div>
                     <div class="w-2/12">
                     </div>
-                    <div class="w-2/12 p-0 text-right">
+                    <div class="w-2/12 text-right">
                         @line.TotalCredit.ToString("N2")
                     </div>
                 }
 
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
-                <div class="w-2/12  border-dark border-top">
+                <div class="w-2/12 border-dark border-top">
                     รวมรายได้
                 </div>
-                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
+                <div class="w-2/12 text-right font-semibold border-dark border-top">
                     @incomes.Sum(m => m.TotalCredit).ToString("N2")
                 </div>
             }
@@ -91,41 +91,41 @@
 
                 foreach (var line in expenses)
                 {
-                    <div class="col-4">
+                    <div class="w-4/12">
                         <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                             @line.Account.Name
                         </a>
                     </div>
-                    <div class="col-4">
+                    <div class="w-4/12">
                         @line.Account.SubType
                     </div>
                     <div class="w-2/12">
                     </div>
-                    <div class="w-2/12 p-0 text-right">
+                    <div class="w-2/12 text-right">
                         @line.TotalDebit.ToString("N2")
                     </div>
                 }
 
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="w-3/12  border-dark border-top">
+                <div class="w-3/12 border-dark border-top">
                     รวมค่าใช้จ่าย
                 </div>
-                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
+                <div class="w-2/12 text-right font-semibold border-dark border-top">
                     @expenses.Sum(m => m.TotalDebit).ToString("N2")
                 </div>
 
 
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="w-3/12  border-dark border-top">
+                <div class="w-3/12 border-dark border-top">
                     กำไรก่อนภาษีเงินได้
                 </div>
-                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
+                <div class="w-2/12 text-right font-semibold border-dark border-top">
                     @{
                         var grossMargin = incomes.Sum(m => m.TotalCredit) - expenses.Sum(m => m.TotalDebit);
                     }
@@ -139,16 +139,16 @@
                 .FirstOrDefault();
 
 
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="w-3/12  border-dark border-top">
+                <div class="w-3/12 border-dark border-top">
                     <a href="/@CompanyId/Accounting/Accounts/@IncomeTaxBalance.Account.Id/" target="_self">
                         ภาษีเงินได้
                     </a>
                 </div>
-                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
+                <div class="w-2/12 text-right font-semibold border-dark border-top">
                     @if (IncomeTaxBalance != null)
                     {
                         <span>@(IncomeTaxBalance.TotalDebit.ToString("N2"))</span>
@@ -158,14 +158,14 @@
                 </div>
 
 
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="col-3">
                 </div>
-                <div class="w-3/12  border-dark border-top">
+                <div class="w-3/12 border-dark border-top">
                     กำไรสุทธิ
                 </div>
-                <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
+                <div class="w-2/12 text-right font-semibold border-dark border-top">
                     @((grossMargin - IncomeTaxBalance.TotalDebit).ToString("N2"))
                 </div>
 
@@ -198,7 +198,7 @@
 
                     foreach (var line in UnClaimExpenses)
                     {
-                        <div class="col-4">
+                        <div class="w-4/12">
                             <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                                 @line.Account.Name
                             </a>
@@ -208,31 +208,31 @@
                         </div>
                         <div class="col-3">
                         </div>
-                        <div class="w-2/12 p-0 text-right">
+                        <div class="w-2/12 text-right">
                             @line.TotalDebit.ToString("N2")
                         </div>
                     }
 
-                    <div class="col-4">
+                    <div class="w-4/12">
                     </div>
                     <div class="col-3">
                     </div>
-                    <div class="w-3/12  border-dark border-top">
+                    <div class="w-3/12 border-dark border-top">
                         รวม
                     </div>
-                    <div class="w-2/12 p-0 text-right font-semibold border-dark border-top">
+                    <div class="w-2/12 text-right font-semibold border-dark border-top">
                         @UnClaimExpenses.Sum(m => m.TotalDebit).ToString("N2")
                     </div>
 
 
-                    <div class="col-4">
+                    <div class="w-4/12">
                     </div>
                     <div class="col-3">
                     </div>
                     <div class="w-3/12 border-dark border-top">
                         กำไรสำหรับคำนวนภาษี
                     </div>
-                    <div class="w-2/12 p-0 text-right border-dark border-top">
+                    <div class="w-2/12 text-right border-dark border-top">
 
                         @{
                             var totalProfitFortax = incomes.Sum(m => m.TotalCredit) - expenses.Sum(m => m.TotalDebit) + UnClaimExpenses.Sum(m => m.TotalDebit);
@@ -253,10 +253,10 @@
                 ภาษีเงินได้
             </div>
             @{
-                <div class="col-4">
+                <div class="w-4/12">
                     0-300,000
                 </div>
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="w-2/12">
                     @{
@@ -273,29 +273,29 @@
                     <span>@dedecut</span>
                 </div>
 
-                <div class="w-2/12 p-0 text-right ">
+                <div class="w-2/12 text-right ">
                     @((dedecut * 0).ToString("N2"))
                 </div>
-                <div class="col-4">
+                <div class="w-4/12">
                     300,000 - @grossMargin
                 </div>
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="w-2/12 ">
                     @remainIncomeTax
                 </div>
-                <div class="w-2/12 p-0 text-right ">
+                <div class="w-2/12 text-right ">
                     @((remainIncomeTax * 15 / 100).ToString("N2"))
                 </div>
 
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
-                <div class="col-4">
+                <div class="w-4/12">
                 </div>
                 <div class="w-2/12 font-semibold border-dark border-top">
                     @totalProfitFortax
                 </div>
-                <div class="w-2/12 p-0 text-right font-semibold  border-dark border-top">
+                <div class="w-2/12 text-right font-semibold border-dark border-top">
                     @((remainIncomeTax * 15 / 100).ToString("N2"))
                 </div>
             }

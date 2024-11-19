@@ -18,12 +18,12 @@
     </div>
     <div class="col-4   ">
     </div>
-    <div class="col-4">
+    <div class="w-4/12">
     </div>
-    <div class="w-2/12 p-0  text-right  border-dark border-top border-bottom">
+    <div class="w-2/12  text-right border-dark border-top border-bottom">
         @(Model.EndDate.Year + 543)
     </div>
-    <div class="w-2/12 p-0 text-right  border-dark border-top border-bottom">
+    <div class="w-2/12 text-right border-dark border-top border-bottom">
         @(Model.EndDate.Year - 1 + 543)
     </div>
 </div>
@@ -45,18 +45,18 @@
 
         foreach (var line in currentFiscalYearExpenses)
         {
-            <div class="col-4">
+            <div class="w-4/12">
                 <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                     @line.Account.Name
                 </a>
             </div>
-            <div class="col-4">
+            <div class="w-4/12">
                 @line.Account.SubType
             </div>
-            <div class="w-2/12 p-0 text-right">
+            <div class="w-2/12 text-right">
                 @line.TotalDebit.ToString("N2")
             </div>
-            <div class="w-2/12 p-0 text-right">
+            <div class="w-2/12 text-right">
                 @previusFiscalYearExpenses.Where(a => a.AccountId == line.AccountId).First().TotalDebit.ToString("N2")
             </div>
         }
@@ -67,10 +67,10 @@
     <div class="col-8 ">
         รวมค่าใช้จ่าย
     </div>
-    <div class="w-2/12 p-0 text-right  border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @currentFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
     </div>
-    <div class="w-2/12 p-0 text-right  border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @previusFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
     </div>
 </div>

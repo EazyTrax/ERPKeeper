@@ -29,10 +29,10 @@
         <div class="w-4/12 p-0">
         </div>
 
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(Model.EndDate.Year + 543)
         </div>
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(Model.EndDate.Year - 1 + 543)
         </div>
     </div>
@@ -60,10 +60,10 @@
 
                 </div>
 
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((line.ClosedCredit - line.ClosedDebit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((line.OpeningCredit - line.OpeningDebit).ToString("N2"))
                 </div>
             }
@@ -73,10 +73,10 @@
             <div class="w-4/12 p-0">
             </div>
 
-            <div class="w-2/12 p-0 text-right border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(lines.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
             </div>
         }
@@ -106,10 +106,10 @@
                     @line.Account.SubType.ToString()
                 </div>
 
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((line.ClosedCredit - line.ClosedDebit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((line.OpeningCredit - line.OpeningDebit).ToString("N2"))
                 </div>
             }
@@ -119,10 +119,10 @@
             <div class="w-4/12 p-0">
             </div>
 
-            <div class="w-2/12 p-0 text-right border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(lines.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
             </div>
         }
@@ -141,10 +141,10 @@
         <div class="w-4/12 p-0">
         </div>
 
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
         </div>
-        <div class="w-2/12 p-0 text-right border-dark border-top">
+        <div class="w-2/12 text-right border-dark border-top">
             @(lines.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
         </div>
     </div>

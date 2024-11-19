@@ -98,6 +98,9 @@
     <None Remove="wwwroot\js\jquery-ui-1.13.1\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Areas\My\Views\Setting\Index.cshtml" />
+    <Content Remove="Areas\My\Views\Setting\_MenuTop.cshtml" />
+    <Content Remove="Areas\My\Views\Setting\_Navigation.cshtml" />
     <Content Remove="compilerconfig.json" />
     <Content Remove="packages.config" />
   </ItemGroup>
@@ -129,6 +132,9 @@
     <Folder Include="Areas\Products\Views\Shared\Components\" />
     <Folder Include="Areas\Employees\Views\Shared\Components\" />
     <Folder Include="wwwroot\Images\Logo\" />
+    <None Include="Areas\My\Views\Setting\Index.cshtml" />
+    <None Include="Areas\My\Views\Setting\_MenuTop.cshtml" />
+    <None Include="Areas\My\Views\Setting\_Navigation.cshtml" />
     <None Include="Areas\My\Views\Home\Index.cshtml" />
     <None Include="Areas\My\Views\Home\_MenuTop.cshtml" />
     <None Include="Areas\My\Views\Home\_Navigation.cshtml" />

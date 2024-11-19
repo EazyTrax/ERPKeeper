@@ -18,13 +18,13 @@
     <div class="col-6   ">
         ยอดคงเหลือ ณ ต้นงวด  @(Model.EndDate.Year - 1 + 543)
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @stock.OpeningCredit.ToString("N2")
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @retainedEarning.OpeningCredit.ToString("N2")
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @((stock.OpeningCredit + retainedEarning.OpeningCredit).ToString("N2"))
     </div>
 </div>
@@ -33,12 +33,12 @@
     <div class="col-6   ">
         จ่ายเงินปันผล
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         (@retainedEarning.Debit.ToString("N2"))
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         (@retainedEarning.Debit.ToString("N2"))
     </div>
 </div>
@@ -50,12 +50,12 @@
     <div class="col-6   ">
         กำไร(ขาดทุน) สุทธิ สำหรับงวด @(Model.EndDate.Year + 543)
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @retainedEarning.ClosingCredit.ToString("N2")
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @retainedEarning.ClosingCredit.ToString("N2")
     </div>
 </div>
@@ -63,13 +63,13 @@
     <div class="col-6   ">
         ยอดคงเหลือปลายงวด  @(Model.EndDate.Year + 543)
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @stock.ClosedCredit.ToString("N2")
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @retainedEarning.ClosedCredit.ToString("N2")
     </div>
-    <div class="w-2/12 p-0 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top">
         @((stock.ClosedCredit + retainedEarning.ClosedCredit).ToString("N2"))
     </div>
 </div>

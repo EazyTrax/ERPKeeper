@@ -1,21 +1,17 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Account
 
 <div class="flex bg-gray-100  p-1 ">
-    <div class="col p-0 font-semibold">
+    <div class="font-semibold text-lg text-uppercase">
         <a href="/@CompanyId/Accounting">Accounting</a>
-        /
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         <a href="/@CompanyId/Accounting/Accounts">Accounts</a>
-
-        /
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         <a href="/@CompanyId/Accounting/Accounts/@Model.Id">@Model.Code @Model.Name</a>
     </div>
     <div class="w-3/12 p-0 text-right">
-
         <a href="/@CompanyId/Accounting/Accounts/@Model.Id/UpdateCurrentBalance">Current Balance</a>
         .
         <a href="/@CompanyId/Accounting/Accounts/@Model.Id/UpdateHistoryBalance">History Balance</a>
-
-
     </div>
 </div>
 

@@ -1,6 +1,17 @@
 ﻿
 <div class="flex flex-wrap">
     <div class="col-center-div grow mh-100v border-right">
+
+        <script>
+            function clearTreeListStateStoring() {
+                localStorage.clear(); // Remove all items from localStorage
+                alert('TreeList state has been cleared');
+            }
+        </script>
+
+        <button onclick="clearTreeListStateStoring()">Clear TreeList State</button>
+
+
     </div>
     <div class="w-4/12 p-0">
         @{

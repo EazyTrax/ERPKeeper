@@ -31,8 +31,32 @@ namespace ERPKeeperCore.CMD
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
-            
+                oldOrganization.ErpNodeDBContext.Purchases.Where(s => !string.IsNullOrEmpty(s.Reference))
+                    .ToList()
+                    .ForEach(s =>
+                    {
+                        //Console.WriteLine($"Sale {s.Name}");
+
+                        var newSale = newOrganization.Purchases.Find(s.Uid);
+
+                        if (newSale != null)
+                        {
+                            //Console.WriteLine($"Sale {s.Reference} - {newSale.Reference}");
+                            newSale.Reference = s.Reference;
+
+                            
+                        }
+                        else
+                        {
+                           // Console.WriteLine($"nOT fOUND");
+                        }
+
+
+                    });
+
+
                 newOrganization.SaveChanges();
+
 
                 if (false && newOrganization != null)
                 {

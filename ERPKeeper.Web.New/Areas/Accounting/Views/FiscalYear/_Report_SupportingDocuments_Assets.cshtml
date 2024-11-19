@@ -16,17 +16,17 @@
 
             <div class="col-4  ">
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 ยอดคงเหลือ<br />
                 @(Model.EndDate.Year - 1 + 543)
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 เพิ่มขึ้น
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 ลดลง
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 ยอดคงเหลือ<br />
                 @(Model.EndDate.Year + 543)
             </div>
@@ -43,37 +43,37 @@
                 TotalCredit += purchaseBalance.TotalCredit;
                 TotalClosing += (purchaseBalance.ClosedDebit - purchaseBalance.ClosedCredit);
 
-                <div class="col-4">
+                <div class="w-4/12">
                     <a href="/@CompanyId/Assets/AssetTypes/@assetType.Id/" target="_self">
                         @assetType.Name
                     </a>
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((purchaseBalance.OpeningDebit - purchaseBalance.OpeningCredit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((purchaseBalance.Debit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((purchaseBalance.Credit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((purchaseBalance.ClosedDebit - purchaseBalance.ClosedCredit).ToString("N2"))
                 </div>
             }
 
-            <div class="col-4">
+            <div class="w-4/12">
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalOpening.ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalDebit.ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalCredit.ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalClosing.ToString("N2"))
             </div>
         }
@@ -98,38 +98,38 @@
                 TotalCredit += accumulateBalance.TotalCredit;
                 TotalClosing += (accumulateBalance.ClosedCredit - accumulateBalance.ClosedDebit);
 
-                <div class="col-4">
+                <div class="w-4/12">
                     <a href="/@CompanyId/Assets/AssetTypes/@assetType.Id/" target="_self">
                         @assetType.Name
                     </a>
                 </div>
 
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((accumulateBalance.OpeningCredit - accumulateBalance.OpeningDebit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((accumulateBalance.Credit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((accumulateBalance.Debit).ToString("N2"))
                 </div>
-                <div class="w-2/12 p-0 text-right">
+                <div class="w-2/12 text-right">
                     @((accumulateBalance.ClosedCredit - accumulateBalance.ClosedDebit).ToString("N2"))
                 </div>
             }
 
-            <div class="col-4">
+            <div class="w-4/12">
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalOpening.ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalDebit.ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalCredit.ToString("N2"))
             </div>
-            <div class="w-2/12 p-0 text-right  border-dark border-top">
+            <div class="w-2/12 text-right border-dark border-top">
                 @(TotalClosing.ToString("N2"))
             </div>
         }

@@ -1,9 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using System.Security.Claims;
 
-<div class="flex p-2">
-    <div class="w-11/12 p-0 mb-2 font-semibold text-uppercase">
-
+<div class="flex justify-between">
+    <div class="font-semibold text-lg text-uppercase">
 
         <a href="/" class="font-weight-600">
             ERP
@@ -11,42 +10,37 @@
 
         @if (!String.IsNullOrEmpty(@CompanyId) && CompanyId.ToLower() != "portal")
         {
-            <span>/</span>
+            <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
 
             <a href="/@CompanyId" class="font-weight-600">
                 @CompanyId
             </a>
+
+            <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
         }
     </div>
 
     @if (!String.IsNullOrEmpty(@CompanyId) && CompanyId.ToLower() != "portal")
     {
-        <div class="w-1/12 p-0 text-right">
-            <div class="dropdown dropright ">
-                <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bars"></i>
-                </a>
-                <div class="dropdown-menu bg-white border-2 border roundedmin-w-64 min-h-40" aria-labelledby="dropdownMenuLink">
-                    <div class="px-2">
-                        <div>
-                            <a href="/tec@(Context.Request.Path.ToString().Replace($"/{CompanyId}",""))" class="font-weight-600">
-                                TEC
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/bit@(Context.Request.Path.ToString().Replace($"/{CompanyId}",""))" class="font-weight-600">
-                                BIT
-                            </a>
-                        </div>
+        <div class="dropdown dropright ">
+            <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </a>
+            <div class="dropdown-menu bg-white border-2 border roundedmin-w-64 min-h-40" aria-labelledby="dropdownMenuLink">
+                <div class="px-2">
+                    <div>
+                        <a href="/tec@(Context.Request.Path.ToString().Replace($"/{CompanyId}",""))" class="font-weight-600">
+                            TEC
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/bit@(Context.Request.Path.ToString().Replace($"/{CompanyId}",""))" class="font-weight-600">
+                            BIT
+                        </a>
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
     }
-    
 
 </div>

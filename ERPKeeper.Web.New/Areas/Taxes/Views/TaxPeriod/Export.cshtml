@@ -65,7 +65,7 @@
     }
 
     <div class="flex border-bottom font-semibold">
-        <div class="grow">
+        <div class="">
         </div>
         <div class="w-28 p-0 text-right">
             @Model.Purchases.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
@@ -125,7 +125,7 @@
     }
 
     <div class="flex border-bottom font-semibold">
-        <div class="grow">
+        <div class="">
         </div>
         <div class="w-28 p-0 text-right">
             @Model.Sales.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
