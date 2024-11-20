@@ -76,6 +76,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         {
             get
             {
+
+
                 if (AgeInDays < 30)
                     return "blue";
                 else if (AgeInDays < 60)

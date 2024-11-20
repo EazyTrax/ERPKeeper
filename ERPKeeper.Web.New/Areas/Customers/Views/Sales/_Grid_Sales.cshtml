@@ -54,7 +54,7 @@
 
 
                 columns.AddFor(m => m.CustomerId)
-                .MinWidth(250)
+            .MinWidth(250)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
@@ -72,8 +72,8 @@
             .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-              .ShowInColumnChooser(true)
-                .Visible(false)
+            .ShowInColumnChooser(true)
+            .Visible(false)
             .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
@@ -130,34 +130,41 @@
 }
 
 <script>
-        function onInitNewRow(e) {
-            const today = new Date();
-            e.data.Date = today;
-            e.data.Status = 0;
-            e.data.TaxCodeId = '@(taxCode?.Id)';
-        }
+    function onInitNewRow(e) {
+        const today = new Date();
+        e.data.Date = today;
+        e.data.Status = 0;
+        e.data.TaxCodeId = '@(taxCode?.Id)';
+    }
 </script>
 
 <script>
     function onRowPrepared(e) {
+
+
         if (e.rowType === 'data') {
+
             let ageColor = e.data.AgeColor;
+            let status = e.data.Status;
             let color;
-            switch (ageColor) {
-                case 'blue':
-                    color = '#cce5ff'; // Light blue
-                    break;
-                case 'yellow':
-                    color = '#fff3cd'; // Light yellow
-                    break;
-                case 'red':
-                    color = '#f8d7da'; // Light red
-                    break;
-                default:
-                    color = '';
-            }
-            if (color) {
-                e.rowElement.css('background-color', color);
+
+            if(status != 2){
+                switch (ageColor) {
+                    case 'blue':
+                        color = '#cce5ff'; // Light blue
+                        break;
+                    case 'yellow':
+                        color = '#fff3cd'; // Light yellow
+                        break;
+                    case 'red':
+                        color = '#f8d7da'; // Light red
+                        break;
+                    default:
+                        color = '';
+                    }
+                if (color) {
+                    e.rowElement.css('background-color', color);
+                }
             }
         }
     }

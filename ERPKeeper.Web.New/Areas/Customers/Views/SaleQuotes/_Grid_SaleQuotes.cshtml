@@ -2,8 +2,7 @@
 
 <div id="treeListDemo" class="mb-3 border">
 
-    @(
-                Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
                 .ID("gridList")
                 .DataSource(d => d.RemoteController().Key("Id")
                 .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/List/{Model.ToString()}")
@@ -14,7 +13,7 @@
                 )
                 .Editing(editing => editing.Mode(GridEditMode.Batch).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
                 .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey($"Customers_SaleQuotes_{Model.ToString()}"))
-                .RowAlternationEnabled(true).AllowColumnReordering(true).AllowColumnResizing(true).AllowColumnReordering(true)
+                .RowAlternationEnabled(false).AllowColumnReordering(true).AllowColumnResizing(true).AllowColumnReordering(true)
                 .KeyExpr("Id")
                 .ShowRowLines(false)
                 .ShowBorders(false)
@@ -97,11 +96,13 @@
 
       }
 
-<script>
+
     function onRowPrepared(e) {
         if (e.rowType === 'data') {
             let ageColor = e.data.AgeColor;
+            let status = e.data.Status;
             let color;
+
             switch (ageColor) {
                 case 'blue':
                     color = '#cce5ff'; // Light blue
