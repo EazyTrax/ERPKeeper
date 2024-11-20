@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuoteItems
-                .Where(r => r.QuoteId == Id)
+                .Where(r => r.QuoteId == SaleQuoteId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -30,14 +30,14 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
             var model = new Enterprise.Models.Customers.SaleQuoteItem();
             JsonConvert.PopulateObject(values, model);
 
-            var quote = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == Id);
+            var quote = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == SaleQuoteId);
 
             if (quote.IsPosted == false)
             {
                 var item = Organization.ErpCOREDBContext.Items.First(a => a.Id == model.ItemId);
                 model.Description = item.Description;
                 model.PartNumber = item.PartNumber;
-                model.QuoteId = Id;
+                model.QuoteId = SaleQuoteId;
 
                 Organization.ErpCOREDBContext.SaleQuoteItems.Add(model);
                 Organization.ErpCOREDBContext.SaveChanges();

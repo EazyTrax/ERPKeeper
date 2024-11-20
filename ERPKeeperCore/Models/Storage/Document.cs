@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Enterprise.Models.Storage
                 var timeSpan = now - CreatedDate;
 
                 if (timeSpan.TotalDays < 1)
-                    return "Less than a day";
+                    return "0D";
 
                 var years = (int)(timeSpan.TotalDays / 365);
                 var remainingDaysAfterYears = (int)(timeSpan.TotalDays % 365);
