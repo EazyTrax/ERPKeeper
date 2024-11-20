@@ -73,8 +73,8 @@
             .Summary(s =>
             s.TotalItems(items =>
             {
-                items.AddFor(m => m.LinesTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
-                items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+                items.AddFor(m => m.LinesTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+                items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             }))
             .OnInitNewRow("onInitNewRow")
             .OnRowPrepared("onRowPrepared")

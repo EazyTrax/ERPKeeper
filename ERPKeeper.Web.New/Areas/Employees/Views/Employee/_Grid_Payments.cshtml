@@ -91,13 +91,13 @@
                 .Summary(s =>
             s.TotalItems(items =>{
 
-                items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
-                items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+                items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+                items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             })
             .GroupItems(items =>
             {
-            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
-            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
 
         }))
         )

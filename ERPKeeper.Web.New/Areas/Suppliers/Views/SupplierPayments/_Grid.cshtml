@@ -91,7 +91,7 @@
         s.TotalItems(items =>
         {
 
-            items.AddFor(m => m.Amount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat(",##0");
+            items.AddFor(m => m.Amount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
         }))
         )
 </div>
