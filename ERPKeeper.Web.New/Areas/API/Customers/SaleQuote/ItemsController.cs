@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
 {
-    [Route("/API/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/{controller}/{action=Index}")]
+    [Route("/API/{CompanyId}/Customers/SaleQuotes/{SaleQuoteId:Guid}/{controller}/{action=Index}")]
 
     public class ItemsController : API_Profiles_Customers_SaleQuote_BaseController
     {
