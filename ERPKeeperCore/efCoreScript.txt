@@ -52,3 +52,11 @@ There is no a command to remove a bunch of migrations and we can't just remove t
                             <div class="dropdown-divider"></div>
 
                             https://nemi-chand.github.io/creating-sub-areas-in-aspnet-core-mvc/
+
+
+                            .CellTemplate(@<text>
+             @(Html.DevExtreme().Button()
+                 .Text(new JS("value"))
+                 .OnClick("function() { handleGridButtonClick(value); }")
+             )
+         </text>);

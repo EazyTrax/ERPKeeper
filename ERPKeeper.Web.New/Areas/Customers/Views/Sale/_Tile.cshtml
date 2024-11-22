@@ -79,18 +79,11 @@
                 Items
             </div>
         </a>
-
-
-        <div class="absolute top-1 right-1">
-            <a href="/@CompanyId/Customers/Sales/@Model.Id/Items/Avaliable">
-                <i class="fa-solid fa-circle-plus text-lg"></i>
-            </a>
-        </div>
     </div>
 
     <div class="bg-gray-100 h-20 content-center border">
         <div class="text-2xl text-center font-semibold">
-            @Model.Total.ToString("N2")
+            @Model.Total.ToString("N0")
         </div>
         <div class="text-lg text-center">
             Total

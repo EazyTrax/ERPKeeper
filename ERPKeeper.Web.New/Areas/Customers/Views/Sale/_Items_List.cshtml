@@ -1,9 +1,9 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
-<div class="p-2 text-right">
+@* <div class="p-2 text-right">
     <a href="/@CompanyId/Customers/Sales/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus text-lg"></i> Item</a>
 </div>
-
+ *@
 
 <div id="treeListDemo" class="mb-3 border">
 
@@ -17,6 +17,7 @@
         .Width("100%")
         .ColumnAutoWidth(false)
         .WordWrapEnabled(true)
+        .AllowColumnResizing(true)
         .DataSource(d =>
         d.RemoteController()
         .Key("Id")
@@ -28,7 +29,7 @@
         .DeleteMethod("Post")
         )
         .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(IsOnEditMode).UseIcons(true))
-
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Custommer_Sales_Sale"))
         .KeyExpr("Id")
         .WordWrapEnabled(true)
         .ColumnChooser(c => c.Enabled(true))
@@ -38,19 +39,31 @@
             columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
             columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
             columns.AddFor(m => m.Price).Width(100).Format("#,##0.00");
-            columns.AddFor(m => m.DiscountPercent).Width(100).Format("#,##0.00");
+         @* columns.AddFor(m => m.DiscountPercent).Width(100).Format("#,##0.00");
             columns.AddFor(m => m.PriceAfterDiscount).AllowEditing(false).Width(100).Format("#,##0.00");
-            columns.AddFor(m => m.Serial).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
+         *@    
+            columns.AddFor(m => m.Serial).Visible(false).ShowInColumnChooser(true).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
             columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
             columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.00").FormItem(i => i.Visible(false));
 
         })
         .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")
-        .Summary(s =>
-        s.TotalItems(items =>
+        .Summary(s => s.TotalItems(items =>
         {
             items.AddFor(m => m.Quantity).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.LineTotal).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
         }))
+        .Toolbar(toolbar =>
+            {
+                toolbar.Items(items =>
+                {
+                    items.Add().Widget(w =>
+                    w.Button()
+                        .Text("Item")
+                        .Icon("fa-solid fa-circle-plus")
+                    .OnClick($"function() {{ window.open('/{CompanyId}/Customers/Sales/{@Model.Id}/Items/Avaliable'); }}"))
+                    .Location(ToolbarItemLocation.After);
+                });  
+        })
         )
 </div>
