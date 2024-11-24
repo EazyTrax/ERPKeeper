@@ -53,9 +53,30 @@ namespace ERPKeeperCore.Enterprise.Models.Projects
 
 
 
+        public decimal SaleQuotesTotal { get; set; }
+        public decimal PurchaseQuotesTotal { get; set; }
+        public decimal EstimateProfit => SaleQuotesTotal - PurchaseQuotesTotal;
+
+
+
+        public decimal SalesTotal { get; set; }
+        public decimal PurchasesTotal { get; set; }
+        public decimal Profit => SalesTotal - PurchasesTotal;
+
+
         public void ChangeStatus(ProjectStatus close)
         {
             Status = close;
+
+        }
+
+        public void UpdateBalance()
+        {
+            SaleQuotesTotal = SaleQuotes.Sum(x => x.Total);
+            SalesTotal = Sales.Sum(x => x.Total);
+            PurchaseQuotesTotal = PurchaseQuotes.Sum(x => x.Total);
+            PurchasesTotal = Purchases.Sum(x => x.Total);
+
         }
 
     }

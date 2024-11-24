@@ -53,6 +53,16 @@
                 columns.AddFor(m => m.EndDate).Width(120);
 
 
+                columns.AddFor(m => m.SaleQuotesTotal).Width(120);
+                columns.AddFor(m => m.PurchaseQuotesTotal).Width(120);
+                columns.AddFor(m => m.EstimateProfit).Width(120);
+
+
+                columns.AddFor(m => m.SalesTotal).Width(120);
+                columns.AddFor(m => m.PurchasesTotal).Width(120);
+                columns.AddFor(m => m.Profit).Width(120);
+
+
 
             })
         .OnInitNewRow("onInitNewRow")

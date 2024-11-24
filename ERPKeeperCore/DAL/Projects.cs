@@ -42,5 +42,15 @@ namespace ERPKeeperCore.Enterprise.DAL
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateBalance()
+        {
+            foreach (var project in erpNodeDBContext.Projects.ToList())
+            {
+                project.UpdateBalance();
+            }
+
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

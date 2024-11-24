@@ -17,14 +17,15 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
         {
             return View();
         }
-        //public IActionResult Create()
-        //{
-        //    var Project = EnterpriseRepo.Projects.Create("New Project", "N/A");
 
-        //    EnterpriseRepo.SaveChanges();
 
-        //    return Redirect($"/@CompanyId/Projects/{Project.Id}");
-        //}
+        [Route("/{CompanyId}/Projects/Refresh")]
+        public IActionResult Refresh()
+        {
+            Organization.Projects.UpdateBalance();
+
+            return Redirect($"/{CompanyId}/Projects");
+        }
 
     }
 }
