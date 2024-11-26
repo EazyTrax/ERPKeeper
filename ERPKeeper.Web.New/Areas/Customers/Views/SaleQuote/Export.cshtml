@@ -3,7 +3,10 @@
 @{
     Layout = "_Layout_Export";
     var documentNameContent = "ใบเสนอราคา";
-    var customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
+    var customerAddress = Model.ProfileAddesss;
+
+    if (customerAddress == null)
+        customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
 }
 
 @await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
@@ -17,13 +20,15 @@
                 @Model.Customer.Profile.Name
             </a>
         </div>
+
         <div>
             เลขที่ผู้เสียภาษี @Model.Customer.Profile.TaxNumber สาขา @customerAddress?.Number
         </div>
+
         @if (customerAddress != null)
         {
             <div>
-                @customerAddress.AddressLine.Trim()<br />
+                @customerAddress.AddressLine?.Trim()<br />
                 @customerAddress.PhoneNumber
             </div>
         }

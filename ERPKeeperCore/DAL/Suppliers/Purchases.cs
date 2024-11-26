@@ -138,17 +138,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
         }
 
-        public Purchase CreateDraft(Purchase model, Guid? SupplierId = null)
+        public Purchase Creat(Purchase model)
         {
-            if (SupplierId != null)
-                model.SupplierId = (Guid)SupplierId;
+
 
             var maxNo = erpNodeDBContext.Purchases
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
 
             model.Date = DateTime.Today;
-            model.Status = PurchaseStatus.Draft;
+            model.Status = PurchaseStatus.Open;
             model.No = maxNo + 1;
             model.UpdateBalance();
             model.UpdateName();

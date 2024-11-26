@@ -1,6 +1,8 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
 
+
+
 <div class="bg-fb1 p-2 border bg-gray-100">
     <div class="flex flex-wrap justify-between">
         <div class="">
@@ -48,7 +50,7 @@
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
-                @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Invoice).Count()
+                @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open).Count()
             </div>
             <div class="text-lg text-center">
                 UnPaid Purchase
@@ -67,5 +69,6 @@
         </div>
     </a>
 </div>
+
 
 

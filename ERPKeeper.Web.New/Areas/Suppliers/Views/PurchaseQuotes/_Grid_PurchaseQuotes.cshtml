@@ -1,4 +1,5 @@
 ﻿
+@model ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus
 
 
 <div id="treeListDemo" class="mb-3 border">
@@ -6,7 +7,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/All")
+                .LoadUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/List/{Model.ToString()}")
             .InsertUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Insert")
             .UpdateUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Update")
             .UpdateMethod("Post")
@@ -41,9 +42,12 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name).AllowEditing(false)
-                    .Width(150)
-                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);
+                columns.AddFor(m => m.Name)
+                .AllowEditing(false)
+                .Visible(false)
+                    .ShowInColumnChooser(true)
+            .Width(150)
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);
 
 
                 columns.AddFor(m => m.SupplierId)
@@ -54,9 +58,16 @@
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
-                columns.AddFor(m=>m.Reference).Width(180);
-                 columns.AddFor(m=>m.Tax).Width(130).Format("#,##0.00");
-                 columns.AddFor(m=>m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
+                    columns.AddFor(m => m.Reference)
+                    .Width(180)
+                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
+
+
+                    columns.AddFor(m => m.Tax)
+                .AllowEditing(false).Width(130).Format("#,##0.00");
+
+                columns.AddFor(m => m.Total).AllowEditing(false).Width(130)
+                .AllowEditing(false).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId)
             .Lookup(lookup => lookup
@@ -65,11 +76,11 @@
             .ValueExpr("Value"))
             .Width(150)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
-              
-        
-        
-        columns.AddFor(m => m.ProjectId)
+            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.ProjectId)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Projects.Select(i => new { Value = i.Id, Text = i.Name }))
             .DisplayExpr("Text")

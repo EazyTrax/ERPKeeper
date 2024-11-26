@@ -40,7 +40,16 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public IActionResult Refresh()
+        {
+            var transcation = Organization.Purchases.Find(Id);
 
+            transcation.UpdateBalance();
+            transcation.UpdateName();
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
         public IActionResult UnPost()
         {
@@ -94,12 +103,14 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
                 {
                     Date = payDate,
                     Amount = purchase.Total,
-                    AssetAccount_PayFrom = Organization.SystemAccounts.Cash
+                    AssetAccount_PayFrom = Organization.SystemAccounts.Cash,
                 };
+
+                purchase.Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Paid;
                 Organization.SaveChanges();
             }
 
-            return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Payment");
+            return Redirect($"/{CompanyId}/Suppliers/SupplierPayments/{purchase.SupplierPayment.Id}");
         }
         public IActionResult Shipments()
         {
@@ -116,5 +127,21 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
+
+        public IActionResult Delete()
+        {
+            var transcation = Organization.Purchases.Find(Id);
+
+            if (Organization.ErpCOREDBContext.Purchases.Max(s => s.No) == transcation.No)
+            {
+                transcation.Items.Clear();
+            }
+
+            Organization.ErpCOREDBContext.Purchases.Remove(transcation);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Suppliers/Purchases");
+        }
+
     }
 }

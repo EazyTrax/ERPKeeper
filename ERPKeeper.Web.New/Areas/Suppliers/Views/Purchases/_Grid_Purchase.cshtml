@@ -10,8 +10,7 @@
             .InsertUrl($"/API/{CompanyId}/Suppliers/Purchases/Insert")
             .UpdateUrl($"/API/{CompanyId}/Suppliers/Purchases/Update")
             .UpdateMethod("Post")
-            .InsertMethod("Post")
-            )
+            .InsertMethod("Post"))
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
@@ -39,29 +38,46 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.Name).Width(130)
+                    columns.AddFor(m => m.Name)
+        .AllowEditing(false)
+        .Visible(false)
+            .ShowInColumnChooser(true)
+    .Width(150)
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
-                columns.AddFor(m => m.SupplierId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+                columns.AddFor(m => m.SupplierId)
+                .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Suppliers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .AllowEditing(false)
+            .AllowEditing(IsOnEditMode)
             .MinWidth(200)
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
-                columns.AddFor(m => m.Reference).Width(180);
-                columns.AddFor(m => m.LinesTotalAfterDiscount).Width(130).Format("#,##0.00");
-                columns.AddFor(m => m.Total).Width(130).Format("#,##0.00");
+                columns.AddFor(m => m.Reference)
+                .Width(180)
+                        .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
+
+        
+
+                columns.AddFor(m => m.Total).Width(130)
+                .AllowEditing(false)
+                .Format("#,##0.00");
+
+                columns.AddFor(m => m.Tax).Width(130)
+                .AllowEditing(false)
+                .Format("#,##0.00");
+
+
 
                 columns.AddFor(m => m.TaxCodeId)
                     .Lookup(lookup => lookup
                     .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
                     .DisplayExpr("Text")
                     .ValueExpr("Value"))
-                    .AllowEditing(false)
+                    
                     .HeaderCellTemplate(@<text>TaxCode</text>)
                     .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
@@ -105,6 +121,14 @@
             items.AddFor(m => m.LinesTotalAfterDiscount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
             items.AddFor(m => m.Total).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
         }))
-        )
+         .OnInitNewRow("onInitNewRow")
+            )
 </div>
 
+<script>
+    function onInitNewRow(e) {
+        const today = new Date();
+        e.data.Date = today;
+        e.data.Status = 0;
+    }
+</script>

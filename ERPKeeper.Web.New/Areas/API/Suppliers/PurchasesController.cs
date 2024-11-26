@@ -29,7 +29,18 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             var model = new ERPKeeperCore.Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            enterpriseRepo.Purchases.CreateDraft(model);
+            enterpriseRepo.Purchases.Creat(model);
+            enterpriseRepo.SaveChanges();
+
+            var supplier = enterpriseRepo.Suppliers.Find(model.SupplierId);
+
+            if (string.IsNullOrEmpty(model.Reference))
+                model.Reference = "N/A";
+            if (model.TaxCodeId == null)
+                model.TaxCodeId = supplier.DefaultTaxCodeUid;
+            if (model.ExpenseAccountId == null)
+                model.ExpenseAccountId = supplier.DefaultExpenseAccountId;
+
             enterpriseRepo.SaveChanges();
 
             return Ok();

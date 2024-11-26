@@ -50,7 +50,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.SaveChanges();
         }
 
-        public PurchaseQuote CreateDraft(PurchaseQuote model, Guid? SupplierId = null)
+        public PurchaseQuote Create(PurchaseQuote model, Guid? SupplierId = null)
         {
             if (SupplierId != null)
                 model.SupplierId = (Guid)SupplierId;
@@ -60,7 +60,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                 .Max() ?? 0;
 
             model.Date = DateTime.Today;
-            model.Status = PurchaseQuoteStatus.Draft;
+            model.Status = PurchaseQuoteStatus.Open;
             model.No = maxNo + 1;
             model.UpdateBalance();
             model.UpdateName();

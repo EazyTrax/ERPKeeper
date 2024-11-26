@@ -75,7 +75,16 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return View(transcation);
         }
+        public IActionResult Refresh()
+        {
+            var transcation = Organization.PurchaseQuotes.Find(Id);
 
+            transcation.UpdateBalance();
+            transcation.UpdateName();
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         public IActionResult Delete()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);

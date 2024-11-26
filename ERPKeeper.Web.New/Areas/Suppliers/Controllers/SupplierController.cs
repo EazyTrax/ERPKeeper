@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ERPKeeperCore.Web.Controllers;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
@@ -101,7 +102,19 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        [HttpPost]
+        public IActionResult Update(Guid supplierId, Supplier model)
+        {
+            var supplier = Organization.Suppliers.Find(supplierId);
 
+            supplier.DefaultExpenseAccountId = model.DefaultExpenseAccountId;
+            supplier.DefaultTaxCodeUid = model.DefaultTaxCodeUid;
+
+
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
     }
 }

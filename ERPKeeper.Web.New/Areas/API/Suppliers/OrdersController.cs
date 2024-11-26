@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Purchases
-                 .Where(x => x.Status == Enterprise.Models.Suppliers.Enums.PurchaseStatus.Order)
+                 .Where(x => x.Status == Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open)
                  .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -29,7 +29,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             var model = new Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            model.Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Order;
+            model.Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open;
 
             Organization.ErpCOREDBContext.Purchases.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,9 +11,12 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
     public class PurchaseQuotesController : _Suppliers_Base_Controller
     {
-        public IActionResult Index()
+        [Route("/{CompanyId}/Suppliers/{controller}")]
+        [Route("/{CompanyId}/Suppliers/{controller}/{status}")]
+        public IActionResult Index(PurchaseQuoteStatus status = PurchaseQuoteStatus.Open)
         {
-            return View();
-        }     
+          
+            return View("Index", status);
+        }
     }
 }

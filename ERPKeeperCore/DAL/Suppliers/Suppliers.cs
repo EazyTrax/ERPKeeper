@@ -75,11 +75,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                     supplier.TotalPurchasesCount = supplierPurchases.Count();
 
                     supplier.TotalBalance = supplierPurchases
-                        .Where(p => p.Status == PurchaseStatus.Invoice)
+                        .Where(p => p.Status == PurchaseStatus.Open)
                         .Sum(p => p.Total);
 
                     supplier.TotalBalanceCount = supplierPurchases
-                        .Count(p => p.Status == PurchaseStatus.Invoice);
+                        .Count(p => p.Status == PurchaseStatus.Open);
                 }
                 else
                 {

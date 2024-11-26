@@ -27,8 +27,6 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         [ForeignKey("TransactionId")]
         public virtual Accounting.Transaction? Transaction { get; set; }
 
-
-
         public Guid SupplierId { get; set; }
         [ForeignKey("SupplierId")]
         public virtual Suppliers.Supplier? Supplier { get; set; }
@@ -138,6 +136,10 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
                 this.Tax = this.TaxCode.Rate * this.LinesTotalAfterDiscount / 100;
             else
                 this.Tax = 0;
+
+            if (this.SupplierPayment != null)
+                this.Status = PurchaseStatus.Paid;
+
         }
         public void UpdateName()
         {

@@ -6,6 +6,7 @@ using ERPKeeperCore.Enterprise.Models.Assets;
 using ERPKeeperCore.Enterprise.Models.Assets.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Items.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Runtime.CompilerServices;
@@ -30,6 +31,20 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
+
+
+
+
+                newOrganization.ErpCOREDBContext.Purchases.Include(x=>x.SupplierPayment).ToList().ForEach(p =>
+                {
+                    if (p.SupplierPayment != null)
+                        p.Status = PurchaseStatus.Paid;
+                    else
+                        p.Status = PurchaseStatus.Open;
+
+                    p.UpdateName();
+                });
+                newOrganization.SaveChanges();
 
 
                 if (false && newOrganization != null)

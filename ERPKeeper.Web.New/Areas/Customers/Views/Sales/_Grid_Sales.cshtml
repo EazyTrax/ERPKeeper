@@ -56,7 +56,7 @@
                 columns.AddFor(m => m.CustomerId)
             .MinWidth(250)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);

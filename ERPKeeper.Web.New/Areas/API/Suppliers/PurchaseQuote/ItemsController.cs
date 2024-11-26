@@ -33,7 +33,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
 
             var purchaseQuote = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == Id);
 
-            if (purchaseQuote.Status != Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Quote)
+            if (purchaseQuote.Status != Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Open)
             {
                 var item = Organization.ErpCOREDBContext.Items.First(a => a.Id == model.ItemId);
 

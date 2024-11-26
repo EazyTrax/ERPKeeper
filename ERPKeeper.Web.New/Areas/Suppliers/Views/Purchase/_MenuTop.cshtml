@@ -1,15 +1,15 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
-<div class="flex font-semibold text-lg text-uppercase">
+<div class="flex justify-between font-semibold text-lg text-uppercase">
     <div class="p-2">
         <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Suppliers"> Suppliers</a>
         <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Suppliers/Purchases"> Purchases</a>
         <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Suppliers/Purchases/@Model.Id"> @Model.Name</a>
     </div>
 
-    <div class="">
-         <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Unpost">UnPost</a>
-
-
+    <div class="p-2">
+        <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Unpost">UnPost</a>
+        |
+        <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Refresh">Refresh</a>
     </div>
 </div>

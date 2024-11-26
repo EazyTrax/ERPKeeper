@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
 
           
 
-            model.Status =  Enterprise.Models.Suppliers.Enums.PurchaseStatus.Draft;
+            model.Status =  Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open;
             model.SupplierId = ProfileId;
 
             Organization.Purchases.New(model);

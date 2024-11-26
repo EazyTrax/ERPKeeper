@@ -22,7 +22,8 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
-        public Guid ProfileId => Profile.Id;
+  
+
         public String? Code { get; set; }
         public ProfileStatus Status { get; set; }
 
@@ -75,8 +76,8 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.TotalPurchases = this.Purchases.Sum(x => x.LinesTotalAfterDiscount);
             this.TotalPurchasesCount = this.Purchases.Count();
 
-            this.TotalBalance = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Sum(x => x.LinesTotalAfterDiscount);
-            this.TotalBalanceCount = this.Purchases.Where(x => x.Status == PurchaseStatus.Invoice).Count();
+            this.TotalBalance = this.Purchases.Where(x => x.Status == PurchaseStatus.Open).Sum(x => x.LinesTotalAfterDiscount);
+            this.TotalBalanceCount = this.Purchases.Where(x => x.Status == PurchaseStatus.Open).Count();
 
         }
 

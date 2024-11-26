@@ -9,6 +9,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ERPKeeperCore.Enterprise;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
@@ -22,6 +23,16 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
+        [Route("/API/{CompanyId}/Suppliers/{controller}/{action}/{status}")]
+        public object List(PurchaseQuoteStatus status, DataSourceLoadOptions loadOptions)
+        {
+            var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
+                 .Where(m => m.Status == status)
+                 .ToList();
+
+            return DataSourceLoader.Load(returnModel, loadOptions);
+        }
+
 
         [HttpPost]
         public IActionResult Insert(string values)
@@ -30,9 +41,20 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             var model = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote();
             JsonConvert.PopulateObject(values, model);
 
-            enterpriseRepo.PurchaseQuotes.CreateDraft(model);
+            enterpriseRepo.PurchaseQuotes.Create(model);
             enterpriseRepo.SaveChanges();
 
+
+            var supplier = enterpriseRepo.Suppliers.Find(model.SupplierId);
+
+            if (string.IsNullOrEmpty(model.Reference))
+                model.Reference = "N/A";
+            if (model.TaxCodeId == null)
+                model.TaxCodeId = supplier.DefaultTaxCodeUid;
+
+            enterpriseRepo.SaveChanges();
+
+            
             return Ok();
         }
 

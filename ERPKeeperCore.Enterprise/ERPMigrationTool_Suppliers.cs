@@ -117,7 +117,7 @@ namespace ERPKeeperCore.CMD
                         No = oldModel.No,
                         Name = oldModel.Name,
                         Memo = oldModel.Memo,
-                        Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Invoice,
+                        Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open,
                         TaxCodeId = oldModel.TaxCodeId,
                         SupplierId = (Guid)oldModel.ProfileGuid,
                         SupplierAddressId = oldModel.ProfileAddressGuid,

@@ -30,11 +30,14 @@
                         </div>
                     }
 
-
                     @if (Model.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order)
                     {
                         <div>
-                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to convert to an invoice?');">Convert To Invoice</a>
+                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Close" onclick="return confirm('Are you sure you want to convert to an invoice?');"> change status to Close, no Purchase</a>
+                        </div>
+
+                        <div>
+                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to create purchase and close?');">Create Purchase + Close</a>
                         </div>
                     }
                     <div>
