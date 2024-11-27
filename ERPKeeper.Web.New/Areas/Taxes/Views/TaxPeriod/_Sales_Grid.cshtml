@@ -12,7 +12,7 @@
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-            .ShowRowLines(false)
+            .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .ColumnChooser(columnChooser => columnChooser.Enabled(true).Mode(GridColumnChooserMode.DragAndDrop))

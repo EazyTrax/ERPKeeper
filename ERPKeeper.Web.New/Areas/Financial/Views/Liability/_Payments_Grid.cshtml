@@ -10,7 +10,7 @@
             .LoadUrl($"/API/{CompanyId}/Financial/Liabilities/{Model.Id}/LiabilityPayments/All"))
             .Width("100%")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
-            .ShowRowLines(false)
+            .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))

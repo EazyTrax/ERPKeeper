@@ -25,7 +25,7 @@
         editing.Form(f=>f.ColCount(1).Width(500));
         }) 
         .RowAlternationEnabled(true).AllowColumnReordering(true)
-        .ShowRowLines(false)
+        .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))

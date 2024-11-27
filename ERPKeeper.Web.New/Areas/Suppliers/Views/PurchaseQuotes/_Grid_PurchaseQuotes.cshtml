@@ -13,11 +13,11 @@
             .UpdateMethod("Post")
             .InsertMethod("Post"))
 
-            .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true))
+            .Editing(editing => editing.Mode(GridEditMode.Batch).AllowAdding(true).AllowUpdating(true).UseIcons(true))
             .RowAlternationEnabled(true).AllowColumnReordering(true)
 
             .KeyExpr("Id")
-            .ShowRowLines(false)
+            .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))

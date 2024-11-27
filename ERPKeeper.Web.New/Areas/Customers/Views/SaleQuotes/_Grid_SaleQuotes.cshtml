@@ -15,7 +15,7 @@
                 .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey($"Customers_SaleQuotes_{Model.ToString()}"))
                 .RowAlternationEnabled(false).AllowColumnReordering(true).AllowColumnResizing(true).AllowColumnReordering(true)
                 .KeyExpr("Id")
-                .ShowRowLines(false)
+                .ShowRowLines(true)
                 .ShowBorders(false)
                 .Paging(paging => paging.PageSize(100))
 

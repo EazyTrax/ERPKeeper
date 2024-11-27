@@ -12,7 +12,7 @@
             .UpdateMethod("Post")
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
-            .ShowRowLines(false)
+            .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))

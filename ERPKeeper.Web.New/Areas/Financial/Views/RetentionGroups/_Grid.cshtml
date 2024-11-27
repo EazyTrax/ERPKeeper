@@ -13,7 +13,7 @@
             )
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Financial_Retention_Periods" + CompanyId.ToString()))
             .RowAlternationEnabled(true).AllowColumnReordering(true).AllowColumnResizing(true)
-            .ShowRowLines(false)
+            .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .GroupPanel(groupPanel => groupPanel.Visible(true))

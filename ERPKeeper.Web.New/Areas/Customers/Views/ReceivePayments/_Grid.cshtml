@@ -10,7 +10,7 @@
         .DataSource(d => d.RemoteController().Key("Id")
         .LoadUrl($"/API/{CompanyId}/Customers/ReceivePayments/All"))
         .RowAlternationEnabled(true).AllowColumnReordering(true)
-        .ShowRowLines(false)
+        .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
         .AllowColumnResizing(true).AllowColumnReordering(true)

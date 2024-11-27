@@ -10,7 +10,7 @@
             .KeyExpr("Id")
 
             .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" + CompanyId.ToString()))
-            .ShowRowLines(false)
+            .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
 
