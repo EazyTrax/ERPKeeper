@@ -109,6 +109,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             supplier.DefaultExpenseAccountId = model.DefaultExpenseAccountId;
             supplier.DefaultTaxCodeUid = model.DefaultTaxCodeUid;
+            supplier.DefaultProductItemId = model.DefaultProductItemId;
 
 
             Organization.SaveChanges();

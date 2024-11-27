@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         public IActionResult Insert(string values)
         {
 
-            _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName);
+            _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName,true);
 
             var model = new Enterprise.Models.Customers.SaleItem();
             JsonConvert.PopulateObject(values, model);
@@ -55,7 +55,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName);
+            _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName,true);
 
             var model = Organization.ErpCOREDBContext.SaleItems.First(a => a.Id == key);
 

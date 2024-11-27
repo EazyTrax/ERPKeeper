@@ -1,6 +1,7 @@
 ﻿using ERPKeeperCore.Enterprise.DAL.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
@@ -22,7 +23,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
 
         [ForeignKey("Id")]
         public virtual Profiles.Profile Profile { get; set; }
-  
+
 
         public String? Code { get; set; }
         public ProfileStatus Status { get; set; }
@@ -38,6 +39,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Guid? DefaultExpenseAccountId { get; set; }
         [ForeignKey("DefaultExpenseAccountId")]
         public virtual Account? DefaultExpenseAccount { get; set; }
+
+        public Guid? DefaultProductItemId { get; set; }
+        [ForeignKey("DefaultProductItemId")]
+        public virtual Item DefaultProductItem { get; set; }
+
 
 
 

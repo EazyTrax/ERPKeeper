@@ -26,10 +26,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         public IActionResult Insert(string values)
         {
             var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
+
             var model = new ERPKeeperCore.Enterprise.Models.Suppliers.Purchase();
             JsonConvert.PopulateObject(values, model);
 
-            enterpriseRepo.Purchases.Creat(model);
+            enterpriseRepo.Purchases.Create(model);
             enterpriseRepo.SaveChanges();
 
             var supplier = enterpriseRepo.Suppliers.Find(model.SupplierId);
@@ -40,6 +41,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
                 model.TaxCodeId = supplier.DefaultTaxCodeUid;
             if (model.ExpenseAccountId == null)
                 model.ExpenseAccountId = supplier.DefaultExpenseAccountId;
+
+            enterpriseRepo.SaveChanges();
+
+            if (supplier.DefaultProductItem != null)
+                model.AddItem(supplier.DefaultProductItem);
 
             enterpriseRepo.SaveChanges();
 

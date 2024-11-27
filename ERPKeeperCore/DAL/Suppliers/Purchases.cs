@@ -133,7 +133,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.SaveChanges();
 
         }
-        public Purchase Creat(Purchase model)
+        public Purchase Create(Purchase model)
         {
 
 
@@ -141,7 +141,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                 .Select(a => (int?)a.No)
                 .Max() ?? 0;
 
-            model.Date = DateTime.Today;
+            //model.Date = DateTime.Today;
             model.Status = PurchaseStatus.Open;
             model.No = maxNo + 1;
             model.UpdateBalance();

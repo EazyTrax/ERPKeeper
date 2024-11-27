@@ -117,10 +117,16 @@
                         .ShowClearButton(true)
                         .LabelMode(EditorLabelMode.Static))
 
-
+                    @if (Model.Project != null)
+                    {
+                        <div>
+                            <a href="/@CompanyId/Projects/@Model.ProjectId/">@Model.Project.Name</a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
+
 
 
         <div class="border">

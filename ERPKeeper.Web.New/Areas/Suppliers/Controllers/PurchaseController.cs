@@ -33,10 +33,12 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        [HttpPost]
         public IActionResult Update(Purchase model)
         {
             var transcation = Organization.Purchases.Find(Id);
 
+            transcation.Date = model.Date;
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.No = model.No;

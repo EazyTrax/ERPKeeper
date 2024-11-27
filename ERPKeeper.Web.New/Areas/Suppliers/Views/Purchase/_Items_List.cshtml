@@ -43,12 +43,12 @@
 
 
                 columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
-    columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
+                 columns.AddFor(m=>m.Price).Width(130).CssClass("bg-gray-200").Format("#,##0.00");
 
-                columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");
+            columns.AddFor(m => m.DiscountPercent).Width(130).CssClass("bg-gray-200").Format("#,##0.00");
                 columns.AddFor(m => m.PriceAfterDiscount).Width(130).Format("#,##0.00");
 
-    columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");
+            columns.AddFor(m => m.Quantity).Width(130).CssClass("bg-gray-200").Format("#,##0.00");
     columns.AddFor(m=>m.LineTotal).Width(130).Format("#,##0.00").FormItem(i=>i.Visible(false));
     columns.AddFor(m=>m.Description).Visible(false).FormItem(i => i.Editor(e => e.TextArea().MinHeight(150)));
     })

@@ -64,9 +64,31 @@
                         <div class="mb-3 font-semibold text-lg">Projects</div>
 
 
+                        @(Html.DevExtreme().SelectBoxFor(m => m.ProjectId)
+                            .Name("Project")
+                            .DataSource(Organization.Projects.GetAll().Select(t => new { t.Id, t.Name }).ToList())
+                            .Placeholder("Project")
+                            .DisplayExpr("Name")
+                            .ValueExpr("Id")
+                            .Label("Project")
+                            .ShowClearButton(true)
+                            .LabelMode(EditorLabelMode.Static))
+
+
+                        @if (Model.Project != null)
+                        {
+                            <div>
+                                <a href="/@CompanyId/Projects/@Model.ProjectId/">@Model.Project.Name</a>
+                            </div>
+                        }
+
+
+
+
                     </div>
                 </div>
             </div>
+
 
             <div class="border">
                 <div class=" bg-gray-100 p-2 mb-2 rounded">

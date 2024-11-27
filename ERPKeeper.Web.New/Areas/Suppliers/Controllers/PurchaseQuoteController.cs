@@ -60,11 +60,12 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Redirect($"/{CompanyId}/Suppliers/PurchaseQuotes/{Id}/Items");
         }
-
+        [HttpPost]
         public IActionResult Update(PurchaseQuote model)
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);
 
+            transcation.Date = model.Date;
             transcation.Memo = model.Memo;
             transcation.Discount = model.Discount;
             transcation.No = model.No;
