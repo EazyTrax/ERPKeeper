@@ -86,7 +86,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             });
 
         }
-
         public void UnPost(Purchase model)
         {
             model.Transaction.ClearLedger();
@@ -94,7 +93,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             erpNodeDBContext.SaveChanges();
         }
-
         public void New(Purchase model)
         {
             var currentYear = model.Date.Year;
@@ -111,7 +109,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.Purchases.Add(model);
             erpNodeDBContext.SaveChanges();
         }
-
         public void UnPostAll()
         {
             var purchase = erpNodeDBContext.Purchases
@@ -127,7 +124,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             erpNodeDBContext.SaveChanges();
         }
-
         public void UpdateStatus()
         {
             var paidTransactions = erpNodeDBContext.Purchases
@@ -137,7 +133,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.SaveChanges();
 
         }
-
         public Purchase Creat(Purchase model)
         {
 
@@ -157,5 +152,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             return model;
         }
+
     }
 }

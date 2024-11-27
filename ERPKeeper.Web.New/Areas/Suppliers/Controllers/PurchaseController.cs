@@ -20,8 +20,17 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
+       
+        public IActionResult Refresh()
+        {
+            var transcation = Organization.Purchases.Find(Id);
+            transcation.Reorder();
+            transcation.UpdateBalance();
+            transcation.UpdateName();
 
-
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         public IActionResult Update(Purchase model)
         {
             var transcation = Organization.Purchases.Find(Id);
@@ -40,16 +49,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
-        public IActionResult Refresh()
-        {
-            var transcation = Organization.Purchases.Find(Id);
-
-            transcation.UpdateBalance();
-            transcation.UpdateName();
-            Organization.SaveChanges();
-
-            return Redirect(Request.Headers["Referer"].ToString());
-        }
+      
 
         public IActionResult UnPost()
         {
