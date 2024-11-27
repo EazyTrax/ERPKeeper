@@ -33,6 +33,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         ObsoleteAsset = 201,
         RetentionGroup = 202,
         ProductItem = 203,
+        PurchaseQuote = 204,
     }
 }
 

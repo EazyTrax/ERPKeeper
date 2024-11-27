@@ -1,36 +1,39 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
-    [Route("/{CompanyId}/Customers/ReceivePayments/{TransactionId:Guid}/{action=index}")]
+    [Route("/{CompanyId}/Customers/ReceivePayments/{Id:Guid}/{action=index}")]
     public class ReceivePaymentController : _Customers_Base_Controller
     {
-        public Guid TransactionId => Guid.Parse(RouteData.Values["TransactionId"].ToString());
+        public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
 
         public IActionResult Index()
         {
 
-            var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
+            var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
             return View(receivePayment);
         }
 
         public IActionResult Export()
         {
-            var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
+            var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
             return View(receivePayment);
         }
 
         public IActionResult Update(ReceivePayment model)
         {
-            var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(TransactionId);
+            var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
 
             receivePayment.Date = model.Date;
             receivePayment.Reference = model.Reference;
@@ -46,6 +49,48 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             receivePayment.UpdateBalance();
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult Documents()
+        {
+            var transcation = Organization.ReceivePayments.Find(Id);
+            return View(transcation);
+        }
+        [HttpPost]
+
+        public IActionResult DocumentUpload(IFormFile uploadFile)
+        {
+            var transcation = Organization.ReceivePayments.Find(Id);
+
+            var file = new ERPKeeperCore.Enterprise.Models.Storage.Document()
+            {
+                Note = uploadFile.FileName,
+                CreatedDate = DateTime.Now,
+                Size = (int)uploadFile.Length,
+                ContentType = uploadFile.ContentType,
+                FileName = uploadFile.FileName,
+                FileExtension = System.IO.Path.GetExtension(uploadFile.FileName),
+                TransactionId = Id,
+                ProfileId = transcation.Sale.CustomerId,
+                Type = Enterprise.Models.Accounting.Enums.TransactionType.ReceivePayment
+
+            };
+
+            Organization.ErpCOREDBContext.Documents.Add(file);
+            Organization.SaveChanges();
+
+            file.AddContent(CompanyId, GetByteArrayFromIFormFile(uploadFile));
+
+
+            return Ok();
+        }
+        public static byte[] GetByteArrayFromIFormFile(IFormFile file)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
     }
 }

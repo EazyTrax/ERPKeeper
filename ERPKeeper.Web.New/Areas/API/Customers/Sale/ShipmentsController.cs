@@ -9,14 +9,13 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 {
-    [Route("/API/{CompanyId}/Customers/Sales/{SaleId:Guid}/{controller}/{action=Index}")]
 
     public class ShipmentsController : _SaleBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Shipments
-                .Where(r => r.TransactionId == SaleId)
+                .Where(r => r.TransactionId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -29,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
             var model = new Enterprise.Models.Logistic.Shipment();
             JsonConvert.PopulateObject(values, model);
 
-            model.TransactionId = SaleId;
+            model.TransactionId = Id;
 
             Organization.ErpCOREDBContext.Shipments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

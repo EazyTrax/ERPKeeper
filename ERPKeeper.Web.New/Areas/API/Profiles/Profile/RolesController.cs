@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.ProfileRoles
-                .Where(r => r.ProfileId == ProfileId)
+                .Where(r => r.ProfileId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -25,13 +25,13 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var profile = Organization.Profiles.Find(ProfileId);
+            var profile = Organization.Profiles.Find(Id);
             var model = new ERPKeeperCore.Enterprise.Models.Profiles.ProfileRole();
             JsonConvert.PopulateObject(values, model);
 
             var existRole = Organization.ErpCOREDBContext
                 .ProfileRoles
-                .Where(r => r.ProfileId == ProfileId && r.Role == model.Role)
+                .Where(r => r.ProfileId == Id && r.Role == model.Role)
                 .FirstOrDefault();
 
             return Ok();

@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
-        public String? Name { get; set; }
+        public String Name => $"RP/{No}";
         public DateTime Date { get; set; } = DateTime.Today;
 
 
@@ -114,7 +114,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public void UpdateBalance()
         {
             this.Amount = this.Sale.Total;
-            this.Name = $"CRP-{Date.Year}/{Date.Month}/{this.No.ToString()}";
         }
 
         public void UnPostLedger()

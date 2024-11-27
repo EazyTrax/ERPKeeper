@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplier
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SupplierItems
-                .Where(r => r.SupplierId == ProfileId)
+                .Where(r => r.SupplierId == Id)
                 .Include(m => m.Item)
                 .ToList();
 

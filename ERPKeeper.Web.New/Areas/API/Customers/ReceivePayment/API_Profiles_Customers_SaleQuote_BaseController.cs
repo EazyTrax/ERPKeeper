@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
+namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.ReceivePayment
 {
-    [Route("/API/{CompanyId}/Customers/Customers/{Id:Guid}/{controller}/{action=Index}")]
-    public class _API_Customers_Customer_BaseController : API_BaseController
+    [Route("/API/{CompanyId}/Customers/ReceivePayments/{Id:Guid}/{controller}/{action=Index}")]
+    public class API_Profiles_Customers_ReceivePayment_BaseController : API_BaseController
     {
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
     }

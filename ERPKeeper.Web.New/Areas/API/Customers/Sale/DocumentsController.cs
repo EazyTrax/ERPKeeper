@@ -9,14 +9,13 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 {
-    [Route("/API/{CompanyId}/Customers/Sales/{SaleId:Guid}/{controller}/{action=Index}")]
 
     public class DocumentsController : _SaleBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Documents
-                .Where(r => r.TransactionId == SaleId)
+                .Where(r => r.TransactionId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

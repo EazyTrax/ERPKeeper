@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Purchases
-                .Where(r => r.SupplierId == ProfileId)
+                .Where(r => r.SupplierId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
           
 
             model.Status =  Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open;
-            model.SupplierId = ProfileId;
+            model.SupplierId = Id;
 
             Organization.Purchases.New(model);
             Organization.SaveChanges();

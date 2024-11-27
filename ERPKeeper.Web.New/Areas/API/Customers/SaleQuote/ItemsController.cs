@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
 {
-    [Route("/API/{CompanyId}/Customers/SaleQuotes/{SaleQuoteId:Guid}/{controller}/{action=Index}")]
 
     public class ItemsController : API_Profiles_Customers_SaleQuote_BaseController
     {
@@ -17,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuoteItems
-                .Where(r => r.QuoteId == SaleQuoteId)
+                .Where(r => r.QuoteId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -30,14 +29,14 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
             var model = new Enterprise.Models.Customers.SaleQuoteItem();
             JsonConvert.PopulateObject(values, model);
 
-            var quote = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == SaleQuoteId);
+            var quote = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == Id);
 
             if (quote.IsPosted == false)
             {
                 var item = Organization.ErpCOREDBContext.Items.First(a => a.Id == model.ItemId);
                 model.Description = item.Description;
                 model.PartNumber = item.PartNumber;
-                model.QuoteId = SaleQuoteId;
+                model.QuoteId = Id;
 
                 Organization.ErpCOREDBContext.SaleQuoteItems.Add(model);
                 Organization.ErpCOREDBContext.SaveChanges();

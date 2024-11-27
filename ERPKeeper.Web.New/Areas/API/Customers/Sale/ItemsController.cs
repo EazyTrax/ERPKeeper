@@ -9,14 +9,13 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 {
-    [Route("/API/{CompanyId}/Customers/Sales/{SaleId:Guid}/{controller}/{action=Index}")]
 
     public class ItemsController : _SaleBaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.SaleItems
-                .Where(r => r.SaleId == SaleId)
+                .Where(r => r.SaleId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -29,14 +28,14 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
             var model = new Enterprise.Models.Customers.SaleItem();
             JsonConvert.PopulateObject(values, model);
 
-            var sale = Organization.ErpCOREDBContext.Sales.First(a => a.Id == SaleId);
+            var sale = Organization.ErpCOREDBContext.Sales.First(a => a.Id == Id);
 
             if (sale.IsPosted == false)
             {
                 var item = Organization.ErpCOREDBContext.Items.First(a => a.Id == model.ItemId);
                 model.Description = item.Description;
                 model.PartNumber = item.PartNumber;
-                model.SaleId = SaleId;
+                model.SaleId = Id;
 
                 Organization.ErpCOREDBContext.SaleItems.Add(model);
                 Organization.ErpCOREDBContext.SaveChanges();

@@ -35,16 +35,6 @@ namespace ERPKeeperCore.CMD
 
 
 
-                newOrganization.ErpCOREDBContext.Purchases.Include(x=>x.SupplierPayment).ToList().ForEach(p =>
-                {
-                    if (p.SupplierPayment != null)
-                        p.Status = PurchaseStatus.Paid;
-                    else
-                        p.Status = PurchaseStatus.Open;
-
-                    p.UpdateName();
-                });
-                newOrganization.SaveChanges();
 
 
                 if (false && newOrganization != null)

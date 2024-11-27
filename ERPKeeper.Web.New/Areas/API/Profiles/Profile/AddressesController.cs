@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.ProfileAddresses
-                .Where(r => r.ProfileId == ProfileId)
+                .Where(r => r.ProfileId == Id)
                  //.Select(p => new
                  //{
                  //    p.AddressGuid,
@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.ProfileId = ProfileId;
+            model.ProfileId = Id;
             Organization.ErpCOREDBContext.ProfileAddresses.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

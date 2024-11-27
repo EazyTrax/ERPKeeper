@@ -25,21 +25,18 @@
             {
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
 
-                columns.AddFor(m => m.Status).AllowEditing(false).Width(80).Lookup(lookup => lookup
+       @*          columns.AddFor(m => m.Status).AllowEditing(false).Width(80).Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.PaymentStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
             .DisplayExpr("Text")
             .ValueExpr("Value")
-            );
+            ); *@
 
                 columns.AddFor(m => m.Name)
                 .Width(50)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
+                .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
 
 
-                columns.AddFor(m => m.SaleId)
-                .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Name %></a></text>);
-
+            
 
 
 
@@ -49,9 +46,21 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
-       
 
-                columns.AddFor(m => m.Reference).Width(180);
+
+            columns.AddFor(m => m.SaleId)
+        .HeaderCellTemplate("Sale")
+        .Width(130)
+        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Name %></a></text>);
+
+            columns.AddFor(m => m.SaleId)
+        .HeaderCellTemplate("Reference")
+        .Width(130)
+        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
+
+
+
+
                 columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Discount_Given_Expense_Account).Width(130).Format("#,##0.00");
 

@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.ReceivePayments
-                .Where(r => r.Sale.CustomerId == ProfileId)
+                .Where(r => r.Sale.CustomerId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

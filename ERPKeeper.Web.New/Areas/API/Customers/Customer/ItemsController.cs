@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.CustomerItems
-                .Where(r => r.CustomerId == ProfileId)
+                .Where(r => r.CustomerId == Id)
                 .Include(m=>m.Item)
                 .ToList();
 

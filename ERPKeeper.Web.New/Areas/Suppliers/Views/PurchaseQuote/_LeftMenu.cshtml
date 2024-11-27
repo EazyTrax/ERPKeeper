@@ -1,12 +1,4 @@
-﻿
-
-
-
-
-
-
-
-@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
 
 @{
@@ -40,6 +32,7 @@
     @{
         MenuTemplate(0, "Detail", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}");
         MenuTemplate(0, "Items", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items", Model.Items.Count());
+        MenuTemplate(0, "Documents", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Documents");
     }
 </div>
 

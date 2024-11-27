@@ -7,10 +7,10 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
+namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.ReceivePayment
 {
 
-    public class DocumentsController : API_Profiles_Customers_SaleQuote_BaseController
+    public class DocumentsController : API_Profiles_Customers_ReceivePayment_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {

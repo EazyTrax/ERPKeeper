@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.Sales
-                .Where(r => r.CustomerId == ProfileId)
+                .Where(r => r.CustomerId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
             var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
             JsonConvert.PopulateObject(values, model);
 
-            enterpriseRepo.Sales.CreateNew(model, ProfileId);
+            enterpriseRepo.Sales.CreateNew(model, Id);
             enterpriseRepo.SaveChanges();
 
             return Ok();

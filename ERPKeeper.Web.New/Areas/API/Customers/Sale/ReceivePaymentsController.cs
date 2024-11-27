@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 {
-    [Route("/API/{CompanyId}/Customers/Sales/{SaleId:Guid}/{controller}/{action=Index}")]
 
     public class ReceivePaymentsController : _SaleBaseController
     {
@@ -17,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.ReceivePayments
-                .Where(r => r.SaleId == SaleId)
+                .Where(r => r.SaleId == Id)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -33,7 +32,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
-            model.SaleId = SaleId;
+            model.SaleId = Id;
             Organization.ErpCOREDBContext.ReceivePayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

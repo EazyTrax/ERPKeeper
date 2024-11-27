@@ -8,12 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.API.Profiles.Profile
 {
-    [Route("/api/{CompanyId}/Profiles/{ProfileId:Guid}/{controller}/{action=Index}")]
+    [Route("/api/{CompanyId}/Profiles/{Id:Guid}/{controller}/{action=Index}")]
     public class _ProfileBaseController : API_BaseController
     {
- 
-        public Guid ProfileId => Guid.Parse(RouteData.Values["ProfileId"].ToString());
-
-
+        public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
     }
 }

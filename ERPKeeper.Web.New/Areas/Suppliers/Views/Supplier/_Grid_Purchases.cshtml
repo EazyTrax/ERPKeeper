@@ -39,6 +39,23 @@
                     .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.Reference);
+
+
+                columns.AddFor(m => m.ProjectId)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Projects.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .Width(150)
+            .Visible(false)
+            .ShowInColumnChooser(true)
+            .HeaderCellTemplate(@<text>Project</text>)
+        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+
+
+
+
+
                 columns.AddFor(m => m.Total).AllowEditing(false).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Tax).AllowEditing(false).Width(130).Format("#,##0.00");
             })
