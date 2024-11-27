@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API
         public Guid CurrentMakerId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
 
-        private EnterpriseRepo _Organization;
+        public EnterpriseRepo _Organization;
         public EnterpriseRepo Organization
         {
             get

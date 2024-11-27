@@ -2,7 +2,7 @@
 
 
 
-<form id="EditForm" action="/Suppliers/Sales/@Model.Id/Update" method="post">
+<form id="EditForm" action="/@CompanyId/Suppliers/SupplierPayments/@Model.Id/Update" method="post">
     <div >
         <div class="grid grid-cols-3">
 
@@ -27,7 +27,7 @@
                     <div class="mb-3 font-semibold text-lg">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("No").LabelMode(EditorLabelMode.Static).Disabled(true)</div>
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").Disabled(true).LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountDiscount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
                           <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscount).Label("Total").LabelMode(EditorLabelMode.Static)</div>
 

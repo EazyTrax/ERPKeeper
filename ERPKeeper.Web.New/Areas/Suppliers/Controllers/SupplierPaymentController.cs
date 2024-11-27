@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             return View(SupplierPayment);
         }
 
-        public IActionResult Update()
+        public IActionResult Refresh()
         {
             var SupplierPayment = Organization.ErpCOREDBContext.SupplierPayments.Find(Id);
 
@@ -52,6 +52,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             supplierPayment.RetentionTypeId = model.RetentionTypeId;
             supplierPayment.PayFrom_AssetAccountId = model.PayFrom_AssetAccountId;
 
+            supplierPayment.Amount = supplierPayment.Purchase.Total;
             supplierPayment.AmountBankFee = model.AmountBankFee;
             supplierPayment.AmountDiscount = model.AmountDiscount;
             supplierPayment.Memo = model.Memo;

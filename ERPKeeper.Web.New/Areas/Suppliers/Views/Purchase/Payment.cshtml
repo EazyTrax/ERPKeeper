@@ -7,9 +7,14 @@
         <div class="p-2 bg-gray-100">
             @if (Model.SupplierPayment != null)
             {
-                <div>
+                <div class="mb-2 p-2">
                     Paid, <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.SupplierPayment.Id/">View Payment</a>
                 </div>
+
+
+
+                <partial name="/Areas/Suppliers/Views/SupplierPayment/_EditForm.cshtml" model="Model.SupplierPayment" />
+
             }
             else
             {

@@ -25,6 +25,9 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         [HttpPost]
         public IActionResult Insert(string values)
         {
+
+            _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName);
+
             var model = new Enterprise.Models.Customers.SaleItem();
             JsonConvert.PopulateObject(values, model);
 
@@ -41,7 +44,9 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
                 Organization.ErpCOREDBContext.SaveChanges();
 
             }
-       
+
+            sale.UpdateBalance();
+            Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
         }
@@ -50,10 +55,20 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
+            _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName);
+
             var model = Organization.ErpCOREDBContext.SaleItems.First(a => a.Id == key);
 
             JsonConvert.PopulateObject(values, model);
             Organization.ErpCOREDBContext.SaveChanges();
+
+
+
+            var sale = Organization.ErpCOREDBContext.Sales.First(a => a.Id == Id);
+            sale.UpdateBalance();
+
+            Organization.ErpCOREDBContext.SaveChanges();
+
             return Ok();
         }
 
