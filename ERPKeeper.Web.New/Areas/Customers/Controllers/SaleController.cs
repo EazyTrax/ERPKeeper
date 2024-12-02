@@ -152,14 +152,11 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             var transcation = Organization.Sales.Find(Id);
 
-            if (Organization.ErpCOREDBContext.Sales.Max(s => s.No) == transcation.No)
-            {
-                transcation.Items.Clear();
-            }
 
+            transcation.Items.Clear();
             Organization.ErpCOREDBContext.Sales.Remove(transcation);
-            Organization.SaveChanges();
 
+            Organization.SaveChanges();
             return Redirect($"/{CompanyId}/Customers/Sales");
         }
 

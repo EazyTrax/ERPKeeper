@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
             return View(receivePayment);
         }
-
+      
         public IActionResult Export()
         {
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
@@ -91,6 +91,17 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 file.CopyTo(memoryStream);
                 return memoryStream.ToArray();
             }
+        }
+
+
+        public IActionResult Delete()
+        {
+            var transcation = Organization.ReceivePayments.Find(Id);
+            var sale = transcation.Sale;
+            Organization.ErpCOREDBContext.ReceivePayments.Remove(transcation);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Customers/Sales/{sale.Id}");
         }
     }
 }
