@@ -161,6 +161,7 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public void UpdateBalance()
         {
             this.Amount = this.Purchase.Total;
+            this.AmountRetention = this.RetentionType?.GetRetentionAmount(this.Purchase.LinesTotalAfterDiscount) ?? 0;
             this.Name = $"CRP-{Date.Year}{Date.Month}-{this.No.ToString()}";
         }
 

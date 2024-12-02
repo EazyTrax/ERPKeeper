@@ -102,7 +102,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             if (this.AmountBankFee > 0 && this.BankFee_Expense_Account != null)
             {
                 this.Transaction.AddDebit(this.BankFee_Expense_Account, this.AmountBankFee);
-    
+
                 this.Transaction.AddCredit(this.PayToAccount, this.AmountBankFee);
             }
 
@@ -114,6 +114,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public void UpdateBalance()
         {
             this.Amount = this.Sale.Total;
+            this.AmountRetention = this.RetentionType?.GetRetentionAmount(this.Sale.LinesTotalAfterDiscount) ?? 0;
         }
 
         public void UnPostLedger()

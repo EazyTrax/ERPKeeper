@@ -97,14 +97,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         }
 
 
-        [Route("/{CompanyId}/Customers/Sales/{SaleId:Guid}/Items/Avaliable")]
+        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Items/Avaliable")]
         public IActionResult Items_Avaliable()
         {
             var transcation = Organization.Sales.Find(Id);
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Customers/Sales/{SaleId:Guid}/Items/Add")]
+        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Items/Add")]
         public IActionResult Items_Add([FromQuery] Guid ItemId)
         {
             var transcation = Organization.Sales.Find(Id);
@@ -240,7 +240,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return View(sale);
         }
-        [Route("/{CompanyId}/Customers/Sales/{SaleId:Guid}/Shipments/{ShipmentId}/ExportShipmentLabel")]
+        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportShipmentLabel")]
 
         public IActionResult ExportShipmentLabel(Guid ShipmentId)
         {
