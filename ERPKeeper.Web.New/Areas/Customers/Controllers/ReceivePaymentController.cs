@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
             return View(receivePayment);
         }
-      
+
         public IActionResult Export()
         {
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
@@ -84,6 +84,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return Ok();
         }
+
         public static byte[] GetByteArrayFromIFormFile(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())
