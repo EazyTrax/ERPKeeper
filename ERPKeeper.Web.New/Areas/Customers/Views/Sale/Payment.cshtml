@@ -21,7 +21,7 @@
                         Un Paid
                     </div>
                     <div>
-                        <a href="/@CompanyId/Customers/Sales/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToShortDateString()</a>
+                        <a href="/@CompanyId/Customers/Sales/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToString("dd-MMM-yyyy")</a>
                     </div>
                     <div>
                         <a href="/@CompanyId/Customers/Sales/@Model.Id/Pay?Date=Today">Pay Today @DateTime.Today.ToShortDateString()</a>

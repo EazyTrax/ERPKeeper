@@ -30,7 +30,7 @@
                 เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
             </div>
             <div>
-                @Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()
+                @Model.StartDate.ToString("dd-MMM-yyyy") - @Model.EndDate.ToString("dd-MMM-yyyy")
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 @(index++)
             </div>
             <div class="w-24">
-                @item.Date.ToShortDateString()
+                @item.Date.ToString("dd-MMM-yyyy")
             </div>
             <div class="w-28">
                 @item.Name
@@ -92,7 +92,7 @@
                 เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
             </div>
             <div>
-                @Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()
+                @Model.StartDate.ToString("dd-MMM-yyyy") - @Model.EndDate.ToString("dd-MMM-yyyy")
             </div>
 
         </div>
@@ -104,7 +104,7 @@
     {
         <div class="flex border-bottom">
             <div class="w-28">
-                @(index++)   @item.Date.ToShortDateString()
+                @(index++)   @item.Date.ToString("dd-MMM-yyyy")
             </div>
             <div class="w-28">
                 @item.Name
