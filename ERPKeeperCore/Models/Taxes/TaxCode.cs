@@ -100,5 +100,13 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             return decimal.Round(amount * taxRate / 100, 2, MidpointRounding.ToEven);
         }
 
+        public Decimal GetTotalBalance(DateTime Date, decimal amount)
+        {
+            var taxRate = GetTaxRate(Date);
+            return decimal.Round(amount + amount * taxRate / 100, 2, MidpointRounding.ToEven);
+        }
+
+
+
     }
 }

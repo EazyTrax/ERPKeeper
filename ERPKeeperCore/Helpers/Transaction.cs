@@ -12,19 +12,26 @@ namespace ERPKeeperCore.Enterprise.Helpers
 
     public static class ThaiMoneyConverter
     {
+
         private static readonly string[] Units = { "", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า" };
         private static readonly string[] Tens = { "", "สิบ", "ยี่สิบ", "สามสิบ", "สี่สิบ", "ห้าสิบ", "หกสิบ", "เจ็ดสิบ", "แปดสิบ", "เก้าสิบ" };
 
         public static string ReturnThaiMoney(decimal amount)
         {
+            // Round to 2 decimal places
+            amount = Math.Round(amount, 2, MidpointRounding.AwayFromZero);
+
             if (amount == 0) return "ศูนย์บาทถ้วน";
 
-            var baht = (int)amount;
-            var satang = (int)((amount - baht) * 100);
+            // Separate baht and satang
+            var baht = (int)amount; // Integer part
+            var satang = (int)((amount - baht) * 100); // Fractional part (satang)
 
+            // Convert both parts
             var bahtText = ConvertToThai(baht);
             var satangText = satang > 0 ? ConvertToThai(satang) : "";
 
+            // Combine result
             var result = bahtText + "บาท";
             result += satang > 0 ? satangText + "สตางค์" : "ถ้วน";
 
@@ -37,52 +44,67 @@ namespace ERPKeeperCore.Enterprise.Helpers
 
             var result = "";
 
+            // Millions and beyond
             if (number >= 1000000)
             {
-                result += ConvertToThai(number / 1000000) + "ล้าน";
-                number %= 1000000;
+                var millionPart = number / 1000000;
+                result += ConvertToThai(millionPart) + "ล้าน";
+                number %= 1000000; // Remaining part
             }
 
+            // Hundred-thousand (แสน)
             if (number >= 100000)
             {
-                result += ConvertToThai(number / 100000) + "แสน";
+                var hundredThousandPart = number / 100000;
+                result += Units[hundredThousandPart] + "แสน";
                 number %= 100000;
             }
 
+            // Ten-thousand (หมื่น)
             if (number >= 10000)
             {
-                result += ConvertToThai(number / 10000) + "หมื่น";
+                var tenThousandPart = number / 10000;
+                if (tenThousandPart == 1)
+                    result += "สิบ";
+                else
+                    result += Units[tenThousandPart] + "หมื่น";
                 number %= 10000;
             }
 
+            // Thousands (พัน)
             if (number >= 1000)
             {
-                result += ConvertToThai(number / 1000) + "พัน";
+                var thousandPart = number / 1000;
+                result += Units[thousandPart] + "พัน";
                 number %= 1000;
             }
 
+            // Hundreds (ร้อย)
             if (number >= 100)
             {
-                result += ConvertToThai(number / 100) + "ร้อย";
+                var hundredPart = number / 100;
+                result += Units[hundredPart] + "ร้อย";
                 number %= 100;
             }
 
+            // Tens (สิบ, ยี่สิบ, สามสิบ)
             if (number >= 10)
             {
-                result += Tens[number / 10];
+                var tenPart = number / 10;
+                if (tenPart == 1)
+                    result += "สิบ";
+                else
+                    result += Tens[tenPart];
                 number %= 10;
             }
 
+            // Units (เอ็ด for special case)
             if (number > 0)
             {
-                if (number == 1 && result != "" && !result.EndsWith("สิบ"))
-                {
+                if (number == 1 && result != "") // "เอ็ด" only after tens
                     result += "เอ็ด";
-                }
                 else
-                {
                     result += Units[number];
-                }
             }
 
             return result;

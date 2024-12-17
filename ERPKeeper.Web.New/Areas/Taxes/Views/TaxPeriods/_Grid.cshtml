@@ -24,7 +24,7 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .ColumnChooser(m => m.Enabled(true))
         .GroupPanel(g => g.Visible(true))
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxPeriods" + CompanyId.ToString())) 
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxPeriods" + CompanyId.ToString()))
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -63,19 +63,21 @@
         .ValueExpr("Value")
         );
 
-        
+
 
             columns.Add()
         .Caption("Purchases")
         .Columns(subColumns =>
         {
                 subColumns.AddFor(m => m.PurchasesCount)
+                .AllowEditing(false)
             .HeaderCellTemplate(@<text>Count</text>)
-            .Width(60)
+        .Width(60)
         .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Purchases"><%= data.PurchasesCount %></a></text>)
             .Format("#,##0.00");
 
                 subColumns.AddFor(m => m.PurchasesTaxBalance)
+            .AllowEditing(false)
             .HeaderCellTemplate(@<text>PurchasesTax</text>)
             .Format("#,##0.00");
 
@@ -94,12 +96,14 @@
 
 
                 subColumns.AddFor(m => m.SalesCount)
+            .AllowEditing(false)
             .Width(60)
             .HeaderCellTemplate(@<text>Sales</text>)
         .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
             .Format("#,##0.00");
 
                 subColumns.AddFor(m => m.SalesTaxBalance)
+            .AllowEditing(false)
             .HeaderCellTemplate(@<text>SalesTax</text>)
             .Format("#,##0.00");
 
@@ -112,6 +116,7 @@
 
 
             columns.AddFor(m => m.ClosingAmount)
+        .AllowEditing(false)
         .HeaderCellTemplate(@<text>ClosingAmount</text>)
         .Format("#,##0.00");
 
@@ -134,7 +139,15 @@
 
 
         })
+        .OnInitNewRow("onInitNewRow")
         )
 </div>
 
 
+<script>
+    function onInitNewRow(e) {
+        // const today = new Date();
+        // e.data.Date = today;
+        // e.data.Status = 0;
+    }
+</script>

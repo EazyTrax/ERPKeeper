@@ -26,7 +26,10 @@ namespace ERPKeeperCore.Web.API.Taxes
             JsonConvert.PopulateObject(values, model);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
-            
+
+            model.StartDate = new DateTime(model.StartDate.Year, model.StartDate.Month, 1);
+         
+
             Organization.ErpCOREDBContext.TaxPeriods.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
