@@ -1,4 +1,6 @@
-﻿using ERPKeeperCore.Enterprise.Models.Suppliers;
+﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -88,7 +90,14 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return View(transcation);
         }
-     
+        public IActionResult Order()
+        {
+            var transcation = Organization.PurchaseQuotes.Find(Id);
+            transcation.SetStatus(PurchaseQuoteStatus.Order);
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         public IActionResult Delete()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);

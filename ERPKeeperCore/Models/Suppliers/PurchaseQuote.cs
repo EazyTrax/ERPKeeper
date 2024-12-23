@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Enums;
+﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
@@ -134,5 +135,14 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             this.Reorder();
             this.UpdateBalance();
         }
+
+        public void SetStatus(PurchaseQuoteStatus newStatus)
+        {
+            if (Status == PurchaseQuoteStatus.Close)
+                return;
+
+            this.Status = newStatus;
+        }
+
     }
 }
