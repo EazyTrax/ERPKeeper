@@ -58,8 +58,15 @@
         <div class="col-span-2 text-right">รวม</div>
     </div>
     <div class="p-2">
-        @foreach (var item in Model.Items.ToList())
+
+        @{
+            decimal total = 0;
+        }
+        @foreach (var item in Model.Items.Where(i => i.Quantity != 0).ToList())
         {
+            decimal lineTotal = Model.TaxCode.GetTotalBalance(DateTime.Now, item.PriceAfterDiscount, 4) * item.Quantity;
+            total = total + lineTotal;
+
             <div class="grid grid-cols-12 gap-2 py-1">
                 <div class="flex col-span-7">
 
@@ -84,9 +91,9 @@
                 </div>
                 <div class="col-span-1 text-right">@item.Quantity</div>
                 <div class="col-span-2 text-right">
-                    @Model.TaxCode.GetTotalBalance(DateTime.Now, item.PriceAfterDiscount).ToString("N2")
+                    @Model.TaxCode.GetTotalBalance(DateTime.Now, item.PriceAfterDiscount,4).ToString("N4")
                 </div>
-                <div class="col-span-2 text-right">@Model.TaxCode.GetTotalBalance(DateTime.Now, item.LineTotal).ToString("N2")</div>
+                            <div class="col-span-2 text-right">@((Model.TaxCode.GetTotalBalance(DateTime.Now, item.PriceAfterDiscount, 4) * item.Quantity).ToString("N4"))</div>
             </div>
         }
 
@@ -109,26 +116,26 @@
             <div class="grid grid-cols-2 gap-4">
 
                 <div class="text-right">ส่วนลด</div>
-                <div class="text-right ">@Model.Discount.ToString("N2")</div>
+                <div class="text-right ">@Model.Discount.ToString("N4")</div>
             </div>
         }
 
         <div class="grid grid-cols-2 gap-4 ">
             <div class="text-right">ราคารวมภาษี</div>
-            <div class="text-right ">@Model.Total.ToString("N2")</div>
+            <div class="text-right ">@total.ToString("N4")</div>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div class="text-right">ภาษีมูลค่าเพิ่ม</div>
-            <div class="text-right ">@Model.Tax.ToString("N2")</div>
+            <div class="text-right ">@Model.Tax.ToString("N4")</div>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div class="text-right">ราคาสินค้า</div>
-            <div class="text-right ">@Model.LinesTotalAfterDiscount.ToString("N2")</div>
+            <div class="text-right ">@((total - Model.Tax).ToString("N4"))</div>
         </div>
 
-     
 
-       
+
+
 
         <div class="text-right pt-2">
             (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total))

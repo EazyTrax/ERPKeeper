@@ -13,7 +13,6 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
     public class TaxCode
     {
         [Key]
-
         public Guid Id { get; set; }
         public Guid? TaxGroupId { get; set; }
         public String? Name { get; set; }
@@ -36,17 +35,13 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         [ForeignKey("InputTaxAccountId")]
         public virtual Account InputTaxAccount { get; set; }
 
-
         public Guid? AssignAccountId { get; set; }
         [ForeignKey("AssignAccountId")]
         public virtual Account AssignAccount { get; set; }
 
-
         public Guid? CloseToAccountId { get; set; }
         [ForeignKey("CloseToAccountId")]
         public virtual Account CloseToAccount { get; set; }
-
-
 
         public void Refresh()
         {
@@ -94,16 +89,16 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             return Rate;
         }
 
-        public Decimal GetTaxBalance(DateTime Date, decimal amount)
+        public Decimal GetTaxBalance(DateTime Date, decimal amount, int precission = 2)
         {
             var taxRate = GetTaxRate(Date);
-            return decimal.Round(amount * taxRate / 100, 2, MidpointRounding.ToEven);
+            return decimal.Round(amount * taxRate / 100, precission, MidpointRounding.ToEven);
         }
 
-        public Decimal GetTotalBalance(DateTime Date, decimal amount)
+        public Decimal GetTotalBalance(DateTime Date, decimal amount, int precission = 2)
         {
             var taxRate = GetTaxRate(Date);
-            return decimal.Round(amount + amount * taxRate / 100, 2, MidpointRounding.ToEven);
+            return decimal.Round(amount + amount * taxRate / 100, precission, MidpointRounding.ToEven);
         }
 
 

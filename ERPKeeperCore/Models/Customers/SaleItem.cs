@@ -25,6 +25,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public int Order { get; set; }
 
         public int Quantity { get; set; }
+
+        [Column(TypeName = "money")]
         public Decimal Price { get; set; }
         public String? Memo { get; set; }
         public String? Serial { get; set; }

@@ -38,7 +38,7 @@
             columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
             columns.AddFor(m => m.PartNumber).CssClass("bg-gray-200").Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
             columns.AddFor(m => m.Description).CssClass("bg-gray-200").FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
-            columns.AddFor(m => m.Price).CssClass("bg-gray-200").Width(100).Format("#,##0.00");
+            columns.AddFor(m => m.Price).CssClass("bg-gray-200").Width(100).Format("#,##0.0000");
       
          @* 
             columns.AddFor(m => m.DiscountPercent).CssClass("bg-gray-200").Width(100).Format("#,##0.00");
@@ -47,7 +47,7 @@
 
             columns.AddFor(m => m.Serial).Visible(false).ShowInColumnChooser(true).FormItem(i => i.Editor(e => e.TextArea().MinHeight(300)));
             columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");
-            columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.00").FormItem(i => i.Visible(false));
+            columns.AddFor(m => m.LineTotal).Width(100).Format("#,##0.0000").FormItem(i => i.Visible(false));
 
         })
         .OnInitNewRow("function(e) { e.data.SalePrice = 0;e.data.Amount = 1; }")

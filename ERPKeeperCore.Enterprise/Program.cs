@@ -32,11 +32,6 @@ namespace ERPKeeperCore.CMD
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
-
-
-
-
-
                 if (false && newOrganization != null)
                 {
                     newOrganization.Transactions.Post_Ledgers();
