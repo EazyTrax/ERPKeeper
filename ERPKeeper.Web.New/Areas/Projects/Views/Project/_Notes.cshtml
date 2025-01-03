@@ -1,0 +1,22 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
+
+<div class="">
+
+    <partial name="_New_Note" />
+
+    @{
+        foreach (var note in Model.ProjectNotes)
+        {
+            <div class="p-2 mb-1 bg-gray-100 hover:bg-gray-200">
+                @note.Note
+
+                <br /><br />
+                @note.Date.ToShortDateString()
+                @note.Member.Name
+            </div>
+
+
+
+        }
+    }
+</div>

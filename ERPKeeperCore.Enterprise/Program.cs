@@ -32,6 +32,9 @@ namespace ERPKeeperCore.CMD
 
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
+                GeneralOperations(newOrganization, oldOrganization);
+
+
                 if (false && newOrganization != null)
                 {
                     newOrganization.Transactions.Post_Ledgers();
@@ -46,9 +49,9 @@ namespace ERPKeeperCore.CMD
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
 
-                newOrganization.SaleQuotes.GetAll().ForEach(sq =>
+                newOrganization.Projects.GetAll().ForEach(sq =>
                 {
-                    sq.UpdateName();
+                   // sq.Status = Enterprise.Models.Projects.Enums.ProjectStatus.Close;
                 });
 
                 newOrganization.SaveChanges();

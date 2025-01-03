@@ -9,6 +9,7 @@ using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ERPKeeperCore.Enterprise;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 {
@@ -26,11 +27,22 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         [Route("/API/{CompanyId}/Customers/{controller}/{action}/{status}")]
         public object List(SaleQuoteStatus status, DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.SaleQuotes
-                 .Where(m => m.Status == status)
+            if (status == SaleQuoteStatus.Open)
+            {
+                var returnModel = Organization.ErpCOREDBContext.SaleQuotes
+                 .Where(m => m.Status == SaleQuoteStatus.Open || m.Status == SaleQuoteStatus.Order)
                  .ToList();
 
-            return DataSourceLoader.Load(returnModel, loadOptions);
+                return DataSourceLoader.Load(returnModel, loadOptions);
+
+            }
+            else
+            {
+                var returnModel = Organization.ErpCOREDBContext.SaleQuotes
+                                 .Where(m => m.Status == status)
+                                 .ToList();
+                return DataSourceLoader.Load(returnModel, loadOptions);
+            }
         }
 
         public object Quotes(DataSourceLoadOptions loadOptions)
@@ -51,7 +63,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         {
             var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                 .Where(m =>
-                    m.Status == SaleQuoteStatus.Ordering ||
+                    m.Status == SaleQuoteStatus.Order ||
                     m.Status == SaleQuoteStatus.Close)
                 .ToList();
 

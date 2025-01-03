@@ -80,6 +80,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public virtual PaymentTerm? PaymentTerm { get; set; }
 
         public Guid? SupplierAddressId { get; set; }
+        public Guid? ProfileAddesssId { get; set; }
+        [ForeignKey("ProfileAddesssId")]
+        public virtual Profiles.ProfileAddress? ProfileAddesss { get; set; }
+        public Guid? PurchaseId { get; internal set; }
+
         public void AddItem(Items.Item item)
         {
             var quoteItem = new PurchaseQuoteItem()

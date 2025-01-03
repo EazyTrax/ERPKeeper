@@ -26,11 +26,23 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         [Route("/API/{CompanyId}/Suppliers/{controller}/{action}/{status}")]
         public object List(PurchaseQuoteStatus status, DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
-                 .Where(m => m.Status == status)
+
+            if (status == PurchaseQuoteStatus.Open)
+            {
+                var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
+                 .Where(m => m.Status == PurchaseQuoteStatus.Open || m.Status == PurchaseQuoteStatus.Order)
                  .ToList();
 
-            return DataSourceLoader.Load(returnModel, loadOptions);
+                return DataSourceLoader.Load(returnModel, loadOptions);
+
+            }
+            else
+            {
+                var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
+                                 .Where(m => m.Status == status)
+                                 .ToList();
+                return DataSourceLoader.Load(returnModel, loadOptions);
+            }
         }
 
 
@@ -54,7 +66,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 
             enterpriseRepo.SaveChanges();
 
-            
+
             return Ok();
         }
 

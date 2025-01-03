@@ -13,10 +13,11 @@
         )
         .KeyExpr("Id")
         .Width("100%")
-        .RowAlternationEnabled(true).AllowColumnReordering(true)
+        .RowAlternationEnabled(false)
+        .AllowColumnReordering(true)
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
-        .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
-
+        .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Projects"))
+        .ColumnChooser(c => c.Enabled(true))
         .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
@@ -50,13 +51,11 @@
 
 
                 columns.AddFor(m => m.StartDate).Width(120);
-                columns.AddFor(m => m.EndDate).Width(120);
-
+                columns.AddFor(m => m.EndDate).Visible(false).Width(120);
 
                 columns.AddFor(m => m.SaleQuotesTotal).Width(120);
                 columns.AddFor(m => m.PurchaseQuotesTotal).Width(120);
                 columns.AddFor(m => m.EstimateProfit).Width(120);
-
 
                 columns.AddFor(m => m.SalesTotal).Width(120);
                 columns.AddFor(m => m.PurchasesTotal).Width(120);
@@ -66,16 +65,37 @@
 
             })
         .OnInitNewRow("onInitNewRow")
+        .OnRowPrepared("onRowPrepared")
         )
 </div>
 
 <script>
-
-
     function onInitNewRow(e) {
         e.data.StartDate = new Date();
         e.data.Status = 0;
 
+        e.data.SaleQuotesTotal = 0;
+        e.data.PurchaseQuotesTotal = 0;
+        e.data.EstimateProfit = 0;
+
+
+        e.data.SalesTotal = 0;
+        e.data.PurchasesTotal = 0;
+        e.data.Profit = 0;
+    }
+
+
+
+    function onRowPrepared(e) {
+        if (e.rowType === 'data') {
+
+            let status = e.data.Status;
+            let color;
+
+            if(status == 0){
+                        color = '#cce5ff'; // Light blue
+                        e.rowElement.css('background-color', color);
+            }
+        }
     }
 </script>
-

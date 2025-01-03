@@ -33,6 +33,17 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        
+
+      
+
+
+
+
+
+
+
         [HttpPost]
         public IActionResult Update(Purchase model)
         {

@@ -168,7 +168,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Order()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
-            transcation.SetStatus(SaleQuoteStatus.Ordering);
+            transcation.SetStatus(SaleQuoteStatus.Order);
 
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());

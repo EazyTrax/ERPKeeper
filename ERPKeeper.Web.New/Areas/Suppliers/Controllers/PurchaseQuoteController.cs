@@ -24,7 +24,6 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var transcation = Organization.PurchaseQuotes.Find(Id);
             return View(transcation);
         }
-       
         public IActionResult Refresh()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);
@@ -35,11 +34,26 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public IActionResult Void()
+        {
+            var transcation = Organization.PurchaseQuotes.Find(Id);
+            transcation.Status = PurchaseQuoteStatus.Void;
+            Organization.SaveChanges();
 
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public IActionResult Close()
+        {
+            var transcation = Organization.PurchaseQuotes.Find(Id);
+            transcation.Status = PurchaseQuoteStatus.Close;
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         public IActionResult Items()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);
-           
+
             transcation.UpdateItems();
 
             Organization.SaveChanges();
@@ -52,6 +66,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             var transcation = Organization.PurchaseQuotes.Find(Id);
             return View(transcation);
         }
+
         [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Add")]
         public IActionResult Items_Add([FromQuery] Guid ItemId)
         {
@@ -62,6 +77,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Redirect($"/{CompanyId}/Suppliers/PurchaseQuotes/{Id}/Items");
         }
+
         [HttpPost]
         public IActionResult Update(PurchaseQuote model)
         {
@@ -75,7 +91,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             transcation.Reference = model.Reference;
             transcation.PaymentTermId = model.PaymentTermId;
             transcation.TaxCodeId = model.TaxCodeId;
-       
+
 
             transcation.UpdateBalance();
             Organization.SaveChanges();
@@ -138,7 +154,6 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Ok();
         }
-
         public static byte[] GetByteArrayFromIFormFile(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())
@@ -147,6 +162,19 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
                 return memoryStream.ToArray();
             }
         }
+        public IActionResult ConvertToInvoice()
+        {
+            var PurchaseQuote = Organization.PurchaseQuotes.Find(Id);
+            var Purchase = Organization.Purchases.CreateInvoice(PurchaseQuote);
 
+            Purchase.TaxCodeId = PurchaseQuote.TaxCodeId;
+            // Purchase.ExpenseAccountId = Organization.SystemAccounts.Expense.Id;
+
+            Organization.SaveChanges();
+
+            string returnUrl = $"/{CompanyId}/Customers/Purchases/{Purchase.Id}/";
+
+            return Redirect(returnUrl);
+        }
     }
 }

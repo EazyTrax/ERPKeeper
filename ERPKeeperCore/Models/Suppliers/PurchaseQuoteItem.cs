@@ -6,6 +6,7 @@ using System.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using ERPKeeperCore.Enterprise.Models.Customers;
 
 namespace ERPKeeperCore.Enterprise.Models.Suppliers
 {
@@ -45,6 +46,21 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public PurchaseQuoteItem()
         {
 
+        }
+
+        public PurchaseItem GetPurchaseItem()
+        {
+            return new PurchaseItem()
+            {
+                ItemId = this.ItemId,
+                PartNumber = this.PartNumber,
+                Description = this.Description,
+                Memo = this.Memo,
+                Price = this.Price,
+                Quantity = this.Quantity,
+                Order = this.Order,
+                DiscountPercent = this.DiscountPercent
+            };
         }
     }
 }

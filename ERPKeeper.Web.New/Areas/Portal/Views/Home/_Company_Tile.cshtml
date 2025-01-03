@@ -16,12 +16,20 @@
 
 
     <div class="grid grid-cols-4 col-span-4 bg-gray-100 min-h-16 border">
-        <div class="col-span-4  mb-2   p-2">
+        <div class="col-span-3  mb-2   p-2">
             <a href="/@company/Customers/Customers">
                 @companyRepo.ErpCOREDBContext.Customers.Count() <br />
                 Customers
             </a>
         </div>
+        <div class="mb-2 p-2">
+            <a href="/@company/Projects">
+                @companyRepo.ErpCOREDBContext.Projects.Where(p => p.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open).Count() <br />
+                Projects
+            </a>
+        </div>
+
+
 
         <a href="/@company/Customers/SaleQuotes">
             <div class="bg-gray-200 min-h-16  p-2 border">

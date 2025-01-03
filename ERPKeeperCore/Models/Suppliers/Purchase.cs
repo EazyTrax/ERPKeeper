@@ -104,6 +104,11 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         public Guid? PaymentTermId { get; set; }
         [ForeignKey("PaymentTermId")]
         public virtual PaymentTerm? PaymentTerm { get; set; }
+        public Guid? ProfileAddesssId { get; set; }
+        [ForeignKey("ProfileAddesssId")]
+        public virtual Profiles.ProfileAddress? ProfileAddesss { get; set; }
+
+
 
         public void AddItem(Items.Item item)
         {

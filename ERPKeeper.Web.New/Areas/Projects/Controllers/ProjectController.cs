@@ -13,7 +13,18 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
     [Route("/{CompanyId}/Projects/{ProjectId:Guid}/{action=Index}/")]
     public class ProjectController : _Projects_Base_Controller
     {
-        public IActionResult Index(Guid ProjectId)
+        public Guid ProjectId => Guid.Parse(RouteData.Values["ProjectId"].ToString());
+
+        public IActionResult Index()
+        {
+            var Project = Organization.Projects.Find(ProjectId);
+
+            if (Project == null)
+                return NotFound();
+
+            return View(Project);
+        }
+        public IActionResult Notes()
         {
             var Project = Organization.Projects.Find(ProjectId);
 
@@ -23,7 +34,24 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
             return View(Project);
         }
 
-        public IActionResult Close(Guid ProjectId)
+        [Route("/{CompanyId}/Projects/{ProjectId:Guid}/Notes/Create")]
+        public IActionResult NoteCreate([FromForm] String note)
+        {
+            var Project = Organization.Projects.Find(ProjectId);
+
+            Project.ProjectNotes.Add(new Enterprise.Models.Projects.ProjectNote
+            {
+                Date = DateTime.Now,
+                MemberId = AuthorizeUserId,
+                Note = note
+            });
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
+        public IActionResult Close()
         {
             var Project = Organization.Projects.Find(ProjectId);
             Project.ChangeStatus(Enterprise.Models.Projects.Enums.ProjectStatus.Close);
@@ -33,7 +61,7 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
             return View(Project);
         }
 
-        public IActionResult Open(Guid ProjectId)
+        public IActionResult Open()
         {
             var Project = Organization.Projects.Find(ProjectId);
             Project.ChangeStatus(Enterprise.Models.Projects.Enums.ProjectStatus.Open);
@@ -58,23 +86,23 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-     
-        public IActionResult Sales(Guid ProjectId)
+
+        public IActionResult Sales()
         {
             var Project = Organization.Projects.Find(ProjectId);
             return View(Project);
         }
-        public IActionResult SaleQuotes(Guid ProjectId)
+        public IActionResult SaleQuotes()
         {
             var Project = Organization.Projects.Find(ProjectId);
             return View(Project);
         }
-        public IActionResult Purchases(Guid ProjectId)
+        public IActionResult Purchases()
         {
             var Project = Organization.Projects.Find(ProjectId);
             return View(Project);
         }
-        public IActionResult PurchaseQuotes(Guid ProjectId)
+        public IActionResult PurchaseQuotes()
         {
             var Project = Organization.Projects.Find(ProjectId);
             return View(Project);

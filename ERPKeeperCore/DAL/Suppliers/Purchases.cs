@@ -11,7 +11,8 @@ using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Suppliers;
 using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
-using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
 
 namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 {
@@ -133,17 +134,17 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             erpNodeDBContext.SaveChanges();
 
         }
+
+        public int GetNextInvoiceNumber() => (erpNodeDBContext.Purchases
+         .Select(a => (int?)a.No)
+         .Max() ?? 0) + 1;
+
+
         public Purchase Create(Purchase model)
         {
-
-
-            var maxNo = erpNodeDBContext.Purchases
-                .Select(a => (int?)a.No)
-                .Max() ?? 0;
-
             //model.Date = DateTime.Today;
             model.Status = PurchaseStatus.Open;
-            model.No = maxNo + 1;
+            model.No = GetNextInvoiceNumber();
             model.UpdateBalance();
             model.UpdateName();
 
@@ -153,5 +154,39 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             return model;
         }
 
+        public Purchase CreateInvoice(PurchaseQuote purchaseQuote)
+        {
+            var newPurchaseModel = new Purchase()
+            {
+                Date = DateTime.Today,
+                Status = PurchaseStatus.Open,
+                No = GetNextInvoiceNumber(),
+                SupplierId = purchaseQuote.SupplierId,
+                Reference = purchaseQuote.Reference,
+                ProfileAddesssId = purchaseQuote.ProfileAddesssId,
+                Items = new List<PurchaseItem>()
+            };
+
+            foreach (var purchaseQuoteItem in purchaseQuote.Items.ToList())
+            {
+                var purchaseItem = purchaseQuoteItem.GetPurchaseItem();
+                newPurchaseModel.Items.Add(purchaseItem);
+            }
+
+
+            newPurchaseModel.UpdateBalance();
+            newPurchaseModel.UpdateName();
+
+            erpNodeDBContext.Purchases.Add(newPurchaseModel);
+            erpNodeDBContext.SaveChanges();
+
+
+            purchaseQuote.Status = PurchaseQuoteStatus.Close;
+            purchaseQuote.PurchaseId = newPurchaseModel.Id;
+
+            return newPurchaseModel;
+
+
+        }
     }
 }
