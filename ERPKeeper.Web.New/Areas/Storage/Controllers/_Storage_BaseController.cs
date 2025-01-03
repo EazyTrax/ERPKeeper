@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Storage.Controllers
 {
-
-    public class HomeController : _Storage_BaseController
+    [Area("Storage")]
+    [Route("/{CompanyId}/{area}/{controller=Home}/{action=Index}/{id?}")]
+    public class _Storage_BaseController : DefaultController
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    
+
+
 
     }
 }

@@ -1,0 +1,90 @@
+﻿@model Guid
+
+@{
+    var topicId = Model;
+    var noteItems = Organization.ErpCOREDBContext.NoteItems.Where(n => n.TopicId == Model).ToList();
+}
+
+<div class="bg-gray-100 hover:bg-gray-200 hover:border-red-300 border-2 p-2 rounded">
+    <div class="flex justify-between">
+        <div class="text-lg font-semibold mb-2">
+            <div class="text-xl text-center font-semibold">
+                @noteItems.Count() Notes
+            </div>
+
+        </div>
+        <div class="text-lg font-semibold mb-2">
+            <i class="fa-solid fa-circle-plus text-2xl cursor-pointer" onclick="toggleNewEditForm()"></i>
+        </div>
+    </div>
+
+    <div id="NewNoteForm" style="display: none;">
+        <form action="/@CompanyId/Storage/NoteItems/Create" method="POST" class="w-full">
+            <!-- Note Field -->
+            <div class="relative flex flex-col mb-2">
+                <textarea name="Note"
+                          id="Note"
+                          class="w-full block rounded-md border border-gray-300 py-2 px-3 text-gray-900 focus:ring-2 focus:ring-indigo-600 focus:outline-none sm:text-sm"
+                          placeholder="Type your Note here"
+                          rows="10"
+                          required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end">
+                <button type="submit"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleNewEditForm() {
+        const editForm = document.getElementById('NewNoteForm');
+        if (editForm.style.display === 'none') {
+            editForm.style.display = 'block';
+        } else {
+            editForm.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#NewNoteForm form');
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const noteText = form.querySelector('#Note').value;
+            const topicId = '@Model'; // Pass the topicId dynamically
+
+            const requestData = {
+                Note: noteText,
+                TopicId: topicId,
+            };
+
+            try {
+                const response = await fetch(`/@CompanyId/Storage/NoteItems/Create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                });
+
+               if (response.ok) {
+                    window.location.reload();
+                }  else {
+                    const error = await response.text();
+                    console.error('Error:', error);
+                    alert('Failed to add the note.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the note.');
+            }
+        });
+    });
+</script>

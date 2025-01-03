@@ -8,10 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeperCore.Web.Areas.Contents.Controllers
+namespace ERPKeeperCore.Web.Areas.Storage.Controllers
 {
-    [Area("Storage")]
-    public class DocumentsController : DefaultController
+    
+    public class DocumentsController : _Storage_BaseController
     {
         public IActionResult Index()
         {

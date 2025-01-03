@@ -34,22 +34,7 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
             return View(Project);
         }
 
-        [Route("/{CompanyId}/Projects/{ProjectId:Guid}/Notes/Create")]
-        public IActionResult NoteCreate([FromForm] String note)
-        {
-            var Project = Organization.Projects.Find(ProjectId);
-
-            Project.ProjectNotes.Add(new Enterprise.Models.Projects.ProjectNote
-            {
-                Date = DateTime.Now,
-                MemberId = AuthorizeUserId,
-                Note = note
-            });
-            Organization.SaveChanges();
-
-            return Redirect(Request.Headers["Referer"].ToString());
-        }
-
+     
 
         public IActionResult Close()
         {

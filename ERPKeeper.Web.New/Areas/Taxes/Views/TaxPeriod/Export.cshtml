@@ -35,6 +35,14 @@
         </div>
     </div>
 
+    <div class="flex border-bottom font-semibold">
+        <div class="w-28">ลำดับ</div>
+        <div class="w-28">วันที่</div>
+        <div class="flex-1 mr-3">ผู้ขาย</div>
+        <div class="w-28">เลขที่ผู้เสียภาษี</div>
+        <div class="w-28 text-right">ยอดรวม</div>
+        <div class="w-28 text-right">ภาษี</div>
+    </div>
 
     @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
     {
@@ -49,7 +57,7 @@
             <div class="w-28">
                 @item.Name
             </div>
-            <div class="w-64 mr-3">
+            <div class="flex-1 mr-3">
                 @item.Supplier.Profile.Name
             </div>
             <div class="w-28 ">
@@ -64,8 +72,8 @@
         </div>
     }
 
-    <div class="flex border-bottom font-semibold">
-        <div class="">
+    <div class="flex  justify-end border-bottom font-semibold">
+        <div class="flex-1">
         </div>
         <div class="w-28 p-0 text-right">
             @Model.Purchases.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
@@ -97,6 +105,19 @@
 
         </div>
     </div>
+
+
+
+
+    <div class="flex border-bottom font-semibold">
+        <div class="w-28">ลำดับ</div>
+        <div class="w-28">วันที่</div>
+        <div class="flex-1 mr-3">ผู้ซื้อ</div>
+        <div class="w-28">เลขที่ผู้เสียภาษี</div>
+        <div class="w-28 text-right">ยอดรวม</div>
+        <div class="w-28 text-right">ภาษี</div>
+    </div>
+
     @{
         index = 1;
     }
@@ -109,7 +130,7 @@
             <div class="w-28">
                 @item.Name
             </div>
-            <div class="w-64 mr-3">
+            <div class="flex-1 mr-3">
                 @item.Customer.Profile.Name
             </div>
             <div class="w-28 p-0">
@@ -124,8 +145,8 @@
         </div>
     }
 
-    <div class="flex border-bottom font-semibold">
-        <div class="">
+    <div class="flex justify-end border-bottom font-semibold">
+        <div class="flex-1">
         </div>
         <div class="w-28 p-0 text-right">
             @Model.Sales.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")

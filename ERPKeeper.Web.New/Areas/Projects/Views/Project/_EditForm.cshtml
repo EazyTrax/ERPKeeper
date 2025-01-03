@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
 
-<form id="EditForm" action="/@CompanyId/Customers/Projects/@Model.Id/Update" method="post">
+<form id="EditForm" action="/@CompanyId/Projects/@Model.Id/Update" method="post">
     <div class="border">
         <div class="grid grid-cols-3">
             <div class="border">
@@ -29,7 +29,23 @@
             </div>
         </div>
     </div>
-    <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
-        Save
-    </button>
+    <div class="p-2">
+        <button class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;" type="button" onclick="document.getElementById('EditForm').submit();">
+            Save
+        </button>
+        @{
+            if (Model.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open)
+            {
+                <a href="/@CompanyId/Customers/Projects/@Model.Id/close" class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;">
+                    Close
+                </a>
+            }
+            else
+            {
+                <a href="/@CompanyId/Customers/Projects/@Model.Id/open" class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;">
+                    Re-Open
+                </a>
+            }
+        }
+    </div>
 </form>

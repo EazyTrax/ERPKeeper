@@ -12,25 +12,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERPKeeperCore.Enterprise.Models.Projects
 {
-    public class ProjectNote
-    {
-        [Key]
-        public Guid Id { get; set; }
-        public DateTime Date { get; set; }
-        public string? Note { get; set; }
-        public string? PreNote { get; set; }
-
-
-        public Guid ProjectId { get; set; }
-        [ForeignKey("ProjectId")]
-        public virtual Project Project { get; set; }
-
-
-        public Guid MemberId { get; set; }
-        [ForeignKey("MemberId")]
-        public virtual Member Member { get; set; }
-
-    }
+   
     public class Project
     {
         [Key]
@@ -70,8 +52,6 @@ namespace ERPKeeperCore.Enterprise.Models.Projects
         public virtual ICollection<Sale> Sales { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual ICollection<PurchaseQuote> PurchaseQuotes { get; set; }
-
-        public virtual ICollection<ProjectNote> ProjectNotes { get; set; }
 
 
         public decimal SaleQuotesTotal { get; set; }

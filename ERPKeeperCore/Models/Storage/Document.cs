@@ -20,6 +20,9 @@ namespace ERPKeeperCore.Enterprise.Models.Storage
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid? TransactionId { get; set; }
+
+
         public TransactionType Type { get; set; }
         public String Note { get; set; }
         public String? Description { get; set; }
@@ -29,7 +32,7 @@ namespace ERPKeeperCore.Enterprise.Models.Storage
         public int Size { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        public Guid? TransactionId { get; set; }
+
 
         public Guid? ProfileId { get; set; }
         [ForeignKey("ProfileId")]

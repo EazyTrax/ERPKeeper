@@ -1,0 +1,109 @@
+﻿@model Guid
+
+@{
+    var noteItems = Organization.ErpCOREDBContext.NoteItems.Where(n => n.TopicId == Model).ToList();
+}
+
+<div>
+    <partial name="/Areas/Storage/Views/NoteItems/_New.cshtml" />
+
+    @foreach (var note in noteItems)
+    {
+        <div class="p-2 border-1 hover:border-red-300 bg-gray-100 hover:bg-gray-200">
+            <div id="noteContent_@note.Id" class="mb-3 prose">
+                @Html.Raw(note.Note?.Replace("\n", "<br>"))
+            </div>
+            <div class="flex justify-between">
+                <div class="font-semibold text-gray-600">
+                    @note.Member.Name  <span title="@note.Date" data-bs-toggle="tooltip">@ERPKeeperCore.Web.Helper.TimeAgoHelper.ConvertToTimeAgo(note.Date)</span>
+                </div>
+                <div class="text-sm font-semibold">
+                    <i class="fa-solid fa-pen-circle text-2xl cursor-pointer"
+                       onclick="toggleEditForm('@note.Id')" title="Edit" data-bs-toggle="tooltip"></i>
+                    <i class="fa-solid fa-circle-trash text-2xl cursor-pointer"
+                       onclick="deleteNote('@note.Id')" title="Delete" data-bs-toggle="tooltip"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="editNoteForm-@note.Id" style="display: none;" class="mt-1 bg-gray-100 hover:bg-gray-200 border-2 border-transparent hover:border-red-300 p-2">
+            <form onsubmit="updateNote(event, '@note.Id')" class="w-full">
+                <!-- Note Field -->
+                <div class="relative flex flex-col mb-2">
+                    <textarea name="Note"
+                              id="Note-@note.Id"
+                              class="w-full block rounded-md border border-gray-300 py-2 px-3 text-gray-900 focus:ring-2 focus:ring-indigo-600 focus:outline-none sm:text-sm"
+                              placeholder="Type your note here"
+                              rows="5"
+                              required>@note.Note</textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-end">
+                    <button type="submit"
+                            class="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    }
+
+    <script>
+        function toggleEditForm(noteId) {
+            const editForm = document.getElementById(`editNoteForm-${noteId}`);
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function deleteNote(noteId) {
+            if (confirm('Are you sure you want to delete this note?')) {
+                try {
+                    const response = await fetch(`/@CompanyId/Storage/NoteItems/${noteId}/Delete`, {
+                        method: 'POST'
+                    });
+
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Failed to delete the note. Please try again.');
+                    }
+                } catch (error) {
+                    alert('An error occurred while deleting the note.');
+                }
+            }
+        }
+
+        async function updateNote(event, noteId) {
+            event.preventDefault();
+            const noteText = document.getElementById(`Note-${noteId}`).value;
+
+            try {
+                const response = await fetch(`/@CompanyId/Storage/NoteItems/${noteId}/Update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Id: noteId,
+                        Note: noteText,
+                        ProjectId: '@Model',
+                        Date: new Date().toISOString() // Optional: Send the updated date
+                    })
+                });
+
+                if (response.ok) {
+                    // Dynamically update the UI with the new note content
+                    const updatedNoteDiv = document.querySelector(`#noteContent_${noteId}`);
+                    updatedNoteDiv.textContent = noteText;
+
+                    // Hide the edit form
+                    toggleEditForm(noteId);
+                } else {
+                    alert('Failed to update the note. Please try again.');
+                }
+            } catch (error) {
+                alert('An error occurred while updating the note.');
+            }
+        }
+    </script>
+</div>

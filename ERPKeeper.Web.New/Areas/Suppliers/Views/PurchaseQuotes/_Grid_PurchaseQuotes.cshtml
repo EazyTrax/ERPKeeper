@@ -44,7 +44,6 @@
 
                 columns.AddFor(m => m.Name)
                 .AllowEditing(false)
-                .Visible(false)
                     .ShowInColumnChooser(true)
             .Width(150)
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);

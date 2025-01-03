@@ -132,7 +132,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectNote> ProjectNotes { get; set; }
+
 
 
 
@@ -191,6 +191,9 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
         public DbSet<Models.Storage.Document> Documents { get; set; }
+        public DbSet<Models.Storage.NoteItem> NoteItems { get; set; }
+
+
 
 
         public DbSet<Models.Logistic.Shipment> Shipments { get; set; }

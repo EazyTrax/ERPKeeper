@@ -1,11 +1,12 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Employees.Employee
 
 <div class="flex flex-wrap">
-    <div class="w-8/12">
+    <div class="w-9/12">
         <partial name="_Detail" />
         <partial name="_Grid_Payments" />
     </div>
     <div class="col-right-div w-3/12">
+        <partial name="/Areas/Storage/Views/NoteItems/_Notes.cshtml" model="Model.Id" />
     </div>
 </div>
 

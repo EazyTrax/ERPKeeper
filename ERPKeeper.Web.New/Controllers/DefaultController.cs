@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using ERPKeeperCore.Enterprise;
+using Microsoft.EntityFrameworkCore;
+using ERPKeeperCore.Enterprise.DBContext;
 
 namespace ERPKeeperCore.Web.Controllers
 {
@@ -25,11 +27,12 @@ namespace ERPKeeperCore.Web.Controllers
             get
             {
                 if (_Organization == null)
-                    _Organization = new ERPKeeperCore.Enterprise.EnterpriseRepo(CompanyId,true);
+                    _Organization = new ERPKeeperCore.Enterprise.EnterpriseRepo(CompanyId, true);
                 return _Organization;
             }
         }
 
+        public ERPCoreDbContext _dbContext => Organization.ErpCOREDBContext;
 
         public DefaultController()
         {

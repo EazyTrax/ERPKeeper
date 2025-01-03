@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ERPKeeperCore.Web.Areas.Contents.Controllers
+namespace ERPKeeperCore.Web.Areas.Storage.Controllers
 {
-    [Area("Storage")]
+
     [Route("/{CompanyId}/{area}/Documents/{DocumentId:Guid}/{action}")]
-    public class DocumentController : DefaultController
+    public class DocumentController : _Storage_BaseController
     {
         public IActionResult Index()
         {
