@@ -14,8 +14,18 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
         public IActionResult Index(Guid TaxPeriodId)
         {
             var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
+            TaxPeriod.Sales.Where(s => s.TaxCode == null).ToList()
+                .ForEach(s => s.TaxPeriod = null);
+
+            TaxPeriod.Purchases.Where(s => s.TaxCode == null).ToList()
+                .ForEach(s => s.TaxPeriod = null);
+            Organization.SaveChanges();
+
             TaxPeriod.UpdateBalance();
             Organization.SaveChanges();
+
+
+
 
             return View(TaxPeriod);
         }

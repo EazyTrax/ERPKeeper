@@ -85,6 +85,10 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
         public void UpdateBalance()
         {
+     
+
+
+
             SalesTaxBalance = Sales.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
             SalesBalance = Sales.Select(t => t.LinesTotalAfterDiscount).DefaultIfEmpty(0).Sum();
             SalesCount = Sales.Count;

@@ -98,14 +98,19 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
-        public IActionResult Export()
+        public IActionResult Export(String DocumentName = "ใบสั่งซื้อ(PO)")
         {
+            ViewBag.DocumentName = DocumentName;
+
             var transcation = Organization.PurchaseQuotes.Find(Id);
             transcation.UpdateBalance();
             Organization.SaveChanges();
 
             return View(transcation);
         }
+
+
+
         public IActionResult Order()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);

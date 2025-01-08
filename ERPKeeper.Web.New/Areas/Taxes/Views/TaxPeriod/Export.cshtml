@@ -16,7 +16,7 @@
     }
 </style>
 
-<div class="page-break">
+<div class="page-break text-sm">
     <div class="mh-50"></div>
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="w-full p-0 text-center">
@@ -36,19 +36,20 @@
     </div>
 
     <div class="flex border-bottom font-semibold">
-        <div class="w-28">ลำดับ</div>
-        <div class="w-28">วันที่</div>
-        <div class="flex-1 mr-3">ผู้ขาย</div>
+        <div class="w-12">ลำดับ</div>
+        <div class="w-24">วันที่</div>
+        <div class="w-28">เลขที่</div>
+        <div class="flex-1 pl-2">ผู้ขาย</div>
         <div class="w-28">เลขที่ผู้เสียภาษี</div>
-        <div class="w-28 text-right">ยอดรวม</div>
-        <div class="w-28 text-right">ภาษี</div>
+        <div class="w-24 text-right">ยอดรวม</div>
+        <div class="w-24 text-right">ภาษี</div>
     </div>
 
     @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
     {
 
         <div class="flex frex-wrap border-bottom">
-            <div class="w-8">
+            <div class="w-12">
                 @(index++)
             </div>
             <div class="w-24">
@@ -57,16 +58,16 @@
             <div class="w-28">
                 @item.Name
             </div>
-            <div class="flex-1 mr-3">
+            <div class="flex-1 pl-2">
                 @item.Supplier.Profile.Name
             </div>
             <div class="w-28 ">
                 @item.Supplier.Profile.TaxNumber
             </div>
-            <div class="w-28 p-0 text-right">
+            <div class="w-24 p-0 text-right">
                 @item.LinesTotalAfterDiscount.ToString("N2")
             </div>
-            <div class="w-28 p-0 text-right">
+            <div class="w-24 p-0 text-right">
                 @item.Tax.ToString("N2")
             </div>
         </div>
@@ -74,11 +75,12 @@
 
     <div class="flex  justify-end border-bottom font-semibold">
         <div class="flex-1">
+            รวม
         </div>
-        <div class="w-28 p-0 text-right">
+        <div class="w-24 p-0 text-right">
             @Model.Purchases.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
         </div>
-        <div class="w-28 p-0 text-right">
+        <div class="w-24 p-0 text-right">
             @Model.Purchases.Sum(m => m.Tax).ToString("N2")
         </div>
     </div>
@@ -86,7 +88,7 @@
 
 
 
-<div class="page-break">
+<div class="page-break text-sm">
     <div class="mh-50"></div>
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="w-full p-0 text-center">
@@ -110,12 +112,13 @@
 
 
     <div class="flex border-bottom font-semibold">
-        <div class="w-28">ลำดับ</div>
-        <div class="w-28">วันที่</div>
-        <div class="flex-1 mr-3">ผู้ซื้อ</div>
+        <div class="w-12">ลำดับ</div>
+        <div class="w-24">วันที่</div>
+        <div class="w-28">เลขที่</div>
+        <div class="flex-1 pl-2">ผู้ซื้อ</div>
         <div class="w-28">เลขที่ผู้เสียภาษี</div>
-        <div class="w-28 text-right">ยอดรวม</div>
-        <div class="w-28 text-right">ภาษี</div>
+        <div class="w-24 text-right">ยอดรวม</div>
+        <div class="w-24 text-right">ภาษี</div>
     </div>
 
     @{
@@ -124,22 +127,25 @@
     @foreach (var item in Model.Sales.OrderBy(m => m.Date).ToList())
     {
         <div class="flex border-bottom">
-            <div class="w-28">
-                @(index++)   @item.Date.ToString("dd-MMM-yyyy")
+            <div class="w-12">
+                @(index++)
+            </div>
+            <div class="w-24">
+                @item.Date.ToString("dd-MMM-yyyy")
             </div>
             <div class="w-28">
                 @item.Name
             </div>
-            <div class="flex-1 mr-3">
+            <div class="flex-1 pl-2">
                 @item.Customer.Profile.Name
             </div>
             <div class="w-28 p-0">
                 @item.Customer.Profile.TaxNumber
             </div>
-            <div class="w-28 p-0 text-right">
+            <div class="w-24 p-0 text-right">
                 @item.LinesTotalAfterDiscount.ToString("N2")
             </div>
-            <div class="w-28 p-0 text-right">
+            <div class="w-24 p-0 text-right">
                 @item.Tax.ToString("N2")
             </div>
         </div>
@@ -147,11 +153,12 @@
 
     <div class="flex justify-end border-bottom font-semibold">
         <div class="flex-1">
+            รวม
         </div>
-        <div class="w-28 p-0 text-right">
+        <div class="w-24 p-0 text-right">
             @Model.Sales.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
         </div>
-        <div class="w-28 p-0 text-right">
+        <div class="w-24 p-0 text-right">
             @Model.Sales.Sum(m => m.Tax).ToString("N2")
         </div>
     </div>

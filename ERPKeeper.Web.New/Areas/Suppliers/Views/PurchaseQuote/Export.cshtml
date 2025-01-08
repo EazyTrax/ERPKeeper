@@ -3,6 +3,12 @@
 @{
     Layout = "_Layout_Export";
     var documentNameContent = "ใบเสนอราคา";
+
+    if (ViewBag.DocumentName != null)
+    {
+        documentNameContent = ViewBag.DocumentName;
+    }
+
     var SupplierAddress = Model.Supplier.Profile.Addresses.FirstOrDefault();
 }
 

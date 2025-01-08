@@ -6,7 +6,7 @@ namespace ERPKeeperCore.Web.Helper
     {
         public static string ConvertToTimeAgo(DateTime dateTime)
         {
-            var timeSpan = DateTime.Now - dateTime;
+            var timeSpan = DateTime.UtcNow - dateTime;
 
             if (timeSpan.TotalSeconds < 60)
                 return $"{Math.Floor(timeSpan.TotalSeconds)} seconds ago";

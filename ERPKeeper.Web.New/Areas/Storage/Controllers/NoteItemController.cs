@@ -14,10 +14,24 @@ namespace ERPKeeperCore.Web.Areas.Storage.Controllers
     [Route("/{CompanyId}/{area}/NoteItems/{NoteItemId:Guid}/{action}")]
     public class NoteItemController : _Storage_BaseController
     {
-   
+
 
         public Guid ProjectId => Guid.Parse(RouteData.Values["ProjectId"].ToString());
         public Guid NoteItemId => Guid.Parse(RouteData.Values["NoteItemId"].ToString());
+
+        public async Task<IActionResult> AIUpdate()
+        {
+            var projectNote = Organization.ErpCOREDBContext.NoteItems.Find(NoteItemId);
+
+            if (projectNote != null)
+            {
+                await projectNote.UpdateFormalTextAsync();
+                Organization.SaveChanges();
+            }
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
 
         public IActionResult Delete()
         {

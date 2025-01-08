@@ -15,9 +15,12 @@
             </div>
             <div class="flex justify-between">
                 <div class="font-semibold text-gray-600">
-                    @note.Member.Name  <span title="@note.Date" data-bs-toggle="tooltip">@ERPKeeperCore.Web.Helper.TimeAgoHelper.ConvertToTimeAgo(note.Date)</span>
+                    @note.Member.Name <br />  <span title="@note.Date" data-bs-toggle="tooltip">@ERPKeeperCore.Web.Helper.TimeAgoHelper.ConvertToTimeAgo(note.Date)</span>
                 </div>
                 <div class="text-sm font-semibold">
+                    <a href="/@CompanyId/Storage/NoteItems/@note.Id/AIUpdate">
+                        <i class="fa-solid fa-microchip-ai text-2xl cursor-pointer"></i>
+                    </a>
                     <i class="fa-solid fa-pen-circle text-2xl cursor-pointer"
                        onclick="toggleEditForm('@note.Id')" title="Edit" data-bs-toggle="tooltip"></i>
                     <i class="fa-solid fa-circle-trash text-2xl cursor-pointer"

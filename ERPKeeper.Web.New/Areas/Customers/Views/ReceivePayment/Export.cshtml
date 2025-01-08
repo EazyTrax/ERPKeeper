@@ -49,37 +49,33 @@
 
 
 <div id="Items" class=" border border-dark  min-h-96">
-    <div class="flex font-semibold  p-2 border-bottom border-dark">
-        <div class="w-2/12">
+    <div class="flex font-semibold justify-between  p-2 border-bottom border-dark">
+        <div class="w-3/12">
             ใบแจ้งหนี้
         </div>
-        <div class="w-2/12 ">
+        <div class="w-3/12 ">
             วันที่ในใบแจ้งหนี้
         </div>
-        <div class="">
+        <div class="flex-1">
             อ้างอิง
         </div>
-        <div class="">
-        </div>
-        <div class="w-2/12  p-0 text-right">
+        <div class="w-3/12 text-right">
             จำนวนเงิน
         </div>
     </div>
 
 
-    <div class="flex  p-2">
-        <div class="w-2/12">
+    <div class="flex justify-between p-2">
+        <div class="w-3/12">
             @Model.Sale.Name
         </div>
-        <div class="w-2/12 ">
+        <div class="w-3/12 ">
             @Model.Sale.Date.ToString("dd-MMM-yyyy")
         </div>
-        <div class="">
+        <div class="flex-1">
             @Model.Sale.Reference
         </div>
-        <div class="">
-        </div>
-        <div class="w-2/12  p-0 text-right">
+        <div class="w-3/12 text-right">
             @Model.Amount.ToString("N2")
         </div>
     </div>

@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Runtime.CompilerServices;
 using static System.Collections.Specialized.BitVector32;
+using OpenAI;
+
 
 namespace ERPKeeperCore.CMD
 {
@@ -51,11 +53,13 @@ namespace ERPKeeperCore.CMD
 
                 newOrganization.Projects.GetAll().ForEach(sq =>
                 {
-                   // sq.Status = Enterprise.Models.Projects.Enums.ProjectStatus.Close;
+                    // sq.Status = Enterprise.Models.Projects.Enums.ProjectStatus.Close;
                 });
 
                 newOrganization.SaveChanges();
             }
+
+
         }
     }
 }
