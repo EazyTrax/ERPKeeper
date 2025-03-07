@@ -41,7 +41,7 @@
 
         @{
 
-            foreach (var receivePayment in Model.ReceivePayments.OrderBy(x => x.Date).ToList())
+            foreach (var receivePayment in Model.SupplierPayments.OrderBy(x => x.Date).ToList())
             {
 
                 <div class="grid grid-cols-8 gap-1 border-b-4">
@@ -49,13 +49,13 @@
                         @receivePayment.Date.ToShortDateString()
                     </div>
                     <div>
-                        @receivePayment.Sale.Customer.Profile.TaxNumber
+                        @receivePayment.Purchase.Supplier.Profile.TaxNumber
                     </div>
                     <div class="col-span-4">
-                        @receivePayment.Sale.Customer.Profile.Name
+                        @receivePayment.Purchase.Supplier.Profile.Name
                     </div>
                     <div class="text-right">
-                        @receivePayment.AmountTotal.ToString("N2")
+                        @receivePayment.Amount.ToString("N2")
                     </div>
 
                     <div class="text-right">

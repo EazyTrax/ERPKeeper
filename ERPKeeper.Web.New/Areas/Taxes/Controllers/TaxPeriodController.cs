@@ -30,21 +30,22 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             return View(TaxPeriod);
         }
 
-        public IActionResult AutoAssign(Guid TaxPeriodId)
+        public IActionResult AutoAssign(Guid TaxPeriodId, bool IsHistoryAssign = false)
         {
             var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
 
             var assignAbleSales = Organization.ErpCOREDBContext.Sales
                 .Where(x => x.TaxPeriodId == null && x.TaxCode != null)
-                .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
+                .Where(x => (IsHistoryAssign || x.Date >= TaxPeriod.StartDate) && x.Date <= TaxPeriod.EndDate)
                 .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
                 .ToList();
+
             Console.WriteLine("assignAbleSales.Count: " + assignAbleSales.Count);
             assignAbleSales.ForEach(x => x.TaxPeriodId = TaxPeriodId);
 
             var assignAblePurchases = Organization.ErpCOREDBContext.Purchases
                 .Where(x => x.TaxPeriodId == null && x.TaxCode != null)
-                .Where(x => x.Date >= TaxPeriod.StartDate && x.Date <= TaxPeriod.EndDate)
+                .Where(x => (IsHistoryAssign || x.Date >= TaxPeriod.StartDate) && x.Date <= TaxPeriod.EndDate)
                .Where(x => x.TaxCode.AbleToAssignToTaxPeriod)
                .ToList();
 
