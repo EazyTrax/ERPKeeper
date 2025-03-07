@@ -1,0 +1,94 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod
+
+
+        <div class="border p-2 mb-2">
+            @Model.ReceivePayments.Count  ReceivePayments
+        </div>
+
+
+<div id="treeListDemo" class="mb-3 border">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment>()
+        .ID("grid_ReceivePayments_List")
+        .KeyExpr("Id")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/{CompanyId}/Financial/RetentionGroups/{Model.Id}/ReceivePayments/All"))
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Paging(paging => paging.PageSize(100))
+        .AllowColumnResizing(true).AllowColumnReordering(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .FilterRow(filterRow => filterRow.Visible(true))
+        .ColumnAutoWidth(false)
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+        @*.AutoExpandAll(true)*@
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("ReceivePayments" + CompanyId.ToString()))
+
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
+
+            @*          columns.AddFor(m => m.Status).AllowEditing(false).Width(80).Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.PaymentStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DisplayExpr("Text")
+            .ValueExpr("Value")
+            ); *@
+
+            columns.AddFor(m => m.Name)
+    .Width(50)
+    .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
+
+
+
+
+
+
+            columns.AddFor(m => m.Sale.CustomerId).Lookup(lookup =>
+        lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+        .DisplayExpr("Text")
+        .ValueExpr("Value"))
+        .AllowEditing(false)
+        .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
+
+
+            columns.AddFor(m => m.SaleId)
+        .HeaderCellTemplate("Sale")
+        .Width(130)
+        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.SaleId %></a></text>);
+
+            columns.AddFor(m => m.SaleId)
+        .HeaderCellTemplate("Reference")
+        .Width(130)
+        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
+
+
+
+
+            columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
+
+       
+
+
+
+            columns.AddFor(m => m.AmountRetention).HeaderCellTemplate("Retention").Width(130).Format("#,##0.00");
+
+
+
+
+
+
+            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+
+
+        })
+
+        .Summary(s =>
+        s.TotalItems(items =>
+        {
+
+            items.AddFor(m => m.Amount).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+        }))
+        )
+</div>
+

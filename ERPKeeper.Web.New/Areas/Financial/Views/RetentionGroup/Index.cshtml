@@ -2,14 +2,25 @@
 
 <div class="flex flex-wrap">
     <div class="col-center-div w-9/12">
-        <div class="border p-2 mb-2">
 
-            @Model.ReceivePayments.Count()  ReceivePayments<br />
-            @Model.SupplierPayments.Count() SupplierPayments
+        <div class="p-2 bg-gray-100">
 
+                <a href="/@CompanyId/Financial/RetentionGroups/@Model.Id/Export">Export</a>
 
 
         </div>
+
+        @{
+            if (Model.RetentionType.Direction == ERPKeeperCore.Enterprise.Models.Financial.Enums.RetentionDirection.Receive)
+            {
+                <partial name="_Grid_ReceivePayments" />
+            }
+            else
+            {
+                <partial name="_Grid_SupplyerPayments" />
+            }
+        }
+
     </div>
     <div class="col-right-div w-3/12">
         <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />

@@ -1,0 +1,87 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod
+
+@{
+    Layout = "_Layout_Export";
+}
+@{
+    var documentNameContent = ViewBag.DocumentName;
+}
+
+<div class="text-xs">
+
+    <div class="text-center font-semibold ">
+        @Model.RetentionType.Name
+        <div>
+            @Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()
+        </div>
+    </div>
+    <div class="h-16">
+    </div>
+    <div>
+
+        <div class="grid grid-cols-8 gap-1 border-b-4 font-semibold">
+            <div>
+                วันที่
+            </div>
+            <div>
+                หมายเลขผู้เสียภาษี
+            </div>
+            <div class="col-span-4">
+                ชื่อผู้ถูกหักภาษี
+            </div>
+            <div class="text-right">
+                จำนวนเงินที่จ่าย
+            </div>
+
+            <div class="text-right">
+                ภาษี
+            </div>
+        </div>
+
+
+        @{
+
+            foreach (var receivePayment in Model.ReceivePayments.OrderBy(x => x.Date).ToList())
+            {
+
+                <div class="grid grid-cols-8 gap-1 border-b-4">
+                    <div>
+                        @receivePayment.Date.ToShortDateString()
+                    </div>
+                    <div>
+                        @receivePayment.Sale.Customer.Profile.TaxNumber
+                    </div>
+                    <div class="col-span-4">
+                        @receivePayment.Sale.Customer.Profile.Name
+                    </div>
+                    <div class="text-right">
+                        @receivePayment.AmountTotal.ToString("N2")
+                    </div>
+
+                    <div class="text-right">
+                        @receivePayment.AmountRetention.ToString("N2")
+                    </div>
+                </div>
+            }
+
+            <div class="grid grid-cols-8 gap-1 border-b-4">
+                <div>
+                </div>
+                <div>
+                </div>
+                <div class="col-span-4 text-right">
+                    รวม
+                </div>
+                <div class="text-right">
+                    @Model.AmountCommercial.ToString("N2")
+                </div>
+
+                <div class="text-right">
+                    @Model.AmountRetention.ToString("N2")
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>

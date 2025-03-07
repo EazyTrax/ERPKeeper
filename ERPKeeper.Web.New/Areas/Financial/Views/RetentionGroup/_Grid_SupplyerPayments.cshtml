@@ -1,9 +1,14 @@
-﻿<div id="treeListDemo" class="mb-3 border">
+﻿
+<div class="border p-2 mb-2">
+    @Model.SupplierPayments.Count SupplierPayments
+</div>
+
+<div id="treeListDemo" class="mb-3 border">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment>()
-        .ID("gridList")
+        .ID("grid_SupplierPayments_List")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Suppliers/SupplierPayments/All")
+        .LoadUrl($"/API/{CompanyId}/Financial/RetentionGroups/{Model.Id}/SupplierPayments/All")
         @*  .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/Insert")
             .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/Update")
             .UpdateMethod("Post")
@@ -28,10 +33,14 @@
 
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
 
+         
+                columns.AddFor(m => m.Name).Width(50)
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/">SP</a></text>);
+
 
                 columns.AddFor(m => m.PurchaseId)
             .Width(130)
-                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/"><%= data.Purchase.Name %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
 
                 columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
@@ -40,32 +49,9 @@
             .AllowEditing(false)
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.Purchase.SupplierId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.PayFrom_AssetAccountId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>);
+          
 
 
-
-
-
-                columns.AddFor(m => m.RetentionTypeId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
-
-
-
-                columns.AddFor(m => m.RetentionGroupId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.RetentionPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.RetentionGroupId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.AmountRetention).HeaderCellTemplate("Retention").Width(130).Format("#,##0.00");

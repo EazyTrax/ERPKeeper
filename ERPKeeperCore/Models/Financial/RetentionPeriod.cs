@@ -95,12 +95,21 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             // Cr.
             this.Transaction.AddCredit(this.PayFromAccount, this.AmountRetention);
 
-
-
             IsPosted = this.Transaction.UpdateBalance();
+        }
 
+        public void UpdateBalance()
+        {
+            if (this.RetentionType.Direction == Enterprise.Models.Financial.Enums.RetentionDirection.Receive)
+            {
+                this.AmountCommercial = this.ReceivePayments.Sum(x => x.AmountTotal);
+                this.AmountRetention = this.ReceivePayments.Sum(x => x.AmountRetention);
+            }
+            else
+            {
+                this.AmountCommercial = this.SupplierPayments.Sum(x => x.AmountAfterDiscount);
+                this.AmountRetention = this.SupplierPayments.Sum(x => x.AmountRetention);
+            }
         }
     }
-
-
 }

@@ -71,7 +71,7 @@
                             @item.PartNumber
                         </div>
                         <div class="">
-                            @Html.Raw(item.Description.Replace("\n", "<br/>"))
+                            @Html.Raw(item.Description?.Replace("\n", "<br/>"))
                         </div>
 
                         @if (!string.IsNullOrEmpty(item.Serial))

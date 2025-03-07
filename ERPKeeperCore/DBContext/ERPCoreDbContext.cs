@@ -42,6 +42,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
                 Password = password,
                 TrustServerCertificate = true
             };
+            Console.WriteLine(sb.ConnectionString);
 
             if (this.useLazyLoading)
                 optionsBuilder.UseLazyLoadingProxies().UseSqlServer(sb.ConnectionString);

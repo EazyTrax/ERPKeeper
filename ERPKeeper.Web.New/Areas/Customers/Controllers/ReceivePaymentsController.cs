@@ -16,6 +16,12 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.ReceivePayments.CreateTransactions();
             return View();
         }
+        public IActionResult Refresh()
+        {
+            Organization.ReceivePayments.UpdateRetentionGroups();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
 
     }
 }

@@ -35,6 +35,10 @@
                 .Width(50)
                 .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
 
+                    columns.AddFor(m => m.SaleId)
+    .HeaderCellTemplate("Sale")
+    .Width(130)
+        .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
 
             
 
@@ -48,11 +52,7 @@
             .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
 
 
-            columns.AddFor(m => m.SaleId)
-        .HeaderCellTemplate("Sale")
-        .Width(130)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Name %></a></text>);
-
+        
             columns.AddFor(m => m.SaleId)
         .HeaderCellTemplate("Reference")
         .Width(130)
@@ -86,7 +86,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.RetentionGroupId %>/"><%= displayValue %></a></text>);
 
 
 

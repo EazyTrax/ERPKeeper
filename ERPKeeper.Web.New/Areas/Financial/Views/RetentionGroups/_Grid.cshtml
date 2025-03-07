@@ -23,10 +23,8 @@
 
             .Columns(columns =>
             {
-
-
-                columns.AddFor(m => m.No).Width(50)
-                    .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.Name %></a></text>
+                columns.AddFor(m => m.No).Width(100)
+                    .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
             );
 
 
@@ -40,24 +38,17 @@
 
                 columns.AddFor(m => m.EndDate).AllowEditing(false);
 
-
-
                 columns.AddFor(m => m.Count).Width(60);
 
-                columns.AddFor(m => m.AmountCommercial).Width(130).AllowEditing(false).Format("#,##0.00");
-                columns.AddFor(m => m.AmountRetention).Width(130).AllowEditing(false).Format("#,##0.00");
+                columns.AddFor(m => m.AmountCommercial).Width(130).HeaderCellTemplate("Amount").AllowEditing(false).Format("#,##0.00");
+                    columns.AddFor(m => m.AmountRetention).Width(130).HeaderCellTemplate("Retention").AllowEditing(false).Format("#,##0.00");
 
 
-
-
-
-    
 
                 columns.AddFor(m => m.RetentionType.RetentionToAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+                .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                 .AllowEditing(false)
-                .HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionType.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+                .HeaderCellTemplate(@<text>Account</text>);
 
 
 

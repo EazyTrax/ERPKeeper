@@ -18,21 +18,26 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
         public IActionResult Index()
         {
             var transcation = Organization.RetentionGroups.Find(Id);
-
-            if (transcation == null)
-                return NotFound();
-
+            transcation.UpdateBalance();
+            Organization.SaveChanges();
 
             return View(transcation);
         }
 
-
-
-
         public IActionResult Export()
         {
             var transcation = Organization.RetentionGroups.Find(Id);
-            return View(transcation);
+            transcation.UpdateBalance();
+            Organization.SaveChanges();
+
+            if (transcation.RetentionType.Direction == Enterprise.Models.Financial.Enums.RetentionDirection.Receive)
+            {
+                return View("Export_Receive", transcation);
+            }
+            else
+            {
+                return View("Export_Payment", transcation);
+            }
         }
     }
 }

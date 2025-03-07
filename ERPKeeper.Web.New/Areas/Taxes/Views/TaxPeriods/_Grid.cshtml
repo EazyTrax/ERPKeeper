@@ -12,9 +12,6 @@
         .KeyExpr("Id")
         .Width("100%")
         .RowAlternationEnabled(true).AllowColumnReordering(true)
-
-
-        .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(pagging => pagging.PageSize(100))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
@@ -146,8 +143,8 @@
 
 <script>
     function onInitNewRow(e) {
-        // const today = new Date();
-        // e.data.Date = today;
+       const today = new Date();
+       e.data.Date = today;
         // e.data.Status = 0;
     }
 </script>

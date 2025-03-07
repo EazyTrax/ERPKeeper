@@ -16,6 +16,11 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             Organization.SupplierPayments.CreateTransactions();
             return View();
         }
+        public IActionResult Refresh()
+        {
+            Organization.SupplierPayments.UpdateRetentionGroups();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
     }
 }

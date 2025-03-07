@@ -31,9 +31,8 @@ namespace ERPKeeperCore.CMD
 
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
-
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
-
+                
                 GeneralOperations(newOrganization, oldOrganization);
 
 
@@ -51,12 +50,15 @@ namespace ERPKeeperCore.CMD
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
 
-                newOrganization.Projects.GetAll().ForEach(sq =>
-                {
-                    // sq.Status = Enterprise.Models.Projects.Enums.ProjectStatus.Close;
-                });
+                var report = new ERPKeeperCore.Enterprise.Reports.Report1();
+                var sales = newOrganization.Sales.GetAll();
+                report.DataSource = sales;
 
-                newOrganization.SaveChanges();
+                // Export to PDF
+                string outputPath = Path.Combine(Directory.GetCurrentDirectory(), "sales_report.pdf");
+                report.ExportToPdf(outputPath);
+
+                Console.WriteLine($"Report generated: {outputPath}");
             }
 
 

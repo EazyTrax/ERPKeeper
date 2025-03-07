@@ -15,5 +15,16 @@ namespace ERPKeeperCore.Web.Areas.Financial.Controllers
         {
             return View();
         }
+
+        public IActionResult AutoCreate()
+        {
+            Organization.ReceivePayments.UpdateRetentionGroups();
+            Organization.SupplierPayments.UpdateRetentionGroups();
+
+
+            Organization.RetentionGroups.UpdateCount();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

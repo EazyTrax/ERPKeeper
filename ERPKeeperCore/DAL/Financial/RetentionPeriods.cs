@@ -25,7 +25,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
 
 
-        public Models.Financial.RetentionPeriod? Find(Guid Id) => erpNodeDBContext.RetentionPeriods.Find(Id);
+        public Models.Financial.RetentionPeriod? Find(Guid Id)
+            => erpNodeDBContext.RetentionPeriods.Find(Id);
 
         public void UnPost(Models.Financial.RetentionPeriod model)
         {
@@ -93,17 +94,22 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
         }
 
-        public RetentionPeriod? FindOrCreate(RetentionType? retentionType, DateTime date)
+        public RetentionPeriod? FindOrCreate(RetentionType retentionType, DateTime date)
         {
+            if (retentionType == null)
+                return null;
+
             Console.WriteLine($"Find RetentionGroup:{retentionType?.Name} {date}");
 
             var rgs = erpNodeDBContext.RetentionPeriods
                 .Where(s => s.RetentionTypeId == retentionType.Id)
                 .ToList();
 
-            var rg = rgs.Where(rg => rg.StartDate.Date <= date.Date && rg.EndDate.Date >= date).FirstOrDefault();
+            var rg = rgs
+                .Where(rg => rg.StartDate.Date <= date.Date && rg.EndDate.Date >= date)
+                .FirstOrDefault();
 
-            if (rg == null)
+            if (rg == null && retentionType != null)
             {
                 rg = new RetentionPeriod()
                 {
@@ -131,6 +137,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                 .ToList()
                 .ForEach(rg => UnPost(rg));
 
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void UpdateCount()
+        {
+            erpNodeDBContext.RetentionPeriods.ToList()
+                .ForEach(rg =>
+                    {
+                        rg.Count = rg.ReceivePayments.Count + rg.SupplierPayments.Count();
+                    });
             erpNodeDBContext.SaveChanges();
         }
     }
