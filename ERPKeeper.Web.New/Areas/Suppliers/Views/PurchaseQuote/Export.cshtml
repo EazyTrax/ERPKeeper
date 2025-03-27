@@ -29,7 +29,7 @@
         @if (SupplierAddress != null)
         {
             <div>
-                @SupplierAddress.AddressLine.Trim()<br />
+                @SupplierAddress.AddressLine?.Trim()<br />
                 @SupplierAddress.PhoneNumber
             </div>
         }

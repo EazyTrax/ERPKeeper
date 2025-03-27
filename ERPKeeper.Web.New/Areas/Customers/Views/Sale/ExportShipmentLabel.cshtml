@@ -46,7 +46,7 @@
             @if (customerAddress != null)
             {
                 <div>
-                    @customerAddress.AddressLine.Trim()<br />
+                    @customerAddress.AddressLine?.Trim()<br />
                     @customerAddress.PhoneNumber
                 </div>
             }
