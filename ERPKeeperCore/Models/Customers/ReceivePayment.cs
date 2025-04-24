@@ -136,6 +136,39 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             }
         }
 
+        public string GetThaiRDReport(int order)
+        {
+            string date = this.Date.ToString("dd/MM/yyyy", new CultureInfo("th-TH"));
+            string profile = this.Sale?.Customer?.Profile?.Name ?? "NA";
+            string taxId = this.Sale?.Customer?.Profile?.TaxNumber ?? "NA";
+
+            string address = this.Sale?.Customer?.Profile?.Addresses?.FirstOrDefault()?.AddressLine ?? "NA";
+            if (address != null && address.Length > 30)
+            {
+                address = address.Substring(0, 28);
+                address = address.Replace(Environment.NewLine, "");
+            }
+
+            string branchNo = this.Sale?.Customer?.Profile?.Addresses?.FirstOrDefault()?.Number ?? "NA";
+
+
+            string retentionStr = "";
+            retentionStr += $"{this.RetentionType?.Name}";
+            retentionStr += $"|{order}";
+            retentionStr += $"|{taxId}";
+            retentionStr += $"|{branchNo}";
+            retentionStr += $"|{this.Sale?.Customer?.Profile?.Name ?? "NA"}";//5
+            retentionStr += $"|{address}";
+            retentionStr += $"|{date}";
+            retentionStr += $"|{this.RetentionType?.PaymentType}";
+            retentionStr += $"|{this.RetentionType?.Rate}";
+            retentionStr += $"|{this.Sale.LinesTotalAfterDiscount}";
+            retentionStr += $"|{this.AmountRetention}";//15
+            retentionStr += $"|1";
+            return retentionStr;
+        }
+
+
         public ReceivePayment()
         {
 

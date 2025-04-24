@@ -102,6 +102,40 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
         }
 
 
+        public string GetThaiRDReport(int order)
+        {
+            string date = this.Date.ToString("dd/MM/yyyy", new CultureInfo("th-TH"));
+            string profile = this.Purchase?.Supplier?.Profile?.Name ?? "NA";
+            string taxId = this.Purchase?.Supplier?.Profile?.TaxNumber ?? "NA";
+
+            string address = this.Purchase?.Supplier?.Profile?.Addresses?.FirstOrDefault()?.AddressLine ?? "NA";
+            if (address != null && address.Length > 30)
+            {
+                address = address.Substring(0, 28);
+                address = address.Replace(Environment.NewLine, "");
+            }
+
+            string branchNo = this.Purchase?.Supplier?.Profile?.Addresses?.FirstOrDefault()?.Number ?? "NA";
+
+
+            string retentionStr = "";
+            retentionStr += $"{this.RetentionType?.Name}";
+            retentionStr += $"|{order}";
+            retentionStr += $"|{taxId}";
+            retentionStr += $"|{branchNo}";
+            retentionStr += $"|{this.Purchase?.Supplier?.Profile?.Name ?? "NA"}";//5
+            retentionStr += $"|{address}";
+            retentionStr += $"|{date}";
+            retentionStr += $"|{this.RetentionType?.PaymentType}";
+            retentionStr += $"|{this.RetentionType?.Rate}";
+            retentionStr += $"|{this.Purchase.LinesTotalAfterDiscount}";
+            retentionStr += $"|{this.AmountRetention}";//15
+            retentionStr += $"|1";
+            return retentionStr;
+        }
+
+
+
         public void Post_Ledgers()
         {
             Console.WriteLine($">Post SupplierPayments:{this.Name} From {this.Purchase.Name}");

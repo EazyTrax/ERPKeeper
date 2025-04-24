@@ -28,13 +28,11 @@ namespace ERPKeeperCore.CMD
                 Console.WriteLine($"> {enterpriseDB}");
                 Console.WriteLine($"> ########################################################");
 
-
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
-                
-                GeneralOperations(newOrganization, oldOrganization);
 
+                GeneralOperations(newOrganization, oldOrganization);
 
                 if (false && newOrganization != null)
                 {
@@ -46,8 +44,15 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
             }
-
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
+            {
+
+                var report = new ERPKeeperCore.Enterprise.Reports.Report1();
+                newOrganization.Sales.PostToTransactions();
+
+            }
+
+            static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
 
                 var report = new ERPKeeperCore.Enterprise.Reports.Report1();

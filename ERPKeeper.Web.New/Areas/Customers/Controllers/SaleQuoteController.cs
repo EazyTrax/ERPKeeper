@@ -155,7 +155,16 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        public IActionResult Clone()
+        {
+            var quote = Organization.SaleQuotes.Find(Id);
+            var newQuote = Organization.SaleQuotes.Clone(quote);
 
+
+            var redirectUrl = $"/{CompanyId}/Customers/SaleQuotes/{newQuote.Id}/";
+
+            return Redirect(redirectUrl);
+        }
 
         public IActionResult Quote()
         {

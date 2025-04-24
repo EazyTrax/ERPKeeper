@@ -103,6 +103,23 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             this.Items.Add(saleQuoteItem);
         }
 
+        public void CopyItems(ICollection<SaleQuoteItem> originalItems)
+        {
+            foreach (var originalItem in originalItems)
+            {
+                var newItem = new SaleQuoteItem()
+                {
+                    ItemId = originalItem.ItemId,
+                    PartNumber = originalItem.PartNumber,
+                    Description = originalItem.Description,
+                    Price = originalItem.Price,
+                    Quantity = originalItem.Quantity,
+                    Order = this.Items.Count() + 1,
+                };
+                this.Items.Add(newItem);
+            }
+        }
+
         public void Reorder()
         {
             int index = 1;

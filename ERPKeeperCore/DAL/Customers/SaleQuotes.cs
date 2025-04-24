@@ -29,6 +29,48 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
         public SaleQuote? Find(Guid Id) => erpNodeDBContext.SaleQuotes.Find(Id);
 
+        public int GetNextNo() => (erpNodeDBContext.SaleQuotes
+              .Select(a => (int?)a.No)
+              .Max() ?? 0) + 1;
+
+
+        public SaleQuote Clone(SaleQuote originalQuote)
+        {
+            var maxNo = erpNodeDBContext.SaleQuotes
+              .Select(a => (int?)a.No)
+              .Max() ?? 0;
+
+            var newQuote = new SaleQuote
+            {
+                Id = Guid.NewGuid(),
+                CustomerId = originalQuote.CustomerId,
+                Date = DateTime.Today,
+                Status = SaleQuoteStatus.Open,
+                No = GetNextNo(),
+                LinesTotal = 0,
+                Discount = 0,
+                Tax = 0,
+            };
+
+
+            newQuote.TaxCodeId = originalQuote.TaxCodeId;
+            newQuote.ProfileAddesssId = originalQuote.ProfileAddesssId;
+            newQuote.ProjectId = originalQuote.ProjectId;
+            newQuote.Discount = originalQuote.Discount;
+            newQuote.Reference = "Clone" + originalQuote.Reference;
+            newQuote.Memo = originalQuote.Memo;
+            newQuote.PaymentTermId = originalQuote.PaymentTermId;
+
+            erpNodeDBContext.SaleQuotes.Add(newQuote);
+            erpNodeDBContext.SaveChanges();
+
+            newQuote.CopyItems(originalQuote.Items);
+            erpNodeDBContext.SaveChanges();
+
+
+            return newQuote;
+        }
+
         public SaleQuote CreateDraft(SaleQuote model, Guid? customerId = null)
         {
             if (customerId != null)
