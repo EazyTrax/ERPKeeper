@@ -78,6 +78,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                 .OrderBy(s => s.Date)
                 .ToList();
 
+            var DefaultCashAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Cash);
             var DiscountTaken_IncomeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Income_DiscountTaken);
             var SupplierPayable_LiabilityAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Liability_AccountPayable);
             var BankFee_ExpenseAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Expense_BankFee);
@@ -85,6 +86,15 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
 
             SupplierPayments.ForEach(payment =>
             {
+
+                if (payment.AssetAccount_PayFrom == null)
+                {
+                    Console.WriteLine($"Info >> Assign Default Account {payment.Name}");
+                    payment.AssetAccount_PayFrom = DefaultCashAccount;
+                    payment.PayFrom_AssetAccountId = DefaultCashAccount.Id;
+                    erpNodeDBContext.SaveChanges();
+                }
+
                 payment.IncomeAccount_DiscountTaken = DiscountTaken_IncomeAccount;
                 payment.LiablityAccount_SupplierPayable = SupplierPayable_LiabilityAccount;
                 payment.ExpenseAccount_BankFee = BankFee_ExpenseAccount;

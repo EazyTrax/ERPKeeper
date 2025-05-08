@@ -34,7 +34,7 @@ namespace ERPKeeperCore.CMD
 
                 GeneralOperations(newOrganization, oldOrganization);
 
-                if (false && newOrganization != null)
+                if (true && newOrganization != null)
                 {
                     newOrganization.Transactions.Post_Ledgers();
                     newOrganization.ChartOfAccount.Refresh_CurrentBalance();

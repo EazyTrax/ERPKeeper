@@ -60,7 +60,7 @@
         <div class="col-span-2 text-right">รวม</div>
     </div>
     <div class="mb-2 p-2 min-h-96">
-        @foreach (var item in Model.Items.OrderBy(x=>x.Order).ToList())
+        @foreach (var item in Model.Items.OrderBy(x => x.Order).ToList())
         {
             <div class="grid grid-cols-12 gap-2 pb-1 no-break">
                 <div class="flex col-span-7">
@@ -138,9 +138,35 @@
 
 </div>
 
+<div class="grid grid-cols-4 mb-1 mt-3 no-break">
 
 
+    <div class="h-32 border border-dark p-2 ">
+        <div class="h-16">
+        </div>
+        <div class="text-center">
+            @User.Identity.Name  <br>   ( Issuer )
+        </div>
+    </div>
+    <div class="h-32 border border-dark p-2 ">
+        <div class="h-16">
+        </div>
+        <div class="text-center">
 
-<div class="mb-3">
-    Issuer: @User.Identity.Name
+        </div>
+    </div>
+    <div class="h-32 border border-dark p-2 ">
+        <div class="h-16">
+        </div>
+        <div class="text-center">
+  
+        </div>
+    </div>
+    <div class="h-32 border border-dark p-2 ">
+        <div class="h-16">
+        </div>
+        <div class="text-center">
+           _______________________ <br>  ( Customer Sign )
+        </div>
+    </div>
 </div>

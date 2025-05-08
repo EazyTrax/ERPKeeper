@@ -143,6 +143,12 @@ namespace ERPKeeperCore.Enterprise.Models.Suppliers
             if (this.Transaction == null)
                 return;
 
+            if (this.AssetAccount_PayFrom == null)
+            {
+                Console.WriteLine($">> Fail >> No pay to Account");
+                return;
+            }
+
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.Date;
             this.Transaction.Reference = this.Reference;

@@ -80,6 +80,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         {
             Console.WriteLine($">Post  RP:{this.Name}");
 
+            if (this.PayToAccountId == null)
+            {
+                Console.WriteLine($">> Fail >> No pay to Account");
+                return;
+            }
             if (this.Transaction == null)
                 return;
 

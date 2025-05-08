@@ -75,6 +75,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                 // .Where(s => s.AmountBankFee > 0)
                 .OrderBy(s => s.Date).ToList();
 
+
+            var DefaultCashAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Cash);
             var DiscountAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.DiscountGiven);
             var ReceivableAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Asset_AccountReceivable);
             var BankFeeAccount = organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Expense_BankFee);
@@ -82,6 +84,14 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
 
             ReceivePayments.ForEach(receivePayment =>
             {
+                if (receivePayment.PayToAccount == null)
+                {
+                    Console.WriteLine($"Info >> Assign Default Account {receivePayment.Name}");
+                    receivePayment.PayToAccount = DefaultCashAccount;
+                    receivePayment.PayToAccountId = DefaultCashAccount.Id;
+                    erpNodeDBContext.SaveChanges();
+                }
+
                 receivePayment.Discount_Given_Expense_Account = DiscountAccount;
                 receivePayment.Discount_Given_Expense_AccountId = DiscountAccount.Id;
                 receivePayment.Receivable_Asset_Account = ReceivableAccount;
