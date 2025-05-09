@@ -50,12 +50,12 @@ namespace ERPKeeperCore.CMD
 
                 var fiscalYears = newOrganization.FiscalYears.GetAll();
 
-                var fy = fiscalYears.Where(f => f.Name == "2019").FirstOrDefault();
-
-                fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
-                newOrganization.FiscalYears.Update_AccountsBalance(fy);
-                // fy.PostToTransaction();
-
+                fiscalYears.ForEach(fy =>
+                {
+                    fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
+                    newOrganization.FiscalYears.Update_AccountsBalance(fy);
+                    // fy.PostToTransaction();
+                });
 
             }
 
