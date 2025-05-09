@@ -17,7 +17,7 @@ namespace ERPKeeperCore.CMD
 
             Copy_Accounting_Accounts();
             Copy_Accounting_DefaultAccounts();
-            Copy_Accounting_FiscalYear();
+
             Copy_Accounting_JournalEntryTypes();
             Copy_Accounting_JournalEntries();
             Copy_Accounting_JournalEntryItems();
@@ -194,37 +194,7 @@ namespace ERPKeeperCore.CMD
 
             });
         }
-        public void Copy_Accounting_FiscalYear()
-        {
-            Console.WriteLine("> Copy_Accounting_FiscalYear");
-            var oldModels = oldOrganization.ErpNodeDBContext.FiscalYears.ToList();
-
-            oldModels.ForEach(a =>
-            {
-                var exist = newOrganization.ErpCOREDBContext.FiscalYears.FirstOrDefault(x => x.Id == a.Uid);
-
-                if (exist == null)
-                {
-                    Console.WriteLine($"PROF:{a.Name}-{a.StartDate}");
-
-                    exist = new ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear()
-                    {
-                        Id = a.Uid,
-                        StartDate = a.StartDate,
-                        EndDate = a.EndDate,
-                        Memo = a.Memo,
-                        Status = (FiscalYearStatus)a.Status,
-                    };
-
-                    newOrganization.ErpCOREDBContext.FiscalYears.Add(exist);
-                }
-                else
-                {
-
-                }
-
-                newOrganization.ErpCOREDBContext.SaveChanges();
-            });
-        }
+     
+        
     }
 }

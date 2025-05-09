@@ -12,22 +12,22 @@
                 <div class="border p-2">
                     @if (Model.PreviusFiscalYear != null)
                     {
-                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
-                            FY @Model.PreviusFiscalYear?.Name >
-                        </a>
+                                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
+                                        FY @Model.PreviusFiscalYear?.Name >
+                                    </a>
 
 
                     }
 
-                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">FY @Model.Name</a>
+                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">FY @Model.Name</a>
 
                     @if (Model.NextFiscalYear != null)
                     {
 
 
-                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
-                            > FY @Model.NextFiscalYear.Name
-                        </a>
+                                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
+                                        > FY @Model.NextFiscalYear.Name
+                                    </a>
                     }
 
 
@@ -38,9 +38,25 @@
             </div>
             <div class="w-2/12">
                 <div class="border p-2 text-uppercase">
-                    @Model.Status.ToString()
+                  Post Status  @Model.IsPosted.ToString()
                 </div>
 
+                @if (Model.IsPosted)
+                {
+                                <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/UnPost">
+                                UnPost
+                                </a>
+
+                                          <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
+                                 Re-Post
+                                    </a>
+                }
+                else
+                {
+                                <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
+                                Post
+                                </a>
+                }
             </div>
         </div>
 

@@ -53,11 +53,38 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         public IActionResult UpdateBalance()
         {
             var model = Organization.FiscalYears.Find(FiscalYearId);
-            Organization.FiscalYears.UpdateAccountBalance(model);
+
+            Organization.FiscalYears.UnPostLedger(model);
+            Organization.FiscalYears.Update_AccountsBalance(model);
             Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+
+        public IActionResult Post()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+
+            Organization.FiscalYears.UnPostLedger(model);
+            Organization.FiscalYears.PostLedger(model);
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult UnPost()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            Organization.FiscalYears.Update_AccountsBalance(model);
+            Organization.FiscalYears.UnPostLedger(model);
+
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
+
 
         public IActionResult CreateNextFiscalYear()
         {
@@ -67,7 +94,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             return Redirect($"/{CompanyId}/Accounting/FiscalYears/{FiscalYearId}");
         }
 
-         public IActionResult Report_Changes_in_Equity()
+        public IActionResult Report_Changes_in_Equity()
         {
             var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
@@ -93,7 +120,6 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
-        
 
     }
 }

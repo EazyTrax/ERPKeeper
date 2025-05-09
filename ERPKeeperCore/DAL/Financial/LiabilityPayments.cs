@@ -67,7 +67,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
         }
 
 
-        public void PostToTransactions()
+        public void PostToLedgers()
         {
 
 

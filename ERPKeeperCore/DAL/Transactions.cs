@@ -46,7 +46,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             organization.LendReturns.PostToTransactions();
 
 
-            organization.LiabilityPayments.PostToTransactions();
+            organization.LiabilityPayments.PostToLedgers();
 
             //Taxes Section
             //organization.TaxPeriods.PostLedger();

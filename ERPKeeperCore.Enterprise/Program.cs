@@ -20,7 +20,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] { "tec", "bit" };
+            string[] Enterprises = new string[] { "bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -34,21 +34,28 @@ namespace ERPKeeperCore.CMD
 
                 GeneralOperations(newOrganization, oldOrganization);
 
-                if (true && newOrganization != null)
+                if (false && newOrganization != null)
                 {
                     newOrganization.Transactions.Post_Ledgers();
                     newOrganization.ChartOfAccount.Refresh_CurrentBalance();
                     newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
-                    newOrganization.Transactions.Clear_EmptyLedgers();
+                    // newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
             }
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-
                 var report = new ERPKeeperCore.Enterprise.Reports.Report1();
-                newOrganization.Sales.PostToTransactions();
+
+                var fiscalYears = newOrganization.FiscalYears.GetAll();
+
+                var fy = fiscalYears.Where(f => f.Name == "2019").FirstOrDefault();
+
+                fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
+                newOrganization.FiscalYears.Update_AccountsBalance(fy);
+                // fy.PostToTransaction();
+
 
             }
 

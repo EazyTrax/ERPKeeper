@@ -63,6 +63,10 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         {
             this.OpeningDebit = 0;
             this.OpeningCredit = 0;
+
+            this.ClosingDebit = 0;
+            this.ClosingCredit = 0;
+            
             this.Debit = 0;
             this.Credit = 0;
         }

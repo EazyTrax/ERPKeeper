@@ -21,9 +21,6 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
         public IActionResult Index()
         {
             var model = Organization.ChartOfAccount.Find(AccountId);
-
-
-
             return View(model);
         }
         public IActionResult Refresh()

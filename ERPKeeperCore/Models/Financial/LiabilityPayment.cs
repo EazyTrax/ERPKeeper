@@ -81,12 +81,19 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         public void UnPost()
         {
+            Console.WriteLine($">UnPost LiabilityPayment:{this.Name}");
+
             if (this.Transaction == null)
                 return;
 
             this.Transaction.ClearLedger();
             this.IsPosted = false;
 
+        }
+
+        public void UpdateName()
+        {
+            this.Name = "LP-" + this.Date.Year + "-" + this.Date.Month.ToString("00") + "-" + this.No.ToString("0000");
         }
     }
 }

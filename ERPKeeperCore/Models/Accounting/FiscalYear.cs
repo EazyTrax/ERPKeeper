@@ -81,20 +81,22 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         }
 
-        internal void ClearAccountBalances()
+        internal void Remove_AccountsBalance()
         {
-            Console.WriteLine($"> Clear Accounts Balance");
+            Console.WriteLine($"{this.Name} > Clear Accounts Balance");
+
             FiscalYearAccountBalances
                 .ToList()
                 .ForEach(p => FiscalYearAccountBalances.Remove(p));
         }
+
         private List<FiscalYearAccountBalance> GetClosingBalanceAccounts() =>
             FiscalYearAccountBalances
             .Where(pab => pab.Account.Type == AccountTypes.Asset || pab.Account.Type == AccountTypes.Liability || pab.Account.Type == AccountTypes.Capital)
             .ToList();
 
 
-        public void PrepareFiscalBalance(List<Account> accounts, bool clearValue = false)
+        public void Create_Empty_Accounts_Balance(List<Account> accounts)
         {
             Console.WriteLine($"> FISCAL: {this.Name} > Prepare Balance ");
 
@@ -114,10 +116,8 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                     this.FiscalYearAccountBalances.Add(accBalance);
                 }
 
-                if (clearValue)
-                {
-                    accBalance.ClearBalance();
-                }
+                accBalance.ClearBalance();
+
             }
         }
 
@@ -130,6 +130,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public void PostToTransaction()
         {
             Console.WriteLine($">Post >FiscalYear:{this.Name}");
+
             if (this.Transaction == null) return;
 
             this.Transaction.ClearLedger();
@@ -140,13 +141,21 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             this.FiscalYearAccountBalances
                 .Where(a => a.ClosingDebit > 0)
                 .ToList()
-                .ForEach(a => this.Transaction.AddDebit(a.Account, a.ClosingDebit));
+                .ForEach(a =>
+                {
+                    Console.WriteLine($">Dr. {a.Account.Name} {a.ClosingDebit}");
+                    this.Transaction.AddDebit(a.Account, a.ClosingDebit);
+                });
 
             // Cr.
             this.FiscalYearAccountBalances
                 .Where(a => a.ClosingCredit > 0)
                 .ToList()
-                .ForEach(a => this.Transaction.AddCredit(a.Account, a.ClosingCredit));
+                .ForEach(a =>
+                {
+                    Console.WriteLine($">Cr. {a.Account.Name} {a.ClosingCredit}");
+                    this.Transaction.AddCredit(a.Account, a.ClosingCredit);
+                });
 
 
             this.IsPosted = this.Transaction.UpdateBalance();
