@@ -42,7 +42,7 @@
         .First();
     }
 
-    <div class="flex mb-3">
+    <div class="mb-3">
 
 
         <div class="w-full  font-semibold ">
@@ -50,33 +50,34 @@
             ทุนเรือนหุ้น<br />
             ทุนจดทะเบียน
         </div>
+        <div class="flex">
 
+            <div class="col-1">
+            </div>
+            <div class="col-3">
+                <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
+                    ทุนจดทะเบียน
+                </a>
+            </div>
+            <div class="col-8">
+            </div>
+        </div>
+        <div class="flex">
+            <div class="w-2/12">
+            </div>
+            <div class="w-6/12">
+                <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
+                    หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
+                </a>
+            </div>
 
-        <div class="col-1">
+            <div class="w-2/12 text-right">
+                @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
+            </div>
+            <div class="w-2/12 text-right">
+                @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
+            </div>
         </div>
-        <div class="col-3">
-            <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
-                ทุนจดทะเบียน
-            </a>
-        </div>
-        <div class="col-8">
-        </div>
-
-        <div class="w-2/12">
-        </div>
-        <div class="w-6/12">
-            <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
-                หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
-            </a>
-        </div>
-
-        <div class="w-2/12 text-right">
-            @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
-        </div>
-        <div class="w-2/12 text-right">
-            @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
-        </div>
-
 
         <div class="col-1">
         </div>

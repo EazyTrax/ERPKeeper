@@ -258,6 +258,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             this.CreateTransactions();
 
             var fys = erpNodeDBContext.FiscalYears
+                .OrderBy(x=>x.StartDate)
                 .Where(s => s.TransactionId != null)
                 .Where(s => s.EndDate < DateTime.Today)
                 .Where(s => !s.IsPosted || rePost)

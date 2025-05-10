@@ -10,6 +10,7 @@ using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERPKeeperCore.Enterprise.DAL.Taxes
 {
@@ -43,13 +44,18 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
             return erpNodeDBContext.TaxPeriods.Count();
         }
 
+        public void UnPostToTransactions(TaxPeriod taxPeriod)
+        {
+            taxPeriod.UpdateBalance();
+            taxPeriod.UnPostLedger();
+            this.SaveChanges();
+        }
+
         public void PostToTransactions(bool rePost = false)
         {
             this.CreateTransactions();
 
             var TaxPeriods = erpNodeDBContext.TaxPeriods
-                .Where(s => s.TransactionId != null)
-              //  .Where(s => s.Status != TaxPeriodStatus.Draft)
                 .Where(s => !s.IsPosted || rePost)
                 .ToList()
                 .OrderBy(s => s.EndDate)
@@ -90,6 +96,45 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
                 }
             });
 
+        }
+
+        public TaxPeriod Find(DateTime date, bool createNew = false)
+        {
+            var firstDateOfMonth = new DateTime(date.Year, date.Month, 1);
+            var endDateOfMonth = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddMinutes(-1);
+
+            // Fetch data from the database without using the calculated property
+            var taxPeriod = erpNodeDBContext.TaxPeriods
+                .Where(s => s.StartDate <= date)
+                .AsEnumerable() // Switch to client-side evaluation
+                .Where(s => s.EndDate >= date)
+                .Where(s => s.PurchasesCount > 0)
+                .FirstOrDefault();
+
+            if (taxPeriod == null && createNew)
+            {
+                taxPeriod = new TaxPeriod()
+                {
+                    StartDate = firstDateOfMonth,
+                    Status = TaxPeriodStatus.Draft,
+                    IsPosted = false,
+                };
+            }
+
+            return taxPeriod;
+        }
+
+        public void UnPostToTransactions()
+        {
+            var TaxPeriods = erpNodeDBContext.TaxPeriods
+                .Where(s => s.TransactionId != null)
+                .Where(s => s.IsPosted)
+                .ToList();
+            TaxPeriods.ForEach(TaxPeriod =>
+            {
+                TaxPeriod.UnPostLedger();
+                erpNodeDBContext.SaveChanges();
+            });
         }
     }
 }

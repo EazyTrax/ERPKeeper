@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
         public int? No { get; set; }
         public Guid? FiscalYearId { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate => StartDate.AddMonths(1).AddDays(-1);
+        public DateTime EndDate => StartDate.AddMonths(1).AddMinutes(-1);
         public String? Name => "TP-" + StartDate.ToString("yyyy/MM");
 
 
@@ -114,6 +114,9 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
                 return;
             if (this.CloseToAccountId == null)
                 return;
+            Console.WriteLine($">Post > ###");
+
+
 
             this.Transaction.ClearLedger();
             this.Transaction.Date = this.EndDate;
@@ -144,6 +147,24 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
 
             IsPosted = this.Transaction.UpdateBalance();
+        }
+
+        public void UnPostLedger()
+        {
+            Console.WriteLine($">UnPost  TP:{this.Name}");
+
+            if (Transaction == null)
+            {
+                this.IsPosted = false;
+                return;
+            }
+            else
+            {
+                this.Transaction.ClearLedger();
+                this.Transaction.Date = this.EndDate;
+                this.Transaction.Name = this.Name;
+                this.IsPosted = false;
+            }
         }
     }
 }
