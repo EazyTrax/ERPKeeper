@@ -29,7 +29,8 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public void UnPost(JournalEntry model)
         {
-            model.Transaction.ClearLedger();
+            if (model.Transaction != null)
+                model.Transaction.ClearLedger();
             model.Debit = 0;
             model.Credit = 0;
             model.IsPosted = false;

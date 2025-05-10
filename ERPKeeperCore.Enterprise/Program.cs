@@ -12,6 +12,7 @@ using System;
 using System.Runtime.CompilerServices;
 using static System.Collections.Specialized.BitVector32;
 using OpenAI;
+using DevExpress.XtraRichEdit.Model;
 
 
 namespace ERPKeeperCore.CMD
@@ -20,7 +21,7 @@ namespace ERPKeeperCore.CMD
     {
         static void Main(string[] args)
         {
-            string[] Enterprises = new string[] { "bit" };
+            string[] Enterprises = new string[] {"tec", "bit" };
 
             foreach (var enterpriseDB in Enterprises)
             {
@@ -32,29 +33,35 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Database.Migrate();
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
-                GeneralOperations(newOrganization, oldOrganization);
+               
 
-                if (false && newOrganization != null)
+                if (นา && newOrganization != null)
                 {
                     newOrganization.Transactions.Post_Ledgers();
                     newOrganization.ChartOfAccount.Refresh_CurrentBalance();
                     newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
-                    // newOrganization.Transactions.Clear_EmptyLedgers();
+                    newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
+
+                GeneralOperations(newOrganization, oldOrganization);
             }
+
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
                 var report = new ERPKeeperCore.Enterprise.Reports.Report1();
 
-                var fiscalYears = newOrganization.FiscalYears.GetAll();
+                var fiscalYears = newOrganization.FiscalYears.GetAll().ToList();
 
                 fiscalYears.ForEach(fy =>
                 {
+                    fy.PostToTransaction();
+
                     fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
                     newOrganization.FiscalYears.Update_AccountsBalance(fy);
-                    // fy.PostToTransaction();
+
+                    fy.PostToTransaction();
                 });
 
             }

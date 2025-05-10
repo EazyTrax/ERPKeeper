@@ -143,7 +143,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 .ToList()
                 .ForEach(a =>
                 {
-                    Console.WriteLine($">Dr. {a.Account.Name} {a.ClosingDebit}");
+                 //   Console.WriteLine($">Dr. {a.Account.Name} {a.ClosingDebit}");
                     this.Transaction.AddDebit(a.Account, a.ClosingDebit);
                 });
 
@@ -153,7 +153,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
                 .ToList()
                 .ForEach(a =>
                 {
-                    Console.WriteLine($">Cr. {a.Account.Name} {a.ClosingCredit}");
+                 //   Console.WriteLine($">Cr. {a.Account.Name} {a.ClosingCredit}");
                     this.Transaction.AddCredit(a.Account, a.ClosingCredit);
                 });
 

@@ -85,7 +85,7 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
         public void UpdateBalance()
         {
-     
+
 
 
 
@@ -111,6 +111,8 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
             this.UpdateBalance();
 
             if (this.Transaction == null)
+                return;
+            if (this.CloseToAccountId == null)
                 return;
 
             this.Transaction.ClearLedger();

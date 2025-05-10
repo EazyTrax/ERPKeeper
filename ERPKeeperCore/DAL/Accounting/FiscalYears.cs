@@ -129,7 +129,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         private void Update_CurrentBalance(FiscalYear fiscalYear)
         {
             DateTime startDate = fiscalYear.StartDate.Date;
-            DateTime endDate = fiscalYear.EndDate.Date;
+            DateTime endDate = fiscalYear.EndDate.Date.AddDays(1).AddSeconds(-1);
+
 
             // Step 1. Clear Account Balance
             organization.SaveChanges();
@@ -138,8 +139,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
             var current_AccountsBalance = organization.ErpCOREDBContext
                 .TransactionLedgers
                 .Where(t =>
-                    t.Transaction.Date >= startDate.Date &&
-                    t.Transaction.Date <= endDate.Date)
+                    t.Transaction.Date >= startDate &&
+                    t.Transaction.Date <= endDate)
                 .Where(t => t.Transaction.Type != Models.Accounting.Enums.TransactionType.FiscalYearClosing)
                 .GroupBy(t => t.AccountId)
                 .Select(t => new
@@ -152,9 +153,22 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
                 .ToList();
 
 
+            organization.ErpCOREDBContext
+           .TransactionLedgers
+           //.Where(t =>
+           //    t.Transaction.Date >= startDate.Date &&
+           //    t.Transaction.Date <= endDate.Date)
+           .Where(t => t.AccountId == Guid.Parse("e1f9daa9-28d6-48a6-abc1-bcda4c9b76b0"))
+           .ToList()
+           .ForEach(x =>
+           {
+               Console.WriteLine($"> {x.Transaction.Date} {x.Account.Name} {x.Debit} {x.Credit}");
+           });
 
+
+            //1628212.05
             var incomes_and_expenses_accounts_lists = current_AccountsBalance
-                .Where(x => 
+                .Where(x =>
                 x.Account.Type == AccountTypes.Income ||
                 x.Account.Type == AccountTypes.Expense)
                 .Sum(x => x.Credit - x.Debit);
