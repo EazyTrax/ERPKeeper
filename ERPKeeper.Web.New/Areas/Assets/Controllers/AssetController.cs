@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Web.Controllers;
+﻿using ERPKeeperCore.Enterprise.DBContext;
+using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,6 +34,27 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        public IActionResult Post(Guid AssetId)
+        {
+            var asset = Organization.Assets.Find(AssetId);
+            asset.PostToTransaction();
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult UnPost(Guid AssetId)
+        {
+            var asset = Organization.Assets.Find(AssetId);
+            asset.Transaction.ClearLedger();
+            asset.IsPosted = false;
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
         [HttpPost]
         public IActionResult Update(Guid AssetId, ERPKeeperCore.Enterprise.Models.Assets.Asset model)
         {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Assets
@@ -14,7 +15,10 @@ namespace ERPKeeperCore.Web.API.Assets
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.AssetTypes;
+            var returnModel = Organization.ErpCOREDBContext.AssetTypes
+                .Include(a => a.Assets)
+                .ThenInclude(a => a.DepreciationSchedules);
+
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
@@ -26,7 +30,7 @@ namespace ERPKeeperCore.Web.API.Assets
             JsonConvert.PopulateObject(values, model);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
-            
+
             Organization.ErpCOREDBContext.AssetTypes.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();

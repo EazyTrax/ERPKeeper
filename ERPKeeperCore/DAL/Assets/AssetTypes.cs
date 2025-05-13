@@ -31,7 +31,8 @@ namespace ERPKeeperCore.Enterprise.DAL.Assets
 
         public void Refresh()
         {
-            throw new NotImplementedException();
+            
+
         }
     }
 }

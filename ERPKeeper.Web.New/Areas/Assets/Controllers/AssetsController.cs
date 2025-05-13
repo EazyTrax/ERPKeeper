@@ -20,6 +20,7 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
         public IActionResult Refresh()
         {
             Organization.Assets.Refresh();
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

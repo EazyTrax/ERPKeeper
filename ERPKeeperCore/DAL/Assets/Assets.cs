@@ -48,6 +48,21 @@ namespace ERPKeeperCore.Enterprise.DAL.Assets
                 erpNodeDBContext.SaveChanges();
             });
         }
+        public void UnPostToTransactions()
+        {
+            var Assets = erpNodeDBContext.Assets
+                .Where(s => s.TransactionId != null)
+                .Where(s => s.IsPosted)
+                .ToList();
+
+            Assets.ForEach(Asset =>
+            {
+                Asset.UnPostLedger();
+                erpNodeDBContext.SaveChanges();
+            });
+        }
+
+
         public void CreateTransactions()
         {
             var Assets = erpNodeDBContext

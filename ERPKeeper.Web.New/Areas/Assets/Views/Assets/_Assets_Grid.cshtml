@@ -41,7 +41,7 @@
                 .ValueExpr("Value")
             );
 
-            columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
+            columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>StartDate</text>);
             columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
 
             columns.AddFor(m => m.AssetTypeId)

@@ -137,13 +137,13 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
         }
 
 
-        internal void PostToTransaction()
+        public void PostToTransaction()
         {
             Console.WriteLine($">Post >Assets:{this.Name}");
 
             if (this.Transaction == null) return;
             this.Transaction.ClearLedger();
-            this.Transaction.Date = this.PurchaseDate;
+            this.Transaction.Date = this.StartDeprecationDate;
             this.Transaction.Name = this.Name;
             this.Transaction.Reference = this.Reference;
             this.Transaction.PostedDate = DateTime.Today;
@@ -156,6 +156,11 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
 
             IsPosted = this.Transaction.UpdateBalance();
+        }
+
+        internal void UnPostLedger()
+        {
+            throw new NotImplementedException();
         }
     }
 }

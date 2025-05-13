@@ -1,16 +1,27 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Assets.Asset
 
 <div class="flex bg-gray-100 p-2 mb-2 rounded">
-    <div class="w-9/12 p-0 font-semibold">
-        <a href="/@CompanyId/Assets">Assets</a>
-        /
-        <a href="/@CompanyId/Assets/Assets">Assets</a>
-        /
-        <a href="/@CompanyId/Assets/AssetTypes/@Model.AssetTypeId">@Model.AssetType.Name</a>
-        /
-        <a href="/@CompanyId/Assets/Assets/@Model.Id">@Model.Name</a>
+	<div class="w-9/12 p-0 font-semibold">
+		<a href="/@CompanyId/Assets">Assets</a>
+		/
+		<a href="/@CompanyId/Assets/Assets">Assets</a>
+		/
+		<a href="/@CompanyId/Assets/AssetTypes/@Model.AssetTypeId">@Model.AssetType.Name</a>
+		/
+		<a href="/@CompanyId/Assets/Assets/@Model.Id">@Model.Name</a>
 
-    </div>
-    <div class="w-4/12 p-0 text-right">
-    </div>
+	</div>
+	<div class="w-4/12 p-0 text-right">
+		@if (Model.IsPosted)
+		{
+
+			<a href="/@CompanyId/Assets/Assets/@Model.Id/UnPost">UnPost</a>
+		}
+		else
+		{
+			<a href="/@CompanyId/Assets/Assets/@Model.Id/Post">Post</a>
+		}
+
+
+	</div>
 </div>

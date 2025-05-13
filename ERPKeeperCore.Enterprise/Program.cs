@@ -52,58 +52,6 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-
-
-
-                //newOrganization.ErpCOREDBContext.TaxPeriods
-                //    .Where(tp => tp.Sales.Count == 1 && tp.Purchases.Count == 0 && tp.CloseToAccountId == null)
-                //    .ToList()
-                //    .ForEach(x =>
-                //    {
-                //        x.Sales
-                //            .ToList()
-                //            .ForEach(s =>
-                //            {
-                //                s.TaxPeriod = null;
-                //            });
-
-                //        newOrganization.ErpCOREDBContext.SaveChanges();
-                //    });
-
-
-
-                //newOrganization.ErpCOREDBContext.TaxPeriods
-                //    .Where(tp => tp.Sales.Count == 0 && tp.Purchases.Count == 0)
-                //    .ExecuteDelete();
-                //newOrganization.ErpCOREDBContext.SaveChanges();
-
-
-                //newOrganization.ErpCOREDBContext.Sales
-                //    .OrderBy(x => x.Date)
-                //    .Where(x => x.TaxPeriodId == null)
-                //    .ToList()
-                //    .ForEach(sale =>
-                //    {
-                //        var date = sale.Date;
-                //        var newtaxPeriod = newOrganization.TaxPeriods.Find(date, true);
-
-                //        if (newtaxPeriod != null)
-                //        {
-                //            Console.WriteLine($"> Sale: {sale.Name} > TaxPeriod: {newtaxPeriod.Name}");
-
-                //            sale.TaxPeriod = newtaxPeriod;
-                //            newtaxPeriod.UnPostLedger();
-
-                //            newOrganization.SaveChanges();
-                //        }
-                //        else if (newtaxPeriod == null)
-                //        {
-                //            Console.WriteLine($"> Sale: {sale.Name} > TaxPeriod: NULL");
-                //        }
-                //    });
-
-
-
                 var report = new ERPKeeperCore.Enterprise.Reports.Report1();
                 var fiscalYears = newOrganization.FiscalYears.GetAll().ToList();
 
