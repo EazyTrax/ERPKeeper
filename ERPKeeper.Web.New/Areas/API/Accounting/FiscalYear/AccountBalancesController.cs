@@ -20,7 +20,15 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
         {
             var returnModel = Organization.ErpCOREDBContext.FiscalYearAccountBalances
                 .Where(m => m.FiscalYearId == FiscalYearId)
-                .Include(m => m.Account);
+                .Include(m => m.Account)
+                .ToList();
+
+            returnModel = returnModel
+                .Where(m => m.OpeningCredit != 0 || m.OpeningDebit != 0 || m.ClosedCredit != 0 || m.ClosedDebit != 0 || m.TotalCredit != 0 || m.TotalDebit != 0 || m.ClosingCredit != 0 || m.ClosingDebit != 0)
+                .ToList();
+
+
+
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

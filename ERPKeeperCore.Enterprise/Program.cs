@@ -52,7 +52,8 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                var report = new ERPKeeperCore.Enterprise.Reports.Report1();
+          //      var report = new ERPKeeperCore.Enterprise.Reports.Report1();
+
                 var fiscalYears = newOrganization.FiscalYears.GetAll().ToList();
 
                 fiscalYears.ForEach(fy =>
