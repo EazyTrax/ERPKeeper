@@ -29,7 +29,7 @@
 
                 columns.AddFor(m => m.DefaultTaxCodeUid)
                     .Lookup(lookup => lookup
-                    .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+                    .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
                     .DisplayExpr("Text")
                     .ValueExpr("Value"))
                     .Width(150)

@@ -49,5 +49,5 @@
     
     
     
-    <PackageReference Include="System.Data.SQLite" Version="1.0.117" /><PackageReference Include="DevExpress.AspNetCore.Reporting" Version="24.2.6" /><PackageReference Include="BuildBundlerMinifier" Version="3.2.449" /><PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" /></ItemGroup>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" /><PackageReference Include="DevExpress.AspNetCore.Reporting" Version="24.2.7" /><PackageReference Include="BuildBundlerMinifier" Version="3.2.449" /><PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" /></ItemGroup>
 </Project>

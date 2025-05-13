@@ -36,7 +36,7 @@
 
 
                 columns.AddFor(m => m.RetentionTypeId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }))
+            lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)

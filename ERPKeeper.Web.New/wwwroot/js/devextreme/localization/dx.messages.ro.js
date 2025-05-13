@@ -1,9 +1,9 @@
 /*!
 * DevExtreme (dx.messages.ro.js)
-* Version: 23.2.4
-* Build date: Mon Jan 29 2024
+* Version: 24.2.7
+* Build date: Mon Apr 28 2025
 *
-* Copyright (c) 2012 - 2024 Developer Express Inc. ALL RIGHTS RESERVED
+* Copyright (c) 2012 - 2025 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
 */
 "use strict";
@@ -11,10 +11,10 @@
 ! function(root, factory) {
     if ("function" === typeof define && define.amd) {
         define((function(require) {
-            factory(require("devextreme/localization"))
+            factory(require("devextreme/common/core/localization"))
         }))
     } else if ("object" === typeof module && module.exports) {
-        factory(require("devextreme/localization"))
+        factory(require("devextreme/common/core/localization"))
     } else {
         factory(DevExpress.localization)
     }
@@ -24,6 +24,7 @@
             Yes: "Da",
             No: "Nu",
             Cancel: "Anulare",
+            CheckState: "Check state",
             Close: "\xcenchide",
             Clear: "Cur\u0103\u021b\u0103",
             Done: "Gata",
@@ -32,6 +33,8 @@
             Search: "Caut\u0103",
             Back: "\xcenapoi",
             OK: "OK",
+            Today: "Ast\u0103zi",
+            Yesterday: "Yesterday",
             "dxCollectionWidget-noDataText": "Nu exist\u0103 date",
             "dxDropDownEditor-selectLabel": "Selecteaz\u0103",
             "validation-required": "Obligatoriu",
@@ -60,8 +63,15 @@
             "dxList-pageLoadingText": "\xcenc\u0103rcare...",
             "dxList-nextButtonText": "Mai mult",
             "dxList-selectAll": "Selecteaz\u0103 Tot",
+            "dxList-listAriaLabel": "Items",
+            "dxList-listAriaLabel-deletable": "Deletable items",
             "dxListEditDecorator-delete": "\u0218terge",
             "dxListEditDecorator-more": "Mai mult",
+            "dxList-selectAll-indeterminate": "Half-checked",
+            "dxList-selectAll-checked": "Checked",
+            "dxList-selectAll-notChecked": "Not checked",
+            "dxList-ariaRoleDescription": "List",
+            "dxList-listAriaLabel-itemContent": "List item content",
             "dxScrollView-pullingDownText": "Trage\u021bi \xeen jos pentru a actualiza...",
             "dxScrollView-pulledDownText": "Elibera\u021bi pentru a actualiza...",
             "dxScrollView-refreshingText": "Actualizare...",
@@ -157,10 +167,11 @@
             "dxDataGrid-summarySum": "Sum: {0}",
             "dxDataGrid-summarySumOtherColumn": "Sum of {1} este {0}",
             "dxDataGrid-summaryCount": "Num\u0103r\u0103: {0}",
-            "dxDataGrid-columnFixingFix": "Fixare",
-            "dxDataGrid-columnFixingUnfix": "Defixare",
-            "dxDataGrid-columnFixingLeftPosition": "La st\xe2nga",
-            "dxDataGrid-columnFixingRightPosition": "La dreapta",
+            "dxDataGrid-columnFixingFix": "Set Fixed Position",
+            "dxDataGrid-columnFixingUnfix": "Unfix",
+            "dxDataGrid-columnFixingLeftPosition": "Left",
+            "dxDataGrid-columnFixingRightPosition": "Right",
+            "dxDataGrid-columnFixingStickyPosition": "Sticky",
             "dxDataGrid-exportTo": "Export",
             "dxDataGrid-exportToExcel": "Exportare fi\u0219ier Excel ",
             "dxDataGrid-exporting": "Exportare...",
@@ -198,7 +209,9 @@
             "dxDataGrid-filterPanelCreateFilter": "Creaz\u0103 Fi\u0219ier",
             "dxDataGrid-filterPanelClearFilter": "Cur\u0103\u021b\u0103",
             "dxDataGrid-filterPanelFilterEnabledHint": "Activa\u021bi filtrul",
+            "dxDataGrid-masterDetail": "Cell with details",
             "dxTreeList-ariaTreeList": "Tree list with {0} rows and {1} columns",
+            "dxTreeList-ariaExpandableInstruction": "Press Ctrl + right arrow to expand the focused node and Ctrl + left arrow to collapse it",
             "dxTreeList-ariaSearchInGrid": "Search in the tree list",
             "dxTreeList-ariaToolbar": "Tree list toolbar",
             "dxTreeList-editingAddRowToNode": "Adaug\u0103",
@@ -207,11 +220,21 @@
             "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "Tot",
             "dxPager-page": "Page {0}",
-            "dxPager-prevPage": "Previous Page",
-            "dxPager-nextPage": "Next Page",
-            "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-prevPage": "Previous page",
+            "dxPager-nextPage": "Next page",
+            "dxPager-ariaLabel": "Page navigation",
             "dxPager-ariaPageSize": "Page size",
             "dxPager-ariaPageNumber": "Page number",
+            "dxPagination-infoText": "Pagina {0} de {1} ({2} obiecte)",
+            "dxPagination-pagesCountText": "de",
+            "dxPagination-pageSize": "Items per page: {0}",
+            "dxPagination-pageSizesAllText": "Tot",
+            "dxPagination-page": "Page {0}",
+            "dxPagination-prevPage": "Previous page",
+            "dxPagination-nextPage": "Next page",
+            "dxPagination-ariaLabel": "Page navigation",
+            "dxPagination-ariaPageSize": "Page size",
+            "dxPagination-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Total general",
             "dxPivotGrid-total": "{0} Total",
             "dxPivotGrid-fieldChooserTitle": "Selector de C\xe2mp",
@@ -231,11 +254,17 @@
             "dxPivotGrid-dataFieldArea": "Plasa\u021bi c\xe2mpurile de date aici",
             "dxPivotGrid-rowFieldArea": "Plasa\u021bi c\xe2mpurile r\xe2ndului aici",
             "dxPivotGrid-filterFieldArea": "Plasa\u021bi c\xe2mpurile de filtrare aici",
+            "dxScheduler-ariaLabel": "Scheduler. {0} view",
+            "dxScheduler-appointmentAriaLabel-group": "Group: {0}",
+            "dxScheduler-appointmentAriaLabel-recurring": "Recurring appointment",
+            "dxScheduler-appointmentListAriaLabel": "Appointment list",
             "dxScheduler-editorLabelTitle": "Subiect",
             "dxScheduler-editorLabelStartDate": "Data de \xeenceput",
             "dxScheduler-editorLabelEndDate": "Data de \xeencheiere",
             "dxScheduler-editorLabelDescription": "Descriere",
             "dxScheduler-editorLabelRecurrence": "Repet\u0103",
+            "dxScheduler-navigationPrevious": "Previous page",
+            "dxScheduler-navigationNext": "Next page",
             "dxScheduler-openAppointment": "Deschide\u021bi rezervarea",
             "dxScheduler-recurrenceNever": "Niciodat\u0103",
             "dxScheduler-recurrenceMinutely": "In fiecare minut",
@@ -267,6 +296,7 @@
             "dxScheduler-recurrenceRepeatOnDate": "pe data",
             "dxScheduler-recurrenceRepeatCount": "apari\u021bie(s)",
             "dxScheduler-allDay": "Tot\u0103 ziua",
+            "dxScheduler-ariaEditForm": "Edit form",
             "dxScheduler-confirmRecurrenceEditTitle": "Edit Recurring Appointment",
             "dxScheduler-confirmRecurrenceDeleteTitle": "Delete Recurring Appointment",
             "dxScheduler-confirmRecurrenceEditMessage": "Dori\u021bi s\u0103 edita\u021bi doar aceast\u0103 programare sau \xeentreaga serie?",
@@ -277,6 +307,10 @@
             "dxScheduler-confirmRecurrenceDeleteOccurrence": "\u0218tergere rezervare",
             "dxScheduler-noTimezoneTitle": "F\u0103r\u0103 fus orar",
             "dxScheduler-moreAppointments": "{0} mai mult",
+            "dxCalendar-currentDay": "Today",
+            "dxCalendar-currentMonth": "Current month",
+            "dxCalendar-currentYear": "Current year",
+            "dxCalendar-currentYearRange": "Current year range",
             "dxCalendar-todayButtonText": "Ast\u0103zi",
             "dxCalendar-ariaWidgetName": "Calendar",
             "dxCalendar-previousMonthButtonLabel": "Previous month",
@@ -291,6 +325,25 @@
             "dxCalendar-captionYearLabel": "Year selection",
             "dxCalendar-captionDecadeLabel": "Decade selection",
             "dxCalendar-captionCenturyLabel": "Century selection",
+            "dxCalendar-selectedDate": "The selected date is {0}",
+            "dxCalendar-selectedDates": "The selected dates",
+            "dxCalendar-selectedDateRange": "The selected date range is from {0} to {1}",
+            "dxCalendar-selectedMultipleDateRange": "from {0} to {1}",
+            "dxCalendar-selectedDateRangeCount": "There are {0} selected date ranges",
+            "dxCalendar-readOnlyLabel": "Read-only calendar",
+            "dxAvatar-defaultImageAlt": "Avatar",
+            "dxChat-elementAriaLabel": "Chat",
+            "dxChat-textareaPlaceholder": "Type a message",
+            "dxChat-sendButtonAriaLabel": "Send",
+            "dxChat-defaultUserName": "Unknown User",
+            "dxChat-messageListAriaLabel": "Message list",
+            "dxChat-alertListAriaLabel": "Error list",
+            "dxChat-emptyListMessage": "There are no messages in this chat",
+            "dxChat-emptyListPrompt": "Write your first message",
+            "dxChat-typingMessageSingleUser": "{0} is typing...",
+            "dxChat-typingMessageTwoUsers": "{0} and {1} are typing...",
+            "dxChat-typingMessageThreeUsers": "{0}, {1} and {2} are typing...",
+            "dxChat-typingMessageMultipleUsers": "{0} and others are typing...",
             "dxColorView-ariaRed": "Ro\u0219u",
             "dxColorView-ariaGreen": "Verde",
             "dxColorView-ariaBlue": "Albastru",
@@ -299,6 +352,8 @@
             "dxTagBox-selected": "{0} selectat",
             "dxTagBox-allSelected": "Toate selctate ({0})",
             "dxTagBox-moreSelected": "{0} mai mult",
+            "dxTagBox-tagRoleDescription": "Tag. Press the delete button to remove this tag",
+            "dxTagBox-ariaRoleDescription": "Tag box",
             "vizExport-printingButtonText": "Printare",
             "vizExport-titleMenuText": "Exportare/Printare",
             "vizExport-exportButtonText": "{0} fi\u0219ier",
@@ -324,6 +379,15 @@
             "dxFilterBuilder-filterOperationBetween": "Este \xeentre",
             "dxFilterBuilder-filterOperationAnyOf": "Este oricare dintre",
             "dxFilterBuilder-filterOperationNoneOf": "Nu este nici una dintre",
+            "dxFilterBuilder-filterAriaRootElement": "Filter builder",
+            "dxFilterBuilder-filterAriaGroupLevel": "Level {0}",
+            "dxFilterBuilder-filterAriaGroupItem": "Group item",
+            "dxFilterBuilder-filterAriaOperationButton": "Operation",
+            "dxFilterBuilder-filterAriaAddButton": "Add",
+            "dxFilterBuilder-filterAriaRemoveButton": "Remove {0}",
+            "dxFilterBuilder-filterAriaItemField": "Item field",
+            "dxFilterBuilder-filterAriaItemOperation": "Item operation",
+            "dxFilterBuilder-filterAriaItemValue": "Item value",
             "dxHtmlEditor-dialogColorCaption": "Schimb\u0103 culoarea fontului",
             "dxHtmlEditor-dialogBackgroundCaption": "Schimb\u0103 culoarea de fundal",
             "dxHtmlEditor-dialogLinkCaption": "Adaug\u0103 Link",
@@ -392,6 +456,7 @@
             "dxHtmlEditor-width": "Width",
             "dxHtmlEditor-height": "Height",
             "dxHtmlEditor-borderColor": "Color",
+            "dxHtmlEditor-borderWidth": "Border Width",
             "dxHtmlEditor-tableBackground": "Background",
             "dxHtmlEditor-dimensions": "Dimensions",
             "dxHtmlEditor-alignment": "Alignment",
@@ -683,7 +748,9 @@
             "dxMultiView-elementAriaRoleDescription": "MultiView",
             "dxMultiView-elementAriaLabel": "Use the arrow keys or swipe to navigate between views",
             "dxMultiView-itemAriaRoleDescription": "View",
-            "dxMultiView-itemAriaLabel": "{0} of {1}"
+            "dxMultiView-itemAriaLabel": "{0} of {1}",
+            "dxSplitter-resizeHandleAriaLabel": "Split bar",
+            "dxSplitter-resizeHandleAriaRoleDescription": "Separator"
         }
     })
 }));

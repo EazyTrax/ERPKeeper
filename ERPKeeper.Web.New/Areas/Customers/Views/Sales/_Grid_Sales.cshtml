@@ -42,7 +42,9 @@
             .AllowEditing(false)
             .Width(80)
             .Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus>()
+                .Select(i => new { Value = int.Parse(i.Value), Text = i.Text })
+                .ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
@@ -56,7 +58,7 @@
                 columns.AddFor(m => m.CustomerId)
             .MinWidth(250)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
+            .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
@@ -69,18 +71,18 @@
                 columns.AddFor(m => m.Tax).Width(130).AllowEditing(false).Format("#,##0.00");
 
                 columns.AddFor(m => m.TaxCodeId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
             .Visible(false)
             .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.TaxPeriodId)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -91,7 +93,9 @@
 
 
                 columns.AddFor(m => m.IncomeAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList())
+            .DisplayExpr("Name")
+            .ValueExpr("Id"))
             .Width(150)
             .ShowInColumnChooser(true)
             .Visible(false)
@@ -101,7 +105,7 @@
         
         columns.AddFor(m => m.ProjectId)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Projects.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.Projects.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .Width(150)

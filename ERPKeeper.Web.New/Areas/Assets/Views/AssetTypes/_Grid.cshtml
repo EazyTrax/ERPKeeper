@@ -47,8 +47,8 @@
             columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Assets</text>);
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
-           
-            
+
+            columns.AddFor(m => m.DeprecatedAble);
             
             columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
 

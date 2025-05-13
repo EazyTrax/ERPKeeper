@@ -37,7 +37,7 @@
 
 
                 columns.AddFor(m => m.SupplierId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -51,7 +51,7 @@
 
                 columns.AddFor(m => m.TaxCodeId)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -60,7 +60,7 @@
 
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.TaxPeriods.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)

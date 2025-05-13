@@ -47,7 +47,7 @@
 
                 columns.AddFor(m => m.ProjectId)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Projects.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.Projects.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .Width(150)
@@ -64,7 +64,7 @@
 
                 columns.AddFor(m => m.TaxCodeId).Width(180)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.TaxCodes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TaxCode</text>)

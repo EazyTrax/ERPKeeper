@@ -39,7 +39,7 @@
 
 
                 columns.AddFor(m => m.Sale.CustomerId).Lookup(lookup => 
-               lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }))
+               lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -51,7 +51,7 @@
                 columns.AddFor(m => m.Discount_Given_Expense_Account).Width(130).Format("#,##0.00");
 
                 columns.AddFor(m => m.PayToAccountId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
+            lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -61,7 +61,7 @@
 
 
                 columns.AddFor(m => m.RetentionTypeId).Lookup(lookup =>
-            lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }))
+            lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)

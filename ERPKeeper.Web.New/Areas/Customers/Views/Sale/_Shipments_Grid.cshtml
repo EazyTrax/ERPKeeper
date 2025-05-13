@@ -38,7 +38,7 @@
 
                 columns.AddFor(m => m.ShipmentProviderId)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.LogisticProviders.Select(i => new { Value = i.Id, Text = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.LogisticProviders.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)

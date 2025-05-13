@@ -3,65 +3,66 @@
 <div id="treeListDemo" class="mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.Asset>()
-        .ID("gridList")
-        .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/All")
-        .InsertUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/Insert")
-        .UpdateUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/Update")
-        .UpdateMethod("Post")
-        )
-        .KeyExpr("Id")
-        .Width("100%")
-        .RowAlternationEnabled(true).AllowColumnReordering(true)
+            .ID("gridList")
+            .DataSource(d => d.RemoteController().Key("Id")
+            .LoadUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/All")
+            .InsertUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/Insert")
+            .UpdateUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/Update")
+            .UpdateMethod("Post")
+            )
+            .KeyExpr("Id")
+            .Width("100%")
+            .RowAlternationEnabled(true).AllowColumnReordering(true)
 
-        
-        .ShowRowLines(true)
-        .ShowBorders(false)
-        .Paging(paging => paging.PageSize(100))
 
-        .AllowColumnResizing(true).AllowColumnReordering(true)
-        .Paging(pagging => pagging.PageSize(100))
-        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+            .ShowRowLines(true)
+            .ShowBorders(false)
+            .Paging(paging => paging.PageSize(100))
 
-        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+            .AllowColumnResizing(true).AllowColumnReordering(true)
+            .Paging(pagging => pagging.PageSize(100))
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
 
-        .ColumnAutoWidth(false)
-        @*.AutoExpandAll(true)*@
-        .RowDragging(rd => rd
-        .AllowDropInsideItem(false)
-        .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
+            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+
+            .ColumnAutoWidth(false)
+            @*.AutoExpandAll(true)*@
+            .RowDragging(rd => rd
+            .AllowDropInsideItem(false)
+            .AllowReordering(false)
+            @*.OnDragChange("onDragChange")
         .OnDragEnd("onDragEnd")
         .ShowDragIcons(false)*@
-        )
-            .Columns(columns =>
-            {
-                columns.AddFor(m => m.Status).AllowEditing(false).Width(130).Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
-                .DisplayExpr("Text")
-                .ValueExpr("Value")
-            );
+            )
+                .Columns(columns =>
+                {
+                    columns.AddFor(m => m.Status).AllowEditing(false).Width(130).Lookup(lookup => lookup
+                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value")
+                );
 
 
 
-            columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
-            columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
-            columns.AddFor(m => m.AssetTypeId)
-            .HeaderCellTemplate(@<text>Type</text>)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
-            .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
+                    columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
+                    columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
+                    columns.AddFor(m => m.AssetTypeId)
+        .HeaderCellTemplate(@<text>Type</text>)
+        .Lookup(lookup => lookup
+        .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
+        .DisplayExpr("Text")
+        .ValueExpr("Value"))
+        .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
 
-            
-            columns.AddFor(m=>m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
-            columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
-            columns.AddFor(m => m.Id).AllowEditing(false).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-danger"></i></text>);
-        
-                @*
+
+                    columns.AddFor(m=>m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
+                    columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
+                    columns.AddFor(m => m.Id).AllowEditing(false).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-danger"></i></text>
+    );
+                 
+                    @*
             columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );*@

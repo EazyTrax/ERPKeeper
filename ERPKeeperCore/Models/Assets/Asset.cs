@@ -109,7 +109,7 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
                 decimal _remainValue = AssetValue - _newAccDeprecation;
 
-                index = NewDepreciationSchedule(_startDate, index, _endDate, _openingValue, _deprecateValue, _newAccDeprecation, _remainValue);
+                index = AddSchedule(_startDate, index, _endDate, _openingValue, _deprecateValue, _newAccDeprecation, _remainValue);
 
                 _startDate = _endDate.AddDays(1);
                 _accDeprecation = _newAccDeprecation;
@@ -117,7 +117,9 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
 
             LastCreateSchedule = DateTime.Today;
         }
-        private int NewDepreciationSchedule(DateTime _startDate, int index, DateTime _endDate, decimal _openingValue, decimal _deprecateValue, decimal _newAccDeprecation, decimal _remainValue)
+
+
+        private int AddSchedule(DateTime _startDate, int index, DateTime _endDate, decimal _openingValue, decimal _deprecateValue, decimal _newAccDeprecation, decimal _remainValue)
         {
             var _schedule = new AssetDeprecateSchedule()
             {
@@ -133,6 +135,8 @@ namespace ERPKeeperCore.Enterprise.Models.Assets
             DepreciationSchedules.Add(_schedule);
             return index;
         }
+
+
         internal void PostToTransaction()
         {
             Console.WriteLine($">Post >Assets:{this.Name}");

@@ -1,9 +1,9 @@
 /*!
 * DevExtreme (dx.messages.pl.js)
-* Version: 23.2.4
-* Build date: Mon Jan 29 2024
+* Version: 24.2.7
+* Build date: Mon Apr 28 2025
 *
-* Copyright (c) 2012 - 2024 Developer Express Inc. ALL RIGHTS RESERVED
+* Copyright (c) 2012 - 2025 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
 */
 "use strict";
@@ -11,10 +11,10 @@
 ! function(root, factory) {
     if ("function" === typeof define && define.amd) {
         define((function(require) {
-            factory(require("devextreme/localization"))
+            factory(require("devextreme/common/core/localization"))
         }))
     } else if ("object" === typeof module && module.exports) {
-        factory(require("devextreme/localization"))
+        factory(require("devextreme/common/core/localization"))
     } else {
         factory(DevExpress.localization)
     }
@@ -24,6 +24,7 @@
             Yes: "Tak",
             No: "Nie",
             Cancel: "Anuluj",
+            CheckState: "Check state",
             Close: "Zamknij",
             Clear: "Usu\u0144",
             Done: "Gotowe",
@@ -32,6 +33,8 @@
             Search: "Szukaj...",
             Back: "Wr\xf3\u0107...",
             OK: "OK",
+            Today: "Dzisiaj",
+            Yesterday: "Yesterday",
             "dxCollectionWidget-noDataText": "Brak dost\u0119pnych danych",
             "dxDropDownEditor-selectLabel": "Wybierz",
             "validation-required": "Pole obowi\u0105zkowe",
@@ -60,8 +63,15 @@
             "dxList-pageLoadingText": "\u0141adowanie...",
             "dxList-nextButtonText": "Wi\u0119cej",
             "dxList-selectAll": "Wybierz wszystko",
+            "dxList-listAriaLabel": "Items",
+            "dxList-listAriaLabel-deletable": "Deletable items",
             "dxListEditDecorator-delete": "Usu\u0144",
             "dxListEditDecorator-more": "Wi\u0119cej",
+            "dxList-selectAll-indeterminate": "Half-checked",
+            "dxList-selectAll-checked": "Checked",
+            "dxList-selectAll-notChecked": "Not checked",
+            "dxList-ariaRoleDescription": "List",
+            "dxList-listAriaLabel-itemContent": "List item content",
             "dxScrollView-pullingDownText": "Aby zaktualizowa\u0107, przeci\u0105gnij w d\xf3\u0142",
             "dxScrollView-pulledDownText": "Aby zaktualizowa\u0107 pu\u015b\u0107",
             "dxScrollView-refreshingText": "Zaktualiz...",
@@ -157,10 +167,11 @@
             "dxDataGrid-summarySum": "Suma: {0}",
             "dxDataGrid-summarySumOtherColumn": "Suma {1} wynosi {0}",
             "dxDataGrid-summaryCount": "Liczba: {0}",
-            "dxDataGrid-columnFixingFix": "Ustal",
-            "dxDataGrid-columnFixingUnfix": "Rozwi\u0105\u017c",
-            "dxDataGrid-columnFixingLeftPosition": "Na lewo",
-            "dxDataGrid-columnFixingRightPosition": "Na prawo",
+            "dxDataGrid-columnFixingFix": "Set Fixed Position",
+            "dxDataGrid-columnFixingUnfix": "Unfix",
+            "dxDataGrid-columnFixingLeftPosition": "Left",
+            "dxDataGrid-columnFixingRightPosition": "Right",
+            "dxDataGrid-columnFixingStickyPosition": "Sticky",
             "dxDataGrid-exportTo": "Eksportuj",
             "dxDataGrid-exportToExcel": "Eksportuj jako plik excel",
             "dxDataGrid-exporting": "Eksport...",
@@ -198,7 +209,9 @@
             "dxDataGrid-filterPanelCreateFilter": "Utw\xf3rz filtr",
             "dxDataGrid-filterPanelClearFilter": "Resetuj",
             "dxDataGrid-filterPanelFilterEnabledHint": "Aktywuj filtr",
+            "dxDataGrid-masterDetail": "Cell with details",
             "dxTreeList-ariaTreeList": "Lista strukturalna",
+            "dxTreeList-ariaExpandableInstruction": "Press Ctrl + right arrow to expand the focused node and Ctrl + left arrow to collapse it",
             "dxTreeList-ariaSearchInGrid": "Szukaj w li\u015bcie strukturalnej",
             "dxTreeList-ariaToolbar": "Pasek narz\u0119dzi listy strukturalnej",
             "dxTreeList-editingAddRowToNode": "Dodaj",
@@ -212,6 +225,16 @@
             "dxPager-ariaLabel": "Nawigacja strony",
             "dxPager-ariaPageSize": "Page size",
             "dxPager-ariaPageNumber": "Page number",
+            "dxPagination-infoText": "Strona {0} z {1} ({2} elementy)",
+            "dxPagination-pagesCountText": "od",
+            "dxPagination-pageSize": "Elementy na stronie: {0}",
+            "dxPagination-pageSizesAllText": "Wszystkie/wszyscy",
+            "dxPagination-page": "Strona {0}",
+            "dxPagination-prevPage": "Poprzednia strona",
+            "dxPagination-nextPage": "Nast\u0119pna strona",
+            "dxPagination-ariaLabel": "Nawigacja strony",
+            "dxPagination-ariaPageSize": "Page size",
+            "dxPagination-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "\u0141\u0105cznie",
             "dxPivotGrid-total": "{0} \u0141\u0105cznie",
             "dxPivotGrid-fieldChooserTitle": "Wyb\xf3r pola",
@@ -231,11 +254,17 @@
             "dxPivotGrid-dataFieldArea": "Przeci\u0105gnij pola danych tutaj",
             "dxPivotGrid-rowFieldArea": "Przeci\u0105gnij pola wiersza/-y tutaj",
             "dxPivotGrid-filterFieldArea": "Przeci\u0105gnij pola filtra tutaj",
+            "dxScheduler-ariaLabel": "Scheduler. {0} view",
+            "dxScheduler-appointmentAriaLabel-group": "Group: {0}",
+            "dxScheduler-appointmentAriaLabel-recurring": "Recurring appointment",
+            "dxScheduler-appointmentListAriaLabel": "Appointment list",
             "dxScheduler-editorLabelTitle": "Dotyczy",
             "dxScheduler-editorLabelStartDate": "Czas rozpocz\u0119cia",
             "dxScheduler-editorLabelEndDate": "Czas zako\u0144czenia",
             "dxScheduler-editorLabelDescription": "Opis",
             "dxScheduler-editorLabelRecurrence": "Powt\xf3rz",
+            "dxScheduler-navigationPrevious": "Previous page",
+            "dxScheduler-navigationNext": "Next page",
             "dxScheduler-openAppointment": "Otw\xf3rz termin",
             "dxScheduler-recurrenceNever": "Nigdy",
             "dxScheduler-recurrenceMinutely": "minutowy",
@@ -267,6 +296,7 @@
             "dxScheduler-recurrenceRepeatOnDate": "dnia",
             "dxScheduler-recurrenceRepeatCount": "Wydarzenia",
             "dxScheduler-allDay": "ca\u0142odniowe",
+            "dxScheduler-ariaEditForm": "Edit form",
             "dxScheduler-confirmRecurrenceEditTitle": "Edit Recurring Appointment",
             "dxScheduler-confirmRecurrenceDeleteTitle": "Delete Recurring Appointment",
             "dxScheduler-confirmRecurrenceEditMessage": "Czy chcesz edytowa\u0107 tylko ten termin, czy ca\u0142\u0105 seri\u0119?",
@@ -277,6 +307,10 @@
             "dxScheduler-confirmRecurrenceDeleteOccurrence": "Usu\u0144 termin",
             "dxScheduler-noTimezoneTitle": "Brak strefy czasowej",
             "dxScheduler-moreAppointments": "{0} kolejne",
+            "dxCalendar-currentDay": "Today",
+            "dxCalendar-currentMonth": "Current month",
+            "dxCalendar-currentYear": "Current year",
+            "dxCalendar-currentYearRange": "Current year range",
             "dxCalendar-todayButtonText": "Dzisiaj",
             "dxCalendar-ariaWidgetName": "Kalendarz",
             "dxCalendar-previousMonthButtonLabel": "Previous month",
@@ -291,6 +325,25 @@
             "dxCalendar-captionYearLabel": "Year selection",
             "dxCalendar-captionDecadeLabel": "Decade selection",
             "dxCalendar-captionCenturyLabel": "Century selection",
+            "dxCalendar-selectedDate": "The selected date is {0}",
+            "dxCalendar-selectedDates": "The selected dates",
+            "dxCalendar-selectedDateRange": "The selected date range is from {0} to {1}",
+            "dxCalendar-selectedMultipleDateRange": "from {0} to {1}",
+            "dxCalendar-selectedDateRangeCount": "There are {0} selected date ranges",
+            "dxCalendar-readOnlyLabel": "Read-only calendar",
+            "dxAvatar-defaultImageAlt": "Avatar",
+            "dxChat-elementAriaLabel": "Chat",
+            "dxChat-textareaPlaceholder": "Type a message",
+            "dxChat-sendButtonAriaLabel": "Send",
+            "dxChat-defaultUserName": "Unknown User",
+            "dxChat-messageListAriaLabel": "Message list",
+            "dxChat-alertListAriaLabel": "Error list",
+            "dxChat-emptyListMessage": "There are no messages in this chat",
+            "dxChat-emptyListPrompt": "Write your first message",
+            "dxChat-typingMessageSingleUser": "{0} is typing...",
+            "dxChat-typingMessageTwoUsers": "{0} and {1} are typing...",
+            "dxChat-typingMessageThreeUsers": "{0}, {1} and {2} are typing...",
+            "dxChat-typingMessageMultipleUsers": "{0} and others are typing...",
             "dxColorView-ariaRed": "czerwony",
             "dxColorView-ariaGreen": "zielony",
             "dxColorView-ariaBlue": "niebieski",
@@ -299,6 +352,8 @@
             "dxTagBox-selected": "{0} wybrano",
             "dxTagBox-allSelected": "Wybrano wszystkie ({0})",
             "dxTagBox-moreSelected": "{0} kolejne",
+            "dxTagBox-tagRoleDescription": "Tag. Press the delete button to remove this tag",
+            "dxTagBox-ariaRoleDescription": "Tag box",
             "vizExport-printingButtonText": "Drukuj",
             "vizExport-titleMenuText": "Eksport/druk",
             "vizExport-exportButtonText": "Plik {0}",
@@ -324,6 +379,15 @@
             "dxFilterBuilder-filterOperationBetween": "Pomi\u0119dzy",
             "dxFilterBuilder-filterOperationAnyOf": "Jest zawarty w",
             "dxFilterBuilder-filterOperationNoneOf": "Nie jest zawarty w",
+            "dxFilterBuilder-filterAriaRootElement": "Filter builder",
+            "dxFilterBuilder-filterAriaGroupLevel": "Level {0}",
+            "dxFilterBuilder-filterAriaGroupItem": "Group item",
+            "dxFilterBuilder-filterAriaOperationButton": "Operation",
+            "dxFilterBuilder-filterAriaAddButton": "Add",
+            "dxFilterBuilder-filterAriaRemoveButton": "Remove {0}",
+            "dxFilterBuilder-filterAriaItemField": "Item field",
+            "dxFilterBuilder-filterAriaItemOperation": "Item operation",
+            "dxFilterBuilder-filterAriaItemValue": "Item value",
             "dxHtmlEditor-dialogColorCaption": "Zmie\u0144 kolor czcionki",
             "dxHtmlEditor-dialogBackgroundCaption": "Zmie\u0144 kolor t\u0142a",
             "dxHtmlEditor-dialogLinkCaption": "Dodaj link",
@@ -392,6 +456,7 @@
             "dxHtmlEditor-width": "Szeroko\u015b\u0107",
             "dxHtmlEditor-height": "wysoko\u015b\u0107",
             "dxHtmlEditor-borderColor": "kolor",
+            "dxHtmlEditor-borderWidth": "Border Width",
             "dxHtmlEditor-tableBackground": "t\u0142o",
             "dxHtmlEditor-dimensions": "wymiary",
             "dxHtmlEditor-alignment": "Orientacja",
@@ -683,7 +748,9 @@
             "dxMultiView-elementAriaRoleDescription": "MultiView",
             "dxMultiView-elementAriaLabel": "Use the arrow keys or swipe to navigate between views",
             "dxMultiView-itemAriaRoleDescription": "View",
-            "dxMultiView-itemAriaLabel": "{0} of {1}"
+            "dxMultiView-itemAriaLabel": "{0} of {1}",
+            "dxSplitter-resizeHandleAriaLabel": "Split bar",
+            "dxSplitter-resizeHandleAriaRoleDescription": "Separator"
         }
     })
 }));

@@ -1,21 +1,21 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Assets.Asset
 
 <div class="flex flex-wrap">
-    <div class="col-center-div grow mh-100v border-right border-2">
-        <partial name="_EditForm" />
+	<div class="col-center-div grow mh-100v border-right border-2">
+		<partial name="_EditForm" />
 
-        @if (Model.AssetType.DeprecatedAble)
-        {
-            <partial name="_DeprecateSchedule_Grid" />
-        }
+		@if (Model.AssetType.DeprecatedAble)
+		{
+			<partial name="_DeprecateSchedule_Grid" />
+		}
 
-    </div>
-    <div class="col-right-div w-3/12">
-        <div class="border p-2 bg-fb2">
-           RemainAgeDay @Model.RemainAgeDay
-        </div
+	</div>
+	<div class="col-right-div w-3/12">
+		<div class="border p-2 bg-fb2">
+			RemainAgeDay @Model.RemainAgeDay
+		</div>
 
-                <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
-    </div>
+		<partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+	</div>
 </div>
 

@@ -54,7 +54,7 @@
 
             columns.AddFor(m => m.ExpenseAccountId).Width(250)
         .Lookup(lookup => lookup
-        .DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }))
+        .DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Expense Acc</text>)

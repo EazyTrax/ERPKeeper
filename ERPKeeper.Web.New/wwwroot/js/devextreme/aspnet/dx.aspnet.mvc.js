@@ -1,9 +1,9 @@
 /*!
 * DevExtreme (dx.aspnet.mvc.js)
-* Version: 23.2.4
-* Build date: Mon Jan 29 2024
+* Version: 24.2.7
+* Build date: Mon Apr 28 2025
 *
-* Copyright (c) 2012 - 2024 Developer Express Inc. ALL RIGHTS RESERVED
+* Copyright (c) 2012 - 2025 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
 */
 ! function(factory) {
@@ -175,10 +175,15 @@
                 }
             }
         },
-        sendValidationRequest: function(propertyName, propertyValue, url, method) {
+        sendValidationRequest: function(propertyName, params, url, method, additionalFields) {
             var d = $.Deferred();
             var data = {};
-            data[propertyName] = propertyValue;
+            data[propertyName] = params.value;
+            if (additionalFields.length && params.data) {
+                additionalFields.forEach((function(field) {
+                    data[field] = params.data[field]
+                }))
+            }
             ajax.sendRequest({
                 url: url,
                 dataType: "json",

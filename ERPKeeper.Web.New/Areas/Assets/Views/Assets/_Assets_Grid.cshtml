@@ -46,10 +46,11 @@
 
             columns.AddFor(m => m.AssetTypeId)
             .HeaderCellTemplate(@<text>Type</text>)
-            .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }))
-            .DisplayExpr("Text")
-            .ValueExpr("Value"))
+            .Lookup(l => l
+                .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(a => new { a.Id, a.Name }).ToList()) 
+                .ValueExpr("Id")
+                .DisplayExpr("Name")
+            )
             .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
