@@ -34,6 +34,11 @@ namespace ERPKeeperCore.Web.Areas.API.Employees.Payment
 
             model.EmployeePaymentId = Id;
 
+            var employmentType = Organization.ErpCOREDBContext.EmployeePaymentTypes
+                .FirstOrDefault(a => a.Id == model.EmployeePaymentTypeId);
+            model.EmployeePaymentType = employmentType;
+            
+
             Organization.ErpCOREDBContext.EmployeePaymentItems.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 

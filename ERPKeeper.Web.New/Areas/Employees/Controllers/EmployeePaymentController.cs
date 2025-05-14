@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
         public IActionResult UnPost(Guid Id)
         {
             var model = Organization.EmployeePayments.Find(Id);
-            Organization.EmployeePayments.UnPost(model);
+            Organization.EmployeePayments.UnPostLedgers(model);
             Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());

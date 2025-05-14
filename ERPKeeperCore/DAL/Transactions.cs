@@ -53,7 +53,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             organization.IncomeTaxes.PostToTransactions();
 
             //Employee Section
-            organization.EmployeePayments.PostToTransactions();
+            organization.EmployeePayments.PostLedgers();
 
             //Other Section
             organization.JournalEntries.PostToTransactions();

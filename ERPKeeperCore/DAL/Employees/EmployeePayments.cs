@@ -29,7 +29,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
 
         public EmployeePayment? Find(Guid Id) => erpNodeDBContext.EmployeePayments.Find(Id);
 
-        public void PostToTransactions()
+        public void PostLedgers()
         {
             CreateTransactions();
 
@@ -92,10 +92,21 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
             erpNodeDBContext.SaveChanges();
         }
 
-        public void UnPost(EmployeePayment model)
+        public void UnPostLedgers(EmployeePayment model)
         {
 
             model.UnPost_Ledger();
+            erpNodeDBContext.SaveChanges();
+        }
+        public void UnPostLedgers()
+        {
+            erpNodeDBContext.EmployeePayments
+                      .ToList()
+                      .ForEach(model =>
+                      {
+                          model.UnPost_Ledger();
+                      });
+
             erpNodeDBContext.SaveChanges();
         }
 
@@ -108,7 +119,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
                           .ToList();
 
             int order = 0;
-           
+
             foreach (var payment in payments)
             {
                 payment.No = ++order;
@@ -128,7 +139,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
             model.RemoveAllItems();
             model.Transaction = null;
 
-            this.erpNodeDBContext.EmployeePayments.Remove(model);   
+            this.erpNodeDBContext.EmployeePayments.Remove(model);
             this.SaveChanges();
 
 

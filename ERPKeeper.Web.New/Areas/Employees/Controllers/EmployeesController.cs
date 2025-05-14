@@ -18,6 +18,12 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 
         public ActionResult Refresh()
         {
+            var employees = Organization.Employees.GetAll();
+            employees.ForEach(e =>
+            {
+                e.UpdateBalance();
+            });
+            Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

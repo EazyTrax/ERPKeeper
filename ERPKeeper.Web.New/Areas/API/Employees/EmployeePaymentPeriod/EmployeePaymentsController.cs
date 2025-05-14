@@ -31,9 +31,13 @@ namespace ERPKeeperCore.Web.Areas.API.Employees.EmployeePaymentPeriod
             JsonConvert.PopulateObject(values, model);
 
             model.EmployeePaymentPeriodId = Id;
+            model.No = Organization.ErpCOREDBContext.EmployeePayments
+                .Count() + 1;
 
             Organization.ErpCOREDBContext.EmployeePayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
+
+            model.UpdateName();
 
             return Ok();
         }

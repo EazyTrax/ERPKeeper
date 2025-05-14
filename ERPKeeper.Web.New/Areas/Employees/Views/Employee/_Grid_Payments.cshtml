@@ -51,7 +51,7 @@
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .CalculateSortValue("Name")
-            .SortIndex(1)
+            
             .HeaderCellTemplate(@<text>Period</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
 

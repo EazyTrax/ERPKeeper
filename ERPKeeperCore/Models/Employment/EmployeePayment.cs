@@ -116,7 +116,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         public void UnPost_Ledger()
         {
-            Console.WriteLine($">UnPost  SL:{this.Name}");
+            Console.WriteLine($">UnPost  EMP:{this.Name}");
 
             if (Transaction == null)
             {

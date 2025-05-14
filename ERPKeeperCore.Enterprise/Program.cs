@@ -46,6 +46,22 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
                     newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
                     newOrganization.ErpCOREDBContext.SaveChanges();
+
+
+                    var fiscalYears = newOrganization
+              .FiscalYears.GetAll()
+              .OrderBy(x => x.StartDate)
+              .ToList();
+
+                    fiscalYears.ForEach(fy =>
+                    {
+                        fy.PostToTransaction();
+
+                        fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
+                        newOrganization.FiscalYears.Update_AccountsBalance(fy);
+
+                        fy.PostToTransaction();
+                    });
                 }
 
                 GeneralOperations(newOrganization, oldOrganization);
@@ -53,23 +69,7 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-
-
-                var fiscalYears = newOrganization
-                    .FiscalYears.GetAll()
-                    .OrderBy(x => x.StartDate)
-                    .ToList();
-
-                fiscalYears.ForEach(fy =>
-                {
-                    fy.PostToTransaction();
-
-                    fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
-                    newOrganization.FiscalYears.Update_AccountsBalance(fy);
-
-                    fy.PostToTransaction();
-                });
-
+             
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)
