@@ -35,12 +35,20 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         public void UpdateBalance()
         {
-            if (EmployeePayments != null)
+            if (EmployeePayments == null)
+                return;
+
+            foreach (var employeePayment in EmployeePayments)
             {
-                PaymentCount = EmployeePayments.Count();
+                employeePayment.UpdateBalance();
+            }
+
+
+
+            PaymentCount = EmployeePayments.Count();
                 TotalEarning = EmployeePayments.Select(l => l.TotalEarning).DefaultIfEmpty(0).Sum();
                 TotalDeduction = EmployeePayments.Select(l => l.TotalDeduction).DefaultIfEmpty(0).Sum();
-            }
+            
         }
 
         public void Update(EmployeePaymentPeriod model)

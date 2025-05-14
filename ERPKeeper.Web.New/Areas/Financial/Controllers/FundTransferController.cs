@@ -26,6 +26,15 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
             return View(transcation);
         }
 
+        public IActionResult Post()
+        {
+            var model = Organization.FundTransfers.Find(TransactionId);
+            Organization.FundTransfers.Post(model);
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
         public IActionResult UnPost()
         {
             var model = Organization.FundTransfers.Find(TransactionId);

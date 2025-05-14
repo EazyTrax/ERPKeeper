@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
 
 @{
-    var employees = Organization.ErpCOREDBContext.Employees.Select(i => new { Value = i.Id, Name = i.Profile.Name, TaxNumber = i.Profile.TaxNumber });
+    var employees = Organization.ErpCOREDBContext.Employees.Select(i => new { Value = i.Id, Name = i.Profile.Name, TaxNumber = i.Profile.TaxNumber }).ToList();
 
 }
 

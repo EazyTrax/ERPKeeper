@@ -1,6 +1,14 @@
-﻿@{
+﻿
 
-    var employees = Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, TaxNumber = i.TaxNumber, Name = i.Name });
+
+
+
+
+
+
+@{
+
+    var employees = Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, TaxNumber = i.TaxNumber, Name = i.Name }).ToList();
 
 }
 
@@ -50,7 +58,7 @@
 
                 columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }))
+            .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .CalculateSortValue("Name")

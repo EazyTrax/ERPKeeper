@@ -1,80 +1,63 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment
 
-
-
-<div class="grid grid-cols-6">
-
-
-    <a href="/@CompanyId/Employees/Employees/@Model.EmployeeId">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
+<div class="grid grid-cols-6 gap-2">
+    <!-- Employee Name -->
+    <a href="/@CompanyId/Employees/Employees/@Model.EmployeeId" class="col-span-2">
+        <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
+            <div class="text-2xl font-semibold">
                 @Model.Employee.Profile.Name
             </div>
-            <div class="text-lg text-center">
+            <div class="text-lg text-gray-600">
                 Employee
             </div>
         </div>
     </a>
 
-    <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
-                xxx
-            </div>
-            <div class="text-lg text-center">
-                Status
-            </div>
-        </div>
-    </a>
-
-
+    <!-- Payment Date -->
     <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/EmployeePayments">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
+        <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
+            <div class="text-2xl font-semibold">
                 @Model.EmployeePaymentPeriod.Date.ToString("dd-MMM-yyyy")
             </div>
-            <div class="text-lg text-center">
+            <div class="text-lg text-gray-600">
                 Date
             </div>
         </div>
     </a>
 
-
+    <!-- Item Count -->
     <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/EmployeePayments">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
+        <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
+            <div class="text-2xl font-semibold">
                 @Model.PaymentItems.Count()
             </div>
-            <div class="text-lg text-center">
+            <div class="text-lg text-gray-600">
                 Items
             </div>
         </div>
     </a>
 
-
+    <!-- Total Earning -->
     <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/Items">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
+        <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
+            <div class="text-2xl font-semibold text-green-600">
                 @Model.TotalEarning
             </div>
-            <div class="text-lg text-center">
+            <div class="text-lg text-gray-600">
                 Earning
             </div>
         </div>
     </a>
 
+    <!-- Total Deduction -->
     <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/Items">
-        <div class="bg-gray-100 h-20 content-center border">
-            <div class="text-3xl text-center font-semibold">
+        <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
+            <div class="text-2xl font-semibold text-red-600">
                 @Model.TotalDeduction
             </div>
-            <div class="text-lg text-center">
+            <div class="text-lg text-gray-600">
                 Deduction
             </div>
         </div>
     </a>
-
-
 </div>
-
-

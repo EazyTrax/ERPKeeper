@@ -40,7 +40,7 @@
 
             columns.AddFor(m => m.EmployeePaymentTypeId).Width(130)
     .Lookup(lookup => lookup
-    .DataSource(Organization.ErpCOREDBContext.EmployeePaymentTypes.Select(i => new { Value = i.Id, Name = i.Name }))
+    .DataSource(Organization.ErpCOREDBContext.EmployeePaymentTypes.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
     .DisplayExpr("Name")
     .ValueExpr("Value"))
     .AllowEditing(false)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ERPKeeperCore.Web.Controllers;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 {
@@ -14,12 +15,24 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 
         public IActionResult Index(Guid Id)
         {
-            var Employee = Organization.ErpCOREDBContext
+            var employeePaymentPeriod = Organization.ErpCOREDBContext
                 .EmployeePaymentPeriods
                 .Find(Id);
-            return View(Employee);
-        }
 
+            return View(employeePaymentPeriod);
+        }
+        public ActionResult Refresh(Guid Id)
+        {
+            var employeePaymentPeriod = Organization.ErpCOREDBContext
+              .EmployeePaymentPeriods
+              .Find(Id);
+
+            employeePaymentPeriod.UpdateBalance();
+
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
 
     }

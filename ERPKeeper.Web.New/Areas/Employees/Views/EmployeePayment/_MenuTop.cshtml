@@ -2,14 +2,22 @@
 
 
 <div class="flex w-full font-semibold text-lg text-uppercase justify-between">
-    <div class="col-6 p-2">
-        <a href="/@CompanyId/Employees">Employees</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods"> Periods</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.EmployeePaymentPeriodId"> @Model.EmployeePaymentPeriod.Name</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id">PM @Model.Name</a>
-    </div>
-    <div class="col-6 text-right p-2">
-    </div>
+	<div class="col-6 p-2">
+		<a href="/@CompanyId/Employees">Employees</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods"> Periods</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.EmployeePaymentPeriodId"> @Model.EmployeePaymentPeriod.Name</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id">PM @Model.Name</a>
+	</div>
+	<div class="col-6 text-right p-2">
+		@if (Model.IsPosted)
+		{
+			<a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/UnPost">UnPost</a>
+		}
+		else
+		{
+			<a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/Post">Post</a>
+		}
+	</div>
 </div>
 
 

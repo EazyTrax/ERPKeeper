@@ -20,6 +20,7 @@ namespace ERPKeeperCore.Web.Areas.API.Employees.Employee
         {
             var returnModel = Organization.ErpCOREDBContext.EmployeePayments
                 .Where(a => a.EmployeeId == Id)
+                .Include(x=>x.EmployeePaymentPeriod)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

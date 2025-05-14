@@ -34,27 +34,30 @@ namespace ERPKeeperCore.CMD
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
 
-              //  newOrganization.TaxPeriods.UnPostToTransactions();
-             //   newOrganization.TaxPeriods.PostToTransactions();
+                //  newOrganization.TaxPeriods.UnPostToTransactions();
+                //   newOrganization.TaxPeriods.PostToTransactions();
 
-                if (false && newOrganization != null)
+                if (true && newOrganization != null)
                 {
+                    newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.Transactions.Post_Ledgers();
+
                     newOrganization.ChartOfAccount.Refresh_CurrentBalance();
                     newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
-                    newOrganization.Transactions.Clear_EmptyLedgers();
+
                     newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
+
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
-              //  GeneralOperations(newOrganization, oldOrganization);
+                GeneralOperations(newOrganization, oldOrganization);
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-          //      var report = new ERPKeeperCore.Enterprise.Reports.Report1();
+                //      var report = new ERPKeeperCore.Enterprise.Reports.Report1();
 
-                var fiscalYears = newOrganization.FiscalYears.GetAll().ToList();
+                var fiscalYears = newOrganization.FiscalYears.GetAll().OrderBy(x => x.StartDate).ToList();
 
                 fiscalYears.ForEach(fy =>
                 {

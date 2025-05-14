@@ -9,12 +9,33 @@ using System.Linq;
 
 namespace ERPKeeperCore.Enterprise.Models.Accounting
 {
+
+
+    public enum AccountReportGroup
+    {
+        NA = 0,
+        Asset_Current = 1,
+        Asset_NonCurrent = 2,
+
+        Liability_Current = 11,
+        Liability_NonCurrent = 12,
+
+
+        Income_Operating = 41,
+        Income_NonOperating = 42,
+
+        Expense_COSG = 51,
+        Expense_Operating = 52,
+        Expense_NonOperating = 53,
+    }
+
+
+
     public class Account
     {
         [Key]
         public Guid Id { get; set; }
         public bool IsActive { get; set; }
-
 
         public String? No { get; set; }
         public String? Code => No;
@@ -28,13 +49,15 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         public String? ReceivableDisplayName { get; set; }
 
 
+
+
         [MaxLength(512)]
         public String? Description { get; set; }
         public bool IsFolder { get; set; } = false;
 
         public AccountTypes Type { get; set; }
         public AccountSubTypes? SubType { get; set; }
-
+        public AccountReportGroup? Group { get; set; }
 
         public Decimal CurrentBalance
         {

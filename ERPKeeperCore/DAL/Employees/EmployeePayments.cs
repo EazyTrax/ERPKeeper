@@ -79,5 +79,24 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
             });
 
         }
+
+        public void Post(EmployeePayment model)
+        {
+            if (model.EmployeePaymentPeriod.PayFromAccountId == null)
+            {
+                model.EmployeePaymentPeriod.PayFromAccountId =
+                organization.SystemAccounts.GetAccount(Models.Accounting.Enums.DefaultAccountType.Cash).Id;
+            }
+
+            model.Post_Ledger();
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void UnPost(EmployeePayment model)
+        {
+
+            model.UnPost_Ledger();
+            erpNodeDBContext.SaveChanges();
+        }
     }
 }

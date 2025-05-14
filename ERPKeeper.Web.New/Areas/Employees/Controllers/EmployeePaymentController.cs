@@ -20,6 +20,22 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 
             return View(Employee);
         }
+        public IActionResult Post(Guid Id)
+        {
+            var model = Organization.EmployeePayments.Find(Id);
+            Organization.EmployeePayments.Post(model);
+            Organization.SaveChanges();
 
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult UnPost(Guid Id)
+        {
+            var model = Organization.EmployeePayments.Find(Id);
+            Organization.EmployeePayments.UnPost(model);
+            Organization.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
     }
 }

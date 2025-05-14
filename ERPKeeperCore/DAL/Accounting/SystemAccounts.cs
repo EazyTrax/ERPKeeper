@@ -42,6 +42,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public Account GetAccount(DefaultAccountType type)
         {
             var defaultAccountItem = erpNodeDBContext.DefaultAccounts.Find(type);
+
             if (defaultAccountItem != null)
                 return defaultAccountItem.Account;
             else
