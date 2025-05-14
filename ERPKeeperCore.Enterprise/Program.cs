@@ -38,7 +38,9 @@ namespace ERPKeeperCore.CMD
                 //  newOrganization.TaxPeriods.UnPostToTransactions();
                 //   newOrganization.TaxPeriods.PostToTransactions();
 
-                if (true && newOrganization != null)
+                newOrganization.Purchases.Post_Ledgers();
+
+                if (false && newOrganization != null)
                 {
                     newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.Transactions.Post_Ledgers();

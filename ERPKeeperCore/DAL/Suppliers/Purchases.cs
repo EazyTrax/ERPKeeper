@@ -37,7 +37,6 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
             CreateTransactions();
 
             var purchases = erpNodeDBContext.Purchases
-                .Where(s => s.TransactionId != null)
                 .Where(s => !s.IsPosted || rePost)
                 .Where(s => s.ExpenseAccountId != null)
                 .OrderBy(s => s.Date).ToList();
