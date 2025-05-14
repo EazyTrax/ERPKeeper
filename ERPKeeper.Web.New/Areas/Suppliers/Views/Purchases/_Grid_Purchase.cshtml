@@ -92,7 +92,7 @@
         .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.ExpenseAccountId)
-            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.ExpenseAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
+            .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetsAndExpenses.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Expense</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.ExpenseAccountId %>/"><%= displayValue %></a></text>);

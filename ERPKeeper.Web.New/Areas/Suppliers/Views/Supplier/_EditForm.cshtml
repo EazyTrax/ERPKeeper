@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-wrap gap-1">
             <div class="">
                 @(Html.DevExtreme().SelectBoxFor(m => m.DefaultExpenseAccountId)
-                    .DataSource(Organization.ChartOfAccount.ExpenseAccounts.Select(t => new { t.Id, t.Name }).ToList())
+                    .DataSource(Organization.ChartOfAccount.AssetsAndExpenses.Select(t => new { t.Id, t.Name }).ToList())
                     .Placeholder("Account")
                     .DisplayExpr("Name")
                     .ValueExpr("Id")

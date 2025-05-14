@@ -169,6 +169,11 @@ namespace ERPKeeperCore.Enterprise.DAL.Accounting
         public List<Account> GetCOGSExpenseAccounts() => this.GetItemBySubType(AccountSubTypes.Expense_CostOfGoodsSold);
         public List<Account> EquityAccounts => this.GetAccountByType(AccountTypes.Capital);
         public List<Account> ExpenseAccounts => this.GetAccountByType(AccountTypes.Expense);
+        public List<Account> PurchaseExpenseOrInventoryAssetAccounts =>
+               this.GetAccountByType(AccountTypes.Expense)
+               .Concat(this.GetItemBySubType(AccountSubTypes.Asset_Inventory))
+               .ToList();
+
         public List<Account> TaxRelatedAccountItems => erpNodeDBContext.Accounts
                  .Where(account => account.SubType == AccountSubTypes.Asset_TaxInput
                  || account.SubType == AccountSubTypes.Liability_TaxOutput

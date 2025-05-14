@@ -14,6 +14,7 @@ using static System.Collections.Specialized.BitVector32;
 using OpenAI;
 using DevExpress.XtraRichEdit.Model;
 using ERPKeeper.Node.Reports.Employees;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ERPKeeperCore.CMD
@@ -38,7 +39,7 @@ namespace ERPKeeperCore.CMD
                 //  newOrganization.TaxPeriods.UnPostToTransactions();
                 //   newOrganization.TaxPeriods.PostToTransactions();
 
-                newOrganization.Purchases.Post_Ledgers();
+
 
                 if (false && newOrganization != null)
                 {
@@ -71,7 +72,54 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-             
+
+                var supplierPayments = newOrganization.ErpCOREDBContext
+                    .SupplierPayments
+                    .Include(x => x.Purchase)
+                    .ThenInclude(x => x.Items)
+                    .Include(x => x.Transaction)
+                    .ToList();
+
+                supplierPayments
+                    .ToList()
+                    .ForEach(x =>
+                    {
+                        x.Purchase.UpdateBalance();
+
+                        if (Math.Abs(x.Purchase.Total - x.Amount) > 1)
+                        {
+                            Console.WriteLine($"Purchase: {x.Purchase.Name} - {x.Purchase.Total} != {x.Amount}");
+                            x.UnPostLedger();
+                            x.Amount = x.Purchase.Total;
+                        }
+                    });
+
+                newOrganization.SaveChanges();
+
+
+                var purchases = newOrganization.ErpCOREDBContext.Purchases
+                    .Where(x => x.SupplierPayment == null)
+                    .ToList();
+
+                purchases.ForEach(purchase =>
+                {
+                    var payDate = purchase.Date;
+
+                    if (purchase.SupplierPayment == null)
+                    {
+                        purchase.SupplierPayment = new Enterprise.Models.Suppliers.SupplierPayment()
+                        {
+                            Date = payDate,
+                            Amount = purchase.Total,
+                            AssetAccount_PayFrom = newOrganization.SystemAccounts.Cash,
+                        };
+
+                        purchase.Status = Enterprise.Models.Suppliers.Enums.PurchaseStatus.Paid;
+                        newOrganization.SaveChanges();
+                    }
+                });
+
+                //newOrganization.Purchases.Post_Ledgers();
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)
