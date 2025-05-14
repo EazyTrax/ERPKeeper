@@ -23,8 +23,15 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
 
         public int No { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
+        public void UpdateName()
+        {
+            if (this.EmployeePaymentPeriod == null)
+                return;
+
+            this.Name = "LP-" + this.EmployeePaymentPeriod.Date.Year + "-" + this.EmployeePaymentPeriod.Date.Month.ToString("00") + "-" + this.No.ToString("0000");
+        }
 
 
         public Guid EmployeeId { get; set; }

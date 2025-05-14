@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees
             var returnModel = Organization.ErpCOREDBContext
                 .EmployeePayments
                 //.Include(a => a.Employee.Profile)
-                .Include(a => a.EmployeePaymentPeriod)
+                //.Include(a => a.EmployeePaymentPeriod)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
