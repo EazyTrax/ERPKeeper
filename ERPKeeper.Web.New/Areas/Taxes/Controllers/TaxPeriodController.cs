@@ -95,5 +95,17 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        public IActionResult Delete(Guid TaxPeriodId)
+        {
+            var TaxPeriod = Organization.TaxPeriods.Find(TaxPeriodId);
+
+            if (TaxPeriod.IsPosted == false && TaxPeriod.Sales.Count == 0 && TaxPeriod.Purchases.Count == 0)
+            {
+                Organization.ErpCOREDBContext.TaxPeriods.Remove(TaxPeriod);
+                Organization.SaveChanges();
+            }
+            return Redirect($"/{CompanyId}/Taxes/TaxPeriods");
+        }
     }
 }

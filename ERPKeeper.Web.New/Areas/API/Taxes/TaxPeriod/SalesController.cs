@@ -26,5 +26,32 @@ namespace ERPKeeperCore.Web.API.Taxes.TaxPeriod
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
+
+
+        [HttpPost]
+        public object Delete(Guid key)
+        {
+            var taxPeriod = Organization
+               .ErpCOREDBContext
+               .TaxPeriods
+               .FirstOrDefault(s => s.Id == TaxPeriodId);
+
+            if (taxPeriod.IsPosted)
+                return Content("Error Posted Trasaction");
+            else
+            {
+                var sale = Organization.ErpCOREDBContext.Sales.FirstOrDefault(s => s.Id == key);
+                sale.TaxPeriodId = null;
+                Organization.ErpCOREDBContext.SaveChanges();
+
+                taxPeriod.UpdateBalance();
+                Organization.ErpCOREDBContext.SaveChanges();
+            }
+
+
+
+            return Ok();
+
+        }
     }
 }

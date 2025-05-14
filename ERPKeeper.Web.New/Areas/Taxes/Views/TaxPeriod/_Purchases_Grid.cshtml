@@ -15,6 +15,7 @@
             .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
+            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).AllowDeleting(IsOnEditMode).UseIcons(true))
 
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
             .ColumnChooser(columnChooser => columnChooser.Enabled(true).Mode(GridColumnChooserMode.DragAndDrop))

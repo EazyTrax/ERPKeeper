@@ -85,24 +85,21 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
         public void UpdateBalance()
         {
-
-
-
-
-            SalesTaxBalance = Sales.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
-            SalesBalance = Sales.Select(t => t.LinesTotalAfterDiscount).DefaultIfEmpty(0).Sum();
-            SalesCount = Sales.Count;
+            // Handle Sales calculations with null checks
+            SalesTaxBalance = Sales?.Select(t => t.Tax)?.Sum() ?? 0;
+            SalesBalance = Sales?.Select(t => t.LinesTotalAfterDiscount)?.Sum() ?? 0;
+            SalesCount = Sales?.Count ?? 0;
 
             if (this.SaleTaxAccount == null)
-                this.SaleTaxAccount = Sales.FirstOrDefault()?.TaxCode?.OutputTaxAccount;
+                this.SaleTaxAccount = Sales?.FirstOrDefault()?.TaxCode?.OutputTaxAccount;
 
-
-            PurchasesTaxBalance = Purchases.Select(t => t.Tax).DefaultIfEmpty(0).Sum();
-            PuchasesBalance = Purchases.Select(t => t.LinesTotalAfterDiscount).DefaultIfEmpty(0).Sum();
-            PurchasesCount = Purchases.Count;
+            // Handle Purchases calculations with null checks
+            PurchasesTaxBalance = Purchases?.Select(t => t.Tax)?.Sum() ?? 0;
+            PuchasesBalance = Purchases?.Select(t => t.LinesTotalAfterDiscount)?.Sum() ?? 0;
+            PurchasesCount = Purchases?.Count ?? 0;
 
             if (this.PurchaseTaxAccount == null)
-                this.PurchaseTaxAccount = Purchases.FirstOrDefault()?.TaxCode?.InputTaxAccount;
+                this.PurchaseTaxAccount = Purchases?.FirstOrDefault()?.TaxCode?.InputTaxAccount;
         }
 
         public void PostToTransaction()

@@ -1,14 +1,19 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
 
 <div class="flex bg-gray-100 p-2 mb-2 rounded">
-    <div class="w-9/12 p-0 font-semibold">
-        <a href="/@CompanyId/Taxes">Taxes</a>
-        /
-        <a href="/@CompanyId/Taxes/Codes"> Codes</a>
-        /
-        <a href="/@CompanyId/Taxes/Codes/@Model.Id"> @Model.Name</a>
-    </div>
-    <div class="w-4/12 p-0 text-right">
+	<div class="w-9/12 p-0 font-semibold">
+		<a href="/@CompanyId/Taxes">Taxes</a>
+		/
+		<a href="/@CompanyId/Taxes/TaxPeriods"> TaxPeriods</a>
+		/
+		<a href="/@CompanyId/Taxes/TaxPeriods/@Model.Id"> @Model.Name</a>
+	</div>
+	<div class="w-4/12 p-0 text-right">
 
-    </div>
+		@if (Model.IsPosted == false && Model.Sales.Count == 0 && Model.Purchases.Count == 0)
+		{
+			<a href="/@CompanyId/Taxes/TaxPeriods/@Model.Id/Delete">Delete</a>
+		}
+
+	</div>
 </div>
