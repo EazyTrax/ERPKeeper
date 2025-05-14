@@ -51,7 +51,7 @@
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Pay From</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounts/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
 
 
             columns.AddFor(m => m.PaymentCount).AllowEditing(false).HeaderCellTemplate(@<text>Count</text>);

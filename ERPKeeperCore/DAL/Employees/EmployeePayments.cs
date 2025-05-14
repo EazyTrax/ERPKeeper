@@ -99,9 +99,39 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
             erpNodeDBContext.SaveChanges();
         }
 
-        public bool ReOrder()
+        public void ReOrder()
         {
-            throw new NotImplementedException();
+            var payments = this.erpNodeDBContext.EmployeePayments
+                          .Where(x => x.EmployeePaymentPeriodId != null)
+                          .OrderBy(x => x.EmployeePaymentPeriod.Date)
+                          .ThenBy(x => x.Employee.Id)
+                          .ToList();
+
+            int order = 0;
+           
+            foreach (var payment in payments)
+            {
+                payment.No = ++order;
+                payment.UpdateBalance();
+                payment.UpdateName();
+            }
+
+
+            erpNodeDBContext.SaveChanges();
+        }
+
+        public void Remove(EmployeePayment model)
+        {
+            if (model.IsPosted)
+                throw new Exception("Cannot delete posted payment");
+
+            model.RemoveAllItems();
+            model.Transaction = null;
+
+            this.erpNodeDBContext.EmployeePayments.Remove(model);   
+            this.SaveChanges();
+
+
         }
     }
 }

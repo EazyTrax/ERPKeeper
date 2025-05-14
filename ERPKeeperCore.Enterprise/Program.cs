@@ -38,16 +38,13 @@ namespace ERPKeeperCore.CMD
                 //  newOrganization.TaxPeriods.UnPostToTransactions();
                 //   newOrganization.TaxPeriods.PostToTransactions();
 
-                if (false && newOrganization != null)
+                if (true && newOrganization != null)
                 {
                     newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.Transactions.Post_Ledgers();
-
                     newOrganization.ChartOfAccount.Refresh_CurrentBalance();
                     newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
-
                     newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
-
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
@@ -56,42 +53,22 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                //      var report = new ERPKeeperCore.Enterprise.Reports.Report1();
 
-                var payments = newOrganization.ErpCOREDBContext.EmployeePayments
-                 .Where(x => x.EmployeePaymentPeriodId != null)
-                 .OrderBy(x => x.EmployeePaymentPeriod.Date)
-                 .ThenBy(x => x.Employee.Id)
-                 .ToList();
 
-                int order = 0;
+                var fiscalYears = newOrganization
+                    .FiscalYears.GetAll()
+                    .OrderBy(x => x.StartDate)
+                    .ToList();
 
-                foreach (var payment in payments)
+                fiscalYears.ForEach(fy =>
                 {
-                    Console.WriteLine($"> EmployeePayment: {payment.Name} > {payment.EmployeePaymentPeriod.Date.ToString("yyyy-MM-dd")}");
-                    payment.No = ++order;
-                    payment.UpdateBalance();
-                    payment.UpdateName();
+                    fy.PostToTransaction();
 
-                    newOrganization.EmployeePayments.UnPost(payment);
-                    newOrganization.SaveChanges();
-                    newOrganization.EmployeePayments.Post(payment);
-                }
+                    fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
+                    newOrganization.FiscalYears.Update_AccountsBalance(fy);
 
-
-                newOrganization.SaveChanges();
-
-                //var fiscalYears = newOrganization.FiscalYears.GetAll().OrderBy(x => x.StartDate).ToList();
-
-                //fiscalYears.ForEach(fy =>
-                //{
-                //    fy.PostToTransaction();
-
-                //    fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
-                //    newOrganization.FiscalYears.Update_AccountsBalance(fy);
-
-                //    fy.PostToTransaction();
-                //});
+                    fy.PostToTransaction();
+                });
 
             }
 

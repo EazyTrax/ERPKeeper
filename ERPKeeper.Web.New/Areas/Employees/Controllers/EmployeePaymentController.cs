@@ -37,5 +37,14 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        public IActionResult Delete(Guid Id)
+        {
+            var model = Organization.EmployeePayments.Find(Id);
+            Organization.EmployeePayments.Remove(model);
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Employees/EmployeePayments");
+        }
     }
 }

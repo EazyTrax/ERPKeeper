@@ -34,6 +34,20 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        public ActionResult Delete(Guid Id)
+        {
+            var employeePaymentPeriod = Organization.ErpCOREDBContext
+              .EmployeePaymentPeriods
+              .Find(Id);
 
+            if (employeePaymentPeriod.EmployeePayments.Count == 0)
+                Organization.ErpCOREDBContext
+                    .EmployeePaymentPeriods
+                    .Remove(employeePaymentPeriod);
+
+            Organization.SaveChanges();
+
+            return Redirect($"/{CompanyId}/Employees/EmployeePaymentPeriods");
+        }
     }
 }

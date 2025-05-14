@@ -133,6 +133,14 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             }
         }
 
+        public void RemoveAllItems()
+        {
+            if (PaymentItems == null)
+                return;
+
+            PaymentItems.Clear();
+            UpdateBalance();
+        }
     }
 }
 

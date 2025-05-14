@@ -1,17 +1,24 @@
-﻿
-@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
+﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
 
 
 <div class="flex w-full font-semibold text-lg text-uppercase justify-between">
-    <div class="w-10/12 p-2">
-        <a href="/@CompanyId/Employees"> Employees</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods"> Periods</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id"> @Model.Name</a>
-
-    </div>
-
+	<div class="w-10/12 p-2">
+		<a href="/@CompanyId/Employees"> Employees</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods"> Periods</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id"> @Model.Name</a>
+	</div>
 </div>
 
 <div class="p-2 text-right">
-    <a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id/Refresh">Refresh</a>
+	<a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id/Refresh">Refresh</a>
+
+
+	@if (Model.EmployeePayments.Count == 0)
+	{
+		<span> - </span>
+		<a href="/@CompanyId/Employees/EmployeePaymentPeriods/@Model.Id/Delete"> Delete</a>
+	}
+
+
+
 </div>
