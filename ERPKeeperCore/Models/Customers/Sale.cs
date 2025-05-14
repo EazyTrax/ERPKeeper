@@ -41,6 +41,18 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("ProfileAddesssId")]
         public virtual Profiles.ProfileAddress? ProfileAddesss { get; set; }
 
+        public Guid? ShipmentAddesssId { get; set; }
+        [ForeignKey("ShipmentAddesssId")]
+        public virtual Profiles.ProfileAddress? ShipmentAddesss { get; set; }
+
+
+
+
+
+
+
+
+
 
         public Guid? TaxCodeId { get; set; }
         [ForeignKey("TaxCodeId")]

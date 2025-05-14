@@ -36,6 +36,14 @@
                         .LabelMode(EditorLabelMode.Static))
 
 
+                    @(Html.DevExtreme().SelectBoxFor(m => m.ShipmentAddesssId)
+                        .DataSource(addresses.Select(t => new { t.Id, t.Title }).ToList())
+                        .Placeholder("Shipment Address")
+                        .DisplayExpr("Title")
+                        .ValueExpr("Id")
+                        .Label("Shipment Address")
+                        .ShowClearButton(true)
+                        .LabelMode(EditorLabelMode.Static))
 
 
                     <div class="mt-2">

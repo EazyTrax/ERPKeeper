@@ -37,7 +37,7 @@
                 columns.AddFor(m => m.Status).AllowEditing(false)
             .Width(80)
             .Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );
@@ -51,7 +51,7 @@
 
                 columns.AddFor(m => m.SupplierId)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Suppliers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
+            .DataSource(Organization.ErpCOREDBContext.Suppliers.Select(i => new { Value = i.Id, Text = i.Profile.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);

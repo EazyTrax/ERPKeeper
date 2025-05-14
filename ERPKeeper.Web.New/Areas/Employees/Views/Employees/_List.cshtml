@@ -18,7 +18,7 @@
 
                 columns.AddFor(m => m.Id).Width(150)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
@@ -40,7 +40,7 @@
 
                 columns.AddFor(m => m.EmployeePositionId).Width(150)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Id, Text = i.Title }))
+            .DataSource(Organization.ErpCOREDBContext.EmployeePositions.Select(i => new { Value = i.Id, Text = i.Title }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)

@@ -59,22 +59,24 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         {
             var transcation = Organization.Sales.Find(Id);
 
-            if (transcation.IsPosted)
-                return Redirect(Request.Headers["Referer"].ToString());
+            if (!transcation.IsPosted)
+            {
+                transcation.Discount = model.Discount;
+                transcation.TaxCodeId = model.TaxCodeId;
+                transcation.UpdateBalance();
+            }
 
             transcation.Memo = model.Memo;
             transcation.Date = model.Date.Date;
-            transcation.Discount = model.Discount;
             transcation.ProjectId = model.ProjectId;
             transcation.Reference = model.Reference;
             transcation.ProfileAddesssId = model.ProfileAddesssId;
+            transcation.ShipmentAddesssId = model.ShipmentAddesssId;
             transcation.PaymentTermId = model.PaymentTermId;
 
-            transcation.TaxCodeId = model.TaxCodeId;
-            transcation.Reorder();
-            transcation.UpdateBalance();
-            transcation.UpdateName();
 
+            transcation.Reorder();
+            transcation.UpdateName();
             Organization.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());

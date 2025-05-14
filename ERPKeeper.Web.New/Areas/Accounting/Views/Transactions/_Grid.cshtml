@@ -42,7 +42,7 @@
             .Width(150);
                 columns.AddFor(m => m.Type)
             .Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<TransactionType>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DataSource(Html.GetEnumSelectList<TransactionType>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
             .DisplayExpr("Text").ValueExpr("Value"));
 
                 columns.AddFor(m => m.Debit)

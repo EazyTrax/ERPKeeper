@@ -35,7 +35,7 @@ namespace ERPKeeperCore.CMD
 
 
               //  newOrganization.TaxPeriods.UnPostToTransactions();
-                newOrganization.TaxPeriods.PostToTransactions();
+             //   newOrganization.TaxPeriods.PostToTransactions();
 
                 if (false && newOrganization != null)
                 {
@@ -47,7 +47,7 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
-                GeneralOperations(newOrganization, oldOrganization);
+              //  GeneralOperations(newOrganization, oldOrganization);
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)

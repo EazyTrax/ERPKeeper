@@ -37,7 +37,8 @@
                     columns.AddFor(m => m.Status)
                 .Width(80)
                 .Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus>()
+                    .Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                 .DisplayExpr("Text")
                 .ValueExpr("Value")
                 );
@@ -50,7 +51,7 @@
 
                     columns.AddFor(m => m.CustomerId)
                 .Lookup(lookup => lookup
-                .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }))
+                .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }).ToList())
                 .DisplayExpr("Text")
                 .ValueExpr("Value"))
                 .HeaderCellTemplate("Customer")

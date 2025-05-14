@@ -33,7 +33,7 @@
 
                     items.AddSimpleFor(m => m.ItemType).Editor(e => e.SelectBox()
                         .SearchEnabled(true)
-                        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                         .DisplayExpr("Text").ValueExpr("Value"));
 
                     items.AddSimpleFor(m => m.BrandId)
@@ -44,7 +44,7 @@
 
                     items.AddSimpleFor(m => m.Status).Editor(e => e.SelectBox()
                         .SearchEnabled(true)
-                        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                        .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                         .DisplayExpr("Text").ValueExpr("Value"));
 
                     items.AddSimpleFor(m => m.Description).Editor(e => e.TextArea().MinHeight(100));

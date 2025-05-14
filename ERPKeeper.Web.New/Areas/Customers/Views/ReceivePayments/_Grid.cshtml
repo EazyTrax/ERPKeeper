@@ -26,7 +26,7 @@
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
 
        @*          columns.AddFor(m => m.Status).AllowEditing(false).Width(80).Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.PaymentStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Customers.Enums.PaymentStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value")
             ); *@

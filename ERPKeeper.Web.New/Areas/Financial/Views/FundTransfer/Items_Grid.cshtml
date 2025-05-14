@@ -32,7 +32,7 @@
     .HeaderCellTemplate("Type")
     .AllowEditing(false)
     .Width(130).SortOrder(SortOrder.Asc).SortIndex(1).Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
     .DisplayExpr("Text")
     .ValueExpr("Value")
     );

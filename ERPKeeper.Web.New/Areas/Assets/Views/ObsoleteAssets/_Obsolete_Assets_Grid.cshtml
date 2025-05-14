@@ -19,7 +19,7 @@
             {
             
                 columns.AddFor(m => m.Asset.Status).Width(130).Lookup(lookup => lookup
-                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Assets.Enums.AssetStatus>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                 .DisplayExpr("Text")
                 .ValueExpr("Value")); 
 

@@ -56,7 +56,7 @@
     .SortOrder(SortOrder.Asc)
     .SortIndex(1)
     .Lookup(lookup => lookup
-    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employees.Enums.PayDirection>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employees.Enums.PayDirection>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
         .DisplayExpr("Text")
         .ValueExpr("Value")
     );

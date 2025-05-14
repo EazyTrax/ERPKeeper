@@ -41,12 +41,12 @@
                             .Editor(e => e.SelectBox()
                             .ReadOnly(true)
                             .SearchEnabled(true)
-                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.SubType).Editor(e => e.SelectBox()
                             .SearchEnabled(true)
-                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                             .DisplayExpr("Text").ValueExpr("Value"));
 
                             items.AddSimpleFor(m => m.IsLiquidity);

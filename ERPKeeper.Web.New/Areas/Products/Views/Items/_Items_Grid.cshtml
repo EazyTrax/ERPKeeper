@@ -62,7 +62,7 @@
                 .SortIndex(2)
                 .HeaderCellTemplate("Type")
                 .Lookup(lookup => lookup
-                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }))
+                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
                     .DisplayExpr("Text")
                     .ValueExpr("Value")
                     );
