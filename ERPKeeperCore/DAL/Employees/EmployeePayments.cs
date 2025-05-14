@@ -98,5 +98,10 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
             model.UnPost_Ledger();
             erpNodeDBContext.SaveChanges();
         }
+
+        public bool ReOrder()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
