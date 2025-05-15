@@ -33,8 +33,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public Decimal AmountTotal => Amount - (AmountDiscount + AmountBankFee);
 
 
-        public virtual ICollection<Financial.LiabilityPaymentPayFromAccount> LiabilityPaymentPayFromAccounts { get; set; }
-        = new HashSet<Financial.LiabilityPaymentPayFromAccount>();
+        public virtual ICollection<Financial.LiabilityPaymentPayFromAccount> LiabilityPaymentPayFromAccounts { get; set; } = new HashSet<Financial.LiabilityPaymentPayFromAccount>();
 
 
         // Dr.

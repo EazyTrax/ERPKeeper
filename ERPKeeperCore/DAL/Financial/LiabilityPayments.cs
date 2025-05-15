@@ -50,6 +50,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                 if (transaction == null)
                 {
                     Console.WriteLine($"Create TR:{LiabilityPayment.Name}");
+
                     transaction = new Transaction()
                     {
                         Id = LiabilityPayment.Id,

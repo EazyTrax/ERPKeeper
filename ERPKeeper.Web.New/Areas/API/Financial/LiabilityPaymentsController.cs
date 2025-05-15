@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ERPKeeperCore.Web.New.API.Financials;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.API.Financials
@@ -28,6 +29,22 @@ namespace ERPKeeperCore.Web.API.Financials
             JsonConvert.PopulateObject(values, model);
 
             Organization.ErpCOREDBContext.LiabilityPayments.Add(model);
+            Organization.ErpCOREDBContext.SaveChanges();
+
+
+            var cashAccount = Organization.ErpCOREDBContext.DefaultAccounts
+                .Include(x => x.Account)
+                .FirstOrDefault(x => x.Type == Enterprise.Models.Accounting.Enums.DefaultAccountType.Cash)
+                .Account;
+
+
+            model.LiabilityPaymentPayFromAccounts
+                .Add(new ERPKeeperCore.Enterprise.Models.Financial.LiabilityPaymentPayFromAccount()
+                {
+                    Amount = model.Amount,
+                    AccountId = cashAccount.Id,
+                });
+
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();

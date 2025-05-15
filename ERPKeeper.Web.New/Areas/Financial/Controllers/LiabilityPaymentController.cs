@@ -60,7 +60,19 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public IActionResult Delete()
+        {
+            var model = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
 
+            if (!model.IsPosted)
+            {
+                Organization.ErpCOREDBContext.LiabilityPayments.Remove(model);
+                Organization.ErpCOREDBContext.SaveChanges();
+                return Redirect($"/{CompanyId}/Financial/LiabilityPayments");
+            }
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
 
         public IActionResult Issue()
         {
