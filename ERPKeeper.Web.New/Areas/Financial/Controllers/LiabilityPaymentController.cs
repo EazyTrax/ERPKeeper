@@ -46,8 +46,16 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
         public IActionResult UnPost()
         {
             var model = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
-            model.IsPosted = false;
-            model.Transaction.ClearLedger();
+            model.UnPostLedger();
+            Organization.ErpCOREDBContext.SaveChanges();
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult Post()
+        {
+            var model = Organization.ErpCOREDBContext.LiabilityPayments.Find(TransactionId);
+            model.PostLedgers();
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Redirect(Request.Headers["Referer"].ToString());

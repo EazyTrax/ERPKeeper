@@ -81,7 +81,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             LiabilityPayments.ForEach(LiabilityPayment =>
             {
-                LiabilityPayment.PostToTransaction();
+                LiabilityPayment.PostLedgers();
                 erpNodeDBContext.SaveChanges();
             });
 
@@ -132,14 +132,14 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
             erpNodeDBContext.LiabilityPayments
                 .Where(rg => rg.IsPosted)
                 .ToList()
-                .ForEach(rg => rg.UnPost());
+                .ForEach(rg => rg.UnPostLedger());
 
             erpNodeDBContext.SaveChanges();
         }
 
         public void Delete(LiabilityPayment lp)
         {
-            lp.UnPost();
+            lp.UnPostLedger();
             if (lp.Transaction != null)
                 erpNodeDBContext.Transactions.Remove(lp.Transaction);
             erpNodeDBContext.LiabilityPayments.Remove(lp);

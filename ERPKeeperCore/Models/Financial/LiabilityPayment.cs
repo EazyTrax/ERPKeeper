@@ -53,7 +53,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         }
 
 
-        public void PostToTransaction()
+        public void PostLedgers()
         {
             Console.WriteLine($">Post LiabilityPayment:{this.Name}");
 
@@ -79,7 +79,7 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
             IsPosted = this.Transaction.UpdateBalance();
         }
 
-        public void UnPost()
+        public void UnPostLedger()
         {
             Console.WriteLine($">UnPost LiabilityPayment:{this.Name}");
 
