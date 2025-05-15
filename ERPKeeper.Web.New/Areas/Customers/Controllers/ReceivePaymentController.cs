@@ -33,20 +33,26 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
         public IActionResult Update(ReceivePayment model)
         {
+
+
             var receivePayment = Organization.ErpCOREDBContext.ReceivePayments.Find(Id);
 
-            receivePayment.Date = model.Date;
+            if (!receivePayment.IsPosted)
+            {
+                receivePayment.Date = model.Date;
+                receivePayment.RetentionTypeId = model.RetentionTypeId;
+                receivePayment.Receivable_Asset_AccountId = model.Receivable_Asset_AccountId;
+                receivePayment.AmountBankFee = model.AmountBankFee;
+                receivePayment.AmountDiscount = model.AmountDiscount;
+                receivePayment.PayToAccountId = model.PayToAccountId;
+                receivePayment.UpdateBalance();
+            }
             receivePayment.Reference = model.Reference;
-
-            receivePayment.RetentionTypeId = model.RetentionTypeId;
-            receivePayment.Receivable_Asset_AccountId = model.Receivable_Asset_AccountId;
-
-            receivePayment.AmountBankFee = model.AmountBankFee;
-            receivePayment.AmountDiscount = model.AmountDiscount;
             receivePayment.Memo = model.Memo;
 
 
-            receivePayment.UpdateBalance();
+
+
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }

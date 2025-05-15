@@ -51,7 +51,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             });
         }
 
-        public void PostToTransactions(bool rePost = false)
+        public void Post_Ledgers(bool rePost = false)
         {
             CreateTransactions();
 

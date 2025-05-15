@@ -20,7 +20,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         }
         public IActionResult Post()
         {
-            Organization.Sales.PostToTransactions();
+            Organization.Sales.Post_Ledgers();
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

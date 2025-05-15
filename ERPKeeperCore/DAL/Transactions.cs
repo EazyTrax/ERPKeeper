@@ -34,7 +34,7 @@ namespace ERPKeeperCore.Enterprise.DAL
             //organization.CapitalActivities.PostLedger();
 
             //Commercial Section
-            organization.Sales.PostToTransactions();
+            organization.Sales.Post_Ledgers();
             organization.ReceivePayments.PostToTransactions();
             organization.Purchases.Post_Ledgers();
             organization.SupplierPayments.PostToTransactions();

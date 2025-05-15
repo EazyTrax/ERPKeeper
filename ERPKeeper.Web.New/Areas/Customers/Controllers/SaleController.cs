@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
-
     [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/{action=index}")]
     public class SaleController : _Customers_Base_Controller
     {
@@ -53,6 +52,22 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
+        public IActionResult Post()
+        {
+            var transcation = Organization.Sales.Find(Id);
+            transcation.Post_Ledgers();
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult UnPost()
+        {
+            var transcation = Organization.Sales.Find(Id);
+            transcation.UnPostLedger();
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
 
         [HttpPost]
         public IActionResult Update(Sale model)
