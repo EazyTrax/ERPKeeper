@@ -2,20 +2,16 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 @{
-    Layout = "_Layout_Empty";
+	Layout = "_Layout_Empty";
 }
 <style>
-    @@media print {
-        .page-break {
-            page-break-before: always;
-        }
-    }
+	@@media print {
+		.page-break {
+			page-break-before: always;
+		}
+	}
 </style>
 
-<div class="flex flex-wrap">
-    <div class="col px-3 col-center mh-100v">
-        <partial name="_Report_Changes_in_Equity" />
-    </div>
-</div>
 
+<partial name="_Report_Changes_in_Equity" />
 

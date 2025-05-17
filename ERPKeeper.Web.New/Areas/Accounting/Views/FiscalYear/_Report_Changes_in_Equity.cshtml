@@ -2,7 +2,7 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
-<div class="flex flex-wrap">
+<div class="">
     <div class="mh-50"></div>
     <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
@@ -10,24 +10,28 @@
         ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
     </div>
     <div class="mh-50"></div>
-    <div class="flex mt-4">
-        <div class="w-6/12">
+
+    <div class="grid grid-cols-6">
+        <div class="col-span-4">
         </div>
-        <div class="col-6 font-semibold text-center">
+        <div class="col-span-2 font-semibold text-center">
             หน่วย:บาท
         </div>
-        <div class="col-6  font-semibold ">
+        <div class="col-span-3 font-semibold ">
         </div>
-        <div class="w-2/12 text-right border-dark border-top  ">
+        <div class="text-right border-dark border-top  ">
             ทุนที่ชำระแล้ว
         </div>
-        <div class="w-2/12 text-right border-dark border-top  ">
+        <div class="text-right border-dark border-top  ">
             กำไร(ขาดทุน) 
             สะสม
         </div>
-        <div class="w-2/12 text-right border-dark border-top  ">
-            รวม
-        </div>
+        <div class="text-right border-dark border-top  ">
+			รวม
+		</div>
+
+
+
     </div>
 
 
@@ -38,8 +42,6 @@
 
     <div class="mt-5"></div>
     <partial name="_Report_Changes_in_Equity_FY" model="Model" />
-
-
 
     <div class="mt-5">
         หมายเหตุประกอบงบการเงินเป็นส่วนหนึ่งของงบการเงินนี้
