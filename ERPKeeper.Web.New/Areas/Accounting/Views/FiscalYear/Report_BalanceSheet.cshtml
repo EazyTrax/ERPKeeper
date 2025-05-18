@@ -2,20 +2,17 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 @{
-    Layout = "_Layout_Empty";
+	Layout = "_Layout_Export";
 }
 <style>
-    @@media print {
-        .page-break {
-            page-break-before: always;
-        }
-    }
+	@@media print {
+		.page-break {
+			page-break-before: always;
+		}
+	}
 </style>
-
-<div class="flex flex-wrap" style="width:1080px;">
-    <div class="px-3 col-center mh-100v">
-        <partial name="_Report_BalanceSheet_Assets.cshtml" />
-        <partial name="_Report_BalanceSheet_Liabilities.cshtml" />
-        <partial name="_Report_BalanceSheet_Equity.cshtml" />
-    </div>
+<div class="w-full mt-5 h-auto print:h-[297mm] print:w-[210mm] print:p-0" style="max-width:1080px;">
+	<partial name="_Report_BalanceSheet_Assets.cshtml" />
+	<partial name="_Report_BalanceSheet_Liabilities.cshtml" />
+	<partial name="_Report_BalanceSheet_Equity.cshtml" />
 </div>
