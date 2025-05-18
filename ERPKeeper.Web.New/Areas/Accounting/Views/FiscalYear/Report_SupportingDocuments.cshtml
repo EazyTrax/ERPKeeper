@@ -3,7 +3,7 @@
 
 
 @{
-	Layout = "_Layout_Empty";
+	Layout = "_Layout_Export";
 }
 <style>
 	@@media print {
@@ -15,7 +15,7 @@
 
 
 <div class="">
-
+	<div class="h-24"></div>
 	<div class="text-center font-semibold  mb-3">
 		@Organization.Profiles.GetSelf().Name<br />
 		หมายเหตุประกอบงบการเงิน<br />
@@ -68,7 +68,6 @@
 			อาคารและอุปกรณ์แสดงรายการด้วยราคาทุนหักค่าเสื่อมราคาสะสม ค่าเลื่อมราคาของอาคารและอุปกรณ์คำนวณจากราคาทุนของสินทรัพย์โดยวิธีเส้นตรง ตามอายุการให้ประโยชน์ของสินทรัพย์ที่ประมาณการไว้ของสินทรัพย์อัตราร้อยละ 5-20 ต่อปี
 
 		</div>
-
 	</div>
 
 	<partial name="_Report_SupportingDocuments_CashEquivalent" />

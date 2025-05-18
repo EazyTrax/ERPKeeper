@@ -10,14 +10,14 @@
         สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
     </div>
     <div class="h-8"></div>
-    <div class="grid grid-cols-6 mb-3">
-        <div class="col-span-4">
+    <div class="grid grid-cols-4 mb-3">
+        <div class="col-span-2">
         </div>
         <div class="col-span-2 font-semibold text-center">
             หน่วย:บาท
         </div>
 
-        <div class="col-span-4 font-semibold ">
+        <div class="col-span-2 font-semibold ">
         </div>
         <div class="text-right font-semibold border-dark border-top">
             @(Model.EndDate.Year + 543)
@@ -26,7 +26,7 @@
             @(Model.EndDate.Year - 1 + 543)
         </div>
     </div>
-    <div class="grid grid-cols-6 mb-3">
+    <div class="grid grid-cols-4 mb-3">
         <div class="col-span-full font-semibold ">
             รายได้
         </div>
@@ -45,13 +45,10 @@
 
             foreach (var line in currentFiscalYearIncomes)
             {
-                <div class="pl-3 col-span-3">
+                <div class="pl-3 col-span-2">
                     <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                         @line.Account.Name
                     </a>
-                </div>
-                <div class="pl-3">
-                    @line.Account.SubType.ToString()
                 </div>
                 <div class=" text-right">
                     @line.TotalCredit.ToString("N2")
@@ -62,10 +59,8 @@
             }
 
 
-            <div class="font-semibold col-span-3">
+            <div class="font-semibold col-span-2">
                 รวมรายได้
-            </div>
-            <div class="">
             </div>
             <div class="text-right border-dark border-top">
                 @currentFiscalYearIncomes.Sum(m => m.TotalCredit).ToString("N2")
@@ -75,7 +70,7 @@
             </div>
         }
     </div>
-    <div class="grid grid-cols-6 mb-3">
+    <div class="grid grid-cols-4 mb-3">
         <div class="col-span-full  font-semibold ">
             ค่าใช้จ่าย
         </div>
@@ -96,10 +91,8 @@
 
 
 
-            <div class="pl-3  col-span-3">
+            <div class="pl-3  col-span-2">
                 ต้นทุนขายและบริการ
-            </div>
-            <div class="">
             </div>
             <div class="text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_CostOfGoodsSold).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -111,10 +104,8 @@
 
 
 
-            <div class="pl-3 col-span-3">
+            <div class="pl-3 col-span-2">
                 ค่าใช้จ่ายในการบริหาร
-            </div>
-            <div class="">
             </div>
             <div class="text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType == AccountSubTypes.Expense_Asset_Deprecate || e.Account.SubType == AccountSubTypes.Expense_Prohibit).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -127,10 +118,8 @@
 
 
 
-            <div class="pl-3 col-span-3">
+            <div class="pl-3 col-span-2">
                 ค่าใช้จ่ายในการขาย
-            </div>
-            <div class="">
             </div>
             <div class="text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Selling).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -140,10 +129,8 @@
             </div>
 
 
-            <div class="pl-3 col-span-3">
+            <div class="pl-3 col-span-2">
                 ต้นทุนทางการเงิน
-            </div>
-            <div class="">
             </div>
             <div class=" text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Interest).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -179,10 +166,8 @@
 
 
 
-            <div class="font-semibold col-span-3">
+            <div class="font-semibold col-span-2">
                 รวมค่าใช้จ่าย
-            </div>
-            <div class="">
             </div>
             <div class="text-right border-dark border-top">
                 @currentFiscalYearExpenses.Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -195,10 +180,8 @@
             </div>
 
 
-            <div class=" col-span-3">
+            <div class=" col-span-2">
                 กำไร(ขาดทุน) ก่อนภาษีเงินได้
-            </div>
-            <div class="">
             </div>
             <div class=" text-right border-dark">
                 @{
@@ -224,12 +207,10 @@
             .Where(m => m.Account.SubType == AccountSubTypes.Expense_IncomeTax)
             .FirstOrDefault();
 
-            <div class=" col-span-3">
+            <div class=" col-span-2">
                 <a href="/@CompanyId/Accounting/Accounts/@currentYearIncomeTaxBalance.Account?.Id/" target="_self">
                     ค่าใช้จ่ายภาษีเงินได้
                 </a>
-            </div>
-            <div class="">
             </div>
             <div class=" text-right border-dark border-top">
                 @if (currentYearIncomeTaxBalance != null)
@@ -245,10 +226,8 @@
             </div>
 
 
-            <div class=" col-span-3">
+            <div class=" col-span-2">
                 กำไร(ขาดทุน) สุทธิ
-            </div>
-            <div class="">
             </div>
             <div class=" text-right border-dark border-top">
                 @((currentYearGrossMargin - currentYearIncomeTaxBalance.TotalDebit).ToString("N2"))

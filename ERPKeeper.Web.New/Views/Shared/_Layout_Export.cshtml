@@ -1,36 +1,27 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <partial name="_Header_CSS_Font" />
-    <partial name="_Header_CSS" />
+	<partial name="_Header_CSS_Font" />
+	<partial name="_Header_CSS" />
 
-    <style>
-        @@media print {
-            .page-break {
-                page-break-before: always;
-            }
-
-            @@page {
-                margin-top: 50px;
-                size: A4;
-            }
-            /* Ensures #Summary appears at the bottom of every printed page */
-            .no-break {
-                page-break-inside: avoid;
-            }
-    </style>
+	<style>
+		@@media print {
+			.page-break {
+				page-break-before: always;
+			}
+			/* Ensures #Summary appears at the bottom of every printed page */
+			.no-break {
+				page-break-inside: avoid;
+			}
+	</style>
 
 
 </head>
 
 
-<body class="dx-viewport items-center justify-center" style="height:100%;">
-    <div style="max-width:1024px; min-width:1024px;" class="container-non-responsive overflow-hidden pl-2">
-        <div class="min-h-screen bg-white">
-            <div class="mx-auto max-w-4xl">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
+<body class="dx-viewport items-center justify-center">
+	<div class="mx-auto max-w-4xl">
+		@RenderBody()
+	</div>
 </body>
 </html>

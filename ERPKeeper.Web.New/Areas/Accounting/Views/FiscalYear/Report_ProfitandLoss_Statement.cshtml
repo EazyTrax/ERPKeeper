@@ -2,7 +2,7 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 @{
-	Layout = "_Layout_Empty";
+	Layout = "_Layout_Export";
 }
 <style>
 	@@media print {
@@ -11,11 +11,9 @@
 		}
 	}
 </style>
-
-
-<partial name="_Report_ProfitandLoss_Statement" />
-
-
+<div class="w-full mt-5 h-auto print:h-[297mm] print:w-[210mm] print:p-0">
+	<partial name="_Report_ProfitandLoss_Statement" />
+</div>
 
 
 
