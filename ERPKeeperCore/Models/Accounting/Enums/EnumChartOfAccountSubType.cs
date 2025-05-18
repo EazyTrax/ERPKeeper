@@ -19,13 +19,18 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting.Enums
         Asset_Inventory = 160,
         Asset_OtherAsset = 180,
         Asset_AccountReceivable = 170,
-        Asset_FixedAsset = 190,
+
+        Asset_TaxInput = 181,
+        Asset_TaxReceivable = 183,
+        Asset_Shot_Asset_Purchase = 564,
+
+        Asset_Long_FixedAsset = 190,
+        Asset_Long_WorkingAsset = 191,
         Asset_AwaitingDepreciation = 583,
         Asset_AccDepreciation = 198,
         Asset_EarnestPayment = 191,
-        Asset_TaxInput = 181,
-        Asset_TaxReceivable = 183,
-        Asset_FixedAsset_Purchase = 564,
+    
+
 
         /// <summary>
         /// Liability Type

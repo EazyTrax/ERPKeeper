@@ -41,7 +41,7 @@ namespace ERPKeeperCore.CMD
 
 
 
-                if (true && newOrganization != null)
+                if (false && newOrganization != null)
                 {
                     newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.Transactions.Post_Ledgers();
@@ -67,57 +67,24 @@ namespace ERPKeeperCore.CMD
                     });
                 }
 
-             //   GeneralOperations(newOrganization, oldOrganization);
+               GeneralOperations(newOrganization, oldOrganization);
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
+                var fiscalGuid = Guid.Parse("46311fc1-b5c8-4660-b46c-08dd92ccf557");
 
-
-                var unMatch = newOrganization.ErpCOREDBContext.Sales
-                   .Where(x => (x.Tax + x.LinesTotal) != x.Transaction.Debit)
-                   .ToList();
-
-                unMatch.ForEach(x =>
-                {
-                    Console.WriteLine("-----------------------");
-                    Console.WriteLine(x);
-                    Console.WriteLine(x.Transaction.Debit);
-                    Console.WriteLine(x.Tax + x.LinesTotal);
-
-                    x.UnPostLedger();
-                    x.UpdateBalance();
-                });
-
-                var unMatchPur = newOrganization.ErpCOREDBContext.Purchases
-                   .Where(x => (x.Tax + x.LinesTotal) != x.Transaction.Debit)
-                   .ToList();
-
-                unMatchPur.ForEach(x =>
-                {
-
-                    Console.WriteLine("-----------------------");
-                    Console.WriteLine(x);
-                    Console.WriteLine(x.Transaction.Debit);
-                    Console.WriteLine(x.Tax + x.LinesTotal);
-
-                    x.UnPostLedger();
-                    x.UpdateBalance();
-                });
-
+                newOrganization.ErpCOREDBContext.Purchases
+                    .Where(x => x.ExpenseAccountId == fiscalGuid)
+                    .ToList()
+                    .ForEach(x =>
+                    {
+                       Console.WriteLine($"> {x.Reference}");
+                        x.ExpenseAccountId = Guid.Parse("068c1d8b-349f-4a5e-c200-08dd8c4c1294");
+                        x.UnPostLedger();
+                    });
                 newOrganization.SaveChanges();
 
-                // newOrganization.Purchases.UnPostAll();
-                newOrganization.Purchases.Post_Ledgers();
-
-                // newOrganization.Sales.UnPostAll();
-                newOrganization.Sales.Post_Ledgers();
-
-                newOrganization.SaveChanges();
-
-
-
-                //newOrganization.Purchases.Post_Ledgers();
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)

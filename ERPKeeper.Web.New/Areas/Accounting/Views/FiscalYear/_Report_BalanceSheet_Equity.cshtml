@@ -4,183 +4,179 @@
 
 
 <div class="mt-8 pl-8 py-8 page-break">
-    <div class="mh-50">
-    </div>
-    <div class="text-center font-semibold  mb-3">
-        @Organization.Profiles.GetSelf().Name<br />
-        งบแสดงฐานะทางการเงิน<br />
-        ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
-    </div>
-    <div class="mh-50">
-    </div>
-    <div class="font-weight-600 text-center">
-        ส่วนของผู้ถือหุ้น
-    </div>
-    <div class="flex mt-4">
-        <div class="w-9/12">
-        </div>
-        <div class="w-3/12 font-semibold text-center">
-            หน่วย:บาท
-        </div>
-        <div class="col-4  font-semibold ">
-        </div>
-        <div class="w-4/12">
-        </div>
+	<div class="h-8">
+	</div>
+	<div class="text-center font-semibold  mb-3">
+		@Organization.Profiles.GetSelf().Name<br />
+		งบแสดงฐานะทางการเงิน<br />
+		ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+	</div>
+	<div class="h-8">
+	</div>
+	<div class="font-weight-600 text-center">
+		ส่วนของผู้ถือหุ้น
+	</div>
+	<div class="flex flex-wrap mt-4">
+		<div class="w-8/12">
+		</div>
+		<div class="w-4/12 font-semibold text-center">
+			หน่วย:บาท
+		</div>
 
-        <div class="w-2/12 text-right border-dark border-top">
-            @(Model.EndDate.Year + 543)
-        </div>
-        <div class="w-2/12 text-right border-dark border-top">
-            @(Model.EndDate.Year - 1 + 543)
-        </div>
-    </div>
+		<div class="w-8/12">
+		</div>
 
-    @{
-        var stock = Model.FiscalYearAccountBalances
-        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Capital)
-        .Where(m => m.Account.SubType == AccountSubTypes.Equity_Stock)
-        .First();
-    }
+		<div class="w-2/12 text-right border-dark border-top">
+			@(Model.EndDate.Year + 543)
+		</div>
+		<div class="w-2/12 text-right border-dark border-top">
+			@(Model.EndDate.Year - 1 + 543)
+		</div>
+	</div>
 
-    <div class="mb-3">
+	@{
+		var stock = Model.FiscalYearAccountBalances
+		.Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Capital)
+		.Where(m => m.Account.SubType == AccountSubTypes.Equity_Stock)
+		.First();
+	}
 
+	<div class="mb-3">
+		<div class="w-full  font-semibold ">
+			ส่วนของผู้ถือหุ้น<br />
+			ทุนเรือนหุ้น<br />
+			ทุนจดทะเบียน
+		</div>
+		<div class="flex">
+			<div class="col-1">
+			</div>
+			<div class="col-3">
+				<a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
+					ทุนจดทะเบียน
+				</a>
+			</div>
+			<div class="col-8">
+			</div>
+		</div>
+		<div class="flex">
+			<div class="w-2/12">
+			</div>
+			<div class="w-6/12">
+				<a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
+					หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1500 บาท
+				</a>
+			</div>
 
-        <div class="w-full  font-semibold ">
-            ส่วนของผู้ถือหุ้น<br />
-            ทุนเรือนหุ้น<br />
-            ทุนจดทะเบียน
-        </div>
-        <div class="flex">
+			<div class="w-2/12 text-right">
+				@((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
+			</div>
+			<div class="w-2/12 text-right">
+				@((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
+			</div>
+		</div>
 
-            <div class="col-1">
-            </div>
-            <div class="col-3">
-                <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
-                    ทุนจดทะเบียน
-                </a>
-            </div>
-            <div class="col-8">
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-2/12">
-            </div>
-            <div class="w-6/12">
-                <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
-                    หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
-                </a>
-            </div>
+		<div class="flex">
+			<div class="col-1">
+			</div>
+			<div class="col-3">
+				<a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
+					ทุนเรียกชำระแล้ว
+				</a>
+			</div>
+		</div>
+		<div class="flex">
+			<div class="w-2/12">
+			</div>
+			<div class="w-6/12">
+				<a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
+					หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1500 บาท
+				</a>
+			</div>
 
-            <div class="w-2/12 text-right">
-                @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
-            </div>
-            <div class="w-2/12 text-right">
-                @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
-            </div>
-        </div>
-
-        <div class="col-1">
-        </div>
-        <div class="col-3">
-            <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
-                ทุนเรียกชำระแล้ว
-            </a>
-        </div>
-        <div class="col-8">
-        </div>
-
-        <div class="w-2/12">
-        </div>
-        <div class="w-6/12">
-            <a href="/@CompanyId/Accounting/Accounts/@stock.AccountId/" target="_self">
-                หุ้นสามัญ 2000 หุ้น มูลค่าหุ้นล่ะ 1000 บาท
-            </a>
-        </div>
-
-        <div class="w-2/12 text-right">
-            @((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
-        </div>
-        <div class="w-2/12 text-right">
-            @((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
-        </div>
-    </div>
+			<div class="w-2/12 text-right">
+				@((stock.ClosedCredit - stock.ClosedDebit).ToString("N2"))
+			</div>
+			<div class="w-2/12 text-right">
+				@((stock.OpeningCredit - stock.OpeningDebit).ToString("N2"))
+			</div>
+		</div>
 
 
-    @{
-        var retainEaring = Model.FiscalYearAccountBalances
-        .Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Capital)
-        .Where(m => m.Account.SubType == AccountSubTypes.Equity_RetainEarning)
-        .First();
+		@{
+			var retainEaring = Model.FiscalYearAccountBalances
+			.Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Capital)
+			.Where(m => m.Account.SubType == AccountSubTypes.Equity_RetainEarning)
+			.First();
 
 
 
-    }
+		}
 
-    <div class="flex flex-wrap">
-        <div class="w-full font-semibold">
-            กำไร (ขาดทุน) สะสม
-        </div>
-        <div class="col-1">
-        </div>
-        <div class="w-3/12  ">
-            กำไรสะสม
-        </div>
-        <div class="w-4/12">
-        </div>
+		<div class="flex flex-wrap">
+			<div class="w-full font-semibold">
+				กำไร (ขาดทุน) สะสม
+			</div>
+			<div class="col-1">
+			</div>
+			<div class="w-3/12  ">
+				กำไรสะสม
+			</div>
+			<div class="w-4/12">
+			</div>
 
-        <div class="w-2/12 text-right border-dark border-top">
-            @(retainEaring.ClosedCredit.ToString("N2"))
-        </div>
-        <div class="w-2/12 text-right border-dark border-top">
-            @(retainEaring.OpeningCredit.ToString("N2"))
-        </div>
-    </div>
+			<div class="w-2/12 text-right border-dark border-top">
+				@(retainEaring.ClosedCredit.ToString("N2"))
+			</div>
+			<div class="w-2/12 text-right border-dark border-top">
+				@(retainEaring.OpeningCredit.ToString("N2"))
+			</div>
+		</div>
 
-    <div class="flex mt-2">
-        @{
-            var totalEquity = Model.FiscalYearAccountBalances
-            .Where(m => m.Account.Type == AccountTypes.Capital)
-            .ToList();
+		<div class="flex mt-2">
+			@{
+				var totalEquity = Model.FiscalYearAccountBalances
+				.Where(m => m.Account.Type == AccountTypes.Capital)
+				.ToList();
 
-        }
-        <div class="col-4 font-semibold ">
-            รวมส่วนของผู้ถือหุ้น
-        </div>
-        <div class="w-4/12">
-        </div>
+			}
+			<div class="col-4 font-semibold ">
+				รวมส่วนของผู้ถือหุ้น
+			</div>
+			<div class="w-4/12">
+			</div>
 
-        <div class="w-2/12 text-right border-dark border-top">
-            @(totalEquity.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
-        </div>
-        <div class="w-2/12 text-right border-dark border-top">
-            @(totalEquity.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
-        </div>
-    </div>
+			<div class="w-2/12 text-right border-dark border-top">
+				@(totalEquity.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
+			</div>
+			<div class="w-2/12 text-right border-dark border-top">
+				@(totalEquity.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
+			</div>
+		</div>
 
 
-    <div class="flex mt-2">
-        @{
-            var totalEquityandLiability = Model.FiscalYearAccountBalances
-            .Where(m => m.Account.Type == AccountTypes.Capital
-            || m.Account.Type == AccountTypes.Liability)
-            .ToList();
+		<div class="flex mt-2">
+			@{
+				var totalEquityandLiability = Model.FiscalYearAccountBalances
+				.Where(m => m.Account.Type == AccountTypes.Capital
+				|| m.Account.Type == AccountTypes.Liability)
+				.ToList();
 
-        }
-        <div class="col-4 font-semibold ">
-            รวมส่วนของผู้ถือหุ้นและหนี้สิน
-        </div>
-        <div class="w-4/12">
-        </div>
+			}
+			<div class="col-4 font-semibold ">
+				รวมส่วนของผู้ถือหุ้นและหนี้สิน
+			</div>
+			<div class="w-4/12">
+			</div>
 
-        <div class="w-2/12 text-right border-dark border-top">
-            @(totalEquityandLiability.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
-        </div>
-        <div class="w-2/12 text-right border-dark border-top">
-            @(totalEquityandLiability.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
-        </div>
-    </div>
+			<div class="w-2/12 text-right border-dark border-top">
+				@(totalEquityandLiability.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
+			</div>
+			<div class="w-2/12 text-right border-dark border-top">
+				@(totalEquityandLiability.Sum(line => line.OpeningCredit - line.OpeningDebit).ToString("N2"))
+			</div>
+		</div>
 
-    <div class="mt-4">
-        งบแสดงฐานะการเงินฉบับนี้ได้รับการอนุมัติจากที่ประชุมสามัญผู้ถือหุ้นครั้งที่ 1/@(Model.EndDate.Year - 1 + 543) เมื่อวันที่ 30 เมษายน @(Model.EndDate.Year + 1 + 543)
-    </div>
-</div>
+		<div class="mt-4">
+			งบแสดงฐานะการเงินฉบับนี้ได้รับการอนุมัติจากที่ประชุมสามัญผู้ถือหุ้นครั้งที่ 1/@(Model.EndDate.Year - 1 + 543) เมื่อวันที่ 30 เมษายน @(Model.EndDate.Year + 1 + 543)
+		</div>
+	</div>

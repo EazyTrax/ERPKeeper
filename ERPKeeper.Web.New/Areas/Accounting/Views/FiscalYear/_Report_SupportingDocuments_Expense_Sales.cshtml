@@ -6,11 +6,11 @@
 </div>
 <div class="flex flex-wrap">
     <div class="w-full  font-semibold ">
-        9. ค่าใช้จ่ายในการขาย
+        10. ค่าใช้จ่ายในการขาย
     </div>
 </div>
 
-<div class="flex flex-wrap">
+<div class="flex flex-wrap font-bold">
     <div class="w-9/12">
     </div>
     <div class="w-3/12 p-0  text-center">
@@ -27,7 +27,9 @@
         @(Model.EndDate.Year - 1 + 543)
     </div>
 </div>
-
+<div class="w-full ">
+ ค่าใช้จ่ายในการขาย
+</div>
 <div class="flex flex-wrap">
     @{
         var currentFiscalYearExpenses = Model.FiscalYearAccountBalances
@@ -45,7 +47,7 @@
 
         foreach (var line in currentFiscalYearExpenses)
         {
-            <div class="w-4/12">
+            <div class="w-4/12 pl-4">
                 <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
                     @line.Account.Name
                 </a>
@@ -64,13 +66,13 @@
     }
 
 
-    <div class="col-8 ">
+    <div class="w-8/12 font-bold">
         รวมค่าใช้จ่าย
     </div>
-    <div class="w-2/12 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top font-bold ">
         @currentFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
     </div>
-    <div class="w-2/12 text-right border-dark border-top">
+    <div class="w-2/12 text-right border-dark border-top font-bold ">
         @previusFiscalYearExpenses.Sum(m => m.TotalDebit).ToString("N2")
     </div>
 </div>

@@ -33,12 +33,13 @@
 			.Where(m => !(m.TotalDebit == 0 && m.TotalCredit == 0 && m.OpeningDebit == 0 && m.OpeningCredit == 0))
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_Cash)
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_Bank)
-			.Where(m => m.Account.SubType != AccountSubTypes.Asset_FixedAsset)
+			.Where(m => m.Account.SubType != AccountSubTypes.Asset_Long_FixedAsset)
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_AccDepreciation)
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_Inventory)
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_TaxReceivable)
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_TaxInput)
 			.Where(m => m.Account.SubType != AccountSubTypes.Asset_LongTermLending)
+			.Where(m => m.Account.SubType != AccountSubTypes.Asset_AwaitingDepreciation)
 			.OrderBy(m => m.Account.SubType)
 			.ToList();
 

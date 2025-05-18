@@ -2,14 +2,14 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 <div class="mt-8 pl-8 py-8 page-break">
-    <div class="mh-50">
+    <div class="h-8">
     </div>
     <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
         งบแสดงฐานะทางการเงิน<br />
         ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
     </div>
-    <div class="mh-50">
+    <div class="h-8">
     </div>
     <div class="font-weight-600 text-center">
         หนี้สิน
@@ -66,9 +66,10 @@
             }
                     <div class="flex">
 
-                        <div class="w-4/12 p-0">
+                         <div class="w-1/12">
                         </div>
-                        <div class="w-4/12 p-0">
+                        <div class="w-7/12">
+                                รวมหนี้สินหมุนเวียน
                         </div>
 
                         <div class="w-2/12 text-right border-dark border-top">
@@ -80,6 +81,7 @@
                     </div>
         }
     </div>
+
 
     <div class="mb-3">
         @{
@@ -117,10 +119,11 @@
             }
                     <div class="flex">
 
-                        <div class="w-4/12 p-0">
-                        </div>
-                        <div class="w-4/12 p-0">
-                        </div>
+                            <div class="w-1/12">
+                            </div>
+                            <div class="w-7/12">
+                                   หนี้สินไม่หมุนเวียน
+                            </div>
 
                         <div class="w-2/12 text-right border-dark border-top">
                     @(lines.Sum(line => line.ClosedCredit - line.ClosedDebit).ToString("N2"))
