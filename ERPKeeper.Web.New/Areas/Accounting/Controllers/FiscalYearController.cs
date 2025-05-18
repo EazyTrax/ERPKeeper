@@ -93,7 +93,11 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             Organization.SaveChanges();
             return Redirect($"/{CompanyId}/Accounting/FiscalYears/{FiscalYearId}");
         }
-
+        public IActionResult Report_Full()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
         public IActionResult Report_Changes_in_Equity()
         {
             var model = Organization.FiscalYears.Find(FiscalYearId);

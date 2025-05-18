@@ -2,7 +2,7 @@
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
-<div style="width:1024px;" class="p-4">
+<div style="width:960px;" class="p-4 page-break">
     <div class="h-8"></div>
     <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
@@ -10,7 +10,7 @@
         สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
     </div>
     <div class="h-8"></div>
-    <div class="grid grid-cols-4 mb-3">
+    <div class="grid grid-cols-4 mb-3 font-semibold">
         <div class="col-span-2">
         </div>
         <div class="col-span-2 font-semibold text-center">
@@ -62,10 +62,10 @@
             <div class="font-semibold col-span-2">
                 รวมรายได้
             </div>
-            <div class="text-right border-dark border-top">
+            <div class="text-right border-dark border-top font-semibold">
                 @currentFiscalYearIncomes.Sum(m => m.TotalCredit).ToString("N2")
             </div>
-            <div class="text-right border-dark border-top">
+                <div class="text-right border-dark border-top font-semibold">
                 @previusFiscalYearIncomes.Sum(m => m.TotalCredit).ToString("N2")
             </div>
         }
@@ -166,13 +166,13 @@
 
 
 
-            <div class="font-semibold col-span-2">
+            <div class="font-semibold col-span-2 font-semibold">
                 รวมค่าใช้จ่าย
             </div>
-            <div class="text-right border-dark border-top">
+            <div class="text-right border-dark border-top font-semibold">
                 @currentFiscalYearExpenses.Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
             </div>
-            <div class="text-right border-dark border-top">
+            <div class="text-right border-dark border-top font-semibold">
                 @previusFiscalYearExpenses.Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
             </div>
 
@@ -226,15 +226,19 @@
             </div>
 
 
-            <div class=" col-span-2">
+            <div class=" col-span-2 font-semibold">
                 กำไร(ขาดทุน) สุทธิ
             </div>
-            <div class=" text-right border-dark border-top">
+            <div class=" text-right border-dark border-top font-semibold">
                 @((currentYearGrossMargin - currentYearIncomeTaxBalance.TotalDebit).ToString("N2"))
             </div>
-            <div class=" text-right border-dark border-top">
+            <div class=" text-right border-dark border-top font-semibold">
                 @((previusYearGrossMargin - previusYearIncomeTaxBalance.TotalDebit).ToString("N2"))
             </div>
         }
+    </div>
+    
+    <div class="mt-4">
+        งบแสดงฐานะการเงินฉบับนี้ได้รับการอนุมัติจากที่ประชุมสามัญผู้ถือหุ้นครั้งที่ 1/@(Model.EndDate.Year - 1 + 543) เมื่อวันที่ 30 เมษายน @(Model.EndDate.Year + 1 + 543)
     </div>
 </div>

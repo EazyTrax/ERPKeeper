@@ -1,78 +1,78 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 
 @{
-    var nextFiscal = Model.NextFiscalYear;
+	var nextFiscal = Model.NextFiscalYear;
 }
 
 <div class="flex ">
-    <div class="col-center-div grow mh-100v border-right border-2">
+	<div class="col-center-div grow mh-100v border-right border-2">
 
-        <div class="flex flex-wrap">
-            <div class="col-10">
-                <div class="border p-2">
-                    @if (Model.PreviusFiscalYear != null)
-                    {
-                                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
-                                        FY @Model.PreviusFiscalYear?.Name >
-                                    </a>
-
-
-                    }
-
-                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">FY @Model.Name</a>
-
-                    @if (Model.NextFiscalYear != null)
-                    {
+		<div class="flex flex-wrap">
+			<div class="col-10">
+				<div class="border p-2">
+					@if (Model.PreviusFiscalYear != null)
+					{
+						<a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
+							FY @Model.PreviusFiscalYear?.Name >
+						</a>
 
 
-                                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
-                                        > FY @Model.NextFiscalYear.Name
-                                    </a>
-                    }
+					}
+
+					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">FY @Model.Name</a>
+
+					@if (Model.NextFiscalYear != null)
+					{
 
 
-                </div>
+						<a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
+							> FY @Model.NextFiscalYear.Name
+						</a>
+					}
 
 
-
-            </div>
-            <div class="w-2/12">
-                <div class="border p-2 text-uppercase">
-                  Post Status  @Model.IsPosted.ToString()
-                </div>
-
-                @if (Model.IsPosted)
-                {
-                                <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/UnPost">
-                                UnPost
-                                </a>
-
-                                          <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
-                                 Re-Post
-                                    </a>
-                }
-                else
-                {
-                                <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
-                                Post
-                                </a>
-                }
-            </div>
-        </div>
+				</div>
 
 
 
+			</div>
+			<div class="w-2/12">
+				<div class="border p-2 text-uppercase">
+					Post Status  @Model.IsPosted.ToString()
+				</div>
 
-    </div>
-    <div class="w-4/12 p-0">
-        <partial name="_Chart_ProfitAndLost" />
-        <partial name="_Chart_Asset_Liability_Equity" />
+				@if (Model.IsPosted)
+				{
+					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/UnPost">
+						UnPost
+					</a>
 
-        <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
+						Re-Post
+					</a>
+				}
+				else
+				{
+					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
+						Post
+					</a>
+				}
+			</div>
+		</div>
 
 
 
 
-    </div>
+	</div>
+	<div class="w-4/12 p-0">
+		<partial name="_Chart_ProfitAndLost" />
+		<partial name="_Chart_Asset_Liability_Equity" />
+
+		<partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+
+
+
+
+	</div>
 </div>
 

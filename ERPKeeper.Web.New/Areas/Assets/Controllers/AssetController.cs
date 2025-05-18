@@ -60,16 +60,16 @@ namespace ERPKeeperCore.Web.Areas.Assets.Controllers
         {
             var Asset = Organization.Assets.Find(AssetId);
 
-            if (Asset != null)
+            if (Asset != null && !Asset.IsPosted)
             {
                 Asset.Name = model.Name;
                 //Asset.ResponsibleMemberUid = model.ResponsibleMemberUid;
                 ////Asset.CreatedDate = model.CreatedDate;
-                //Asset.DueDate = model.DueDate;
+                Asset.PurchaseDate = model.PurchaseDate;
                 //Asset.CloseDate = model.CloseDate;
 
                 //Asset.ProjectUid = model.ProjectUid;
-                //Asset.Detail = model.Detail;
+                Asset.Memo = model.Memo;
 
                 Organization.SaveChanges();
             }
