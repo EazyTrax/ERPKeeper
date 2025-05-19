@@ -2,62 +2,73 @@
 
 
 @{
-    decimal maxValue = Model.ExpenseBalance;
-    int width = 120;
-    if (Model.IncomeBalance >= Model.ExpenseBalance)
-    {
-        maxValue = Model.IncomeBalance;
-    }
+	decimal maxValue = Model.ExpenseBalance;
+	int width = 120;
+	if (Model.IncomeBalance >= Model.ExpenseBalance)
+	{
+		maxValue = Model.IncomeBalance;
+	}
 
-    if (maxValue == 0)
-    {
-        maxValue = 20;
-    }
+	if (maxValue == 0)
+	{
+		maxValue = 20;
+	}
 
 
-    int incomeWidth = (int)(width * Model.IncomeBalance / maxValue) + 20;
-    int expenseWidth = (int)(width * Model.ExpenseBalance / maxValue) + 20;
-    int profitWidth = (int)(width * Model.ProfitBalance / maxValue) + 20;
+	int incomeWidth = (int)(width * Model.IncomeBalance / maxValue) + 20;
+	int expenseWidth = (int)(width * Model.ExpenseBalance / maxValue) + 20;
+	int profitWidth = (int)(width * Model.ProfitBalance / maxValue) + 20;
 }
 
 @*<div class="mb-1 font-weight-bold bg-fb2 p-2">@Model.Name Profit and Lost</div>*@
 
 <div class="border p-2 bg-fb2 font-semibold">
-    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/">
-        FY-@Model.Name
-    </a>
+	<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/">
+		FY-@Model.Name
+	</a> |
+
+	@{
+		if (Model.PreviusFiscalYear != null)
+		{
+			<a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYear.Id/">
+				FY-@(Model.PreviusFiscalYear.Name)
+			</a>
+		}
+	}
+
+
 </div>
 <div class="mb-1 p-2 border" style="position:relative;">
-    <div class="mb-2">
-        <div class="float-left p-1 bg-info" style="width:@(incomeWidth)px;">
-            <span class="text-white">Income</span>
-        </div>
-        <div class="ml-2 float-left p-1">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes">
-                @Model.IncomeBalance.ToString("N2")
-            </a>
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div class="mb-2">
-        <div class="float-left p-1 bg-danger" style="width:@(expenseWidth)px;">
-            <span class="text-white">Expense</span>
-        </div>
-        <div class="ml-2 float-left p-1">
-            <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses">
-                @Model.ExpenseBalance.ToString("N2")
-            </a>
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div>
-        <div class="float-left p-1 bg-warning overflow-hidden" style="width:@(profitWidth)px;white-space:nowrap">
-            <b>Profit</b>
-        </div>
-        <div class="ml-2 float-left p-1">
-            @Model.ProfitBalance.ToString("N2")
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div style="clear:both;"></div>
+	<div class="mb-2">
+		<div class="float-left p-1 bg-info" style="width:@(incomeWidth)px;">
+			<span class="text-white">Income</span>
+		</div>
+		<div class="ml-2 float-left p-1">
+			<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes">
+				@Model.IncomeBalance.ToString("N2")
+			</a>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="mb-2">
+		<div class="float-left p-1 bg-danger" style="width:@(expenseWidth)px;">
+			<span class="text-white">Expense</span>
+		</div>
+		<div class="ml-2 float-left p-1">
+			<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses">
+				@Model.ExpenseBalance.ToString("N2")
+			</a>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div>
+		<div class="float-left p-1 bg-warning overflow-hidden" style="width:@(profitWidth)px;white-space:nowrap">
+			<b>Profit</b>
+		</div>
+		<div class="ml-2 float-left p-1">
+			@Model.ProfitBalance.ToString("N2")
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div style="clear:both;"></div>
 </div>

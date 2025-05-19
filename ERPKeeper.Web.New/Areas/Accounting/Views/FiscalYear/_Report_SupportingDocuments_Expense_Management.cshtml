@@ -12,13 +12,14 @@
 @{
 	var currentFiscalYearExpenses = Model.FiscalYearAccountBalances
 	.Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
-	.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative)
+	.Where(e => e.Account.SubType != AccountSubTypes.Expense_Selling && e.Account.SubType != AccountSubTypes.Expense_CostOfGoodsSold)
+
 	.OrderBy(x => x.Account.SubType)
 	.ToList();
 
 	var previusFiscalYearExpenses = Model.PreviusFiscalYear.FiscalYearAccountBalances
 	.Where(m => m.Account.Type == ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountTypes.Expense)
-	.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative)
+	.Where(e => e.Account.SubType != AccountSubTypes.Expense_Selling && e.Account.SubType != AccountSubTypes.Expense_CostOfGoodsSold)
 	.OrderBy(x => x.Account.SubType)
 	.ToList();
 

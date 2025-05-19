@@ -1,48 +1,30 @@
 ﻿
 <div class="flex flex-wrap">
-    <div class="col-center-div grow mh-100v border-right">
+	<div class="col-center-div grow mh-100v border-right">
+		<partial name="/areas/portal/views/home/_company_tile.cshtml" model="CompanyId" />
+	</div>
+	<div class="w-4/12 p-0">
+		<div class="bg-gray-50 border-2">
+			@{
+				var currentFiscalYear = Organization.FiscalYears.CurrentPeriod;
 
+				if (currentFiscalYear != null)
+				{
+					<partial name="/areas/accounting/views/fiscalyear/_chart_profitandlost.cshtml" model="currentFiscalYear" />
+					<partial name="/areas/accounting/views/fiscalyear/_Chart_Asset_Liability_Equity.cshtml" model="currentFiscalYear" />
+				}
+			}  
+		</div>
+		<div class="bg-gray-50 border-2">
+			<script>
+				function clearTreeListStateStoring() {
+					localStorage.clear(); // Remove all items from localStorage
+					alert('TreeList state has been cleared');
+				}
+			</script>
 
+			<button onclick="clearTreeListStateStoring()">Clear TreeList State</button>  <= อู๊ดๆ เคลียตรงนี้ แล้วก็เปิดหน้าเว็บใหม่ จะเห็นว่า TreeList กลับมาเป็นเดิม
 
-
-
-
-
-
-
-
-
-        <partial name="/areas/portal/views/home/_company_tile.cshtml" model="CompanyId" />
-
-
-
-
-
-
-
-    </div>
-    <div class="w-4/12 p-0">
-        <div class="bg-gray-50 border-2">
-            @{
-                var currentFiscalYear = Organization.FiscalYears.CurrentPeriod;
-
-                if (currentFiscalYear != null)
-                {
-                    <partial name="/areas/accounting/views/fiscalyear/_chart_profitandlost.cshtml" model="currentFiscalYear" />
-                    <partial name="/areas/accounting/views/fiscalyear/_Chart_Asset_Liability_Equity.cshtml" model="currentFiscalYear" />
-                }
-            }
-        </div>
-        <div class="bg-gray-50 border-2">
-            <script>
-                function clearTreeListStateStoring() {
-                    localStorage.clear(); // Remove all items from localStorage
-                    alert('TreeList state has been cleared');
-                }
-            </script>
-
-            <button onclick="clearTreeListStateStoring()">Clear TreeList State</button>  <= อู๊ดๆ เคลียตรงนี้ แล้วก็เปิดหน้าเว็บใหม่ จะเห็นว่า TreeList กลับมาเป็นเดิม
-
-        </div>
-    </div>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,33 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+
+@{
+	Layout = "_Layout_Export";
+}
+<style>
+	@@media print {
+		.page-break {
+			page-break-before: always;
+		}
+	}
+</style>
+
+@{
+	var purchases = Organization.ErpCOREDBContext.Purchases
+		.Where(x => x.Date.Year == Model.StartDate.Year)
+		.ToList();
+
+	<div class="page-break">
+		<div class="grid grid-cols-5">
+			@foreach (var purchase in purchases)
+			{
+				<div>@purchase.Date</div>
+				<div>@purchase.Name</div>
+				<div>@purchase.Supplier.Profile.Name</div>
+				<div>@purchase.Supplier.Profile.TaxNumber</div>
+				<div>@purchase.Total</div>
+			})
+		</div>
+	</div>
+}

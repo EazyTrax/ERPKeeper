@@ -1,0 +1,37 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+
+@{
+	Layout = "_Layout_Export";
+}
+<style>
+	@@media print {
+		.page-break {
+			page-break-before: always;
+		}
+	}
+</style>
+
+
+
+
+
+@{
+	var sales = Organization.ErpCOREDBContext.Sales
+		.Where(x => x.Date.Year == Model.StartDate.Year)
+		.ToList();
+
+	<div class="page-break">
+		<div class="grid grid-cols-5">
+			@foreach (var sale in sales)
+			{
+				<div>@sale.Date</div>
+				<div>@sale.Name</div>
+				<div>@sale.Customer.Profile.Name</div>
+				<div>@sale.Customer.Profile.TaxNumber</div>
+				<div>@sale.Total</div>
+			})
+		</div>
+	</div>
+}

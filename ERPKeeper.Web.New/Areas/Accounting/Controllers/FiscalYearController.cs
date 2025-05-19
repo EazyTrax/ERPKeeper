@@ -21,7 +21,11 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
-
+        public IActionResult Reports()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
         public IActionResult TrialBalance()
         {
             var model = Organization.FiscalYears.Find(FiscalYearId);
@@ -124,6 +128,20 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
-
+        public IActionResult Report_Sales()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
+        public IActionResult Report_Purchases()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
+        public IActionResult Report_TaxPeriods()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
     }
 }
