@@ -1,0 +1,97 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@using ERPKeeperCore.Enterprise.Models.Accounting.Enums
+
+@{
+	Layout = "_Layout_Export_rotate";
+}
+
+
+<div class="w-full text-center">
+	@Organization.Profiles.GetSelf().Name<br />
+	กระดาษทำการ<br />
+	สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+</div>
+
+
+@{
+	var accountBalanceGroupss = Model.FiscalYearAccountBalances.ToList()
+	.Where(x=> 
+		x.OpeningCredit !=0 ||
+		x.OpeningDebit != 0 ||
+		x.Debit != 0 ||
+		x.Credit !=0 ||
+		x.ClosingCredit !=0 ||
+		x.ClosingDebit !=0 ||
+		x.ClosedDebit != 0 ||
+		x.ClosedCredit != 0
+	)
+	.GroupBy(s => s.Account.Type)
+	.Select(m => new { Account = m.Key, accountBalances = m.ToList() })
+	.OrderBy(m => m.Account)
+	.ToList();
+	var count = 0;
+
+	foreach (var accountBalanceGroup in accountBalanceGroupss.OrderBy(m => m.Account))
+	{
+		count++;
+		<div class="page-break-after">
+			<div class="grid grid-cols-10 font-bold">
+				<div class="col-span-2">บัญชี @accountBalanceGroup.accountBalances.First().Account.Type</div>
+				<div class="text-right">OpenDr.</div>
+				<div class="text-right">OpenCr.</div>
+				<div class="text-right">Dr.</div>
+				<div class="text-right">Cr.</div>
+				<div class="text-right">ClosingDr.</div>
+				<div class="text-right">ClosingCr.</div>
+				<div class="text-right">ClosedDr.</div>
+				<div class="text-right">ClosedCr.</div>
+			</div>
+			<div class="grid grid-cols-10 border-top border-dark">
+				@foreach (var accountBalance in accountBalanceGroup.accountBalances.OrderBy(a => a.Account.SubType))
+				{
+					<div class="col-span-2 border-right border-dark pr-2">@accountBalance.Account.Name</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.OpeningCredit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.OpeningDebit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.Debit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.Credit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosingDebit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosingCredit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosedDebit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosingCredit.ToString("N2")</div>
+				}
+			</div>
+			<div class="grid grid-cols-10 border-top border-dark">
+				<div class="col-span-2"></div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.OpeningCredit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.OpeningDebit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.Debit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.Credit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.ClosingDebit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.ClosingCredit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.ClosedDebit).ToString("N2")</div>
+				<div class="text-right font-bold">@accountBalanceGroup.accountBalances.Sum(x => x.ClosedCredit).ToString("N2")</div>
+			</div>
+
+			@if (count == 5)
+			{
+				<div class="grid grid-cols-10 border-top  border-dark">
+					<div class="col-span-2"></div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.OpeningCredit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.OpeningDebit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.Debit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.Credit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.ClosingDebit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.ClosingCredit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.ClosedDebit).ToString("N2")</div>
+					<div class="text-right font-bold">@Model.FiscalYearAccountBalances.Sum(x => x.ClosedCredit).ToString("N2")</div>
+				</div>
+
+			}
+		</div>
+
+		
+	}
+
+
+
+}

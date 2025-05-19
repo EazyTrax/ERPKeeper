@@ -143,5 +143,10 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = Organization.FiscalYears.Find(FiscalYearId);
             return View(model);
         }
+        public IActionResult Report_WorkingPaper()
+        {
+            var model = Organization.FiscalYears.Find(FiscalYearId);
+            return View(model);
+        }
     }
 }

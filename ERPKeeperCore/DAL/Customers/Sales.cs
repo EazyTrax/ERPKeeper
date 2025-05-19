@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Accounting;
+﻿using ERPKeeperCore.Enterprise.DBContext;
+using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
@@ -18,7 +19,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
             return erpNodeDBContext.Sales.ToList();
         }
 
-
+        public List<Sale> GetByFiscal(FiscalYear fs)
+        {
+            return erpNodeDBContext.Sales
+                .Where(x => x.Date.Year == fs.StartDate.Year)
+                .ToList();
+        }
 
         public Sale? Find(Guid Id) => erpNodeDBContext.Sales.Find(Id);
 

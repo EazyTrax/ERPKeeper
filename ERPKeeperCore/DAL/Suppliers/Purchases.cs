@@ -29,7 +29,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
         }
 
 
-
+        public List<Purchase> GetByFiscal(FiscalYear fs)
+        {
+            return erpNodeDBContext.Purchases
+                .Where(x => x.Date.Year == fs.StartDate.Year)
+                .ToList();
+        }
         public Purchase? Find(Guid Id) => erpNodeDBContext.Purchases.Find(Id);
 
         public void Post_Ledgers(bool rePost = false)

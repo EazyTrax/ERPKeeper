@@ -276,10 +276,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void UpdateName()
         {
-            var currentYear = this.Date.Year;
+            var currentYear = this.Date.Year % 100; // Get last 2 digits
             var currentMonth = this.Date.Month;
 
-            this.Name = $"SL-{currentYear}/{currentMonth}/{this.No.ToString()}";
+            this.Name = $"SL-{currentYear:D2}/{currentMonth:D2}/{this.No.ToString()}";
         }
 
         public void UpdateAddress()

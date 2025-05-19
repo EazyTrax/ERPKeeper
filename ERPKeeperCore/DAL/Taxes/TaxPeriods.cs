@@ -25,7 +25,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Taxes
         {
             return erpNodeDBContext.TaxPeriods.ToList();
         }
-
+        public List<TaxPeriod> GetByFiscal(FiscalYear fs)
+        {
+            return erpNodeDBContext.TaxPeriods
+                .Where(x => x.StartDate.Year == fs.StartDate.Year)
+                .ToList();
+        }
         public TaxPeriod? Find(Guid Id) => erpNodeDBContext.TaxPeriods.Find(Id);
 
         public void Refresh()

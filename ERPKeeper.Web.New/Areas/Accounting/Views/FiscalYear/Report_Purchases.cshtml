@@ -5,29 +5,45 @@
 @{
 	Layout = "_Layout_Export";
 }
-<style>
-	@@media print {
-		.page-break {
-			page-break-before: always;
-		}
-	}
-</style>
+
 
 @{
-	var purchases = Organization.ErpCOREDBContext.Purchases
-		.Where(x => x.Date.Year == Model.StartDate.Year)
-		.ToList();
+	var purchases = Organization.Purchases.GetByFiscal(Model);
+	var monthlyPurchases = purchases.GroupBy(s => s.Date.Month).Select(m => new { month = m.Key, purchases = m.ToList() }).ToList();
 
-	<div class="page-break">
-		<div class="grid grid-cols-5">
-			@foreach (var purchase in purchases)
-			{
-				<div>@purchase.Date</div>
-				<div>@purchase.Name</div>
-				<div>@purchase.Supplier.Profile.Name</div>
-				<div>@purchase.Supplier.Profile.TaxNumber</div>
-				<div>@purchase.Total</div>
-			})
-		</div>
+	<div class="w-full text-center">
+		@Organization.Profiles.GetSelf().Name<br />
+		รายงานซื้อ<br />
+		สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
 	</div>
+
+	foreach (var monthlyPurchase in monthlyPurchases.OrderBy(m => m.month))
+	{
+		<div class="page-break-after">
+			<div class=" font-bold mt-5">
+				เดือน @monthlyPurchase.month
+			</div>
+			<div class="grid grid-cols-8">
+
+				@foreach (var purchase in monthlyPurchase.purchases.OrderBy(s => s.Date))
+				{
+					<div>@(purchase.Date.ToShortDateString())</div>
+					<div>@purchase.Name</div>
+					<div class="col-span-3 overflow-hidden">@purchase.Supplier.Profile.Name</div>
+					<div class="">@purchase.Supplier.Profile.TaxNumber</div>
+					<div class="text-right">@purchase.Total.ToString("N2")</div>
+					<div class="text-right">@purchase.Tax.ToString("N2")</div>
+				}
+
+
+				<div class="col-span-6"></div>
+				<div class="text-right font-bold">@monthlyPurchase.purchases.Sum(s => s.Total).ToString("N2")</div>
+				<div class="text-right font-bold">@monthlyPurchase.purchases.Sum(s => s.Tax).ToString("N2")</div>
+
+			</div>
+		</div>
+	}
+
+
+
 }

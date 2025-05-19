@@ -49,22 +49,6 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
                     newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
                     newOrganization.ErpCOREDBContext.SaveChanges();
-
-
-                    var fiscalYears = newOrganization
-              .FiscalYears.GetAll()
-              .OrderBy(x => x.StartDate)
-              .ToList();
-
-                    fiscalYears.ForEach(fy =>
-                    {
-                        fy.PostToTransaction();
-
-                        fy.Create_Empty_Accounts_Balance(newOrganization.ChartOfAccount.All());
-                        newOrganization.FiscalYears.Update_AccountsBalance(fy);
-
-                        fy.PostToTransaction();
-                    });
                 }
 
                GeneralOperations(newOrganization, oldOrganization);
@@ -72,19 +56,25 @@ namespace ERPKeeperCore.CMD
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-                var fiscalGuid = Guid.Parse("46311fc1-b5c8-4660-b46c-08dd92ccf557");
-
+              
                 newOrganization.ErpCOREDBContext.Purchases
-                    .Where(x => x.ExpenseAccountId == fiscalGuid)
                     .ToList()
                     .ForEach(x =>
                     {
-                       Console.WriteLine($"> {x.Reference}");
-                        x.ExpenseAccountId = Guid.Parse("068c1d8b-349f-4a5e-c200-08dd8c4c1294");
-                        x.UnPostLedger();
+                        x.UpdateName();
+                        Console.WriteLine($"> {x.Name}");
                     });
                 newOrganization.SaveChanges();
 
+
+                newOrganization.ErpCOREDBContext.Sales
+                 .ToList()
+                 .ForEach(x =>
+                 {
+                     x.UpdateName();
+                     Console.WriteLine($"> {x.Name}");
+                 });
+                newOrganization.SaveChanges();
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)

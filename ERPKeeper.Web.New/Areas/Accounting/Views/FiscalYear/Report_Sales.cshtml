@@ -5,33 +5,47 @@
 @{
 	Layout = "_Layout_Export";
 }
-<style>
-	@@media print {
-		.page-break {
-			page-break-before: always;
-		}
-	}
-</style>
 
 
-
+<div class="w-full text-center">
+	@Organization.Profiles.GetSelf().Name<br />
+	รายงานขาย<br />
+	สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+</div>
 
 
 @{
-	var sales = Organization.ErpCOREDBContext.Sales
-		.Where(x => x.Date.Year == Model.StartDate.Year)
-		.ToList();
+	var sales = Organization.Sales.GetByFiscal(Model);
+	var monthlySales = sales.GroupBy(s => s.Date.Month).Select(m => new { month = m.Key, sales = m.ToList() }).ToList();
 
-	<div class="page-break">
-		<div class="grid grid-cols-5">
-			@foreach (var sale in sales)
-			{
-				<div>@sale.Date</div>
-				<div>@sale.Name</div>
-				<div>@sale.Customer.Profile.Name</div>
-				<div>@sale.Customer.Profile.TaxNumber</div>
-				<div>@sale.Total</div>
-			})
+
+	foreach (var monthlySale in monthlySales.OrderBy(m => m.month))
+	{
+		<div class="page-break-after">
+			<div class=" font-bold mt-5">
+				เดือน @monthlySale.month
+			</div>
+			<div class="grid grid-cols-8">
+
+				@foreach (var sale in monthlySale.sales.OrderBy(s => s.Date))
+				{
+					<div>@(sale.Date.ToShortDateString())</div>
+					<div>@sale.Name</div>
+					<div class="col-span-3 overflow-hidden">@sale.Customer.Profile.Name</div>
+					<div class="">@sale.Customer.Profile.TaxNumber</div>
+					<div class="text-right">@sale.Total.ToString("N2")</div>
+					<div class="text-right">@sale.Tax.ToString("N2")</div>
+				}
+
+
+				<div class="col-span-6"></div>
+				<div class="text-right font-bold">@monthlySale.sales.Sum(s => s.Total).ToString("N2")</div>
+				<div class="text-right font-bold">@monthlySale.sales.Sum(s => s.Tax)</div>
+
+			</div>
 		</div>
-	</div>
+	}
+
+
+
 }

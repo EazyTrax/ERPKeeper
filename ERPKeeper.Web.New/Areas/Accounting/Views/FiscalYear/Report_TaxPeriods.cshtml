@@ -1,14 +1,61 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
-
 @{
 	Layout = "_Layout_Export";
 }
-<style>
-	@@media print {
-		.page-break {
-			page-break-before: always;
-		}
+
+
+<div class="w-full text-center">
+	@Organization.Profiles.GetSelf().Name<br />
+	รายงานภาษีมูลค่าเพิ่ม<br />
+	สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+</div>
+
+
+@{
+	var taxPeriods = Organization.TaxPeriods.GetByFiscal(Model);
+
+
+	foreach (var taxPeriod in taxPeriods.OrderBy(m => m.StartDate.Month))
+	{
+		<div class="page-break-after">
+			<div class="font-bold mt-5 text-center">
+				รายงานภาษีซื้อ เดือน @taxPeriod.StartDate.Month
+			</div>
+			<div class="grid grid-cols-8">
+				@foreach (var purchase in taxPeriod.Purchases.OrderBy(s => s.Date))
+				{
+					<div>@(purchase.Date.ToShortDateString())</div>
+					<div>@purchase.Name</div>
+					<div class="col-span-3 overflow-hidden">@purchase.Supplier.Profile.Name</div>
+					<div class="">@purchase.Supplier.Profile.TaxNumber</div>
+					<div class="text-right">@purchase.Total.ToString("N2")</div>
+					<div class="text-right">@purchase.Tax.ToString("N2")</div>
+				}
+				<div class="col-span-6"></div>
+				<div class="text-right font-bold">@taxPeriod.Sales.Sum(s => s.Total).ToString("N2")</div>
+				<div class="text-right font-bold">@taxPeriod.Sales.Sum(s => s.Tax)</div>
+			</div>
+		</div>
+		<div class="page-break-after">
+			<div class="font-bold mt-5 text-center">
+				รายงานภาษีขาย เดือน @taxPeriod.StartDate.Month
+			</div>
+			<div class="grid grid-cols-8">
+				@foreach (var sale in taxPeriod.Sales.OrderBy(s => s.Date))
+				{
+					<div>@(sale.Date.ToShortDateString())</div>
+					<div>@sale.Name</div>
+					<div class="col-span-3 overflow-hidden">@sale.Customer.Profile.Name</div>
+					<div class="">@sale.Customer.Profile.TaxNumber</div>
+					<div class="text-right">@sale.Total.ToString("N2")</div>
+					<div class="text-right">@sale.Tax.ToString("N2")</div>
+				}
+				<div class="col-span-6"></div>
+				<div class="text-right font-bold">@taxPeriod.Sales.Sum(s => s.Total).ToString("N2")</div>
+				<div class="text-right font-bold">@taxPeriod.Sales.Sum(s => s.Tax)</div>
+			</div>
+		</div>
 	}
-</style>
+}}
