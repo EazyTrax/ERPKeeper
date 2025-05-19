@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
                 .ToList();
 
             returnModel = returnModel
-                .Where(m => m.OpeningCredit != 0 || m.OpeningDebit != 0 || m.ClosedCredit != 0 || m.ClosedDebit != 0 || m.TotalCredit != 0 || m.TotalDebit != 0 || m.ClosingCredit != 0 || m.ClosingDebit != 0)
+                .Where(m => m.OpeningCredit != 0 || m.OpeningDebit != 0 || m.ClosedCredit != 0 || m.ClosedDebit != 0 || m.Credit != 0 || m.Debit != 0 || m.ClosingCredit != 0 || m.ClosingDebit != 0)
                 .ToList();
 
 

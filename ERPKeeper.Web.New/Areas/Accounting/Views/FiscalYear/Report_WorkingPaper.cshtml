@@ -6,11 +6,6 @@
 }
 
 
-<div class="w-full text-center">
-	@Organization.Profiles.GetSelf().Name<br />
-	กระดาษทำการ<br />
-	สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
-</div>
 
 
 @{
@@ -33,8 +28,15 @@
 
 	foreach (var accountBalanceGroup in accountBalanceGroupss.OrderBy(m => m.Account))
 	{
+		<div class="w-full text-center mb-4">
+			@Organization.Profiles.GetSelf().Name<br />
+			กระดาษทำการ<br />
+			สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+		</div>
+
+
 		count++;
-		<div class="page-break-after">
+		<div class="page-break-after mb-4">
 			<div class="grid grid-cols-10 font-bold">
 				<div class="col-span-2">บัญชี @accountBalanceGroup.accountBalances.First().Account.Type</div>
 				<div class="text-right">OpenDr.</div>
@@ -50,14 +52,14 @@
 				@foreach (var accountBalance in accountBalanceGroup.accountBalances.OrderBy(a => a.Account.SubType))
 				{
 					<div class="col-span-2 border-right border-dark pr-2">@accountBalance.Account.Name</div>
-					<div class="text-right border-right border-dark pr-2">@accountBalance.OpeningCredit.ToString("N2")</div>
 					<div class="text-right border-right border-dark pr-2">@accountBalance.OpeningDebit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.OpeningCredit.ToString("N2")</div>
 					<div class="text-right border-right border-dark pr-2">@accountBalance.Debit.ToString("N2")</div>
 					<div class="text-right border-right border-dark pr-2">@accountBalance.Credit.ToString("N2")</div>
 					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosingDebit.ToString("N2")</div>
 					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosingCredit.ToString("N2")</div>
 					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosedDebit.ToString("N2")</div>
-					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosingCredit.ToString("N2")</div>
+					<div class="text-right border-right border-dark pr-2">@accountBalance.ClosedCredit.ToString("N2")</div>
 				}
 			</div>
 			<div class="grid grid-cols-10 border-top border-dark">
