@@ -6,7 +6,13 @@
 
 @{
     var documentNameContent = ViewBag.DocumentName;
-    var customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
+
+    var customerAddress = Organization.ErpCOREDBContext.ProfileAddresses.Where(p => p.Id == Model.ProfileAddesssId).FirstOrDefault();
+
+    if (customerAddress == null)
+    {
+        customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
+    }
 }
 
 <partial name="/areas/enterprise_export/view/shared/_header.cshtml" model="documentNameContent" />
