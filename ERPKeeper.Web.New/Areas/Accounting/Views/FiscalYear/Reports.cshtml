@@ -1,150 +1,140 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 
 @{
-	var nextFiscal = Model.NextFiscalYear;
+    var nextFiscal = Model.NextFiscalYear;
 }
 
 <div class="flex ">
-	<div class="col-center-div grow mh-100v border-right border-2">
+    <div class="col-center-div grow mh-100v border-right border-2">
 
-		<div class="flex flex-wrap">
-			<div class="col-10">
-				<div class="border p-2">
-					@if (Model.PreviusFiscalYear != null)
-					{
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
-							FY @Model.PreviusFiscalYear?.Name >
-						</a>
+        <div class="flex flex-wrap">
+            <div class="col-10">
+                <div class="border p-2">
+                    @if (Model.PreviusFiscalYear != null)
+                    {
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYearId">
+                            FY @Model.PreviusFiscalYear?.Name >
+                        </a>
+                    }
+                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">
+                        FY @Model.Name
+                    </a>
 
-
-					}
-
-					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id">FY @Model.Name</a>
-
-					@if (Model.NextFiscalYear != null)
-					{
-
-
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
-							> FY @Model.NextFiscalYear.Name
-						</a>
-					}
-
-
-				</div>
+                    @if (Model.NextFiscalYear != null)
+                    {
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.NextFiscalYear.Id">
+                            > FY @Model.NextFiscalYear.Name
+                        </a>
+                    }
+                </div>
 
 
 
-				<div class="bg-fb1 p-2 text-xl border">
-					<div class="font-weight-600">
-						Reports
-					</div>
-					<div>
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_BalanceSheet" target="_self">
-							งบแสดงฐานะทางการเงิน
-						</a>
-					</div>
-					<div>
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_ProfitandLoss_Statement" target="_self">
-							งบกำไรขาดทุน
-						</a>
-					</div>
-					<div>
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Changes_in_Equity" target="_self">
-							งบแสดงการเปลี่ยนแปลงผู้ถือหุ้น
-						</a>
-					</div>
-					<div>
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
-							หมายเหตุประกอบงบการเงิน
-						</a>
-					</div>
-					<div>
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Tax_Calculation" target="_self">
-							งบแสดงการคำนวนภาษีเงินได้
-						</a>
-					</div>
+                <div class="bg-fb1 p-2 text-xl border">
+                    <div class="font-weight-600">
+                        Reports
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_BalanceSheet" target="_self">
+                            งบแสดงฐานะทางการเงิน
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_ProfitandLoss_Statement" target="_self">
+                            งบกำไรขาดทุน
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Changes_in_Equity" target="_self">
+                            งบแสดงการเปลี่ยนแปลงผู้ถือหุ้น
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_SupportingDocuments" target="_self">
+                            หมายเหตุประกอบงบการเงิน
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Tax_Calculation" target="_self">
+                            งบแสดงการคำนวนภาษีเงินได้
+                        </a>
+                    </div>
 
-					<div class="mt-5">
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Full" target="_self">
-							Report_Full
-						</a>
-					</div>
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Full" target="_self">
+                            Report_Full
+                        </a>
+                    </div>
 
-					<div class="mt-5">
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Purchases" target="_self">
-							Purchases
-						</a>
-					</div>
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Purchases" target="_self">
+                            Purchases
+                        </a>
+                    </div>
 
-					<div class="mt-5">
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Sales" target="_self">
-							Sales
-						</a>
-					</div>
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Sales" target="_self">
+                            Sales
+                        </a>
+                    </div>
 
-					<div class="mt-5">
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_TaxPeriods" target="_self">
-							TaxPeriods
-						</a>
-					</div>
-
-
-
-					<div class="mt-5">
-						<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_WorkingPaper" target="_self">
-							Report_WorkingPaper
-						</a>
-					</div>
-					
-				</div>
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_TaxPeriods" target="_self">
+                            TaxPeriods
+                        </a>
+                    </div>
 
 
 
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_WorkingPaper" target="_self">
+                            Report_WorkingPaper
+                        </a>
+                    </div>
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_Ledger" target="_self">
+                            Report_Ledger
+                        </a>
+                    </div>
+
+                    <div class="mt-5">
+                        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Report_General_Ledger" target="_self">
+                            Report_General_Ledger
+                        </a>
+                    </div>
 
 
 
+                </div>
+            </div>
+            <div class="w-2/12">
+                <div class="border p-2 text-uppercase">
+                    Post Status  @Model.IsPosted.ToString()
+                </div>
+                @if (Model.IsPosted)
+                {
+                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/UnPost">
+                        UnPost
+                    </a>
+                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
+                        Re-Post
+                    </a>
+                }
+                else
+                {
+                    <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
+                        Post
+                    </a>
+                }
 
 
 
-			</div>
-			<div class="w-2/12">
-				<div class="border p-2 text-uppercase">
-					Post Status  @Model.IsPosted.ToString()
-				</div>
-
-				@if (Model.IsPosted)
-				{
-					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/UnPost">
-						UnPost
-					</a>
-
-					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
-						Re-Post
-					</a>
-				}
-				else
-				{
-					<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Post">
-						Post
-					</a>
-				}
-			</div>
-		</div>
-
-
-
-
-	</div>
-	<div class="w-4/12 p-0">
-		<partial name="_Chart_ProfitAndLost" />
-		<partial name="_Chart_Asset_Liability_Equity" />
-
-		<partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
-
-
-
-
-	</div>
+            </div>
+        </div>
+    </div>
+    <div class="w-4/12 p-0">
+        <partial name="_Chart_ProfitAndLost" />
+        <partial name="_Chart_Asset_Liability_Equity" />
+        <partial name="/areas/accounting/views/transaction/_transactionledgers.cshtml" model="Model.Transaction" />
+    </div>
 </div>
-

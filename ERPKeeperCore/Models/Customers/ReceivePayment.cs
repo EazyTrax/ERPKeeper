@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
-        public String Name => $"RP/{No}";
+        public String Name => $"RP/{this.Date.Year % 100}-{this.Date.Month}-{No}";
         public DateTime Date { get; set; } = DateTime.Today;
 
 
@@ -173,6 +173,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             return retentionStr;
         }
 
+
+  
 
         public ReceivePayment()
         {

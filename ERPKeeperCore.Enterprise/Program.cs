@@ -35,11 +35,8 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Database.Migrate();
                 var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
 
-
-                //  newOrganization.TaxPeriods.UnPostToTransactions();
-                //   newOrganization.TaxPeriods.PostToTransactions();
-
-
+                //newOrganization.TaxPeriods.UnPostToTransactions();
+                //newOrganization.TaxPeriods.PostToTransactions();
 
                 if (false && newOrganization != null)
                 {
@@ -51,30 +48,34 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
-               GeneralOperations(newOrganization, oldOrganization);
+                GeneralOperations(newOrganization, oldOrganization);
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
             {
-              
-                newOrganization.ErpCOREDBContext.Purchases
+                int index = 1;
+
+                newOrganization.ErpCOREDBContext.ReceivePayments
+                    .Include(x => x.Transaction)
+                    .OrderBy(p => p.Date)
+                    .ThenBy(p => p.No)
                     .ToList()
                     .ForEach(x =>
                     {
-                        x.UpdateName();
+                        x.No = index++;
+                      //  x.Name = $"RP-{x.Date.Year}-{x.Date.Month}-{x.No}";
+
+                        if (x.Transaction != null)
+                        {
+                            x.Transaction.Name = $"{x.Name}";
+                            x.Transaction.ProfileName = $"{x.Sale.Customer.Profile.Name}";
+                        }
+
                         Console.WriteLine($"> {x.Name}");
                     });
                 newOrganization.SaveChanges();
 
 
-                newOrganization.ErpCOREDBContext.Sales
-                 .ToList()
-                 .ForEach(x =>
-                 {
-                     x.UpdateName();
-                     Console.WriteLine($"> {x.Name}");
-                 });
-                newOrganization.SaveChanges();
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)

@@ -26,6 +26,31 @@ namespace ERPKeeperCore.Enterprise.DAL
             return erpNodeDBContext.Transactions.ToList();
         }
 
+        public List<Transaction> GetByFiscal(FiscalYear fy)
+        {
+            var startDate = fy.StartDate;
+            var endDate = fy.EndDate;
+
+            return erpNodeDBContext.Transactions
+                .Where(t => t.Date >= startDate && t.Date < endDate)
+                .Include(t=>t.Ledgers)
+                .ThenInclude(t=>t.Account)
+                .ToList();
+        }
+
+        public List<TransactionLedger> GetLegers(FiscalYear fy)
+        {
+            var startDate = fy.StartDate;
+            var endDate = fy.EndDate;
+
+            return erpNodeDBContext.TransactionLedgers
+                .Where(t => t.Date >= startDate && t.Date < endDate)
+                .Include(t => t.Account)
+                .Include(t => t.Transaction)
+                .ToList();
+        }
+
+
         public Transaction? Find(Guid Id) => erpNodeDBContext.Transactions.Find(Id);
 
         public void Post_Ledgers()

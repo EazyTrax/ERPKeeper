@@ -26,6 +26,7 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public Guid? FiscalYearId { get; set; }
         public String? Name { get; set; }
+        public String? ProfileName { get; set; }
         public String? Reference { get; set; }
         public DateTime? PostedDate { get; set; }
         public bool IsPosted => PostedDate != null;
