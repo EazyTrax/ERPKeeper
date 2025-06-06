@@ -55,7 +55,7 @@ namespace ERPKeeperCore.CMD
             {
                 int index = 1;
 
-                newOrganization.ErpCOREDBContext.ReceivePayments
+                newOrganization.ErpCOREDBContext.JournalEntries
                     .Include(x => x.Transaction)
                     .OrderBy(p => p.Date)
                     .ThenBy(p => p.No)
@@ -63,19 +63,18 @@ namespace ERPKeeperCore.CMD
                     .ForEach(x =>
                     {
                         x.No = index++;
-                      //  x.Name = $"RP-{x.Date.Year}-{x.Date.Month}-{x.No}";
+                        x.UpdateName();
 
                         if (x.Transaction != null)
                         {
                             x.Transaction.Name = $"{x.Name}";
-                            x.Transaction.ProfileName = $"{x.Sale.Customer.Profile.Name}";
                         }
 
                         Console.WriteLine($"> {x.Name}");
                     });
                 newOrganization.SaveChanges();
 
-
+               // UpdateCurrentBalance(newOrganization);
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)
@@ -93,6 +92,26 @@ namespace ERPKeeperCore.CMD
             }
 
 
+        }
+
+        private static void UpdateCurrentBalance(EnterpriseRepo newOrganization)
+        {
+            int index = 1;
+
+            newOrganization.ErpCOREDBContext.TransactionLedgers
+                .GroupBy(p => p.AccountId)
+                .Select(g => new { AccountId = g.Key, Ledger = g.ToList() })
+                .ToList()
+                .ForEach(x =>
+                {
+                    decimal amount = 0;
+                    foreach (var ledger in x.Ledger.OrderBy(y => y.Date).ToList())
+                    {
+                        amount = amount + ledger.Debit - ledger.Credit;
+                        ledger.CurrentBalance = amount;
+                    }
+                    newOrganization.SaveChanges();
+                });
         }
     }
 }

@@ -173,8 +173,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             return retentionStr;
         }
 
-
-  
+        public void UpdateName()
+        {
+            throw new NotImplementedException();
+        }
 
         public ReceivePayment()
         {

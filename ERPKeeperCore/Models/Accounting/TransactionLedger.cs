@@ -28,5 +28,6 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
 
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }
+        public decimal CurrentBalance { get; set; }
     }
 }

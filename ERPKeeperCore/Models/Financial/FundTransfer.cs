@@ -80,5 +80,8 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
 
         }
 
+        public void UpdateName()
+        {
+        }
     }
 }

@@ -102,5 +102,9 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
             this.JournalEntryItems.Clear();
         }
 
+        public void UpdateName()
+        {
+            
+        }
     }
 }

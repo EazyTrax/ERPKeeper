@@ -20,6 +20,7 @@
     {
         Key = g.Key,
         AccountName = g.First().Account.Name,
+        Account = g.First().Account,
         Legers = g.OrderBy(x => x.Date).ToList()
     })
     .ToList();
@@ -28,19 +29,18 @@
     {
         <div class="page-break-after">
             <div class="font-bold my-3 text-center">
-                บัญชี @ledgerGroup.AccountName.ToString()
+                บัญชี @ledgerGroup.AccountName.ToString()  (@ledgerGroup.Account.Type , @ledgerGroup.Account.SubType)
             </div>
+            <div class="grid grid-cols-8">
 
-
-            <div class="grid grid-cols-7">
-
-                <div></div>
-                <div></div>   
-                <div></div>
+                <div>วันที่</div>
+                <div>รายการ</div>   
+                <div>อ้างอิง</div>
                 <div></div>    
                 <div></div>
                 <div class="text-right font-bold">Dr.</div>
                 <div class="text-right font-bold">Cr.</div>
+                <div></div>
 
                 @foreach (var ledger in ledgerGroup.Legers.OrderBy(s => s.Date))
                 {
@@ -50,6 +50,7 @@
                     <div class="overflow-hidden col-span-2">@ledger.Transaction.Reference</div>
                     <div class="text-right ">@ledger.Debit.ToString("N2")</div>
                     <div class="text-right ">@ledger.Credit.ToString("N2")</div>
+                    <div class="text-right ">@ledger.CurrentBalance.ToString("N2")</div>
                 }
             </div>
         </div>
