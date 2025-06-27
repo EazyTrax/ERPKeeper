@@ -33,7 +33,7 @@ namespace ERPKeeperCore.CMD
 
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
-                var oldOrganization = new ERPKeeper.Node.DAL.Organization(enterpriseDB, true);
+
 
                 //newOrganization.TaxPeriods.UnPostToTransactions();
                 //newOrganization.TaxPeriods.PostToTransactions();
@@ -48,33 +48,23 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
-                GeneralOperations(newOrganization, oldOrganization);
+                GeneralOperations(newOrganization);
             }
 
-            static void GeneralOperations(EnterpriseRepo newOrganization, Organization oldOrganization)
+            static void GeneralOperations(EnterpriseRepo newOrganization)
             {
-                int index = 1;
 
-                newOrganization.ErpCOREDBContext.JournalEntries
-                    .Include(x => x.Transaction)
-                    .OrderBy(p => p.Date)
-                    .ThenBy(p => p.No)
+
+                newOrganization.ErpCOREDBContext.Sales.OrderBy(x => x.Date)
                     .ToList()
                     .ForEach(x =>
                     {
-                        x.No = index++;
                         x.UpdateName();
-
-                        if (x.Transaction != null)
-                        {
-                            x.Transaction.Name = $"{x.Name}";
-                        }
-
-                        Console.WriteLine($"> {x.Name}");
+                        Console.WriteLine($">{x.No} {x.Name}");
                     });
                 newOrganization.SaveChanges();
 
-               // UpdateCurrentBalance(newOrganization);
+                // UpdateCurrentBalance(newOrganization);
             }
 
             static void Export_To_PDF(EnterpriseRepo newOrganization, Organization oldOrganization)

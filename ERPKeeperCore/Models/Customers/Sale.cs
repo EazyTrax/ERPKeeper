@@ -72,6 +72,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Reference { get; set; }
         public String? Memo { get; set; }
         public int No { get; set; }
+
+      
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Today;
 
@@ -280,6 +282,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
             var currentMonth = this.Date.Month;
 
             this.Name = $"SL-{currentYear:D2}/{currentMonth:D2}/{this.No.ToString()}";
+
         }
 
         public void UpdateAddress()

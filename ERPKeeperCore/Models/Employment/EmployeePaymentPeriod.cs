@@ -44,7 +44,6 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             }
 
 
-
             PaymentCount = EmployeePayments.Count();
             TotalEarning = EmployeePayments.Select(l => l.TotalEarning).DefaultIfEmpty(0).Sum();
             TotalDeduction = EmployeePayments.Select(l => l.TotalDeduction).DefaultIfEmpty(0).Sum();
