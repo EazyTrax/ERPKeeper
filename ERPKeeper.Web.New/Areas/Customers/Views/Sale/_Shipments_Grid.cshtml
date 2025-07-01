@@ -46,26 +46,31 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
-            .HeaderCellTemplate(@<text>Providers</text>)
+            .HeaderCellTemplate(@<text>Provider</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Logistics/ShipmentProviders/<%= data.ShipmentProviderId %>/"><%= displayValue %></a></text>);
 
 
 
             columns.AddFor(m => m.ShipmentAddesssId)
             .Lookup(lookup => lookup
-            .DataSource(addresses.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
+            .DataSource(addresses.Select(i => new { Value = i.Id, Text = i.Title }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
-            .HeaderCellTemplate(@<text>Providers</text>)
+            .HeaderCellTemplate(@<text>Addesss</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Profiles/@Model.CustomerId"><%= displayValue %></a></text>);
 
 
                 columns.Add()
             .AllowEditing(false)
-            .Width(130)
-            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportShipmentLabel">Print Label</a></text>);
+            .Width(60)
+            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportShipmentLabel">Print</a></text>);
 
+
+                  columns.Add()
+            .AllowEditing(false)
+            .Width(60)
+            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportPDFShipmentLabel">PDF</a></text>);
 
 
 

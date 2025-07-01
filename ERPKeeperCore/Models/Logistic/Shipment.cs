@@ -1,6 +1,7 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
+using ERPKeeperCore.Enterprise.Models.Profiles;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
 using QuestPDF.Fluent;
@@ -40,54 +41,34 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
         [ForeignKey("ShipmentAddesssId")]
         public virtual Profiles.ProfileAddress? ShipmentAddesss { get; set; }
 
-        public byte[] GeneratePDF()
+        public byte[] GeneratePDF(ProfileAddress senderAddress)
         {
             QuestPDF.Settings.License = LicenseType.Community;
-
             var document = Document.Create(container =>
             {
                 container.Page(page =>
                 {
-                    page.Size(PageSizes.A4);
-                    page.Margin(2, Unit.Centimetre);
+                    page.Size(4, 6, Unit.Inch);
+                    page.Margin(5, Unit.Millimetre);
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontSize(12));
 
-                    page.Header()
-                        .Text("SHIPMENT LABEL")
-                        .SemiBold().FontSize(24).FontColor(Colors.Blue.Medium)
-                        .AlignCenter();
-
                     page.Content()
-                        .PaddingVertical(1, Unit.Centimetre)
+                        .PaddingVertical(2, Unit.Millimetre) // Reduced from 1 centimetre to 2 millimetres
                         .Column(x =>
                         {
-                            // Shipment Info Section
-                            x.Item().Text("Shipment Information").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2);
-                            x.Item().PaddingTop(10).Row(row =>
-                            {
-                                row.RelativeItem().Column(col =>
-                                {
-                                    col.Item().Text($"Date: {Date:yyyy-MM-dd}");
-                                    col.Item().Text($"Tracking No: {TrackingNo ?? "N/A"}");
-                                    col.Item().Text($"Lot No: {LotNo ?? "N/A"}");
-                                });
-                                row.RelativeItem().Column(col =>
-                                {
-                                    col.Item().Text($"Provider: {ShipmentProvider?.Name ?? "N/A"}");
-                                    col.Item().Text($"Person: {Person ?? "N/A"}");
-                                });
-                            });
-
                             // Shipping Address Section
-                            x.Item().PaddingTop(20).Text("Shipping Address").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2);
-                            x.Item().PaddingTop(10).Border(1).Padding(10).Column(col =>
+                            x.Item().PaddingTop(2).Text("ผู้รับ:Receiver").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
+                            x.Item().PaddingTop(2).Border(1).Padding(5).MinHeight(120).Column(col => // Reduced MinHeight from 150 to 120 and PaddingTop from 5 to 2
                             {
+
                                 if (ShipmentAddesss != null)
                                 {
-                                    col.Item().Text($"{ShipmentAddesss.Name ?? ""}").SemiBold();
+                                    col.Item().Text($"{ShipmentAddesss.Profile.Name ?? ""}").SemiBold();
+                                    col.Item().Text($"{ShipmentAddesss.Title ?? ""}").SemiBold();
                                     col.Item().Text($"{ShipmentAddesss.AddressLine ?? ""}");
-                                    col.Item().Text($"Phone: {ShipmentAddesss.PhoneNumber ?? "N/A"}");
+                                    col.Item().Text($"{ShipmentAddesss.PhoneNumber ?? "N/A"}");
+                                    col.Item().Text($"{Person ?? "N/A"}").SemiBold();
                                 }
                                 else
                                 {
@@ -98,27 +79,49 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                             // Notes Section
                             if (!string.IsNullOrEmpty(Note))
                             {
-                                x.Item().PaddingTop(20).Text("Notes").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2);
-                                x.Item().PaddingTop(10).Border(1).Padding(10).Text(Note);
+                                x.Item().PaddingTop(2).Text("Notes").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
+                                x.Item().PaddingTop(2).Border(1).Padding(5).Text(Note); // Reduced from 5 to 2
                             }
+
+
+                            // Sender Address Section
+                            x.Item().PaddingTop(2).Text("ผู้ส่ง:Sender").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
+                            x.Item().PaddingTop(2).Border(1).Padding(5).Column(col => // Reduced from 5 to 2
+                            {
+                                if (senderAddress != null)
+                                {
+                                    col.Item().Text($"{senderAddress.Profile.Name ?? ""}").SemiBold();
+                                    col.Item().Text($"{senderAddress.Title ?? ""}").SemiBold();
+                                    col.Item().Text($"{senderAddress.AddressLine ?? ""}");
+                                    col.Item().Text($"{senderAddress.PhoneNumber ?? "N/A"}");
+                                }
+                                else
+                                {
+                                    col.Item().Text("No Sender Address specified").FontColor(Colors.Red.Medium);
+                                }
+                            });
+
 
                             // Barcode/QR Code placeholder for tracking
                             if (!string.IsNullOrEmpty(TrackingNo))
                             {
-                                x.Item().PaddingTop(20).AlignCenter().Column(col =>
+                                x.Item().PaddingTop(2).AlignCenter().Column(col => // Reduced from 5 to 2
                                 {
                                     col.Item().Text("Tracking Code").FontSize(14).SemiBold();
-                                    col.Item().PaddingTop(5).Border(1).Padding(20).Text(TrackingNo).FontSize(16).FontFamily("Courier New");
+                                    col.Item().PaddingTop(2).Border(1).Padding(15).Text(TrackingNo).FontSize(16).FontFamily("Courier New"); // Reduced PaddingTop from 5 to 2 and Padding from 20 to 15
                                 });
                             }
                         });
 
                     page.Footer()
                         .AlignCenter()
-                        .Text(x =>
+                        .Row(row =>
                         {
-                            x.Span("Generated on ");
-                            x.Span($"{DateTime.Now:yyyy-MM-dd HH:mm}").SemiBold();
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().Text($"Lot No: {LotNo ?? "N/A"}");
+                                col.Item().Text($"{DateTime.Now:yyyy-MM-dd HH:mm}").SemiBold();
+                            });
                         });
                 });
             });
@@ -126,5 +129,4 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
             return document.GeneratePdf();
         }
     }
-
 }

@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
         public ProfileStatus Status { get; set; }
 
 
-        public bool IsSelfOrganization { get; set; }
+        public bool IsSelfOrganization { get; set; } = false;
         public bool IsRDVerify { get; set; }
         public String? TitleName { get; set; }
         public String? Name { get; set; }

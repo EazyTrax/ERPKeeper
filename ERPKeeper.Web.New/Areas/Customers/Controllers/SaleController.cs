@@ -191,6 +191,11 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Shipments()
         {
             var transcation = Organization.Sales.Find(Id);
+            Organization.ErpCOREDBContext.Shipments.Where(x => x.TransactionId == Id && x.ShipmentAddesssId == null)
+                .ToList()
+                .ForEach(x => x.ShipmentAddesssId = transcation.ShipmentAddesssId);
+            Organization.ErpCOREDBContext.SaveChanges();
+
             return View(transcation);
         }
 
@@ -280,15 +285,17 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportPDFShipmentLabel")]
         public IActionResult ExportPDFShipmentLabel(Guid shipmentId)
         {
-
-
             var sale = Organization.Sales.Find(Id);
             var shipment = Organization.ErpCOREDBContext.Shipments.FirstOrDefault(s => s.Id == shipmentId);
+
+
+            var company = Organization.Profiles.GetSelf(); 
+            var company_address = company.Addresses.OrderByDescending(a => a.IsPrimary).FirstOrDefault();
 
             if (shipment == null)
                 return NotFound("Shipment not found");
 
-            byte[] pdfContents = shipment.GeneratePDF();
+            byte[] pdfContents = shipment.GeneratePDF(company_address);
             return File(pdfContents, "application/pdf", $"{sale.Name}-Shipment.pdf");
         }
     }

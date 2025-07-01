@@ -71,6 +71,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
             profile.WebSite = model.WebSite;
             profile.PhoneNumber = model.PhoneNumber;
             profile.IsSelfOrganization = model.IsSelfOrganization;
+
             Organization.SaveChanges();
 
             if (profile.IsSelfOrganization)
