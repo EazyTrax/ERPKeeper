@@ -1,5 +1,9 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
+@{
+    var addresses = Model.Customer.Profile.Addresses.ToList();
+}
+
 
 <div id="treeListDemo" class="mb-3 border">
 
@@ -45,6 +49,16 @@
             .HeaderCellTemplate(@<text>Providers</text>)
             .CellTemplate(@<text><a href="/@CompanyId/Logistics/ShipmentProviders/<%= data.ShipmentProviderId %>/"><%= displayValue %></a></text>);
 
+
+
+            columns.AddFor(m => m.ShipmentAddesssId)
+            .Lookup(lookup => lookup
+            .DataSource(addresses.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
+            .DisplayExpr("Text")
+            .ValueExpr("Value"))
+            .ShowInColumnChooser(true)
+            .HeaderCellTemplate(@<text>Providers</text>)
+            .CellTemplate(@<text><a href="/@CompanyId/Profiles/@Model.CustomerId"><%= displayValue %></a></text>);
 
 
                 columns.Add()

@@ -4,8 +4,10 @@ using ERPKeeperCore.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -261,18 +263,33 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult ExportShipmentLabel()
         {
             var sale = Organization.Sales.Find(Id);
-
-
             return View(sale);
         }
+
+
         [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportShipmentLabel")]
 
         public IActionResult ExportShipmentLabel(Guid ShipmentId)
         {
             ViewBag.ShipmentId = ShipmentId;
-
             var sale = Organization.Sales.Find(Id);
             return View(sale);
+        }
+
+
+        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportPDFShipmentLabel")]
+        public IActionResult ExportPDFShipmentLabel(Guid shipmentId)
+        {
+
+
+            var sale = Organization.Sales.Find(Id);
+            var shipment = Organization.ErpCOREDBContext.Shipments.FirstOrDefault(s => s.Id == shipmentId);
+
+            if (shipment == null)
+                return NotFound("Shipment not found");
+
+            byte[] pdfContents = shipment.GeneratePDF();
+            return File(pdfContents, "application/pdf", $"{sale.Name}-Shipment.pdf");
         }
     }
 }
