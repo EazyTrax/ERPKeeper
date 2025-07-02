@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Items;
+using ERPKeeperCore.Enterprise.Models.Logistic;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
 using System;
@@ -110,6 +111,11 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal Total => LinesTotalAfterDiscount + Tax;
 
         public virtual ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();
+        public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
+
+
+
+
         public virtual ReceivePayment ReceivePayment { get; set; }
 
         public Guid? IncomeAccountId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Profiles;
@@ -29,7 +30,9 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
         public DateTime Date { get; set; }
 
 
-        public Guid TransactionId { get; set; }
+        public Guid? TransactionId { get; set; }
+        [ForeignKey("TransactionId")]
+        public virtual Sale Sale { get; set; }
 
 
         public Guid ShipmentProviderId { get; set; }
@@ -41,9 +44,12 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
         [ForeignKey("ShipmentAddesssId")]
         public virtual Profiles.ProfileAddress? ShipmentAddesss { get; set; }
 
-        public byte[] GeneratePDF(string transactionName, ProfileAddress senderAddress)
+        public byte[] GeneratePDF(ProfileAddress senderAddress)
         {
             QuestPDF.Settings.License = LicenseType.Community;
+
+            var QRCodeFile = Helper.Barcode.Generator.GenerateQRCodeImage(Sale.Name);
+
             var document = Document.Create(container =>
             {
                 container.Page(page =>
@@ -75,13 +81,13 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                                 }
                             });
 
-                            x.Item().PaddingTop(2).Padding(5).Column(col =>
+                            x.Item().Padding(5).Column(col =>
                             {
                                 col.Item().Text($" ").SemiBold();
                             });
 
                             // Shipping Address Section
-                            x.Item().PaddingTop(2).Border(1).Padding(5).MinHeight(120).Column(col => // Reduced MinHeight from 150 to 120 and PaddingTop from 5 to 2
+                            x.Item().PaddingTop(2).Border(1).Padding(5).MinHeight(160).Column(col => // Reduced MinHeight from 150 to 120 and PaddingTop from 5 to 2
                         {
                             col.Item().PaddingTop(2).Text("ผู้รับ:Receiver").FontSize(16).SemiBold(); // Reduced from 5 to 2
 
@@ -92,22 +98,20 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                                 col.Item().Text($"{ShipmentAddesss.AddressLine ?? ""}");
                                 col.Item().Text($"{ShipmentAddesss.PhoneNumber ?? "N/A"}");
                                 col.Item().Text($"{Person ?? "N/A"}").SemiBold();
+
+
+                                if (!string.IsNullOrEmpty(Sale.Name))
+                                    col.Item().PaddingTop(5).Text(Sale.Name);
+                                if (!string.IsNullOrEmpty(Sale.Reference))
+                                    col.Item().PaddingTop(5).Text(Sale.Reference);
+                                if (!string.IsNullOrEmpty(Note))
+                                    col.Item().PaddingTop(5).Text(Note);
                             }
                             else
                             {
                                 col.Item().Text("No shipping address specified").FontColor(Colors.Red.Medium);
                             }
                         });
-
-                            // Notes Section
-                            if (!string.IsNullOrEmpty(Note))
-                            {
-                                x.Item().PaddingTop(5).Text("Notes").FontSize(16).SemiBold(); // Reduced from 5 to 2
-                                x.Item().PaddingTop(2).Border(1).Padding(5).Text(Note);
-                            }
-
-
-
 
                             // Barcode/QR Code placeholder for tracking
                             if (!string.IsNullOrEmpty(TrackingNo))
@@ -124,10 +128,14 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                         .AlignCenter()
                         .Row(row =>
                         {
-
                             row.RelativeItem().Text($"Lot No: {LotNo ?? "N/A"}");
-
                             row.RelativeItem().Text($"{DateTime.Now:yyyy-MM-dd HH:mm}").SemiBold();
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().AlignCenter().Width(50).Height(50).Image(QRCodeFile);
+                            });
+
+
                         });
                 });
             });
