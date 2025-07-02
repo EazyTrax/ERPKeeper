@@ -57,6 +57,26 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                         .PaddingVertical(2, Unit.Millimetre) // Reduced from 1 centimetre to 2 millimetres
                         .Column(x =>
                         {
+
+
+                            // Sender Address Section
+                            x.Item().PaddingTop(2).Text("ผู้ส่ง:Sender").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
+                            x.Item().PaddingTop(2).Border(1).Padding(5).Column(col => // Reduced from 5 to 2
+                            {
+                                if (senderAddress != null)
+                                {
+                                    col.Item().Text($"{senderAddress.Profile.Name ?? ""}").SemiBold();
+                                    col.Item().Text($"{senderAddress.Title ?? ""}").SemiBold();
+                                    col.Item().Text($"{senderAddress.AddressLine ?? ""}");
+                                    col.Item().Text($"{senderAddress.PhoneNumber ?? "N/A"}");
+                                }
+                                else
+                                {
+                                    col.Item().Text("No Sender Address specified").FontColor(Colors.Red.Medium);
+                                }
+                            });
+
+
                             // Shipping Address Section
                             x.Item().PaddingTop(2).Text("ผู้รับ:Receiver").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
                             x.Item().PaddingTop(2).Border(1).Padding(5).MinHeight(120).Column(col => // Reduced MinHeight from 150 to 120 and PaddingTop from 5 to 2
@@ -84,22 +104,6 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                             }
 
 
-                            // Sender Address Section
-                            x.Item().PaddingTop(2).Text("ผู้ส่ง:Sender").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
-                            x.Item().PaddingTop(2).Border(1).Padding(5).Column(col => // Reduced from 5 to 2
-                            {
-                                if (senderAddress != null)
-                                {
-                                    col.Item().Text($"{senderAddress.Profile.Name ?? ""}").SemiBold();
-                                    col.Item().Text($"{senderAddress.Title ?? ""}").SemiBold();
-                                    col.Item().Text($"{senderAddress.AddressLine ?? ""}");
-                                    col.Item().Text($"{senderAddress.PhoneNumber ?? "N/A"}");
-                                }
-                                else
-                                {
-                                    col.Item().Text("No Sender Address specified").FontColor(Colors.Red.Medium);
-                                }
-                            });
 
 
                             // Barcode/QR Code placeholder for tracking
