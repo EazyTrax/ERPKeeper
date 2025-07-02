@@ -41,7 +41,7 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
         [ForeignKey("ShipmentAddesssId")]
         public virtual Profiles.ProfileAddress? ShipmentAddesss { get; set; }
 
-        public byte[] GeneratePDF(ProfileAddress senderAddress)
+        public byte[] GeneratePDF(string transactionName, ProfileAddress senderAddress)
         {
             QuestPDF.Settings.License = LicenseType.Community;
             var document = Document.Create(container =>
@@ -57,12 +57,11 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                         .PaddingVertical(2, Unit.Millimetre) // Reduced from 1 centimetre to 2 millimetres
                         .Column(x =>
                         {
-
-
                             // Sender Address Section
-                            x.Item().PaddingTop(2).Text("ผู้ส่ง:Sender").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
                             x.Item().PaddingTop(2).Border(1).Padding(5).Column(col => // Reduced from 5 to 2
                             {
+                                col.Item().PaddingTop(2).Text("ผู้ส่ง:Sender").FontSize(16).SemiBold(); // Reduced from 5 to 2
+
                                 if (senderAddress != null)
                                 {
                                     col.Item().Text($"{senderAddress.Profile.Name ?? ""}").SemiBold();
@@ -76,31 +75,35 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                                 }
                             });
 
+                            x.Item().PaddingTop(2).Padding(5).Column(col =>
+                            {
+                                col.Item().Text($" ").SemiBold();
+                            });
 
                             // Shipping Address Section
-                            x.Item().PaddingTop(2).Text("ผู้รับ:Receiver").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
                             x.Item().PaddingTop(2).Border(1).Padding(5).MinHeight(120).Column(col => // Reduced MinHeight from 150 to 120 and PaddingTop from 5 to 2
-                            {
+                        {
+                            col.Item().PaddingTop(2).Text("ผู้รับ:Receiver").FontSize(16).SemiBold(); // Reduced from 5 to 2
 
-                                if (ShipmentAddesss != null)
-                                {
-                                    col.Item().Text($"{ShipmentAddesss.Profile.Name ?? ""}").SemiBold();
-                                    col.Item().Text($"{ShipmentAddesss.Title ?? ""}").SemiBold();
-                                    col.Item().Text($"{ShipmentAddesss.AddressLine ?? ""}");
-                                    col.Item().Text($"{ShipmentAddesss.PhoneNumber ?? "N/A"}");
-                                    col.Item().Text($"{Person ?? "N/A"}").SemiBold();
-                                }
-                                else
-                                {
-                                    col.Item().Text("No shipping address specified").FontColor(Colors.Red.Medium);
-                                }
-                            });
+                            if (ShipmentAddesss != null)
+                            {
+                                col.Item().Text($"{ShipmentAddesss.Profile.Name ?? ""}").SemiBold();
+                                col.Item().Text($"{ShipmentAddesss.Title ?? ""}").SemiBold();
+                                col.Item().Text($"{ShipmentAddesss.AddressLine ?? ""}");
+                                col.Item().Text($"{ShipmentAddesss.PhoneNumber ?? "N/A"}");
+                                col.Item().Text($"{Person ?? "N/A"}").SemiBold();
+                            }
+                            else
+                            {
+                                col.Item().Text("No shipping address specified").FontColor(Colors.Red.Medium);
+                            }
+                        });
 
                             // Notes Section
                             if (!string.IsNullOrEmpty(Note))
                             {
-                                x.Item().PaddingTop(2).Text("Notes").FontSize(16).SemiBold().FontColor(Colors.Grey.Darken2); // Reduced from 5 to 2
-                                x.Item().PaddingTop(2).Border(1).Padding(5).Text(Note); // Reduced from 5 to 2
+                                x.Item().PaddingTop(5).Text("Notes").FontSize(16).SemiBold(); // Reduced from 5 to 2
+                                x.Item().PaddingTop(2).Border(1).Padding(5).Text(Note);
                             }
 
 
@@ -121,11 +124,10 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                         .AlignCenter()
                         .Row(row =>
                         {
-                            row.RelativeItem().Column(col =>
-                            {
-                                col.Item().Text($"Lot No: {LotNo ?? "N/A"}");
-                                col.Item().Text($"{DateTime.Now:yyyy-MM-dd HH:mm}").SemiBold();
-                            });
+
+                            row.RelativeItem().Text($"Lot No: {LotNo ?? "N/A"}");
+
+                            row.RelativeItem().Text($"{DateTime.Now:yyyy-MM-dd HH:mm}").SemiBold();
                         });
                 });
             });

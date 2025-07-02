@@ -289,13 +289,13 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var shipment = Organization.ErpCOREDBContext.Shipments.FirstOrDefault(s => s.Id == shipmentId);
 
 
-            var company = Organization.Profiles.GetSelf(); 
+            var company = Organization.Profiles.GetSelf();
             var company_address = company.Addresses.OrderByDescending(a => a.IsPrimary).FirstOrDefault();
 
             if (shipment == null)
                 return NotFound("Shipment not found");
 
-            byte[] pdfContents = shipment.GeneratePDF(company_address);
+            byte[] pdfContents = shipment.GeneratePDF(sale.Name, company_address);
             return File(pdfContents, "application/pdf", $"{sale.Name}-Shipment.pdf");
         }
     }
