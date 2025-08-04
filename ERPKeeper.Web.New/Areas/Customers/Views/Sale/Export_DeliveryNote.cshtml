@@ -1,30 +1,33 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
 @{
     Layout = "_Layout_Export";
-    var documentNameContent = "ใบเสนอราคา";
-    var customerAddress = Model.ProfileAddesss;
-
-    if (customerAddress == null)
-        customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
 }
 
-@await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
+@{
+    var documentNameContent = ViewBag.DocumentName;
 
+    var customerAddress = Organization.ErpCOREDBContext.ProfileAddresses.Where(p => p.Id == Model.ProfileAddesssId).FirstOrDefault();
 
-<div class="grid grid-cols-3 gap-2 border border-dark" id="BuyerDetail">
-    <div class="col-span-2  p-2">
-        <div>
+    if (customerAddress == null)
+    {
+        customerAddress = Model.Customer.Profile.Addresses.FirstOrDefault();
+    }
+}
+
+<partial name="/areas/enterprise_export/view/shared/_header.cshtml" model="documentNameContent" />
+
+<div class="grid grid-cols-3" id="BuyerDetail">
+    <div class="col-span-2 border border-dark  p-2">
+        <div class="font-semibold">
             <b>ผู้ซื้อ</b>
-            <a href="/@CompanyId/Customers/Customers/@Model.CustomerId" class="font-semibold">
+            <a href="/@CompanyId/Customers/Customers/@Model.CustomerId">
                 @Model.Customer.Profile.Name
             </a>
         </div>
-
         <div>
             เลขที่ผู้เสียภาษี @Model.Customer.Profile.TaxNumber สาขา @customerAddress?.Number
         </div>
-
         @if (customerAddress != null)
         {
             <div>
@@ -33,7 +36,7 @@
             </div>
         }
     </div>
-    <div class="  p-2">
+    <div class=" border border-dark  p-2">
         <div class="grid grid-cols-2 gap-x-2">
             <div class="font-semibold">เลขที่</div>
             <div class="text-right">@Model.Name</div>
@@ -51,19 +54,21 @@
 </div>
 
 <!-- Items Table -->
-<div class="border border-dark" id="Items">
+<div class="border border-dark min-h-96" id="Items">
     <!-- Table Header -->
-    <div class="grid grid-cols-12 gap-2 font-semibold mb-2 p-2   border-bottom border-dark">
+    <div class="grid grid-cols-12 gap-2 font-semibold border-bottom border-dark p-2">
+
         <div class="col-span-7">รายการ</div>
         <div class="col-span-1 text-right">จำนวน</div>
         <div class="col-span-2 text-right">หน่วยละ</div>
         <div class="col-span-2 text-right">รวม</div>
     </div>
-    <div class="mb-2 p-2 min-h-96">
-        @foreach (var item in Model.Items.OrderBy(x => x.Order).ToList())
+    <div class="p-2">
+        @foreach (var item in Model.Items.ToList())
         {
-            <div class="grid grid-cols-12 gap-2 pb-1 no-break">
+            <div class="grid grid-cols-12 gap-2 py-1">
                 <div class="flex col-span-7">
+
                     <div class="pr-3">@item.Order</div>
 
                     <div class="">
@@ -71,22 +76,18 @@
                             @item.PartNumber
                         </div>
                         <div class="">
-                            @Html.Raw(item.Description?.Replace("\n", "<br/>"))
+                            @item.Description
                         </div>
 
                         @if (!string.IsNullOrEmpty(item.Serial))
                         {
                             <div class="whitespace-pre-line">
-                                @item.Serial
+                                S/N: @item.Serial?.Replace("\n", ", ")
                             </div>
                         }
+
                     </div>
-
                 </div>
-
-
-
-
                 <div class="col-span-1 text-right">@item.Quantity</div>
                 <div class="col-span-2 text-right">@item.PriceAfterDiscount.ToString("N2")</div>
                 <div class="col-span-2 text-right">@item.LineTotal.ToString("N2")</div>
@@ -97,12 +98,11 @@
             @Model.Memo
         </div>
     </div>
-
 </div>
 
 
-<div class="grid grid-cols-2 mb-1 border border-dark p-2  no-break" id="Summary">
 
+<div class="grid grid-cols-2 gap-2 mb-3 border border-dark p-2" id="Summary">
     <div>
         @await Html.PartialAsync("/areas/enterprise_export/view/shared/_Payments_BankAccounts.cshtml")
     </div>
@@ -110,24 +110,25 @@
     <div class="mb-2">
         @if (@Model.Discount > 0)
         {
-            <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">ส่วนลด</div>
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="text-right">ส่วนลด</div>
                 <div class="text-right ">@Model.Discount.ToString("N2")</div>
             </div>
         }
 
-        <div class="grid grid-cols-4 gap-4">
-            <div class="text-right col-span-3">ราคารวม</div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-right">ราคารวม</div>
             <div class="text-right ">@Model.LinesTotalAfterDiscount.ToString("N2")</div>
         </div>
 
-        <div class="grid grid-cols-4 gap-4">
-            <div class="text-right col-span-3">ภาษีมูลค่าเพิ่ม</div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-right">ภาษีมูลค่าเพิ่ม</div>
             <div class="text-right ">@Model.Tax.ToString("N2")</div>
         </div>
 
-        <div class="grid grid-cols-4 gap-4 ">
-            <div class="text-right col-span-3">ราคารวมภาษี</div>
+        <div class="grid grid-cols-2 gap-4 ">
+            <div class="text-right">ราคารวมภาษี</div>
             <div class="text-right ">@Model.Total.ToString("N2")</div>
         </div>
 
@@ -135,6 +136,10 @@
             (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total))
         </div>
     </div>
-
 </div>
 
+<partial name="_Export_DeliveryNote_Sign" />
+
+<div class="mb-3">
+    Issuer: @User.Identity.Name
+</div>

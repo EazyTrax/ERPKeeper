@@ -253,6 +253,19 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return View(transcation);
         }
+        public IActionResult Export_DeliveryNote(string documentName = "ใบส่งของ")
+        {
+            var transcation = Organization.Sales.Find(Id);
+            transcation.Reorder();
+            transcation.UpdateBalance();
+            Organization.SaveChanges();
+
+            ViewBag.DocumentName = documentName;
+
+            return View(transcation);
+        }
+
+        
         public IActionResult ExportInvat(string documentName = "ใบกำกับภาษี")
         {
             var transcation = Organization.Sales.Find(Id);

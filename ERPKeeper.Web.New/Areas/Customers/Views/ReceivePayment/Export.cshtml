@@ -5,7 +5,7 @@
     Layout = "_Layout_Export";
 
     var documentNameContent = "ใบเสร็จรับเงิน";
-    var customerAddress = Model.Sale.Customer.Profile.Addresses.FirstOrDefault();
+    var customerAddress = Model.Sale.ProfileAddesss.Profile.Addresses.FirstOrDefault();
 }
 
 @await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
