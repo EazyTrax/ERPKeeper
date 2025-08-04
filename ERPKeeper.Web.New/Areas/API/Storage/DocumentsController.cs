@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.New.API.Storage
 {
-
     public class DocumentsController : API_Storage_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
@@ -31,7 +30,6 @@ namespace ERPKeeperCore.Web.New.API.Storage
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
-
 
             Organization.ErpCOREDBContext.Documents.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
