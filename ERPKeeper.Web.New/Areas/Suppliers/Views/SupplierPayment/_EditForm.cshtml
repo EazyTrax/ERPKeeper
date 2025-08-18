@@ -3,7 +3,7 @@
 
 
 <form id="EditForm" action="/@CompanyId/Suppliers/SupplierPayments/@Model.Id/Update" method="post">
-    <div >
+    <div>
         <div class="grid grid-cols-3">
 
             <div class="border">
@@ -29,7 +29,7 @@
                     <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("Date").LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.Amount).Label("Amount").Disabled(true).LabelMode(EditorLabelMode.Static)</div>
                     <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountDiscount).Label("Discount").LabelMode(EditorLabelMode.Static)</div>
-                          <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscount).Label("Total").LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscount).Label("Total").LabelMode(EditorLabelMode.Static)</div>
 
                 </div>
             </div>
@@ -40,16 +40,20 @@
 
                     <div class="mb-2">
                         @(Html.DevExtreme().SelectBoxFor(m => m.RetentionTypeId)
-                            .DataSource(Organization.ErpCOREDBContext.RetentionTypes.ToList().Select(t => new { t.Id, t.Name }).ToList())
-                            .Placeholder("Retention")
-                            .DisplayExpr("Name")
-                            .ValueExpr("Id")
-                            .Label("Retention")
-                            .ShowClearButton(true)
-                            .LabelMode(EditorLabelMode.Static)
-                            )
+                                                .DataSource(Organization.ErpCOREDBContext.RetentionTypes.ToList().Select(t => new { t.Id, t.Name }).ToList())
+                                                .Placeholder("Retention")
+                                                .DisplayExpr("Name")
+                                                .ValueExpr("Id")
+                                                .Label("Retention")
+                                                .ShowClearButton(true)
+                                                .LabelMode(EditorLabelMode.Static)
+                                                )
                     </div>
-                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountRetention).Label("Retention").LabelMode(EditorLabelMode.Static)</div>
+
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscount).Label("Total").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountRetention).Label("Retention").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+                    <div class="mb-2">@Html.DevExtreme().NumberBoxFor(m => m.AmountAfterDiscountAndRetention).Label("Total Pay").ReadOnly(true).LabelMode(EditorLabelMode.Static)</div>
+
                 </div>
             </div>
 
@@ -70,5 +74,5 @@
             </div>
         </div>
     </div>
- 
+
 </form>

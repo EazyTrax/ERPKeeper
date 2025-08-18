@@ -5,6 +5,6 @@
         .Name("uploadFile")
         .Multiple(true)
         .AllowedFileExtensions(new string[] { ".xlsx", ".docx", ".pdf", ".png", ".jpg" })
-        .UploadMode(FileUploadMode.Instantly)
+        .UploadMode(FileUploadMode.UseButtons)
         .UploadUrl($"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/DocumentUpload"))
 </div>

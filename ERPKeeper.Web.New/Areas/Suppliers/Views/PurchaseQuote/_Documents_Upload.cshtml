@@ -1,10 +1,138 @@
-﻿
-<div class="bg-gray-100 p-2 mb-2 min-h-20">
+﻿<div class="bg-gray-100 p-2 mb-2 min-h-20" id="uploadContainer">
+    <div class="mb-2 text-sm text-gray-600">
+        <i class="fas fa-info-circle"></i> You can upload files by selecting them or pasting images from clipboard (Ctrl+V)
+    </div>
     @(Html.DevExtreme().FileUploader()
         .ID("uploadFile")
         .Name("uploadFile")
         .Multiple(true)
         .AllowedFileExtensions(new string[] { ".xlsx", ".docx", ".pdf", ".png", ".jpg" })
-        .UploadMode(FileUploadMode.Instantly)
+        .UploadMode(FileUploadMode.UseButtons)
         .UploadUrl($"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/DocumentUpload"))
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadContainer = document.getElementById('uploadContainer');
+    const fileUploader = DevExpress.ui.dxFileUploader.getInstance(document.getElementById('uploadFile'));
+    
+    // Add visual feedback for clipboard functionality
+    uploadContainer.style.border = '2px dashed #ccc';
+    uploadContainer.style.transition = 'border-color 0.3s ease';
+    
+    // Handle paste events
+    document.addEventListener('paste', function(e) {
+        // Check if we're in the upload area or its children
+        if (uploadContainer.contains(e.target) || e.target === uploadContainer) {
+            handlePaste(e);
+        }
+    });
+    
+    // Also handle paste when the container is focused
+    uploadContainer.addEventListener('paste', handlePaste);
+    
+    // Make container focusable and add visual feedback
+    uploadContainer.setAttribute('tabindex', '0');
+    
+    uploadContainer.addEventListener('focus', function() {
+        this.style.borderColor = '#007bff';
+        this.style.backgroundColor = '#f8f9fa';
+    });
+    
+    uploadContainer.addEventListener('blur', function() {
+        this.style.borderColor = '#ccc';
+        this.style.backgroundColor = '#f8f8f8';
+    });
+    
+    function handlePaste(e) {
+        e.preventDefault();
+        
+        const items = e.clipboardData.items;
+        const files = [];
+        
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            
+            // Check if the item is an image
+            if (item.type.indexOf('image') !== -1) {
+                const blob = item.getAsFile();
+                if (blob) {
+                    // Create a more descriptive filename
+                    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                    const extension = blob.type.split('/')[1] || 'png';
+                    const filename = `clipboard-image-${timestamp}.${extension}`;
+                    
+                    // Create a new File object with a proper name
+                    const file = new File([blob], filename, {
+                        type: blob.type,
+                        lastModified: Date.now()
+                    });
+                    
+                    files.push(file);
+                }
+            }
+        }
+        
+        if (files.length > 0) {
+            // Show visual feedback
+            uploadContainer.style.borderColor = '#28a745';
+            uploadContainer.style.backgroundColor = '#d4edda';
+            
+            setTimeout(() => {
+                uploadContainer.style.borderColor = '#ccc';
+                uploadContainer.style.backgroundColor = '#f8f8f8';
+            }, 1000);
+            
+            // Add files to the DevExtreme FileUploader
+            // Note: DevExtreme FileUploader doesn't have a direct API to add files programmatically
+            // So we'll trigger the upload directly
+            uploadFilesDirectly(files);
+        }
+    }
+    
+    function uploadFilesDirectly(files) {
+        const uploadUrl = fileUploader.option('uploadUrl');
+        
+        files.forEach(function(file) {
+            const formData = new FormData();
+            formData.append('uploadFile', file);
+            
+            fetch(uploadUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('File uploaded successfully:', file.name);
+                    // You might want to refresh the document list here
+                    // or show a success message
+                    showUploadMessage('File uploaded successfully: ' + file.name, 'success');
+                } else {
+                    console.error('Upload failed for:', file.name);
+                    showUploadMessage('Upload failed for: ' + file.name, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Upload error:', error);
+                showUploadMessage('Upload error for: ' + file.name, 'error');
+            });
+        });
+    }
+    
+    function showUploadMessage(message, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'} mt-2`;
+        messageDiv.style.fontSize = '12px';
+        messageDiv.style.padding = '8px';
+        messageDiv.textContent = message;
+        
+        uploadContainer.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+        }, 3000);
+    }
+});
+</script>

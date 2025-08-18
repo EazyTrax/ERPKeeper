@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,7 +64,7 @@ namespace ERPKeeperCore.Enterprise.Helpers
             {
                 var tenThousandPart = number / 10000;
                 if (tenThousandPart == 1)
-                    result += "สิบ";
+                    result += "หนึ่งหมื่น";
                 else
                     result += Units[tenThousandPart] + "หมื่น";
                 number %= 10000;
