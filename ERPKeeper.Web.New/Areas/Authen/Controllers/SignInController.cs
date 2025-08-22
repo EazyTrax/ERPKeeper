@@ -69,10 +69,16 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 
             ClaimsPrincipal principal = new(modelIdentity);
 
+            var authProperties = new AuthenticationProperties 
+            { 
+                IsPersistent = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30) // Explicit 30-day expiration for persistent login
+            };
+
             await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     principal,
-                    new AuthenticationProperties { IsPersistent = true });
+                    authProperties);
 
             return Redirect("/Portal");
         }

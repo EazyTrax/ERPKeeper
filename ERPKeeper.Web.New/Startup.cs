@@ -2,6 +2,7 @@ using ERPKeeperCore.Web.Resources;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -36,7 +37,10 @@ namespace ERPKeeperCore.Web
                        .AddCookie(options =>
                        {
                            options.LoginPath = "/Authen";
-                           options.ExpireTimeSpan = TimeSpan.FromDays(2);
+                           options.ExpireTimeSpan = TimeSpan.FromDays(30); // Extended to 30 days
+                           options.SlidingExpiration = true; // This extends the cookie lifetime on each request
+                           options.Cookie.HttpOnly = true; // Security improvement
+                           options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Security improvement
                        });
 
             services.AddSingleton<LocalizeService>();
