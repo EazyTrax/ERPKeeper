@@ -81,7 +81,7 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                                 }
                             });
 
-                            x.Item().Padding(5).Column(col =>
+                            x.Item().Padding(1).Column(col =>
                             {
                                 col.Item().Text($" ").SemiBold();
                             });
@@ -96,16 +96,14 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                                 col.Item().Text($"{ShipmentAddesss.Profile.Name ?? ""}").SemiBold();
                                 col.Item().Text($"{ShipmentAddesss.Title ?? ""}").SemiBold();
                                 col.Item().Text($"{ShipmentAddesss.AddressLine ?? ""}");
-                                col.Item().Text($"{ShipmentAddesss.PhoneNumber ?? "N/A"}");
-                                col.Item().Text($"{Person ?? "N/A"}").SemiBold();
-
+                                col.Item().Text($"{Person ?? "N/A"} {ShipmentAddesss.PhoneNumber ?? "N/A"}");
+   
 
                                 if (!string.IsNullOrEmpty(Sale.Name))
                                     col.Item().PaddingTop(5).Text(Sale.Name);
                                 if (!string.IsNullOrEmpty(Sale.Reference))
                                     col.Item().PaddingTop(5).Text(Sale.Reference);
-                                if (!string.IsNullOrEmpty(Note))
-                                    col.Item().PaddingTop(5).Text(Note);
+                      
                             }
                             else
                             {
@@ -134,8 +132,7 @@ namespace ERPKeeperCore.Enterprise.Models.Logistic
                             {
                                 col.Item().AlignCenter().Width(50).Height(50).Image(QRCodeFile);
                             });
-
-
+                           
                         });
                 });
             });
