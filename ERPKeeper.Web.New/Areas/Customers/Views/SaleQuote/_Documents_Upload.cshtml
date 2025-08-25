@@ -1,12 +1,12 @@
 ﻿<div class="bg-gray-100 p-2 mb-2 min-h-20" id="uploadContainer">
     <div class="mb-2 text-sm text-gray-600">
-        <i class="fas fa-info-circle"></i> You can upload files by selecting them or pasting images from clipboard (Ctrl+V)
+        <i class="fas fa-info-circle"></i> You can upload files by selecting them or pasting files from clipboard (Ctrl+V)
     </div>
     @(Html.DevExtreme().FileUploader()
         .ID("uploadFile")
         .Name("uploadFile")
         .Multiple(true)
-        .AllowedFileExtensions(new string[] { ".xlsx", ".docx", ".pdf", ".png", ".jpg" })
+        .AllowedFileExtensions(new string[] { ".xlsx", ".docx", ".pdf", ".png", ".jpg", ".txt" })
         .UploadMode(FileUploadMode.UseButtons)
         .UploadUrl($"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/DocumentUpload"))
 </div>
@@ -20,16 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
     uploadContainer.style.border = '2px dashed #ccc';
     uploadContainer.style.transition = 'border-color 0.3s ease';
     
-    // Handle paste events
+    // Handle paste events - only use one event listener to prevent duplicates
     document.addEventListener('paste', function(e) {
         // Check if we're in the upload area or its children
         if (uploadContainer.contains(e.target) || e.target === uploadContainer) {
             handlePaste(e);
         }
     });
-    
-    // Also handle paste when the container is focused
-    uploadContainer.addEventListener('paste', handlePaste);
     
     // Make container focusable and add visual feedback
     uploadContainer.setAttribute('tabindex', '0');
@@ -46,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function handlePaste(e) {
         e.preventDefault();
+        e.stopPropagation(); // Prevent event bubbling
         
         const items = e.clipboardData.items;
         const files = [];
@@ -53,14 +51,54 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
             
-            // Check if the item is an image
-            if (item.type.indexOf('image') !== -1) {
+            // Check if the item is a file (any type)
+            if (item.kind === 'file') {
                 const blob = item.getAsFile();
                 if (blob) {
                     // Create a more descriptive filename
                     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-                    const extension = blob.type.split('/')[1] || 'png';
-                    const filename = `clipboard-image-${timestamp}.${extension}`;
+                    let extension = 'bin'; // default extension
+                    let filename = `clipboard-file-${timestamp}`;
+                    
+                    // Determine extension and filename based on MIME type
+                    if (blob.type) {
+                        if (blob.type.startsWith('image/')) {
+                            extension = blob.type.split('/')[1] || 'png';
+                            // Handle jpeg vs jpg
+                            if (extension === 'jpeg') extension = 'jpg';
+                            filename = `clipboard-image-${timestamp}.${extension}`;
+                        } else if (blob.type === 'application/pdf') {
+                            extension = 'pdf';
+                            filename = `clipboard-document-${timestamp}.${extension}`;
+                        } else if (blob.type === 'text/plain') {
+                            extension = 'txt';
+                            filename = `clipboard-text-${timestamp}.${extension}`;
+                        } else if (blob.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                            extension = 'xlsx';
+                            filename = `clipboard-excel-${timestamp}.${extension}`;
+                        } else if (blob.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                            extension = 'docx';
+                            filename = `clipboard-word-${timestamp}.${extension}`;
+                        } else {
+                            // For other supported types or unknown types, use generic naming
+                            const supportedExtensions = ['.xlsx', '.docx', '.pdf', '.png', '.jpg', '.txt'];
+                            // Try to guess from common MIME types
+                            const mimeExtensions = {
+                                'application/msword': 'doc',
+                                'application/vnd.ms-excel': 'xls',
+                                'text/csv': 'csv'
+                            };
+                            
+                            if (mimeExtensions[blob.type]) {
+                                extension = mimeExtensions[blob.type];
+                                filename = `clipboard-file-${timestamp}.${extension}`;
+                            } else {
+                                filename = `clipboard-file-${timestamp}`;
+                            }
+                        }
+                    } else {
+                        filename = `clipboard-file-${timestamp}`;
+                    }
                     
                     // Create a new File object with a proper name
                     const file = new File([blob], filename, {

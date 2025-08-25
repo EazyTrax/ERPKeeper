@@ -23,33 +23,36 @@
     }
 }
 
+<div id="lefmenu_holder" class="">
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">@Model.Name</a>
-</div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}");
-        MenuTemplate(0, "Items", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items", Model.Items.Count());
-        MenuTemplate(0, "Documents", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Documents");
-
-        if (Model.SaleId != null)
-        {
-            MenuTemplate(0, "Sale", $"/{CompanyId}/Customers/Sales/{Model.SaleId}");
-        }
-    }
-</div>
-
-@if (Model.SaleId != null)
-{
-    <div class="lh-120 bg-gray-100 p-2 rounded border">
-        <div>Sale</div>
+    <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+        <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id">@Model.Name</a>
     </div>
-}
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        MenuTemplate(0, "Export", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Export");
+    <div class="lh-120 bg-gray-100 p-2 rounded border">
+        @{
+            MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}");
+            MenuTemplate(0, "Items", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items", Model.Items.Count());
+            MenuTemplate(0, "Documents", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Documents");
+
+            if (Model.SaleId != null)
+            {
+                MenuTemplate(0, "Sale", $"/{CompanyId}/Customers/Sales/{Model.SaleId}");
+            }
+        }
+    </div>
+
+    @if (Model.SaleId != null)
+    {
+        <div class="lh-120 bg-gray-100 p-2 rounded border">
+            <div>Sale</div>
+        </div>
     }
+
+    <div class="lh-120 bg-gray-100 p-2 rounded border">
+        @{
+            MenuTemplate(0, "Export", $"/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Export");
+        }
+    </div>
 </div>

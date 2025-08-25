@@ -1,8 +1,4 @@
-﻿
-
-
-
-<div id="treeListDemo" class="mb-3 border">
+﻿<div id="treeList" class="mt-2 mb-3 border">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
             .ID("gridList")
@@ -57,6 +53,7 @@
 
                 columns.AddFor(m => m.CustomerId)
             .MinWidth(250)
+            .HeaderCellTemplate("Customer")
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }).ToList())
             .DisplayExpr("Text")
@@ -190,3 +187,12 @@
         }
     }
 </script>
+
+<style>
+    #gridList .dx-datagrid .dx-header-row {
+        background-color: #dbeafe !important; /* bg-blue-100 */
+    }
+    #gridList .dx-datagrid .dx-header-row td {
+        background-color: #dbeafe !important; /* bg-blue-100 */
+    }
+</style>

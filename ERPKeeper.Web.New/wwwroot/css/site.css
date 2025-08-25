@@ -57,12 +57,12 @@
   color: red !important;
 }
 .dx-datagrid .dx-header-row {
-  background-color: #e5e7eb !important;
-  /* bg-gray-200 equivalent */
+  background-color: #d1d5db !important;
+  /* bg-gray-300 equivalent */
 }
 .dx-datagrid .dx-header-row td {
-  background-color: #e5e7eb !important;
-  /* bg-gray-200 equivalent */
+  background-color: #d1d5db !important;
+  /* bg-gray-300 equivalent */
 }
 html {
   overflow: scroll;
@@ -99,13 +99,38 @@ a:focus {
 .text-false {
   color: red;
 }
-@media print {
-  .page-break {
-    page-break-before: always;
-  }
-  html,
-  body {
-    width: 210mm;
-    height: 297mm;
-  }
+/* Alternative approach using CSS classes for different grid types */
+
+/* Sales Grid - Blue headers */
+.sales-grid .dx-datagrid .dx-header-row {
+    background-color: #dbeafe !important; /* bg-blue-100 */
 }
+.sales-grid .dx-datagrid .dx-header-row td {
+    background-color: #dbeafe !important; /* bg-blue-100 */
+}
+
+/* Customer Grid - Green headers */
+.customer-grid .dx-datagrid .dx-header-row {
+    background-color: #dcfce7 !important; /* bg-green-100 */
+}
+.customer-grid .dx-datagrid .dx-header-row td {
+    background-color: #dcfce7 !important; /* bg-green-100 */
+}
+
+/* Supplier Grid - Purple headers */
+.supplier-grid .dx-datagrid .dx-header-row {
+    background-color: #f3e8ff !important; /* bg-purple-100 */
+}
+.supplier-grid .dx-datagrid .dx-header-row td {
+    background-color: #f3e8ff !important; /* bg-purple-100 */
+}
+
+/* Project Grid - Yellow headers */
+.project-grid .dx-datagrid .dx-header-row {
+    background-color: #fefce8 !important; /* bg-yellow-100 */
+}
+.project-grid .dx-datagrid .dx-header-row td {
+    background-color: #fefce8 !important; /* bg-yellow-100 */
+}
+
+/* ...existing styles... */
