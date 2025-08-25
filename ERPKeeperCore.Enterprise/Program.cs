@@ -35,8 +35,7 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
 
-                //newOrganization.TaxPeriods.UnPostToTransactions();
-                //newOrganization.TaxPeriods.PostToTransactions();
+                newOrganization.Sales.Post_Ledgers();
 
                 if (false && newOrganization != null)
                 {

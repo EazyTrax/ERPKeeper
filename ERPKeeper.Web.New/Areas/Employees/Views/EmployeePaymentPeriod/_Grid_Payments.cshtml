@@ -23,8 +23,7 @@
             .ShowBorders(false)
             .Width("100%")
             .Paging(paging => paging.PageSize(100))
-            .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true).UseIcons(true)
-            )
+            
 
             .AllowColumnResizing(true).AllowColumnReordering(true)
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
@@ -62,6 +61,8 @@
                 columns.AddFor(m => m.TotalEarning).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
             
                 columns.AddFor(m => m.TotalDeduction).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
+
+                columns.AddFor(m => m.TotalPayment).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Pay</text>);
 
 
 

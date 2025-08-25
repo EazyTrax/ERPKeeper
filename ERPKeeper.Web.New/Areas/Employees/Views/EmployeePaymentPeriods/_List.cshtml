@@ -18,9 +18,6 @@
         .ShowBorders(false)
         .Width("100%")
         .Paging(paging => paging.PageSize(100))
-        .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).AllowUpdating(true)
-        )
-
         .AllowColumnResizing(true).AllowColumnReordering(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .FilterRow(filterRow => filterRow

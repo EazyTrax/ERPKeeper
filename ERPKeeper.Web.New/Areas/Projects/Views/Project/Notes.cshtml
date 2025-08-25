@@ -14,13 +14,13 @@
                 @{
                     if (Model.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open)
                     {
-                        <a href="/@CompanyId/Customers/Projects/@Model.Id/close" class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;">
+                        <a href="/@CompanyId/Customers/Projects/@Model.Id/close" class="btn py-1 btn-sm" style="background-color: #5D6EAE;">
                             Close
                         </a>
                     }
                     else
                     {
-                        <a href="/@CompanyId/Customers/Projects/@Model.Id/open" class="btn text-white py-1 btn-sm" style="background-color: #5D6EAE;">
+                        <a href="/@CompanyId/Customers/Projects/@Model.Id/open" class="btn py-1 btn-sm" style="background-color: #5D6EAE;">
                             Re-Open
                         </a>
                     }
