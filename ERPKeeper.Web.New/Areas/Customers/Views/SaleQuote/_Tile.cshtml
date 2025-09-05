@@ -36,7 +36,12 @@
                         </div>
                     }
 
-
+                    @if (Model.Status != ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleQuoteStatus.Close)
+                    {
+                        <div>
+                            <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/ToggleTaxInclude">Toggle TaxInclude</a>
+                        </div>
+                    }
 
 
 

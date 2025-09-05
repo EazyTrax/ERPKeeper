@@ -31,9 +31,6 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         [ForeignKey("ProfileAddesssId")]
         public virtual Profiles.ProfileAddress? ProfileAddesss { get; set; }
 
-
-
-
         public Guid? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         public virtual Projects.Project? Project { get; set; }
@@ -46,8 +43,15 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public Decimal LinesTotal { get; set; }
         public Decimal Discount { get; set; }
         public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;
+
         public Decimal Tax { get; set; }
-        public Decimal Total => LinesTotalAfterDiscount + Tax;
+
+        public Decimal Total => LinesTotalAfterDiscount + (IsPriceTaxInclude ? 0 : Tax);
+
+        public bool IsPriceTaxInclude { get; set; }
+        public bool IsApproved { get; set; }
+        public bool IsDeleted { get; set; }
+
 
         public DateTime? CloseDate { get; set; }
         public int AgeInDays

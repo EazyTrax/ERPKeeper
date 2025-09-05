@@ -37,7 +37,7 @@ namespace ERPKeeperCore.CMD
 
                 newOrganization.Sales.Post_Ledgers();
 
-                if (false && newOrganization != null)
+                if (true && newOrganization != null)
                 {
                     newOrganization.Transactions.Clear_EmptyLedgers();
                     newOrganization.Transactions.Post_Ledgers();
@@ -47,7 +47,7 @@ namespace ERPKeeperCore.CMD
                     newOrganization.ErpCOREDBContext.SaveChanges();
                 }
 
-                GeneralOperations(newOrganization);
+              //  GeneralOperations(newOrganization);
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization)

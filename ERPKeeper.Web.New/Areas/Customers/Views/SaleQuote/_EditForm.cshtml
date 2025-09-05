@@ -11,14 +11,14 @@
             <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.Date).Label("TrnDate").LabelMode(EditorLabelMode.Static)</div>
             <div class="mb-2">
                 @(Html.DevExtreme().SelectBoxFor(m => m.TaxCodeId)
-                    .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
-                    .Placeholder("Choose Tax Code")
-                    .DisplayExpr("Name")
-                    .ValueExpr("Id")
-                    .Label("Tax")
-                    .ShowClearButton(true)
-                    .LabelMode(EditorLabelMode.Static)
-                    )
+                                .DataSource(Organization.TaxCodes.ListAll().Select(t => new { t.Id, t.Name }).ToList())
+                                .Placeholder("Choose Tax Code")
+                                .DisplayExpr("Name")
+                                .ValueExpr("Id")
+                                .Label("Tax")
+                                .ShowClearButton(true)
+                                .LabelMode(EditorLabelMode.Static)
+                                )
             </div>
 
             <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Reference).Label("Reference").LabelMode(EditorLabelMode.Static)</div>
@@ -38,22 +38,29 @@
 
 
 
-            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static)</div>
-            <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static)</div>
+            <div class="mb-2">
+                @Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.Name).Label("Customer").LabelMode(EditorLabelMode.Static)
+            </div>
+            <div class="mb-2">
+                @Html.DevExtreme().TextBoxFor(m => m.Customer.Profile.TaxNumber).Label("Tax").LabelMode(EditorLabelMode.Static)
+            </div>
+            <div class="mb-2">
+                @Html.DevExtreme().CheckBoxFor(m => m.IsPriceTaxInclude).Text("TaxInclude")
+            </div>
 
             @{
                 var addresses = Model.Customer.Profile.Addresses.ToList();
             }
 
             @(Html.DevExtreme().SelectBoxFor(m => m.ProfileAddesssId)
-                .Name("ProfileAddesssId") // Manually set the name
-                .DataSource(addresses.Select(t => new { t.Id, t.Title }).ToList())
-                .Placeholder("Address")
-                .DisplayExpr("Title")
-                .ValueExpr("Id")
-                .Label("Address")
-                .ShowClearButton(true)
-                .LabelMode(EditorLabelMode.Static))
+                        .Name("ProfileAddesssId") // Manually set the name
+                        .DataSource(addresses.Select(t => new { t.Id, t.Title }).ToList())
+                        .Placeholder("Address")
+                        .DisplayExpr("Title")
+                        .ValueExpr("Id")
+                        .Label("Address")
+                        .ShowClearButton(true)
+                        .LabelMode(EditorLabelMode.Static))
 
 
         </div>
@@ -76,14 +83,14 @@
 
 
                 @(Html.DevExtreme().SelectBoxFor(m => m.PaymentTermId)
-                    .Name("PaymentTermId") // Manually set the name
-                    .DataSource(Organization.PaymentTerms.GetAll().Select(t => new { t.Id, t.Name }).ToList())
-                    .Placeholder("Payment Term")
-                    .DisplayExpr("Name")
-                    .ValueExpr("Id")
-                    .Label("PaymentTerm")
-                    .ShowClearButton(true)
-                    .LabelMode(EditorLabelMode.Static))
+                                .Name("PaymentTermId") // Manually set the name
+                                .DataSource(Organization.PaymentTerms.GetAll().Select(t => new { t.Id, t.Name }).ToList())
+                                .Placeholder("Payment Term")
+                                .DisplayExpr("Name")
+                                .ValueExpr("Id")
+                                .Label("PaymentTerm")
+                                .ShowClearButton(true)
+                                .LabelMode(EditorLabelMode.Static))
 
 
 
@@ -108,14 +115,14 @@
                     }
 
                     @(Html.DevExtreme().SelectBoxFor(m => m.ProjectId)
-                        .Name("ProjectId") // Manually set the name
-                        .DataSource(projects.Select(t => new { t.Id, t.Name }).ToList())
-                        .Placeholder("Projects")
-                        .DisplayExpr("Name")
-                        .ValueExpr("Id")
-                        .Label("Project")
-                        .ShowClearButton(true)
-                        .LabelMode(EditorLabelMode.Static))
+                                        .Name("ProjectId") // Manually set the name
+                                        .DataSource(projects.Select(t => new { t.Id, t.Name }).ToList())
+                                        .Placeholder("Projects")
+                                        .DisplayExpr("Name")
+                                        .ValueExpr("Id")
+                                        .Label("Project")
+                                        .ShowClearButton(true)
+                                        .LabelMode(EditorLabelMode.Static))
 
                     @if (Model.Project != null)
                     {

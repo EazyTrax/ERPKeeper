@@ -94,6 +94,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
         public IActionResult Export()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
@@ -102,15 +103,13 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return View(transcation);
         }
-
-
         public IActionResult Documents()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
             return View(transcation);
         }
-        [HttpPost]
 
+        [HttpPost]
         public IActionResult DocumentUpload(IFormFile uploadFile)
         {
             var transcation = Organization.SaleQuotes.Find(Id);
@@ -145,7 +144,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 return memoryStream.ToArray();
             }
         }
-
         public IActionResult Void()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
@@ -154,7 +152,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
-
         public IActionResult Clone()
         {
             var quote = Organization.SaleQuotes.Find(Id);
@@ -165,7 +162,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return Redirect(redirectUrl);
         }
-
         public IActionResult Quote()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
@@ -191,7 +187,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return Redirect($"/{CompanyId}/Customers/SaleQuotes");
         }
-
         public IActionResult ConvertToInvoice()
         {
             var saleQuote = Organization.SaleQuotes.Find(Id);
@@ -207,5 +202,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             return Redirect(returnUrl);
         }
+        public IActionResult ToggleTaxInclude()
+        {
+            var transcation = Organization.SaleQuotes.Find(Id);
+      
+
+            Organization.SaveChanges();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        
     }
 }
