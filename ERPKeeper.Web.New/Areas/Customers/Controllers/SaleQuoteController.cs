@@ -85,6 +85,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             saleQuote.ProjectId = model.ProjectId;
             saleQuote.Reference = model.Reference;
             saleQuote.PaymentTermId = model.PaymentTermId;
+            saleQuote.IsPriceTaxInclude = model.IsPriceTaxInclude;
 
 
             saleQuote.UpdateBalance();

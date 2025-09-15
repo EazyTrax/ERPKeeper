@@ -47,8 +47,15 @@
             <div class="font-semibold">อ้างอิง</div>
             <div class="text-right">@Model.Reference</div>
 
-            <div class="font-semibold">กำหนดชำระเงิน</div>
-            <div class="text-right">@Model.PaymentTerm?.Name @Model.Date.AddDays(Model.PaymentTerm?.DueDayCount??0).ToShortDateString()  </div>
+
+            @if (Model.PaymentTerm != null)
+            {
+                <div class="font-semibold">กำหนดชำระเงิน</div>
+                <div class="text-right">@Model.Date.AddDays(Model.PaymentTerm?.DueDayCount ?? 0).ToString("dd-MMM-yyyy")  </div>
+                <div class="font-semibold"></div>
+                <div class="text-right">@Model.PaymentTerm?.Name</div>
+            }
+
         </div>
     </div>
 </div>
@@ -82,7 +89,7 @@
                         @if (!string.IsNullOrEmpty(item.Serial))
                         {
                             <div class="whitespace-pre-line">
-                                S/N: @item.Serial?.Replace("\n",", ")
+                                S/N: @item.Serial?.Replace("\n", ", ")
                             </div>
                         }
 

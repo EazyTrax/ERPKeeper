@@ -121,18 +121,41 @@
             <div class="text-right ">@Model.LinesTotalAfterDiscount.ToString("N2")</div>
         </div>
 
-        <div class="grid grid-cols-4 gap-4">
-            <div class="text-right col-span-3">ภาษีมูลค่าเพิ่ม</div>
-            <div class="text-right ">@Model.Tax.ToString("N2")</div>
-        </div>
 
-        <div class="grid grid-cols-4 gap-4 ">
-            <div class="text-right col-span-3">ราคารวมภาษี</div>
-            <div class="text-right ">@Model.Total.ToString("N2")</div>
-        </div>
+
+        @if (Model.IsPriceTaxInclude)
+        {
+            var tax = Model.Total - (Model.Total / (1 + (Model.TaxCode.Rate / 100)));
+            var productPrice = Model.Total - tax;
+
+            <div class="grid grid-cols-4 gap-4">
+                <div class="text-right col-span-3">ภาษีมูลค่าเพิ่ม</div>
+                <div class="text-right ">@tax.ToString("N2")</div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4 ">
+                <div class="text-right col-span-3">ราคาก่อนภาษี</div>
+                <div class="text-right ">@productPrice.ToString("N2"))</div>
+            </div>
+        }
+        else
+        {
+            <div class="grid grid-cols-4 gap-4">
+                <div class="text-right col-span-3">ภาษีมูลค่าเพิ่ม</div>
+                <div class="text-right ">@Model.Tax.ToString("N2")</div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4 ">
+                <div class="text-right col-span-3">ราคารวมภาษี</div>
+                <div class="text-right ">@Model.Total.ToString("N2")</div>
+            </div>
+
+
+        }
+
 
         <div class="text-right pt-2">
-            (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total))
+            (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total)
         </div>
     </div>
 
