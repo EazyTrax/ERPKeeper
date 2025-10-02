@@ -13,7 +13,7 @@
     <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/UpdateItems"><i class="fa-solid fa-arrows-rotate"></i> Update Items</a>
 </div>
 
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierItem>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")

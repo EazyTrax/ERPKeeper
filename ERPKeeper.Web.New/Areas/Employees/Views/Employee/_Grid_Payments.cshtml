@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Employees.Employee
 
 
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
         .ID("gridList")
@@ -17,7 +17,6 @@
         .ShowBorders(false)
         .Width("100%")
         .Paging(paging => paging.PageSize(100))
-        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true))
         .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
         .GroupPanel(gp => gp.Visible(true)) 
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
@@ -66,12 +65,9 @@
 
 
 
-     
 
-
-
-                columns.AddFor(m => m.TotalEarning).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
-                columns.AddFor(m => m.TotalDeduction).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
+                columns.AddFor(m => m.TotalEarning).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+                columns.AddFor(m => m.TotalDeduction).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
 
 
 

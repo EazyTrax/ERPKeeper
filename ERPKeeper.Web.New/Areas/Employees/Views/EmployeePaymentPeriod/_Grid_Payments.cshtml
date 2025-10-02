@@ -6,7 +6,7 @@
 }
 
 
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
 
     @(
         Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
@@ -23,6 +23,7 @@
             .ShowBorders(false)
             .Width("100%")
             .Paging(paging => paging.PageSize(100))
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowAdding(true).UseIcons(true))
             
 
             .AllowColumnResizing(true).AllowColumnReordering(true)

@@ -3,7 +3,7 @@
     @Model.SupplierPayments.Count SupplierPayments
 </div>
 
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment>()
         .ID("grid_SupplierPayments_List")
         .KeyExpr("Id")

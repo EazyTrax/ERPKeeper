@@ -26,11 +26,18 @@
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
         MenuTemplate(0, "Customers", $"/{CompanyId}/Customers/Customers", Organization.Customers.Count());
-        MenuTemplate(0, "Quote", $"/{CompanyId}/Customers/SaleQuotes?status={SaleQuoteStatus.Open}", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Open).Count());
+    }
+</div>
+<div class="lh-120 bg-gray-100 p-2 rounded border">
+    @{
+         MenuTemplate(0, "Quote", $"/{CompanyId}/Customers/SaleQuotes?status={SaleQuoteStatus.Open}", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Open).Count());
         MenuTemplate(2, "Order", $"/{CompanyId}/Customers/SaleQuotes?status={SaleQuoteStatus.Order}", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Order).Count());
         MenuTemplate(2, "Close", $"/{CompanyId}/Customers/SaleQuotes?status={SaleQuoteStatus.Close}");
         MenuTemplate(2, "Void", $"/{CompanyId}/Customers/SaleQuotes?status={SaleQuoteStatus.Void}");
-
+ }
+</div>
+<div class="lh-120 bg-gray-100 p-2 rounded border">
+    @{
 
         MenuTemplate(0, "Sales", $"/{CompanyId}/Customers/Sales", Organization.ErpCOREDBContext.Sales.Where(s => s.Status == SaleStatus.Open).Count());
         MenuTemplate(2, "Payments", $"/{CompanyId}/Customers/ReceivePayments", Organization.ErpCOREDBContext.ReceivePayments.Count());

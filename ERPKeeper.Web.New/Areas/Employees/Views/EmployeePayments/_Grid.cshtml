@@ -1,18 +1,8 @@
-﻿
-
-
-
-
-
-
-
-@{
-
+﻿@{
     var employees = Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, TaxNumber = i.TaxNumber, Name = i.Name }).ToList();
-
 }
 
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
         .ID("gridList")
@@ -20,8 +10,7 @@
         .LoadUrl($"/API/{CompanyId}/Employees/EmployeePayments/All")
         .InsertUrl($"/API/{CompanyId}/Employees/EmployeePayments/Insert")
         .UpdateUrl($"/API/{CompanyId}/Employees/EmployeePayments/Update").UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePayments/Delete").DeleteMethod("Post")
-        )
+        .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePayments/Delete").DeleteMethod("Post"))
         .KeyExpr("Id")
         .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(true)
@@ -36,16 +25,11 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .FilterRow(filterRow => filterRow
         .Visible(true)
-        .ApplyFilter(GridApplyFilterMode.Auto)
-        )
+        .ApplyFilter(GridApplyFilterMode.Auto))
         .ColumnAutoWidth(false)
-        @*.AutoExpandAll(true)*@
         .RowDragging(rd => rd
         .AllowDropInsideItem(false)
         .AllowReordering(false)
-        @*.OnDragChange("onDragChange")
-    .OnDragEnd("onDragEnd")
-    .ShowDragIcons(false)*@
         )
             .Columns(columns =>
             {
@@ -53,16 +37,12 @@
                 columns.AddFor(m => m.Name)
             .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
 
-
-
-
                 columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .CalculateSortValue("Name")
-     
             .HeaderCellTemplate(@<text>Period</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
 
@@ -84,15 +64,13 @@
         .HeaderCellTemplate(@<text>TAX Id</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
 
-                columns.AddFor(m => m.EmployeeId).Width(250)
+            columns.AddFor(m => m.EmployeeId).Width(250)
             .Lookup(lookup => lookup
             .DataSource(employees)
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>Name</text>)
         .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
-
-
 
 
                 columns.AddFor(m => m.TotalEarning).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);

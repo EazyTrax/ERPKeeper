@@ -28,6 +28,7 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
                 payment.No = ++order;
                 payment.UpdateBalance();
                 payment.UpdateName();
+                payment.Name = $"EP-{payment.EmployeePaymentPeriod.TrGroup}-{payment.No}";
             }
 
 

@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.API.Employees.EmployeePaymentPeriod
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.EmployeePayments
-                .Where(a => a.EmployeePaymentPeriodId == Id)
+                .Where(a => a.EmployeePaymentPeriodId == EmployeePaymentPeriodId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -27,12 +27,17 @@ namespace ERPKeeperCore.Web.Areas.API.Employees.EmployeePaymentPeriod
         [HttpPost]
         public IActionResult Insert(string values)
         {
+
+            var EmployeePaymentPeriod = Organization.ErpCOREDBContext.EmployeePaymentPeriods
+                .First(a => a.Id == EmployeePaymentPeriodId);
+
+
             var model = new Enterprise.Models.Employees.EmployeePayment();
             JsonConvert.PopulateObject(values, model);
 
-            model.EmployeePaymentPeriodId = Id;
-            model.No = Organization.ErpCOREDBContext.EmployeePayments
-                .Count() + 1;
+            model.EmployeePaymentPeriodId = EmployeePaymentPeriodId;
+            model.No = Organization.ErpCOREDBContext.EmployeePayments.Count() + 1;
+            model.Name = $"EP-{EmployeePaymentPeriod.TrGroup}-{model.No}";
 
             Organization.ErpCOREDBContext.EmployeePayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

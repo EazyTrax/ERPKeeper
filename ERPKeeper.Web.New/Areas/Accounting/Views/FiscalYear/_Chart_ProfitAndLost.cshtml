@@ -22,23 +22,23 @@
 
 @*<div class="mb-1 font-weight-bold bg-fb2 p-2">@Model.Name Profit and Lost</div>*@
 
-<div class="border p-2 bg-fb2 font-semibold">
-	<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/">
-		FY-@Model.Name
-	</a> |
+<div class="rounded-lg bg-gray-100 p-2 bg-fb2 font-semibold">
+	<div class="mb-2">
+        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/">
+            FY-@Model.Name
+        </a> |
 
-	@{
-		if (Model.PreviusFiscalYear != null)
-		{
-			<a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYear.Id/">
-				FY-@(Model.PreviusFiscalYear.Name)
-			</a>
-		}
-	}
+        @{
+            if (Model.PreviusFiscalYear != null)
+            {
+                <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYear.Id/">
+                    FY-@(Model.PreviusFiscalYear.Name)
+                </a>
+            }
+        }
+	</div>
 
 
-</div>
-<div class="mb-1 p-2 border" style="position:relative;">
 	<div class="mb-2">
 		<div class="float-left p-1 bg-info" style="width:@(incomeWidth)px;">
 			<span class="text-white">Income</span>

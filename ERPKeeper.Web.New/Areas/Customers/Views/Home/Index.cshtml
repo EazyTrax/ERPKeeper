@@ -1,27 +1,9 @@
 ﻿
 <div class="flex flex-wrap">
-    <div class="w-6/12">
- 
-    </div>
-    <div class="w-6/12 pr-0">
-        <div class="border">
-            @foreach (var customer in Organization.ErpCOREDBContext.Customers.OrderByDescending(c => c.TotalSales).Take(20).ToList())
-            {
-                <div class="flex border-bottom">
-                    <div class="w-9/12 p-1 border-right">
-                        <a href="/@CompanyId/Customers/Customers/@customer.Id">
-                            @customer.Profile.Name
-                        </a>
-                    </div>
-                    <div class="w-1/12 text-right">
-                        @customer.TotalSalesCount
-                    </div>
+    <div class="">
 
-                    <div class="w-2/12 text-right">
-                        @customer.TotalSales.ToString("N0") 
-                    </div>
-                </div>
-            }
-        </div>
+        <partial name="/areas/customers/views/customers/_grid_customers.cshtml" />
+
+
     </div>
 </div>

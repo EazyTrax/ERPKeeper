@@ -1,5 +1,5 @@
 ﻿
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Supplier>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")

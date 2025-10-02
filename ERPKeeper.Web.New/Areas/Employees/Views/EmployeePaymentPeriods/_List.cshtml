@@ -1,6 +1,6 @@
 ﻿
 
-<div id="treeList" class="mt-2 mb-3 border">
+<div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod>()
         .ID("gridList")
@@ -33,6 +33,9 @@
     .OnDragEnd("onDragEnd")
     .ShowDragIcons(false)*@
         )
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true).AllowAdding(true).UseIcons(true))
+
+
         .Columns(columns =>
         {
 

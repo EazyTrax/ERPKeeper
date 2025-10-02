@@ -29,7 +29,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
             if (this.EmployeePaymentPeriod == null)
                 return;
 
-            this.Name = "LP-" + this.EmployeePaymentPeriod.Date.Year + "-" + this.EmployeePaymentPeriod.Date.Month.ToString("00") + "-" + this.No.ToString("0000");
+            this.Name  = $"EP-{this.EmployeePaymentPeriod.TrGroup}-{this.No}";
         }
 
 
