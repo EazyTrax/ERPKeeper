@@ -7,6 +7,8 @@
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
             .LoadUrl($"/API/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Purchases/all")
+            .DeleteMethod("Post")
+            .DeleteUrl($"/API/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Purchases/Delete")
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")

@@ -22,10 +22,37 @@ namespace ERPKeeperCore.Web.API.Taxes.TaxPeriod
             var returnModel = Organization
                 .ErpCOREDBContext
                 .Purchases
-                .Where(s=>s.TaxPeriodId == TaxPeriodId)
+                .Where(s => s.TaxPeriodId == TaxPeriodId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
+
+        [HttpPost]
+        public object Delete(Guid key)
+        {
+            var taxPeriod = Organization
+               .ErpCOREDBContext
+               .TaxPeriods
+               .FirstOrDefault(s => s.Id == TaxPeriodId);
+
+            if (taxPeriod.IsPosted)
+                return Content("Error Posted Trasaction");
+            else
+            {
+                var purchase = Organization.ErpCOREDBContext.Purchases.FirstOrDefault(s => s.Id == key);
+                purchase.TaxPeriodId = null;
+                Organization.ErpCOREDBContext.SaveChanges();
+
+                taxPeriod.UpdateBalance();
+                Organization.ErpCOREDBContext.SaveChanges();
+            }
+
+
+
+            return Ok();
+
+        }
     }
 }
+

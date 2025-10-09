@@ -12,8 +12,6 @@ namespace ERPKeeperCore.Enterprise.Models.Financial
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public int DueDayCount { get; set; }
-
-
         public decimal DiscountPercent { get; set; }
 
 
