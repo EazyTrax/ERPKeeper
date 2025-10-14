@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+﻿using DevExpress.Pdf.Native;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Financial;
 using ERPKeeperCore.Enterprise.Models.Items;
@@ -37,6 +38,8 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public String? Reference { get; set; }
         public String? Memo { get; set; }
+
+        public String Group { get; set; } = string.Empty;
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Today;

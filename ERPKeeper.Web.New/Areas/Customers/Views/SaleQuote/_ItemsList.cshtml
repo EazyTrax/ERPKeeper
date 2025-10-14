@@ -7,34 +7,36 @@
 
 
 <div id="treeList" class="">
-    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuoteItem>()
-                .ID("gridList")
-                .KeyExpr("Id")
-                .ShowRowLines(true)
-                .ShowBorders(false)
-                .Paging(paging => paging.PageSize(100))
-                .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-                .Width("100%")
-                .WordWrapEnabled(true)
-                .AllowColumnResizing(true)
-                .ColumnAutoWidth(false)
-                .DataSource(d =>
-                d.RemoteController()
-                .Key("Id")
-                .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/All")
-                .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Insert")
-                .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Update")
-                .UpdateMethod("Post")
-                .DeleteUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Delete")
-                .DeleteMethod("Post"))
-                .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(editAble).AllowDeleting(editAble).UseIcons(true))
-                .KeyExpr("Id")
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Custommer_SaleQuotes_SaleQuote"))
-                .Columns(columns =>
-                {
-                    columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
-                    columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>
-        );
+    @(
+        Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuoteItem>()
+                    .ID("gridList")
+                    .KeyExpr("Id")
+                    .ShowRowLines(true)
+                    .ShowBorders(false)
+                    .Paging(paging => paging.PageSize(100))
+                    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+                    .Width("100%")
+                    .WordWrapEnabled(true)
+                    .AllowColumnResizing(true)
+                    .ColumnAutoWidth(false)
+                    .DataSource(d =>
+                    d.RemoteController()
+                    .Key("Id")
+                    .LoadUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/All")
+                    .InsertUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Insert")
+                    .UpdateUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Update")
+                    .UpdateMethod("Post")
+                    .DeleteUrl($"/API/{CompanyId}/Customers/SaleQuotes/{Model.Id}/Items/Delete")
+                    .DeleteMethod("Post"))
+                    .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(editAble).AllowDeleting(editAble).UseIcons(true))
+                    .KeyExpr("Id")
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Custommer_SaleQuotes_SaleQuote"))
+                    .Columns(columns =>
+                    {
+                        columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
+
+                    columns.AddFor(m => m.Group).Visible(false).ShowInColumnChooser(true).FormItem(i => i.Editor(e => e.TextBox()));
+                        columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text> );
                     columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
                     columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
                    @*  columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");

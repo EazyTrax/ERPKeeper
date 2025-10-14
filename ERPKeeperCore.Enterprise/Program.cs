@@ -35,17 +35,17 @@ namespace ERPKeeperCore.CMD
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
 
-                newOrganization.Sales.Post_Ledgers();
+                //newOrganization.Sales.Post_Ledgers();
 
-                if (true && newOrganization != null)
-                {
-                    newOrganization.Transactions.Clear_EmptyLedgers();
-                    newOrganization.Transactions.Post_Ledgers();
-                    newOrganization.ChartOfAccount.Refresh_CurrentBalance();
-                    newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
-                    newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
-                    newOrganization.ErpCOREDBContext.SaveChanges();
-                }
+                //if (true && newOrganization != null)
+                //{
+                //    newOrganization.Transactions.Clear_EmptyLedgers();
+                //    newOrganization.Transactions.Post_Ledgers();
+                //    newOrganization.ChartOfAccount.Refresh_CurrentBalance();
+                //    newOrganization.ChartOfAccount.Refresh_HostoriesBalances();
+                //    newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
+                //    newOrganization.ErpCOREDBContext.SaveChanges();
+                //}
 
               //  GeneralOperations(newOrganization);
             }
