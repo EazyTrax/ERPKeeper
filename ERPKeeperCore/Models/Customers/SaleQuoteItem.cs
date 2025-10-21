@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public String? PartNumber { get; set; }
         public String? Description { get; set; }
-        public String Group { get; set; } = string.Empty;
+        public String? Group { get; set; } = string.Empty;
 
         public SaleQuoteItem()
         {

@@ -4,8 +4,8 @@ ADD
 
 @await Component.InvokeAsync("Advertise")
 
-Add-Migration DB-25.10.14 -Context ERPCoreDbContext -OutputDir Migrations
-dotnet ef migrations add DB-25-10-14-02 --context ERPCoreDbContext --output-dir Migrations --project ERPKeeperCore\ERPKeeperCore.Enterprise.csproj
+Add-Migration DB-25.10.21.01 -Context ERPCoreDbContext -OutputDir Migrations
+dotnet ef migrations add DB-25.10.21.01 --context ERPCoreDbContext --output-dir Migrations --project ERPKeeperCore\ERPKeeperCore.Enterprise.csproj
 
 ###############
 return Redirect(Request.Headers["Referer"].ToString());
