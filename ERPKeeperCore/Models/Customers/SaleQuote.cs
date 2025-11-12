@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         public String? Reference { get; set; }
         public String? Memo { get; set; }
 
-        public String Group { get; set; } = string.Empty;
+        public String? Group { get; set; } = string.Empty;
         public int No { get; set; }
         public String? Name { get; set; }
         public DateTime Date { get; set; } = DateTime.Today;

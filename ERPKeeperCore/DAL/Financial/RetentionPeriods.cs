@@ -101,19 +101,16 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
 
             Console.WriteLine($"Find RetentionGroup:{retentionType?.Name} {date}");
 
-            var rgs = erpNodeDBContext.RetentionPeriods
-                .Where(s => s.RetentionTypeId == retentionType.Id)
-                .ToList();
-
-            var rg = rgs
+            var retentionGroup = erpNodeDBContext.RetentionPeriods
+                .Where(s => s.RetentionTypeId == (Guid)retentionType.Id)
+                .ToList()
                 .Where(rg => rg.StartDate.Date <= date.Date && rg.EndDate.Date >= date)
                 .FirstOrDefault();
 
-            if (rg == null && retentionType != null)
+            if (retentionGroup == null)
             {
-                rg = new RetentionPeriod()
+                retentionGroup = new RetentionPeriod()
                 {
-                    Id = Guid.NewGuid(),
                     Date = date,
                     RetentionTypeId = retentionType.Id,
                     RetentionType = retentionType,
@@ -122,12 +119,12 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
                     No = erpNodeDBContext.RetentionPeriods.Max(x => x.No) + 1
                 };
 
-                erpNodeDBContext.RetentionPeriods.Add(rg);
+                erpNodeDBContext.RetentionPeriods.Add(retentionGroup);
                 erpNodeDBContext.SaveChanges();
             }
 
-            Console.WriteLine($"Found RetentionGroup:{rg?.Id}");
-            return rg;
+            Console.WriteLine($"Found RetentionGroup:{retentionGroup?.Id}");
+            return retentionGroup;
         }
 
         public void UnPostAll()

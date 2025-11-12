@@ -116,18 +116,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Customers
                        s.UpdateBalance();
                        s.RetentionGroup = organization.RetentionGroups.FindOrCreate(s.RetentionType, s.Date);
                    });
-
-            erpNodeDBContext.ReceivePayments
-                  .Where(s => s.RetentionType != null && s.RetentionGroupId != null)
-                  .Where(s => s.RetentionTypeId != s.RetentionGroup.RetentionTypeId)
-                  .ToList()
-                  .ForEach(s =>
-                  {
-                      s.UpdateBalance();
-                      s.RetentionGroup = organization.RetentionGroups.FindOrCreate(s.RetentionType, s.Date);
-                  });
-
-
+            erpNodeDBContext.SaveChanges();
 
         }
     }

@@ -130,6 +130,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Suppliers
                        s.UpdateBalance();
                        s.RetentionGroup = organization.RetentionGroups.FindOrCreate(s.RetentionType, s.Date);
                    });
+            erpNodeDBContext.SaveChanges();
         }
     }
 }
