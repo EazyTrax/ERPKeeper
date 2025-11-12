@@ -19,6 +19,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult Refresh()
         {
             Organization.ReceivePayments.UpdateRetentionGroups();
+  
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
 

@@ -137,12 +137,14 @@ namespace ERPKeeperCore.Enterprise.DAL.Financial
             erpNodeDBContext.SaveChanges();
         }
 
-        public void UpdateCount()
+        public void UpdateCountAndBalance()
         {
             erpNodeDBContext.RetentionPeriods.ToList()
                 .ForEach(rg =>
                     {
                         rg.Count = rg.ReceivePayments.Count + rg.SupplierPayments.Count();
+                        rg.AmountCommercial = rg.ReceivePayments.Sum(rp => rp.Amount) + rg.SupplierPayments.Sum(sp => sp.Amount);
+                        rg.AmountRetention = rg.ReceivePayments.Sum(rp => rp.AmountRetention) + rg.SupplierPayments.Sum(sp => sp.AmountRetention);
                     });
             erpNodeDBContext.SaveChanges();
         }

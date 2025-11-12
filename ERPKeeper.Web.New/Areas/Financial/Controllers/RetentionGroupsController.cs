@@ -22,9 +22,11 @@ namespace ERPKeeperCore.Web.Areas.Financial.Controllers
             Organization.SupplierPayments.UpdateRetentionGroups();
 
 
-            Organization.RetentionGroups.UpdateCount();
+            Organization.RetentionGroups.UpdateCountAndBalance();
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+
     }
 }
