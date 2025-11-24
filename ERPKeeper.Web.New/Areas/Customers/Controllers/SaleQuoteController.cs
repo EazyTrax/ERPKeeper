@@ -87,7 +87,6 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             saleQuote.PaymentTermId = model.PaymentTermId;
             saleQuote.IsPriceTaxInclude = model.IsPriceTaxInclude;
 
-
             saleQuote.UpdateBalance();
             saleQuote.UpdateName();
 
@@ -206,11 +205,11 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         public IActionResult ToggleTaxInclude()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
-      
+
 
             Organization.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
         }
-        
+
     }
 }
