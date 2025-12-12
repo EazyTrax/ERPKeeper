@@ -58,7 +58,9 @@
                 .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
-                    columns.AddFor(m => m.Reference).Width(180);
+                    columns.AddFor(m => m.Reference).Width(180)
+                .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Reference %></a></text>);
+
                     columns.AddFor(m => m.Total).Width(130).AllowEditing(false).Format("#,##0.00");
                     columns.AddFor(m => m.Tax).Width(130).AllowEditing(false).Format("#,##0.00");
 
