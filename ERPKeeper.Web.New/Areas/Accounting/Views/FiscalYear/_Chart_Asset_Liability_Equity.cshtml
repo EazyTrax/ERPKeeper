@@ -5,6 +5,8 @@
     decimal maxValue = Math.Max(Math.Max(Model.AssetsBalance, Model.LiabilityBalance), Model.EquityBalance);
     int width = 120;
 
+    if (maxValue == 0) maxValue = 1;
+
     int AssetWidth = (int)(width * Model.AssetsBalance / maxValue) + 20;
     int LiabilityWidth = (int)(width * Model.LiabilityBalance / maxValue) + 20;
     int EquityWidth = (int)(width * Model.EquityBalance / maxValue) + 20;
