@@ -1,49 +1,36 @@
-﻿@model string
+﻿
 
-@{
-    string company = Model;
-    var companyRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo(company, true);
-}
-
-
-
-<div class="grid grid-cols-5 rounded-lg overflow-hidden">
-    <a href="/@company/">
-        <div class="col-span-6min-h-16 bg-gray-100 p-2 border text-2xl font-semibold">
-            @company
-        </div>
-    </a>
-
+<div class="grid grid-cols-4 rounded-lg overflow-hidden">
 
     <div class="grid grid-cols-4 col-span-4 bg-gray-100 min-h-16 border">
         <div class="col-span-3  mb-2   p-2">
-            <a href="/@company/Customers/Customers">
-                @companyRepo.ErpCOREDBContext.Customers.Count() <br />
+            <a href="/Customers/Customers">
+                @Organization.ErpCOREDBContext.Customers.Count() <br />
                 Customers
             </a>
         </div>
         <div class="mb-2 p-2">
-            <a href="/@company/Projects">
-                @companyRepo.ErpCOREDBContext.Projects.Where(p => p.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open).Count() <br />
+            <a href="/Projects">
+                @Organization.ErpCOREDBContext.Projects.Where(p => p.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open).Count() <br />
                 Projects
             </a>
         </div>
 
 
 
-        <a href="/@company/Customers/SaleQuotes">
+        <a href="/Customers/SaleQuotes">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @companyRepo.ErpCOREDBContext.SaleQuotes.Count() <br /> SaleQuotes
+                @Organization.ErpCOREDBContext.SaleQuotes.Count() <br /> SaleQuotes
             </div>
         </a>
-        <a href="/@company/Customers/Sales">
+        <a href="/Customers/Sales">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @companyRepo.ErpCOREDBContext.Sales.Count() <br /> Sales
+                @Organization.ErpCOREDBContext.Sales.Count() <br /> Sales
             </div>
         </a>
-        <a href="/@company/Customers/ReceivePayments">
+        <a href="/Customers/ReceivePayments">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @companyRepo.ErpCOREDBContext.ReceivePayments.Count() <br /> Payments
+                @Organization.ErpCOREDBContext.ReceivePayments.Count() <br /> Payments
             </div>
         </a>
     </div>
@@ -53,9 +40,9 @@
 
     <div class="grid grid-cols-4 col-span-4 bg-gray-100 min-h-16">
         <div class="col-span-4">
-            <a href="/@company/Suppliers/Suppliers">
+            <a href="/Suppliers/Suppliers">
                 <div class="bg-gray-100 min-h-16 p-2 border">
-                    @companyRepo.ErpCOREDBContext.Suppliers.Count() <br />
+                    @Organization.ErpCOREDBContext.Suppliers.Count() <br />
                     Suppliers
                 </div>
             </a>
@@ -63,20 +50,20 @@
 
 
 
-        <a href="/@company/Suppliers/PurchaseQuotes">
+        <a href="/Suppliers/PurchaseQuotes">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @companyRepo.ErpCOREDBContext.PurchaseQuotes.Count() <br />PurchaseQuotes
+                @Organization.ErpCOREDBContext.PurchaseQuotes.Count() <br />PurchaseQuotes
             </div>
         </a>
-        <a href="/@company/Suppliers/Purchases">
+        <a href="/Suppliers/Purchases">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @companyRepo.ErpCOREDBContext.Purchases.Count() <br />Purchases
+                @Organization.ErpCOREDBContext.Purchases.Count() <br />Purchases
             </div>
         </a>
 
-        <a href="/@company/Suppliers/SupplierPayments">
+        <a href="/Suppliers/SupplierPayments">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @companyRepo.ErpCOREDBContext.SupplierPayments.Count() <br /> Payments
+                @Organization.ErpCOREDBContext.SupplierPayments.Count() <br /> Payments
             </div>
         </a>
     </div>
@@ -85,23 +72,17 @@
 
 
 
-    <a href="/@company/Employees/Employees">
+    <a href="/Employees/Employees">
         <div class="bg-gray-200 min-h-16  p-2 border">
-            @companyRepo.ErpCOREDBContext.Employees.Count() <br />
+            @Organization.ErpCOREDBContext.Employees.Count() <br />
             Employees
         </div>
     </a>
 
 
-
-    <div class="bg-gray-100 min-h-16  p-2 border">
-    </div>
-
-
-
-    <a href="/@company/Products/Items">
+    <a href="/Products/Items">
         <div class="bg-gray-200 min-h-16  p-2 border">
-            @companyRepo.ErpCOREDBContext.Items.Count() <br />Items
+            @Organization.ErpCOREDBContext.Items.Count() <br />Items
         </div>
     </a>
 </div>

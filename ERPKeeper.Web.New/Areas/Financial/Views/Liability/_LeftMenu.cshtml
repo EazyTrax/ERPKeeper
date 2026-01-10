@@ -23,17 +23,17 @@
 }
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Financial">Financial</a>
+    <a href="/Financial">Financial</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Financial/Liabilities">Liabilities</a>: @Model.Name
+    <a href="/Financial/Liabilities">Liabilities</a>: @Model.Name
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        Template("Home", $"/{CompanyId}/Financial/Liabilities/{Model.Id}", Organization.FundTransfers.Count());
-        Template("Balances", $"/{CompanyId}/Financial/Liabilities/{Model.Id}/Balances");
-        Template("Payments", $"/{CompanyId}/Financial/Liabilities/{Model.Id}/Payments");
+        Template("Home", $"/Financial/Liabilities/{Model.Id}", Organization.FundTransfers.Count());
+        Template("Balances", $"/Financial/Liabilities/{Model.Id}/Balances");
+        Template("Payments", $"/Financial/Liabilities/{Model.Id}/Payments");
 
     }
 </div>

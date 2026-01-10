@@ -13,9 +13,8 @@ using ERPKeeperCore.Enterprise.DBContext;
 namespace ERPKeeperCore.Web.Controllers
 {
     [Authorize]
-    [Route("/{CompanyId}/{area=Dashboard}/{controller=Home}/{action=Index}/{id?}")]
-
-    public class DefaultController : Controller
+    [Route("/{area=Dashboard}/{controller=Home}/{action=Index}/{id?}")]
+    public class _BaseController : Controller
     {
         public Guid AuthorizeUserId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         public String CompanyId
@@ -49,7 +48,7 @@ namespace ERPKeeperCore.Web.Controllers
 
         public ERPCoreDbContext _dbContext => Organization.ErpCOREDBContext;
 
-        public DefaultController()
+        public _BaseController()
         {
 
         }

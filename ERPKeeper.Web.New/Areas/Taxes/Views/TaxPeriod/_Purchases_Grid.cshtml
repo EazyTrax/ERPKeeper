@@ -6,9 +6,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Purchases/all")
+            .LoadUrl($"/API/Taxes/TaxPeriods/{Model.Id}/Purchases/all")
             .DeleteMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Purchases/Delete")
+            .DeleteUrl($"/API/Taxes/TaxPeriods/{Model.Id}/Purchases/Delete")
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
@@ -37,7 +37,7 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.SupplierId).Lookup(lookup => lookup
@@ -45,7 +45,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference).Width(180);
@@ -65,7 +65,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
 

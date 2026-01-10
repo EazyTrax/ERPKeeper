@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.SupplierPayment
 {
-    [Route("/API/{CompanyId}/Suppliers/SupplierPayments/{Id:Guid}/{controller}/{action=Index}")]
+    [Route("/API/Suppliers/SupplierPayments/{Id:Guid}/{controller}/{action=Index}")]
     public class _API_Suppliers_SupplierPayment_BaseController : API_BaseController
     {
 

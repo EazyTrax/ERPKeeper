@@ -12,8 +12,8 @@
             @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName<br />
         </div>
         <div class="">
-            <a href="/@CompanyId/Profiles/@Model.Id">
-                <i class="fa-regular fa-id-badge text-xl"></i>
+            <a href="/Profiles/@Model.Id">
+                Profile
             </a>
         </div>
     </div>
@@ -22,7 +22,7 @@
 <div class="grid grid-cols-4">
 
 
-    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/PurchaseQuotes">
+    <a href="/Suppliers/Suppliers/@Model.Id/PurchaseQuotes">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.SupplierId == Model.Id).Count()
@@ -34,7 +34,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
+    <a href="/Suppliers/Suppliers/@Model.Id/Purchases">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id).Count()
@@ -47,7 +47,7 @@
 
 
 
-    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Purchases">
+    <a href="/Suppliers/Suppliers/@Model.Id/Purchases">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Purchases.Where(s => s.SupplierId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus.Open).Count()
@@ -58,7 +58,7 @@
         </div>
     </a>
 
-    <a href="/@CompanyId/Suppliers/Suppliers/@Model.Id/Items">
+    <a href="/Suppliers/Suppliers/@Model.Id/Items">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.SupplierItems.Where(s => s.SupplierId == Model.Id).Count()

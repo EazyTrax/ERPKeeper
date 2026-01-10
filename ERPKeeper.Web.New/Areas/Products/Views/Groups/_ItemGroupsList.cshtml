@@ -11,9 +11,9 @@
     var locationsTree = Html.DevExtreme()
     .TreeList<ERPKeeperCore.Enterprise.Models.Items.ItemGroup>()
     .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Products/ItemGroups/All")
-            .InsertUrl($"/api/{CompanyId}/Products/ItemGroups/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Products/ItemGroups/Update")
+            .LoadUrl($"/api/Products/ItemGroups/All")
+            .InsertUrl($"/api/Products/ItemGroups/Insert")
+            .UpdateUrl($"/api/Products/ItemGroups/Update")
             .UpdateMethod("Post"))
     .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
             .ColumnAutoWidth(false)
@@ -39,7 +39,7 @@
         )
          .Columns(columns =>
          {
-             columns.AddFor(m => m.Name).SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/@CompanyId/Products/Groups/<%= data.Id %>/"><%= data.Name %></a></text>);
+             columns.AddFor(m => m.Name).SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/Products/Groups/<%= data.Id %>/"><%= data.Name %></a></text>);
              columns.AddFor(m => m.Detail);
 
              columns.Add().DataField("ItemCount").HeaderCellTemplate(@<text>Assets#</text>);

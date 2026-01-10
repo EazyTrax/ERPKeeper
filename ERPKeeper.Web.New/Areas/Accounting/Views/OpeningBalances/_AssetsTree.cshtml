@@ -5,12 +5,12 @@
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Accounting/Accounts/All")
-        .UpdateUrl($"/api/{CompanyId}/Accounting/Accounts/Update")
+        .LoadUrl($"/api/Accounting/Accounts/All")
+        .UpdateUrl($"/api/Accounting/Accounts/Update")
         .UpdateMethod("Post"))
         .KeyExpr("Id")
         .AllowColumnReordering(true)
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("AssetsTree" + CompanyId.ToString()))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("AssetsTree" ))
         .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
@@ -21,7 +21,7 @@
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).UseIcons(true))
         .Columns(columns =>
             {
-                columns.AddFor(m => m.Code).Width(130).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Code %></a></text>);
+                columns.AddFor(m => m.Code).Width(130).CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Id %>/"><%= data.Code %></a></text>);
 
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
@@ -39,7 +39,7 @@
     );
 
 
-                columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a></text>);
+                columns.AddFor(m => m.Name).CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.OpeningDebit).HeaderCellTemplate(@<text>Debit</text>).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.OpeningCredit).HeaderCellTemplate(@<text>Credit</text>).Width(130).Format("#,##0.00");

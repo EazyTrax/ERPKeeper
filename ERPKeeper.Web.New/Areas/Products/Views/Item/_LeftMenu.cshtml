@@ -20,20 +20,20 @@
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
     @{
-        MenuTemplate(0, "Products", $"/{CompanyId}/Products");
+        MenuTemplate(0, "Products", $"/Products");
     }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Products/Items/{Model.Id}");
-        MenuTemplate(0, "Documents", $"/{CompanyId}/Products/Items/{Model.Id}/Documents");
-        MenuTemplate(0, "SaleQuotes", $"/{CompanyId}/Products/Items/{Model.Id}/SaleQuotes");
-        MenuTemplate(3, "Sales", $"/{CompanyId}/Products/Items/{Model.Id}/Sales");
-        MenuTemplate(0, "PurchaseQuotes", $"/{CompanyId}/Products/Items/{Model.Id}/PurchaseQuotes");
-        MenuTemplate(3, "Purchases", $"/{CompanyId}/Products/Items/{Model.Id}/Purchases");
-        MenuTemplate(0, "Customers", $"/{CompanyId}/Products/Items/{Model.Id}/Customers");
-        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Products/Items/{Model.Id}/Suppliers");
+        MenuTemplate(0, "Detail", $"/Products/Items/{Model.Id}");
+        MenuTemplate(0, "Documents", $"/Products/Items/{Model.Id}/Documents");
+        MenuTemplate(0, "SaleQuotes", $"/Products/Items/{Model.Id}/SaleQuotes");
+        MenuTemplate(3, "Sales", $"/Products/Items/{Model.Id}/Sales");
+        MenuTemplate(0, "PurchaseQuotes", $"/Products/Items/{Model.Id}/PurchaseQuotes");
+        MenuTemplate(3, "Purchases", $"/Products/Items/{Model.Id}/Purchases");
+        MenuTemplate(0, "Customers", $"/Products/Items/{Model.Id}/Customers");
+        MenuTemplate(0, "Suppliers", $"/Products/Items/{Model.Id}/Suppliers");
 
     }
 </div>

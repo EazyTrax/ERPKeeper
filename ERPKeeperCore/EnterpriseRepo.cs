@@ -86,9 +86,6 @@ namespace ERPKeeperCore.Enterprise
 
 
 
-
-
-
         public Projects Projects
         {
             get
@@ -101,12 +98,14 @@ namespace ERPKeeperCore.Enterprise
 
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
-           
+
             if (dbName == "localhost")
+                dbName = "tec";
+            if (string.IsNullOrWhiteSpace(dbName))
                 dbName = "tec";
 
 
-             Console.WriteLine($"> Initialize EnterpriseRepo for database: {dbName}");
+            Console.WriteLine($"> Initialize EnterpriseRepo for database: {dbName}");
 
 
             DatabaseName = dbName;

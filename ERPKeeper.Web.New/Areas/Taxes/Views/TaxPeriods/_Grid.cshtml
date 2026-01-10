@@ -4,9 +4,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Taxes/TaxPeriods/All")
-        .InsertUrl($"/API/{CompanyId}/Taxes/TaxPeriods/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Taxes/TaxPeriods/Update")
+        .LoadUrl($"/API/Taxes/TaxPeriods/All")
+        .InsertUrl($"/API/Taxes/TaxPeriods/Insert")
+        .UpdateUrl($"/API/Taxes/TaxPeriods/Update")
         .UpdateMethod("Post")
         )
         .KeyExpr("Id")
@@ -21,7 +21,7 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
         .ColumnChooser(m => m.Enabled(true))
         .GroupPanel(g => g.Visible(true))
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxPeriods" + CompanyId.ToString()))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("TaxPeriods" ))
 
         .ColumnAutoWidth(false)
         @*.AutoExpandAll(true)*@
@@ -44,7 +44,7 @@
 
 
             columns.AddFor(m => m.Name)
-    .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/"><%= data.Name %></a></text>
+    .CellTemplate(@<text> <a href="/Taxes/TaxPeriods/<%= data.Id %>/"><%= data.Name %></a></text>
     );
 
             columns.AddFor(m => m.StartDate).SortOrder(SortOrder.Desc).SortIndex(1);
@@ -70,7 +70,7 @@
                 .AllowEditing(false)
             .HeaderCellTemplate(@<text>Count</text>)
         .Width(60)
-        .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Purchases"><%= data.PurchasesCount %></a></text>)
+        .CellTemplate(@<text> <a href="/Taxes/TaxPeriods/<%= data.Id %>/Purchases"><%= data.PurchasesCount %></a></text>)
             .Format("#,##0.00");
 
                 subColumns.AddFor(m => m.PurchasesTaxBalance)
@@ -96,7 +96,7 @@
             .AllowEditing(false)
             .Width(60)
             .HeaderCellTemplate(@<text>Sales</text>)
-        .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
+        .CellTemplate(@<text> <a href="/Taxes/TaxPeriods/<%= data.Id %>/Sales"><%= data.SalesCount %></a></text>)
             .Format("#,##0.00");
 
                 subColumns.AddFor(m => m.SalesTaxBalance)

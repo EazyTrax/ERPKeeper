@@ -13,7 +13,7 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
-    [Route("/{CompanyId}/Customers/ReceivePayments/{Id:Guid}/{action=index}")]
+    [Route("/Customers/ReceivePayments/{Id:Guid}/{action=index}")]
     public class ReceivePaymentController : _Customers_Base_Controller
     {
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
@@ -108,7 +108,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.ErpCOREDBContext.ReceivePayments.Remove(transcation);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Customers/Sales/{sale.Id}");
+            return Redirect($"/Customers/Sales/{sale.Id}");
         }
     }
 }

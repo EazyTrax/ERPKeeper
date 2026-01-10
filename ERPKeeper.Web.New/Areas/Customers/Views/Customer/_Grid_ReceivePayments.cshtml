@@ -5,7 +5,7 @@
         .ID("gridList")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/ReceivePayments/All"))
+        .LoadUrl($"/API/Customers/Customers/{Model.Id}/ReceivePayments/All"))
         .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(true)
         .ShowBorders(false)
@@ -29,12 +29,12 @@
                 columns.AddFor(m => m.Name)
             .Width(130)
             .Visible(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP:<%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/">RP:<%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.SaleId)
             .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
 
 
 
@@ -43,7 +43,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
        
 
                 columns.AddFor(m => m.Reference).Width(180);
@@ -55,7 +55,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayToAccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayToAccountId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -65,7 +65,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
 
 
 

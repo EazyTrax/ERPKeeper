@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         }
 
 
-        [Route("/API/{CompanyId}/Customers/{controller}/{action}/{status}")]
+        [Route("/API/Customers/{controller}/{action}/{status}")]
         public object List(SaleQuoteStatus status, DataSourceLoadOptions loadOptions)
         {
             if (status == SaleQuoteStatus.Open)

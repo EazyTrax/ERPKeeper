@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.New.API.Logistic
 {
-    [Route("/API/{CompanyId}/Logistic/{controller}/{action=Index}")]
+    [Route("/API/Logistic/{controller}/{action=Index}")]
     public class API_Logistic_BaseController : API_BaseController
     {
 

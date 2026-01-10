@@ -25,21 +25,21 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers/Customers">Customers</a><br />
-    <a href="/@CompanyId/Customers/ReceivePayments">ReceivePayments</a><br />
-    <a href="/@CompanyId/Customers/ReceivePayments/@Model.Id">@Model.Sale.Name.Replace("SL", "RP")</a>
+    <a href="/Customers/Customers">Customers</a><br />
+    <a href="/Customers/ReceivePayments">ReceivePayments</a><br />
+    <a href="/Customers/ReceivePayments/@Model.Id">@Model.Sale.Name.Replace("SL", "RP")</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/ReceivePayments/{Model.Id}");
-        MenuTemplate(0, $"Sale: {Model.Sale.Name}", $"/{CompanyId}/Customers/Sales/{Model.SaleId}");
-        MenuTemplate(0, "Documents", $"/{CompanyId}/Customers/ReceivePayments/{Model.Id}/Documents");
+        MenuTemplate(0, "Detail", $"/Customers/ReceivePayments/{Model.Id}");
+        MenuTemplate(0, $"Sale: {Model.Sale.Name}", $"/Customers/Sales/{Model.SaleId}");
+        MenuTemplate(0, "Documents", $"/Customers/ReceivePayments/{Model.Id}/Documents");
 
     }
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export", $"/{CompanyId}/Customers/ReceivePayments/{Model.Id}/Export");
+        MenuTemplate(0, "Export", $"/Customers/ReceivePayments/{Model.Id}/Export");
     }
 </div>

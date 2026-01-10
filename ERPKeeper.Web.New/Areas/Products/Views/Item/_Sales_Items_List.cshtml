@@ -14,7 +14,7 @@
             .ID("gridList")
             .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Products/Items/{Model.Id}/SaleItems/All"))
+            .LoadUrl($"/api/Products/Items/{Model.Id}/SaleItems/All"))
             .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
@@ -27,7 +27,7 @@
                 .SortOrder(SortOrder.Desc).SortIndex(1);
 
                 columns.AddFor(m => m.Sale.Name).Width(150)
-                .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Sale.Id %>/"><%= data.Sale.Name %></a></text>);
+                .CellTemplate(@<text><a href="/Customers/Sales/<%= data.Sale.Id %>/"><%= data.Sale.Name %></a></text>);
 
                 columns.AddFor(m => m.Sale.Name).Width(150)
                 .HeaderCellTemplate(@<text>Customer</text>)

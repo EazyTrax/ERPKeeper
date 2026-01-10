@@ -4,10 +4,10 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financial/LiabilityPayments/All")
-            .InsertUrl($"/API/{CompanyId}/Financial/LiabilityPayments/Insert")
+            .LoadUrl($"/API/Financial/LiabilityPayments/All")
+            .InsertUrl($"/API/Financial/LiabilityPayments/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Financial/LiabilityPayments/Update")
+            .UpdateUrl($"/API/Financial/LiabilityPayments/Update")
             .UpdateMethod("Post")
             )
             .Width("100%")
@@ -31,18 +31,18 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/LiabilityPayments/<%= data.Id %>/"><%= data.Name %></a></text>);
               
             
             columns.AddFor(m => m.Reference).Width(180)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/LiabilityPayments/<%= data.Id %>/">R:<%= data.Reference %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/LiabilityPayments/<%= data.Id %>/">R:<%= data.Reference %></a></text>);
 
 
                 columns.AddFor(m => m.LiabilityAccountId)
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(300)
                     .HeaderCellTemplate(@<text>Liability Acc</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Amount)
                     .HeaderCellTemplate("Amount")

@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
 <div class="grid grid-cols-6">
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/">
+    <a href="/Suppliers/Purchases/@Model.Id/">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Status
@@ -15,7 +15,7 @@
 
 
 
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Items">
+    <a href="/Suppliers/Purchases/@Model.Id/Items">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.Items.Count()
@@ -27,7 +27,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/">
+    <a href="/Suppliers/Purchases/@Model.Id/">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.AgeInDays
@@ -39,7 +39,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Payment">
+    <a href="/Suppliers/Purchases/@Model.Id/Payment">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @if (Model.SupplierPayment == null)
@@ -58,7 +58,7 @@
         </div>
     </a>
 
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id">
+    <a href="/Suppliers/Purchases/@Model.Id">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @(Model.Total.ToString("N0"))

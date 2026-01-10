@@ -14,7 +14,7 @@
         .ID("gridList")
         .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Products/Items/{Model.Id}/SupplierItems/All"))
+        .LoadUrl($"/api/Products/Items/{Model.Id}/SupplierItems/All"))
         .ShowRowLines(true)
         .ShowBorders(false)
         .Paging(paging => paging.PageSize(100))
@@ -27,7 +27,7 @@
 
             columns.AddFor(m => m.Supplier.Profile.Name).HeaderCellTemplate(@<text>Supplier</text>)
         .CellTemplate(@<text>
-        <a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/">
+        <a href="/Suppliers/Suppliers/<%= data.SupplierId %>/">
             <%= data.Supplier.Profile.Name %>
         </a>
     </text>);

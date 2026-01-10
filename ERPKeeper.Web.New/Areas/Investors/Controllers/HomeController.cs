@@ -12,7 +12,7 @@ namespace ERPKeeperCore.Web.Areas.Investors.Controllers
     {
         public IActionResult Index()
         {
-            return Redirect($"/{CompanyId}/Investors/Investors");
+            return Redirect($"/Investors/Investors");
         }
 
         public ActionResult Refresh()

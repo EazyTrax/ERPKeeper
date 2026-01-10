@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API
 {
-    [Route("/API/{CompanyId}/{controller}/{action=Index}")]
+    [Route("/API/{controller}/{action=Index}")]
     public class ProjectsController : API_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)

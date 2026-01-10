@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 {
-    [Route("/{CompanyId}/Projects/{ProjectId:Guid}/{action=Index}/")]
+    [Route("/Projects/{ProjectId:Guid}/{action=Index}/")]
     public class ProjectController : _Projects_Base_Controller
     {
         public Guid ProjectId => Guid.Parse(RouteData.Values["ProjectId"].ToString());

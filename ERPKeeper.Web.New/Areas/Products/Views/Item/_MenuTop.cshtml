@@ -3,22 +3,22 @@
 
 <div class="flex justify-between text-lg  font-semibold">
     <div class="p-2">
-        <a href="/@CompanyId/Products"> Products</a>
+        <a href="/Products"> Products</a>
         <span>
-            <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Products/Items">Items</a>
+            <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Products/Items">Items</a>
         </span>
         @if (Model.ItemGroupId != null)
         {
             <span>/</span>
-            <a href="/@CompanyId/Products/Groups"> Groups</a>
+            <a href="/Products/Groups"> Groups</a>
             <span>/</span>
-            <a href="/@CompanyId/Products/Groups/@Model.ItemGroupId">
+            <a href="/Products/Groups/@Model.ItemGroupId">
                 @Model.ItemGroup.Name
             </a>
         }
 
         <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
-        <a href="/@CompanyId/Products/Items/@Model.Id"> @Model.PartNumber</a>
+        <a href="/Products/Items/@Model.Id"> @Model.PartNumber</a>
     </div>
 
     <div class="flex gap-1 p-2">
@@ -33,16 +33,16 @@
             </a>
             <div class="dropdown-menu p-2 bg-white border-2 border roundedmin-w-64 min-h-40" aria-labelledby="dropdownMenuLink">
                 <div>
-                    <a href="/@CompanyId/Products/Items/@Model.Id/Refresh">Refresh</a>
+                    <a href="/Products/Items/@Model.Id/Refresh">Refresh</a>
                 </div>
                 <div>
-                    <a href="/@CompanyId/Products/Items/@Model.Id/Copy">Copy</a>
+                    <a href="/Products/Items/@Model.Id/Copy">Copy</a>
                 </div>
                 <div>
-                    <a href="/@CompanyId/Products/Items/@Model.Id/UpdateStock">Stock</a>
+                    <a href="/Products/Items/@Model.Id/UpdateStock">Stock</a>
                 </div>
                 <div>
-                    <a href="/@CompanyId/Products/Items/@Model.Id/Delete">Delete</a>
+                    <a href="/Products/Items/@Model.Id/Delete">Delete</a>
                 </div>
             </div>
         </div>

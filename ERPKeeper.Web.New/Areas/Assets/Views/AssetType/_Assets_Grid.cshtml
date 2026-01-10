@@ -5,9 +5,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.Asset>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/All")
-            .InsertUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/Insert")
-            .UpdateUrl($"/API/{CompanyId}/AssetTypes/{Model.Id}/Assets/Update")
+            .LoadUrl($"/API/AssetTypes/{Model.Id}/Assets/All")
+            .InsertUrl($"/API/AssetTypes/{Model.Id}/Assets/Insert")
+            .UpdateUrl($"/API/AssetTypes/{Model.Id}/Assets/Update")
             .UpdateMethod("Post")
             )
             .KeyExpr("Id")
@@ -52,10 +52,10 @@
         .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
         .DisplayExpr("Text")
         .ValueExpr("Value"))
-        .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
 
 
-                    columns.AddFor(m=>m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
+                    columns.AddFor(m=>m.Name).CellTemplate(@<text> <a href="/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
                     columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
                     columns.AddFor(m => m.Id).AllowEditing(false).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-danger"></i></text>
     );

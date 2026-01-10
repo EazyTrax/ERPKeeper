@@ -6,10 +6,10 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financial/RetentionTypes/{Model.Id}/RetentionGroups/All")
-            .InsertUrl($"/API/{CompanyId}/Financial/RetentionTypes/{Model.Id}/RetentionGroups/Insert")
+            .LoadUrl($"/API/Financial/RetentionTypes/{Model.Id}/RetentionGroups/All")
+            .InsertUrl($"/API/Financial/RetentionTypes/{Model.Id}/RetentionGroups/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Financial/RetentionTypes/{Model.Id}/RetentionGroups/Update")
+            .UpdateUrl($"/API/Financial/RetentionTypes/{Model.Id}/RetentionGroups/Update")
             .UpdateMethod("Post"))
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(true)
@@ -24,14 +24,14 @@
 
 
                 columns.AddFor(m => m.No)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
+            .CellTemplate(@<text><a href="/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
             );
 
 
                 columns.AddFor(m => m.RetentionTypeId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Retention Acc.</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.StartDate);
@@ -47,7 +47,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionType.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.RetentionType.RetentionToAccountId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -55,7 +55,7 @@
                 columns.AddFor(m => m.PayFromAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>PayFrom</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
 
 
 

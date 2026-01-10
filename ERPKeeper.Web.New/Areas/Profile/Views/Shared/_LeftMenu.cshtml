@@ -9,7 +9,7 @@
                     <a href="@url">
                         @if (level > 0)
                         {
-                            
+
                         }
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
@@ -24,10 +24,10 @@
 
 <div class="lh-120 bg-gray-100 font-semibold p-2 border">
 
-    <a href="/@CompanyId/Profiles/">
+    <a href="/Profiles/">
         Profiles
     </a><br />
-    <a href="/@CompanyId/Profiles/@Model.Id">
+    <a href="/Profiles/@Model.Id">
         @Model.Name
     </a>
 </div>
@@ -35,25 +35,25 @@
 
 <div class="lh-120 bg-gray-100 p-2 border">
     @{
-        MenuTemplate(0, "General", $"/{CompanyId}/Profiles/{Model.Id}");
-        MenuTemplate(0, "Addresses", $"/{CompanyId}/Profiles/{Model.Id}/Addresses", Model.Addresses.Count());
-        MenuTemplate(0, "Contacts", $"/{CompanyId}/Profiles/{Model.Id}/Contacts", Model.Contacts.Count());
+        MenuTemplate(0, "General", $"/Profiles/{Model.Id}");
+        MenuTemplate(0, "Addresses", $"/Profiles/{Model.Id}/Addresses", Model.Addresses.Count());
+        MenuTemplate(0, "Contacts", $"/Profiles/{Model.Id}/Contacts", Model.Contacts.Count());
     }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 border">
     @{
         if (Model.Customer != null)
-            MenuTemplate(0, "Customers", $"/{CompanyId}/Customers/Customers/{Model.Id}");
+            MenuTemplate(0, "Customers", $"/Customers/Customers/{Model.Id}");
 
         if (Model.Supplier != null)
-            MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers/{Model.Id}");
+            MenuTemplate(0, "Suppliers", $"/Suppliers/Suppliers/{Model.Id}");
 
         if (Model.Investor != null)
-            MenuTemplate(0, "Investors", $"/{CompanyId}/Investors/Investors/{Model.Id}");
+            MenuTemplate(0, "Investors", $"/Investors/Investors/{Model.Id}");
 
         if (Model.Employee != null)
-            MenuTemplate(0, "Employees", $"/{CompanyId}/Employees/Employees/{Model.Id}");
+            MenuTemplate(0, "Employees", $"/Employees/Employees/{Model.Id}");
 
     }
 </div>

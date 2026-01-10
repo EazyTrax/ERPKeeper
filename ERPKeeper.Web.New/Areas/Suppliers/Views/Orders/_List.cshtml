@@ -46,7 +46,7 @@
     columns.AddFor(m => m.Name)
     .Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Suppliers/Estimate/<%= data.Id %>/">
+            <a href="/Suppliers/Estimate/<%= data.Id %>/">
                 <%= data.Name %>
             </a>
         </text>);
@@ -54,7 +54,7 @@
     columns.Add().DataField("ProfileName")
     .Width(300)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Suppliers/Suppliers/<%= data.Id %>/">
+            <a href="/Suppliers/Suppliers/<%= data.Id %>/">
                 <%= data.ProfileName %>
             </a>
         </text>);

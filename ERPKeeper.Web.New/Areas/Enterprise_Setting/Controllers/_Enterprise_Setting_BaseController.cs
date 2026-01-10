@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Enterprise_Setting.Controllers
 {
     [Area("Enterprise_Setting")]
-    [Route("/{CompanyId}/Setting/{controller=Home}/{action=Index}")]
-    public class _Enterprise_Setting_BaseController : DefaultController
+    [Route("/Setting/{controller=Home}/{action=Index}")]
+    public class _Enterprise_Setting_BaseController : _BaseController
     {
 
       

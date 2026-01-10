@@ -4,10 +4,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Storage.Document>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-                .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/All")
-                .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/Update")
+                .LoadUrl($"/API/Customers/Sales/{Model.Id}/Documents/All")
+                .UpdateUrl($"/API/Customers/Sales/{Model.Id}/Documents/Update")
                 .UpdateMethod("Post")
-                .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Documents/Delete")
+                .DeleteUrl($"/API/Customers/Sales/{Model.Id}/Documents/Delete")
                 .DeleteMethod("Post")
             )
 
@@ -39,7 +39,7 @@
 
                 column.AddFor(m => m.FileName)
             .HeaderCellTemplate("Name")
-            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
+            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
 
 
 
@@ -61,7 +61,7 @@
 
                 column.AddFor(m => m.Note)
             .HeaderCellTemplate("Note")
-            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
 
@@ -69,7 +69,7 @@
             .Width(40)
             .AllowSearch(false)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/Download"><i class="fa-solid fa-cloud-arrow-down text-fs-15"></i></a></text>);
+            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/Download"><i class="fa-solid fa-cloud-arrow-down text-fs-15"></i></a></text>);
 
 
             })

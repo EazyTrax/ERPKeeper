@@ -15,8 +15,8 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Projects.Controllers
 {
     [Area("Projects")]
-    [Route("/{CompanyId}/Projects/{controller=Home}/{action=Index}/{id?}")]
-    public class _Projects_Base_Controller : DefaultController
+    [Route("/Projects/{controller=Home}/{action=Index}/{id?}")]
+    public class _Projects_Base_Controller : _BaseController
     {
 
 

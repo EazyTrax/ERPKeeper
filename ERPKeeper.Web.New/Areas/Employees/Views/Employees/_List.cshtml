@@ -3,7 +3,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.Employee>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Employees/Employees/All"))
+            .LoadUrl($"/API/Employees/Employees/All"))
             .KeyExpr("Id")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(true)
@@ -23,7 +23,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
 
@@ -34,7 +34,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Employee</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Employees/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
 
@@ -45,7 +45,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Position</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePositions/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Employees/EmployeePositions/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Salary).Format("#,##0.00").Width(150);

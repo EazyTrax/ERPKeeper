@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
 {
-    [Route("/API/{CompanyId}/Accounting/FiscalYears/{FiscalYearId:Guid}/{controller}/{action=Index}")]
+    [Route("/API/Accounting/FiscalYears/{FiscalYearId:Guid}/{controller}/{action=Index}")]
     public class FiscalYearBaseController : API_BaseController
     {
         public Guid FiscalYearId => Guid.Parse(HttpContext.GetRouteData().Values["FiscalYearId"].ToString());

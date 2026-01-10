@@ -8,7 +8,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Employees.Controllers
 {
-    [Route("/{CompanyId}/Employees/EmployeePayments/{Id:Guid}/{action=Index}")]
+    [Route("/Employees/EmployeePayments/{Id:Guid}/{action=Index}")]
     public class EmployeePaymentController : _Employees_Base_Controller
     {
 
@@ -44,7 +44,7 @@ namespace ERPKeeperCore.Web.Areas.Employees.Controllers
             Organization.EmployeePayments.Remove(model);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Employees/EmployeePayments");
+            return Redirect($"/Employees/EmployeePayments");
         }
     }
 }

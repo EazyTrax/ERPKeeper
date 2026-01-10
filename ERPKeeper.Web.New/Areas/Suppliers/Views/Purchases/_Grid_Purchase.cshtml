@@ -3,16 +3,16 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Suppliers/Purchases/All")
-            .InsertUrl($"/API/{CompanyId}/Suppliers/Purchases/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Suppliers/Purchases/Update")
+            .LoadUrl($"/API/Suppliers/Purchases/All")
+            .InsertUrl($"/API/Suppliers/Purchases/Insert")
+            .UpdateUrl($"/API/Suppliers/Purchases/Update")
             .UpdateMethod("Post")
             .InsertMethod("Post"))
 
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
             .Editing(editing => editing.Mode(GridEditMode.Batch).AllowAdding(IsOnEditMode).AllowUpdating(IsOnEditMode).UseIcons(true))
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" ))
             .ShowRowLines(true)
             .ShowBorders(false)
             .AllowColumnResizing(true).AllowColumnReordering(true)
@@ -41,7 +41,7 @@
         .Visible(false)
             .ShowInColumnChooser(true)
     .Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.SupplierId)
@@ -51,12 +51,12 @@
             .ValueExpr("Value"))
             .AllowEditing(IsOnEditMode)
             .MinWidth(200)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference)
                 .Width(180)
-                        .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
+                        .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
 
         
 
@@ -77,7 +77,7 @@
                     .ValueExpr("Value")
                     .AllowClearing(true))
                     .HeaderCellTemplate(@<text>TaxCode</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
@@ -87,13 +87,13 @@
             .Width(150)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>TaxPeriod</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.ExpenseAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetsAndExpenses.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Expense</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.ExpenseAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.ExpenseAccountId %>/"><%= displayValue %></a></text>);
           
         columns.AddFor(m => m.ProjectId)
             .Lookup(lookup => lookup
@@ -104,7 +104,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 

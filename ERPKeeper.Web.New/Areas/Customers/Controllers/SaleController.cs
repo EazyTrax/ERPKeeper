@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
-    [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/{action=index}")]
+    [Route("/Customers/Sales/{Id:Guid}/{action=index}")]
     public class SaleController : _Customers_Base_Controller
     {
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var sale = Organization.Sales.Find(Id);
 
             if (sale == null)
-                return Redirect($"/{CompanyId}/Customers/Sales");
+                return Redirect($"/Customers/Sales");
 
             sale.UpdateAddress();
             Organization.SaveChanges();
@@ -116,14 +116,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         }
 
 
-        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Items/Avaliable")]
+        [Route("/Customers/Sales/{Id:Guid}/Items/Avaliable")]
         public IActionResult Items_Avaliable()
         {
             var transcation = Organization.Sales.Find(Id);
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Items/Add")]
+        [Route("/Customers/Sales/{Id:Guid}/Items/Add")]
         public IActionResult Items_Add([FromQuery] Guid ItemId)
         {
             var transcation = Organization.Sales.Find(Id);
@@ -132,7 +132,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Customers/Sales/{Id}/Items");
+            return Redirect($"/Customers/Sales/{Id}/Items");
         }
 
         public IActionResult Payment()
@@ -140,7 +140,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var transcation = Organization.Sales.Find(Id);
 
             if (transcation.ReceivePayment != null)
-                return Redirect($"/{CompanyId}/Customers/ReceivePayments/{transcation.ReceivePayment.Id}/");
+                return Redirect($"/Customers/ReceivePayments/{transcation.ReceivePayment.Id}/");
 
             return View(transcation);
         }
@@ -164,7 +164,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
                 Organization.SaveChanges();
             }
 
-            return Redirect($"/{CompanyId}/Customers/Sales/{Id}/Payment");
+            return Redirect($"/Customers/Sales/{Id}/Payment");
         }
 
         public IActionResult Delete()
@@ -176,7 +176,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.ErpCOREDBContext.Sales.Remove(transcation);
 
             Organization.SaveChanges();
-            return Redirect($"/{CompanyId}/Customers/Sales");
+            return Redirect($"/Customers/Sales");
         }
 
         public IActionResult Void()
@@ -285,7 +285,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         }
 
 
-        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportShipmentLabel")]
+        [Route("/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportShipmentLabel")]
 
         public IActionResult ExportShipmentLabel(Guid ShipmentId)
         {
@@ -295,7 +295,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
         }
 
 
-        [Route("/{CompanyId}/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportPDFShipmentLabel")]
+        [Route("/Customers/Sales/{Id:Guid}/Shipments/{ShipmentId}/ExportPDFShipmentLabel")]
         public IActionResult ExportPDFShipmentLabel(Guid shipmentId)
         {
             var sale = Organization.Sales.Find(Id);

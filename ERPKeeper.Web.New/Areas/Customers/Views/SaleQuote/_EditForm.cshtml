@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
 
-<form id="EditForm" action="/@CompanyId/Customers/SaleQuotes/@Model.Id/Update" method="post">
+<form id="EditForm" action="/Customers/SaleQuotes/@Model.Id/Update" method="post">
 
     <div class="grid grid-cols-3">
         <div class="border bg-gray-100 p-2 mb-2 rounded">
@@ -30,8 +30,8 @@
                     <div class="mb-3 font-semibold text-lg">Customer</div>
                 </div>
                 <div class="">
-                    <a href="/@CompanyId/Profiles/@Model.CustomerId">
-                        <i class="fa-regular fa-id-badge text-xl"></i>
+                    <a href="/Profiles/@Model.CustomerId">
+                        Profile
                     </a>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                     @if (Model.Project != null)
                     {
                         <div>
-                            <a href="/@CompanyId/Projects/@Model.ProjectId/">@Model.Project.Name</a>
+                            <a href="/Projects/@Model.ProjectId/">@Model.Project.Name</a>
                         </div>
                     }
                 </div>

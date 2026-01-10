@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Storage.Controllers
 {
 
-    [Route("/{CompanyId}/{area}/NoteItems/{NoteItemId:Guid}/{action}")]
+    [Route("/{area}/NoteItems/{NoteItemId:Guid}/{action}")]
     public class NoteItemController : _Storage_BaseController
     {
 

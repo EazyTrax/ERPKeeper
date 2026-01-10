@@ -5,11 +5,11 @@
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Financial/Liabilities/All"))
+        .LoadUrl($"/api/Financial/Liabilities/All"))
         .KeyExpr("Id")
         .AllowColumnReordering(true)
         .AllowColumnResizing(true).AllowColumnReordering(true)
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("AssetsTree" + CompanyId.ToString()))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("AssetsTree" ))
         .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
         .ShowColumnLines(true)
         .ShowBorders(false)
@@ -23,7 +23,7 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.No).Width(90).CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);
+            columns.AddFor(m => m.No).Width(90).CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>);
 
          
 
@@ -41,7 +41,7 @@
 
 
             columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/Liabilities/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/Liabilities/<%= data.Id %>/"><%= data.Name %></a></text>);
 
      @*        columns.Add()
         .Caption("Current")

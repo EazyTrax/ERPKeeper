@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
-    [Route("/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/{action=index}")]
+    [Route("/Customers/SaleQuotes/{Id:Guid}/{action=index}")]
     public class SaleQuoteController : _Customers_Base_Controller
     {
 
@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaveChanges();
 
             if (transcation == null)
-                return Redirect($"/{CompanyId}/Customers/SaleQuotes");
+                return Redirect($"/Customers/SaleQuotes");
 
             return View(transcation);
         }
@@ -53,14 +53,14 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/Items/Avaliable")]
+        [Route("/Customers/SaleQuotes/{Id:Guid}/Items/Avaliable")]
         public IActionResult Items_Avaliable()
         {
             var transcation = Organization.SaleQuotes.Find(Id);
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Customers/SaleQuotes/{Id:Guid}/Items/Add")]
+        [Route("/Customers/SaleQuotes/{Id:Guid}/Items/Add")]
         public IActionResult Items_Add([FromQuery] Guid ItemId)
         {
             var transcation = Organization.SaleQuotes.Find(Id);
@@ -69,7 +69,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Customers/SaleQuotes/{Id}/Items");
+            return Redirect($"/Customers/SaleQuotes/{Id}/Items");
         }
 
         [HttpPost]
@@ -158,7 +158,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var newQuote = Organization.SaleQuotes.Clone(quote);
 
 
-            var redirectUrl = $"/{CompanyId}/Customers/SaleQuotes/{newQuote.Id}/";
+            var redirectUrl = $"/Customers/SaleQuotes/{newQuote.Id}/";
 
             return Redirect(redirectUrl);
         }
@@ -185,7 +185,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             Organization.SaleQuotes.Delete(transcation);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Customers/SaleQuotes");
+            return Redirect($"/Customers/SaleQuotes");
         }
         public IActionResult ConvertToInvoice()
         {
@@ -198,7 +198,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
             Organization.SaveChanges();
 
-            string returnUrl = $"/{CompanyId}/Customers/Sales/{sale.Id}/";
+            string returnUrl = $"/Customers/Sales/{sale.Id}/";
 
             return Redirect(returnUrl);
         }

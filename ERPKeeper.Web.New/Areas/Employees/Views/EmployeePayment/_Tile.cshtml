@@ -2,7 +2,7 @@
 
 <div class="grid grid-cols-6 gap-2">
     <!-- Employee Name -->
-    <a href="/@CompanyId/Employees/Employees/@Model.EmployeeId" class="col-span-2">
+    <a href="/Employees/Employees/@Model.EmployeeId" class="col-span-2">
         <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
             <div class="text-2xl font-semibold">
                 @Model.Employee.Profile.Name
@@ -14,7 +14,7 @@
     </a>
 
     <!-- Payment Date -->
-    <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/EmployeePayments">
+    <a href="/Employees/EmployeePayments/@Model.Id/EmployeePayments">
         <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
             <div class="text-2xl font-semibold">
                 @Model.EmployeePaymentPeriod.Date.ToString("dd-MMM-yyyy")
@@ -26,7 +26,7 @@
     </a>
 
     <!-- Item Count -->
-    <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/EmployeePayments">
+    <a href="/Employees/EmployeePayments/@Model.Id/EmployeePayments">
         <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
             <div class="text-2xl font-semibold">
                 @Model.PaymentItems.Count()
@@ -38,7 +38,7 @@
     </a>
 
     <!-- Total Earning -->
-    <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/Items">
+    <a href="/Employees/EmployeePayments/@Model.Id/Items">
         <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
             <div class="text-2xl font-semibold text-green-600">
                 @Model.TotalEarning
@@ -50,7 +50,7 @@
     </a>
 
     <!-- Total Deduction -->
-    <a href="/@CompanyId/Employees/EmployeePayments/@Model.Id/Items">
+    <a href="/Employees/EmployeePayments/@Model.Id/Items">
         <div class="bg-gray-100 h-20 border flex flex-col justify-center items-center hover:bg-gray-200 transition">
             <div class="text-2xl font-semibold text-red-600">
                 @Model.TotalDeduction

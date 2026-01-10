@@ -22,7 +22,7 @@
                     <div>
                         <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
 
-                        <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Void">Void</a>
+                        <a href="/Suppliers/PurchaseQuotes/@Model.Id/Void">Void</a>
                     </div>
 
                     @if (Model.Status != ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order)
@@ -30,26 +30,26 @@
                         <div>
                             <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
 
-                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Order">Order</a>
+                            <a href="/Suppliers/PurchaseQuotes/@Model.Id/Order">Order</a>
                         </div>
                     }
 
                     @if (Model.Status == ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order)
                     {
                         <div>
-                            <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Close" onclick="return confirm('Are you sure you want to convert to an invoice?');">Just Close</a>
+                            <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Suppliers/PurchaseQuotes/@Model.Id/Close" onclick="return confirm('Are you sure you want to convert to an invoice?');">Just Close</a>
                         </div>
 
                         <div>
                             <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
 
-                            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to create purchase and close?');">Create Purchase</a>
+                            <a href="/Suppliers/PurchaseQuotes/@Model.Id/ConvertToInvoice" onclick="return confirm('Are you sure you want to create purchase and close?');">Create Purchase</a>
                         </div>
                     }
                     <div>
                         <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
 
-                        <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Delete">Delete</a>
+                        <a href="/Suppliers/PurchaseQuotes/@Model.Id/Delete">Delete</a>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
     </div>
 
 
-    <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/PurchaseQuotes">
+    <a href="/Suppliers/PurchaseQuotes/@Model.Id/PurchaseQuotes">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-2xl text-center font-semibold">
             </div>
@@ -80,7 +80,7 @@
 
 
     <div class="bg-gray-100 h-20 content-center border relative">
-        <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Items">
+        <a href="/Suppliers/PurchaseQuotes/@Model.Id/Items">
             <div class="text-2xl text-center font-semibold">
                 @Model.Items.Count()
             </div>
@@ -91,7 +91,7 @@
 
 
         <div class="absolute top-1 right-1">
-            <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Items/Avaliable">
+            <a href="/Suppliers/PurchaseQuotes/@Model.Id/Items/Avaliable">
                 <i class="fa-solid fa-circle-plus text-lg"></i>
             </a>
         </div>

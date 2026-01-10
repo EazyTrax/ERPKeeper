@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
-    public class HomeController : DefaultController
+    public class HomeController : _BaseController
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        [Route("/{CompanyId}/{action}")]
+       
+        [Route("/Migrate")]
         public IActionResult Migrate()
         {
             var Organization = new Enterprise.EnterpriseRepo(CompanyId, true);

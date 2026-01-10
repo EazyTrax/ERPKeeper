@@ -10,7 +10,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
 
-    [Route("/{CompanyId}/Products/Brands/{brandUid:Guid}/{action=Index}")]
+    [Route("/Products/Brands/{brandUid:Guid}/{action=Index}")]
     public class BrandController : Base_ProductsController
     {
         public IActionResult Index(Guid brandUid)

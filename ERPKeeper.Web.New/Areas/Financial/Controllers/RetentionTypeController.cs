@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 {
 
-    [Route("/{CompanyId}/Financial/RetentionTypes/{Id:Guid}/{action=index}")]
+    [Route("/Financial/RetentionTypes/{Id:Guid}/{action=index}")]
     public class RetentionTypeController : Financial_BaseController
     {
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());

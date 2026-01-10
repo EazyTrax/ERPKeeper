@@ -24,14 +24,14 @@
 
 <div class="rounded-lg bg-gray-100 p-2 bg-fb2 font-semibold">
 	<div class="mb-2">
-        <a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/">
+        <a href="/Accounting/FiscalYears/@Model.Id/">
             FY-@Model.Name
         </a> |
 
         @{
             if (Model.PreviusFiscalYear != null)
             {
-                <a href="/@CompanyId/Accounting/FiscalYears/@Model.PreviusFiscalYear.Id/">
+                <a href="/Accounting/FiscalYears/@Model.PreviusFiscalYear.Id/">
                     FY-@(Model.PreviusFiscalYear.Name)
                 </a>
             }
@@ -44,7 +44,7 @@
 			<span class="text-white">Income</span>
 		</div>
 		<div class="ml-2 float-left p-1">
-			<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Incomes">
+			<a href="/Accounting/FiscalYears/@Model.Id/Incomes">
 				@Model.IncomeBalance.ToString("N2")
 			</a>
 		</div>
@@ -55,7 +55,7 @@
 			<span class="text-white">Expense</span>
 		</div>
 		<div class="ml-2 float-left p-1">
-			<a href="/@CompanyId/Accounting/FiscalYears/@Model.Id/Expenses">
+			<a href="/Accounting/FiscalYears/@Model.Id/Expenses">
 				@Model.ExpenseBalance.ToString("N2")
 			</a>
 		</div>

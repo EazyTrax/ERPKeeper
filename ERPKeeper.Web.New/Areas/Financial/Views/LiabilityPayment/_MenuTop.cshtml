@@ -3,23 +3,23 @@
 
 <div class="flex w-full font-semibold text-lg justify-between">
     <div class="p-2">
-        <a href="/@CompanyId/Financial"> Financial</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Financial/LiabilityPayments">LiabilityPayments</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id">@Model.Name</a>
+        <a href="/Financial"> Financial</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Financial/LiabilityPayments">LiabilityPayments</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Financial/LiabilityPayments/@Model.Id">@Model.Name</a>
     </div>
     <div class="col text-right">
         @if (Model.IsPosted)
         {
-            <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id/UnPost">UnPost</a>
+            <a href="/Financial/LiabilityPayments/@Model.Id/UnPost">UnPost</a>
         }
         else
         {
-            <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id/Post">Post</a>
+            <a href="/Financial/LiabilityPayments/@Model.Id/Post">Post</a>
             
         }
         @if (Model.Status == ERPKeeperCore.Enterprise.Models.Financial.Enums.LiabilityPaymentStatus.Draft)
         {
-            <a href="/@CompanyId/Financial/LiabilityPayments/@Model.Id/Issue">Issue</a>
+            <a href="/Financial/LiabilityPayments/@Model.Id/Issue">Issue</a>
         }
     </div>
 </div>

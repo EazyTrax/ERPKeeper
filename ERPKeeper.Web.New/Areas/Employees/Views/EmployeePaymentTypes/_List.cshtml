@@ -5,11 +5,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Employees/EmployeePaymentTypes/All")
-        .InsertUrl($"/API/{CompanyId}/Employees/EmployeePaymentTypes/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Employees/EmployeePaymentTypes/Update")
+        .LoadUrl($"/API/Employees/EmployeePaymentTypes/All")
+        .InsertUrl($"/API/Employees/EmployeePaymentTypes/Insert")
+        .UpdateUrl($"/API/Employees/EmployeePaymentTypes/Update")
     .UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePaymentTypes/Delete")
+        .DeleteUrl($"/API/Employees/EmployeePaymentTypes/Delete")
     .DeleteMethod("Post")
     )
     .KeyExpr("Id")
@@ -45,7 +45,7 @@
     );*@
 
     columns.AddFor(m=>m.Name)
-    .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentTypes/<%= data.Id %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Employees/EmployeePaymentTypes/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
     columns.AddFor(m=>m.Description);
@@ -58,7 +58,7 @@
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Expense Acc</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounts/Accounts/<%= data.AccountUid %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounts/Accounts/<%= data.AccountUid %>/"><%= displayValue %></a></text>);
 
 
 

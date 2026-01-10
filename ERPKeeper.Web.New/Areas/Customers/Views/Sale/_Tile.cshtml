@@ -7,7 +7,7 @@
 
 
     <div class="bg-gray-100 h-20 content-center border relative">
-        <a href="/@CompanyId/Customers/Sales/@Model.Id">
+        <a href="/Customers/Sales/@Model.Id">
             <div class="text-3xl text-center font-semibold">
                 @Model.Status
             </div>
@@ -24,7 +24,7 @@
                     @if (Model.ReceivePayment == null)
                     {
                         <div>
-                            <a href="/@CompanyId/Customers/Sales/@Model.Id/Delete" onclick="return confirm('Are you sure you want to delete?');">Delete Invoice</a>
+                            <a href="/Customers/Sales/@Model.Id/Delete" onclick="return confirm('Are you sure you want to delete?');">Delete Invoice</a>
                         </div>
                     }
 
@@ -38,7 +38,7 @@
 
 
 
-    <a href="/@CompanyId/Customers/Sales/@Model.Id/Sales">
+    <a href="/Customers/Sales/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.AgeInDays
@@ -50,7 +50,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Customers/Sales/@Model.Id/Payment">
+    <a href="/Customers/Sales/@Model.Id/Payment">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @if (Model.ReceivePayment == null)

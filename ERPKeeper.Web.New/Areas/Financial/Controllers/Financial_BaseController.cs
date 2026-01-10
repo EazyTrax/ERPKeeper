@@ -15,7 +15,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Financial.Controllers
 {
     [Area("Financial")]
-    public class Financial_BaseController : DefaultController
+    public class Financial_BaseController : _BaseController
     {
        
 

@@ -6,9 +6,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-                .LoadUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/List/{Model.ToString()}")
-                .InsertUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Insert")
-                .UpdateUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/Update")
+                .LoadUrl($"/API/Suppliers/PurchaseQuotes/List/{Model.ToString()}")
+                .InsertUrl($"/API/Suppliers/PurchaseQuotes/Insert")
+                .UpdateUrl($"/API/Suppliers/PurchaseQuotes/Update")
                 .UpdateMethod("Post")
                 .InsertMethod("Post"))
 
@@ -20,7 +20,7 @@
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchase_Quotes_" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchase_Quotes_" ))
 
             .ColumnAutoWidth(false)
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
@@ -46,7 +46,7 @@
                 .AllowEditing(false)
                     .ShowInColumnChooser(true)
             .Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Name %>.</a></text>);
 
 
                 columns.AddFor(m => m.SupplierId)
@@ -54,12 +54,12 @@
             .DataSource(Organization.ErpCOREDBContext.Suppliers.Select(i => new { Value = i.Id, Text = i.Profile.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
                     columns.AddFor(m => m.Reference)
                     .Width(180)
-                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
+                    .CellTemplate(@<text><a href="/Suppliers/PurchaseQuotes/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
 
 
                     columns.AddFor(m => m.Tax)
@@ -75,7 +75,7 @@
             .ValueExpr("Value"))
             .Width(150)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -88,7 +88,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 

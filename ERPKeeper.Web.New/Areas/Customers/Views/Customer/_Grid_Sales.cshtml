@@ -8,9 +8,9 @@
     .ID("gridList")
     .KeyExpr("Id")
     .DataSource(d => d.RemoteController().Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/All")
-    .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Sales/Update")
+    .LoadUrl($"/API/Customers/Customers/{Model.ProfileId}/Sales/All")
+    .InsertUrl($"/API/Customers/Customers/{Model.ProfileId}/Sales/Insert")
+    .UpdateUrl($"/API/Customers/Customers/{Model.ProfileId}/Sales/Update")
     .UpdateMethod("Post")
     .InsertMethod("Post")
     )
@@ -32,8 +32,8 @@
     .ValueExpr("Value")
     );
 
-    columns.AddFor(m => m.Name).Width(130).CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
-    columns.AddFor(m => m.Reference).CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Reference %></a></text>);
+    columns.AddFor(m => m.Name).Width(130).CellTemplate(@<text><a href="/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+    columns.AddFor(m => m.Reference).CellTemplate(@<text><a href="/Customers/Sales/<%= data.Id %>/"><%= data.Reference %></a></text>);
 
 
             columns.AddFor(m => m.ProjectId)
@@ -45,7 +45,7 @@
         .Visible(false)
         .ShowInColumnChooser(true)
         .HeaderCellTemplate(@<text>Project</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 

@@ -8,11 +8,11 @@
         .ID("grid_SupplierPayments_List")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Financial/RetentionGroups/{Model.Id}/SupplierPayments/All")
-        @*  .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/Update")
+        .LoadUrl($"/API/Financial/RetentionGroups/{Model.Id}/SupplierPayments/All")
+        @*  .InsertUrl($"/API/Suppliers/Suppliers/Insert")
+            .UpdateUrl($"/API/Suppliers/Suppliers/Update")
             .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Suppliers/Suppliers/Delete")
+            .DeleteUrl($"/API/Suppliers/Suppliers/Delete")
             .DeleteMethod("Post")*@
         )
         .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -24,7 +24,7 @@
            .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).UseIcons(true))
          
         .ColumnAutoWidth(false)
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SupplierPayments" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SupplierPayments" ))
 
             .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         
@@ -35,19 +35,19 @@
 
          
                 columns.AddFor(m => m.Name).Width(50)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/SupplierPayments/<%= data.Id %>/">SP</a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/SupplierPayments/<%= data.Id %>/">SP</a></text>);
 
 
                 columns.AddFor(m => m.PurchaseId)
             .Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
 
                 columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.Purchase.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.Purchase.SupplierId %>/"><%= displayValue %></a></text>);
 
           
 

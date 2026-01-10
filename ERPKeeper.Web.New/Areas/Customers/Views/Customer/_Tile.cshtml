@@ -11,13 +11,13 @@
         <div class="w-2/12 justify-end flex gap-2">
 
             <div>
-                <a href="/@CompanyId/Profiles/@Model.Id">
-                    <i class="fa-regular fa-id-badge text-xl"></i>
+                <a href="/Profiles/@Model.Id">
+                    Profile
                 </a>
             </div>
 
             <div>
-                <a href="/@CompanyId/Customers/Customers/@Model.Id/Delete">
+                <a href="/Customers/Customers/@Model.Id/Delete">
                     Delete
                 </a>
             </div>
@@ -30,7 +30,7 @@
 <div class="grid grid-cols-6">
 
 
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/SaleQuotes">
+    <a href="/Customers/Customers/@Model.Id/SaleQuotes">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.CustomerId == Model.Id).Count()
@@ -44,7 +44,7 @@
 
 
 
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+    <a href="/Customers/Customers/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Model.TotalSalesCount
@@ -56,7 +56,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+    <a href="/Customers/Customers/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @(Model.TotalSales.ToString("N0"))
@@ -68,7 +68,7 @@
     </a>
 
 
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+    <a href="/Customers/Customers/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id && s.Status == ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus.Open).Count()
@@ -79,7 +79,7 @@
         </div>
     </a>
 
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/Sales">
+    <a href="/Customers/Customers/@Model.Id/Sales">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @(Model.TotalBalance.ToString("N0"))
@@ -90,7 +90,7 @@
         </div>
     </a>
 
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/Items">
+    <a href="/Customers/Customers/@Model.Id/Items">
         <div class="bg-gray-100 h-20 content-center border">
             <div class="text-3xl text-center font-semibold">
                 @Organization.ErpCOREDBContext.CustomerItems.Where(s => s.CustomerId == Model.Id).Count()

@@ -5,9 +5,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.AssetType>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Assets/AssetTypes/All")
-        .InsertUrl($"/API/{CompanyId}/Assets/AssetTypes/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Assets/AssetTypes/Update")
+        .LoadUrl($"/API/Assets/AssetTypes/All")
+        .InsertUrl($"/API/Assets/AssetTypes/Insert")
+        .UpdateUrl($"/API/Assets/AssetTypes/Update")
         .UpdateMethod("Post")
         )
         .KeyExpr("Id")
@@ -44,7 +44,7 @@
 
 
             columns.AddFor(m => m.CodePrefix).Width(80).HeaderCellTemplate(@<text>Purchased</text>).SortOrder(SortOrder.Asc).SortIndex(1);
-            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text> <a href="/@CompanyId/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text> <a href="/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
             columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Assets</text>);
             columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
 
@@ -57,24 +57,24 @@
             columns.AddFor(m => m.Purchase_Asset_AccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .HeaderCellTemplate(@<text>Purchase Acc</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.Purchase_Asset_AccountId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Purchase_Asset_AccountId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.AwaitDeprecateAccId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .HeaderCellTemplate(@<text>AwaitDep Acc</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AwaitDeprecateAccId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AwaitDeprecateAccId %>/"><%= displayValue %></a></text>);
 
 
             columns.AddFor(m => m.AmortizeExpenseAccId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(AccountSubTypes.Expense_Asset_Amortize, AccountSubTypes.Expense_Asset_Deprecate)
         .Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .HeaderCellTemplate(@<text>Amortize Acc</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AmortizeExpenseAccId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AmortizeExpenseAccId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.AccumulateDeprecateAccId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.Asset_AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
         .HeaderCellTemplate(@<text>Accumulate Acc</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccumulateDeprecateAccId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccumulateDeprecateAccId %>/"><%= displayValue %></a></text>);
 
 
             @*

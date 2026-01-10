@@ -5,11 +5,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Projects/{Model.Id}/Purchases/All"))
+            .LoadUrl($"/API/Projects/{Model.Id}/Purchases/All"))
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
 
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Purchases" ))
             .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
@@ -33,7 +33,7 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.SupplierId).Lookup(lookup => lookup
@@ -42,7 +42,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .MinWidth(200)
-            .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference).Width(180);
@@ -56,7 +56,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
@@ -65,14 +65,14 @@
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>TaxPeriod</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.ExpenseAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetsAndExpenses.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .Visible(false)
             .HeaderCellTemplate(@<text>Expense</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);

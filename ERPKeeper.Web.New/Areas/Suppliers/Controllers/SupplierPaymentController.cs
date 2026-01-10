@@ -13,7 +13,7 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
 
-    [Route("/{CompanyId}/Suppliers/SupplierPayments/{Id:Guid}/{action=index}")]
+    [Route("/Suppliers/SupplierPayments/{Id:Guid}/{action=index}")]
     public class SupplierPaymentController : _Suppliers_Base_Controller
     {
         public Guid Id

@@ -12,7 +12,7 @@
         .ID("grid_ReceivePayments_List")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Financial/RetentionGroups/{Model.Id}/ReceivePayments/All"))
+        .LoadUrl($"/API/Financial/RetentionGroups/{Model.Id}/ReceivePayments/All"))
         .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(true)
         .ShowBorders(false)
@@ -23,7 +23,7 @@
         .ColumnAutoWidth(false)
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         @*.AutoExpandAll(true)*@
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("ReceivePayments" + CompanyId.ToString()))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("ReceivePayments" ))
 
         .Columns(columns =>
         {
@@ -37,7 +37,7 @@
 
             columns.AddFor(m => m.Name)
     .Width(50)
-    .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
+    .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
 
 
 
@@ -49,18 +49,18 @@
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .AllowEditing(false)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
 
 
             columns.AddFor(m => m.SaleId)
         .HeaderCellTemplate("Sale")
         .Width(130)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.SaleId %></a></text>);
+        .CellTemplate(@<text><a href="/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.SaleId %></a></text>);
 
             columns.AddFor(m => m.SaleId)
         .HeaderCellTemplate("Reference")
         .Width(130)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
+        .CellTemplate(@<text><a href="/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
 
 
 

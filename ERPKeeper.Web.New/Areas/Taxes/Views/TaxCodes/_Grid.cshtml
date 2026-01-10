@@ -4,9 +4,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Taxes.TaxCode>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Taxes/TaxCodes/All")
-        .InsertUrl($"/API/{CompanyId}/Taxes/TaxCodes/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Taxes/TaxCodes/Update")
+        .LoadUrl($"/API/Taxes/TaxCodes/All")
+        .InsertUrl($"/API/Taxes/TaxCodes/Insert")
+        .UpdateUrl($"/API/Taxes/TaxCodes/Update")
         .UpdateMethod("Post")
         )
         .KeyExpr("Id")
@@ -45,7 +45,7 @@
 
 
             columns.AddFor(m => m.Name)
-    .CellTemplate(@<text> <a href="/@CompanyId/Taxes/TaxCodes/<%= data.Id %>/"><%= data.Name %></a></text>
+    .CellTemplate(@<text> <a href="/Taxes/TaxCodes/<%= data.Id %>/"><%= data.Name %></a></text>
     );
 
             columns.AddFor(m => m.Rate);

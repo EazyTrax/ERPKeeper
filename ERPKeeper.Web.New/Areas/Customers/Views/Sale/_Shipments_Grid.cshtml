@@ -20,11 +20,11 @@
             .DataSource(d =>
             d.RemoteController()
             .Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/All")
-        .InsertUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Update")
+            .LoadUrl($"/API/Customers/Sales/{Model.Id}/Shipments/All")
+        .InsertUrl($"/API/Customers/Sales/{Model.Id}/Shipments/Insert")
+        .UpdateUrl($"/API/Customers/Sales/{Model.Id}/Shipments/Update")
             .UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Customers/Sales/{Model.Id}/Shipments/Delete")
+        .DeleteUrl($"/API/Customers/Sales/{Model.Id}/Shipments/Delete")
             .DeleteMethod("Post")
             )
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
@@ -47,7 +47,7 @@
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Provider</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Logistics/ShipmentProviders/<%= data.ShipmentProviderId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Logistics/ShipmentProviders/<%= data.ShipmentProviderId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -58,19 +58,19 @@
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Addesss</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/@Model.CustomerId"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Profiles/@Model.CustomerId"><%= displayValue %></a></text>);
 
 
                 columns.Add()
             .AllowEditing(false)
             .Width(60)
-            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportShipmentLabel">Print</a></text>);
+            .CellTemplate(@<text><a target="_self" href="/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportShipmentLabel">Print</a></text>);
 
 
                   columns.Add()
             .AllowEditing(false)
             .Width(60)
-            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportPDFShipmentLabel">PDF</a></text>);
+            .CellTemplate(@<text><a target="_self" href="/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportPDFShipmentLabel">PDF</a></text>);
 
 
 

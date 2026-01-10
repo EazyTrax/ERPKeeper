@@ -5,10 +5,10 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financial/Loans/All")
-            .InsertUrl($"/API/{CompanyId}/Financial/Loans/Insert")
+            .LoadUrl($"/API/Financial/Loans/All")
+            .InsertUrl($"/API/Financial/Loans/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Financial/Loans/Update")
+            .UpdateUrl($"/API/Financial/Loans/Update")
             .UpdateMethod("Post")
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -32,7 +32,7 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/Loans/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/Loans/<%= data.Id %>/"><%= data.Name %></a></text>);
                 columns.AddFor(m => m.Reference).Width(180);
 
 
@@ -41,14 +41,14 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Dr.Recev</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RecevingAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.RecevingAccountId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.LoanAccountId)
 
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Cr. Liab Acc</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LoanAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.LoanAccountId %>/"><%= displayValue %></a></text>);
 
 
 

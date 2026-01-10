@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.Areas.Financial.Controllers
 
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Financial/LiabilityPayments/{newLiabilityPayment.Id}");
+            return Redirect($"/Financial/LiabilityPayments/{newLiabilityPayment.Id}");
 
         }
 

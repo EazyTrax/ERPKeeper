@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Employees.EmployeePaymentType
 {
-    [Route("/API/{CompanyId}/Employees/EmployeePaymentTypes/{Id:Guid}/{controller}/{action=Index}")]
+    [Route("/API/Employees/EmployeePaymentTypes/{Id:Guid}/{controller}/{action=Index}")]
     public class _API_Employees_PaymentType_BaseController : API_BaseController
     {
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());

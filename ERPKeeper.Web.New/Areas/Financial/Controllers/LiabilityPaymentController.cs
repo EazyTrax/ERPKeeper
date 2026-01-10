@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 {
 
-    [Route("/{CompanyId}/Financial/LiabilityPayments/{TransactionId:Guid}/{action=index}")]
+    [Route("/Financial/LiabilityPayments/{TransactionId:Guid}/{action=index}")]
     public class LiabilityPaymentController : Financial_BaseController
     {
         public Guid TransactionId => Guid.Parse(RouteData.Values["TransactionId"].ToString());
@@ -68,7 +68,7 @@ namespace ERPKeeperCore.Web.Areas.Financials.Controllers
             {
                 Organization.ErpCOREDBContext.LiabilityPayments.Remove(model);
                 Organization.ErpCOREDBContext.SaveChanges();
-                return Redirect($"/{CompanyId}/Financial/LiabilityPayments");
+                return Redirect($"/Financial/LiabilityPayments");
             }
 
             return Redirect(Request.Headers["Referer"].ToString());

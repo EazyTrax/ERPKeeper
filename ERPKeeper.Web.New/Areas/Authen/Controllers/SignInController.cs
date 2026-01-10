@@ -1,18 +1,17 @@
-﻿using System;
+﻿using ERPKeeperCore.Enterprise.Models.Profiles;
+using ERPKeeperCore.Enterprise.Models.Security;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
-
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Http;
-using ERPKeeperCore.Enterprise.Models.Security;
-using Microsoft.EntityFrameworkCore;
 
 namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
@@ -26,16 +25,6 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 
         public IActionResult Index()
         {
-            string[] Enterprises = new string[] {
-               "tec",
-                "bit"
-            };
-
-            foreach (var enterpriseDB in Enterprises)
-            {
-                var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
-                newOrganization.ErpCOREDBContext.Database.Migrate();
-            }
 
             return View(new LogInModel());
         }
@@ -46,10 +35,11 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
             if (User.Identity.IsAuthenticated)
                 return Redirect("/Portal");
 
-            var member = organizationRepo.Members.Authen(logInModel);
+            var profile = organizationRepo.Profiles.Authen(logInModel);
+            organizationRepo.SaveChanges();
 
-            if (member != null)
-                return await this.DoSignIn(member);
+            if (profile != null)
+                return await this.DoSignIn(profile);
             else
             {
                 logInModel.ErrorMessage = "Error user not found";
@@ -57,20 +47,23 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
             }
         }
 
-        private async Task<IActionResult> DoSignIn(Member member)
+        private async Task<IActionResult> DoSignIn(ERPKeeperCore.Enterprise.Models.Profiles.Profile profile)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,  member.Name),
-                new Claim(ClaimTypes.Email, member.Email),
-                new Claim(ClaimTypes.NameIdentifier,member.Id.ToString())
+                new Claim(ClaimTypes.Name,  profile.Name),
+                new Claim(ClaimTypes.Email, profile.Email),
+                new Claim(ClaimTypes.NameIdentifier,profile.Id.ToString())
             };
+
+
+
             var modelIdentity = new ClaimsIdentity(claims, "Login");
 
             ClaimsPrincipal principal = new(modelIdentity);
 
-            var authProperties = new AuthenticationProperties 
-            { 
+            var authProperties = new AuthenticationProperties
+            {
                 IsPersistent = true,
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30) // Explicit 30-day expiration for persistent login
             };

@@ -11,9 +11,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Brand>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/api/{CompanyId}/Products/Brands/All")
-        .InsertUrl($"/api/{CompanyId}/Products/Brands/Insert")
-        .UpdateUrl($"/api/{CompanyId}/Products/Brands/Update")
+        .LoadUrl($"/api/Products/Brands/All")
+        .InsertUrl($"/api/Products/Brands/Insert")
+        .UpdateUrl($"/api/Products/Brands/Update")
         .UpdateMethod("Post")
         )
         .KeyExpr("Id")
@@ -42,8 +42,8 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
-            columns.AddFor(m => m.WebSite).Width(150).CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.Id %>"><%= data.WebSite %></a></text>);
+            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text><a href="/Products/Brands/<%= data.Id %>"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.WebSite).Width(150).CellTemplate(@<text><a href="/Products/Brands/<%= data.Id %>"><%= data.WebSite %></a></text>);
             columns.AddFor(m => m.Description).MinWidth(250);
             columns.AddFor(m => m.ItemsCount);
         })

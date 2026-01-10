@@ -12,7 +12,7 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
-    [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/{action=index}")]
+    [Route("/Suppliers/Purchases/{Id:Guid}/{action=index}")]
     public class PurchaseController : _Suppliers_Base_Controller
     {
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());
@@ -83,13 +83,13 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/Items/Avaliable")]
+        [Route("/Suppliers/Purchases/{Id:Guid}/Items/Avaliable")]
         public IActionResult Items_Avaliable()
         {
             var transcation = Organization.Purchases.Find(Id);
             return View(transcation);
         }
-        [Route("/{CompanyId}/Suppliers/Purchases/{Id:Guid}/Items/Add")]
+        [Route("/Suppliers/Purchases/{Id:Guid}/Items/Add")]
         public IActionResult Items_Add([FromQuery] Guid ItemId)
         {
             var transcation = Organization.Purchases.Find(Id);
@@ -97,7 +97,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             transcation.AddItem(item);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Suppliers/Purchases/{Id}/Items");
+            return Redirect($"/Suppliers/Purchases/{Id}/Items");
         }
         public IActionResult Payment()
         {
@@ -125,7 +125,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
                 Organization.SaveChanges();
             }
 
-            return Redirect($"/{CompanyId}/Suppliers/SupplierPayments/{purchase.SupplierPayment.Id}");
+            return Redirect($"/Suppliers/SupplierPayments/{purchase.SupplierPayment.Id}");
         }
         public IActionResult Shipments()
         {
@@ -195,7 +195,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             Organization.ErpCOREDBContext.Purchases.Remove(transcation);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Suppliers/Purchases");
+            return Redirect($"/Suppliers/Purchases");
         }
 
     }

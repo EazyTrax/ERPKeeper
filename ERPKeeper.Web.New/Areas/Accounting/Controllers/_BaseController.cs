@@ -15,7 +15,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
     [Area("Accounting")]
-    public class AccountingBaseController : DefaultController
+    public class AccountingBaseController : _BaseController
     {
        
 

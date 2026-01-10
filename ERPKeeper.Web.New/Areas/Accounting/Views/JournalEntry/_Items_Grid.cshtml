@@ -6,9 +6,9 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController()
             .Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Accounting/Transactions/{Model.Id}/Items/All")
-            .InsertUrl($"/api/{CompanyId}/Accounting/Transactions/{Model.Id}/Items/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Accounting/Transactions/{Model.Id}/Items/Update")
+            .LoadUrl($"/api/Accounting/Transactions/{Model.Id}/Items/All")
+            .InsertUrl($"/api/Accounting/Transactions/{Model.Id}/Items/Insert")
+            .UpdateUrl($"/api/Accounting/Transactions/{Model.Id}/Items/Update")
             .UpdateMethod("Post"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
@@ -24,7 +24,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(250)
             .HeaderCellTemplate(@<text>Account</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
 
                
@@ -38,7 +38,7 @@
     );
 
 
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Memo %></a></text>);
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Memo %></a></text>);
                 columns.AddFor(m => m.Debit).Width(130).Format(",##0.00");
                 columns.AddFor(m => m.Credit).Width(130).Format(",##0.00");
             })

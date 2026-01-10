@@ -12,10 +12,10 @@
         .RowAlternationEnabled(true).AllowColumnReordering(true)
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/All")
-            .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/Update")
+            .LoadUrl($"/API/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/All")
+            .UpdateUrl($"/API/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/Update")
             .UpdateMethod("Post")
-            .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/Insert")
+            .InsertUrl($"/API/Suppliers/Suppliers/{Model.Id}/PurchaseQuotes/Insert")
             .InsertMethod("Post"))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Supplier_PurchaseQuotes"))
@@ -61,7 +61,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 

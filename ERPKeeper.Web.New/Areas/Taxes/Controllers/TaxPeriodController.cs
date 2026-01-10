@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
 {
-    [Route("/{CompanyId}/Taxes/TaxPeriods/{TaxPeriodId:Guid}/{action=Index}/{id?}")]
+    [Route("/Taxes/TaxPeriods/{TaxPeriodId:Guid}/{action=Index}/{id?}")]
     public class TaxPeriodController : Base_TaxesController
     {
         public IActionResult Index(Guid TaxPeriodId)
@@ -105,7 +105,7 @@ namespace ERPKeeperCore.Web.Areas.Taxes.Controllers
                 Organization.ErpCOREDBContext.TaxPeriods.Remove(TaxPeriod);
                 Organization.SaveChanges();
             }
-            return Redirect($"/{CompanyId}/Taxes/TaxPeriods");
+            return Redirect($"/Taxes/TaxPeriods");
         }
     }
 }

@@ -6,7 +6,7 @@
             Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Projects/{Model.Id}/SaleQuotes/All")
+            .LoadUrl($"/API/Projects/{Model.Id}/SaleQuotes/All")
             )
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
             .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("SaleQuotes"))
@@ -39,7 +39,7 @@
                 columns.AddFor(m => m.Name)
             .Width(150)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.CustomerId)
@@ -48,7 +48,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate("Customer")
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference).Width(180);
@@ -62,7 +62,7 @@
             .ValueExpr("Value"))
             .Width(150)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
             })
         .Summary(s =>
         s.TotalItems(items =>

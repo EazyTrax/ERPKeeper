@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
 
-    [Route("/{CompanyId}/Products/{controller=Home}/{action=Index}")]
+    [Route("/Products/{controller=Home}/{action=Index}")]
     public class RefreshController : Base_ProductsController
     {
         public IActionResult Stock()

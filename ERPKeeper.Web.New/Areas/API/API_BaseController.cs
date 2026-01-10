@@ -17,11 +17,28 @@ using ERPKeeperCore.Enterprise;
 namespace ERPKeeperCore.Web.API
 {
     [Area("API")]
-    [Route("/API/{CompanyId}/{controller=Home}/{action=Index}/{id?}")]
+    [Route("/API/{controller=Home}/{action=Index}/{id?}")]
     public class API_BaseController : Controller
     {
         public Guid CurrentMakerId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-        public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
+
+
+        public String CompanyId
+        {
+            get
+            {
+                var host = HttpContext.Request.Host.Host;
+                var parts = host.Split('.');
+                parts[0] = parts[0].Replace("erp-", "");
+
+
+                if (parts[0].StartsWith("localhost-"))
+                    parts[0] = "tec";
+
+                return parts.Length > 0 ? parts[0] : host;
+            }
+        }
+
 
         public EnterpriseRepo _Organization;
         public EnterpriseRepo Organization

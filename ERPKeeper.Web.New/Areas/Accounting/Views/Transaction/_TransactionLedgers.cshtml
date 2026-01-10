@@ -7,7 +7,7 @@
 
     <div class="flex border p-2 bg-gray-100">
         <div class="w-8/12 font-semibold">
-            <a href="/@CompanyId/Accounting/Transactions/@Model.Id/">
+            <a href="/Accounting/Transactions/@Model.Id/">
                 TR: @(Model.Name ?? Model.Reference)  #(@Model.Ledgers.Count())
             </a>
         </div>
@@ -36,7 +36,7 @@
                 @if (transactionLedger.Debit > 0)
                 {
                     <div class="w-7/12">
-                        <a href="/@CompanyId/Accounting/Accounts/@transactionLedger.AccountId">
+                        <a href="/Accounting/Accounts/@transactionLedger.AccountId">
                             @transactionLedger.Account.Name
                         </a><br />
                         @transactionLedger.Account.Type.ToString()
@@ -48,7 +48,7 @@
                 else
                 {
                     <div class="w-8/12 ">
-                        <a href="/@CompanyId/Accounting/Accounts/@transactionLedger.AccountId">
+                        <a href="/Accounting/Accounts/@transactionLedger.AccountId">
                             @transactionLedger.Account.Name
                         </a><br />
                         @transactionLedger.Account.Type.ToString()

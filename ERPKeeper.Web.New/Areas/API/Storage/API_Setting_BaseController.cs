@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.New.API.Storage
 {
-    [Route("/API/{CompanyId}/Storage/{controller}/{action=Index}")]
+    [Route("/API/Storage/{controller}/{action=Index}")]
     public class API_Storage_BaseController : API_BaseController
     {
 

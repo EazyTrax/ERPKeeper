@@ -46,7 +46,7 @@
             foreach (var line in currentFiscalYearIncomes)
             {
                 <div class="pl-3 col-span-2">
-                    <a href="/@CompanyId/Accounting/Accounts/@line.AccountId/" target="_self">
+                    <a href="/Accounting/Accounts/@line.AccountId/" target="_self">
                         @line.Account.Name
                     </a>
                 </div>
@@ -208,7 +208,7 @@
             .FirstOrDefault();
 
             <div class=" col-span-2">
-                <a href="/@CompanyId/Accounting/Accounts/@currentYearIncomeTaxBalance.Account?.Id/" target="_self">
+                <a href="/Accounting/Accounts/@currentYearIncomeTaxBalance.Account?.Id/" target="_self">
                     ค่าใช้จ่ายภาษีเงินได้
                 </a>
             </div>

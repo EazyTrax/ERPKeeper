@@ -23,26 +23,26 @@
 }
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers/Sales/@Model.Id">@Model.Name</a>
+    <a href="/Customers/Sales/@Model.Id">@Model.Name</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Customers/Sales/{Model.Id}");
-        MenuTemplate(0, "Items", $"/{CompanyId}/Customers/Sales/{Model.Id}/Items", Model.Items.Count());
-        MenuTemplate(0, "Payment", $"/{CompanyId}/Customers/Sales/{Model.Id}/Payment");
+        MenuTemplate(0, "Detail", $"/Customers/Sales/{Model.Id}");
+        MenuTemplate(0, "Items", $"/Customers/Sales/{Model.Id}/Items", Model.Items.Count());
+        MenuTemplate(0, "Payment", $"/Customers/Sales/{Model.Id}/Payment");
 
-        MenuTemplate(0, "Shipments", $"/{CompanyId}/Customers/Sales/{Model.Id}/Shipments");
-        MenuTemplate(0, "Notes", $"/{CompanyId}/Customers/Sales/{Model.Id}/Notes");
-        MenuTemplate(0, "Documents", $"/{CompanyId}/Customers/Sales/{Model.Id}/Documents");
+        MenuTemplate(0, "Shipments", $"/Customers/Sales/{Model.Id}/Shipments");
+        MenuTemplate(0, "Notes", $"/Customers/Sales/{Model.Id}/Notes");
+        MenuTemplate(0, "Documents", $"/Customers/Sales/{Model.Id}/Documents");
     }
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export ต้นฉบับ", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export?DocumentName=ใบกำกับภาษี");
-        MenuTemplate(0, "Export สำเนา", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export?DocumentName=สำเนาใบกำกับภาษี");
-        MenuTemplate(0, "Export InVat", $"/{CompanyId}/Customers/Sales/{Model.Id}/ExportInVat?DocumentName=สำเนาใบกำกับภาษี");
-        MenuTemplate(0, "Export ใบส่งสินค้า", $"/{CompanyId}/Customers/Sales/{Model.Id}/Export_DeliveryNote?DocumentName=ใบส่งสินค้า");
+        MenuTemplate(0, "Export ต้นฉบับ", $"/Customers/Sales/{Model.Id}/Export?DocumentName=ใบกำกับภาษี");
+        MenuTemplate(0, "Export สำเนา", $"/Customers/Sales/{Model.Id}/Export?DocumentName=สำเนาใบกำกับภาษี");
+        MenuTemplate(0, "Export InVat", $"/Customers/Sales/{Model.Id}/ExportInVat?DocumentName=สำเนาใบกำกับภาษี");
+        MenuTemplate(0, "Export ใบส่งสินค้า", $"/Customers/Sales/{Model.Id}/Export_DeliveryNote?DocumentName=ใบส่งสินค้า");
 
     }
 </div>

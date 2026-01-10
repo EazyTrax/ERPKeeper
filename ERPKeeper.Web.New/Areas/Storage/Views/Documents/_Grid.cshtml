@@ -4,11 +4,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Storage.Document>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Storage/Documents/All")
-            .InsertUrl($"/API/{CompanyId}/Storage/Documents/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Storage/Documents/Update")
+            .LoadUrl($"/API/Storage/Documents/All")
+            .InsertUrl($"/API/Storage/Documents/Insert")
+            .UpdateUrl($"/API/Storage/Documents/Update")
             .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Storage/Documents/Delete")
+            .DeleteUrl($"/API/Storage/Documents/Delete")
             .DeleteMethod("Post")
             )
             .KeyExpr("Id")
@@ -38,7 +38,7 @@
 
                 column.AddFor(m => m.FileName)
             .HeaderCellTemplate("Name")
-            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
+            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
 
 
        
@@ -53,7 +53,7 @@
             .Width(150)
             
             .HeaderCellTemplate(@<text>Profile</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Profiles/Profile/<%= data.ProfileId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Profiles/Profile/<%= data.ProfileId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -69,7 +69,7 @@
 
             column.AddFor(m => m.Note)
                 .HeaderCellTemplate("Note")
-                .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
+                .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
 
@@ -77,7 +77,7 @@
             .Width(40)
             .AllowSearch(false)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/storage/documents/<%= data.Id %>/Download"><i class="fa-solid fa-cloud-arrow-down text-fs-15"></i></a></text>);
+            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/Download"><i class="fa-solid fa-cloud-arrow-down text-fs-15"></i></a></text>);
 
 
             })

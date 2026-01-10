@@ -129,6 +129,7 @@
     <Folder Include="Areas\Authen\Data\" />
     <Folder Include="Areas\Authen\Models\" />
     <Folder Include="Areas\Authen\Views\Shared\Components\" />
+    <Folder Include="Areas\Portal\Views\Shared\" />
     <Folder Include="Areas\Products\Views\Shared\Components\" />
     <Folder Include="Areas\Employees\Views\Shared\Components\" />
     <Folder Include="wwwroot\Images\Logo\" />

@@ -11,13 +11,11 @@ namespace ERPKeeperCore.Web.Areas.Portal.Controllers
 {
     [Area("Portal")]
     [Route("/{area}/{controller=Home}/{action=Index}/{id?}")]
-    public class HomeController : DefaultController
+    public class HomeController : _BaseController
     {
+        [Route("/")]
         public IActionResult Index()
         {
-
-         
-
             return View();
         }
     }

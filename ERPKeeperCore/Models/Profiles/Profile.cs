@@ -50,6 +50,7 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
         public virtual Suppliers.Supplier Supplier { get; set; }
         public virtual Employees.Employee Employee { get; set; }
         public virtual Investors.Investor Investor { get; set; }
+        public string? Password { get;  set; }
 
         public Profile()
         {

@@ -8,9 +8,9 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController()
             .Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Financial/FundTransfers/{Model.Id}/Items/All")
-            .InsertUrl($"/api/{CompanyId}/Financial/FundTransfers/{Model.Id}/Items/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Financial/FundTransfers/{Model.Id}/Items/Update")
+            .LoadUrl($"/api/Financial/FundTransfers/{Model.Id}/Items/All")
+            .InsertUrl($"/api/Financial/FundTransfers/{Model.Id}/Items/Insert")
+            .UpdateUrl($"/api/Financial/FundTransfers/{Model.Id}/Items/Update")
             .UpdateMethod("Post"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
@@ -25,7 +25,7 @@
                 columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150).HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Account.Type)
@@ -38,7 +38,7 @@
     );
 
 
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/@CompanyId/Financial/Transactions/<%= data.Id %>/"><%= data.Memo %></a></text>);
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/Financial/Transactions/<%= data.Id %>/"><%= data.Memo %></a></text>);
                 columns.AddFor(m => m.Debit).Width(130).Format(",##0.00");
             })
         .Summary(s => s.TotalItems(items =>

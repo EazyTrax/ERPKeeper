@@ -25,19 +25,19 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id">@Model.Name</a>
+    <a href="/Suppliers/PurchaseQuotes/@Model.Id">@Model.Name</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}");
-        MenuTemplate(0, "Items", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items", Model.Items.Count());
-        MenuTemplate(0, "Documents", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Documents");
+        MenuTemplate(0, "Detail", $"/Suppliers/PurchaseQuotes/{Model.Id}");
+        MenuTemplate(0, "Items", $"/Suppliers/PurchaseQuotes/{Model.Id}/Items", Model.Items.Count());
+        MenuTemplate(0, "Documents", $"/Suppliers/PurchaseQuotes/{Model.Id}/Documents");
     }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export", $"/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Export");
+        MenuTemplate(0, "Export", $"/Suppliers/PurchaseQuotes/{Model.Id}/Export");
     }
 </div>

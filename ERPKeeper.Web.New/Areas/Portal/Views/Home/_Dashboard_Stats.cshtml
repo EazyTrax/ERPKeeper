@@ -1,9 +1,8 @@
-@model string
 
 @{
-    string company = Model;
-    var companyRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo(company, true);
-    
+
+    var companyRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo(CompanyId, true);
+
     // Calculate some statistics
     var totalCustomers = companyRepo.ErpCOREDBContext.Customers.Count();
     var totalSales = companyRepo.ErpCOREDBContext.Sales.Count();

@@ -4,7 +4,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.TransactionLedger>()
             .ID("LedgerList")
             .KeyExpr("Id")
-            .DataSource(d => d.RemoteController().LoadUrl($"/api/{CompanyId}/Accounting/Accounts/{Model.Id}/Ledgers/All"))
+            .DataSource(d => d.RemoteController().LoadUrl($"/api/Accounting/Accounts/{Model.Id}/Ledgers/All"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
             .ShowColumnLines(true)
@@ -14,7 +14,7 @@
             .ColumnAutoWidth(false)
             .Paging(pagging => pagging.PageSize(100))
             .GroupPanel(gp => gp.Visible(true))
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Accounting_Account_Ledgers" + CompanyId.ToString()))
+            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Accounting_Account_Ledgers" ))
 
             .Columns(columns =>
             {
@@ -32,15 +32,15 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.FiscalYears.ToList().Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Fiscal</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.Transaction.FiscalYearId %>/">FY:<%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/FiscalYears/<%= data.Transaction.FiscalYearId %>/">FY:<%= displayValue %></a></text>);
 
 
 
                 columns.AddFor(m => m.Transaction.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/">TR: <%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.TransactionId %>/">TR: <%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Transaction.Reference)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.Debit).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Credit).Width(130).Format("#,##0.00");

@@ -4,11 +4,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Projects.Project>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Projects/All")
-        .InsertUrl($"/API/{CompanyId}/Projects/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Projects/Update")
+        .LoadUrl($"/API/Projects/All")
+        .InsertUrl($"/API/Projects/Insert")
+        .UpdateUrl($"/API/Projects/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Projects/Delete")
+        .DeleteUrl($"/API/Projects/Delete")
         .DeleteMethod("Post")
         )
         .KeyExpr("Id")
@@ -47,7 +47,7 @@
 
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
-            .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Projects/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.StartDate).Width(120);

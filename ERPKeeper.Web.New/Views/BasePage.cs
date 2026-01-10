@@ -13,11 +13,32 @@ namespace ERPKeeperCore.Web.Views
     {
         public String ApiUrl = @"";
         public Guid AuthorizeUserId => Guid.Parse(this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-        public String CompanyId =>  ViewContext.RouteData.Values["CompanyId"]?.ToString();
+
         public String GetRouteAtrribute(string key) => ViewContext.RouteData.Values[key]?.ToString();
 
         public string ActionName => ViewContext.RouteData.Values["action"]?.ToString();
         public bool IsOnEditMode => (!string.IsNullOrEmpty(Context.Request.Cookies["EditMode"]) && Context.Request.Cookies["EditMode"] == "Edit");
+
+
+        public String CompanyId
+        {
+            get
+            {
+                var host = Context.Request.Host.Host;
+                var parts = host.Split('.');
+                
+                if (parts.Length == 0)
+                    return host;
+                
+                parts[0] = parts[0].Replace("erp-", "");
+
+
+                if (parts[0].StartsWith("localhost"))
+                    parts[0] = "tec";
+
+                return parts[0];
+            }
+        }
 
 
 

@@ -1,13 +1,2 @@
-﻿@{
-    string[] companies = new string[] { "tec", "bit" };
+﻿
 
-}
-
-<div class="grid grid-cols-2 bg-gray-100 text-lg leading-6">
-    @{
-        foreach (var company in companies)
-        {
-            <partial name="_Company_Tile" model="company" />
-        }
-    }
-</div>

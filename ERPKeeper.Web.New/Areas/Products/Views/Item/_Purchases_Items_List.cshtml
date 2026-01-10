@@ -15,7 +15,7 @@
             .ID("gridList")
             .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Products/Items/{Model.Id}/PurchaseItems/All"))
+            .LoadUrl($"/api/Products/Items/{Model.Id}/PurchaseItems/All"))
             .KeyExpr("Id").GroupPanel(groupPanel => groupPanel.Visible(true))
             .ShowRowLines(true)
             .ShowBorders(false)
@@ -31,7 +31,7 @@
                 columns.AddFor(m => m.Purchase.Name)
             .Width(150)
             .CellTemplate(@<text>
-        <a href="/@CompanyId/Suppliers/Purchases/<%= data.Purchase.Id %>/">
+        <a href="/Suppliers/Purchases/<%= data.Purchase.Id %>/">
             <%= data.Purchase.Name %>
         </a>
     </text>);
@@ -39,7 +39,7 @@
                 columns.AddFor(m => m.Purchase.Supplier.Profile.Name)
                 .HeaderCellTemplate(@<text>Supplier</text>)
     .CellTemplate(@<text>
-        <a href="/@CompanyId/Suppliers/Suppliers/<%= data.Purchase.Supplier.Profile.Id %>/">
+        <a href="/Suppliers/Suppliers/<%= data.Purchase.Supplier.Profile.Id %>/">
             <%= data.Purchase.Supplier.Profile.Name %>
         </a>
     </text>);

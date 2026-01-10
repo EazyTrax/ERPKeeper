@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
-    [Route("/{CompanyId}/Customers/Customers/{customerId:Guid}/{action=Index}")]
+    [Route("/Customers/Customers/{customerId:Guid}/{action=Index}")]
     public class CustomerController : _Customers_Base_Controller
     {
         Guid customerId => Guid.Parse(HttpContext.GetRouteData().Values["customerId"].ToString());
@@ -112,7 +112,7 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
             var result = Organization.Customers.Remove(customer);
 
             if(result)
-                return Redirect($"/{CompanyId}/Customers/Customers");
+                return Redirect($"/Customers/Customers");
             else
                 return Redirect(Request.Headers["Referer"].ToString());
         }

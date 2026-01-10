@@ -11,8 +11,8 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
     public class PurchaseQuotesController : _Suppliers_Base_Controller
     {
-        [Route("/{CompanyId}/Suppliers/{controller}")]
-        [Route("/{CompanyId}/Suppliers/{controller}/{status}")]
+        [Route("/Suppliers/{controller}")]
+        [Route("/Suppliers/{controller}/{status}")]
         public IActionResult Index(PurchaseQuoteStatus status = PurchaseQuoteStatus.Open)
         {
           

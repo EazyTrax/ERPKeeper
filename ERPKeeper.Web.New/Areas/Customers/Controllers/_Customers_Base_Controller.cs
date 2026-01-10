@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Routing;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     [Area("Customers")]
-    [Route("/{CompanyId}/Customers/{controller=Home}/{action=Index}/{id?}")]
-    public class _Customers_Base_Controller : DefaultController
+    [Route("/Customers/{controller=Home}/{action=Index}/{id?}")]
+    public class _Customers_Base_Controller : _BaseController
     {
   
         public _Customers_Base_Controller() : base()

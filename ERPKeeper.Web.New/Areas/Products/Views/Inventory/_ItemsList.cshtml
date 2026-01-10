@@ -60,7 +60,7 @@
 
 
                 columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
+            .CellTemplate(@<text><a href="/Products/Brands/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
         .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -73,14 +73,14 @@
             .SortIndex(1)
             .Width(150)
             .CellTemplate(@<text>
-        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+        <a href="/Products/Items/<%= data.Id %>/">
             <span ><%= data.PartNumber %></span>
         </a>
     </text>);
 
     columns.AddFor(m => m.Description).MinWidth(250)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <a href="/Products/Items/<%= data.Id %>/">
                 <%= data.Description %>
             </a>
         </text>);

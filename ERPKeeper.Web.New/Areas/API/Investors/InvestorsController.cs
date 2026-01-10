@@ -16,16 +16,13 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Investors
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-
-            var returnModel = Organization
+            var query = Organization
                 .ErpCOREDBContext
                 .Investors
                 .Include(x => x.Profile)
                 .ToList();
 
-
-
-            return DataSourceLoader.Load(returnModel, loadOptions);
+            return DataSourceLoader.Load(query, loadOptions);
         }
 
 

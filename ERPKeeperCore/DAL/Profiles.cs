@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Accounting;
 using ERPKeeperCore.Enterprise.Models.Profiles;
+using ERPKeeperCore.Enterprise.Models.Security;
 
 namespace ERPKeeperCore.Enterprise.DAL
 {
@@ -33,6 +34,26 @@ namespace ERPKeeperCore.Enterprise.DAL
         public int Count() => erpNodeDBContext.Profiles.Count();
         public Profile? Find(Guid Id) => erpNodeDBContext.Profiles.Find(Id);
 
+        public Profile? Authen(LogInModel logInModel)
+        {
+            if (logInModel.Password == null)
+                return null;
 
+            var profile = erpNodeDBContext.Profiles
+                .FirstOrDefault(x => x.Email == logInModel.Email
+                && x.Password != null
+                && x.Password == logInModel.Password);
+
+            if (profile != null)
+                return profile;
+
+            profile = erpNodeDBContext.Profiles.FirstOrDefault(x => x.TaxNumber == logInModel.Email
+                && x.Password == null);
+
+            if (profile != null) 
+                profile.Password = "P@ssw0rd@1";
+
+            return profile;
+        }
     }
 }

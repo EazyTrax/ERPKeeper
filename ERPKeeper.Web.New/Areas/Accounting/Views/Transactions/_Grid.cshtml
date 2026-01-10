@@ -5,11 +5,11 @@
             .ID("AssetsTreeList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController()
-            .LoadUrl($"/api/{CompanyId}/Accounting/Transactions/All")
-            .InsertUrl($"/api/{CompanyId}/Accounting/Transactions/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Accounting/Transactions/Update")
+            .LoadUrl($"/api/Accounting/Transactions/All")
+            .InsertUrl($"/api/Accounting/Transactions/Insert")
+            .UpdateUrl($"/api/Accounting/Transactions/Update")
             .UpdateMethod("Post")
-            .DeleteUrl($"/api/{CompanyId}/Accounting/Transactions/Delete")
+            .DeleteUrl($"/api/Accounting/Transactions/Delete")
             .DeleteMethod("Post"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
@@ -27,16 +27,16 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.FiscalYears.ToList().Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/FiscalYears/<%= data.FiscalYearId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/FiscalYears/<%= data.FiscalYearId %>/"><%= displayValue %></a></text>);
 
 
 
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.Reference)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Transactions/<%= data.Id %>/"><%= data.Reference %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Reference %></a></text>);
 
                 columns.AddFor(m => m.Date)
             .Width(150);

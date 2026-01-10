@@ -27,19 +27,19 @@
 
 <div class="lh-120 bg-gray-100 font-semibold p-2 rounded border">
 @{
-    MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
+    MenuTemplate(0, "Accounting", $"/Accounting");
 }
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
 
-        MenuTemplate(0, "Accounts", $"/{CompanyId}/Accounting/Accounts", Organization.ErpCOREDBContext.Accounts.Count());
-        MenuTemplate(1, "Default", $"/{CompanyId}/Accounting/DefaultAccounts");
-        MenuTemplate(0, "Fiscal Years", $"/{CompanyId}/Accounting/FiscalYears", Organization.ErpCOREDBContext.FiscalYears.Count());
-        MenuTemplate(0, "JournalEntries", $"/{CompanyId}/Accounting/JournalEntries", Organization.ErpCOREDBContext.JournalEntries.Count());
-        MenuTemplate(1, "Types", $"/{CompanyId}/Accounting/JournalEntryTypes");
-        MenuTemplate(0, "Transactions", $"/{CompanyId}/Accounting/Transactions");
-        MenuTemplate(0, "Opening", $"/{CompanyId}/Accounting/OpeningBalances");
+        MenuTemplate(0, "Accounts", $"/Accounting/Accounts", Organization.ErpCOREDBContext.Accounts.Count());
+        MenuTemplate(1, "Default Accounts", $"/Accounting/DefaultAccounts");
+        MenuTemplate(0, "Fiscal Years", $"/Accounting/FiscalYears", Organization.ErpCOREDBContext.FiscalYears.Count());
+        MenuTemplate(0, "Journal Entries", $"/Accounting/JournalEntries", Organization.ErpCOREDBContext.JournalEntries.Count());
+        MenuTemplate(1, "Journal Types", $"/Accounting/JournalEntryTypes");
+        MenuTemplate(0, "Transactions", $"/Accounting/Transactions");
+        MenuTemplate(0, "Opening", $"/Accounting/OpeningBalances");
 
     }
 </div>

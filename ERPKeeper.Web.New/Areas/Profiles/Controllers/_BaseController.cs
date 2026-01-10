@@ -15,7 +15,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Profiles.Controllers
 {
     [Area("Profiles")]
-    public class Base_ProfilesController : DefaultController
+    public class Base_ProfilesController : _BaseController
     {
        
 

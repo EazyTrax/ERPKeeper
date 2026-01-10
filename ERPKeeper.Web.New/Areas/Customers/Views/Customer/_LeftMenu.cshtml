@@ -25,14 +25,14 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Customers">Customers</a>
+    <a href="/Customers">Customers</a>
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Home", $"/{CompanyId}/Customers/Customers/{Model.Id}");
-        MenuTemplate(0, "Quotes", $"/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.CustomerId == Model.Id).Count());
-        MenuTemplate(0, "Sales", $"/{CompanyId}/Customers/Customers/{Model.Id}/Sales", Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id).Count());
-        MenuTemplate(0, "Payments", $"/{CompanyId}/Customers/Customers/{Model.Id}/ReceivePayments", Organization.ErpCOREDBContext.ReceivePayments.Where(s => s.Sale.CustomerId == Model.Id).Count());
-        MenuTemplate(0, "Items", $"/{CompanyId}/Customers/Customers/{Model.Id}/Items");
+        MenuTemplate(0, "Home", $"/Customers/Customers/{Model.Id}");
+        MenuTemplate(0, "Quotes", $"/Customers/Customers/{Model.Id}/SaleQuotes", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.CustomerId == Model.Id).Count());
+        MenuTemplate(0, "Sales", $"/Customers/Customers/{Model.Id}/Sales", Organization.ErpCOREDBContext.Sales.Where(s => s.CustomerId == Model.Id).Count());
+        MenuTemplate(0, "Payments", $"/Customers/Customers/{Model.Id}/ReceivePayments", Organization.ErpCOREDBContext.ReceivePayments.Where(s => s.Sale.CustomerId == Model.Id).Count());
+        MenuTemplate(0, "Items", $"/Customers/Customers/{Model.Id}/Items");
     }
 </div>

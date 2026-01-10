@@ -4,9 +4,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Taxes.IncomeTax>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/All")
-            .InsertUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Taxes/IncomeTaxes/Update")
+            .LoadUrl($"/API/Taxes/IncomeTaxes/All")
+            .InsertUrl($"/API/Taxes/IncomeTaxes/Insert")
+            .UpdateUrl($"/API/Taxes/IncomeTaxes/Update")
             .UpdateMethod("Post"))
             .KeyExpr("Id")
             .Width("100%")
@@ -29,7 +29,7 @@
                 columns.AddFor(m => m.Date).Width(100).SortIndex(1).SortOrder(SortOrder.Asc);
 
                 columns.AddFor(m => m.Name).Width(100)
-            .CellTemplate(@<text> <a href="/@CompanyId/Taxes/IncomeTaxes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text> <a href="/Taxes/IncomeTaxes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
             columns.Add()
@@ -43,7 +43,7 @@
                 subColumns.AddFor(m => m.ExpenseAccountId).Width(130)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .HeaderCellTemplate(@<text>Dr.ExpenseAcc</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
 
             });
 
@@ -59,7 +59,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(150)
                     .HeaderCellTemplate(@<text>Account</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>
+                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>
             );
 
                 subColumns.AddFor(m => m.TaxReceivable_Amount)
@@ -89,7 +89,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(150)
                     .HeaderCellTemplate(@<text>Cr.Liability</text>)
-                    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
             });
 
 

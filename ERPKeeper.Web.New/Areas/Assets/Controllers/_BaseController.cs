@@ -15,7 +15,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Assets.Controllers
 {
     [Area("Assets")]
-    public class Base_AssetsController : DefaultController
+    public class Base_AssetsController : _BaseController
     {
        
 

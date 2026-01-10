@@ -23,12 +23,12 @@
 }
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Suppliers">Suppliers</a>
+    <a href="/Suppliers">Suppliers</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers/Suppliers", Organization.Suppliers.Count());
+        MenuTemplate(0, "Suppliers", $"/Suppliers/Suppliers", Organization.Suppliers.Count());
     
     }
 </div>
@@ -36,9 +36,9 @@
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Quotes", $"/{CompanyId}/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Open}", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Open).Count());
-        MenuTemplate(3, "Order", $"/{CompanyId}/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order}", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count());
-        MenuTemplate(3, "Close", $"/{CompanyId}/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Close}");
+        MenuTemplate(0, "Quotes", $"/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Open}", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Open).Count());
+        MenuTemplate(3, "Order", $"/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order}", Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count());
+        MenuTemplate(3, "Close", $"/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Close}");
 
     }
 </div>
@@ -47,7 +47,7 @@
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
 
-        MenuTemplate(0, "Purchases", $"/{CompanyId}/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s => s.Status == PurchaseStatus.Open).Count());
-        MenuTemplate(3, "Payments", $"/{CompanyId}/Suppliers/SupplierPayments");
+        MenuTemplate(0, "Purchases", $"/Suppliers/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s => s.Status == PurchaseStatus.Open).Count());
+        MenuTemplate(3, "Payments", $"/Suppliers/SupplierPayments");
     }
 </div>

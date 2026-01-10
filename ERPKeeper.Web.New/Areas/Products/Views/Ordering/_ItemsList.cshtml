@@ -62,7 +62,7 @@
     .Columns(columns => {
     columns.Add().DataField("BrandName").Width(130)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Brands/<%= data.BrandGuid %>/">
+            <a href="/Products/Brands/<%= data.BrandGuid %>/">
                 <%= data.BrandName %>
             </a>
         </text>);
@@ -72,14 +72,14 @@
     .SortIndex(1)
     .Width(150)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <a href="/Products/Items/<%= data.Id %>/">
                 <span class="font-weight-600"><%= data.PartNumber %></span>
             </a>
         </text>);
     columns.AddFor(m => m.Description).MinWidth(250)
     .Width(350)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+            <a href="/Products/Items/<%= data.Id %>/">
                 <%= data.Description %>
             </a>
         </text>);

@@ -8,20 +8,20 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Investors.Controllers
 {
-    [Route("/{CompanyId}/Investors/Investors/{OwnerUid:Guid}/{action=Index}")]
-    public class OwnerController : _Investors_Base_Controller
+    [Route("/Investors/Investors/{InvestorUid:Guid}/{action=Index}")]
+    public class InvestorController : _Investors_Base_Controller
     {
 
-        public IActionResult Index(Guid OwnerUid)
+        public IActionResult Index(Guid InvestorUid)
         {
-            var Owner = Organization.Investors.Find(OwnerUid);
-            return View(Owner);
+            var Investor = Organization.Investors.Find(InvestorUid);
+            return View(Investor);
         }
 
-        public IActionResult Payments(Guid OwnerUid)
+        public IActionResult Payments(Guid InvestorUid)
         {
-            var Owner = Organization.Investors.Find(OwnerUid);
-            return View(Owner);
+            var Investor = Organization.Investors.Find(InvestorUid);
+            return View(Investor);
         }
 
     }

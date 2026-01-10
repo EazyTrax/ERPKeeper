@@ -5,11 +5,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/All")
-        .InsertUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Update")
+        .LoadUrl($"/API/Employees/EmployeePaymentPeriods/All")
+        .InsertUrl($"/API/Employees/EmployeePaymentPeriods/Insert")
+        .UpdateUrl($"/API/Employees/EmployeePaymentPeriods/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Employees/EmployeePaymentPeriods/Delete")
+        .DeleteUrl($"/API/Employees/EmployeePaymentPeriods/Delete")
         .DeleteMethod("Post")
         )
         .KeyExpr("Id")
@@ -40,7 +40,7 @@
         {
 
             columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
-            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>
+            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>
             );
 
 
@@ -51,7 +51,7 @@
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Pay From</text>)
-    .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
 
 
             columns.AddFor(m => m.PaymentCount).AllowEditing(false).HeaderCellTemplate(@<text>Count</text>);

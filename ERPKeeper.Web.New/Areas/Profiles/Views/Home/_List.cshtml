@@ -1,40 +1,46 @@
-﻿
-
-<div id="treeList" class="">
+﻿<div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
-            .ID("gridList")
-            .DataSource(d => d.RemoteController()
-            .Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Profiles/All")
-            .InsertUrl($"/api/{CompanyId}/Profiles/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Profiles/Update")
-            .UpdateMethod("Post")
-            .DeleteUrl($"/api/{CompanyId}/Profiles/Delete")
-            .DeleteMethod("Post")
-            )
-            .Editing(editing => { editing.Mode(GridEditMode.Row); editing.AllowAdding(true); editing.AllowDeleting(true); editing.AllowUpdating(true); editing.UseIcons(true); })
-            .KeyExpr("Id")
-            .RowAlternationEnabled(true).AllowColumnReordering(true)
-            .ShowRowLines(true)
-            .ShowBorders(false)
-            .Width("100%")
-            .Paging(paging => paging.PageSize(200))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
-            .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
-            .ColumnAutoWidth(false)
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Profiles"))
-            .Columns(columns =>
-            {
-                columns.Add().DataField("TaxNumber").Width(150);
+        .ID("gridList")
+        .DataSource(d => d.RemoteController()
+        .Key("Id")
+        .LoadUrl($"/api/Profiles/All")
+        .InsertUrl($"/api/Profiles/Insert")
+        .UpdateUrl($"/api/Profiles/Update")
+        .UpdateMethod("Post")
+        .DeleteUrl($"/api/Profiles/Delete")
+        .DeleteMethod("Post")
+        )
+        .Editing(editing => { editing.Mode(GridEditMode.Row); editing.AllowAdding(true); editing.AllowDeleting(true); editing.AllowUpdating(true); editing.UseIcons(true); })
+        .KeyExpr("Id")
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(200))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+        .ColumnAutoWidth(false)
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Profiles"))
+        .Columns(columns =>
+        {
+            columns.Add().DataField("TaxNumber").Width(150);
 
-                columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc).SortIndex(1)
-            .CellTemplate(@<text><a href="/@CompanyId/Profiles/<%= data.Id %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc).SortIndex(1)
+            .CellTemplate(@<text><a href="/Profiles/<%= data.Id %>/"><%= data.Name %></a></text>
+            );
 
-                columns.Add().DataField("ShotName").Width(130);
+            columns.Add().DataField("ShotName").Width(130);
 
-   
-            })
+            columns.AddFor(m => m.ProfileType)
+                .Lookup(lookup => lookup
+                    .DataSource(Enum.GetValues(typeof(ERPKeeperCore.Enterprise.Models.ProfileType))
+                        .Cast<ERPKeeperCore.Enterprise.Models.ProfileType>()
+                        .Select(e => new { Value = (int)e, Text = e.ToString() }))
+                    .ValueExpr("Value")
+                    .DisplayExpr("Text")
+                );
+        })
         )
 </div>
 

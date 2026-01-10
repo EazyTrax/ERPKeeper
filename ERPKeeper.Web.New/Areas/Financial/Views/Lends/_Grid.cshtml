@@ -5,10 +5,10 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financial/Lends/All")
-            .InsertUrl($"/API/{CompanyId}/Financial/Lends/Insert")
+            .LoadUrl($"/API/Financial/Lends/All")
+            .InsertUrl($"/API/Financial/Lends/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Financial/Lends/Update")
+            .UpdateUrl($"/API/Financial/Lends/Update")
             .UpdateMethod("Post")
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -32,7 +32,7 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/Lends/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/Lends/<%= data.Id %>/"><%= data.Name %></a></text>);
                 columns.AddFor(m => m.Reference).Width(180);
 
 
@@ -41,7 +41,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Dr.Lending Acc</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.LendingAccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.LendingAccountId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -51,7 +51,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Cr.PayingFrom</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayingAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayingAccountId %>/"><%= displayValue %></a></text>);
 
 
 

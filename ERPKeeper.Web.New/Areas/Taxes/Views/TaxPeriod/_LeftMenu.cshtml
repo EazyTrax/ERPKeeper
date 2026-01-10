@@ -24,19 +24,19 @@
 }
 
 <div class="font-weight-600 border p-2 bg-gray-100">
-    <a href="/@CompanyId/Taxes">Taxes</a><br />
+    <a href="/Taxes">Taxes</a><br />
 </div>
 <div class="font-weight-600 border p-2 bg-gray-100">
-    <a href="/@CompanyId/Taxes/TaxPeriods">TaxPeriods</a> <br />
-    <a href="/@CompanyId/Taxes/TaxPeriods/@Model.Id">@Model.Name</a>
+    <a href="/Taxes/TaxPeriods">TaxPeriods</a> <br />
+    <a href="/Taxes/TaxPeriods/@Model.Id">@Model.Name</a>
 </div>
 <div class="border p-2 bg-gray-100">
     @{
-        Template("Home", $"/{CompanyId}/Taxes/TaxPeriods/{Model.Id}");
-        Template("Sales", $"/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Sales", Model.SalesCount);
-        Template("Purchase", $"/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Purchases", Model.PurchasesCount);
-        Template("AutoAssign (ThisMonth)", $"/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/AutoAssign");
-        Template("AutoAssign (PreviusMonth)", $"/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/AutoAssign?IsHistoryAssign=True");
-        Template("Export", $"/{CompanyId}/Taxes/TaxPeriods/{Model.Id}/Export", Model.PurchasesCount);
+        Template("Home", $"/Taxes/TaxPeriods/{Model.Id}");
+        Template("Sales", $"/Taxes/TaxPeriods/{Model.Id}/Sales", Model.SalesCount);
+        Template("Purchase", $"/Taxes/TaxPeriods/{Model.Id}/Purchases", Model.PurchasesCount);
+        Template("AutoAssign (ThisMonth)", $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign");
+        Template("AutoAssign (PreviusMonth)", $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign?IsHistoryAssign=True");
+        Template("Export", $"/Taxes/TaxPeriods/{Model.Id}/Export", Model.PurchasesCount);
     }
 </div>

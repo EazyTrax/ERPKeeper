@@ -7,10 +7,10 @@
             Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.SaleQuote>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/All")
-            .InsertUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/Insert")
+            .LoadUrl($"/API/Customers/Customers/{Model.Id}/SaleQuotes/All")
+            .InsertUrl($"/API/Customers/Customers/{Model.Id}/SaleQuotes/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Customers/Customers/{Model.Id}/SaleQuotes/Update")
+            .UpdateUrl($"/API/Customers/Customers/{Model.Id}/SaleQuotes/Update")
             .UpdateMethod("Post"))
             .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
             .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Customers_Customer_SaleQuotes"))
@@ -40,7 +40,7 @@
 
                 columns.AddFor(m => m.Name).Width(130)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m=>m.Reference);
@@ -54,7 +54,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -68,7 +68,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
 
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
-    [Route("/{CompanyId}/Accounting/FiscalYears/{FiscalYearId:Guid}/{action=Index}")]
+    [Route("/Accounting/FiscalYears/{FiscalYearId:Guid}/{action=Index}")]
     public class FiscalYearController : AccountingBaseController
     {
         public Guid FiscalYearId => Guid.Parse(HttpContext.GetRouteData().Values["FiscalYearId"].ToString());
@@ -95,7 +95,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             var model = Organization.FiscalYears.Find(FiscalYearId);
             Organization.FiscalYears.Find(model.EndDate.AddDays(1));
             Organization.SaveChanges();
-            return Redirect($"/{CompanyId}/Accounting/FiscalYears/{FiscalYearId}");
+            return Redirect($"/Accounting/FiscalYears/{FiscalYearId}");
         }
         public IActionResult Report_Full()
         {

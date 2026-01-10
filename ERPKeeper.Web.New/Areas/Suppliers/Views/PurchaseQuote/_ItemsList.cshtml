@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
 <div class="p-2 text-right">
-    <a href="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus text-lg"></i> Item</a>
+    <a href="/Suppliers/PurchaseQuotes/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus text-lg"></i> Item</a>
 </div>
 
 <div id="treeList" class="">
@@ -18,18 +18,18 @@
     .DataSource(d =>
     d.RemoteController()
     .Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items/All")
-            .InsertUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items/Update")
+    .LoadUrl($"/API/Suppliers/PurchaseQuotes/{Model.Id}/Items/All")
+            .InsertUrl($"/API/Suppliers/PurchaseQuotes/{Model.Id}/Items/Insert")
+            .UpdateUrl($"/API/Suppliers/PurchaseQuotes/{Model.Id}/Items/Update")
     .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Suppliers/PurchaseQuotes/{Model.Id}/Items/Delete")
+            .DeleteUrl($"/API/Suppliers/PurchaseQuotes/{Model.Id}/Items/Delete")
     .DeleteMethod("Post"))
     .Editing(editing => editing.Mode(GridEditMode.Form).AllowUpdating(IsOnEditMode).UseIcons(true))
 
     .KeyExpr("Id")
     .Columns(columns => {
                 columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
-                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
+                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
                 columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
                 columns.AddFor(m=>m.Price).Width(130).Format("#,##0.00");
                 columns.AddFor(m=>m.Quantity).Width(130).Format("#,##0.00");

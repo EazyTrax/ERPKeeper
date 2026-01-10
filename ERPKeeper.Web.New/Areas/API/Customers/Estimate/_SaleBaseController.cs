@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Estimate
 {
-    [Route("/API/{CompanyId}/Customers/Estimates/{EstimateId:Guid}/{controller}/{action=Index}")]
+    [Route("/API/Customers/Estimates/{EstimateId:Guid}/{controller}/{action=Index}")]
     public class _EstimateBaseController : API_BaseController
     {
 

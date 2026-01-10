@@ -22,18 +22,18 @@
 
 <div class="lh-120 bg-fb1 px-2 py-1 font-semibold rounded border">
     @{
-        MenuTemplate(0, "Setting", $"/{CompanyId}/Setting");
+        MenuTemplate(0, "Setting", $"/Setting");
     }
 </div>
 <div class="lh-120 bg-fb1 px-2 py-1  bg-fb1 rounded border">
     @{
-        MenuTemplate(0, "Branches", $"/{CompanyId}/Setting/Branches", Organization.ErpCOREDBContext.Branches.Count());
+        MenuTemplate(0, "Branches", $"/Setting/Branches", Organization.ErpCOREDBContext.Branches.Count());
 
         MenuTemplate(0, "Logistic", $"");
 
-        MenuTemplate(3, "Provider", $"/{CompanyId}/Setting/ShipmentProviders", Organization.ErpCOREDBContext.MemoTemplates.Count());
+        MenuTemplate(3, "Provider", $"/Setting/ShipmentProviders", Organization.ErpCOREDBContext.MemoTemplates.Count());
 
-        MenuTemplate(0, "MemoTemplates", $"/{CompanyId}/Setting/MemoTemplates", Organization.ErpCOREDBContext.MemoTemplates.Count());
+        MenuTemplate(0, "MemoTemplates", $"/Setting/MemoTemplates", Organization.ErpCOREDBContext.MemoTemplates.Count());
 
     }
 </div>

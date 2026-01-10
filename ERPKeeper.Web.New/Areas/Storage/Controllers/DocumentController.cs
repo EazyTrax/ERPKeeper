@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Storage.Controllers
 {
 
-    [Route("/{CompanyId}/{area}/Documents/{DocumentId:Guid}/{action}")]
+    [Route("/{area}/Documents/{DocumentId:Guid}/{action}")]
     public class DocumentController : _Storage_BaseController
     {
         public IActionResult Index()

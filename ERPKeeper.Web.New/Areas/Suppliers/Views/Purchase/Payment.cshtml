@@ -8,7 +8,7 @@
             @if (Model.SupplierPayment != null)
             {
                 <div class="mb-2 p-2">
-                    Paid, <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.SupplierPayment.Id/">View Payment</a>
+                    Paid, <a href="/Suppliers/SupplierPayments/@Model.SupplierPayment.Id/">View Payment</a>
                 </div>
 
 
@@ -23,10 +23,10 @@
                         Un Paid
                     </div>
                     <div>
-                        <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToString("dd-MMM-yyyy")</a>
+                        <a href="/Suppliers/Purchases/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToString("dd-MMM-yyyy")</a>
                     </div>
                     <div>
-                        <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Pay?Date=Today">Pay Today @DateTime.Today.ToShortDateString()</a>
+                        <a href="/Suppliers/Purchases/@Model.Id/Pay?Date=Today">Pay Today @DateTime.Today.ToShortDateString()</a>
                     </div>
                 </div>
             }

@@ -3,10 +3,10 @@
 
 <div class="flex text-uppercase justify-between">
     <div class="p-2 font-semibold text-lg">
-        <a href="/@CompanyId/Customers"> Customers</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/SaleQuotes"> SaleQuotes</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id"> @Model.Name</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/@ActionName"> @ActionName</a>
+        <a href="/Customers"> Customers</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Customers/SaleQuotes"> SaleQuotes</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Customers/SaleQuotes/@Model.Id"> @Model.Name</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Customers/SaleQuotes/@Model.Id/@ActionName"> @ActionName</a>
     </div>
     <div class="p-2">
         <div class="dropdown dropleft ">
@@ -15,15 +15,15 @@
             </a>
             <div class="dropdown-menu p-2 bg-white border-2 border rounded w-60" aria-labelledby="dropdownMenuLink">
                 <div>
-                    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Refresh">Refresh</a>
+                    <a href="/Customers/SaleQuotes/@Model.Id/Refresh">Refresh</a>
                 </div>
 
                 <div>
-                    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Clone">Clone</a>
+                    <a href="/Customers/SaleQuotes/@Model.Id/Clone">Clone</a>
                 </div>
 
                 <div>
-                    <a href="/@CompanyId/Customers/SaleQuotes/@Model.Id/Delete" onclick="return confirm('Are you sure you want to convert to an invoice?');">Delete</a>
+                    <a href="/Customers/SaleQuotes/@Model.Id/Delete" onclick="return confirm('Are you sure you want to convert to an invoice?');">Delete</a>
                 </div>
             </div>
         </div>

@@ -5,10 +5,10 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financial/RetentionTypes/All")
-            .InsertUrl($"/API/{CompanyId}/Financial/RetentionTypes/Insert")
+            .LoadUrl($"/API/Financial/RetentionTypes/All")
+            .InsertUrl($"/API/Financial/RetentionTypes/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Financial/RetentionTypes/Update")
+            .UpdateUrl($"/API/Financial/RetentionTypes/Update")
             .UpdateMethod("Post")
             )
             .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -24,7 +24,7 @@
 
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.Rate);
@@ -33,7 +33,7 @@
                 columns.AddFor(m => m.RetentionToAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Retention Acc.</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.RetentionToAccountId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -41,7 +41,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Type = t.Type.ToString() }).OrderBy(t => t.Type).ToList()).DisplayExpr("Type").ValueExpr("Id"))
 
             .HeaderCellTemplate(@<text>AccType</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.RetentionToAccountId %>/"><%= displayValue %></a></text>);
 
 
 

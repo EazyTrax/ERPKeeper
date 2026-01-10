@@ -1,7 +1,7 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
 <div class="p-2 text-right">
-    <a href="/@CompanyId/Suppliers/Purchases/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus text-lg"></i> Item</a>
+    <a href="/Suppliers/Purchases/@Model.Id/Items/Avaliable"><i class="fa-solid fa-circle-plus text-lg"></i> Item</a>
 </div>
 
 
@@ -20,11 +20,11 @@
     .DataSource(d =>
     d.RemoteController()
     .Key("Id")
-    .LoadUrl($"/API/{CompanyId}/Suppliers/Purchases/{Model.Id}/Items/All")
-    .InsertUrl($"/API/{CompanyId}/Suppliers/Purchases/{Model.Id}/Items/Insert")
-    .UpdateUrl($"/API/{CompanyId}/Suppliers/Purchases/{Model.Id}/Items/Update")
+    .LoadUrl($"/API/Suppliers/Purchases/{Model.Id}/Items/All")
+    .InsertUrl($"/API/Suppliers/Purchases/{Model.Id}/Items/Insert")
+    .UpdateUrl($"/API/Suppliers/Purchases/{Model.Id}/Items/Update")
     .UpdateMethod("Post")
-    .DeleteUrl($"/API/{CompanyId}/Suppliers/Purchases/{Model.Id}/Items/Delete")
+    .DeleteUrl($"/API/Suppliers/Purchases/{Model.Id}/Items/Delete")
     .DeleteMethod("Post")
     )
     .Editing(editing => editing.Mode(GridEditMode.Batch).AllowUpdating(IsOnEditMode).UseIcons(true))
@@ -37,7 +37,7 @@
                 columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
 
 
-                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/@CompanyId/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
+                columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text>);
 
 
 

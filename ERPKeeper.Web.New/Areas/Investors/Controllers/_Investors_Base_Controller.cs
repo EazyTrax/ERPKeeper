@@ -15,8 +15,8 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Investors.Controllers
 {
     [Area("Investors")]
-    [Route("/{CompanyId}/Investors/{controller=Home}/{action=Index}/{id?}")]
-    public class _Investors_Base_Controller : DefaultController
+    [Route("/Investors/{controller=Home}/{action=Index}/{id?}")]
+    public class _Investors_Base_Controller : _BaseController
     {
 
 

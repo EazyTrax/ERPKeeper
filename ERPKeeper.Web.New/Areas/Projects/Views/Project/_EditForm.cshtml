@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
 
-<form id="EditForm" action="/@CompanyId/Projects/@Model.Id/Update" method="post">
+<form id="EditForm" action="/Projects/@Model.Id/Update" method="post">
     <div class="border">
         <div class="grid grid-cols-3">
             <div class="border">
@@ -36,13 +36,13 @@
         @{
             if (Model.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open)
             {
-                <a href="/@CompanyId/Customers/Projects/@Model.Id/close" class="btn py-1 btn-sm" style="background-color: #5D6EAE;">
+                <a href="/Customers/Projects/@Model.Id/close" class="btn py-1 btn-sm" style="background-color: #5D6EAE;">
                     Close
                 </a>
             }
             else
             {
-                <a href="/@CompanyId/Customers/Projects/@Model.Id/open" class="btn py-1 btn-sm" style="background-color: #5D6EAE;">
+                <a href="/Customers/Projects/@Model.Id/open" class="btn py-1 btn-sm" style="background-color: #5D6EAE;">
                     Re-Open
                 </a>
             }

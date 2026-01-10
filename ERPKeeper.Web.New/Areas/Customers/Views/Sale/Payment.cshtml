@@ -6,7 +6,7 @@
             @if (Model.ReceivePayment != null)
             {
                 <div class="mb-2 border p-3">
-                    Paid, <a href="/@CompanyId/Customers/ReceivePayments/@Model.ReceivePayment.Id/">View Payment</a>
+                    Paid, <a href="/Customers/ReceivePayments/@Model.ReceivePayment.Id/">View Payment</a>
                 </div>
 
 
@@ -21,10 +21,10 @@
                         Un Paid
                     </div>
                     <div>
-                        <a href="/@CompanyId/Customers/Sales/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToString("dd-MMM-yyyy")</a>
+                        <a href="/Customers/Sales/@Model.Id/Pay?Date=PurchaseDate">Pay @@Purchase Date @Model.Date.ToString("dd-MMM-yyyy")</a>
                     </div>
                     <div>
-                        <a href="/@CompanyId/Customers/Sales/@Model.Id/Pay?Date=Today">Pay Today @DateTime.Today.ToShortDateString()</a>
+                        <a href="/Customers/Sales/@Model.Id/Pay?Date=Today">Pay Today @DateTime.Today.ToShortDateString()</a>
                     </div>
                 </div>
             }

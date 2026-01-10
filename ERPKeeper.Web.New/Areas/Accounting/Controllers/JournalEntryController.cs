@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
-    [Route("/{CompanyId}/Accounting/JournalEntries/{JournalEntryId:Guid}/{action=Index}")]
+    [Route("/Accounting/JournalEntries/{JournalEntryId:Guid}/{action=Index}")]
     public class JournalEntryController : AccountingBaseController
     {
         public Guid JournalEntryId => Guid.Parse(HttpContext.GetRouteData().Values["JournalEntryId"].ToString());
@@ -64,7 +64,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             Organization.ErpCOREDBContext.JournalEntries.Remove(model);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Accounting/JournalEntries");
+            return Redirect($"/Accounting/JournalEntries");
         }
 
 
@@ -87,7 +87,7 @@ namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
             });
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Accounting/Transactions/{model.Id}/");
+            return Redirect($"/Accounting/Transactions/{model.Id}/");
         }
     }
 }

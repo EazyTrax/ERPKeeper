@@ -3,8 +3,8 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Supplier>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Suppliers/Suppliers/All")
-            .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/Update")
+            .LoadUrl($"/API/Suppliers/Suppliers/All")
+            .UpdateUrl($"/API/Suppliers/Suppliers/Update")
             .UpdateMethod("Post"))
             .KeyExpr("Id")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -22,7 +22,7 @@
                 columns.AddFor(m => m.Profile.TaxNumber).AllowEditing(false).HeaderCellTemplate("Tax ID").Width(150);
                 columns.AddFor(m => m.Profile.ShotName).AllowEditing(false).HeaderCellTemplate("SN").Width(80);
                 columns.AddFor(m => m.Profile.Name).AllowEditing(false).HeaderCellTemplate("Name")
-                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Suppliers/<%= data.Profile.Id %>/"><%= data.Profile.Name %></a></text>);
+                    .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.Profile.Id %>/"><%= data.Profile.Name %></a></text>);
 
                 columns.AddFor(m => m.TotalPurchases).AllowEditing(false).Width(120).HeaderCellTemplate(@<text>Purchase</text>).Format(Format.FixedPoint);
 
@@ -45,13 +45,13 @@
             .ValueExpr("Value"))
             .Width(150)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.DefaultExpenseAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.ExpenseAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Expense</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.DefaultExpenseAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.DefaultExpenseAccountId %>/"><%= displayValue %></a></text>);
 
 
 

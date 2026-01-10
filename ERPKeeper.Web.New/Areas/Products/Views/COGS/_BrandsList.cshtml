@@ -34,7 +34,7 @@
     .Columns(columns => {
     columns.AddFor(m => m.Name).Width(250)
     .CellTemplate(@<text>
-            <a href="/@CompanyId/Products/Brands/<%= data.Id %>">
+            <a href="/Products/Brands/<%= data.Id %>">
                 <%= data.Name %>
             </a>
         </text>);

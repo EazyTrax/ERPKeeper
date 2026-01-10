@@ -4,9 +4,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Assets.Asset>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Assets/Assets/All")
-        .InsertUrl($"/API/{CompanyId}/Assets/Assets/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Assets/Assets/Update")
+        .LoadUrl($"/API/Assets/Assets/All")
+        .InsertUrl($"/API/Assets/Assets/Insert")
+        .UpdateUrl($"/API/Assets/Assets/Update")
         .UpdateMethod("Post")
         )
         .KeyExpr("Id")
@@ -42,7 +42,7 @@
             );
 
             columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>StartDate</text>);
-            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/@CompanyId/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
+            columns.AddFor(m => m.Name).CellTemplate(@<text> <a href="/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
 
             columns.AddFor(m => m.AssetTypeId)
             .HeaderCellTemplate(@<text>Type</text>)
@@ -51,7 +51,7 @@
                 .ValueExpr("Id")
                 .DisplayExpr("Name")
             )
-            .CellTemplate(@<text><a href="/@CompanyId/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
 
             columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
             columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Asset</text>).Format(",##0.00");

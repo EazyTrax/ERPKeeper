@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
-    [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/{action=index}")]
+    [Route("/Suppliers/PurchaseQuotes/{Id:Guid}/{action=index}")]
     public class PurchaseQuoteController : _Suppliers_Base_Controller
     {
 
@@ -60,14 +60,14 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Avaliable")]
+        [Route("/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Avaliable")]
         public IActionResult Items_Avaliable()
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);
             return View(transcation);
         }
 
-        [Route("/{CompanyId}/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Add")]
+        [Route("/Suppliers/PurchaseQuotes/{Id:Guid}/Items/Add")]
         public IActionResult Items_Add([FromQuery] Guid ItemId)
         {
             var transcation = Organization.PurchaseQuotes.Find(Id);
@@ -75,7 +75,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             transcation.AddItem(item);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Suppliers/PurchaseQuotes/{Id}/Items");
+            return Redirect($"/Suppliers/PurchaseQuotes/{Id}/Items");
         }
 
         [HttpPost]
@@ -126,7 +126,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
             Organization.PurchaseQuotes.Delete(transcation);
             Organization.SaveChanges();
 
-            return Redirect($"/{CompanyId}/Suppliers/Suppliers");
+            return Redirect($"/Suppliers/Suppliers");
         }
         public IActionResult Documents()
         {
@@ -177,7 +177,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 
             Organization.SaveChanges();
 
-            string returnUrl = $"/{CompanyId}/Customers/Purchases/{Purchase.Id}/";
+            string returnUrl = $"/Customers/Purchases/{Purchase.Id}/";
 
             return Redirect(returnUrl);
         }

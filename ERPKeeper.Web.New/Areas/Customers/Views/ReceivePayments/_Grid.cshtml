@@ -8,7 +8,7 @@
         .ID("gridList")
         .KeyExpr("Id")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Customers/ReceivePayments/All"))
+        .LoadUrl($"/API/Customers/ReceivePayments/All"))
         .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(true)
         .ShowBorders(false)
@@ -19,7 +19,7 @@
         .ColumnAutoWidth(false)
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))
         @*.AutoExpandAll(true)*@
-        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("ReceivePayments" + CompanyId.ToString()))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("ReceivePayments" ))
 
         .Columns(columns =>
             {
@@ -33,12 +33,12 @@
 
                 columns.AddFor(m => m.Name)
                 .Width(50)
-                .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
+                .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
 
                     columns.AddFor(m => m.SaleId)
     .HeaderCellTemplate("Sale")
     .Width(130)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
+        .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
 
             
 
@@ -49,14 +49,14 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
 
 
         
             columns.AddFor(m => m.SaleId)
         .HeaderCellTemplate("Reference")
         .Width(130)
-        .CellTemplate(@<text><a href="/@CompanyId/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
+        .CellTemplate(@<text><a href="/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
 
 
 
@@ -69,7 +69,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.PayToAccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayToAccountId %>/"><%= displayValue %></a></text>);
 
 
 
@@ -79,14 +79,14 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.RetentionGroupId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.RetentionPeriods.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/RetentionGroups/<%= data.RetentionGroupId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/RetentionGroups/<%= data.RetentionGroupId %>/"><%= displayValue %></a></text>);
 
 
 

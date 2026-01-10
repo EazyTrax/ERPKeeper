@@ -7,10 +7,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/All")
-        .UpdateUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/Update")
+        .LoadUrl($"/API/Suppliers/Suppliers/{Model.Id}/Purchases/All")
+        .UpdateUrl($"/API/Suppliers/Suppliers/{Model.Id}/Purchases/Update")
         .UpdateMethod("Post")
-        .InsertUrl($"/API/{CompanyId}/Suppliers/Suppliers/{Model.Id}/Purchases/Insert")
+        .InsertUrl($"/API/Suppliers/Suppliers/{Model.Id}/Purchases/Insert")
         .InsertMethod("Post"))
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
         .StateStoring(stateStoring => stateStoring.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Supplier_Purchases"))
@@ -36,7 +36,7 @@
             );
                 columns.AddFor(m => m.Name).AllowEditing(false)
                     .Width(130)
-                    .CellTemplate(@<text><a href="/@CompanyId/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
+                    .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
 
                 columns.AddFor(m => m.Reference);
 
@@ -50,7 +50,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 

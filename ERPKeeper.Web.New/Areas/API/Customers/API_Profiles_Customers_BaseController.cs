@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 {
-    [Route("/API/{CompanyId}/Customers/{controller}/{action=Index}")]
+    [Route("/API/Customers/{controller}/{action=Index}")]
     public class API_Profiles_Customers_BaseController : API_BaseController
     {
 

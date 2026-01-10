@@ -4,11 +4,11 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Setting.Branch>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Setting/Branches/All")
-            .InsertUrl($"/API/{CompanyId}/Setting/Branches/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Setting/Branches/Update")
+            .LoadUrl($"/API/Setting/Branches/All")
+            .InsertUrl($"/API/Setting/Branches/Insert")
+            .UpdateUrl($"/API/Setting/Branches/Update")
             .UpdateMethod("Post")
-            .DeleteUrl($"/API/{CompanyId}/Setting/Branches/Delete")
+            .DeleteUrl($"/API/Setting/Branches/Delete")
             .DeleteMethod("Post")
             )
             .KeyExpr("Id")
@@ -33,7 +33,7 @@
                 columns.AddFor(m => m.OrganizationName)
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
-            .CellTemplate(@<text><a href="/@CompanyId/Setting/Branches/<%= data.Id %>/"><%= data.OrganizationName %></a></text>);
+            .CellTemplate(@<text><a href="/Setting/Branches/<%= data.Id %>/"><%= data.OrganizationName %></a></text>);
 
                 columns.AddFor(m => m.BranchName);
                 columns.AddFor(m => m.TaxNumber);

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Products.Item
 {
-    [Route("/API/{CompanyId}/Products/Items/{ItemId:Guid}/{controller}/{action=Index}")]
+    [Route("/API/Products/Items/{ItemId:Guid}/{controller}/{action=Index}")]
 
     public class DocumentsController : API_Products_Item_BaseController
     {

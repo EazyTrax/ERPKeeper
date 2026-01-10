@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace ERPKeeperCore.Web.New.API.Products.Item
 {
-    [Route("/API/{CompanyId}/Products/Items/{ItemId:guid}/{controller}/{action=Index}")]
+    [Route("/API/Products/Items/{ItemId:guid}/{controller}/{action=Index}")]
     public class API_Products_Item_BaseController : API_BaseController
     {
         public Guid ItemId => Guid.Parse(HttpContext.GetRouteData().Values["ItemId"].ToString());

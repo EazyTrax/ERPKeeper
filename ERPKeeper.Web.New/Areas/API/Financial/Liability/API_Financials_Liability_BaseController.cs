@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace ERPKeeperCore.Web.New.API.Financials.Liability
 {
-    [Route("/API/{CompanyId}/Financial/Liabilities/{Id:guid}/{controller}/{action=Index}")]
+    [Route("/API/Financial/Liabilities/{Id:guid}/{controller}/{action=Index}")]
     public class API_Financials_Liability_BaseController : API_BaseController
     {
         public Guid Id => Guid.Parse(HttpContext.GetRouteData().Values["Id"].ToString());

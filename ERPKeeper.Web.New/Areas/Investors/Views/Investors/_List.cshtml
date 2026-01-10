@@ -3,7 +3,7 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Investors.Investor>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Investors/Investors/All"))
+            .LoadUrl($"/API/Investors/Investors/All"))
             .KeyExpr("Id")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(true)
@@ -18,21 +18,21 @@
 
                 columns.AddFor(m => m.ProfileId).Width(150)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.TaxNumber }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.ProfileId).Width(80)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }))
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.ShotName }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>SN</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
@@ -41,7 +41,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Investor</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
             })

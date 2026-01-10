@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ERPKeeperCore.Web.API.Taxes
 {
-    [Route("/API/{CompanyId}/Taxes/{controller}/{action=Index}")]
+    [Route("/API/Taxes/{controller}/{action=Index}")]
     public class API_Taxes_BaseController : API_BaseController
     {
 

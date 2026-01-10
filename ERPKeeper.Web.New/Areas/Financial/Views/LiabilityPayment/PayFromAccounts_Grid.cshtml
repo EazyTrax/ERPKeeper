@@ -6,9 +6,9 @@
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController()
             .Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/All")
-            .InsertUrl($"/api/{CompanyId}/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/Update")
+            .LoadUrl($"/api/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/All")
+            .InsertUrl($"/api/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/Insert")
+            .UpdateUrl($"/api/Financial/LiabilityPayments/{Model.Id}/PayFromAccounts/Update")
             .UpdateMethod("Post"))
             .AllowColumnReordering(true)
             .RowAlternationEnabled(true).AllowColumnReordering(true).ShowRowLines(true).HoverStateEnabled(true)
@@ -24,7 +24,7 @@
                 columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(300).HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Account.Type)

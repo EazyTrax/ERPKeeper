@@ -18,16 +18,16 @@
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
     @{
-        MenuTemplate(0, "Products", $"/{CompanyId}/Products");
+        MenuTemplate(0, "Products", $"/Products");
     }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Brands", $"/{CompanyId}/Products/Brands", Organization.ErpCOREDBContext.Brands.Count());
-        MenuTemplate(0, "Items", $"/{CompanyId}/Products/Items", Organization.ErpCOREDBContext.Items.Count());
-        MenuTemplate(3, "Accounts", $"/{CompanyId}/Products/Items/Accounts", Organization.ErpCOREDBContext.Items.Count());
-        MenuTemplate(0, "Inventory", $"/{CompanyId}/Products/Inventory");
-        MenuTemplate(0, "Groups", $"/{CompanyId}/Products/Groups", Organization.ErpCOREDBContext.ItemGroups.Count());
+        MenuTemplate(0, "Brands", $"/Products/Brands", Organization.ErpCOREDBContext.Brands.Count());
+        MenuTemplate(0, "Items", $"/Products/Items", Organization.ErpCOREDBContext.Items.Count());
+        MenuTemplate(3, "Accounts", $"/Products/Items/Accounts", Organization.ErpCOREDBContext.Items.Count());
+        MenuTemplate(0, "Inventory", $"/Products/Inventory");
+        MenuTemplate(0, "Groups", $"/Products/Groups", Organization.ErpCOREDBContext.ItemGroups.Count());
     }
 </div>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Financials.Controllers
 {
 
-    [Route("/{CompanyId}/Financial/Liabilities/{AccountId:Guid}/{action=index}")]
+    [Route("/Financial/Liabilities/{AccountId:Guid}/{action=index}")]
     public class LiabilityController : Financial_BaseController
     {
         public Guid AccountId => Guid.Parse(RouteData.Values["AccountId"].ToString());

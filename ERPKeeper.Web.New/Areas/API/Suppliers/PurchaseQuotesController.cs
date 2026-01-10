@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
-        [Route("/API/{CompanyId}/Suppliers/{controller}/{action}/{status}")]
+        [Route("/API/Suppliers/{controller}/{action}/{status}")]
         public object List(PurchaseQuoteStatus status, DataSourceLoadOptions loadOptions)
         {
 

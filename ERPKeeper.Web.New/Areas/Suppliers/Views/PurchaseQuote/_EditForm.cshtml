@@ -1,6 +1,6 @@
 ﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
-<form id="EditForm" action="/@CompanyId/Suppliers/PurchaseQuotes/@Model.Id/Update" method="post">
+<form id="EditForm" action="/Suppliers/PurchaseQuotes/@Model.Id/Update" method="post">
     <div>
         <div class="grid grid-cols-3">
 
@@ -12,8 +12,8 @@
                             <div class="mb-3 font-semibold text-lg">Supplier</div>
                         </div>
                         <div class="">
-                            <a href="/@CompanyId/Profiles/@Model.SupplierId">
-                                <i class="fa-regular fa-id-badge text-xl"></i>
+                            <a href="/Profiles/@Model.SupplierId">
+                                Profile
                             </a>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                         @if (Model.Project != null)
                         {
                             <div>
-                                <a href="/@CompanyId/Projects/@Model.ProjectId/">@Model.Project.Name</a>
+                                <a href="/Projects/@Model.ProjectId/">@Model.Project.Name</a>
                             </div>
                         }
 

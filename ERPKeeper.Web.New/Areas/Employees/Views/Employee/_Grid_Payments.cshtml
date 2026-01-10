@@ -6,10 +6,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/All")
-        .InsertUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/Insert")
-        .UpdateUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/Update").UpdateMethod("Post")
-        .DeleteUrl($"/API/{CompanyId}/Employees/Employees/{Model.Id}/EmployeePayments/Delete").DeleteMethod("Post")
+        .LoadUrl($"/API/Employees/Employees/{Model.Id}/EmployeePayments/All")
+        .InsertUrl($"/API/Employees/Employees/{Model.Id}/EmployeePayments/Insert")
+        .UpdateUrl($"/API/Employees/Employees/{Model.Id}/EmployeePayments/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/Employees/Employees/{Model.Id}/EmployeePayments/Delete").DeleteMethod("Post")
         )
         .KeyExpr("Id")
         .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -39,7 +39,7 @@
             {
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
 
@@ -52,7 +52,7 @@
             .CalculateSortValue("Name")
             
             .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
 
 
 

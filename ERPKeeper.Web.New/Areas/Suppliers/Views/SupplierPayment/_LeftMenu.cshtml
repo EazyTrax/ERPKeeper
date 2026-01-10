@@ -25,21 +25,21 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/@CompanyId/Suppliers/Suppliers">Suppliers</a><br />
-    <a href="/@CompanyId/Suppliers/SupplierPayments">SupplierPayments</a><br />
-    <a href="/@CompanyId/Suppliers/SupplierPayments/@Model.Id">@Model.Purchase.Name.Replace("SL", "RP")</a>
+    <a href="/Suppliers/Suppliers">Suppliers</a><br />
+    <a href="/Suppliers/SupplierPayments">SupplierPayments</a><br />
+    <a href="/Suppliers/SupplierPayments/@Model.Id">@Model.Purchase.Name.Replace("SL", "RP")</a>
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Detail", $"/{CompanyId}/Suppliers/SupplierPayments/{Model.Id}");
-        MenuTemplate(0, $"Purchase: {Model.Purchase.Name}", $"/{CompanyId}/Suppliers/Purchases/{Model.PurchaseId}");
-        MenuTemplate(0, "Documents", $"/{CompanyId}/Suppliers/SupplierPayments/{Model.Id}/Documents");
+        MenuTemplate(0, "Detail", $"/Suppliers/SupplierPayments/{Model.Id}");
+        MenuTemplate(0, $"Purchase: {Model.Purchase.Name}", $"/Suppliers/Purchases/{Model.PurchaseId}");
+        MenuTemplate(0, "Documents", $"/Suppliers/SupplierPayments/{Model.Id}/Documents");
 
     }
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export", $"/{CompanyId}/Suppliers/SupplierPayments/{Model.Id}/Export");
+        MenuTemplate(0, "Export", $"/Suppliers/SupplierPayments/{Model.Id}/Export");
     }
 </div>

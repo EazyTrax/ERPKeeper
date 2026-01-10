@@ -19,12 +19,12 @@ namespace ERPKeeperCore.Web.Areas.Projects.Controllers
         }
 
 
-        [Route("/{CompanyId}/Projects/Refresh")]
+        [Route("/Projects/Refresh")]
         public IActionResult Refresh()
         {
             Organization.Projects.UpdateBalance();
 
-            return Redirect($"/{CompanyId}/Projects");
+            return Redirect($"/Projects");
         }
 
     }

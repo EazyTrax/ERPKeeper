@@ -2,26 +2,26 @@
 
 <div class="flex flex-wrap">
     <div class="w-9/12 p-2 font-semibold">
-        <a href="/@CompanyId/Accounting">Accounting</a>
+        <a href="/Accounting">Accounting</a>
         /
-        <a href="/@CompanyId/Accounting/JournalEntries">JournalEntries</a>
+        <a href="/Accounting/JournalEntries">JournalEntries</a>
         /
-        <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id"> @Model.Name</a>
+        <a href="/Accounting/JournalEntries/@Model.Id"> @Model.Name</a>
 
     </div>
     <div class="w-3/12 p-0 text-right">
-        <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/Clone">Clone</a> -
-        <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/Refresh">Refresh</a> -
+        <a href="/Accounting/JournalEntries/@Model.Id/Clone">Clone</a> -
+        <a href="/Accounting/JournalEntries/@Model.Id/Refresh">Refresh</a> -
 
         @if (Model.Transaction != null && Model.Transaction.IsPosted == true)
         {
-            <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/UnPost">UnPost</a>
+            <a href="/Accounting/JournalEntries/@Model.Id/UnPost">UnPost</a>
         }
         else
         {
-            <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/Post">Post</a>
+            <a href="/Accounting/JournalEntries/@Model.Id/Post">Post</a>
             <span> - </span>
-            <a href="/@CompanyId/Accounting/JournalEntries/@Model.Id/Delete"> Delete </a>
+            <a href="/Accounting/JournalEntries/@Model.Id/Delete"> Delete </a>
         }
 
 

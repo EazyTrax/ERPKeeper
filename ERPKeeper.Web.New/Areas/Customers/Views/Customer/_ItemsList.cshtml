@@ -9,14 +9,14 @@
 </style>
 
 <div class="p-2 bg-fb2 border">
-    <a href="/@CompanyId/Customers/Customers/@Model.Id/UpdateItems"><i class="fa-solid fa-arrows-rotate"></i> Update Items</a>
+    <a href="/Customers/Customers/@Model.Id/UpdateItems"><i class="fa-solid fa-arrows-rotate"></i> Update Items</a>
 </div>
 
 <div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.CustomerItem>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/Customers/{Model.ProfileId}/Items/All"))
+            .LoadUrl($"/API/Customers/Customers/{Model.ProfileId}/Items/All"))
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .KeyExpr("Id")
             .ShowRowLines(true)
@@ -35,14 +35,14 @@
                 columns.AddFor(m => m.Item.PartNumber)
             .Width(180)
             .CellTemplate(@<text>
-        <a href="/@CompanyId/Products/Items/<%= data.ItemId %>/">
+        <a href="/Products/Items/<%= data.ItemId %>/">
             <%= data.Item.PartNumber %>
         </a>
     </text>
         ); 
         columns.AddFor(m => m.Item.Description)
         .CellTemplate(@<text>
-        <a href="/@CompanyId/Products/Items/<%= data.ItemId %>/">
+        <a href="/Products/Items/<%= data.ItemId %>/">
             <%= data.Item.Description %>
         </a>
     </text>

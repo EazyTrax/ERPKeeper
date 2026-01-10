@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Storage.Controllers
 {
     [Area("Storage")]
-    [Route("/{CompanyId}/{area}/{controller=Home}/{action=Index}/{id?}")]
-    public class _Storage_BaseController : DefaultController
+    [Route("/{area}/{controller=Home}/{action=Index}/{id?}")]
+    public class _Storage_BaseController : _BaseController
     {
 
 

@@ -21,14 +21,14 @@
 }
 
 <div class="font-weight-600 border p-2 bg-gray-100">
-    <a href="/@CompanyId/Taxes">Taxes</a>
+    <a href="/Taxes">Taxes</a>
 </div>
 <div class="border p-2 bg-gray-100">
     @{
-        Template("Income Taxes", $"/{CompanyId}/Taxes/IncomeTaxes", Organization.IncomeTaxes.Count());
-        Template("Codes", $"/{CompanyId}/Taxes/TaxCodes", Organization.TaxCodes.Count());
-        Template("Periods", $"/{CompanyId}/Taxes/TaxPeriods", Organization.TaxPeriods.Count());
-        Template("UnAssignTransactions", $"/{CompanyId}/Taxes/UnAssignTransactions");
+        Template("Income Taxes", $"/Taxes/IncomeTaxes", Organization.IncomeTaxes.Count());
+        Template("Codes", $"/Taxes/TaxCodes", Organization.TaxCodes.Count());
+        Template("Periods", $"/Taxes/TaxPeriods", Organization.TaxPeriods.Count());
+        Template("UnAssignTransactions", $"/Taxes/UnAssignTransactions");
 
 
     }

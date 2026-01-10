@@ -18,40 +18,40 @@
 
 <div class="lh-120 bg-gray-100 font-semibold p-2 rounded border">
     @{
-        MenuTemplate(0, "Home", $"/{CompanyId}");
+        MenuTemplate(0, "Home", $"");
     }
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Customers", $"/{CompanyId}/Customers", Organization.Customers.Count());
-        MenuTemplate(0, "Suppliers", $"/{CompanyId}/Suppliers", Organization.Suppliers.Count());
-        MenuTemplate(0, "Employees", $"/{CompanyId}/Employees", Organization.Employees.Count());
-        MenuTemplate(0, "Investors", $"/{CompanyId}/Investors", Organization.Investors.Count());
-        MenuTemplate(0, "Profiles", $"/{CompanyId}/Profiles", Organization.Profiles.Count());
-    }
-</div>
-
-<div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        MenuTemplate(0, "Products", $"/{CompanyId}/Products", Organization.Items.Count());
-        MenuTemplate(0, "Projects", $"/{CompanyId}/Projects", Organization.Projects.Count());
-        MenuTemplate(0, "Storage", $"/{CompanyId}/Storage");
-    }
-
-</div>
-
-<div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        MenuTemplate(0, "Accounting", $"/{CompanyId}/Accounting");
-        MenuTemplate(0, "Financial", $"/{CompanyId}/Financial");
-        MenuTemplate(0, "Assets", $"/{CompanyId}/Assets", Organization.Assets.Count());
-        MenuTemplate(0, "Taxes", $"/{CompanyId}/Taxes");
-        MenuTemplate(0, "Logistic", $"/{CompanyId}/Logistic");
+        MenuTemplate(0, "Customers", $"/Customers", Organization.Customers.Count());
+        MenuTemplate(0, "Suppliers", $"/Suppliers", Organization.Suppliers.Count());
+        MenuTemplate(0, "Employees", $"/Employees", Organization.Employees.Count());
+        MenuTemplate(0, "Investors", $"/Investors", Organization.Investors.Count());
+        MenuTemplate(0, "Profiles", $"/Profiles", Organization.Profiles.Count());
     }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Setting", $"/{CompanyId}/Setting");
+        MenuTemplate(0, "Products", $"/Products", Organization.Items.Count());
+        MenuTemplate(0, "Projects", $"/Projects", Organization.Projects.Count());
+        MenuTemplate(0, "Storage", $"/Storage");
+    }
+
+</div>
+
+<div class="lh-120 bg-gray-100 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Accounting", $"/Accounting");
+        MenuTemplate(0, "Financial", $"/Financial");
+        MenuTemplate(0, "Assets", $"/Assets", Organization.Assets.Count());
+        MenuTemplate(0, "Taxes", $"/Taxes");
+        MenuTemplate(0, "Logistic", $"/Logistic");
+    }
+</div>
+
+<div class="lh-120 bg-gray-100 p-2 rounded border">
+    @{
+        MenuTemplate(0, "Setting", $"/Setting");
     }
 </div>

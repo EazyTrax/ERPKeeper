@@ -5,10 +5,10 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Financial/FundTransfers/All")
-            .InsertUrl($"/API/{CompanyId}/Financial/FundTransfers/Insert")
+            .LoadUrl($"/API/Financial/FundTransfers/All")
+            .InsertUrl($"/API/Financial/FundTransfers/Insert")
             .InsertMethod("Post")
-            .UpdateUrl($"/API/{CompanyId}/Financial/FundTransfers/Update")
+            .UpdateUrl($"/API/Financial/FundTransfers/Update")
             .UpdateMethod("Post"))
             .Width("100%")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -32,7 +32,7 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/@CompanyId/Financial/FundTransfers/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a href="/Financial/FundTransfers/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
 
@@ -41,7 +41,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>WithDraw</text>)
-                .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
+                .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.WithDrawAmount)
@@ -60,7 +60,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Deposit</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.DepositAmount)

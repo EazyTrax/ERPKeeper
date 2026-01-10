@@ -14,9 +14,9 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/api/{CompanyId}/Products/Items/All")
-            .InsertUrl($"/api/{CompanyId}/Products/Items/Insert")
-            .UpdateUrl($"/api/{CompanyId}/Products/Items/Update")
+            .LoadUrl($"/api/Products/Items/All")
+            .InsertUrl($"/api/Products/Items/Insert")
+            .UpdateUrl($"/api/Products/Items/Update")
             .UpdateMethod("Post"))
             .ShowRowLines(true)
             .ShowBorders(false)
@@ -34,7 +34,7 @@
             .Columns(columns =>
             {
                 columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Products/Brands/<%= data.BrandId %>/"><%= displayValue %></a></text>)
+            .CellTemplate(@<text><a href="/Products/Brands/<%= data.BrandId %>/"><%= displayValue %></a></text>)
         .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -47,7 +47,7 @@
             .SortIndex(1)
             .MinWidth(200)
             .CellTemplate(@<text>
-        <a href="/@CompanyId/Products/Items/<%= data.Id %>/">
+        <a href="/Products/Items/<%= data.Id %>/">
             <span><%= data.PartNumber %></span>
         </a>
     </text>);
@@ -67,7 +67,7 @@
             );
 
                 columns.AddFor(m => m.ItemGroupId).Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/Products/ItemGroups/<%= data.ItemGroupId %>/"><%= displayValue %></a></text>)
+            .CellTemplate(@<text><a href="/Products/ItemGroups/<%= data.ItemGroupId %>/"><%= displayValue %></a></text>)
         .HeaderCellTemplate(@<text>Group</text>)
         .Lookup(lookup => lookup
         .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -86,7 +86,7 @@
 
 
                 columns.Add().Width(150)
-            .CellTemplate(@<text><a href="/@CompanyId/@profileType/@transactionType/@Model.Id/Items/Add?ItemId=<%= data.Id %>"><i class="fa-solid fa-circle-plus text-lg"></i> Add</a></text>)
+            .CellTemplate(@<text><a href="/@profileType/@transactionType/@Model.Id/Items/Add?ItemId=<%= data.Id %>"><i class="fa-solid fa-circle-plus text-lg"></i> Add</a></text>)
         .HeaderCellTemplate(@<text> </text>);
             })
         )

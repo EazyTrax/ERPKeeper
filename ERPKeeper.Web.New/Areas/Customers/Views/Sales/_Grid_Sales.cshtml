@@ -4,9 +4,9 @@
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/{CompanyId}/Customers/Sales/All")
-            .InsertUrl($"/API/{CompanyId}/Customers/Sales/Insert")
-            .UpdateUrl($"/API/{CompanyId}/Customers/Sales/Update")
+            .LoadUrl($"/API/Customers/Sales/All")
+            .InsertUrl($"/API/Customers/Sales/Insert")
+            .UpdateUrl($"/API/Customers/Sales/Update")
             .UpdateMethod("Post")
             .InsertMethod("Post")
             )
@@ -48,7 +48,7 @@
                 columns.AddFor(m => m.Name)
             .AllowEditing(false)
             .Width(130)
-            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(@<text><a target="_self" href="/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
 
 
                 columns.AddFor(m => m.CustomerId)
@@ -58,7 +58,7 @@
             .DataSource(Organization.ErpCOREDBContext.Customers.Select(i => new { Value = i.Id, Text = i.Profile.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .CellTemplate(@<text><a target="_self" href="/@CompanyId/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a target="_self" href="/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.Reference)
@@ -75,7 +75,7 @@
             .Visible(false)
             .MinWidth(120)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-            .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.TaxPeriodId)
             .Lookup(lookup => lookup
@@ -86,7 +86,7 @@
             .ShowInColumnChooser(true)
             .Visible(false)
             .HeaderCellTemplate(@<text>TaxPeriod</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.IncomeAccountId)
@@ -97,7 +97,7 @@
             .ShowInColumnChooser(true)
             .Visible(false)
             .HeaderCellTemplate(@<text>Expense</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.WithDrawAccountId %>/"><%= displayValue %></a></text>);
             
         
         columns.AddFor(m => m.ProjectId)
@@ -109,7 +109,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/@CompanyId/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
 
 
 

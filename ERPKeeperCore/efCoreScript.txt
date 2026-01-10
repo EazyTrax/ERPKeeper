@@ -4,15 +4,7 @@ ADD
 
 @await Component.InvokeAsync("Advertise")
 
-Add-Migration DB-2026.01.10.01 -Context ERPCoreDbContext -OutputDir Migrations
-Add-Migration DB-2026.01.10.01 -Context ERPCoreDbContext -OutputDir Migrations
-Add-Migration DB-2026.01.10.01 -Context ERPCoreDbContext -OutputDir Migrations
-Add-Migration DB-2026.01.10.01 -OutputDir Migrations
-Add-Migration DB-2026.01.10.01 -Context ERPCoreDbContext -OutputDirectory Migrations
-
-
-
-dotnet ef migrations add DB-2026.01.10.01 --context ERPCoreDbContext --output-dir Migrations --project ERPKeeperCore\ERPKeeperCore.Enterprise.csproj
+dotnet ef migrations add DB-2026.01.10.02 --context ERPCoreDbContext --output-dir Migrations --project ERPKeeperCore\ERPKeeperCore.Enterprise.csproj
 
 ###############
 return Redirect(Request.Headers["Referer"].ToString());

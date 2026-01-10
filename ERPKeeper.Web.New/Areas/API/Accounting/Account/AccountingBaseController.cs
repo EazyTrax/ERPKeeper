@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace ERPKeeperCore.Web.API.Accounting.Account
 {
-    [Route("/API/{CompanyId}/Accounting/Accounts/{AccountId:Guid}/{controller}/{action=Index}")]
+    [Route("/API/Accounting/Accounts/{AccountId:Guid}/{controller}/{action=Index}")]
     public class AccountBaseController : API_BaseController
     {
         public Guid AccountId => Guid.Parse(HttpContext.GetRouteData().Values["AccountId"].ToString());

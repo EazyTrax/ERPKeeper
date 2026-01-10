@@ -21,7 +21,7 @@
             @if (!isAssigned)
             {
                 <div class="bg-gray-300 h-20 content-center text-center">
-                    <a href="/@CompanyId/Profiles/@Model.Id/AssignRole?Role=@profileType">
+                    <a href="/Profiles/@Model.Id/AssignRole?Role=@profileType">
                         <i class="fa-solid fa-circle-plus text-lg"></i> @profileType
                     </a>
                 </div>
@@ -29,7 +29,7 @@
             else
             {
                 <div class="bg-green-300 h-20 content-center text-center">
-                    <a href="/@CompanyId/@(profileType)s/@(profileType)s/@Model.Id">
+                    <a href="/@(profileType)s/@(profileType)s/@Model.Id">
                         <i class="fa-solid fa-check"></i> @profileType
                     </a>
                 </div>

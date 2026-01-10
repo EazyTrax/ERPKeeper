@@ -1,0 +1,24 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
+
+<div class="flex flex-wrap">
+    <div class="">
+        <partial name="_Detail" />
+        
+        <!-- Security Section -->
+        <div class="bg-white rounded-lg shadow-md p-4 mt-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fa-solid fa-shield-halved mr-2 text-blue-600"></i>
+                Security
+            </h3>
+            <div class="space-y-2">
+                <a asp-action="ChangePassword" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                    <i class="fa-solid fa-key mr-2"></i>
+                    Change Password
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-right-div w-3/12">
+        <partial name="_Summary" />
+    </div>
+</div>
