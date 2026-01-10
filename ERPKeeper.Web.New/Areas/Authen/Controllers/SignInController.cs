@@ -33,7 +33,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
         public async Task<IActionResult> Authen(LogInModel logInModel)
         {
             if (User.Identity.IsAuthenticated)
-                return Redirect("/Portal");
+                return Redirect("/");
 
             var profile = organizationRepo.Profiles.Authen(logInModel);
             organizationRepo.SaveChanges();
@@ -73,7 +73,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
                     principal,
                     authProperties);
 
-            return Redirect("/Portal");
+            return Redirect("/");
         }
     }
 }
