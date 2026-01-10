@@ -18,12 +18,27 @@ namespace ERPKeeperCore.Web.Controllers
     public class DefaultController : Controller
     {
         public Guid AuthorizeUserId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-        public String CompanyId => HttpContext.GetRouteData().Values["CompanyId"].ToString();
+        public String CompanyId
+        {
+            get
+            {
+                var host = HttpContext.Request.Host.Host;
+                var parts = host.Split('.');
+                parts[0] = parts[0].Replace("erp-", "");
+
+
+                if (parts[0].StartsWith("localhost-"))
+                    parts[0] = "tec";
+
+                return parts.Length > 0 ? parts[0] : host;
+            }
+        }
 
 
         private EnterpriseRepo _Organization;
         public EnterpriseRepo Organization
         {
+
             get
             {
                 if (_Organization == null)

@@ -85,7 +85,7 @@ namespace ERPKeeperCore.Enterprise
         public DAL.Financial.PaymentTerms PaymentTerms;
 
 
- 
+
 
 
 
@@ -101,6 +101,14 @@ namespace ERPKeeperCore.Enterprise
 
         public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
         {
+           
+            if (dbName == "localhost")
+                dbName = "tec";
+
+
+             Console.WriteLine($"> Initialize EnterpriseRepo for database: {dbName}");
+
+
             DatabaseName = dbName;
             ErpCOREDBContext = new ERPCoreDbContext(dbName, useLazyLoading);
             Initial();

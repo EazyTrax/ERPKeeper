@@ -27,7 +27,9 @@ namespace ERPKeeperCore.Enterprise.Models
         Supplier = 2,
         Employee = 3,
         Investor = 4,
-        Member = 5
+        Member = 5,
+        Accountant = 6,
+        HR = 7,
 
     }
     public enum EnumRoleStatus

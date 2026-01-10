@@ -15,6 +15,21 @@ using System.Linq;
 
 namespace ERPKeeperCore.Enterprise.Models.Employees
 {
+
+    public partial class EmployeeLeave
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        public Guid EmployeeId { get; set; }
+        [ForeignKey("EmployeeId")]
+        public virtual Employees.Employee Employee { get; set; }
+
+        public DateTime LeaveDate { get; set; } = DateTime.Now;
+
+    }
+
+
     public partial class Employee
     {
 
@@ -35,7 +50,13 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public Decimal TotalEarn { get; set; }
         public Decimal TotalDeduct { get; set; }
 
+
         public virtual ICollection<EmployeePayment> Payments { get; set; }
+        public virtual ICollection<EmployeeLeave> Leaves { get; set; }
+
+
+
+
 
         public void UpdateBalance()
         {
