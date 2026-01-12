@@ -95,7 +95,7 @@ namespace ERPKeeperCore.Web.Areas.Profile.Controllers
                     return Redirect($"/Suppliers/Suppliers/{Profile.Id}");
                 case "Employee":
                     Organization.Employees.Add(Profile);
-                    return Redirect($"/Employees/Employeess/{Profile.Id}");
+                    return Redirect($"/HR/Employeess/{Profile.Id}");
                 case "Investor":
                     Organization.Customers.Add(Profile);
                     return Redirect($"/Investors/Investors/{Profile.Id}");

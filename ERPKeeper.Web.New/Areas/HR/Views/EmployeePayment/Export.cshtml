@@ -1,0 +1,105 @@
+﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment
+
+@{
+    Layout = "_Layout_Export";
+}
+
+@{
+    var documentNameContent = "สลิปเงินเดือน";
+}
+
+@await Html.PartialAsync("/areas/enterprise_export/view/shared/_header.cshtml", documentNameContent)
+
+<div class="grid grid-cols-3 gap-2 mb-3" id="BuyerDetail">
+    <div class="col-span-2 border border-dark p-2">
+        <div>
+            <b>หนักงาน</b>
+            <a href="/HR/Employees/@Model.Employee.Id">
+                @Model.Employee.Profile.Name
+            </a>
+        </div>
+        <div>
+            เลขที่ผู้เสียภาษี @Model.Employee.Profile.TaxNumber
+        </div>
+
+    </div>
+    <div class=" border border-dark p-2">
+        <div class="grid grid-cols-2 gap-x-2">
+            <div class="font-semibold">เลขที่</div>
+            <div class="text-right">@Model.Name</div>
+
+            <div class="font-semibold">วันที่</div>
+            <div class="text-right">@Model.EmployeePaymentPeriod.Date.ToString("dd-MMM-yyyy")</div>
+
+            <div class="font-semibold">อ้างอิง</div>
+            <div class="text-right"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Items Table -->
+<div class="mb-3 border border-dark p-2" id="Items">
+    <!-- Table Header -->
+    <div class="grid grid-cols-2 gap-2 font-semibold border-b pb-2">
+        <div class="col-span-7">รายการ</div>
+        <div class="col-span-1 text-right">จำนวน</div>
+        <div class="col-span-2 text-right">หน่วยละ</div>
+        <div class="col-span-2 text-right">รวม</div>
+    </div>
+    @* <div class="mb-2">
+        @foreach (var item in Model.PaymentItems.ToList())
+        {
+            <div class="grid grid-cols-12 gap-2 py-1">
+                <div class="flex col-span-7">
+                    <div class="pr-2">
+                        <span class="font-semibold bg-black px-1">@item.Order</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold">@item.PartNumber</div>
+                        <div class="">
+                            @item.Description
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-span-1 text-right">@item.Quantity</div>
+                <div class="col-span-2 text-right">@item.PriceAfterDiscount.ToString("N2")</div>
+                <div class="col-span-2 text-right">@item.LineTotal.ToString("N2")</div>
+            </div>
+        }
+    </div> *@
+</div>
+<div class="grid grid-cols-3 gap-2 mb-3 border border-dark p-2" id="Summary">
+
+    <div class="col-span-2">
+        ข้อมูลการชำระเงิน<br />
+        ชื่อบัญชี: บริษัท เดอะ เอ็นจิเนียริ่ง คร๊าฟ จำกัด<br />
+        ธนาคาร:  SCB เลขที่บัญชี 667-294439-3
+
+    </div>
+
+    <div class="mb-2">
+      
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-right">ราคารวม</div>
+            <div class="text-right "></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-right">ภาษีมูลค่าเพิ่ม</div>
+            <div class="text-right "></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 ">
+            <div class="text-right">ราคารวมภาษี</div>
+            <div class="text-right "></div>
+        </div>
+
+        <div class="text-right pt-2">
+        @*     (@ERPKeeperCore.Enterprise.Helpers.ThaiMoneyConverter.ReturnThaiMoney(Model.Total)) *@
+        </div>
+    </div>
+</div>
+<div class="mb-3">
+    Issuer: @User.Identity.Name
+</div>

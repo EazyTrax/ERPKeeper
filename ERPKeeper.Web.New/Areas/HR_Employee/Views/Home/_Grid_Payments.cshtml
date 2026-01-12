@@ -1,0 +1,102 @@
+﻿
+
+
+<div id="treeList" class="">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/HR/Employees/{Employee.Id}/EmployeePayments/All")
+        .InsertUrl($"/API/HR/Employees/{Employee.Id}/EmployeePayments/Insert")
+        .UpdateUrl($"/API/HR/Employees/{Employee.Id}/EmployeePayments/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/HR/Employees/{Employee.Id}/EmployeePayments/Delete").DeleteMethod("Post")
+        )
+        .KeyExpr("Id")
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(100))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
+        .GroupPanel(gp => gp.Visible(true)) 
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
+        .AllowColumnResizing(true).AllowColumnReordering(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+        .ColumnAutoWidth(false)
+        @*.AutoExpandAll(true)*@
+        .RowDragging(rd => rd
+        .AllowDropInsideItem(false)
+        .AllowReordering(false)
+        @*.OnDragChange("onDragChange")
+    .OnDragEnd("onDragEnd")
+    .ShowDragIcons(false)*@
+        )
+            .Columns(columns =>
+            {
+
+                columns.AddFor(m => m.Name)
+            .CellTemplate(@<text><a href="/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+
+
+
+
+                columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
+            .DisplayExpr("Name")
+            .ValueExpr("Value"))
+            .CalculateSortValue("Name")
+            
+            .HeaderCellTemplate(@<text>Period</text>)
+        .CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+
+
+
+                columns.AddFor(m => m.EmployeePaymentPeriod.Date)
+            .Width(130)
+            .SortIndex(1)
+            .AllowEditing(false)
+            .Format(Format.ShortDate)
+            .HeaderCellTemplate(@<text>Date</text>);
+
+
+
+
+                columns.AddFor(m => m.TotalEarning).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+                columns.AddFor(m => m.TotalDeduction).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
+
+
+
+
+                columns.AddFor(m => m.IsPosted)
+            .AllowEditing(false).Width(30)
+            .HeaderCellTemplate(@<text> </text>)
+            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
+        );
+
+
+
+
+
+
+                })
+                .Summary(s =>
+            s.TotalItems(items =>{
+
+                items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+                items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");
+            })
+            .GroupItems(items =>
+            {
+            items.AddFor(m => m.TotalEarning).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+            items.AddFor(m => m.TotalDeduction).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00").ShowInGroupFooter(true);
+
+        }))
+        )
+</div>
+
+
