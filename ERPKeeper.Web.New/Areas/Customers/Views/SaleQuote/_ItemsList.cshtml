@@ -58,7 +58,7 @@
                     w.Button()
                         .Text("Item")
                         .Icon("fa-solid fa-circle-plus")
-                    .OnClick($"function() {{ window.open('/{CompanyId}/Customers/SaleQuotes/{@Model.Id}/Items/Avaliable','_self'); }}"))
+                    .OnClick($"function() {{ window.open('/Customers/SaleQuotes/{@Model.Id}/Items/Avaliable','_self'); }}"))
                     .Location(ToolbarItemLocation.After);
                 });  
         })
