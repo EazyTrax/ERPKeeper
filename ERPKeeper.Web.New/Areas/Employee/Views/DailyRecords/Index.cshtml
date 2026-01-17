@@ -1,3 +1,44 @@
+@{
+    ViewData["Title"] = "Daily Records";
+}
+
+<div class="mb-3 p-2 bg-light border rounded">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h5 class="mb-0 font-weight-bold">Daily Records</h5>
+            <small class="text-muted">Manage employee daily attendance records</small>
+        </div>
+        <div>
+            <form method="post" asp-action="AutoDailyRecords" asp-controller="DailyRecords" asp-area="Employee" 
+                  onsubmit="return confirm('This will create daily records for all active employees for the next 1 year. Continue?');">
+                <button type="submit" class="btn btn-primary btn-sm" title="Auto generate daily records for the next year">
+                    <i class="fas fa-calendar-plus"></i> Auto Generate Records
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <div class="flex flex-wrap">
     <div class="w-full col-center p-0">
 

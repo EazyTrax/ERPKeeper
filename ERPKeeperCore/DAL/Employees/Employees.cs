@@ -37,7 +37,7 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
                 Id = profile.Id,
                 Profile = profile,
                 Code = profile.ShotName,
-                Status = Models.ProfileStatus.Active,
+                Status = EmployeeStatus.Active,
             };
 
             erpNodeDBContext.Employees.Add(employee);

@@ -1,14 +1,22 @@
+@using ERPKeeperCore.Enterprise.Models.Employees.Enums
 
 <div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.Employee>()
             .ID("gridList")
-            .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/HR/Employees/All"))
+            .DataSource(d => d.RemoteController()
+            .Key("Id")
+            .LoadUrl($"/API/HR/Employees/All")
+            .UpdateUrl($"/API/HR/Employees/Update")
+            .UpdateMethod("Post"))
             .KeyExpr("Id")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
             .ShowRowLines(true)
             .ShowBorders(false)
             .Paging(paging => paging.PageSize(100))
+            .Editing(editing => editing
+                .Mode(GridEditMode.Cell)
+                .AllowUpdating(true)
+                .StartEditAction(GridStartEditAction.Click))
 
             .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
             .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
@@ -48,10 +56,20 @@
             .CellTemplate(@<text><a href="/HR/EmployeePositions/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
-                columns.AddFor(m => m.Salary).Format("#,##0.00").Width(150);
+                columns.AddFor(m => m.Salary).Format("#,##0.00").Width(150).AllowEditing(false);
 
-                columns.AddFor(m => m.TotalEarn).Width(150).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
-                columns.AddFor(m => m.TotalDeduct).Width(150).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
+                columns.AddFor(m => m.TotalEarn).Width(150).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>).AllowEditing(false);
+                columns.AddFor(m => m.TotalDeduct).Width(150).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>).AllowEditing(false);
+
+                columns.AddFor(m => m.Status).Width(120)
+                .Lookup(lookup => lookup
+                    .DataSource(Enum.GetValues(typeof(EmployeeStatus))
+                        .Cast<EmployeeStatus>()
+                        .Select(e => new { Value = (int)e, Text = e.ToString() })
+                        .ToList())
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value"))
+                .HeaderCellTemplate(@<text>Status</text>);
 
              
             })
