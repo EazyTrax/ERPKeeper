@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.HR_Employee.Views
     {
         public Guid EmployeeId => Guid.Parse(ViewContext.RouteData.Values["EmployeeId"]?.ToString() ?? string.Empty);
 
-        public Employee Employee => Organization.Employees.Find(EmployeeId);
+        public Enterprise.Models.Employees.Employee Employee => Organization.Employees.Find(EmployeeId);
 
     }
 }       

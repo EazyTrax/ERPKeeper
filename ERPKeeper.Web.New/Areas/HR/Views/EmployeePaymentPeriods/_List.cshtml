@@ -1,15 +1,15 @@
-﻿
+
 
 <div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/Employees/EmployeePaymentPeriods/All")
-        .InsertUrl($"/API/Employees/EmployeePaymentPeriods/Insert")
-        .UpdateUrl($"/API/Employees/EmployeePaymentPeriods/Update")
+        .LoadUrl($"/API/HR/EmployeePaymentPeriods/All")
+        .InsertUrl($"/API/HR/EmployeePaymentPeriods/Insert")
+        .UpdateUrl($"/API/HR/EmployeePaymentPeriods/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/API/Employees/EmployeePaymentPeriods/Delete")
+        .DeleteUrl($"/API/HR/EmployeePaymentPeriods/Delete")
         .DeleteMethod("Post")
         )
         .KeyExpr("Id")
@@ -40,7 +40,7 @@
         {
 
             columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
-            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>
+            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>
             );
 
 

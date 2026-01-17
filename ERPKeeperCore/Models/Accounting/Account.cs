@@ -80,9 +80,17 @@ namespace ERPKeeperCore.Enterprise.Models.Accounting
         }
 
         public DateTime? BalanceCalulatedDate { get; set; }
+
+        [Precision(18, 2)]
         public Decimal OpeningCredit { get; set; } = 0;
+
+        [Precision(18, 2)]
         public Decimal OpeningDebit { get; set; } = 0;
+
+        [Precision(18, 2)]
         public Decimal CurrentCredit { get; set; } = 0;
+
+        [Precision(18, 2)]
         public Decimal CurrentDebit { get; set; } = 0;
 
         public Decimal TotalDebit { get { return Math.Max(CurrentDebit - CurrentCredit, 0); } }

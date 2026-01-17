@@ -1,4 +1,4 @@
-﻿<div class="mb-2 border-top">
+<div class="mb-2 border-top">
     @(
         Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Accounting.Account>()
         .ID("AssetsTreeList")
@@ -62,13 +62,13 @@
                 b.AddFor(m => m.CurrentDebit)
             .Width(120)
             .Format("#,##0.00")
-            .CssClass("bg-fb1")
+            .CssClass("bg-gray-200")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.CurrentCredit)
             .Width(120)
             .Format("#,##0.00")
-            .CssClass("bg-fb1")
+            .CssClass("bg-gray-200")
             .HeaderCellTemplate(@<text>CR</text>);
             });
 
@@ -80,13 +80,13 @@
                 b.AddFor(m => m.TotalDebit)
             .Width(120)
             .Format("#,##0.00")
-            .CssClass("bg-fb1")
+            .CssClass("bg-gray-200")
             .HeaderCellTemplate(@<text>DR</text>);
 
                 b.AddFor(m => m.TotalCredit)
             .Width(120)
             .Format("#,##0.00")
-            .CssClass("bg-fb1")
+            .CssClass("bg-gray-200")
             .HeaderCellTemplate(@<text>CR</text>);
             });
             })

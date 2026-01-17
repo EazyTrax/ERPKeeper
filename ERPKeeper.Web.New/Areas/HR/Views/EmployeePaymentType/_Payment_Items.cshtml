@@ -1,14 +1,14 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType
+@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType
 
 <div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentItem>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/Employees/EmployeePaymentTypes/{Model.Id}/EmployeePaymentItems/All")
-        //.InsertUrl($"/API/Employees/EmployeePaymentTypes/{Model.Id}/Items/Insert")
-        .UpdateUrl($"/API/Employees/EmployeePaymentTypes/{Model.Id}/EmployeePaymentItems/Update")
+        .LoadUrl($"/API/HR/EmployeePaymentTypes/{Model.Id}/EmployeePaymentItems/All")
+        //.InsertUrl($"/API/HR/EmployeePaymentTypes/{Model.Id}/Items/Insert")
+        .UpdateUrl($"/API/HR/EmployeePaymentTypes/{Model.Id}/EmployeePaymentItems/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/API/Employees/EmployeePaymentTypes/{Model.Id}/EmployeePaymentItems/Delete")
+        .DeleteUrl($"/API/HR/EmployeePaymentTypes/{Model.Id}/EmployeePaymentItems/Delete")
         .DeleteMethod("Post")
     )
     .KeyExpr("Id")
@@ -47,7 +47,7 @@
     .CalculateSortValue("Type")
     .SortIndex(1)
     .HeaderCellTemplate(@<text>Type</text>)
-        .CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.EmployeePaymentType.PayDirection)

@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
@@ -13,15 +13,15 @@
 
 	<div class="w-full text-center">
 		@Organization.Profiles.GetSelf().Name<br />
-		รายงานซื้อ<br />
-		สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+		??????????<br />
+		???????????????????????? ? ??????  31 ??????? @(Model.EndDate.Year - 1 + 543) ??? @(Model.EndDate.Year + 543)
 	</div>
 
 	foreach (var monthlyPurchase in monthlyPurchases.OrderBy(m => m.month))
 	{
 		<div class="page-break-after">
 			<div class=" font-bold mt-5">
-				เดือน @monthlyPurchase.month
+				????? @monthlyPurchase.month
 			</div>
 			<div class="grid grid-cols-8">
 

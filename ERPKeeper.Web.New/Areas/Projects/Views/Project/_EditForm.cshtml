@@ -1,10 +1,10 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Projects.Project
+@model ERPKeeperCore.Enterprise.Models.Projects.Project
 
 <form id="EditForm" action="/Projects/@Model.Id/Update" method="post">
     <div class="border">
         <div class="grid grid-cols-3">
             <div class="border">
-                <div class=" bg-fb1 p-2 mb-2 border">
+                <div class=" bg-gray-200 p-2 mb-2 border">
                     <div class="mb-3 font-semibold text-lg">General</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Name).Label("Name").LabelMode(EditorLabelMode.Floating)</div>
                     <div class="mb-2">@Html.DevExtreme().TextBoxFor(m => m.Code).Label("Code").LabelMode(EditorLabelMode.Floating)</div>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="border">
-                <div class=" bg-fb1 p-2 mb-2 border">
+                <div class=" bg-gray-200 p-2 mb-2 border">
                     <div class="mb-2">
                         <div class="mb-3 font-semibold text-lg">Dates</div>
                         <div class="mb-2">@Html.DevExtreme().DateBoxFor(m => m.StartDate).Label("Start").LabelMode(EditorLabelMode.Floating)</div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="border">
-                <div class=" bg-fb1 p-2 mb-2 border">
+                <div class=" bg-gray-200 p-2 mb-2 border">
                     <div class="mb-3 font-semibold text-lg">Memo</div>
                     <div class="mb-2">@Html.DevExtreme().TextAreaFor(m => m.Detail).Height(150).Label("Detail").LabelMode(EditorLabelMode.Floating)</div>
                 </div>

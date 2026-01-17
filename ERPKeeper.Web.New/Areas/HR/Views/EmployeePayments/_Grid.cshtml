@@ -1,4 +1,4 @@
-﻿@{
+@{
     var employees = Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, TaxNumber = i.TaxNumber, Name = i.Name }).ToList();
 }
 
@@ -7,10 +7,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/Employees/EmployeePayments/All")
-        .InsertUrl($"/API/Employees/EmployeePayments/Insert")
-        .UpdateUrl($"/API/Employees/EmployeePayments/Update").UpdateMethod("Post")
-        .DeleteUrl($"/API/Employees/EmployeePayments/Delete").DeleteMethod("Post"))
+        .LoadUrl($"/API/HR/EmployeePayments/All")
+        .InsertUrl($"/API/HR/EmployeePayments/Insert")
+        .UpdateUrl($"/API/HR/EmployeePayments/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/HR/EmployeePayments/Delete").DeleteMethod("Post"))
         .KeyExpr("Id")
         .RowAlternationEnabled(true).AllowColumnReordering(true)
         .ShowRowLines(true)
@@ -35,7 +35,7 @@
             {
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
 
                 columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
             .Lookup(lookup => lookup
@@ -44,7 +44,7 @@
             .ValueExpr("Value"))
             .CalculateSortValue("Name")
             .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
 
 
 

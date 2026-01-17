@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
+@model ERPKeeperCore.Enterprise.Models.Accounting.Transaction
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 <div class="flex flex-wrap">
@@ -73,7 +73,7 @@
                             </a>
                             break;
                         case TransactionType.EmployeePayment:
-                            <a href="/HR/Employees/EmployeePayments/@Model.Id">
+                            <a href="/HR/EmployeePayments/@Model.Id">
                                 N:@Model.Name
                             </a>
                             break;

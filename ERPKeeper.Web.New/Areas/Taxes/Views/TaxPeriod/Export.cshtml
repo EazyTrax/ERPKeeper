@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
+@model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
 
 @{
     Layout = "_Layout_Export";
@@ -20,13 +20,13 @@
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="w-full p-0 text-center">
             <div>
-                รายงานภาษีซื้อ
+                ??????????????
             </div>
             <div>
                 @selfOrganization.Name
             </div>
             <div>
-                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
+                ????????????????? @selfOrganization.TaxNumber ???? 00000
             </div>
             <div>
                 @Model.StartDate.ToString("dd-MMM-yyyy") - @Model.EndDate.ToString("dd-MMM-yyyy")
@@ -35,13 +35,13 @@
     </div>
 
     <div class="flex border-bottom font-semibold">
-        <div class="w-12">ลำดับ</div>
-        <div class="w-24">วันที่</div>
-        <div class="w-28">เลขที่</div>
-        <div class="flex-1 pl-2">ผู้ขาย</div>
-        <div class="w-28">เลขที่ผู้เสียภาษี</div>
-        <div class="w-24 text-right">ยอดรวม</div>
-        <div class="w-24 text-right">ภาษี</div>
+        <div class="w-12">?????</div>
+        <div class="w-24">??????</div>
+        <div class="w-28">??????</div>
+        <div class="flex-1 pl-2">??????</div>
+        <div class="w-28">?????????????????</div>
+        <div class="w-24 text-right">??????</div>
+        <div class="w-24 text-right">????</div>
     </div>
 
     @foreach (var item in Model.Purchases.OrderBy(m => m.Date).ToList())
@@ -74,7 +74,7 @@
 
     <div class="flex  justify-end border-bottom font-semibold">
         <div class="flex-1">
-            รวม
+            ???
         </div>
         <div class="w-24 p-0 text-right">
             @Model.Purchases.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")
@@ -92,13 +92,13 @@
     <div class="flex mt-4 mb-3" id="SelfOrganizationDetail">
         <div class="w-full p-0 text-center">
             <div>
-                รายงานภาษีขาย
+                ?????????????
             </div>
             <div>
                 @selfOrganization.Name
             </div>
             <div>
-                เลขที่ผู้เสียภาษี @selfOrganization.TaxNumber สาขา 00000
+                ????????????????? @selfOrganization.TaxNumber ???? 00000
             </div>
             <div>
                 @Model.StartDate.ToString("dd-MMM-yyyy") - @Model.EndDate.ToString("dd-MMM-yyyy")
@@ -111,13 +111,13 @@
 
 
     <div class="flex border-bottom font-semibold">
-        <div class="w-12">ลำดับ</div>
-        <div class="w-24">วันที่</div>
-        <div class="w-28">เลขที่</div>
-        <div class="flex-1 pl-2">ผู้ซื้อ</div>
-        <div class="w-28">เลขที่ผู้เสียภาษี</div>
-        <div class="w-24 text-right">ยอดรวม</div>
-        <div class="w-24 text-right">ภาษี</div>
+        <div class="w-12">?????</div>
+        <div class="w-24">??????</div>
+        <div class="w-28">??????</div>
+        <div class="flex-1 pl-2">???????</div>
+        <div class="w-28">?????????????????</div>
+        <div class="w-24 text-right">??????</div>
+        <div class="w-24 text-right">????</div>
     </div>
 
     @{
@@ -152,7 +152,7 @@
 
     <div class="flex justify-end border-bottom font-semibold">
         <div class="flex-1">
-            รวม
+            ???
         </div>
         <div class="w-24 p-0 text-right">
             @Model.Sales.Sum(m => m.LinesTotalAfterDiscount).ToString("N2")

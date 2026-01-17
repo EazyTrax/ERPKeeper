@@ -1,4 +1,4 @@
-﻿@{
+@{
     bool checkCurrentController(string controllerName)
     {
         var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
@@ -21,13 +21,13 @@
 }
 
 
-<div class="bg-fb1 border p-2 rounded">
+<div class="bg-gray-200 border p-2 rounded">
     <div class="font-weight-600">
         <a href="/Assets">Assets</a>
     </div>
 </div>
 
-<div class="bg-fb1 border p-2 rounded">
+<div class="bg-gray-200 border p-2 rounded">
     @{
         Template("Assets", $"/Assets/Assets", Organization.ErpCOREDBContext.Assets.Count());
         Template("Obsolete Assets", $"/Assets/ObsoleteAssets", Organization.ErpCOREDBContext.ObsoleteAssets.Count());

@@ -1,4 +1,4 @@
-﻿
+
 
 
 <div id="treeList" class="">
@@ -39,7 +39,7 @@
             {
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/Employees/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
 
@@ -52,7 +52,7 @@
             .CalculateSortValue("Name")
             
             .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(@<text><a href="/Employees/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
 
 
 

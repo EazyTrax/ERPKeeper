@@ -7,6 +7,7 @@ using ERPKeeperCore.Enterprise.Models.Items;
 using ERPKeeperCore.Enterprise.Models.Logistic;
 using ERPKeeperCore.Enterprise.Models.Taxes;
 using ERPKeeperCore.Enterprise.Models.Transactions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -103,11 +104,19 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
         }
 
 
-
+        [Precision(18, 2)]
         public Decimal LinesTotal { get; set; }
+
+        [Precision(18, 2)]
         public Decimal Discount { get; set; }
+
+        [Precision(18, 2)]
         public Decimal LinesTotalAfterDiscount => LinesTotal - Discount;
+
+        [Precision(18, 2)]
         public Decimal Tax { get; set; }
+
+
         public Decimal Total => LinesTotalAfterDiscount + Tax;
 
         public virtual ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();

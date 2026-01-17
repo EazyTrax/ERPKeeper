@@ -1,20 +1,19 @@
-﻿using System;
+﻿using ERPKeeperCore.Enterprise.Helpers;
+using ERPKeeperCore.Enterprise.Models.Accounting;
+using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers;
+using ERPKeeperCore.Enterprise.Models.Suppliers;
+using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Web;
-
-
-using System.Globalization;
-using ERPKeeperCore.Enterprise.Models.Accounting;
-using ERPKeeperCore.Enterprise.Models.Customers;
-using ERPKeeperCore.Enterprise.Models.Taxes.Enums;
-using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
-using ERPKeeperCore.Enterprise.Models.Suppliers;
-using ERPKeeperCore.Enterprise.Helpers;
 
 
 namespace ERPKeeperCore.Enterprise.Models.Taxes
@@ -57,17 +56,26 @@ namespace ERPKeeperCore.Enterprise.Models.Taxes
 
         //Sales Tax
         public int SalesCount { get; set; }
+
+        [Precision(18, 2)]
         public Decimal SalesBalance { get; set; }
+
+        [Precision(18, 2)]
         public Decimal SalesTaxBalance { get; set; }
+
+
         public Guid? SaleTaxAccountId { get; set; }
         [ForeignKey("SaleTaxAccountId")]
         public virtual Account? SaleTaxAccount { get; set; }
 
 
 
-        //Purchhases Tax
+        [Precision(18, 2)]
         public Decimal PuchasesBalance { get; set; }
+        [Precision(18, 2)]
         public Decimal PurchasesTaxBalance { get; set; }
+
+
         public Guid? PurchaseTaxAccountId { get; set; }
         [ForeignKey("PurchaseTaxAccountId")]
         public virtual Account? PurchaseTaxAccount { get; set; }

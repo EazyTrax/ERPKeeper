@@ -1,10 +1,10 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment
+@model ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment
 
 
 @{
     Layout = "_Layout_Export";
 
-    var documentNameContent = "ใบเสร็จรับเงิน";
+    var documentNameContent = "??????????????";
     var customerAddress = Model.Sale.ProfileAddesss.Profile.Addresses.FirstOrDefault();
 }
 
@@ -13,14 +13,14 @@
 <div class="grid grid-cols-3" id="BuyerDetail">
     <div class="col-span-2 border border-dark p-2">
         <div>
-            <b>ผู้ซื้อ</b>
+            <b>???????</b>
             <a href="/Customers/Customers/@Model.Sale.CustomerId">
                 @Model.Sale.Customer.Profile.Name
             </a>
         </div>
 
         <div>
-            เลขที่ผู้เสียภาษี @Model.Sale.Customer.Profile.TaxNumber สาขา @customerAddress?.Number
+            ????????????????? @Model.Sale.Customer.Profile.TaxNumber ???? @customerAddress?.Number
         </div>
 
 
@@ -35,13 +35,13 @@
     </div>
     <div class=" border border-dark p-2">
         <div class="grid grid-cols-2 gap-x-2">
-            <div class="font-semibold">เลขที่</div>
+            <div class="font-semibold">??????</div>
             <div class="text-right">@Model.Sale.Name.Replace("SL", "RP")</div>
 
-            <div class="font-semibold">วันที่</div>
+            <div class="font-semibold">??????</div>
             <div class="text-right">@Model.Date.ToString("dd-MMM-yyyy")</div>
 
-            <div class="font-semibold">อ้างอิง</div>
+            <div class="font-semibold">???????</div>
             <div class="text-right">@Model.Reference</div>
         </div>
     </div>
@@ -51,16 +51,16 @@
 <div id="Items" class=" border border-dark  min-h-96">
     <div class="flex font-semibold justify-between  p-2 border-bottom border-dark">
         <div class="w-3/12">
-            ใบแจ้งหนี้
+            ??????????
         </div>
         <div class="w-3/12 ">
-            วันที่ในใบแจ้งหนี้
+            ??????????????????
         </div>
         <div class="flex-1">
-            อ้างอิง
+            ???????
         </div>
         <div class="w-3/12 text-right">
-            จำนวนเงิน
+            ?????????
         </div>
     </div>
 
@@ -90,13 +90,13 @@
 
 <div class="grid grid-cols-3 gap-2 mb-1 border border-dark p-2" id="Summary">
     <div class="col-span-2">
-        <span class="font-semibold">ผู้รับเงิน:</span>
+        <span class="font-semibold">??????????:</span>
         @User.Identity.Name
     </div>
     <div>
         <div class="flex flex-wrap">
             <div class="w-6/12 text-right">
-                ยอดรวม
+                ??????
             </div>
             <div class="w-6/12 p-0 text-right">
                 @Model.Amount.ToString("N2")
@@ -109,7 +109,7 @@
 
             <div class="flex flex-wrap">
                 <div class="w-6/12 text-right">
-                    ส่วนลด
+                    ??????
                 </div>
                 <div class="w-6/12 p-0 text-right ">
                     @Model.AmountDiscount.ToString("N2")
@@ -117,7 +117,7 @@
             </div>
             <div class="flex ">
                 <div class="w-6/12 text-right">
-                    ยอดรวมหลังส่วนลด
+                    ????????????????
                 </div>
                 <div class="w-6/12 p-0 text-right">
                     @Model.AmountTotal.ToString("N2")

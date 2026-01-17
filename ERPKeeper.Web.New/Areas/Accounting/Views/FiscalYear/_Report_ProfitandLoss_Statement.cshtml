@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
@@ -6,15 +6,15 @@
     <div class="h-8"></div>
     <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
-        งบกำไรขาดทุน<br />
-        สำหรับรอบระยะเวลาสิ้นสุด ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+        ????????????<br />
+        ???????????????????????? ? ??????  31 ??????? @(Model.EndDate.Year - 1 + 543) ??? @(Model.EndDate.Year + 543)
     </div>
     <div class="h-8"></div>
     <div class="grid grid-cols-4 mb-3 font-semibold">
         <div class="col-span-2">
         </div>
         <div class="col-span-2 font-semibold text-center">
-            หน่วย:บาท
+            ?????:???
         </div>
 
         <div class="col-span-2 font-semibold ">
@@ -28,7 +28,7 @@
     </div>
     <div class="grid grid-cols-4 mb-3">
         <div class="col-span-full font-semibold ">
-            รายได้
+            ??????
         </div>
         @{
             var currentFiscalYearIncomes = Model.FiscalYearAccountBalances
@@ -60,7 +60,7 @@
 
 
             <div class="font-semibold col-span-2">
-                รวมรายได้
+                ?????????
             </div>
             <div class="text-right border-dark border-top font-semibold">
                 @currentFiscalYearIncomes.Sum(m => m.TotalCredit).ToString("N2")
@@ -72,7 +72,7 @@
     </div>
     <div class="grid grid-cols-4 mb-3">
         <div class="col-span-full  font-semibold ">
-            ค่าใช้จ่าย
+            ??????????
         </div>
 
         @{
@@ -92,7 +92,7 @@
 
 
             <div class="pl-3  col-span-2">
-                ต้นทุนขายและบริการ
+                ??????????????????
             </div>
             <div class="text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_CostOfGoodsSold).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -105,7 +105,7 @@
 
 
             <div class="pl-3 col-span-2">
-                ค่าใช้จ่ายในการบริหาร
+                ?????????????????????
             </div>
             <div class="text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Administrative || e.Account.SubType == AccountSubTypes.Expense_Asset_Deprecate || e.Account.SubType == AccountSubTypes.Expense_Prohibit).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -119,7 +119,7 @@
 
 
             <div class="pl-3 col-span-2">
-                ค่าใช้จ่ายในการขาย
+                ??????????????????
             </div>
             <div class="text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Selling).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -130,7 +130,7 @@
 
 
             <div class="pl-3 col-span-2">
-                ต้นทุนทางการเงิน
+                ????????????????
             </div>
             <div class=" text-right">
                 @currentFiscalYearExpenses.Where(e => e.Account.SubType == AccountSubTypes.Expense_Interest).Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -167,7 +167,7 @@
 
 
             <div class="font-semibold col-span-2 font-semibold">
-                รวมค่าใช้จ่าย
+                ?????????????
             </div>
             <div class="text-right border-dark border-top font-semibold">
                 @currentFiscalYearExpenses.Sum(m => m.TotalDebit - m.TotalCredit).ToString("N2")
@@ -181,7 +181,7 @@
 
 
             <div class=" col-span-2">
-                กำไร(ขาดทุน) ก่อนภาษีเงินได้
+                ????(??????) ???????????????
             </div>
             <div class=" text-right border-dark">
                 @{
@@ -209,7 +209,7 @@
 
             <div class=" col-span-2">
                 <a href="/Accounting/Accounts/@currentYearIncomeTaxBalance.Account?.Id/" target="_self">
-                    ค่าใช้จ่ายภาษีเงินได้
+                    ?????????????????????
                 </a>
             </div>
             <div class=" text-right border-dark border-top">
@@ -227,7 +227,7 @@
 
 
             <div class=" col-span-2 font-semibold">
-                กำไร(ขาดทุน) สุทธิ
+                ????(??????) ?????
             </div>
             <div class=" text-right border-dark border-top font-semibold">
                 @((currentYearGrossMargin - currentYearIncomeTaxBalance.TotalDebit).ToString("N2"))
@@ -239,6 +239,6 @@
     </div>
     
     <div class="mt-4">
-        งบแสดงฐานะการเงินฉบับนี้ได้รับการอนุมัติจากที่ประชุมสามัญผู้ถือหุ้นครั้งที่ 1/@(Model.EndDate.Year - 1 + 543) เมื่อวันที่ 30 เมษายน @(Model.EndDate.Year + 1 + 543)
+        ??????????????????????????????????????????????????????????????????????????? 1/@(Model.EndDate.Year - 1 + 543) ??????????? 30 ?????? @(Model.EndDate.Year + 1 + 543)
     </div>
 </div>

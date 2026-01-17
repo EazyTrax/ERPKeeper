@@ -1,12 +1,12 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 <div style="width:960px;" class="p-4 page-break">
     <div class="h-8"></div>
     <div class="text-center font-semibold  mb-3">
         @Organization.Profiles.GetSelf().Name<br />
-        งบแสดงการเปลี่ยนแปลงในส่วนของผู้ถือหุ้น<br />
-        ณ วันที่  31 ธันวาคม @(Model.EndDate.Year - 1 + 543) และ @(Model.EndDate.Year + 543)
+        ???????????????????????????????????????<br />
+        ? ??????  31 ??????? @(Model.EndDate.Year - 1 + 543) ??? @(Model.EndDate.Year + 543)
     </div>
     <div class="h-8"></div>
 
@@ -14,19 +14,19 @@
         <div class="col-span-4">
         </div>
         <div class="col-span-2 font-semibold text-center">
-            หน่วย:บาท
+            ?????:???
         </div>
         <div class="col-span-3 font-semibold ">
         </div>
         <div class="text-right border-dark border-top  ">
-            ทุนที่ชำระแล้ว
+            ??????????????
         </div>
         <div class="text-right border-dark border-top  ">
-            กำไร(ขาดทุน) 
-            สะสม
+            ????(??????) 
+            ????
         </div>
         <div class="text-right border-dark border-top  ">
-			รวม
+			???
 		</div>
     </div>
 
@@ -40,6 +40,6 @@
     <partial name="_Report_Changes_in_Equity_FY" model="Model" />
 
     <div class="mt-5">
-        หมายเหตุประกอบงบการเงินเป็นส่วนหนึ่งของงบการเงินนี้
+        ???????????????????????????????????????????????????
     </div>
 </div>

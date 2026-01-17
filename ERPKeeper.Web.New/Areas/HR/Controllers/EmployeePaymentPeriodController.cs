@@ -9,7 +9,7 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ERPKeeperCore.Web.Areas.HR.Controllers
 {
-    [Route("/HR/Employees/EmployeePaymentPeriods/{Id:Guid}/{action=Index}")]
+    [Route("/HR/EmployeePaymentPeriods/{Id:Guid}/{action=Index}")]
     public class EmployeePaymentPeriodController : _Employees_Base_Controller
     {
 
@@ -47,7 +47,7 @@ namespace ERPKeeperCore.Web.Areas.HR.Controllers
 
             Organization.SaveChanges();
 
-            return Redirect($"/Employees/EmployeePaymentPeriods");
+            return Redirect($"/HR/EmployeePaymentPeriods");
         }
     }
 }

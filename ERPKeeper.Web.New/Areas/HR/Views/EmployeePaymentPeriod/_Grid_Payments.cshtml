@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
+@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentPeriod
 
 @{
     var employees = Organization.ErpCOREDBContext.Employees.Select(i => new { Value = i.Id, Name = i.Profile.Name, TaxNumber = i.Profile.TaxNumber }).ToList();
@@ -12,10 +12,10 @@
         Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/All")
-            .InsertUrl($"/API/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Insert")
-            .UpdateUrl($"/API/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Update").UpdateMethod("Post")
-            .DeleteUrl($"/API/Employees/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Delete").DeleteMethod("Post")
+            .LoadUrl($"/API/HR/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/All")
+            .InsertUrl($"/API/HR/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Insert")
+            .UpdateUrl($"/API/HR/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Update").UpdateMethod("Post")
+            .DeleteUrl($"/API/HR/EmployeePaymentPeriods/{Model.Id}/EmployeePayments/Delete").DeleteMethod("Post")
             )
             .KeyExpr("Id")
             .RowAlternationEnabled(true).AllowColumnReordering(true)
@@ -36,7 +36,7 @@
                 .Columns(columns =>
                 {
                     columns.AddFor(m => m.Name).Width(250)
-            .CellTemplate(@<text><a href="/Employees/EmployeePayments/<%= data.Id %>/">PM. <%= displayValue %></a></text>);
+            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/">PM. <%= displayValue %></a></text>);
 
 
                 columns.AddFor(m => m.EmployeeId).Width(250)

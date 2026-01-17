@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
+@model ERPKeeperCore.Enterprise.Models.Accounting.FiscalYear
 @using ERPKeeperCore.Enterprise.Models.Accounting.Enums
 
 
@@ -16,7 +16,7 @@
 
 <div class="flex flex-wrap">
     <div class="col-6   ">
-        ยอดคงเหลือ ณ ต้นงวด  @(Model.EndDate.Year - 1 + 543)
+        ?????????? ? ??????  @(Model.EndDate.Year - 1 + 543)
     </div>
     <div class="w-2/12 text-right">
         @stock.OpeningCredit.ToString("N2")
@@ -31,7 +31,7 @@
 
 <div class="flex flex-wrap">
     <div class="col-6   ">
-        จ่ายเงินปันผล
+        ?????????????
     </div>
     <div class="w-2/12 text-right ">
     </div>
@@ -48,7 +48,7 @@
 
 <div class="flex flex-wrap">
     <div class="col-6   ">
-        กำไร(ขาดทุน) สุทธิ สำหรับงวด @(Model.EndDate.Year + 543)
+        ????(??????) ????? ????????? @(Model.EndDate.Year + 543)
     </div>
     <div class="w-2/12 text-right ">
     </div>
@@ -61,7 +61,7 @@
 </div>
 <div class="flex flex-wrap font-bold">
     <div class="col-6   ">
-        ยอดคงเหลือปลายงวด  @(Model.EndDate.Year + 543)
+        ?????????????????  @(Model.EndDate.Year + 543)
     </div>
     <div class="w-2/12 text-right border-dark border-top">
         @stock.ClosedCredit.ToString("N2")

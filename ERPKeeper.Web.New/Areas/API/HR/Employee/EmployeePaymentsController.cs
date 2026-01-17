@@ -17,8 +17,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
         public object All(DataSourceLoadOptions loadOptions)
         {
             var returnModel = Organization.ErpCOREDBContext.EmployeePayments
-                .Where(a => a.EmployeeId == Id)
-                .Include(x=>x.EmployeePaymentPeriod)
+                .Where(a => a.EmployeeId == EmployeeId)
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
@@ -30,7 +29,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
             var model = new Enterprise.Models.Employees.EmployeePayment();
             JsonConvert.PopulateObject(values, model);
 
-            model.EmployeePaymentPeriodId = Id;
+            model.EmployeePaymentPeriodId = EmployeeId;
 
             Organization.ErpCOREDBContext.EmployeePayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();

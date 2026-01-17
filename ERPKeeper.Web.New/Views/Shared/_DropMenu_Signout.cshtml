@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http
 @using System.Security.Claims;
 
 <div class="dropdown dropleft ">
@@ -32,7 +32,7 @@
             </div>
             </a>
             *@
-            <a href="/My/setting">
+            <a href="/Setting">
                 <div class="flex flex-wrap">
                     <div class="w-10/12 text-xl">
                         Setting
@@ -65,7 +65,7 @@
 
                                 <div>
 
-                                    <a href="/My/Localize/Update?culture=@cultureItem.Value">
+                                    <a href="/EmployeeLocalize/Update?culture=@cultureItem.Value">
                                         @cultureItem.Text
                                     </a>
                                 </div>

@@ -1,4 +1,4 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Customers.Sale
+@model ERPKeeperCore.Enterprise.Models.Customers.Sale
 
 @{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
@@ -39,10 +39,10 @@
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export ต้นฉบับ", $"/Customers/Sales/{Model.Id}/Export?DocumentName=ใบกำกับภาษี");
-        MenuTemplate(0, "Export สำเนา", $"/Customers/Sales/{Model.Id}/Export?DocumentName=สำเนาใบกำกับภาษี");
-        MenuTemplate(0, "Export InVat", $"/Customers/Sales/{Model.Id}/ExportInVat?DocumentName=สำเนาใบกำกับภาษี");
-        MenuTemplate(0, "Export ใบส่งสินค้า", $"/Customers/Sales/{Model.Id}/Export_DeliveryNote?DocumentName=ใบส่งสินค้า");
+        MenuTemplate(0, "Export ???????", $"/Customers/Sales/{Model.Id}/Export?DocumentName=???????????");
+        MenuTemplate(0, "Export ?????", $"/Customers/Sales/{Model.Id}/Export?DocumentName=????????????????");
+        MenuTemplate(0, "Export InVat", $"/Customers/Sales/{Model.Id}/ExportInVat?DocumentName=????????????????");
+        MenuTemplate(0, "Export ???????????", $"/Customers/Sales/{Model.Id}/Export_DeliveryNote?DocumentName=???????????");
 
     }
 </div>

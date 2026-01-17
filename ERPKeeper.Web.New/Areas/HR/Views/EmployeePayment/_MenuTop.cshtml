@@ -1,24 +1,24 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment
+@model ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment
 
 
 <div class="flex w-full font-semibold text-lg justify-between">
 	<div class="col-6 p-2">
 		<a href="/Employees">Employees</a>
-		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Employees/EmployeePaymentPeriods"> Periods</a>
-		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Employees/EmployeePaymentPeriods/@Model.EmployeePaymentPeriodId"> @Model.EmployeePaymentPeriod.Name</a>
-		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Employees/EmployeePayments/@Model.Id">PM @Model.Name</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/HR/EmployeePaymentPeriods"> Periods</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/HR/EmployeePaymentPeriods/@Model.EmployeePaymentPeriodId"> @Model.EmployeePaymentPeriod.Name</a>
+		<i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/HR/EmployeePayments/@Model.Id">PM @Model.Name</a>
 	</div>
 	<div class="col-6 text-right p-2">
 		@if (Model.IsPosted)
 		{
-			<a href="/Employees/EmployeePayments/@Model.Id/UnPost">UnPost</a>
+			<a href="/HR/EmployeePayments/@Model.Id/UnPost">UnPost</a>
 		}
 		else
 		{
-			<a href="/Employees/EmployeePayments/@Model.Id/Post">Post</a>
+			<a href="/HR/EmployeePayments/@Model.Id/Post">Post</a>
 			<span>-</span>
 
-			<a href="/Employees/EmployeePayments/@Model.Id/Delete">
+			<a href="/HR/EmployeePayments/@Model.Id/Delete">
 				Delete </a>
 		}
 	</div>

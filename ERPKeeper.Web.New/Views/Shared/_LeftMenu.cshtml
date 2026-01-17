@@ -1,9 +1,9 @@
-﻿@{
+@{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
-            <div class="flex  justify-between e-r">
-                <div class="col-10 px-@(level)">
+            <div class="flex justify-between items-center">
+                <div class="flex-grow pl-@(level)">
                     <a href="@url">
                         @if (level > 0)
                         {
@@ -12,7 +12,7 @@
                         @SharedLocalizer.GetLocalizedHtmlString(displayName)
                     </a>
                 </div>
-                <div class="col-2 p-0 text-right p-0">
+                <div class="flex-shrink-0 text-right">
                     <span class="menuCount">@count</span>
                 </div>
             </div>
@@ -21,7 +21,17 @@
 }
 
 
-<div class="lh-120 bg-fb1 px-2  rounded border">
+<div class="lh-120 bg-gray-200 px-2 rounded border-b-2">
+    @{
+        MenuTemplate(0, "Dashboard", $"/Dashboard");
+        MenuTemplate(0, "Employee", $"/Employee");
+    }
+</div>
+
+<div class="h-4">
+</div>
+
+<div class="lh-120 bg-gray-200 px-2 border-y-2">
     @{
         MenuTemplate(0, "Customers", $"/Customers", Organization.Customers.Count());
         MenuTemplate(0, "Suppliers", $"/Suppliers", Organization.Suppliers.Count());
@@ -30,13 +40,20 @@
         MenuTemplate(0, "Profiles", $"/Profiles", Organization.Profiles.Count());
     }
 </div>
-<div class="lh-120 bg-fb1 px-2  rounded border">
+
+<div class="h-4">
+</div>
+
+<div class="lh-120 bg-gray-200 px-2 border-y-2">
     @{
         MenuTemplate(0, "Products", $"/Products", Organization.Items.Count());
     }
 </div>
 
-<div class="lh-120 bg-fb1 px-2  rounded border">
+<div class="h-4">
+</div>
+
+<div class="lh-120 bg-gray-200 px-2 border-y-2">
     @{
         MenuTemplate(0, "Accounting", $"/Accounting");
         MenuTemplate(0, "Financial", $"/Financial");

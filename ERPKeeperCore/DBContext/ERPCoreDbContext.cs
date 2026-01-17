@@ -166,12 +166,15 @@ namespace ERPKeeperCore.Enterprise.DBContext
         #region Employement
 
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<EmployeeLeave> EmployeeLeaves { get; set; }
+        public DbSet<EmployeeDailyRecord> EmployeeDailyRecords { get; set; }
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
         public DbSet<EmployeePayment> EmployeePayments { get; set; }
         public DbSet<EmployeePaymentItem> EmployeePaymentItems { get; set; }
         public DbSet<EmployeePaymentPeriod> EmployeePaymentPeriods { get; set; }
         public DbSet<EmployeePaymentType> EmployeePaymentTypes { get; set; }
+
+        public DbSet<Models.Employees.EmployeeBenefit> EmployeeBenefits { get; set; }
+
 
         #endregion
 

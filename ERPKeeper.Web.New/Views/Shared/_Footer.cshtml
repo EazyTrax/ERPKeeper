@@ -1,4 +1,4 @@
-﻿
+
 
 <div class="py-2 mt-3 container-non-responsive @*fixed-bottom*@">
     <div class="flex flex-wrap">
@@ -12,7 +12,7 @@
             {
                 Guid CurrentMakerId = Guid.Parse(this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 
-                <a href="/My/setting/language" title="@System.Globalization.CultureInfo.CurrentCulture.ToString()">
+                <a href="/Setting/language" title="@System.Globalization.CultureInfo.CurrentCulture.ToString()">
                     <i class="fas fa-language fa-2x"></i>
                 </a>
             }

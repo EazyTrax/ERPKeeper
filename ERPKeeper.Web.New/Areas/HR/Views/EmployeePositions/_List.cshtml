@@ -1,15 +1,15 @@
-﻿
+
 
 <div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/Employees/EmployeePositions/All")
-        .InsertUrl($"/API/Employees/EmployeePositions/Insert")
-        .UpdateUrl($"/API/Employees/EmployeePositions/Update")
+        .LoadUrl($"/API/HR/EmployeePositions/All")
+        .InsertUrl($"/API/HR/EmployeePositions/Insert")
+        .UpdateUrl($"/API/HR/EmployeePositions/Update")
     .UpdateMethod("Post")
-        .DeleteUrl($"/API/Employees/EmployeePositions/Delete")
+        .DeleteUrl($"/API/HR/EmployeePositions/Delete")
     .DeleteMethod("Post")
     )
     .KeyExpr("Id")

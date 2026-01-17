@@ -1,15 +1,15 @@
-﻿
+
 
 <div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeePaymentType>()
     .ID("gridList")
     .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/Employees/EmployeePaymentTypes/All")
-        .InsertUrl($"/API/Employees/EmployeePaymentTypes/Insert")
-        .UpdateUrl($"/API/Employees/EmployeePaymentTypes/Update")
+        .LoadUrl($"/API/HR/EmployeePaymentTypes/All")
+        .InsertUrl($"/API/HR/EmployeePaymentTypes/Insert")
+        .UpdateUrl($"/API/HR/EmployeePaymentTypes/Update")
     .UpdateMethod("Post")
-        .DeleteUrl($"/API/Employees/EmployeePaymentTypes/Delete")
+        .DeleteUrl($"/API/HR/EmployeePaymentTypes/Delete")
     .DeleteMethod("Post")
     )
     .KeyExpr("Id")
@@ -45,7 +45,7 @@
     );*@
 
     columns.AddFor(m=>m.Name)
-    .CellTemplate(@<text><a href="/Employees/EmployeePaymentTypes/<%= data.Id %>/"><%= displayValue %></a></text>);
+    .CellTemplate(@<text><a href="/HR/EmployeePaymentTypes/<%= data.Id %>/"><%= displayValue %></a></text>);
 
 
     columns.AddFor(m=>m.Description);

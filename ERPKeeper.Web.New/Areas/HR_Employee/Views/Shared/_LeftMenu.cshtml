@@ -1,4 +1,4 @@
-﻿@{
+@{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
@@ -27,7 +27,7 @@
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Positions", $"/HR/Employees/EmployeePositions", Organization.ErpCOREDBContext.EmployeePositions.Count());
+        MenuTemplate(0, "Positions", $"/HR/EmployeePositions", Organization.ErpCOREDBContext.EmployeePositions.Count());
         MenuTemplate(0, "Employees", $"/HR/Employees", Organization.Employees.Count());
     }
 </div>
@@ -39,9 +39,9 @@
     </div>
     <div class="">
         @{
-            MenuTemplate(1, "Types", $"/HR/Employees/EmployeePaymentTypes", Organization.ErpCOREDBContext.EmployeePaymentTypes.Count());
-            MenuTemplate(1, "Periods", $"/HR/Employees/EmployeePaymentPeriods", Organization.ErpCOREDBContext.EmployeePaymentPeriods.Count());
-            MenuTemplate(0, "Payments", $"/HR/Employees/EmployeePayments", Organization.ErpCOREDBContext.EmployeePayments.Count());
+            MenuTemplate(1, "Types", $"/HR/EmployeePaymentTypes", Organization.ErpCOREDBContext.EmployeePaymentTypes.Count());
+            MenuTemplate(1, "Periods", $"/HR/EmployeePaymentPeriods", Organization.ErpCOREDBContext.EmployeePaymentPeriods.Count());
+            MenuTemplate(0, "Payments", $"/HR/EmployeePayments", Organization.ErpCOREDBContext.EmployeePayments.Count());
       
         
         

@@ -1,8 +1,8 @@
-﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
+@model ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote
 
 @{
     Layout = "_Layout_Export";
-    var documentNameContent = "ใบเสนอราคา";
+    var documentNameContent = "??????????";
 
     if (ViewBag.DocumentName != null)
     {
@@ -18,13 +18,13 @@
 <div class="grid grid-cols-3 gap-2 border border-dark" id="BuyerDetail">
     <div class="col-span-2  p-2">
         <div>
-            <b>ผู้ซื้อ</b>
+            <b>???????</b>
             <a href="/Suppliers/Suppliers/@Model.SupplierId" class="font-semibold">
                 @Model.Supplier.Profile.Name
             </a>
         </div>
         <div>
-            เลขที่ผู้เสียภาษี @Model.Supplier.Profile.TaxNumber สาขา @SupplierAddress?.Number
+            ????????????????? @Model.Supplier.Profile.TaxNumber ???? @SupplierAddress?.Number
         </div>
         @if (SupplierAddress != null)
         {
@@ -36,16 +36,16 @@
     </div>
     <div class="  p-2">
         <div class="grid grid-cols-2 gap-x-2">
-            <div class="font-semibold">เลขที่</div>
+            <div class="font-semibold">??????</div>
             <div class="text-right">@Model.Name</div>
 
-            <div class="font-semibold">วันที่</div>
+            <div class="font-semibold">??????</div>
             <div class="text-right">@Model.Date.ToString("dd-MMM-yyyy")</div>
 
-            <div class="font-semibold">อ้างอิง</div>
+            <div class="font-semibold">???????</div>
             <div class="text-right">@Model.Reference</div>
 
-            <div class="font-semibold">กำหนดชำระเงิน</div>
+            <div class="font-semibold">?????????????</div>
             <div class="text-right">@Model.PaymentTerm?.Name</div>
         </div>
     </div>
@@ -55,10 +55,10 @@
 <div class="border border-dark" id="Items">
     <!-- Table Header -->
     <div class="grid grid-cols-12 gap-2 font-semibold mb-2 p-2   border-bottom border-dark">
-        <div class="col-span-7">รายการ</div>
-        <div class="col-span-1 text-right">จำนวน</div>
-        <div class="col-span-2 text-right">หน่วยละ</div>
-        <div class="col-span-2 text-right">รวม</div>
+        <div class="col-span-7">??????</div>
+        <div class="col-span-1 text-right">?????</div>
+        <div class="col-span-2 text-right">???????</div>
+        <div class="col-span-2 text-right">???</div>
     </div>
     <div class="mb-2 p-2 min-h-96">
         @foreach (var item in Model.Items.ToList())
@@ -98,23 +98,23 @@
         @if (@Model.Discount > 0)
         {
             <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">ส่วนลด</div>
+                <div class="text-right col-span-3">??????</div>
                 <div class="text-right ">@Model.Discount.ToString("N2")</div>
             </div>
         }
 
         <div class="grid grid-cols-4 gap-4">
-            <div class="text-right col-span-3">ราคารวม</div>
+            <div class="text-right col-span-3">???????</div>
             <div class="text-right ">@Model.LinesTotalAfterDiscount.ToString("N2")</div>
         </div>
 
         <div class="grid grid-cols-4 gap-4">
-            <div class="text-right col-span-3">ภาษีมูลค่าเพิ่ม</div>
+            <div class="text-right col-span-3">???????????????</div>
             <div class="text-right ">@Model.Tax.ToString("N2")</div>
         </div>
 
         <div class="grid grid-cols-4 gap-4 ">
-            <div class="text-right col-span-3">ราคารวมภาษี</div>
+            <div class="text-right col-span-3">???????????</div>
             <div class="text-right ">@Model.Total.ToString("N2")</div>
         </div>
 

@@ -1,4 +1,4 @@
-﻿@model Guid
+@model Guid
 
 @{
     var noteItems = Organization.ErpCOREDBContext.NoteItems.Where(n => n.TopicId == Model).ToList();

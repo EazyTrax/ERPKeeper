@@ -1,4 +1,4 @@
-﻿@{
+@{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
     {
         <div>
@@ -20,12 +20,12 @@
     }
 }
 
-<div class="lh-120 bg-fb1 px-2 py-1 font-semibold rounded border">
+<div class="lh-120 bg-gray-200 px-2 py-1 font-semibold rounded border">
     @{
         MenuTemplate(0, "Logistic", $"/Logistic");
     }
 </div>
-<div class="lh-120 bg-fb1 px-2 py-1  bg-fb1 rounded border">
+<div class="lh-120 bg-gray-200 px-2 py-1  bg-gray-200 rounded border">
     @{
  
         MenuTemplate(0, "Provider", $"/Logistic/LogisticProviders", Organization.ErpCOREDBContext.LogisticProviders.Count());
