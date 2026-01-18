@@ -30,7 +30,7 @@
     There are any number of "resheader" rows that contain simple 
     name/value pairs.
     
-    Each data flex contains a name, and value. The flex also contains a 
+    Each data row contains a name, and value. The row also contains a 
     type or mimetype. Type corresponds to a .NET class that support 
     text/value conversion through the TypeConverter architecture. 
     Classes that don't support this are serialized and stored with the 
@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accounting" xml:space="preserve">
-    <value>บัญชี</value>
+  <data name="About" xml:space="preserve">
+    <value>เกี่ยวกีบ</value>
   </data>
-  <data name="Assets" xml:space="preserve">
-    <value>สินทรัพย์</value>
+  <data name="AboutMe" xml:space="preserve">
+    <value>เกี่ยวกับฉัน</value>
   </data>
-  <data name="Customers" xml:space="preserve">
-    <value>ลูกค้า</value>
+  <data name="Code" xml:space="preserve">
+    <value>รหัส</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>เนื้อหา</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>เนื้อหา</value>
+  </data>
+  <data name="Course" xml:space="preserve">
+    <value>หลักศูตร</value>
+  </data>
+  <data name="Courses" xml:space="preserve">
+    <value>หลักศูตร</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>รายละเอียด</value>
@@ -134,12 +146,6 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>อีเมล์</value>
-  </data>
-  <data name="Employees" xml:space="preserve">
-    <value>พนักงาน</value>
-  </data>
-  <data name="Enterprises" xml:space="preserve">
-    <value>องค์กร</value>
   </data>
   <data name="Events" xml:space="preserve">
     <value>เหตการณ์</value>
@@ -156,23 +162,14 @@
   <data name="Feeds" xml:space="preserve">
     <value>ข่าวสาร</value>
   </data>
-  <data name="Financial" xml:space="preserve">
-    <value>การเงิน</value>
-  </data>
   <data name="General" xml:space="preserve">
     <value>ทั่วไป</value>
-  </data>
-  <data name="Helloworld" xml:space="preserve">
-    <value>สวัสดีโลกใหม่</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>หน้าหลัก</value>
   </data>
   <data name="Images" xml:space="preserve">
     <value>รูปภาพ</value>
-  </data>
-  <data name="Investors" xml:space="preserve">
-    <value>นักลงทุน</value>
   </data>
   <data name="Job" xml:space="preserve">
     <value>ตำแหน่งงาน</value>
@@ -216,9 +213,6 @@
   <data name="Privacy" xml:space="preserve">
     <value>ความเป็นส่วนตัว</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>สินค้า</value>
-  </data>
   <data name="Project" xml:space="preserve">
     <value>โครงการ</value>
   </data>
@@ -246,14 +240,8 @@
   <data name="SocailLogin" xml:space="preserve">
     <value>เข้าใช้ด้วยเครือข่ายสังคม</value>
   </data>
-  <data name="sponsors" xml:space="preserve">
+  <data name="Sponsors" xml:space="preserve">
     <value>ผู้สนับสนุน</value>
-  </data>
-  <data name="Suppliers" xml:space="preserve">
-    <value>ผู้ขาย</value>
-  </data>
-  <data name="Taxes" xml:space="preserve">
-    <value>ภาษี</value>
   </data>
   <data name="TestHistories" xml:space="preserve">
     <value>ประวัติการทดสอบ</value>
@@ -264,16 +252,104 @@
   <data name="Trusts" xml:space="preserve">
     <value>เชื่อมั่น</value>
   </data>
-  <data name="users" xml:space="preserve">
+  <data name="Users" xml:space="preserve">
     <value>ผู้ใช้งาน</value>
-  </data>
-  <data name="Work Position" xml:space="preserve">
-    <value>ตำแหน่งงาน</value>
   </data>
   <data name="WorkCompany" xml:space="preserve">
     <value>สถานที่ทำงาน</value>
   </data>
   <data name="WorkLocation" xml:space="preserve">
     <value>ที่ทำงาน</value>
+  </data>
+  <data name="WorkPosition" xml:space="preserve">
+    <value>ตำแหน่งงาน</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="Assets" xml:space="preserve">
+    <value>สินทรัพย์</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>พนักงาน</value>
+  </data>
+  <data name="Enterprises" xml:space="preserve">
+    <value>องค์กร</value>
+  </data>
+  <data name="Financial" xml:space="preserve">
+    <value>การเงิน</value>
+  </data>
+  <data name="Investors" xml:space="preserve">
+    <value>นักลงทุน</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>สินค้า</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>ผู้ขาย</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>ภาษี</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>ลูกค้า</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>ลูกค้า</value>
+    <comment>Customer</comment>
+  </data>
+  <data name="Buyer" xml:space="preserve">
+    <value>ผู้ซื้อ</value>
+  </data>
+  <data name="TaxID" xml:space="preserve">
+    <value>หมายเลขผูัเสียภาษี</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>สาขา</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>เลขที่</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>อ้างอิง</value>
+  </data>
+  <data name="PaymentTerm" xml:space="preserve">
+    <value>กำหนดชำระ</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>รายการสินค้า</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>ปริมาณ</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>ราคา</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>รวม</value>
+  </data>
+  <data name="LinesTotal" xml:space="preserve">
+    <value>รวม</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>ภาษีมูลค่าเพิ่ม</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>การชำระเงิน</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>ยอดรวมสุทธิ</value>
+  </data>
+  <data name="TaxInvoice" xml:space="preserve">
+    <value>ใบกำกับภาษี</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>จำนวน</value>
   </data>
 </root>

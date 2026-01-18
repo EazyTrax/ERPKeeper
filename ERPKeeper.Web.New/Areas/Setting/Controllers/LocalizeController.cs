@@ -6,11 +6,11 @@ using System.Linq;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using ERPKeeperCore.Web.Areas.Employee.Controllers;
 
-
-namespace ERPKeeperCore.Web.Areas.Employee.Controllers
+namespace ERPKeeperCore.Web.Areas.Setting.Controllers
 {
-    [Route("/My/{Controller}/{Action}")]
+    [Route("/Setting/{Controller}/{Action}")]
     public class LocalizeController : _EmployeeBaseController
     {
         public IActionResult Update(string culture)

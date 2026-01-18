@@ -30,7 +30,7 @@
     There are any number of "resheader" rows that contain simple 
     name/value pairs.
     
-    Each data flex contains a name, and value. The flex also contains a 
+    Each data row contains a name, and value. The row also contains a 
     type or mimetype. Type corresponds to a .NET class that support 
     text/value conversion through the TypeConverter architecture. 
     Classes that don't support this are serialized and stored with the 
@@ -122,12 +122,6 @@
   </data>
   <data name="AboutMe" xml:space="preserve">
     <value>About Me</value>
-  </data>
-  <data name="Achieves" xml:space="preserve">
-    <value>Achieves</value>
-  </data>
-  <data name="avaliable-jobs" xml:space="preserve">
-    <value>Avaliable Jobs</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
@@ -269,5 +263,93 @@
   </data>
   <data name="WorkPosition" xml:space="preserve">
     <value>Work Position</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>Accounting</value>
+  </data>
+  <data name="Assets" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="Enterprises" xml:space="preserve">
+    <value>Enterprises</value>
+  </data>
+  <data name="Financial" xml:space="preserve">
+    <value>Financial</value>
+  </data>
+  <data name="Investors" xml:space="preserve">
+    <value>Investors</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+    <comment>Customer</comment>
+  </data>
+  <data name="Buyer" xml:space="preserve">
+    <value>Buyer</value>
+  </data>
+  <data name="TaxID" xml:space="preserve">
+    <value>TaxID</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="PaymentTerm" xml:space="preserve">
+    <value>PaymentTerm</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="LinesTotal" xml:space="preserve">
+    <value>LinesTotal</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>VAT</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>GrandTotal</value>
+  </data>
+  <data name="TaxInvoice" xml:space="preserve">
+    <value>TaxInvoice</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
   </data>
 </root>

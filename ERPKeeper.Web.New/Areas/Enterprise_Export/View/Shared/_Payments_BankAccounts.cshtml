@@ -1,12 +1,12 @@
-@{
+﻿@{
     var branch = Organization.ErpCOREDBContext.Branches.FirstOrDefault();
     var paymentAccounts = Organization.ErpCOREDBContext.Accounts.Where(a => a.IsReceivable).ToList();
 }
 
 
 <div class="">
-    ?????????????????<br />
-    ?????????: @branch.OrganizationName<br />
+    @SharedLocalizer.GetLocalizedHtmlString("Payment")<br />
+    @SharedLocalizer.GetLocalizedHtmlString("Account"): @branch.OrganizationName<br />
     @{
         foreach (var acc in paymentAccounts)
         {

@@ -1,11 +1,11 @@
-@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
+﻿@model ERPKeeperCore.Enterprise.Models.Customers.SaleQuote
 
 @{
     Layout = "_Layout_Export";
 
     var SaleQuote = Organization.SaleQuotes.Find(Model.Id);
 
-    var documentNameContent = "??????????";
+    var documentNameContent = @SharedLocalizer.GetLocalizedHtmlString("Quotation").ToString();
     var customerAddress = SaleQuote.ProfileAddesss;
 
     if (customerAddress == null)
@@ -18,14 +18,14 @@
 <div class="grid grid-cols-3 gap-2 border border-dark" id="BuyerDetail">
     <div class="col-span-2 p-2">
         <div>
-            <b>???????</b>
+            <b>@SharedLocalizer.GetLocalizedHtmlString("Buyer")</b>
             <a href="/Customers/Customers/@SaleQuote.CustomerId" class="font-semibold">
                 @SaleQuote.Customer.Profile.Name
             </a>
         </div>
 
         <div>
-            ????????????????? @SaleQuote.Customer.Profile.TaxNumber ???? @customerAddress?.Number
+            @SharedLocalizer.GetLocalizedHtmlString("TaxID") @SaleQuote.Customer.Profile.TaxNumber @SharedLocalizer.GetLocalizedHtmlString("Branch") @customerAddress?.Number
         </div>
 
         @if (customerAddress != null)
@@ -38,16 +38,16 @@
     </div>
     <div class="  p-2">
         <div class="grid grid-cols-2 gap-x-2">
-            <div class="font-semibold">??????</div>
+            <div class="font-semibold">@SharedLocalizer.GetLocalizedHtmlString("Number")</div>
             <div class="text-right">@SaleQuote.Name</div>
 
-            <div class="font-semibold">??????</div>
+            <div class="font-semibold">@SharedLocalizer.GetLocalizedHtmlString("Date")</div>
             <div class="text-right">@SaleQuote.Date.ToString("dd-MMM-yyyy")</div>
 
-            <div class="font-semibold">???????</div>
+            <div class="font-semibold">@SharedLocalizer.GetLocalizedHtmlString("Reference")</div>
             <div class="text-right">@SaleQuote.Reference</div>
 
-            <div class="font-semibold">?????????????</div>
+            <div class="font-semibold">@SharedLocalizer.GetLocalizedHtmlString("PaymentTerm")</div>
             <div class="text-right">@SaleQuote.PaymentTerm?.Name</div>
         </div>
     </div>
@@ -71,10 +71,10 @@
 <div class="border border-dark" id="Items">
     <!-- Table Header -->
     <div class="grid grid-cols-12 gap-2 font-semibold mb-2 p-2   border-bottom border-dark">
-        <div class="col-span-7">??????</div>
-        <div class="col-span-1 text-right">?????</div>
-        <div class="col-span-2 text-right">???????</div>
-        <div class="col-span-2 text-right">???</div>
+        <div class="col-span-7">@SharedLocalizer.GetLocalizedHtmlString("Items")</div>
+        <div class="col-span-1 text-right">@SharedLocalizer.GetLocalizedHtmlString("Quantity")</div>
+        <div class="col-span-2 text-right">@SharedLocalizer.GetLocalizedHtmlString("Price")</div>
+        <div class="col-span-2 text-right">@SharedLocalizer.GetLocalizedHtmlString("Total")</div>
     </div>
     <div class="mb-2 p-2 min-h-96">
 
@@ -109,11 +109,7 @@
                                 </div>
                             }
                         </div>
-
                     </div>
-
-
-
 
                     <div class="col-span-1 text-right">@item.Quantity</div>
                     <div class="col-span-2 text-right">@item.PriceAfterDiscount.ToString("N2")</div>
@@ -141,33 +137,28 @@
         @if (@SaleQuote.Discount > 0)
         {
             <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">??????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("Discount")</div>
                 <div class="text-right ">@SaleQuote.Discount.ToString("N2")</div>
             </div>
         }
-
-
-
-
-
         @if (SaleQuote.IsPriceTaxInclude)
         {
             var tax = SaleQuote.Total - (SaleQuote.Total / (1 + (SaleQuote.TaxCode.Rate / 100)));
             var productPrice = SaleQuote.Total - tax;
 
             <div class="grid grid-cols-4 gap-4 ">
-                <div class="text-right col-span-3">??????????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("LinesTotal")</div>
                 <div class="text-right ">@productPrice.ToString("N2")</div>
             </div>
 
 
             <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">???????????????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("VAT")</div>
                 <div class="text-right ">@tax.ToString("N2")</div>
             </div>
 
             <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">???????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("GrandTotal")</div>
                 <div class="text-right ">@SaleQuote.LinesTotalAfterDiscount.ToString("N2")</div>
             </div>
 
@@ -176,19 +167,19 @@
         {
 
             <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">??????????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("LinesTotal")</div>
                 <div class="text-right ">@SaleQuote.LinesTotalAfterDiscount.ToString("N2")</div>
             </div>
 
 
             <div class="grid grid-cols-4 gap-4">
-                <div class="text-right col-span-3">???????????????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("VAT")</div>
                 <div class="text-right ">@SaleQuote.Tax.ToString("N2")</div>
             </div>
 
 
             <div class="grid grid-cols-4 gap-4 ">
-                <div class="text-right col-span-3">???????????</div>
+                <div class="text-right col-span-3">@SharedLocalizer.GetLocalizedHtmlString("GrandTotal")</div>
                 <div class="text-right ">@SaleQuote.Total.ToString("N2")</div>
             </div>
 

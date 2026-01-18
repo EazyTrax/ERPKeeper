@@ -39,10 +39,10 @@
 </div>
 <div class="lh-120 bg-gray-100 p-2 rounded border">
     @{
-        MenuTemplate(0, "Export ???????", $"/Customers/Sales/{Model.Id}/Export?DocumentName=???????????");
-        MenuTemplate(0, "Export ?????", $"/Customers/Sales/{Model.Id}/Export?DocumentName=????????????????");
-        MenuTemplate(0, "Export InVat", $"/Customers/Sales/{Model.Id}/ExportInVat?DocumentName=????????????????");
-        MenuTemplate(0, "Export ???????????", $"/Customers/Sales/{Model.Id}/Export_DeliveryNote?DocumentName=???????????");
+        MenuTemplate(0, "Export TaxInvoice", $"/Customers/Sales/{Model.Id}/Export?DocumentName=TaxInvoice");
+        MenuTemplate(0, "Export TaxInvoice(Copy)", $"/Customers/Sales/{Model.Id}/Export?DocumentName=TaxInvoiceCopy");
+        MenuTemplate(0, "Export InVat Invoice", $"/Customers/Sales/{Model.Id}/ExportInVat?DocumentName=TaxInvoice");
+        MenuTemplate(0, "Export DeliveryNote", $"/Customers/Sales/{Model.Id}/Export_DeliveryNote?DocumentName=DeliveryNote");
 
     }
 </div>

@@ -1,4 +1,4 @@
-@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
+﻿@model ERPKeeperCore.Enterprise.Models.Suppliers.Purchase
 
 @{
     Layout = "_Layout_Export";
@@ -20,7 +20,7 @@
             </a>
         </div>
         <div>
-            ????????????????? @Model.Supplier.Profile.TaxNumber ???? @SupplierAddress?.Number
+            เลขที่ผู้เสียภาษี @Model.Supplier.Profile.TaxNumber สาขา @SupplierAddress?.Number
         </div>
         @if (SupplierAddress != null)
         {
@@ -41,7 +41,7 @@
             <div class="font-semibold">???????</div>
             <div class="text-right">@Model.Reference</div>
 
-            <div class="font-semibold">?????????????</div>
+            <div class="font-semibold">กำหนดชำระ</div>
             <div class="text-right">@Model.PaymentTerm?.Name</div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <div class="col-span-7">??????</div>
         <div class="col-span-1 text-right">?????</div>
         <div class="col-span-2 text-right">???????</div>
-        <div class="col-span-2 text-right">???</div>
+        <div class="col-span-2 text-right">รวม</div>
     </div>
     <div class="mb-2">
         @foreach (var item in Model.Items.ToList())
@@ -89,7 +89,7 @@
 <div class="grid grid-cols-3 gap-2 mb-3 border border-dark p-2" id="Summary">
 
     <div class="col-span-2">
-        ?????????????????<br />
+        เลขที่ผู้เสียภาษี<br />
         ?????????: ?????? ???? ?????????????? ????? ?????<br />
         ??????:  SCB ??????????? 667-294439-3
 

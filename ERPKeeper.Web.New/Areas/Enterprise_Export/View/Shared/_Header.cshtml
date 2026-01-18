@@ -1,4 +1,4 @@
-@model string
+﻿@model string
 
 @{
     var branch = Organization.ErpCOREDBContext.Branches.FirstOrDefault();
@@ -30,7 +30,7 @@
         <div>
             <div class="font-semibold">@branch.OrganizationName</div>
             <div>
-                ????????????????? @branch.TaxNumber ???? @branch.BranchName
+                @SharedLocalizer.GetLocalizedHtmlString("TaxID") @branch.TaxNumber @SharedLocalizer.GetLocalizedHtmlString("Branch") @branch.BranchName
             </div>
         </div>
         <div>
@@ -47,7 +47,9 @@
     <div class="w-3/12  px-2">
         @if (!string.IsNullOrEmpty(Model))
         {
-            <div class="font-semibold text-lg text-right">@Model</div>
+            <div class="font-semibold text-lg text-right">
+                @SharedLocalizer.GetLocalizedHtmlString(Model)
+            </div>
         }
     </div>
 </div>
