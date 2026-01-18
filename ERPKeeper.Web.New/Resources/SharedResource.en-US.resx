@@ -352,4 +352,50 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
+  <data name="TaxInvoiceCopy" xml:space="preserve">
+    <value>Invoice (Copy)</value>
+    <comment>สำเนาใบแจ้งหนี้ /ใบกำกับภาษี</comment>
+  </data>
+  <data name="DeliveryNote" xml:space="preserve">
+    <value>DeliveryNote</value>
+  </data>
+  <data name="Shipments" xml:space="preserve">
+    <value>Shipments</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Quote</value>
+  </data>
+  <data name="Quotation" xml:space="preserve">
+    <value>Quotation</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="Brands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
 </root>

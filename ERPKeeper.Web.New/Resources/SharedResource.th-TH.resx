@@ -352,4 +352,50 @@
   <data name="Amount" xml:space="preserve">
     <value>จำนวน</value>
   </data>
+  <data name="TaxInvoiceCopy" xml:space="preserve">
+    <value>สำเนาใบกำกับภาษี</value>
+    <comment>สำเนาใบแจ้งหนี้ /ใบกำกับภาษี</comment>
+  </data>
+  <data name="DeliveryNote" xml:space="preserve">
+    <value>ใบส่งสินค้า</value>
+  </data>
+  <data name="Shipments" xml:space="preserve">
+    <value>ขนส่ง</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>เอกสาร</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>โครงการ</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>พนักงาน</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>ใบเสนอราคา</value>
+  </data>
+  <data name="Quotation" xml:space="preserve">
+    <value>ใบเสนอราคา</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>รายการขาย</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>การชำระเงิน</value>
+  </data>
+  <data name="Brands" xml:space="preserve">
+    <value>ยี่ห้อ</value>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>กลุ่ม</value>
+  </data>
 </root>

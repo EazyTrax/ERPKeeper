@@ -6,13 +6,13 @@
         <div class="col-span-3  mb-2   p-2">
             <a href="/Customers/Customers">
                 @Organization.ErpCOREDBContext.Customers.Count() <br />
-                Customers
+                @SharedLocalizer.GetLocalizedHtmlString("Customers")
             </a>
         </div>
         <div class="mb-2 p-2">
             <a href="/Projects">
                 @Organization.ErpCOREDBContext.Projects.Where(p => p.Status == ERPKeeperCore.Enterprise.Models.Projects.Enums.ProjectStatus.Open).Count() <br />
-                Projects
+                @SharedLocalizer.GetLocalizedHtmlString("Projects")
             </a>
         </div>
 
@@ -20,17 +20,17 @@
 
         <a href="/Customers/SaleQuotes">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @Organization.ErpCOREDBContext.SaleQuotes.Count() <br /> SaleQuotes
+                @Organization.ErpCOREDBContext.SaleQuotes.Count() <br /> @SharedLocalizer.GetLocalizedHtmlString("SaleQuotes")
             </div>
         </a>
         <a href="/Customers/Sales">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @Organization.ErpCOREDBContext.Sales.Count() <br /> Sales
+                @Organization.ErpCOREDBContext.Sales.Count() <br /> @SharedLocalizer.GetLocalizedHtmlString("Sales")
             </div>
         </a>
         <a href="/Customers/ReceivePayments">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @Organization.ErpCOREDBContext.ReceivePayments.Count() <br /> Payments
+                @Organization.ErpCOREDBContext.ReceivePayments.Count() <br /> @SharedLocalizer.GetLocalizedHtmlString("Payments")
             </div>
         </a>
     </div>
@@ -43,7 +43,7 @@
             <a href="/Suppliers/Suppliers">
                 <div class="bg-gray-100 min-h-16 p-2 border">
                     @Organization.ErpCOREDBContext.Suppliers.Count() <br />
-                    Suppliers
+                    @SharedLocalizer.GetLocalizedHtmlString("Suppliers")
                 </div>
             </a>
         </div>
@@ -52,18 +52,18 @@
 
         <a href="/Suppliers/PurchaseQuotes">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @Organization.ErpCOREDBContext.PurchaseQuotes.Count() <br />PurchaseQuotes
+                @Organization.ErpCOREDBContext.PurchaseQuotes.Count() <br />@SharedLocalizer.GetLocalizedHtmlString("PurchaseQuotes")
             </div>
         </a>
         <a href="/Suppliers/Purchases">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @Organization.ErpCOREDBContext.Purchases.Count() <br />Purchases
+                @Organization.ErpCOREDBContext.Purchases.Count() <br />@SharedLocalizer.GetLocalizedHtmlString("Purchases")
             </div>
         </a>
 
         <a href="/Suppliers/SupplierPayments">
             <div class="bg-gray-200 min-h-16  p-2 border">
-                @Organization.ErpCOREDBContext.SupplierPayments.Count() <br /> Payments
+                @Organization.ErpCOREDBContext.SupplierPayments.Count() <br /> @SharedLocalizer.GetLocalizedHtmlString("Payments")
             </div>
         </a>
     </div>
