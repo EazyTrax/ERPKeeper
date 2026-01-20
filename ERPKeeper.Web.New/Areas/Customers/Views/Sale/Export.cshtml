@@ -121,7 +121,6 @@
         @if (@Model.Discount > 0)
         {
             <div class="grid grid-cols-2 gap-4">
-
                 <div class="text-right">@SharedLocalizer.GetLocalizedHtmlString("Discount")</div>
                 <div class="text-right ">@Model.Discount.ToString("N2")</div>
             </div>
@@ -134,7 +133,7 @@
 
         <div class="grid grid-cols-2 gap-4">
             <div class="text-right">@SharedLocalizer.GetLocalizedHtmlString("VAT")</div>
-            <div class="text-right ">@Model.Tax.ToString("N2")</div>hgh
+            <div class="text-right ">@Model.Tax.ToString("N2")</div>
         </div>
 
         <div class="grid grid-cols-2 gap-4 ">

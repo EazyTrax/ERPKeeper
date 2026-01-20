@@ -1,4 +1,4 @@
-@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
+
 
 @{
     string[] profileTypes = { "Customer", "Supplier", "Employee", "Investor" };
@@ -10,10 +10,10 @@
     {
         var isAssigned = profileType switch
         {
-            "Customer" => Model.Customer != null,
-            "Supplier" => Model.Supplier != null,
-            "Employee" => Model.Employee != null,
-            "Investor" => Model.Investor != null,
+            "Customer" => Profile.Customer != null,
+            "Supplier" => Profile.Supplier != null,
+            "Employee" => Profile.Employee != null,
+            "Investor" => Profile.Investor != null,
             _ => false
         };
 
@@ -21,7 +21,7 @@
             @if (!isAssigned)
             {
                 <div class="bg-gray-300 h-20 content-center text-center">
-                    <a href="/Profiles/@Model.Id/AssignRole?Role=@profileType">
+                    <a href="/Profiles/@Profile.Id/AssignRole?Role=@profileType">
                         <i class="fa-solid fa-circle-plus text-lg"></i> @profileType
                     </a>
                 </div>
@@ -29,7 +29,7 @@
             else
             {
                 <div class="bg-green-300 h-20 content-center text-center">
-                    <a href="/@(profileType)s/@(profileType)s/@Model.Id">
+                    <a href="/@(profileType)s/@(profileType)s/@Profile.Id">
                         <i class="fa-solid fa-check"></i> @profileType
                     </a>
                 </div>
@@ -38,7 +38,7 @@
     }
 </div>
 
-@if (Model.Customer != null && Model.Supplier != null && Model.Employee != null && Model.Investor != null)
+@if (Profile.Customer != null && Profile.Supplier != null && Profile.Employee != null && Profile.Investor != null)
 {
     <div class="text-green-500 mt-4">
         All profile types have been assigned.

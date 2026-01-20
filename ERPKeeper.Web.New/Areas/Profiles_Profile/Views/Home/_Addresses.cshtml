@@ -1,4 +1,4 @@
-@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
+
 
 <div class="mb-3 border mh-100v">
     <div id="treeList" class="mt-2 mb-2">
@@ -7,11 +7,11 @@
         .DataSource(d =>
         d.RemoteController()
         .Key("Id")
-        .LoadUrl($"/api/Profiles/{Model.Id}/Addresses/All")
-        .InsertUrl($"/api/Profiles/{Model.Id}/Addresses/Insert")
-        .UpdateUrl($"/api/Profiles/{Model.Id}/Addresses/Update")
+        .LoadUrl($"/api/Profiles/{Profile.Id}/Addresses/All")
+        .InsertUrl($"/api/Profiles/{Profile.Id}/Addresses/Insert")
+        .UpdateUrl($"/api/Profiles/{Profile.Id}/Addresses/Update")
         .UpdateMethod("Post")
-        .DeleteUrl($"/api/Profiles/{Model.Id}/Addresses/Delete")
+        .DeleteUrl($"/api/Profiles/{Profile.Id}/Addresses/Delete")
         .DeleteMethod("Post")
         )
        

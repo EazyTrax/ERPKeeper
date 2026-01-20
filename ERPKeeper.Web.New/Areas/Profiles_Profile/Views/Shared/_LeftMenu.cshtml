@@ -1,4 +1,3 @@
-@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
 
 @{
     void MenuTemplate(int level, string displayName, string url, int? count = null)
@@ -27,33 +26,33 @@
     <a href="/Profiles/">
         Profiles
     </a><br />
-    <a href="/Profiles/@Model.Id">
-        @Model.Name
+    <a href="/Profiles/@Profile.Id">
+        @Profile.Name
     </a>
 </div>
 
 
 <div class="lh-120 bg-gray-100 p-2 border">
     @{
-        MenuTemplate(0, "General", $"/Profiles/{Model.Id}");
-        MenuTemplate(0, "Addresses", $"/Profiles/{Model.Id}/Addresses", Model.Addresses.Count());
-        MenuTemplate(0, "Contacts", $"/Profiles/{Model.Id}/Contacts", Model.Contacts.Count());
+        MenuTemplate(0, "General", $"/Profiles/{Profile.Id}");
+        MenuTemplate(0, "Addresses", $"/Profiles/{Profile.Id}/Addresses", Profile.Addresses.Count());
+        MenuTemplate(0, "Contacts", $"/Profiles/{Profile.Id}/Contacts", Profile.Contacts.Count());
     }
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 border">
     @{
-        if (Model.Customer != null)
-            MenuTemplate(0, "Customers", $"/Customers/Customers/{Model.Id}");
+        if (Profile.Customer != null)
+            MenuTemplate(0, "Customers", $"/Customers/Customers/{Profile.Id}");
 
-        if (Model.Supplier != null)
-            MenuTemplate(0, "Suppliers", $"/Suppliers/Suppliers/{Model.Id}");
+        if (Profile.Supplier != null)
+            MenuTemplate(0, "Suppliers", $"/Suppliers/Suppliers/{Profile.Id}");
 
-        if (Model.Investor != null)
-            MenuTemplate(0, "Investors", $"/Investors/Investors/{Model.Id}");
+        if (Profile.Investor != null)
+            MenuTemplate(0, "Investors", $"/Investors/Investors/{Profile.Id}");
 
-        if (Model.Employee != null)
-            MenuTemplate(0, "Employees", $"/HR/Employees/{Model.Id}");
+        if (Profile.Employee != null)
+            MenuTemplate(0, "Employees", $"/HR/Employees/{Profile.Id}");
 
     }
 </div>

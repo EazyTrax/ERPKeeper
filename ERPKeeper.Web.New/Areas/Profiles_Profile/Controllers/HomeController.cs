@@ -9,10 +9,10 @@ using Z.EntityFramework.Plus;
 using ERPKeeperCore.Enterprise.Models.Profiles;
 using ERPKeeper.Web.New.Areas.Profiles.Models;
 
-namespace ERPKeeperCore.Web.Areas.Profile.Controllers
+namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
 {
     [Route("/Profiles/{ProfileUid:Guid}/{action=Index}")]
-    public class HomeController : Base_ProfileController
+    public class HomeController : Profiles_Profile_BaseController
     {
        
         public IActionResult Index()

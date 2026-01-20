@@ -1,21 +1,20 @@
-@model ERPKeeperCore.Enterprise.Models.Profiles.Profile
 
 @{
     var profile = new
     {
-        Model.Id,
-        Model.Name,
-        Model.ShotName,
-        Model.TaxNumber,
-        Model.WebSite,
-        Model.PhoneNumber,
-        Model.IsSelfOrganization
+        Profile.Id,
+        Profile.Name,
+        Profile.ShotName,
+        Profile.TaxNumber,
+        Profile.WebSite,
+        Profile.PhoneNumber,
+        Profile.IsSelfOrganization
     };
 }
 
 
 <div class="mb-3 border">
-    <form id="EditForm" method="post" action="/Profiles/@Model.Id/Update">
+    <form id="EditForm" method="post" action="/Profiles/@Profile.Id/Update">
         <div class="grid grid-cols-2">
             <div class="">
                 <div class="p-2 bg-gray-100 rouned mb-2">

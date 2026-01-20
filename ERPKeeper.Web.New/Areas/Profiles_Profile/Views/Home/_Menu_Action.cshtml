@@ -1,0 +1,37 @@
+
+<div class="flex border">
+    <div class="">
+
+
+        @{
+            if (Profile.Customer != null)
+            {
+                <div class="p-2 border float-left">
+                    <a href="/Customers/Customers/@Profile.Id">Customer</a>
+                </div>
+            }
+            if (Profile.Supplier != null)
+            {
+                <div class="p-2 border float-left">
+                    <a href="/Suppliers/Suppliers/@Profile.Id">Supplier</a>
+                </div>
+            }
+            if (Profile.Employee != null)
+            {
+                <div class="p-2 border float-left">
+                    <a href="/HR/Employees/@Profile.Id">Employee</a>
+                </div>
+            }
+            if (Profile.Investor != null)
+            {
+                <div class="p-2 border float-left">
+                    <a href="/Investors/Investors/@Profile.Id">Investor</a>
+                </div>
+            }
+        }
+
+
+
+    </div>
+</div>
+
