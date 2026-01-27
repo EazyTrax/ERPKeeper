@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         {
             var profile = Organization.Profiles.Find(Id);
             var model = new ERPKeeperCore.Enterprise.Models.Profiles.ProfileRole();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             var existRole = Organization.ErpCOREDBContext
                 .ProfileRoles
@@ -42,7 +42,7 @@ namespace ERPKeeperCore.Web.API.Profiles.Profile
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.ProfileRoles.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

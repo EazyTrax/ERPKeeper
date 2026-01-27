@@ -24,7 +24,7 @@ namespace ERPKeeperCore.Web.API.Equity
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Investors.Investor();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.API.Equity
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Investors.First(a => a.ProfileId == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API.Taxes
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
 
@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.API.Taxes
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.TaxPeriods.Find(key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

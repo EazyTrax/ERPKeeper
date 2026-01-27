@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.EmployeePaymentPeriod
 
 
             var model = new Enterprise.Models.Employees.EmployeePayment();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             model.EmployeePaymentPeriodId = EmployeePaymentPeriodId;
             model.No = Organization.ErpCOREDBContext.EmployeePayments.Count() + 1;
@@ -51,7 +51,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.EmployeePaymentPeriod
             var model = Organization.ErpCOREDBContext.EmployeePayments
                 .First(a => a.Id == key);
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

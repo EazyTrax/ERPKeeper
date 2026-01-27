@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.API.Accounting.FiscalYear
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //  model.Status = JournalEntryStatus.Draft;
             Organization.ErpCOREDBContext.JournalEntries.Add(model);

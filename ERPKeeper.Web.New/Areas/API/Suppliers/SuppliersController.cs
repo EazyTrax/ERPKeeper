@@ -32,10 +32,15 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Suppliers.Find(key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }
+
+
+
+
+
 
         [HttpPost]
         public void Delete(Guid key)

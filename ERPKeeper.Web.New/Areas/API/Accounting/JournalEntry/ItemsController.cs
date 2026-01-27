@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.API.Accounting.JournalEntry
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntryItem();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             model.JournalEntryId = JournalEntryId;
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Web.API.Accounting.JournalEntry
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.JournalEntryItems.Find(key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
 
             var journalEntry = Organization.ErpCOREDBContext.JournalEntries.Find(JournalEntryId);

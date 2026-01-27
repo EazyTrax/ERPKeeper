@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         {
             var model = Organization.ErpCOREDBContext.Documents.First(a => a.Id == key);
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

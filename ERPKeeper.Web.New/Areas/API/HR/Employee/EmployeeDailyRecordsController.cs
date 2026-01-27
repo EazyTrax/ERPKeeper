@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Employees.EmployeeDailyRecord();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             model.Id = Guid.NewGuid();
             model.EmployeeId = EmployeeId;
@@ -55,7 +55,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
             var model = Organization.ErpCOREDBContext.EmployeeDailyRecords
                 .First(a => a.Id == key);
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

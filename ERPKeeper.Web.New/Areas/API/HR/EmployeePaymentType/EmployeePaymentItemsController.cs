@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.EmployeePaymentType
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.EmployeePaymentItems.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

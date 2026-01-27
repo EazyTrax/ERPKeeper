@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Customers.Sale();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             model.Status = SaleStatus.Open;
 
             Organization.ErpCOREDBContext.Sales.Add(model);
@@ -41,7 +41,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Sales.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

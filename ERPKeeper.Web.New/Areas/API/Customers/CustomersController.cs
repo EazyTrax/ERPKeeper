@@ -35,7 +35,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Customers.Find(key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

@@ -40,7 +40,7 @@ namespace ERPKeeperCore.Web.API.Assets
 
             if (!model.IsPosted)
             {
-                JsonConvert.PopulateObject(values, model);
+                JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
                 Organization.ErpCOREDBContext.SaveChanges();
                 return Ok();
             }

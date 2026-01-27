@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Customer
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.ReceivePayments.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API.Accounting
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.DefaultAccount();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.API.Accounting
         public IActionResult Update(DefaultAccountType key, string values)
         {
             var model = Organization.ErpCOREDBContext.DefaultAccounts.First(a => a.Type == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

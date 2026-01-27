@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionType
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Financial.RetentionPeriod();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             model.RetentionTypeId = RetentionTypeId;
 
             Organization.ErpCOREDBContext.RetentionPeriods.Add(model);
@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionType
             var model = Organization.ErpCOREDBContext.RetentionPeriods.Find(key);
 
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
 
 

@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.Lend
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Financial.LendReturn();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             model.LendId = LendId;
 
             Organization.ErpCOREDBContext.LendReturns.Add(model);
@@ -43,7 +43,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.Lend
 
             if (model.IsPosted == false)
             {
-                JsonConvert.PopulateObject(values, model);
+                JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
                 Organization.ErpCOREDBContext.SaveChanges();
 
                 Organization.ErpCOREDBContext.LendReturns.Find(LendId);

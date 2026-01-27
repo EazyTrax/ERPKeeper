@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.HR
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Employees.EmployeePaymentPeriod();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             model.UpdateName();
             Organization.ErpCOREDBContext.EmployeePaymentPeriods.Add(model);
@@ -41,7 +41,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.HR
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.EmployeePaymentPeriods.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
 
 

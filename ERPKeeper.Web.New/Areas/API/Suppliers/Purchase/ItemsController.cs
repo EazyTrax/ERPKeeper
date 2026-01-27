@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Purchase
             _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName,true);
 
             var model = new Enterprise.Models.Suppliers.PurchaseItem();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             var Purchase = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == Id);
 
@@ -65,7 +65,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Purchase
 
             if (Purchase.IsPosted == false)
             {
-                JsonConvert.PopulateObject(values, model);
+                JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
                 Organization.ErpCOREDBContext.SaveChanges();
             }
 

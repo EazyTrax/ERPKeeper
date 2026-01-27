@@ -1,3 +1,4 @@
+using ERPKeeperCore.Web.Infrastructure;
 using ERPKeeperCore.Web.Resources;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -46,7 +47,11 @@ namespace ERPKeeperCore.Web
             services.AddSingleton<LocalizeService>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            services.AddMvc()
+            services.AddMvc(options =>
+            {
+                // Insert InvariantDateTimeModelBinder at the beginning to take precedence
+                options.ModelBinderProviders.Insert(0, new InvariantDateTimeModelBinderProvider());
+            })
                  .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                  .AddNewtonsoftJson(options =>
                   {
@@ -54,7 +59,7 @@ namespace ERPKeeperCore.Web
                       options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                       options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
                   });
-          
+
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[] { new CultureInfo("en-US"), new CultureInfo("th-TH") };
@@ -63,7 +68,7 @@ namespace ERPKeeperCore.Web
                 options.SupportedUICultures = supportedCultures;
             });
 
-           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,15 +76,15 @@ namespace ERPKeeperCore.Web
         {
             app.UseDeveloperExceptionPage();
 
-           // if (env.IsDevelopment())
-           // {
-               
-           // }
-           //else
-           // {
-           //     app.UseExceptionHandler("/Home/Error");
-           //     app.UseHsts();
-           // }
+            // if (env.IsDevelopment())
+            // {
+
+            // }
+            //else
+            // {
+            //     app.UseExceptionHandler("/Home/Error");
+            //     app.UseHsts();
+            // }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

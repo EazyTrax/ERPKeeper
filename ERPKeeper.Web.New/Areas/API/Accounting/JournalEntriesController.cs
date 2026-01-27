@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.API.Accounting
 {
@@ -23,9 +24,11 @@ namespace ERPKeeperCore.Web.API.Accounting
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Accounting.JournalEntry();
-            JsonConvert.PopulateObject(values, model);
+ 
 
-          //  model.Status = JournalEntryStatus.Draft;
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
+
+            //  model.Status = JournalEntryStatus.Draft;
             Organization.ErpCOREDBContext.JournalEntries.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
@@ -37,7 +40,12 @@ namespace ERPKeeperCore.Web.API.Accounting
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.JournalEntries.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+           
+         
+
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
+
+
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

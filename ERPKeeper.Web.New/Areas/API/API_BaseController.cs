@@ -1,18 +1,17 @@
-﻿using System;
+﻿using ERPKeeperCore.Enterprise;
+using ERPKeeperCore.Web.Controllers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
-
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authorization;
-using ERPKeeperCore.Web.Controllers;
-using Microsoft.AspNetCore.Routing;
-using ERPKeeperCore.Enterprise;
 
 namespace ERPKeeperCore.Web.API
 {
@@ -20,6 +19,15 @@ namespace ERPKeeperCore.Web.API
     [Route("/API/{controller=Home}/{action=Index}/{id?}")]
     public class API_BaseController : Controller
     {
+
+        public static readonly JsonSerializerSettings DefaultAPIJsonSerializerSettings = new JsonSerializerSettings
+        {
+            DateFormatHandling = DateFormatHandling.IsoDateFormat,
+            DateParseHandling = DateParseHandling.DateTime,
+            Culture = new CultureInfo("en-US")
+        };
+
+
         public Guid CurrentMakerId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
 

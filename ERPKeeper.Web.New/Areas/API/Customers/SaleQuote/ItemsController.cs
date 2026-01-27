@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Customers.SaleQuoteItem();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             var quote = Organization.ErpCOREDBContext.SaleQuotes.First(a => a.Id == Id);
 
@@ -52,7 +52,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.SaleQuote
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.SaleQuoteItems.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

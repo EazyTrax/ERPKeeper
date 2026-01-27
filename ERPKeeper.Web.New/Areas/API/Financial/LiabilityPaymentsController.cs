@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.API.Financials
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Financial.LiabilityPayment();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             Organization.ErpCOREDBContext.LiabilityPayments.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
@@ -55,7 +55,7 @@ namespace ERPKeeperCore.Web.API.Financials
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.LiabilityPayments.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

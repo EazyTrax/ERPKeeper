@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.New.API.Storage
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Storage.Document();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -42,7 +42,7 @@ namespace ERPKeeperCore.Web.New.API.Storage
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Documents.Find(key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
@@ -25,7 +26,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Suppliers.SupplierPayment();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
+
+           
+
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -41,7 +46,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.SupplierPayments.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

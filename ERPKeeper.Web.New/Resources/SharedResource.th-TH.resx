@@ -398,4 +398,17 @@
   <data name="Groups" xml:space="preserve">
     <value>กลุ่ม</value>
   </data>
+  <data name="PaymentReceiver" xml:space="preserve">
+    <value>ผู้รับเงิน</value>
+    <comment>ผู้รับเงิน</comment>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>ใบแจ้งหนี้</value>
+  </data>
+  <data name="ReceivePayment" xml:space="preserve">
+    <value>ใบเสร็จรับเงิน</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>หมายเลข</value>
+  </data>
 </root>

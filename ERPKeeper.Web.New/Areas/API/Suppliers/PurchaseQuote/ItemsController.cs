@@ -28,7 +28,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Suppliers.PurchaseQuoteItem();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
 
             var purchaseQuote = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == Id);
@@ -53,7 +53,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.PurchaseQuote
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.PurchaseQuoteItems.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

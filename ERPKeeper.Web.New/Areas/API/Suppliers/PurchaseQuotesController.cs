@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Accounting.Enums;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ERPKeeperCore.Enterprise;
-using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
@@ -51,7 +52,9 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         {
             var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
             var model = new ERPKeeperCore.Enterprise.Models.Suppliers.PurchaseQuote();
-            JsonConvert.PopulateObject(values, model);
+
+
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             enterpriseRepo.PurchaseQuotes.Create(model);
             enterpriseRepo.SaveChanges();
@@ -76,7 +79,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.PurchaseQuotes.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

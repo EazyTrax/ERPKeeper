@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ERPKeeperCore.Enterprise;
 using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 {
@@ -26,7 +27,11 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         {
             var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
             var model = new ERPKeeperCore.Enterprise.Models.Customers.Sale();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
+
+
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
+
 
             model.TaxCodeId = enterpriseRepo.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;
             model.IncomeAccountId = enterpriseRepo.SystemAccounts.Income.Id;
@@ -45,7 +50,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
             var enterpriseRepo = new EnterpriseRepo(CompanyId, true);
 
             var model = enterpriseRepo.ErpCOREDBContext.Sales.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             if (model.TaxCodeId == null)
                 model.TaxCodeId = enterpriseRepo.TaxCodes.GetDefault(Enterprise.Models.Taxes.Enums.TaxDirection.Output).Id;

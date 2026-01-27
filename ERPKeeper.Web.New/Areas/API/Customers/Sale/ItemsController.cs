@@ -29,7 +29,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
             _Organization = new Enterprise.EnterpriseRepo(Organization.DatabaseName,true);
 
             var model = new Enterprise.Models.Customers.SaleItem();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             var sale = Organization.ErpCOREDBContext.Sales.First(a => a.Id == Id);
 
@@ -59,7 +59,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
 
             var model = Organization.ErpCOREDBContext.SaleItems.First(a => a.Id == key);
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
 
 

@@ -27,7 +27,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Customers.ReceivePayment();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -44,7 +44,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.ReceivePayments.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

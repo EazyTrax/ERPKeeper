@@ -30,7 +30,7 @@ namespace ERPKeeperCore.Web.New.API.Financials.RetentionGroup
         {
             var model = Organization.ErpCOREDBContext.ReceivePayments.Find(key);
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             Organization.SaveChanges();
 

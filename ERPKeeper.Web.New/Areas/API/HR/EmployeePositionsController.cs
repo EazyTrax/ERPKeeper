@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.HR
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Employees.EmployeePosition();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             //if (!TryValidateModel(RequirementType))
             //    return BadRequest(ModelState.GetFullErrorMessage());
@@ -41,7 +41,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.HR
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.EmployeePositions.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

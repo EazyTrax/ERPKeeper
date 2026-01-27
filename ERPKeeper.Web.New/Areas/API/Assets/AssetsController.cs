@@ -37,7 +37,7 @@ namespace ERPKeeperCore.Web.API.Assets
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Assets.Asset();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             model.Status = Enterprise.Models.Assets.Enums.AssetStatus.PartialDeplicate;
 
             //if (!TryValidateModel(RequirementType))
@@ -58,7 +58,7 @@ namespace ERPKeeperCore.Web.API.Assets
 
             if (!model.IsPosted)
             {
-                JsonConvert.PopulateObject(values, model);
+                JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
                 Organization.ErpCOREDBContext.SaveChanges();
                 return Ok();
             }

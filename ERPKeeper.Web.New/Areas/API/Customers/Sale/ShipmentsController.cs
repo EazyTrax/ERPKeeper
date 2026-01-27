@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Logistic.Shipment();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             model.TransactionId = Id;
 
@@ -42,7 +42,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers.Sale
         {
             var model = Organization.ErpCOREDBContext.Shipments.First(a => a.Id == key);
 
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

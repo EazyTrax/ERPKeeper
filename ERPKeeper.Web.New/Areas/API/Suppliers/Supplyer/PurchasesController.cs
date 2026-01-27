@@ -26,7 +26,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
         public IActionResult Insert(string values)
         {
             var model = new Enterprise.Models.Suppliers.Purchase();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
           
 
@@ -48,7 +48,7 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers.Supplyer
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Purchases.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

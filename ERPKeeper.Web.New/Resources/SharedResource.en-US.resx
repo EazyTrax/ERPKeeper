@@ -398,4 +398,17 @@
   <data name="Groups" xml:space="preserve">
     <value>Groups</value>
   </data>
+  <data name="PaymentReceiver" xml:space="preserve">
+    <value>Payment Receiver</value>
+    <comment>ผู้รับเงิน</comment>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="ReceivePayment" xml:space="preserve">
+    <value>ReceivePayment</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
 </root>

@@ -25,7 +25,7 @@ namespace ERPKeeperCore.Web.API.Financials
         public IActionResult Insert(string values)
         {
             var model = new ERPKeeperCore.Enterprise.Models.Financial.FundTransfer();
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             Organization.ErpCOREDBContext.FundTransfers.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
@@ -38,7 +38,7 @@ namespace ERPKeeperCore.Web.API.Financials
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.FundTransfers.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

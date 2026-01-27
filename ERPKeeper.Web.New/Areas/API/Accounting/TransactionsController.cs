@@ -23,7 +23,7 @@ namespace ERPKeeperCore.Web.API.Accounting
         public IActionResult Update(Guid key, string values)
         {
             var model = Organization.ErpCOREDBContext.Transactions.First(a => a.Id == key);
-            JsonConvert.PopulateObject(values, model);
+            JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
             Organization.ErpCOREDBContext.SaveChanges();
             return Ok();
         }

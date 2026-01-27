@@ -67,7 +67,7 @@
                     <div>
                         <div class="font-semibold">@item.PartNumber</div>
                         <div class="">
-                            @item.Description
+                            @Html.Raw(item.Description?.Replace("\n", "<br/>"))
                         </div>
                     </div>
 
