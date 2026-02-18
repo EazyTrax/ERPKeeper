@@ -175,8 +175,8 @@
     <None Include="wwwroot\js\qrcode.min.js" />
     <None Include="wwwroot\js\stringify.js" />
     <Page Include="wwwroot\js\vendor.js" />
-    <PackageReference Include="DevExtreme.AspNet.Core" Version="24.2.7" />
-    <PackageReference Include="DevExtreme.AspNet.Data" Version="5.0.0" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="25.2.4" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="5.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ERPKeeperCore\ERPKeeperCore.Enterprise.csproj" />

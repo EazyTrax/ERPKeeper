@@ -44,10 +44,10 @@
   </Target>
   <ItemGroup>
     
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" /><PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" /><PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
     
     
     
     
-    <PackageReference Include="System.Data.SQLite" Version="1.0.117" /><PackageReference Include="DevExpress.AspNetCore.Reporting" Version="24.2.7" /><PackageReference Include="BuildBundlerMinifier" Version="3.2.449" /><PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" /></ItemGroup>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" /><PackageReference Include="DevExpress.AspNetCore.Reporting" Version="25.2.4" /><PackageReference Include="BuildBundlerMinifier" Version="3.2.449" /><PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" /></ItemGroup>
 </Project>
