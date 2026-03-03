@@ -35,19 +35,9 @@
 
                 columns.AddFor(m => m.Item.PartNumber)
             .Width(180)
-            .CellTemplate(@<text>
-        <a href="/Products/Items/<%= data.ItemId %>/">
-            <%= data.Item.PartNumber %>
-        </a>
-    </text>
-        ); 
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Items/' + options.data.ItemId + '/').text(options.data.Item.PartNumber).appendTo(container); }"));
         columns.AddFor(m => m.Item.Description)
-        .CellTemplate(@<text>
-        <a href="/Products/Items/<%= data.ItemId %>/">
-            <%= data.Item.Description %>
-        </a>
-    </text>
-        );
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Items/' + options.data.ItemId + '/').text(options.data.Item.Description).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.AmountOrdered).Width(80);

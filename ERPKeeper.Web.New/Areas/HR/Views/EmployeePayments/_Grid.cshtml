@@ -35,7 +35,7 @@
             {
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePayments/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
             .Lookup(lookup => lookup
@@ -44,7 +44,7 @@
             .ValueExpr("Value"))
             .CalculateSortValue("Name")
             .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.EmployeePaymentPeriodId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -62,7 +62,7 @@
         .ValueExpr("Value"))
         .AllowEditing(false)
         .HeaderCellTemplate(@<text>TAX Id</text>)
-        .CellTemplate(@<text><a href="/HR/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.EmployeeId + '/').text(options.displayValue).appendTo(container); }"));
 
             columns.AddFor(m => m.EmployeeId).Width(250)
             .Lookup(lookup => lookup
@@ -70,7 +70,7 @@
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>Name</text>)
-        .CellTemplate(@<text><a href="/HR/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.EmployeeId + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.TotalEarning).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
@@ -82,8 +82,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
-        );
+        .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
 

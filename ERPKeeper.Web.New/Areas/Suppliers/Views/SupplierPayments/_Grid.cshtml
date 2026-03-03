@@ -31,21 +31,21 @@
 
                 columns.AddFor(m => m.PurchaseId)
             .Width(130)
-                    .CellTemplate(@<text><a href="/Suppliers/SupplierPayments/<%= data.Id %>/"><%= data.Purchase.Name %></a></text>);
+                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/SupplierPayments/' + options.data.Id + '/').text(options.data.Purchase.Name).appendTo(container); }"));
 
                 columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.Purchase.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Suppliers/' + options.data.Purchase.SupplierId + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.PayFrom_AssetAccountId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayFrom_AssetAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -56,7 +56,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/RetentionTypes/' + options.data.RetentionTypeId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -65,7 +65,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Financial/RetentionGroups/<%= data.RetentionGroupId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/RetentionGroups/' + options.data.RetentionGroupId + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.AmountRetention).HeaderCellTemplate("Retention").Width(130).Format("#,##0.00");
@@ -77,7 +77,7 @@
                 columns.AddFor(m => m.Reference).Width(180);
 
                 columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
-                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
             })
         .Summary(s =>
         s.TotalItems(items =>
