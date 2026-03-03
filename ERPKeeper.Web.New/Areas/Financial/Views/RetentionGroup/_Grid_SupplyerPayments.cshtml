@@ -35,19 +35,19 @@
 
          
                 columns.AddFor(m => m.Name).Width(50)
-            .CellTemplate(@<text><a href="/Suppliers/SupplierPayments/<%= data.Id %>/">SP</a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/SupplierPayments/' + options.data.Id + '/').text('SP').appendTo(container); }"));
 
 
                 columns.AddFor(m => m.PurchaseId)
             .Width(130)
-            .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.PurchaseId %>/"><%= data.Purchase.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Purchases/' + options.data.PurchaseId + '/').text(options.data.Purchase.Name).appendTo(container); }"));
 
                 columns.AddFor(m => m.Purchase.SupplierId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.Purchase.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Suppliers/' + options.data.Purchase.SupplierId + '/').text(options.displayValue).appendTo(container); }"));
 
           
 
@@ -63,7 +63,7 @@
                 columns.AddFor(m => m.Reference).Width(180);
 
                 columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
-                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
             })
         .Summary(s =>
         s.TotalItems(items =>

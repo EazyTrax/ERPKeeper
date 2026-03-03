@@ -32,7 +32,7 @@
             );
 
                 columns.AddFor(m => m.Name).Width(130)
-            .CellTemplate(@<text><a href="/Financial/Loans/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/Loans/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
                 columns.AddFor(m => m.Reference).Width(180);
 
 
@@ -41,14 +41,14 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Dr.Recev</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.RecevingAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.RecevingAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.LoanAccountId)
 
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Cr. Liab Acc</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.LoanAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.LoanAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -77,7 +77,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+        .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
 

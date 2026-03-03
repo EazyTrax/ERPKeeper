@@ -45,7 +45,7 @@
     );*@
 
     columns.AddFor(m=>m.Name)
-    .CellTemplate(@<text><a href="/HR/EmployeePaymentTypes/<%= data.Id %>/"><%= displayValue %></a></text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePaymentTypes/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
     columns.AddFor(m=>m.Description);
@@ -58,7 +58,7 @@
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Expense Acc</text>)
-        .CellTemplate(@<text><a href="/Accounts/Accounts/<%= data.AccountUid %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounts/Accounts/' + options.data.AccountUid + '/').text(options.displayValue).appendTo(container); }"));
 
 
 

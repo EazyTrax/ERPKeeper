@@ -59,9 +59,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(150)
                     .HeaderCellTemplate(@<text>Account</text>)
-                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayFrom_AssetAccountId + '/').text(options.displayValue).appendTo(container); }"));
-
-            );
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayFrom_AssetAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
                 subColumns.AddFor(m => m.TaxReceivable_Amount)
             .Width(100)

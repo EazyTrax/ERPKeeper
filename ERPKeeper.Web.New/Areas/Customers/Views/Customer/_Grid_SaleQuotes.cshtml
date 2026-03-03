@@ -40,7 +40,7 @@
 
                 columns.AddFor(m => m.Name).Width(130)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/SaleQuotes/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
 
                 columns.AddFor(m=>m.Reference);
@@ -54,7 +54,7 @@
             .Visible(false)
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Projects/' + options.data.ProjectId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -68,7 +68,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Taxes/TaxCodes/' + options.data.TaxCodeId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 

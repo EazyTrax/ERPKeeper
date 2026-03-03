@@ -33,11 +33,7 @@
 
     .Columns(columns => {
     columns.AddFor(m => m.Name).Width(250)
-    .CellTemplate(@<text>
-            <a href="/Products/Brands/<%= data.Id %>">
-                <%= data.Name %>
-            </a>
-        </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Brands/' + options.data.Id + '').text(options.data.Name).appendTo(container); }"));
          columns.AddFor(m => m.Description).MinWidth(250).Format("#,##0.00");
     columns.Add().DataField("ItemsCount").Format("#,##0.00");
     })

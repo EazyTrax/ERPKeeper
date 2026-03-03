@@ -32,8 +32,8 @@
     .ValueExpr("Value")
     );
 
-    columns.AddFor(m => m.Name).Width(130).CellTemplate(@<text><a href="/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
-    columns.AddFor(m => m.Reference).CellTemplate(@<text><a href="/Customers/Sales/<%= data.Id %>/"><%= data.Reference %></a></text>);
+    columns.AddFor(m => m.Name).Width(130).CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Sales/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
+    columns.AddFor(m => m.Reference).CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Sales/' + options.data.Id + '/').text(options.data.Reference).appendTo(container); }"));
 
 
             columns.AddFor(m => m.ProjectId)
@@ -45,7 +45,7 @@
         .Visible(false)
         .ShowInColumnChooser(true)
         .HeaderCellTemplate(@<text>Project</text>)
-    .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Projects/' + options.data.ProjectId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 

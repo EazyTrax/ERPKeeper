@@ -23,7 +23,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX</text>)
-        .CellTemplate(@<text><a href="/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Investors/Investors/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.ProfileId).Width(80)
             .Lookup(lookup => lookup
@@ -32,7 +32,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>SN</text>)
-        .CellTemplate(@<text><a href="/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Investors/Investors/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.ProfileId).Lookup(lookup => lookup
@@ -41,7 +41,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Investor</text>)
-        .CellTemplate(@<text><a href="/Investors/Investors/<%= data.Id %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Investors/Investors/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
             })

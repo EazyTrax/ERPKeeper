@@ -31,28 +31,16 @@
     .RowAlternationEnabled(true).AllowColumnReordering(true)
     .Columns(columns => {
     columns.Add().DataField("BrandName").Width(130)
-    .CellTemplate(@<text>
-            <a href="/Products/Brands/<%= data.BrandGuid %>/">
-                <%= data.BrandName %>
-            </a>
-        </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Brands/' + options.data.BrandGuid + '/').text(options.data.BrandName).appendTo(container); }"));
 
     columns.Add().DataField("PartNumber")
     .SortOrder(SortOrder.Asc)
     .SortIndex(1)
     .Width(150)
-    .CellTemplate(@<text>
-            <a href="/Products/Items/<%= data.Id %>/">
-                <span class="font-weight-600"><%= data.PartNumber %></span>
-            </a>
-        </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Items/' + options.data.Id + '/').append($('<span>').addClass('font-weight-600').text(options.data.PartNumber)).appendTo(container); }"));
             columns.AddFor(m => m.Description).MinWidth(250)
     .Width(350)
-    .CellTemplate(@<text>
-            <a href="/Products/Items/<%= data.Id %>/">
-                <%= data.Description %>
-            </a>
-        </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Items/' + options.data.Id + '/').text(options.data.Description).appendTo(container); }"));
         @* columns.Add().DataField("PartNumber").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text>
             <div>
             <a href="/Enterprise/@enterpriseId/PartNumber/<%= data.PartNumberId %>/"><%= data.PartNumber %></a>

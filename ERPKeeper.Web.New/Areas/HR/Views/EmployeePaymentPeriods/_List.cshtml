@@ -40,8 +40,7 @@
         {
 
             columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(150);
-            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.Id %>/"><%= displayValue %></a></text>
-            );
+            columns.AddFor(m => m.Name).AllowEditing(false).CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
             var accounts = Organization.ChartOfAccount.GetCashOrBankAccounts().Select(i => new { Value = i.Id, Text = i.Name });
@@ -51,7 +50,7 @@
         .DisplayExpr("Text")
         .ValueExpr("Value"))
         .HeaderCellTemplate(@<text>Pay From</text>)
-    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayFromAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
             columns.AddFor(m => m.PaymentCount).AllowEditing(false).HeaderCellTemplate(@<text>Count</text>);

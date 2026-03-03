@@ -36,7 +36,7 @@
                 .Columns(columns =>
                 {
                     columns.AddFor(m => m.Name).Width(250)
-            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/">PM. <%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePayments/' + options.data.Id + '/').text('PM. ' + options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.EmployeeId).Width(250)
@@ -45,7 +45,7 @@
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>Name</text>)
-            .CellTemplate(@<text><a href="/HR/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.EmployeeId + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.EmployeeId).AllowEditing(false).Width(150)
             .Lookup(lookup => lookup
@@ -54,7 +54,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX Id</text>)
-        .CellTemplate(@<text><a href="/HR/Employees/<%= data.EmployeeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.EmployeeId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -71,7 +71,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+        .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
 

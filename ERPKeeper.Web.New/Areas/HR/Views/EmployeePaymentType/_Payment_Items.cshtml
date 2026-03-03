@@ -47,7 +47,7 @@
     .CalculateSortValue("Type")
     .SortIndex(1)
     .HeaderCellTemplate(@<text>Type</text>)
-        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.EmployeePaymentPeriodId + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.EmployeePaymentType.PayDirection)

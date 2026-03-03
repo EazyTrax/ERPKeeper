@@ -39,7 +39,7 @@
             {
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePayments/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -52,7 +52,7 @@
             .CalculateSortValue("Name")
             
             .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.EmployeePaymentPeriodId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -75,8 +75,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
-        );
+            .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
 

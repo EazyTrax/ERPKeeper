@@ -24,14 +24,13 @@
 
 
                 columns.AddFor(m => m.No)
-            .CellTemplate(@<text><a href="/Financial/RetentionGroups/<%= data.Id %>/"><%= data.No %></a></text>
-            );
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/RetentionGroups/' + options.data.Id + '/').text(options.data.No).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.RetentionTypeId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.RetentionTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Retention Acc.</text>)
-        .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/RetentionTypes/' + options.data.RetentionTypeId + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.StartDate);
@@ -47,7 +46,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.RetentionType.RetentionToAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.RetentionType.RetentionToAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -55,7 +54,7 @@
                 columns.AddFor(m => m.PayFromAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Name = t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>PayFrom</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFromAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayFromAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -64,7 +63,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+        .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
 
