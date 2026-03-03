@@ -31,7 +31,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>TAX</text>)
-            .CellTemplate(@<text><a href="/HR/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -42,7 +42,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Employee</text>)
-            .CellTemplate(@<text><a href="/HR/Employees/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -53,7 +53,7 @@
             .ValueExpr("Value"))
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Position</text>)
-            .CellTemplate(@<text><a href="/HR/EmployeePositions/<%= data.Id %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePositions/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.Salary).Format("#,##0.00").Width(150).AllowEditing(false);

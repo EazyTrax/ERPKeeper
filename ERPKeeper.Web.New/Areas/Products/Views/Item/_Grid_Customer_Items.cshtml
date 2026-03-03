@@ -25,11 +25,7 @@
  
 
                 columns.AddFor(m => m.Customer.Profile.Name).HeaderCellTemplate(@<text>Customer</text>)
- .CellTemplate(@<text>
-        <a href="/Customers/Customers/<%= data.CustomerId %>/">
-                <%= data.Customer.Profile.Name %>
-            </a>
-        </text>);
+ .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Customers/' + options.data.CustomerId + '/').text(options.data.Customer.Profile.Name).appendTo(container); }"));
 
             columns.AddFor(m => m.AmountSale).Width(120).Format("#,##");
             columns.AddFor(m => m.AmountSaleQuote).Width(120).Format("#,##");

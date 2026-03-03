@@ -38,7 +38,7 @@
             );
 
                 columns.AddFor(m => m.Name).AllowEditing(false).AllowEditing(false).Width(130)
-            .CellTemplate(@<text><a href="/Customers/Sales/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Sales/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.CustomerId).Lookup(lookup => lookup
@@ -46,7 +46,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Customers/' + options.data.CustomerId + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.Reference)
@@ -72,13 +72,13 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Taxes/TaxCodes/' + options.data.TaxCodeId + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false)
             .Width(30)
             .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+        .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
             })

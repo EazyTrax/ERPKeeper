@@ -39,7 +39,7 @@
                 columns.AddFor(m => m.Name)
             .Width(150)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Customers/SaleQuotes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/SaleQuotes/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.CustomerId)
@@ -48,7 +48,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .HeaderCellTemplate("Customer")
-            .CellTemplate(@<text><a href="/Customers/Customers/<%= data.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Customers/' + options.data.CustomerId + '/').text(options.displayValue).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.Reference).Width(180);
@@ -62,7 +62,7 @@
             .ValueExpr("Value"))
             .Width(150)
             .HeaderCellTemplate(@<text>TaxCode</text>)
-        .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Taxes/TaxCodes/' + options.data.TaxCodeId + '/').text(options.displayValue).appendTo(container); }"));
             })
         .Summary(s =>
         s.TotalItems(items =>

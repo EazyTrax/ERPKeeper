@@ -1,7 +1,3 @@
-
-
-
-
 <div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.ReceivePayment>()
@@ -33,12 +29,12 @@
 
                 columns.AddFor(m => m.Name)
                 .Width(50)
-                .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/">RP</a></text>);
+                .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/ReceivePayments/' + options.data.Id + '/').text('RP').appendTo(container); }"));
 
                     columns.AddFor(m => m.SaleId)
     .HeaderCellTemplate("Sale")
     .Width(130)
-        .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Sale.Name %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/ReceivePayments/' + options.data.Id + '/').text(options.data.Sale.Name).appendTo(container); }"));
 
             
 
@@ -49,14 +45,14 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Customers/Customers/<%= data.Sale.CustomerId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Customers/' + options.data.Sale.CustomerId + '/').text(options.displayValue).appendTo(container); }"));
 
 
         
             columns.AddFor(m => m.SaleId)
         .HeaderCellTemplate("Reference")
         .Width(130)
-        .CellTemplate(@<text><a href="/Customers/Sales/<%= data.SaleId %>/"><%= data.Sale.Reference %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Sales/' + options.data.SaleId + '/').text(options.data.Sale.Reference).appendTo(container); }"));
 
 
 
@@ -69,7 +65,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayToAccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayToAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -79,14 +75,14 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/RetentionTypes/' + options.data.RetentionTypeId + '/').text(options.displayValue).appendTo(container); }"));
 
                 columns.AddFor(m => m.RetentionGroupId).Lookup(lookup =>
             lookup.DataSource(Organization.ErpCOREDBContext.RetentionPeriods.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Financial/RetentionGroups/<%= data.RetentionGroupId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Financial/RetentionGroups/' + options.data.RetentionGroupId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -97,7 +93,8 @@
 
 
 
-                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>)
+                    .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
 
             })

@@ -24,7 +24,7 @@
                 columns.AddFor(m => m.Profile.TaxNumber).AllowEditing(false).HeaderCellTemplate("Tax ID").Width(150);
                 columns.AddFor(m => m.Profile.ShotName).AllowEditing(false).HeaderCellTemplate("SN").Width(80);
                 columns.AddFor(m => m.Profile.Name).AllowEditing(false).HeaderCellTemplate("Name")
-                    .CellTemplate(@<text><a href="/Customers/Customers/<%= data.Profile.Id %>/"><%= data.Profile.Name %></a></text>);
+                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Customers/' + options.data.Profile.Id + '/').text(options.data.Profile.Name).appendTo(container); }"));
 
                 columns.AddFor(m => m.TotalSales).AllowEditing(false).Width(100).HeaderCellTemplate(@<text>Sale</text>).Format(Format.FixedPoint);
                 columns.AddFor(m => m.TotalSalesCount).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Sale</text>);
@@ -36,7 +36,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(150)
                     .HeaderCellTemplate(@<text>Income Acc</text>)
-                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.DefaultIncomeAccountId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.DefaultIncomeAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
             })
         )

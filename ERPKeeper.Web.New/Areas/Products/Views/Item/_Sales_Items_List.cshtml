@@ -27,15 +27,11 @@
                 .SortOrder(SortOrder.Desc).SortIndex(1);
 
                 columns.AddFor(m => m.Sale.Name).Width(150)
-                .CellTemplate(@<text><a href="/Customers/Sales/<%= data.Sale.Id %>/"><%= data.Sale.Name %></a></text>);
+                .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Sales/' + options.data.Sale.Id + '/').text(options.data.Sale.Name).appendTo(container); }"));
 
                 columns.AddFor(m => m.Sale.Name).Width(150)
                 .HeaderCellTemplate(@<text>Customer</text>)
-                .CellTemplate(@<text>
-                    <a href="/Customers/Customers/<%= data.Sale.CustomerId %>">
-                        <%= data.Sale.Customer.Profile.Name %>.
-                    </a>
-                </text>);
+                .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Customers/Customers/' + options.data.Sale.CustomerId + '/').text(options.data.Sale.Customer.Profile.Name + '.').appendTo(container); }"));
 
                 columns.AddFor(m => m.Sale.Reference).Width(150);
                 columns.AddFor(m => m.Quantity).Width(80).Format("#,##0.00");

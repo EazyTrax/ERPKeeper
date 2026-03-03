@@ -29,7 +29,7 @@
                 columns.AddFor(m => m.Date).Width(100).SortIndex(1).SortOrder(SortOrder.Asc);
 
                 columns.AddFor(m => m.Name).Width(100)
-            .CellTemplate(@<text> <a href="/Taxes/IncomeTaxes/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Taxes/IncomeTaxes/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
 
             columns.Add()
@@ -43,7 +43,7 @@
                 subColumns.AddFor(m => m.ExpenseAccountId).Width(130)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .HeaderCellTemplate(@<text>Dr.ExpenseAcc</text>)
-                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.IncomeTaxExpenseAccountId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.IncomeTaxExpenseAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
             });
 
@@ -59,7 +59,8 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(150)
                     .HeaderCellTemplate(@<text>Account</text>)
-                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PayFrom_AssetAccountId %>/"><%= displayValue %></a></text>
+                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PayFrom_AssetAccountId + '/').text(options.displayValue).appendTo(container); }"));
+
             );
 
                 subColumns.AddFor(m => m.TaxReceivable_Amount)
@@ -89,7 +90,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.LiabilityAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(150)
                     .HeaderCellTemplate(@<text>Cr.Liability</text>)
-                    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.LiabilityAccountId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.LiabilityAccountId + '/').text(options.displayValue).appendTo(container); }"));
             });
 
 
@@ -98,7 +99,7 @@
                     .AllowEditing(false)
                     .Width(30)
                     .HeaderCellTemplate(@<text> </text>)
-                    .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                    .CellTemplate(new JS("function(container, options) { $('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted).appendTo(container); }"));
 
             })
         .Summary(s => s.TotalItems(items =>

@@ -47,7 +47,7 @@
 
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
-            .CellTemplate(@<text><a href="/Projects/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Projects/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
 
                 columns.AddFor(m => m.StartDate).Width(120);

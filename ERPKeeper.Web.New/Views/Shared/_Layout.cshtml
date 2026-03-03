@@ -6,7 +6,7 @@
 </head>
 <body class="dx-viewport lh-12  h-screen" style="height:100%;">
     <div id="GlobalContainer">
-        <div class="flex ">
+        <div class="flex bg-gray-300 text-white">
             <div class="w-60 border flex-shrink-0">
                 <div class="lh-120 text-xl">
                     <partial name="_Header_logo" />
@@ -24,12 +24,12 @@
             </div>
         </div>
         <div class="flex">
-            <div class="w-60 border flex-shrink-0">
+            <div class="w-60 border flex-shrink-0  bg-gray-100">
                 <div class="text-xl  min-h-screen">
                     <partial name="_LeftMenu" />
                 </div>
             </div>
-            <div class="grow pl-3">
+            <div class="grow p-3">
                 @RenderBody()
             </div>
         </div>

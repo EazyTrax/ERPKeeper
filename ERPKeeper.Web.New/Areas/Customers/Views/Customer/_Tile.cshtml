@@ -1,12 +1,12 @@
 @model ERPKeeperCore.Enterprise.Models.Customers.Customer
 
-<div class="bg-gray-200 p-2 border bg-gray-100">
+<div class="p-2 border bg-gray-100 rounded-lg">
     <div class="flex flex-wrap">
         <div class="w-10/12 p-0">
             <div class="font-weight-bold">
                 @Model.Profile.Name
             </div>
-            @Model.Profile.TaxNumber  ·  @Model.Profile.ShotName<br />
+            @Model.Profile.TaxNumber    @Model.Profile.ShotName<br />
         </div>
         <div class="w-2/12 justify-end flex gap-2">
 

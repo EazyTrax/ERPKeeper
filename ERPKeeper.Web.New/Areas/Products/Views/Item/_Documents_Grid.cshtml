@@ -41,7 +41,7 @@
 
                 column.AddFor(m => m.FileName)
             .HeaderCellTemplate("Name")
-            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/"><%= data.FileName %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/storage/documents/' + options.data.Id + '/').text(options.data.FileName).appendTo(container); }"));
 
 
 
@@ -63,7 +63,7 @@
 
                 column.AddFor(m => m.Note)
             .HeaderCellTemplate("Note")
-            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/storage/documents/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
 
 
@@ -71,7 +71,7 @@
             .Width(40)
             .AllowSearch(false)
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/storage/documents/<%= data.Id %>/Download"><i class="fa-solid fa-cloud-arrow-down text-fs-15"></i></a></text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/storage/documents/' + options.data.Id + '/Download').append($('<i>').addClass('fa-solid fa-cloud-arrow-down text-fs-15')).appendTo(container); }"));
 
 
             })

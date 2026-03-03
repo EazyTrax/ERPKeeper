@@ -30,19 +30,11 @@
           
                 columns.AddFor(m => m.Purchase.Name)
             .Width(150)
-            .CellTemplate(@<text>
-        <a href="/Suppliers/Purchases/<%= data.Purchase.Id %>/">
-            <%= data.Purchase.Name %>
-        </a>
-    </text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Purchases/' + options.data.Purchase.Id + '/').text(options.data.Purchase.Name).appendTo(container); }"));
 
                 columns.AddFor(m => m.Purchase.Supplier.Profile.Name)
                 .HeaderCellTemplate(@<text>Supplier</text>)
-    .CellTemplate(@<text>
-        <a href="/Suppliers/Suppliers/<%= data.Purchase.Supplier.Profile.Id %>/">
-            <%= data.Purchase.Supplier.Profile.Name %>
-        </a>
-    </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Suppliers/' + options.data.Purchase.Supplier.Profile.Id + '/').text(options.data.Purchase.Supplier.Profile.Name).appendTo(container); }"));
 
                 columns.AddFor(m => m.Purchase.Reference);
                 columns.AddFor(m => m.Quantity).Width(100).Format("#,##0");

@@ -30,7 +30,7 @@
             .Columns(columns =>
             {
                 columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(@<text><a href="/Products/Brands/<%= data.BrandGuid %>/"><%= displayValue %></a></text>)
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Brands/' + options.data.BrandGuid + '/').text(options.displayValue).appendTo(container); }"))
         .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -42,11 +42,7 @@
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
             .Width(150)
-            .CellTemplate(@<text>
-        <a href="/Products/Items/<%= data.Id %>/">
-            <span><%= data.PartNumber %></span>
-        </a>
-    </text>);
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Items/' + options.data.Id + '/').append($('<span>').text(options.data.PartNumber)).appendTo(container); }"));
 
 
 
@@ -65,7 +61,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeExpenseAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .MinWidth(250)
             .HeaderCellTemplate(@<text>Purchase Acc (DR)</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.PurchaseAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.PurchaseAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
 
@@ -73,7 +69,7 @@
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.IncomeAccounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .MinWidth(250)
             .HeaderCellTemplate(@<text>Income Acc (CR)</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.IncomeAccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Accounting/Accounts/' + options.data.IncomeAccountId + '/').text(options.displayValue).appendTo(container); }"));
 
 
             })

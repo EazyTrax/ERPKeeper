@@ -45,19 +45,11 @@
     );
     columns.AddFor(m => m.Name)
     .Width(130)
-    .CellTemplate(@<text>
-            <a href="/Suppliers/Estimate/<%= data.Id %>/">
-                <%= data.Name %>
-            </a>
-        </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Estimate/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
     columns.Add().DataField("ProfileName")
     .Width(300)
-    .CellTemplate(@<text>
-            <a href="/Suppliers/Suppliers/<%= data.Id %>/">
-                <%= data.ProfileName %>
-            </a>
-        </text>);
+    .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Suppliers/Suppliers/' + options.data.Id + '/').text(options.data.ProfileName).appendTo(container); }"));
 
     columns.AddFor(m=>m.Reference);
          columns.AddFor(m=>m.Tax).AllowEditing(false).Format("#,##0.00");
