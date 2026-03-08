@@ -30,9 +30,6 @@ namespace ERPKeeperCore.Web.Views
                 if (parts.Length == 0)
                     return host;
                 
-                parts[0] = parts[0].Replace("erp-", "");
-
-
                 if (parts[0].StartsWith("localhost"))
                     parts[0] = "tec";
 
