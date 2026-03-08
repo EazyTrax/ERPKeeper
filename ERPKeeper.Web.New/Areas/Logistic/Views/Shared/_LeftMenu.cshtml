@@ -1,34 +1,9 @@
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex  justify-between e-r">
-                <div class="col-10 pl-@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
-
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="col-2 p-0 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
 
 <div class="lh-120 bg-gray-200 px-2 py-1 font-semibold rounded border">
-    @{
-        MenuTemplate(0, "Logistic", $"/Logistic");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Logistic", Url = "/Logistic" })
 </div>
 <div class="lh-120 bg-gray-200 px-2 py-1  bg-gray-200 rounded border">
-    @{
- 
-        MenuTemplate(0, "Provider", $"/Logistic/LogisticProviders", Organization.ErpCOREDBContext.LogisticProviders.Count());
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Provider", Url = "/Logistic/LogisticProviders", Count = Organization.ErpCOREDBContext.LogisticProviders.Count() })
 </div>
+
 

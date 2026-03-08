@@ -14,7 +14,6 @@ namespace ERPKeeperCore.Web.Areas.Accountant.Controllers
     [Route("/Accountant/")]
     public class HomeController : _AccountantBaseController
     {
-        [Route("")]
         public IActionResult Index() => View();
 
        

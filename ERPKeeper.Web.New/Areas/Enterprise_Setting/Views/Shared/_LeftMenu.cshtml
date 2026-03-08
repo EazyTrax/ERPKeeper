@@ -1,40 +1,12 @@
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex  justify-between e-r">
-                <div class="col-10 pl-@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
-
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="col-2 p-0 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
 
 <div class="lh-120 bg-gray-200 px-2 py-1 font-semibold rounded border">
-    @{
-        MenuTemplate(0, "Setting", $"/Setting");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Setting", Url = "/Setting" })
 </div>
 <div class="lh-120 bg-gray-200 px-2 py-1  bg-gray-200 rounded border">
-    @{
-        MenuTemplate(0, "Branches", $"/Setting/Branches", Organization.ErpCOREDBContext.Branches.Count());
-
-        MenuTemplate(0, "Logistic", $"");
-
-        MenuTemplate(3, "Provider", $"/Setting/ShipmentProviders", Organization.ErpCOREDBContext.MemoTemplates.Count());
-
-        MenuTemplate(0, "MemoTemplates", $"/Setting/MemoTemplates", Organization.ErpCOREDBContext.MemoTemplates.Count());
-
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Branches", Url = "/Setting/Branches", Count = Organization.ErpCOREDBContext.Branches.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Logistic", Url = "" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 3, DisplayName = "Provider", Url = "/Setting/ShipmentProviders", Count = Organization.ErpCOREDBContext.MemoTemplates.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "MemoTemplates", Url = "/Setting/MemoTemplates", Count = Organization.ErpCOREDBContext.MemoTemplates.Count() })
 </div>
+
 

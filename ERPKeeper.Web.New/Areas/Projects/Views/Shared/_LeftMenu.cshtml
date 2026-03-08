@@ -1,50 +1,21 @@
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex  justify-between e-r">
-                <div class="col-10 p-l@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
-
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="col-2 p-0 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
 
 <div class="lh-120 bg-gray-200 font-semibold p-1 rounded border">
-    @{
-        MenuTemplate(0, "Home", $"");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "" })
 </div>
 <div class="lh-120 bg-gray-200 p-1 rounded border">
-    @{
-        MenuTemplate(0, "Customers", $"/Customers", Organization.Customers.Count());
-        MenuTemplate(0, "Suppliers", $"/Suppliers", Organization.Suppliers.Count());
-        MenuTemplate(0, "Employees", $"/HR/Employees", Organization.Employees.Count());
-        MenuTemplate(0, "Investors", $"/Investors", Organization.Investors.Count());
-        MenuTemplate(0, "Profiles", $"/Profiles", Organization.Profiles.Count());
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Customers", Url = "/Customers", Count = Organization.Customers.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Suppliers", Url = "/Suppliers", Count = Organization.Suppliers.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employees", Url = "/HR/Employees", Count = Organization.Employees.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Investors", Url = "/Investors", Count = Organization.Investors.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Profiles", Url = "/Profiles", Count = Organization.Profiles.Count() })
 </div>
 <div class="lh-120 bg-gray-200 p-1 rounded border">
-    @{
-        MenuTemplate(0, "Products", $"/Products", Organization.Items.Count());
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Products", Url = "/Products", Count = Organization.Items.Count() })
 </div>
 
 <div class="lh-120 bg-gray-200 p-1 rounded border">
-    @{
-        MenuTemplate(0, "Accounting", $"/Accounting");
-        MenuTemplate(0, "Financial", $"/Financial");
-        MenuTemplate(0, "Assets", $"/Assets", Organization.Assets.Count());
-        MenuTemplate(0, "Taxes", $"/Taxes");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accounting", Url = "/Accounting" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Financial", Url = "/Financial" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Assets", Count = Organization.Assets.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Taxes", Url = "/Taxes" })
 </div>

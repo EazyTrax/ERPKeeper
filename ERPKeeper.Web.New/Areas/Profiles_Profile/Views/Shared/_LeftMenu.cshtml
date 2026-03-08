@@ -1,25 +1,5 @@
 
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex  justify-between e-r">
-                <div class="w-10/12 p-l@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
 
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="w-2/12 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
 
 <div class="lh-120 bg-gray-100 font-semibold p-2 border">
 
@@ -36,26 +16,32 @@
 
 
 <div class="lh-120 bg-gray-100 p-2 border">
-    @{
-        MenuTemplate(0, "General", $"/Profiles/{Profile.Id}");
-        MenuTemplate(0, "Addresses", $"/Profiles/{Profile.Id}/Addresses", Profile.Addresses.Count());
-        MenuTemplate(0, "Contacts", $"/Profiles/{Profile.Id}/Contacts", Profile.Contacts.Count());
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "General", Url = $"/Profiles/{Profile.Id}" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Addresses", Url = $"/Profiles/{Profile.Id}/Addresses", Count = Profile.Addresses.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Contacts", Url = $"/Profiles/{Profile.Id}/Contacts", Count = Profile.Contacts.Count() })
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 border">
     @{
         if (Profile.Customer != null)
-            MenuTemplate(0, "Customers", $"/Customers/Customers/{Profile.Id}");
+        {
+            @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Customers", Url = $"/Customers/Customers/{Profile.Id}" })
+        }
 
         if (Profile.Supplier != null)
-            MenuTemplate(0, "Suppliers", $"/Suppliers/Suppliers/{Profile.Id}");
+        {
+            @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Suppliers", Url = $"/Suppliers/Suppliers/{Profile.Id}" })
+        }
 
         if (Profile.Investor != null)
-            MenuTemplate(0, "Investors", $"/Investors/Investors/{Profile.Id}");
+        {
+            @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Investors", Url = $"/Investors/Investors/{Profile.Id}" })
+        }
 
         if (Profile.Employee != null)
-            MenuTemplate(0, "Employees", $"/HR/Employees/{Profile.Id}");
+        {
+            @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employees", Url = $"/HR/Employees/{Profile.Id}" })
+        }
 
     }
 </div>

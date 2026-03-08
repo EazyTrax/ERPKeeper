@@ -118,7 +118,10 @@ namespace ERPKeeperCore.Enterprise.Models.Customers
 
         public void UpdateBalance()
         {
-            this.Amount = this.Sale.Total;
+            if (Sale == null)
+                return;
+
+            this.Amount = Sale.Total;
             this.AmountRetention = this.RetentionType?.GetRetentionAmount(this.Sale.LinesTotalAfterDiscount) ?? 0;
         }
 

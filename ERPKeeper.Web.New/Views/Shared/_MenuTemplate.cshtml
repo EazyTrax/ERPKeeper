@@ -1,0 +1,14 @@
+@model ERPKeeper.Web.New.Models.MenuTemplateModel
+
+<div>
+    <div class="flex justify-between items-center">
+        <div class="flex-grow pl-@(Model.Level)">
+            <a href="@Model.Url">
+                @SharedLocalizer.GetLocalizedHtmlString(Model.DisplayName)
+            </a>
+        </div>
+        <div class="flex-shrink-0 text-right">
+            <span class="menuCount">@Model.Count</span>
+        </div>
+    </div>
+</div>

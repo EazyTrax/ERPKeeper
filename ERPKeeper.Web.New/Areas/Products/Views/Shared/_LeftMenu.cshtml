@@ -1,33 +1,12 @@
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div >
-            <div class="flex  justify-between e-r">
-                <div class="w-10/12 pl-@(level)">
-                    <a href="@url">
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="w-2/12 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
 
 <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    @{
-        MenuTemplate(0, "Products", $"/Products");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Products", Url = "/Products" })
 </div>
 
 <div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        MenuTemplate(0, "Brands", $"/Products/Brands", Organization.ErpCOREDBContext.Brands.Count());
-        MenuTemplate(0, "Items", $"/Products/Items", Organization.ErpCOREDBContext.Items.Count());
-        MenuTemplate(3, "Accounts", $"/Products/Items/Accounts", Organization.ErpCOREDBContext.Items.Count());
-        MenuTemplate(0, "Inventory", $"/Products/Inventory");
-        MenuTemplate(0, "Groups", $"/Products/Groups", Organization.ErpCOREDBContext.ItemGroups.Count());
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Brands", Url = "/Products/Brands", Count = Organization.ErpCOREDBContext.Brands.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Items", Url = "/Products/Items", Count = Organization.ErpCOREDBContext.Items.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 3, DisplayName = "Accounts", Url = "/Products/Items/Accounts", Count = Organization.ErpCOREDBContext.Items.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Inventory", Url = "/Products/Inventory" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Groups", Url = "/Products/Groups", Count = Organization.ErpCOREDBContext.ItemGroups.Count() })
 </div>

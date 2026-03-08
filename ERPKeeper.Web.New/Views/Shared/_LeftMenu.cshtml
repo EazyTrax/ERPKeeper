@@ -1,32 +1,9 @@
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex justify-between items-center">
-                <div class="flex-grow pl-@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
-
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="flex-shrink-0 text-right">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
 
 
 @if (User.IsInRole("Employee"))
 {
     <div class="lh-120 bg-gray-200 px-2 rounded border-b-2">
-        @{
-            MenuTemplate(0, "Employee", $"/Employee");
-        }
+        @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employee", Url = "/Employee" })
     </div>
 }
 
@@ -34,8 +11,6 @@
 @if (User.IsInRole("Administrator") || User.IsInRole("Accountant"))
 {
     <div class="lh-120 bg-gray-200 px-2 rounded border-b-2">
-        @{
-            MenuTemplate(0, "Accountant", $"/Accountant");
-        }
+        @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accountant", Url = "/Accountant" })
     </div>
 }

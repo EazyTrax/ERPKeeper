@@ -11,7 +11,9 @@ namespace ERPKeeperCore.Web.Areas.Dashboard.Controllers
     [Area("Dashboard")]
     public class HomeController : _BaseController
     {
-       
+        [Route("/")]
+        public IActionResult Index() => View();
+
         [Route("/Migrate")]
         public IActionResult Migrate()
         {
@@ -19,6 +21,5 @@ namespace ERPKeeperCore.Web.Areas.Dashboard.Controllers
             var profiles = Organization.ErpCOREDBContext.Profiles;
             return Content($"{profiles.Count()}");
         }
-
     }
 }

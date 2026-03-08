@@ -1,41 +1,17 @@
 @using ERPKeeperCore.Web.Resources
 @inject LocalizeService SharedLocalizer
 
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex  justify-between e-r">
-                <div class="col-10 px-@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
-
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="col-2 p-0 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
-
 
 <div class="lh-120 bg-gray-200 px-2  rounded border">
-    @{
-        MenuTemplate(0, "Home", $"/Employee/Home");
-        MenuTemplate(0, "Profile", $"/Employee/Profile");
-        MenuTemplate(0, "Compensations", $"/Employee/Compensations");
-        MenuTemplate(0, "Benefits", $"/Employee/Benefits");
-        MenuTemplate(0, "Leave", $"/Employee/Leave");
-        MenuTemplate(0, "Time Tracking", $"/Employee/TimeTracking");
-        MenuTemplate(0, "Performance", $"/Employee/Performance");
-        MenuTemplate(0, "Developments", $"/Employee/Developments");
-        MenuTemplate(0, "Documents", $"/Employee/Documents");
-        MenuTemplate(0, "Assets", $"/Employee/Assets");
-        MenuTemplate(0, "Settings", $"/Employee/Setting");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "/Employee/Home" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Profile", Url = "/Employee/Profile" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Compensations", Url = "/Employee/Compensations" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Benefits", Url = "/Employee/Benefits" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Leave", Url = "/Employee/Leave" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Time Tracking", Url = "/Employee/TimeTracking" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Performance", Url = "/Employee/Performance" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Developments", Url = "/Employee/Developments" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Documents", Url = "/Employee/Documents" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Employee/Assets" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Settings", Url = "/Employee/Setting" })
 </div>
