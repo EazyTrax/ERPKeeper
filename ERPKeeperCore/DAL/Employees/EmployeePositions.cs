@@ -20,14 +20,14 @@ namespace ERPKeeperCore.Enterprise.DAL.Employees
 
         }
 
-        public List<EmployeePosition> GetAll()
+        public List<JobPosition> GetAll()
         {
             return erpNodeDBContext.EmployeePositions.ToList();
         }
         public int Count() => erpNodeDBContext.EmployeePositions.Count();
 
 
-        public EmployeePosition? Find(Guid Id) => erpNodeDBContext.EmployeePositions.Find(Id);
+        public JobPosition? Find(Guid Id) => erpNodeDBContext.EmployeePositions.Find(Id);
 
 
     }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERPKeeperCore.Enterprise.Models.Employees
 {
-    public  class EmployeeCertificateAndLicense
+    public class EmployeeDevelopmentCourse
     {
         [Key]
         public Guid Id { get; set; }
@@ -13,9 +13,9 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public virtual Employees.Employee Employee { get; set; }
 
         public string Name { get; set; }
-        public string CodeName { get; set; }
-        public string IssuingOrganization { get; set; }
-        public DateTime IssueDate { get; set; }
-        public DateTime ExpiryDate { get; set; }
+
+        public DateTime StartDate { get; set; }
+        public DateTime FinishDate { get; set; }
+
     }
 }

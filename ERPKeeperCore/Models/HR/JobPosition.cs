@@ -12,7 +12,7 @@ using ERPKeeperCore.Enterprise.Models.Employees;
 namespace ERPKeeperCore.Enterprise.Models.Employees
 {
 
-    public class EmployeePosition
+    public class JobPosition
     {
         [Key]
         public Guid Id { get; set; }
@@ -24,10 +24,6 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         public virtual int EmployeeCount => this.Employees?.Count() ?? 0;
 
-        public void Update(EmployeePosition position)
-        {
-            this.Title = position.Title;
-            this.Description = position.Description;
-        }
+
     }
 }

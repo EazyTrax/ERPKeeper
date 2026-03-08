@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         Rejected
     }
 
-    public enum LeaveAmount
+    public enum TimeAmount
     {
         FullDay = 0,
         HalfDay = 1,
@@ -33,10 +33,12 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public virtual Employees.Employee Employee { get; set; }
 
         public DateTime RecordDate { get; set; } = DateTime.Now;
+        
+        public TimeAmount WorkAmount { get; set; } = TimeAmount.FullDay;
 
-
-
+        public string? Notes { get; set; }
     }
+
 
     public partial class EmployeeLeaveRecord
     {
@@ -50,7 +52,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public DateTime RecordDate { get; set; } = DateTime.Now;
 
         public LeaveType Type { get; set; } = LeaveType.Absent;
-        public LeaveAmount leaveAmount { get; set; } = LeaveAmount.FullDay;
+        public TimeAmount LeaveAmount { get; set; } = TimeAmount.FullDay;
 
         public LeaveAttendanceStatus Status { get; set; } = LeaveAttendanceStatus.Approved;
 

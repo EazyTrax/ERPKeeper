@@ -1,0 +1,40 @@
+<!-- Development Courses Summary -->
+<div class="bg-white rounded-lg shadow p-4 mb-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Recent Training & Development</h2>
+        <a href="@Url.Action("Index", "Developments")" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+            View All ?
+        </a>
+    </div>
+    @if (Employee?.DevelopmentCourses?.Any() == true)
+    {
+        <div class="space-y-3">
+            @foreach (var course in Employee.DevelopmentCourses.OrderByDescending(x => x.StartDate).Take(5))
+            {
+                <div class="border-l-4 border-blue-500 bg-blue-50 p-3 rounded">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">@course.Name</h3>
+                            <p class="text-sm text-gray-600">
+                                <i class="far fa-calendar mr-1"></i>
+                                @course.StartDate.ToString("MMM dd, yyyy")
+                                @if (course.FinishDate != DateTime.MinValue)
+                                {
+                                    <span> - @course.FinishDate.ToString("MMM dd, yyyy")</span>
+                                }
+                            </p>
+                        </div>
+                        <i class="fas fa-graduation-cap text-blue-500 text-xl"></i>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+            <p>No training courses found</p>
+        </div>
+    }
+</div>

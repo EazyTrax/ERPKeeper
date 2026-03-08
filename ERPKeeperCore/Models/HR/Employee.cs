@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
         public Guid? EmployeePositionId { get; set; }
         [ForeignKey("EmployeePositionId")]
-        public virtual EmployeePosition? EmployeePosition { get; set; }
+        public virtual JobPosition? EmployeePosition { get; set; }
 
         public Decimal Salary { get; set; }
         public Decimal TotalEarn { get; set; }
@@ -43,6 +43,8 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public virtual ICollection<EmployeePositions> EmployeePositions { get; set; }
         public virtual ICollection<EmployeeBenefit> EmployeeBenefits { get; set; }
         public virtual ICollection<EmployeeCompensation> EmployeeCompensations { get; set; }
+        public virtual ICollection<EmployeeCertificateAndLicense> CertificateAndLicenses { get; set; }
+        public virtual ICollection<EmployeeDevelopmentCourse> DevelopmentCourses { get; set; }
 
 
 

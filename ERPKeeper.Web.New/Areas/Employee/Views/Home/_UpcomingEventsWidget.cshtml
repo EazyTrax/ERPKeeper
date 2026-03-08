@@ -1,0 +1,65 @@
+@{
+    var today = DateTime.Now.Date;
+    var upcomingLeaves = Employee?.EmployeeLeaveRecords?
+        .Where(x => x.RecordDate >= today && x.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Approved)
+        .OrderBy(x => x.RecordDate)
+        .Take(5)
+        .ToList() ?? new List<ERPKeeperCore.Enterprise.Models.Employees.EmployeeLeaveRecord>();
+    
+    var expiringCerts = Employee?.CertificateAndLicenses?
+        .Where(x => x.ExpiryDate != DateTime.MinValue && x.ExpiryDate >= today && (x.ExpiryDate - today).Days <= 60)
+        .OrderBy(x => x.ExpiryDate)
+        .Take(3)
+        .ToList() ?? new List<ERPKeeperCore.Enterprise.Models.Employees.EmployeeCertificateAndLicense>();
+}
+
+<!-- Upcoming Events & Reminders -->
+<div class="bg-white rounded-lg shadow p-4 mb-6">
+    <h2 class="text-lg font-bold mb-4 flex items-center">
+        <i class="fas fa-bell text-orange-500 mr-2"></i>
+        Upcoming Events
+    </h2>
+    
+    <div class="space-y-3">
+        @if (upcomingLeaves.Any())
+        {
+            <div>
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Approved Leaves</h3>
+                @foreach (var leave in upcomingLeaves)
+                {
+                    <div class="bg-blue-50 p-2 rounded mb-2 border-l-2 border-blue-500">
+                        <p class="text-sm font-medium text-gray-800">@leave.Type Leave</p>
+                        <p class="text-xs text-gray-600">
+                            <i class="far fa-calendar mr-1"></i>@leave.RecordDate.ToString("MMM dd, yyyy")
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (expiringCerts.Any())
+        {
+            <div>
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Expiring Certifications</h3>
+                @foreach (var cert in expiringCerts)
+                {
+                    var daysLeft = (cert.ExpiryDate - today).Days;
+                    <div class="bg-red-50 p-2 rounded mb-2 border-l-2 border-red-500">
+                        <p class="text-sm font-medium text-gray-800">@cert.Name</p>
+                        <p class="text-xs text-red-600 font-semibold">
+                            <i class="far fa-clock mr-1"></i>Expires in @daysLeft days
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (!upcomingLeaves.Any() && !expiringCerts.Any())
+        {
+            <div class="text-center py-6 text-gray-500">
+                <i class="far fa-calendar-check fa-2x mb-2"></i>
+                <p class="text-sm">No upcoming events</p>
+            </div>
+        }
+    </div>
+</div>

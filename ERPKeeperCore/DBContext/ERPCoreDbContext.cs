@@ -170,15 +170,20 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeLeaveRecord> LeaveRecords { get; set; }
         public DbSet<EmployeeWorkRecord> WorkRecords { get; set; }
+        public DbSet<CertificateAndLicense> CertificateAndLicenses { get; set; }
         public DbSet<EmployeeCertificateAndLicense> CertificatesAndLicenses { get; set; }
-        public DbSet<EmployeePosition> EmployeePositions { get; set; }
+        public DbSet<DevelopmentCourse> DevelopmentCourses { get; set; }
+
+
+
+        public DbSet<EmployeeDevelopmentCourse> EmployeeDevelopmentCourses { get; set; }
+        public DbSet<JobPosition> EmployeePositions { get; set; }
         public DbSet<EmployeePayment> EmployeePayments { get; set; }
         public DbSet<EmployeePaymentItem> EmployeePaymentItems { get; set; }
         public DbSet<EmployeePaymentPeriod> EmployeePaymentPeriods { get; set; }
         public DbSet<EmployeePaymentType> EmployeePaymentTypes { get; set; }
-        public DbSet<Models.Employees.EmployeeBenefit> EmployeeBenefits { get; set; }
-        public DbSet<Models.Employees.EmployeeCompensation> EmployeeCompensations { get; set; }
-
+        public DbSet<EmployeeBenefit> EmployeeBenefits { get; set; }
+        public DbSet<EmployeeCompensation> EmployeeCompensations { get; set; }
         #endregion
 
 
@@ -187,7 +192,6 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<TaxPeriod> TaxPeriods { get; set; }
         public DbSet<IncomeTax> IncomeTaxes { get; set; }
         #endregion
-
 
         public DbSet<Models.Setting.MemoTemplate> MemoTemplates { get; set; }
         public DbSet<Models.Storage.Document> Documents { get; set; }

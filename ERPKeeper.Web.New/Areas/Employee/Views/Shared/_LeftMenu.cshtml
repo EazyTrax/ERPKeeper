@@ -1,9 +1,10 @@
-
 <div class="lh-120 px-2  rounded border">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "/Employee/Home", Icon = "fas fa-home" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Compensations", Url = "/Employee/Compensations", Icon = "fas fa-dollar-sign" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Benefits", Url = "/Employee/Benefits", Icon = "fas fa-gift" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "LeaveRecords", Url = "/Employee/LeaveRecords", Icon = "fas fa-calendar-alt" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "WorkRecords", Url = "/Employee/WorkRecords", Icon = "fas fa-clock" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Certificates", Url = "/Employee/Certificates", Icon = "fas fa-certificate" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Developments", Url = "/Employee/Developments", Icon = "fas fa-graduation-cap" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Documents", Url = "/Employee/Documents", Icon = "fas fa-file-alt" })
 </div>

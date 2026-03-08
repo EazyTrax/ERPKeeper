@@ -1,0 +1,54 @@
+<!-- Certifications & Licenses -->
+<div class="bg-white rounded-lg shadow p-4 mb-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Certifications & Licenses</h2>
+        <a href="@Url.Action("Index", "Certificates")" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+            View All ?
+        </a>
+    </div>
+    
+    @if (Employee?.CertificateAndLicenses?.Any() == true)
+    {
+        <div class="space-y-3">
+            @foreach (var cert in Employee.CertificateAndLicenses.OrderByDescending(x => x.IssueDate).Take(5))
+            {
+                <div class="border-l-4 border-purple-500 bg-purple-50 p-3 rounded">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">@cert.Name</h3>
+                            <p class="text-sm text-gray-600">Issued: @cert.IssueDate.ToString("MMM dd, yyyy")</p>
+                            @if (cert.ExpiryDate != DateTime.MinValue && cert.ExpiryDate > DateTime.Now)
+                            {
+                                var daysUntilExpiry = (cert.ExpiryDate - DateTime.Now).Days;
+                                <p class="text-sm @(daysUntilExpiry < 30 ? "text-red-600 font-semibold" : "text-gray-600")">
+                                    Expires: @cert.ExpiryDate.ToString("MMM dd, yyyy")
+                                    @if (daysUntilExpiry < 30 && daysUntilExpiry > 0)
+                                    {
+                                        <span class="text-red-600 font-semibold">(Expiring Soon!)</span>
+                                    }
+                                </p>
+                            }
+                            else if (cert.ExpiryDate != DateTime.MinValue && cert.ExpiryDate <= DateTime.Now)
+                            {
+                                <p class="text-sm text-red-600 font-semibold">
+                                    Expired: @cert.ExpiryDate.ToString("MMM dd, yyyy")
+                                </p>
+                            }
+                        </div>
+                        <i class="fas fa-certificate text-purple-500 text-xl"></i>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-certificate fa-3x mb-3"></i>
+            <p>No certifications found</p>
+            <a href="@Url.Action("Index", "Certificates")" class="text-blue-600 hover:text-blue-800 text-sm font-medium mt-2 inline-block">
+                Add Certification
+            </a>
+        </div>
+    }
+</div>

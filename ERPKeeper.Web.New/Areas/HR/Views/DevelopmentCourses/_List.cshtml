@@ -1,0 +1,44 @@
+
+
+<div id="treeList" class="">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.DevelopmentCourse>()
+    .ID("gridList")
+    .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/HR/DevelopmentCourses/All")
+        .InsertUrl($"/API/HR/DevelopmentCourses/Insert")
+        .UpdateUrl($"/API/HR/DevelopmentCourses/Update")
+    .UpdateMethod("Post")
+        .DeleteUrl($"/API/HR/DevelopmentCourses/Delete")
+    .DeleteMethod("Post")
+    )
+    .KeyExpr("Id")
+    .RowAlternationEnabled(true).AllowColumnReordering(true)
+    .ShowRowLines(true)
+    .ShowBorders(false)
+    .Width("100%")
+    .Paging(paging => paging.PageSize(100))
+    .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(true).AllowAdding(true).AllowDeleting(true)
+    )
+
+    .AllowColumnResizing(true).AllowColumnReordering(true)
+    .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+    .FilterRow(filterRow => filterRow
+    .Visible(true)
+    .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+    .ColumnAutoWidth(false)
+    .RowDragging(rd => rd
+    .AllowDropInsideItem(false)
+    .AllowReordering(false)
+    )
+    .Columns(columns =>
+    {
+        columns.AddFor(m=>m.Title).Caption("Title");
+        columns.AddFor(m=>m.Description).Caption("Description");
+        columns.AddFor(m=>m.Requried).Caption("Required");
+    })
+    )
+</div>
+
+

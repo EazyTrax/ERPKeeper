@@ -3,10 +3,10 @@
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeeLeaveRecord>()
         .ID("gridList")
         .DataSource(d => d.RemoteController().Key("Id")
-        .LoadUrl($"/API/HR/Employees/{EmployeeId}/EmployeeDailyRecords/All")
-        .InsertUrl($"/API/HR/Employees/{EmployeeId}/EmployeeDailyRecords/Insert")
-        .UpdateUrl($"/API/HR/Employees/{EmployeeId}/EmployeeDailyRecords/Update").UpdateMethod("Post")
-        .DeleteUrl($"/API/HR/Employees/{EmployeeId}/EmployeeDailyRecords/Delete").DeleteMethod("Post")
+        .LoadUrl($"/API/HR/Employees/{EmployeeId}/LeaveRecords/All")
+        .InsertUrl($"/API/HR/Employees/{EmployeeId}/LeaveRecords/Insert")
+        .UpdateUrl($"/API/HR/Employees/{EmployeeId}/LeaveRecords/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/HR/Employees/{EmployeeId}/LeaveRecords/Delete").DeleteMethod("Post")
         )
         .KeyExpr("Id")
         .AllowColumnReordering(true)
@@ -58,11 +58,11 @@
                     .ValueExpr("Value")
                 );
 
-            columns.AddFor(m => m.leaveAmount)
+            columns.AddFor(m => m.LeaveAmount)
             .Width(150)
             .HeaderCellTemplate(@<text>Amount</text>)
             .Lookup(lookup => lookup
-            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employees.LeaveAmount>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
+            .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employees.TimeAmount>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value")
             );

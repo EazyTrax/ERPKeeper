@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using ERPKeeperCore.Enterprise.Models.Employees;
-using ERPKeeperCore.Enterprise.Models.Employees.Enums;
 
 namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 {
     [Area("Employee")]
     [Route("/Employee/{controller=Home}/{action=Index}/{id?}")]
-    public class LeaveRecordsController : EmployeeBaseController
+    public class WorkRecordsController : EmployeeBaseController
     {
         public IActionResult Index()
         {
@@ -16,33 +15,30 @@ namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(LeaveType type, TimeAmount amount, DateTime recordDate, string notes = null)
+        public IActionResult Create(TimeAmount amount, DateTime recordDate, string notes = null)
         {
             try
             {
-                var leaveRecord = new EmployeeLeaveRecord
+                var workRecord = new EmployeeWorkRecord
                 {
                     Id = Guid.NewGuid(),
-                    Type = type,
-                    LeaveAmount = amount,
                     RecordDate = recordDate,
-                    Status = LeaveAttendanceStatus.Pending,
+                    WorkAmount = amount,
                     Notes = notes,
                     EmployeeId = AuthorizeUserId
                 };
 
-                _dbContext.LeaveRecords.Add(leaveRecord);
+                _dbContext.WorkRecords.Add(workRecord);
                 _dbContext.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                // Log the error
-                return BadRequest($"Error creating leave record: {ex.Message}");
+                return BadRequest($"Error creating work record: {ex.Message}");
             }
         }
 
-
     }
 }
+

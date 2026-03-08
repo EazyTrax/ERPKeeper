@@ -12,7 +12,8 @@ using Newtonsoft.Json;
 
 namespace ERPKeeperCore.Web.Areas.API.HR.Employee
 {
-    public class EmployeePaymentsController : _API_HR_Employee_BaseController
+    [Route("/API/HR/Employees/{EmployeeId:Guid}/{Controller}/{action=Index}")]
+    public class PaymentsController : _API_HR_Employee_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {

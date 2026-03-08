@@ -1,26 +1,22 @@
 @{
-    ViewData["Title"] = "Daily Records";
+    ViewData["Title"] = "Work Records";
 }
 
 <div class="mb-3 p-2 bg-light border rounded">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="mb-0 font-weight-bold">Daily Records</h5>
-            <small class="text-muted">Manage employee daily attendance records</small>
+            <h5 class="mb-0 font-weight-bold">Daily Work Records</h5>
+            <small class="text-muted">Track your daily work attendance and hours</small>
         </div>
         <div>
-            <partial name="_AddLeaveWidget" />
+            <partial name="_AddWorkRecord_Widget" />
         </div>
     </div>
 </div>
 
-
 <div class="flex flex-wrap">
     <div class="w-full col-center p-0">
-
-        <partial name="_Grid_LeaveRecords" />
-
-
+        <partial name="_Grid_WorkRecords" />
     </div>
     <div class="col-300px col-right">
     </div>

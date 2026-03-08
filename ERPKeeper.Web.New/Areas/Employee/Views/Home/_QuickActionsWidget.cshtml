@@ -1,22 +1,38 @@
 <!-- Quick Actions -->
 <div class="bg-white rounded-lg shadow p-4">
     <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="@Url.Action("Index", "LeaveRecords")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-            <i class="fas fa-calendar-alt fa-2x text-blue-500 mb-2"></i>
-            <span class="text-sm font-medium">Leave Records</span>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a href="@Url.Action("Index", "LeaveRecords")" class="flex flex-col items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition border border-blue-200">
+            <i class="fas fa-calendar-alt fa-2x text-blue-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Leave Records</span>
         </a>
-        <a href="@Url.Action("Index", "Compensations")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-            <i class="fas fa-money-bill-wave fa-2x text-green-500 mb-2"></i>
-            <span class="text-sm font-medium">Compensations</span>
+        <a href="@Url.Action("Index", "Assets")" class="flex flex-col items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition border border-green-200">
+            <i class="fas fa-laptop fa-2x text-green-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">My Assets</span>
         </a>
-        <a href="@Url.Action("Index", "Documents")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-            <i class="fas fa-file-alt fa-2x text-purple-500 mb-2"></i>
-            <span class="text-sm font-medium">Documents</span>
+        <a href="@Url.Action("Index", "Compensations")" class="flex flex-col items-center p-3 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition border border-yellow-200">
+            <i class="fas fa-money-bill-wave fa-2x text-yellow-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Salary</span>
         </a>
-        <a href="@Url.Action("Index", "Performance")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-            <i class="fas fa-chart-line fa-2x text-orange-500 mb-2"></i>
-            <span class="text-sm font-medium">Performance</span>
+        <a href="@Url.Action("Index", "Certificates")" class="flex flex-col items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition border border-purple-200">
+            <i class="fas fa-certificate fa-2x text-purple-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Certificates</span>
+        </a>
+        <a href="@Url.Action("Index", "Documents")" class="flex flex-col items-center p-3 bg-pink-50 rounded-lg hover:bg-pink-100 transition border border-pink-200">
+            <i class="fas fa-file-alt fa-2x text-pink-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Documents</span>
+        </a>
+        <a href="@Url.Action("Index", "Performance")" class="flex flex-col items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition border border-orange-200">
+            <i class="fas fa-chart-line fa-2x text-orange-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Performance</span>
+        </a>
+        <a href="@Url.Action("Index", "Benefits")" class="flex flex-col items-center p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition border border-indigo-200">
+            <i class="fas fa-gift fa-2x text-indigo-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Benefits</span>
+        </a>
+        <a href="@Url.Action("Index", "Developments")" class="flex flex-col items-center p-3 bg-teal-50 rounded-lg hover:bg-teal-100 transition border border-teal-200">
+            <i class="fas fa-graduation-cap fa-2x text-teal-600 mb-2"></i>
+            <span class="text-sm font-medium text-center">Training</span>
         </a>
     </div>
 </div>

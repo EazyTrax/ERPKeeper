@@ -13,8 +13,8 @@ using Newtonsoft.Json;
 namespace ERPKeeperCore.Web.Areas.API.HR.Employee
 {
     // Support both old and new route names for backward compatibility
-    [Route("/API/HR/Employees/{EmployeeId:Guid}/EmployeeDailyRecords/{action=Index}")]
-    public class EmployeeDailyRecordsController : _API_HR_Employee_BaseController
+    [Route("/API/HR/Employees/{EmployeeId:Guid}/{Controller}/{action=Index}")]
+    public class LeaveRecordsController : _API_HR_Employee_BaseController
     {
         public object All(DataSourceLoadOptions loadOptions)
         {

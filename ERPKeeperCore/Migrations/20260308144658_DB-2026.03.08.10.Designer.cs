@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260308144658_DB-2026.03.08.10")]
+    partial class DB2026030810
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1109,49 +1112,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("DataItems");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.CertificateAndLicense", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CodeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IssuingOrganization")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CertificateAndLicenses");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.DevelopmentCourse", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Requried")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DevelopmentCourses");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.Employee", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1211,13 +1171,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CertificateAndLicenseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CodeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1236,8 +1189,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CertificateAndLicenseId");
 
                     b.HasIndex("EmployeeId");
 
@@ -1266,37 +1217,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("EmployeeCompensations");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeDevelopmentCourse", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DevelopmentCourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("FinishDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DevelopmentCourseId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("EmployeeDevelopmentCourses");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeLeaveRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1305,9 +1225,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("LeaveAmount")
-                        .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
@@ -1319,6 +1236,9 @@ namespace ERPKeeperCore.Enterprise.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("leaveAmount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1474,32 +1394,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("EmployeePaymentTypes");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeWorkRecord", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RecordDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("WorkAmount")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("WorkRecords");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.JobPosition", b =>
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1517,6 +1412,25 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmployeePositions");
+                });
+
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeWorkRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("RecordDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("WorkRecords");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Financial.FundTransfer", b =>
@@ -3745,7 +3659,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.Employee", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.JobPosition", "EmployeePosition")
+                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition", "EmployeePosition")
                         .WithMany("Employees")
                         .HasForeignKey("EmployeePositionId");
 
@@ -3773,10 +3687,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeCertificateAndLicense", b =>
                 {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.CertificateAndLicense", null)
-                        .WithMany("EmployeeCertificateAndLicenses")
-                        .HasForeignKey("CertificateAndLicenseId");
-
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId")
@@ -3790,21 +3700,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.Employee", "Employee")
                         .WithMany("EmployeeCompensations")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeDevelopmentCourse", b =>
-                {
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.DevelopmentCourse", null)
-                        .WithMany("EmployeeDevelopmentCourses")
-                        .HasForeignKey("DevelopmentCourseId");
-
-                    b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.Employee", "Employee")
-                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -4688,16 +4583,6 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.CertificateAndLicense", b =>
-                {
-                    b.Navigation("EmployeeCertificateAndLicenses");
-                });
-
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.DevelopmentCourse", b =>
-                {
-                    b.Navigation("EmployeeDevelopmentCourses");
-                });
-
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.Employee", b =>
                 {
                     b.Navigation("EmployeeBenefits");
@@ -4724,7 +4609,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.JobPosition", b =>
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePosition", b =>
                 {
                     b.Navigation("Employees");
                 });

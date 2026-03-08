@@ -1,0 +1,59 @@
+<div id="treeList" class="">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeeWorkRecord>()
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/HR/Employees/{EmployeeId}/WorkRecords/All")
+        .InsertUrl($"/API/HR/Employees/{EmployeeId}/WorkRecords/Insert")
+        .UpdateUrl($"/API/HR/Employees/{EmployeeId}/WorkRecords/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/HR/Employees/{EmployeeId}/WorkRecords/Delete").DeleteMethod("Post")
+        )
+        .KeyExpr("Id")
+        .AllowColumnReordering(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(100))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeeWorkRecords"))
+        .GroupPanel(gp => gp.Visible(true)) 
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
+        .AllowColumnResizing(true).AllowColumnReordering(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowDeleting(IsOnEditMode).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        .ColumnAutoWidth(false)
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.RecordDate)
+                .Width(130)
+                .SortIndex(0)
+                .SortOrder(SortOrder.Desc)
+                .Format(Format.ShortDate)
+                .HeaderCellTemplate(@<text>Work Date</text>);
+
+            columns.AddFor(m => m.WorkAmount)
+                .Width(120)
+                .HeaderCellTemplate(@<text>Duration</text>)
+                .Lookup(lookup => lookup
+                    .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Employees.TimeAmount>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text }).ToList())
+                    .DisplayExpr("Text")
+                    .ValueExpr("Value")
+                );
+
+            columns.AddFor(m => m.Notes)
+                .Width(250)
+                .HeaderCellTemplate(@<text>Notes</text>);
+        })
+
+        .Summary(s => s.TotalItems(items =>
+        {
+            items.Add()
+                .Column("RecordDate")
+                .SummaryType(SummaryType.Count)
+                .CustomizeText("function(data) { return 'Total Records: ' + data.value; }");
+        }))
+    )
+</div>

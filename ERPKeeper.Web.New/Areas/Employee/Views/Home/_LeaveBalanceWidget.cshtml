@@ -1,0 +1,73 @@
+@{
+    var leaveBalance = Employee?.EmployeeLeaveRecords?.Where(x => x.RecordDate.Year == DateTime.Now.Year).Count() ?? 0;
+    var approvedLeaves = Employee?.EmployeeLeaveRecords?.Where(x => x.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Approved && x.RecordDate.Year == DateTime.Now.Year).Count() ?? 0;
+}
+
+<!-- Leave Balance & Recent Leaves -->
+<div class="bg-white rounded-lg shadow p-4 mb-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Leave Summary</h2>
+        <a href="@Url.Action("Index", "LeaveRecords")" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+            View All ?
+        </a>
+    </div>
+    
+    <!-- Leave Balance Summary -->
+    <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="bg-blue-50 rounded-lg p-3">
+            <p class="text-sm text-gray-600">Approved This Year</p>
+            <p class="text-2xl font-bold text-blue-600">@approvedLeaves days</p>
+        </div>
+        <div class="bg-green-50 rounded-lg p-3">
+            <p class="text-sm text-gray-600">Total Records</p>
+            <p class="text-2xl font-bold text-green-600">@leaveBalance</p>
+        </div>
+    </div>
+
+    <!-- Recent Leave Records -->
+    @if (Employee?.EmployeeLeaveRecords?.Any() == true)
+    {
+        <div class="overflow-x-auto">
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var record in Employee.EmployeeLeaveRecords.OrderByDescending(x => x.RecordDate).Take(5))
+                    {
+                        <tr>
+                            <td class="px-4 py-2 whitespace-nowrap text-sm">@record.RecordDate.ToString("MMM dd, yyyy")</td>
+                            <td class="px-4 py-2 text-sm">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    @(record.Type == ERPKeeperCore.Enterprise.Models.Employees.LeaveType.Sick ? "bg-red-100 text-red-800" : 
+                                      record.Type == ERPKeeperCore.Enterprise.Models.Employees.LeaveType.Absent ? "bg-blue-100 text-blue-800" : 
+                                      "bg-gray-100 text-gray-800")">
+                                    @record.Type
+                                </span>
+                            </td>
+                            <td class="px-4 py-2 text-sm">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    @(record.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Approved ? "bg-green-100 text-green-800" : 
+                                      record.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Pending ? "bg-yellow-100 text-yellow-800" : 
+                                      "bg-red-100 text-red-800")">
+                                    @record.Status
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-calendar-alt fa-3x mb-3"></i>
+            <p>No leave records found</p>
+        </div>
+    }
+</div>

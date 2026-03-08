@@ -1,0 +1,58 @@
+<div id="treeList" class="">
+
+    @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Employees.EmployeeCertificateAndLicense>()
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/API/HR/Employees/{EmployeeId}/Certificates/All")
+        .InsertUrl($"/API/HR/Employees/{EmployeeId}/Certificates/Insert")
+        .UpdateUrl($"/API/HR/Employees/{EmployeeId}/Certificates/Update").UpdateMethod("Post")
+        .DeleteUrl($"/API/HR/Employees/{EmployeeId}/Certificates/Delete").DeleteMethod("Post")
+        )
+        .KeyExpr("Id")
+        .AllowColumnReordering(true)
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Width("100%")
+        .Paging(paging => paging.PageSize(50))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeeCertificates"))
+        .GroupPanel(gp => gp.Visible(true)) 
+        .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
+        .AllowColumnResizing(true).AllowColumnReordering(true)
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
+        .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+        .Editing(editing => editing.Mode(GridEditMode.Row).AllowDeleting(IsOnEditMode).AllowUpdating(IsOnEditMode).AllowAdding(IsOnEditMode).UseIcons(true))
+        .ColumnAutoWidth(false)
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Name)
+                .Width(200)
+                .HeaderCellTemplate(@<text>Certificate/License Name</text>);
+
+            columns.AddFor(m => m.IssuingOrganization)
+                .Width(200)
+                .HeaderCellTemplate(@<text>Issuing Organization</text>);
+
+            columns.AddFor(m => m.IssueDate)
+                .Width(120)
+                .SortIndex(0)
+                .SortOrder(SortOrder.Desc)
+                .Format(Format.ShortDate)
+                .HeaderCellTemplate(@<text>Issue Date</text>);
+
+            columns.AddFor(m => m.ExpiryDate)
+                .Width(120)
+                .Format(Format.ShortDate)
+                .HeaderCellTemplate(@<text>Expiry Date</text>);
+        })
+        .Summary(s => s.TotalItems(items =>
+        {
+            items.Add()
+                .Column("Name")
+                .SummaryType(SummaryType.Count)
+                .CustomizeText("function(data) { return 'Total Certificates: ' + data.value; }");
+        }))
+    )
+</div>
