@@ -8,6 +8,9 @@
     <StartupObject>ERPKeeperCore.Web.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Areas\Employee\Views\LeaveRecords\_MenuTop.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\Less\DevExtremeFix.less" />
     <_ContentIncludedByDefault Remove="wwwroot\css\Site.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\Site.less" />
@@ -38,6 +41,7 @@
     <None Include="Areas\Employee\Views\Benefits\Index.cshtml" />
     <None Include="Areas\Employee\Views\Documents\Index.cshtml" />
     <None Include="Areas\Employee\Views\Developments\Index.cshtml" />
+    <None Include="Areas\Employee\Views\LeaveRecords\_MenuTop.cshtml" />
     <None Include="Areas\Employee\Views\Performance\Index.cshtml" />
     <None Include="Areas\Employee\Views\LeaveRecords\Index.cshtml" />
     <None Include="Areas\Employee\Views\Compensations\Index.cshtml" />

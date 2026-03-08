@@ -1,14 +1,22 @@
 @model ERPKeeper.Web.New.Models.MenuTemplateModel
 
-<div>
-    <div class="flex justify-between items-center">
-        <div class="flex-grow pl-@(Model.Level)">
-            <a href="@Model.Url">
+<div class="menu-item-wrapper">
+    <a href="@Model.Url" class="menu-link flex items-center justify-between py-2 px-3 rounded transition-all hover:bg-gray-300 hover:shadow-sm @(Context.Request.Path.StartsWithSegments(Model.Url) ? "bg-white shadow-sm font-semibold" : "")">
+        <div class="flex items-center gap-2 pl-@(Model.Level * 2)">
+            @if (!string.IsNullOrEmpty(Model.Icon))
+            {
+                <i class="@Model.Icon text-gray-600"></i>
+            }
+            <span class="menu-text">
                 @SharedLocalizer.GetLocalizedHtmlString(Model.DisplayName)
-            </a>
+            </span>
         </div>
-        <div class="flex-shrink-0 text-right">
-            <span class="menuCount">@Model.Count</span>
-        </div>
-    </div>
+        @if (Model.Count.HasValue && Model.Count.Value > 0)
+        {
+            <span class="menuCount bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                @Model.Count
+            </span>
+        }
+    </a>
 </div>
+

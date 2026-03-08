@@ -1,0 +1,53 @@
+<!-- Add Leave Button -->
+<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#addLeaveDrawer" title="Add Leave" onclick="console.log('Button clicked');">
+    <i class="fas fa-calendar-plus"></i> Add Leave
+</button>
+
+<!-- Drawer/Offcanvas -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addLeaveDrawer" aria-labelledby="addLeaveDrawerLabel" style="width: 400px;">
+    <div class="offcanvas-header bg-primary text-white">
+        <h5 class="offcanvas-title" id="addLeaveDrawerLabel">
+            <i class="fas fa-calendar-plus me-2"></i>Add New Leave Record
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form id="addLeaveForm" method="post" action="@Url.Action("Create", "LeaveRecords")">
+            @Html.AntiForgeryToken()
+            
+            <div class="mb-3">
+                <label for="leaveType" class="form-label">Leave Type</label>
+                <select class="form-select" id="leaveType" name="Type" required>
+                    <option value="">Select Leave Type</option>
+                    <option value="0">Sick</option>
+                    <option value="1">Vacation</option>
+                    <option value="2">Absent</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="recordDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="recordDate" name="RecordDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+            </div>
+            
+            <div class="mb-3">
+                <label for="notes" class="form-label">Notes (Optional)</label>
+                <textarea class="form-control" id="notes" name="Notes" rows="3"></textarea>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>Submit Leave Request
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    console.log('AddLeaveWidget loaded');
+    console.log('Bootstrap available:', typeof bootstrap !== 'undefined');
+</script>

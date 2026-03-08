@@ -1,0 +1,53 @@
+<!-- Recent Activities Section -->
+<div class="bg-white rounded-lg shadow p-4 mb-6">
+    <h2 class="text-xl font-bold mb-4">Recent Leave Records</h2>
+    @if (Employee?.EmployeeLeaveRecords?.Any() == true)
+    {
+        <div class="overflow-x-auto">
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Notes</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var record in Employee.EmployeeLeaveRecords.OrderByDescending(x => x.RecordDate).Take(5))
+                    {
+                        <tr>
+                            <td class="px-4 py-2 whitespace-nowrap">@record.RecordDate.ToString("MMM dd, yyyy")</td>
+                            <td class="px-4 py-2">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    @(record.Type == ERPKeeperCore.Enterprise.Models.Employees.LeaveType.Sick ? "bg-red-100 text-red-800" : 
+                                      record.Type == ERPKeeperCore.Enterprise.Models.Employees.LeaveType.Vacation ? "bg-blue-100 text-blue-800" : 
+                                      "bg-gray-100 text-gray-800")">
+                                    @record.Type
+                                </span>
+                            </td>
+                            <td class="px-4 py-2">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    @(record.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Approved ? "bg-green-100 text-green-800" : 
+                                      record.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Pending ? "bg-yellow-100 text-yellow-800" : 
+                                      "bg-red-100 text-red-800")">
+                                    @record.Status
+                                </span>
+                            </td>
+                            <td class="px-4 py-2 text-sm text-gray-600">@(record.Notes ?? "-")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-center">
+            <a href="@Url.Action("Index", "LeaveRecords")" class="text-blue-600 hover:text-blue-800 font-medium">
+                View All Leave Records ?
+            </a>
+        </div>
+    }
+    else
+    {
+        <p class="text-gray-500 text-center py-4">No leave records found.</p>
+    }
+</div>

@@ -6,4 +6,5 @@ public class MenuTemplateModel
     public string DisplayName { get; set; } = string.Empty;
     public string Url { get; set; } = string.Empty;
     public int? Count { get; set; }
+    public string? Icon { get; set; }
 }
