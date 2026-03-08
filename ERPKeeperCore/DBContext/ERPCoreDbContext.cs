@@ -52,6 +52,9 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Ignore DAL repository classes that should not be mapped as entities
+            modelBuilder.Ignore<ERPKeeperCore.Enterprise.DAL.Employees.EmployeePositions>();
+
             //foreach (var property in modelBuilder.Model.GetEntityTypes()
             //   .SelectMany(t => t.GetProperties())
             //   .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
