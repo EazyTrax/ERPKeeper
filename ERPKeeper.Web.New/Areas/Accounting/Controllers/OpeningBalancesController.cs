@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
 
-    public class OpeningBalancesController : AccountingBaseController
+    public class OpeningBalancesController : AccountingArea_BaseController
     {
         public IActionResult Index()
         {

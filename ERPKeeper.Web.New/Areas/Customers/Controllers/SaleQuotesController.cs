@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
-    public class SaleQuotesController : _Customers_Base_Controller
+    public class SaleQuotesController : _CustomersArea_BaseController
     {
         public IActionResult Index(SaleQuoteStatus status)
         {

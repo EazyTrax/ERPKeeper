@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.HR.Controllers
 {
 
-    public class EmployeePaymentsController : _Employees_Base_Controller
+    public class EmployeePaymentsController : _HRArea_Base_Controller
     {
         public IActionResult Index() => View();
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
     [Route("/Accounting/Transactions/{TransactionId:Guid}/{action=Index}")]
-    public class TransactionController : AccountingBaseController
+    public class TransactionController : AccountingArea_BaseController
     {
         public Guid TransactionId => Guid.Parse(HttpContext.GetRouteData().Values["TransactionId"].ToString());
 

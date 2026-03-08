@@ -26,6 +26,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public int PaymentCount { get; set; }
 
 
+        public string? Note { get; set; }
 
         public string? Description { get; set; }
 

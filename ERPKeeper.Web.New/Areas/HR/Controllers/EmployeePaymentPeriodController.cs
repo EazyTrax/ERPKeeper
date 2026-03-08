@@ -10,7 +10,7 @@ using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 namespace ERPKeeperCore.Web.Areas.HR.Controllers
 {
     [Route("/HR/EmployeePaymentPeriods/{Id:Guid}/{action=Index}")]
-    public class EmployeePaymentPeriodController : _Employees_Base_Controller
+    public class EmployeePaymentPeriodController : _HRArea_Base_Controller
     {
 
         public IActionResult Index(Guid Id)

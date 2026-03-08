@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 {
-    public class BenefitsController : _EmployeeBaseController
+    public class BenefitsController : EmployeeBaseController
     {
         public IActionResult Index()
         {

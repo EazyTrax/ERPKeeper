@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
     [AllowAnonymous]
-    public class SignOutController : BaseController
+    public class SignOutController : AuthenArea_BaseController
     {
         public IActionResult Index() => RedirectToAction("Process");
 

@@ -10,7 +10,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
 
-    public class TransactionsController : AccountingBaseController
+    public class TransactionsController : AccountingArea_BaseController
     {
         public IActionResult Index()
         {

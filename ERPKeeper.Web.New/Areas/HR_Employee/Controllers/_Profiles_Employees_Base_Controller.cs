@@ -15,7 +15,7 @@ namespace ERPKeeperCore.Web.Areas.HR_Employee.Controllers
 {
     [Area("HR_Employee")]
     [Route("/HR/Employees/{EmployeeId:Guid}/{controller=Home}/{action=Index}")]
-    public class _Employee_Base_Controller : _BaseController
+    public class _HR_EmployeeArea_Base_Controller : _AccountantRole_BaseController
     {
         public Guid EmployeeId => Guid.Parse(HttpContext.Request.RouteValues["EmployeeId"].ToString());
 

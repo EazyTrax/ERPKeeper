@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     [Route("/Customers/SaleQuotes/{Id:Guid}/{action=index}")]
-    public class SaleQuoteController : _Customers_Base_Controller
+    public class SaleQuoteController : _CustomersArea_BaseController
     {
 
         public Guid Id => Guid.Parse(RouteData.Values["Id"].ToString());

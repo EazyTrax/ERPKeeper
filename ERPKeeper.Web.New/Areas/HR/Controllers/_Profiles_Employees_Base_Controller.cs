@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.HR.Controllers
 {
     [Area("HR")]
     [Route("/HR/{controller=Home}/{action=Index}/{id?}")]
-    public class _Employees_Base_Controller : _BaseController
+    public class _HRArea_Base_Controller : _AccountantRole_BaseController
     {
 
 

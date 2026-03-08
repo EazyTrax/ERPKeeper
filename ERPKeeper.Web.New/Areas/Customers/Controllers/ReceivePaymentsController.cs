@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
-    public class ReceivePaymentsController : _Customers_Base_Controller
+    public class ReceivePaymentsController : _CustomersArea_BaseController
     {
         public IActionResult Index()
         {

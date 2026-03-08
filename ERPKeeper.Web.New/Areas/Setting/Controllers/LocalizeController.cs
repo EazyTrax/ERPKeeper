@@ -11,7 +11,7 @@ using ERPKeeperCore.Web.Areas.Employee.Controllers;
 namespace ERPKeeperCore.Web.Areas.Setting.Controllers
 {
     [Route("/Setting/{Controller}/{Action}")]
-    public class LocalizeController : _EmployeeBaseController
+    public class LocalizeController : EmployeeBaseController
     {
         public IActionResult Update(string culture)
         {

@@ -12,10 +12,10 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     [Area("Customers")]
     [Route("/Customers/{controller=Home}/{action=Index}/{id?}")]
-    public class _Customers_Base_Controller : _BaseController
+    public class _CustomersArea_BaseController : _AccountantRole_BaseController
     {
   
-        public _Customers_Base_Controller() : base()
+        public _CustomersArea_BaseController() : base()
         {
 
         }

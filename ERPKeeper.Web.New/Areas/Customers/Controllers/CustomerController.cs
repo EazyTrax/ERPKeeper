@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Routing;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     [Route("/Customers/Customers/{customerId:Guid}/{action=Index}")]
-    public class CustomerController : _Customers_Base_Controller
+    public class CustomerController : _CustomersArea_BaseController
     {
         Guid customerId => Guid.Parse(HttpContext.GetRouteData().Values["customerId"].ToString());
 

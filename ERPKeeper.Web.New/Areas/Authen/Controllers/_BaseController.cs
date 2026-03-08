@@ -17,7 +17,7 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
     [Area("Authen")]
     [Route("/{area}/{controller=SignIn}/{action=Index}")]
     [AllowAnonymous]
-    public class BaseController : Controller
+    public class AuthenArea_BaseController : Controller
     {
         protected EnterpriseRepo organizationRepo;
 

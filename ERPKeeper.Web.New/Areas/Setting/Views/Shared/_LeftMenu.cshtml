@@ -2,7 +2,7 @@
 @inject LocalizeService SharedLocalizer
 
 
-<div class="lh-120 bg-gray-200 px-2  rounded border">
+<div class="lh-120 px-2  rounded border">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "/Employee/Home" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Profile", Url = "/Employee/Profile" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Compensations", Url = "/Employee/Compensations" })

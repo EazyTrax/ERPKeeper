@@ -1,5 +1,5 @@
 
-<div class="lh-120 bg-gray-200 px-2  rounded border">
+<div class="lh-120 px-2  rounded border">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "/Employee/Home", Icon = "fas fa-home" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Compensations", Url = "/Employee/Compensations", Icon = "fas fa-dollar-sign" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Benefits", Url = "/Employee/Benefits", Icon = "fas fa-gift" })

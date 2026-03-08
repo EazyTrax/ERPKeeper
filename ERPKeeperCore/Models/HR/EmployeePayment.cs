@@ -41,7 +41,7 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         [ForeignKey("EmployeePaymentPeriodId")]
         public virtual EmployeePaymentPeriod EmployeePaymentPeriod { get; set; }
 
-
+        public String? Note { get; set; }   
 
         public Decimal TotalEarning { get; set; }
         public Decimal TotalDeduction { get; set; }

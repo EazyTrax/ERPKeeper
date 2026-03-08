@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Assets.Controllers
 {
 
-    public class HomeController : Base_AssetsController
+    public class HomeController : AssetsArea_BaseController
     {
         public IActionResult Index()
         {

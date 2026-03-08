@@ -38,20 +38,18 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         public Decimal TotalDeduct { get; set; }
 
 
-        public virtual ICollection<EmployeePayment> Payments { get; set; }
+        public virtual ICollection<EmployeePayment> EmployeePayments { get; set; }
         public virtual ICollection<EmployeeLeaveRecord> EmployeeLeaveRecords { get; set; }
-
         public virtual ICollection<EmployeePositions> EmployeePositions { get; set; }
         public virtual ICollection<EmployeeBenefit> EmployeeBenefits { get; set; }
-
         public virtual ICollection<EmployeeCompensation> EmployeeCompensations { get; set; }
 
 
 
         public void UpdateBalance()
         {
-            TotalEarn = this.Payments.Sum(p => p.TotalEarning);
-            TotalDeduct = this.Payments.Sum(p => p.TotalDeduction);
+            TotalEarn = this.EmployeePayments.Sum(p => p.TotalEarning);
+            TotalDeduct = this.EmployeePayments.Sum(p => p.TotalDeduction);
         }
     }
 }

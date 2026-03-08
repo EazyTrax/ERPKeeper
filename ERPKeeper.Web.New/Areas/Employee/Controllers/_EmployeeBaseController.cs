@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 {
     [Area("Employee")]
-    [Authorize]
+    [Authorize(Roles = "Accountant,Administrator")]
     [Route("/Employee/{Controller=Home}/{Action=Index}")]
-    public class _EmployeeBaseController : ERPKeeperCore.Web.Controllers._BaseController
+    public class EmployeeBaseController : _EmployeeRole_BaseController
     {
         Guid EmployeeId => AuthorizeUserId;
-        public ERPKeeperCore.Enterprise.Models.Employees.Employee Employee
+        public Enterprise.Models.Employees.Employee Employee
            => Organization.Employees.Find(EmployeeId);
 
-        public _EmployeeBaseController()
+        public EmployeeBaseController()
         {
 
 

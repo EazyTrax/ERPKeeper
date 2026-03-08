@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
 
-    public class CustomersController : _Customers_Base_Controller
+    public class CustomersController : _CustomersArea_BaseController
     {
         public IActionResult Index()
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Assets.Controllers
 {
 
-    public class AssetDeprecateSchedulesController : Base_AssetsController
+    public class AssetDeprecateSchedulesController : AssetsArea_BaseController
     {
         public IActionResult Index()
         {

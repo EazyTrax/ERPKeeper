@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Localization;
 
 namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 {
-    public class ViewController : _EmployeeBaseController
+    public class ViewController : EmployeeBaseController
     {
         [Route("/{Area}/{Controller}/{mode}")]
         public IActionResult SetMode(string mode)

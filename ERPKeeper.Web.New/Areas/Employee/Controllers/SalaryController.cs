@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 {
-    public class SalaryController : _EmployeeBaseController
+    public class SalaryController : EmployeeBaseController
     {
 
         public IActionResult Index()

@@ -1,8 +1,8 @@
 
-<div class="lh-120 bg-gray-200 px-2 py-1 font-semibold rounded border">
+<div class="lh-120 px-2 py-1 font-semibold rounded border">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Logistic", Url = "/Logistic" })
 </div>
-<div class="lh-120 bg-gray-200 px-2 py-1  bg-gray-200 rounded border">
+<div class="lh-120 px-2 py-1  bg-gray-200 rounded border">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Provider", Url = "/Logistic/LogisticProviders", Count = Organization.ErpCOREDBContext.LogisticProviders.Count() })
 </div>
 

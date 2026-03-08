@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ERPKeeperCore.Web.Areas.Accounting.Controllers
 {
     [Route("/Accounting/Accounts/{AccountId:Guid}/{action=Index}/{id?}")]
-    public class AccountController : AccountingBaseController
+    public class AccountController : AccountingArea_BaseController
     {
         public Guid AccountId => Guid.Parse(HttpContext.GetRouteData().Values["AccountId"].ToString());
 

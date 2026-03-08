@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 {
 
-    public class SigninController : BaseController
+    public class SigninController : AuthenArea_BaseController
     {
         public SigninController()
         {

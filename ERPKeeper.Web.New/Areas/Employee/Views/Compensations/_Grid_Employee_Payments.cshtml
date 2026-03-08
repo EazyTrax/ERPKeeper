@@ -1,5 +1,7 @@
 
-
+@{
+    var employeePaymentPeriods = Organization.ErpCOREDBContext.EmployeePaymentPeriods.ToList();
+}
 
 <div id="treeList" class="">
 
@@ -18,7 +20,6 @@
         .Width("100%")
         .Paging(paging => paging.PageSize(100))
         .StateStoring(s => s.Enabled(true).Type(StateStoringType.SessionStorage).StorageKey("EmployeePayments"))
-        .GroupPanel(gp => gp.Visible(true)) 
         .ColumnChooser(columnChooser => columnChooser.Enabled(true))    
         .AllowColumnResizing(true).AllowColumnReordering(true)
         .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s=>s.Enabled(true)))
@@ -39,35 +40,33 @@
             {
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/HR/EmployeePayments/<%= data.Id %>/"><%= displayValue %></a></text>);
-
+            .CellTemplate(new JS("function(container, options) { container.append($('<a>').attr('href', '/HR/EmployeePayments/' + options.data.Id + '/').text(options.value)); }"));
 
 
 
                 columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
             .Lookup(lookup => lookup
-            .DataSource(Organization.ErpCOREDBContext.EmployeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
+            .DataSource(employeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
             .DisplayExpr("Name")
             .ValueExpr("Value"))
             .CalculateSortValue("Name")
-            
             .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(@<text><a href="/HR/EmployeePaymentPeriods/<%= data.EmployeePaymentPeriodId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { container.append($('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.EmployeePaymentPeriodId + '/').text(options.text)); }"));
 
 
-
-                columns.AddFor(m => m.EmployeePaymentPeriod.Date)
-            .Width(130)
-            .SortIndex(1)
+                columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
             .AllowEditing(false)
-            .Format(Format.ShortDate)
-            .HeaderCellTemplate(@<text>Date</text>);
+    .HeaderCellTemplate(@<text>Date</text>
+    )
+    .Lookup(lookup => lookup
+    .DataSource(employeePaymentPeriods.Select(i => new { Value = i.Id, Date = i.Date }).ToList())
+    .DisplayExpr("Date")
+    .ValueExpr("Value"));
 
+        columns.AddFor(m => m.Note);
 
-
-
-                columns.AddFor(m => m.TotalEarning).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
-                columns.AddFor(m => m.TotalDeduction).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
+                columns.AddFor(m => m.TotalEarning).Width(150).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Earning</text>);
+            columns.AddFor(m => m.TotalDeduction).Width(150).AllowEditing(false).Format("#,##0.00").HeaderCellTemplate(@<text>Deduction</text>);
 
 
 
@@ -75,8 +74,7 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false).Width(30)
             .HeaderCellTemplate(@<text> </text>)
-            .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
-        );
+            .CellTemplate(new JS("function(container, options) { container.append($('<i>').addClass('fas fa-fingerprint text-' + options.data.IsPosted)); }"));
 
 
 

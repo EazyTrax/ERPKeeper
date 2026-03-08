@@ -9,7 +9,7 @@ using ERPKeeperCore.Web.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Products.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Accountant,Administrator")]
     [Area("Products")]
     public class Base_ProductsController : _BaseController
     {

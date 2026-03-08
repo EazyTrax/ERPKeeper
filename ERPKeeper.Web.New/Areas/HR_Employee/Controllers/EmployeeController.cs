@@ -9,7 +9,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.HR_Employee.Controllers
 {
 
-    public class HomeController : _Employee_Base_Controller
+    public class HomeController : _HR_EmployeeArea_Base_Controller
     {
 
         public IActionResult Index(Guid EmployeeId)

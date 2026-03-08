@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ERPKeeperCore.Web.Areas.Setting.Controllers
 {
     [Area("Setting")]
-    [Authorize]
+    [Authorize(Roles = "Accountant,Administrator")]
     [Route("/Setting/{Controller=Home}/{Action=Index}")]
     public class _SettingBaseController : ERPKeeperCore.Web.Controllers._BaseController
     {

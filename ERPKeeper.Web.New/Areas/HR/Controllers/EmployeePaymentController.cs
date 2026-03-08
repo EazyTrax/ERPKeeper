@@ -9,7 +9,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.HR.Controllers
 {
     [Route("/HR/EmployeePayments/{Id:Guid}/{action=Index}")]
-    public class EmployeePaymentController : _Employees_Base_Controller
+    public class EmployeePaymentController : _HRArea_Base_Controller
     {
 
         public IActionResult Index(Guid Id)

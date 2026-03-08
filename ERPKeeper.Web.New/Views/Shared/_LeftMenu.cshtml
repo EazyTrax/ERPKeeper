@@ -2,7 +2,7 @@
 
 @if (User.IsInRole("Employee"))
 {
-    <div class="lh-120 bg-gray-200 px-2 rounded border-b-2">
+    <div class="lh-120 px-2 rounded border-b-2">
         @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employee", Url = "/Employee" })
     </div>
 }
@@ -10,7 +10,7 @@
 
 @if (User.IsInRole("Administrator") || User.IsInRole("Accountant"))
 {
-    <div class="lh-120 bg-gray-200 px-2 rounded border-b-2">
+    <div class="lh-120 px-2 rounded border-b-2">
         @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accountant", Url = "/Accountant" })
     </div>
 }
