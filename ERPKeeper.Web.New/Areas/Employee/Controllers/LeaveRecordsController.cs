@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(LeaveType type, DateTime recordDate, string notes = null)
+        public IActionResult Create(LeaveType type, LeaveAmount amount, DateTime recordDate, string notes = null)
         {
             try
             {
@@ -24,6 +24,7 @@ namespace ERPKeeperCore.Web.Areas.Employee.Controllers
                 {
                     Id = Guid.NewGuid(),
                     Type = type,
+                    leaveAmount = amount,
                     RecordDate = recordDate,
                     Status = LeaveAttendanceStatus.Pending,
                     Notes = notes,
@@ -42,6 +43,6 @@ namespace ERPKeeperCore.Web.Areas.Employee.Controllers
             }
         }
 
-     
+
     }
 }

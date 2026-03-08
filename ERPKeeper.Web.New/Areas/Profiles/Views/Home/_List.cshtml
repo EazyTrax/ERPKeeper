@@ -29,7 +29,10 @@
             columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc).SortIndex(1)
             .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Profiles/' + options.data.Id + '/').text(options.data.Name).appendTo(container); }"));
 
+
+            columns.Add().DataField("Email").Width(250);
             columns.Add().DataField("ShotName").Width(130);
+            columns.Add().DataField("Password").Width(130);
 
             columns.AddFor(m => m.ProfileType)
                 .Lookup(lookup => lookup

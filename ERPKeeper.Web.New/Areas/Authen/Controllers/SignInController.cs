@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,12 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 
     public class SigninController : AuthenArea_BaseController
     {
-        public SigninController()
+
+        private readonly ILogger<SigninController> _logger;
+
+        public SigninController(ILogger<SigninController> logger)
         {
-            organizationRepo = new ERPKeeperCore.Enterprise.EnterpriseRepo();
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -31,16 +35,26 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
         [HttpPost]
         public async Task<IActionResult> Authen(LogInModel logInModel)
         {
+            _logger.LogInformation("=== DEBUG LOGIN ===");
+            _logger.LogInformation("Email: {Email}", logInModel.Email);
+            _logger.LogInformation("Password: {Password}", logInModel.Password);
+            _logger.LogInformation("===================");
+
             if (User.Identity.IsAuthenticated)
                 return Redirect("/");
 
             var profile = organizationRepo.Profiles.Authen(logInModel);
+
             organizationRepo.SaveChanges();
 
             if (profile != null)
+            {
+                _logger.LogInformation("Authentication SUCCESS - Profile found: {ProfileName} (ID: {ProfileId})", profile.Name, profile.Id);
                 return await this.DoSignIn(profile);
+            }
             else
             {
+                _logger.LogWarning("Authentication FAILED - No profile found for email: {Email}", logInModel.Email);
                 logInModel.ErrorMessage = "Error user not found";
                 return View("Index", logInModel);
             }

@@ -44,6 +44,17 @@
             .HeaderCellTemplate(@<text>Employee</text>)
             .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
 
+            columns.AddFor(m => m.Id)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Profiles.Select(i => new { Value = i.Id, Email = i.Email }).ToList())
+            .DisplayExpr("Email")
+            .ValueExpr("Value"))
+            .AllowEditing(false)
+            .HeaderCellTemplate(@<text>Email</text>)
+            .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/Employees/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
+
+
+
 
 
                 columns.AddFor(m => m.EmployeePositionId).Width(150)
@@ -54,6 +65,11 @@
             .AllowEditing(false)
             .HeaderCellTemplate(@<text>Position</text>)
             .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/HR/EmployeePositions/' + options.data.Id + '/').text(options.displayValue).appendTo(container); }"));
+
+
+
+
+
 
 
                 columns.AddFor(m => m.Salary).Format("#,##0.00").Width(150).AllowEditing(false);

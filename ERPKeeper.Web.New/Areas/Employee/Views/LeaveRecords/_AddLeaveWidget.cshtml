@@ -13,28 +13,40 @@
     </div>
     <div class="offcanvas-body">
         <form id="addLeaveForm" method="post" action="@Url.Action("Create", "LeaveRecords")">
+
             @Html.AntiForgeryToken()
-            
+
             <div class="mb-3">
                 <label for="leaveType" class="form-label">Leave Type</label>
                 <select class="form-select" id="leaveType" name="Type" required>
                     <option value="">Select Leave Type</option>
                     <option value="0">Sick</option>
-                    <option value="1">Vacation</option>
                     <option value="2">Absent</option>
                 </select>
             </div>
-            
+
+            <div class="mb-3">
+                <label for="leaveAmount" class="form-label">Leave Amount</label>
+                <select class="form-select" id="leaveAmount" name="Amount" required>
+                    <option value="">Select Leave Amount</option>
+                    <option value="0">Full Day</option>
+                    <option value="1">Half Day</option>
+                </select>
+            </div>
+
+
+
+
             <div class="mb-3">
                 <label for="recordDate" class="form-label">Date</label>
                 <input type="date" class="form-control" id="recordDate" name="RecordDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
             </div>
-            
+
             <div class="mb-3">
                 <label for="notes" class="form-label">Notes (Optional)</label>
                 <textarea class="form-control" id="notes" name="Notes" rows="3"></textarea>
             </div>
-            
+
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save me-2"></i>Submit Leave Request

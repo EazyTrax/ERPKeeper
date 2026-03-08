@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -5,6 +6,8 @@ using System;
 namespace ERPKeeperCore.Web.Areas.Setting.Controllers
 {
     [Route("/Setting/EditMode")]
+    [AllowAnonymous]
+    [Authorize]
     public class EditModeController : _SettingBaseController
     {
         [Route("{mode}")]

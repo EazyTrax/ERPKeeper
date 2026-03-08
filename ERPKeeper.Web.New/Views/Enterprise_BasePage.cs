@@ -31,7 +31,7 @@ namespace ERPKeeperCore.Web.Views
                     return host;
                 
                 if (parts[0].StartsWith("localhost"))
-                    parts[0] = "tec";
+                    parts[0] = "bit";
 
                 return parts[0];
             }

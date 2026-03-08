@@ -39,7 +39,7 @@ namespace ERPKeeperCore.Web.API
                 var parts = host.Split('.');
 
                 if (parts[0].StartsWith("localhost"))
-                    parts[0] = "tec";
+                    parts[0] = "bit";
 
                 return parts.Length > 0 ? parts[0] : host;
             }

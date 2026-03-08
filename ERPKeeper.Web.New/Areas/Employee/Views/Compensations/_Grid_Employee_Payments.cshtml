@@ -44,24 +44,26 @@
 
 
 
+                columns.Add()
+            .DataField("EmployeePaymentPeriodName")
+            .Width(130)
+            .HeaderCellTemplate(@<text>Period</text>)
+            .CellTemplate(new JS("function(container, options) { container.append($('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.EmployeePaymentPeriodId + '/').text(options.data.EmployeePaymentPeriodName)); }"));
+
                 columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
+            .Visible(false)
             .Lookup(lookup => lookup
             .DataSource(employeePaymentPeriods.Select(i => new { Value = i.Id, Name = i.Name }).ToList())
             .DisplayExpr("Name")
-            .ValueExpr("Value"))
-            .CalculateSortValue("Name")
-            .HeaderCellTemplate(@<text>Period</text>)
-        .CellTemplate(new JS("function(container, options) { container.append($('<a>').attr('href', '/HR/EmployeePaymentPeriods/' + options.data.EmployeePaymentPeriodId + '/').text(options.text)); }"));
+            .ValueExpr("Value"));
 
 
-                columns.AddFor(m => m.EmployeePaymentPeriodId).Width(130)
+                columns.Add()
+            .DataField("EmployeePaymentPeriodDate")
+            .Width(130)
             .AllowEditing(false)
-    .HeaderCellTemplate(@<text>Date</text>
-    )
-    .Lookup(lookup => lookup
-    .DataSource(employeePaymentPeriods.Select(i => new { Value = i.Id, Date = i.Date }).ToList())
-    .DisplayExpr("Date")
-    .ValueExpr("Value"));
+            .DataType(GridColumnDataType.Date)
+            .HeaderCellTemplate(@<text>Date</text>);
 
         columns.AddFor(m => m.Note);
 

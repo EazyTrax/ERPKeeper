@@ -1,0 +1,27 @@
+@{
+    var totalReceived = Employee?.EmployeePayments?.Sum(x => x.TotalPayment) ?? 0;
+    var thisYearTotal = Employee?.EmployeePayments?.Where(x => x.EmployeePaymentPeriod.Date.Year == DateTime.Now.Year).Sum(x => x.TotalPayment) ?? 0;
+    var paymentsCount = Employee?.EmployeePayments?.Count() ?? 0;
+    var thisYearPaymentsCount = Employee?.EmployeePayments?.Where(x => x.EmployeePaymentPeriod.Date.Year == DateTime.Now.Year).Count() ?? 0;
+}
+
+<!-- Compensation Summary Widget -->
+<div class="bg-white rounded-lg shadow p-4 mb-4">
+    <h3 class="font-bold mb-4 text-lg">Compensation Summary</h3>
+
+    <!-- Total Received -->
+    <div class="mb-4 pb-4 border-b">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm mb-1">Total Received</p>
+                <h4 class="text-xl font-bold text-blue-600">@totalReceived.ToString("N2")</h4>
+                <p class="text-gray-500 text-xs mt-1">@paymentsCount payment(s)</p>
+            </div>
+            <div class="text-blue-500">
+                <i class="fas fa-wallet fa-2x"></i>
+            </div>
+        </div>
+    </div>
+
+
+</div>

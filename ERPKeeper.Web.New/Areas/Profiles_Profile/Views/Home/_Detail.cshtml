@@ -5,6 +5,7 @@
         Profile.Name,
         Profile.ShotName,
         Profile.TaxNumber,
+        Profile.Email,
         Profile.WebSite,
         Profile.PhoneNumber,
         Profile.IsSelfOrganization
@@ -44,8 +45,9 @@
                                         .ReadOnly(false)
                                         .ShowColonAfterLabel(true)
                                         .ColCount(1)
-                                        .Items(items =>
+                        .Items(items =>
                                         {
+                                            items.AddSimpleFor(m => m.Email);
                                             items.AddSimpleFor(m => m.WebSite);
                                             items.AddSimpleFor(m => m.PhoneNumber);
                                             items.AddSimpleFor(m => m.Note).Editor(e => e.TextArea().MinHeight(100));

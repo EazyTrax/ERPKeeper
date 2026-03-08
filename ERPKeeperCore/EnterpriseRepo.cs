@@ -96,7 +96,7 @@ namespace ERPKeeperCore.Enterprise
             }
         }
 
-        public EnterpriseRepo(string dbName = "tec", bool useLazyLoading = false)
+        public EnterpriseRepo(string dbName, bool useLazyLoading = false)
         {
 
             if (dbName == "localhost")

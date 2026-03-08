@@ -95,7 +95,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
                     return Redirect($"/Suppliers/Suppliers/{Profile.Id}");
                 case "Employee":
                     Organization.Employees.Add(Profile);
-                    return Redirect($"/HR/Employeess/{Profile.Id}");
+                    return Redirect($"/HR/Employees/{Profile.Id}");
                 case "Investor":
                     Organization.Customers.Add(Profile);
                     return Redirect($"/Investors/Investors/{Profile.Id}");
@@ -114,6 +114,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
             Profile.Name = model.Name;
             Profile.ShotName = model.ShotName;
             Profile.TaxNumber = model.TaxNumber;
+            Profile.Email = model.Email;
             Profile.WebSite = model.WebSite;
             Profile.PhoneNumber = model.PhoneNumber;
 

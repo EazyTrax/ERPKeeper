@@ -6,7 +6,7 @@
 </head>
 <body class="dx-viewport lh-12  h-screen" style="height:100%;">
     <div id="GlobalContainer">
-        <div class="flex bg-gray-300 text-white">
+        <div class="flex bg-gray-300">
             <div class="w-60 border flex-shrink-0">
                 <div class="lh-120 text-xl">
                     <partial name="_Header_logo" />
@@ -14,7 +14,10 @@
             </div>
             <div class="grow  pl-2 border ">
                 <div class="flex">
-                    <div class="w-9/12 p-0 ">
+                    <div class="p-2 text-semibold font-semibold text-lg">
+                        @CompanyId.ToUpper() <i class="fa-solid fa-chevron-right text-danger text-sm mx-2"></i>
+                    </div>
+                    <div class="p-0">
                         <partial name="_MenuTop" />
                     </div>
                     <div class="w-3/12 p-2">

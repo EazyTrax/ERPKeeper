@@ -36,22 +36,22 @@ namespace ERPKeeperCore.Enterprise.DAL
 
         public Profile? Authen(LogInModel logInModel)
         {
-            if (logInModel.Password == null)
-                return null;
+            //if (logInModel.Password == null)
+            //    return null;
+
+       
 
             var profile = erpNodeDBContext.Profiles
-                .FirstOrDefault(x => x.Email == logInModel.Email
+                .FirstOrDefault(x => (x.Email == logInModel.Email || x.TaxNumber == logInModel.Email)
                 && x.Password != null
                 && x.Password == logInModel.Password);
 
             if (profile != null)
                 return profile;
 
-            profile = erpNodeDBContext.Profiles.FirstOrDefault(x => x.TaxNumber == logInModel.Email
+            profile = erpNodeDBContext.Profiles.FirstOrDefault(x => (x.Email == logInModel.Email || x.TaxNumber == logInModel.Email)
                 && x.Password == null);
 
-            if (profile != null) 
-                profile.Password = "P@ssw0rd@1";
 
             return profile;
         }

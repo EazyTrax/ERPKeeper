@@ -19,7 +19,29 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
     [AllowAnonymous]
     public class AuthenArea_BaseController : Controller
     {
-        protected EnterpriseRepo organizationRepo;
+        private EnterpriseRepo _organizationRepo;
+        protected EnterpriseRepo organizationRepo
+        {
+            get
+            {
+                if (_organizationRepo == null)
+                    _organizationRepo = new EnterpriseRepo(CompanyId);
+                return _organizationRepo;
+            }
+        }
+        
+        public String CompanyId
+        {
+            get
+            {
+                var host = HttpContext.Request.Host.Host;
+                var parts = host.Split('.');
 
+                if (parts[0].StartsWith("localhost"))
+                    parts[0] = "bit";
+
+                return parts.Length > 0 ? parts[0] : host;
+            }
+        }
     }
 }

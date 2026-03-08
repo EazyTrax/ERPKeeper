@@ -10,7 +10,7 @@ using ERPKeeperCore.Web.Controllers;
 namespace ERPKeeperCore.Web.Areas.Employee.Controllers
 {
     [Area("Employee")]
-    [Authorize(Roles = "Accountant,Administrator")]
+    [Authorize(Roles = "Employee")]
     [Route("/Employee/{Controller=Home}/{Action=Index}")]
     public class EmployeeBaseController : _EmployeeRole_BaseController
     {
