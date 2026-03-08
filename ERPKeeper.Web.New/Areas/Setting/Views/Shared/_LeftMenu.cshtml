@@ -1,17 +1,8 @@
 @using ERPKeeperCore.Web.Resources
 @inject LocalizeService SharedLocalizer
 
-
 <div class="lh-120 px-2  rounded border">
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "/Employee/Home" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Profile", Url = "/Employee/Profile" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Compensations", Url = "/Employee/Compensations" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Benefits", Url = "/Employee/Benefits" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Leave", Url = "/Employee/Leave" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Time Tracking", Url = "/Employee/TimeTracking" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Performance", Url = "/Employee/Performance" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Developments", Url = "/Employee/Developments" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Documents", Url = "/Employee/Documents" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Employee/Assets" })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Settings", Url = "/Employee/Setting" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Home", Url = "/Setting/Home" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Localize", Url = "/Setting/Localize" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Password", Url = "/Setting/Password" })
 </div>

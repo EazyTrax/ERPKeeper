@@ -33,7 +33,6 @@ namespace ERPKeeperCore.Enterprise
 
         public AssetDeprecateSchedules AssetDeprecateSchedules;
         public ObsoleteAssets ObsoleteAssets;
-        private Members _Members;
         private Items _Items;
 
 
@@ -214,15 +213,7 @@ namespace ERPKeeperCore.Enterprise
         }
 
 
-        public Members Members
-        {
-            get
-            {
-                if (_Members == null)
-                    _Members = new Members(this);
-                return _Members;
-            }
-        }
+   
 
 
         public Items Items

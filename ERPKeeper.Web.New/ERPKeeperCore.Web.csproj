@@ -11,6 +11,7 @@
     <Content Remove="Areas\Employee\Views\Benefits\_MenuTop.cshtml" />
     <Content Remove="Areas\Employee\Views\Compensations\_MenuTop.cshtml" />
     <Content Remove="Areas\Employee\Views\LeaveRecords\_MenuTop.cshtml" />
+    <Content Remove="Areas\Setting\Views\Password\_MenuTop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\Less\DevExtremeFix.less" />
@@ -61,6 +62,7 @@
     <None Include="Areas\Employee\Views\Home\_Navigation.cshtml" />
     <None Include="Areas\Employee\Views\_ViewImports.cshtml" />
     <None Include="Areas\Employee\Views\_ViewStart.cshtml" />
+    <None Include="Areas\Setting\Views\Password\_MenuTop.cshtml" />
     <None Include="Areas\Setting\Views\_ViewImports.cshtml" />
     <None Include="Areas\Setting\Views\_ViewStart.cshtml" />
     <None Include="compilerconfig.json" />

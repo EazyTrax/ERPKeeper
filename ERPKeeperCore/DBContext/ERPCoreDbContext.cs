@@ -186,7 +186,7 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<IncomeTax> IncomeTaxes { get; set; }
         #endregion
 
-        public DbSet<Models.Security.Member> Members { get; set; }
+
         public DbSet<Models.Setting.MemoTemplate> MemoTemplates { get; set; }
         public DbSet<Models.Storage.Document> Documents { get; set; }
         public DbSet<Models.Storage.NoteItem> NoteItems { get; set; }

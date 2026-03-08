@@ -1,0 +1,86 @@
+@{
+    ViewData["Title"] = "Localization Settings";
+}
+
+<div id="MainContent" class="flex mh-100vh">
+    <div class="flex-1 col-center pl-4">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-6">
+                <i class="fa-solid fa-language mr-2"></i>
+                Language Settings
+            </h2>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6" role="alert">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-circle-check text-green-500 mr-3"></i>
+                        <p class="text-green-700">@TempData["SuccessMessage"]</p>
+                    </div>
+                </div>
+            }
+
+            <p class="text-gray-600 mb-6">Select your preferred language for the application interface.</p>
+
+            @{
+                var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+                var defaultCultures = new List<System.Globalization.CultureInfo>()
+                {
+                    new System.Globalization.CultureInfo("th-TH"),
+                    new System.Globalization.CultureInfo("en-US"),
+                };
+
+                System.Globalization.CultureInfo[] cinfo = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.AllCultures);
+                var availableCultures = cinfo.Where(x => defaultCultures.Contains(x)).ToList();
+            }
+
+            <div class="space-y-3">
+                @foreach (var culture in availableCultures)
+                {
+                    var isActive = currentCulture == culture.Name;
+                    <a href="@Url.Action("Update", "Localize", new { culture = culture.Name })" 
+                       class="block p-4 border-2 rounded-lg transition-all @(isActive ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-blue-300 hover:bg-gray-50")">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-globe text-2xl @(isActive ? "text-blue-600" : "text-gray-500")"></i>
+                                <div>
+                                    <div class="text-lg font-semibold @(isActive ? "text-blue-700" : "text-gray-800")">
+                                        @culture.DisplayName
+                                    </div>
+                                    <div class="text-sm text-gray-500">
+                                        @culture.NativeName
+                                    </div>
+                                </div>
+                            </div>
+                            @if (isActive)
+                            {
+                                <div class="flex items-center gap-2 text-blue-600">
+                                    <i class="fa-solid fa-circle-check text-xl"></i>
+                                    <span class="font-semibold">Active</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-gray-400">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                            }
+                        </div>
+                    </a>
+                }
+            </div>
+
+            <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
+                    <div class="text-sm text-blue-700">
+                        <p class="font-semibold mb-1">Note:</p>
+                        <p>Changing the language will affect all text displayed in the application interface. The setting will be saved in your browser.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-3/12 col-right">
+    </div>
+</div>

@@ -12,17 +12,22 @@
                     <partial name="_Header_logo" />
                 </div>
             </div>
-            <div class="grow  pl-2 border ">
+            <div class="flex justify-between grow pl-2 border ">
+
                 <div class="flex">
+
+
                     <div class="p-2 text-semibold font-semibold text-lg">
                         @CompanyId.ToUpper() <i class="fa-solid fa-chevron-right text-danger text-sm mx-2"></i>
                     </div>
                     <div class="p-0">
                         <partial name="_MenuTop" />
                     </div>
-                    <div class="w-3/12 p-2">
-                        <partial name="_DropMenu" />
-                    </div>
+                </div>
+
+
+                <div class="w-3/12 p-2">
+                    <partial name="_DropMenu" />
                 </div>
             </div>
         </div>
@@ -37,5 +42,6 @@
             </div>
         </div>
     </div>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -6,20 +6,25 @@ using System.Linq;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using ERPKeeperCore.Web.Areas.Employee.Controllers;
 
 namespace ERPKeeperCore.Web.Areas.Setting.Controllers
 {
-    [Route("/Setting/{Controller}/{Action}")]
-    public class LocalizeController : EmployeeBaseController
+    public class LocalizeController : _SettingBaseController
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult Update(string culture)
         {
-            //var coreRepo = new EazyTrax.Core.DataAccess.CoreRepository();
-            //var coreUser = coreRepo.Users.Find(AuthorizeUserId);
-
-            //coreUser.Lanugage = culture;
-            //coreRepo.SaveChanges();
+            var profile = _dbContext.Profiles.Find(AuthorizeUserId);
+            if (profile != null)
+            {
+                // You could save user preference to database if needed
+                // member.Language = culture;
+                // _dbContext.SaveChanges();
+            }
 
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
