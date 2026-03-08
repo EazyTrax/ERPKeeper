@@ -169,6 +169,8 @@ namespace ERPKeeperCore.Enterprise.DBContext
         #region Employement
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeLeaveRecord> LeaveRecords { get; set; }
+        public DbSet<EmployeeWorkRecord> WorkRecords { get; set; }
+        public DbSet<EmployeeCertificateAndLicense> CertificatesAndLicenses { get; set; }
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
         public DbSet<EmployeePayment> EmployeePayments { get; set; }
         public DbSet<EmployeePaymentItem> EmployeePaymentItems { get; set; }
