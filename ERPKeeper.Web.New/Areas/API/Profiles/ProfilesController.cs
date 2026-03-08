@@ -14,7 +14,8 @@ namespace ERPKeeperCore.Web.API.Profiles
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.Profiles
+            var returnModel = Organization.ErpCOREDBContext
+                .Profiles
                 .ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);

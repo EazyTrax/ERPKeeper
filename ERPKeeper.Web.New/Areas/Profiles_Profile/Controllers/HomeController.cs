@@ -14,7 +14,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
     [Route("/Profiles/{ProfileUid:Guid}/{action=Index}")]
     public class HomeController : Profiles_Profile_BaseController
     {
-       
+
         public IActionResult Index()
         {
 
@@ -32,7 +32,7 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
         }
         public IActionResult Roles()
         {
-     
+
             return View();
         }
 
@@ -116,7 +116,15 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
             Profile.TaxNumber = model.TaxNumber;
             Profile.WebSite = model.WebSite;
             Profile.PhoneNumber = model.PhoneNumber;
-            Profile.IsSelfOrganization = model.IsSelfOrganization;
+
+            if (Profile.ProfileType == Enterprise.Models.ProfileType.Organization)
+                Profile.IsSelfOrganization = model.IsSelfOrganization;
+            else
+            {
+                Profile.IsAccountant = model.IsAccountant;
+                Profile.IsAdministrator = model.IsAdministrator;
+                Profile.IsEmployee = model.IsEmployee;
+            }
 
             Organization.SaveChanges();
 

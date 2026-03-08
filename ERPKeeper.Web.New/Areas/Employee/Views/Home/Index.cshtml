@@ -2,13 +2,166 @@
 
 
 
+@{
+    var leaveBalance = Employee?.EmployeeLeaveRecords?.Where(x => x.RecordDate.Year == DateTime.Now.Year).Count() ?? 0;
+    var pendingLeaves = Employee?.EmployeeLeaveRecords?.Where(x => x.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Pending).Count() ?? 0;
+    var approvedLeaves = Employee?.EmployeeLeaveRecords?.Where(x => x.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Approved && x.RecordDate.Year == DateTime.Now.Year).Count() ?? 0;
+}
+
 <div id="MainContent" class="flex mh-100vh">
     <div class="w-2/12 col-left border-right pl-0">
- er
+        @await Html.PartialAsync("_LeftMenu")
     </div>
     <div class="col col-center pl-0">
+        <div class="p-4">
+            <!-- Welcome Section -->
+            <div class="mb-4">
+                <h1 class="text-2xl font-bold mb-2">Welcome, @Employee.Profile.Name</h1>
+                <p class="text-gray-600">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</p>
+            </div>
+
+            <!-- Quick Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white rounded-lg shadow p-4 border-l-4 border-blue-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Leave Taken This Year</p>
+                            <h3 class="text-2xl font-bold text-blue-600">@approvedLeaves</h3>
+                        </div>
+                        <div class="text-blue-500">
+                            <i class="fas fa-calendar-check fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4 border-l-4 border-yellow-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Pending Requests</p>
+                            <h3 class="text-2xl font-bold text-yellow-600">@pendingLeaves</h3>
+                        </div>
+                        <div class="text-yellow-500">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4 border-l-4 border-green-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm">Total Leave Records</p>
+                            <h3 class="text-2xl font-bold text-green-600">@leaveBalance</h3>
+                        </div>
+                        <div class="text-green-500">
+                            <i class="fas fa-list fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities Section -->
+            <div class="bg-white rounded-lg shadow p-4 mb-6">
+                <h2 class="text-xl font-bold mb-4">Recent Leave Records</h2>
+                @if (Employee?.EmployeeLeaveRecords?.Any() == true)
+                {
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach (var record in Employee.EmployeeLeaveRecords.OrderByDescending(x => x.RecordDate).Take(5))
+                                {
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap">@record.RecordDate.ToString("MMM dd, yyyy")</td>
+                                        <td class="px-4 py-2">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                @(record.Type == ERPKeeperCore.Enterprise.Models.Employees.LeaveType.Sick ? "bg-red-100 text-red-800" : 
+                                                  record.Type == ERPKeeperCore.Enterprise.Models.Employees.LeaveType.Vacation ? "bg-blue-100 text-blue-800" : 
+                                                  "bg-gray-100 text-gray-800")">
+                                                @record.Type
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                @(record.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Approved ? "bg-green-100 text-green-800" : 
+                                                  record.Status == ERPKeeperCore.Enterprise.Models.Employees.LeaveAttendanceStatus.Pending ? "bg-yellow-100 text-yellow-800" : 
+                                                  "bg-red-100 text-red-800")">
+                                                @record.Status
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-2 text-sm text-gray-600">@(record.Notes ?? "-")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <a href="@Url.Action("Index", "LeaveRecords")" class="text-blue-600 hover:text-blue-800 font-medium">
+                            View All Leave Records ?
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-gray-500 text-center py-4">No leave records found.</p>
+                }
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="@Url.Action("Index", "LeaveRecords")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fas fa-calendar-alt fa-2x text-blue-500 mb-2"></i>
+                        <span class="text-sm font-medium">Leave Records</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Compensations")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fas fa-money-bill-wave fa-2x text-green-500 mb-2"></i>
+                        <span class="text-sm font-medium">Compensations</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Documents")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fas fa-file-alt fa-2x text-purple-500 mb-2"></i>
+                        <span class="text-sm font-medium">Documents</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Performance")" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fas fa-chart-line fa-2x text-orange-500 mb-2"></i>
+                        <span class="text-sm font-medium">Performance</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-300px col-right">
+        <div class="p-4">
+            <!-- Profile Summary -->
+            <div class="bg-white rounded-lg shadow p-4 mb-4">
+                <h3 class="font-bold mb-3">Profile</h3>
+                <div class="text-center mb-3">
+                    <div class="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <i class="fas fa-user fa-3x text-gray-600"></i>
+                    </div>
+                    <h4 class="font-semibold">@Employee.Profile.Name</h4>
+                </div>
+            </div>
+
+            <!-- Announcements -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-3">Announcements</h3>
+                <div class="space-y-2">
+                    <div class="text-sm text-gray-600 border-b pb-2">
+                        <p class="font-medium text-gray-800">Welcome to Employee Portal</p>
+                        <p class="text-xs text-gray-500">@DateTime.Now.ToString("MMM dd")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 

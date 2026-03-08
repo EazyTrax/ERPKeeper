@@ -4,6 +4,7 @@ using ERPKeeperCore.Enterprise.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPKeeperCore.Enterprise.Migrations
 {
     [DbContext(typeof(ERPCoreDbContext))]
-    partial class ERPCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260308030728_DB-2026.03.08.02")]
+    partial class DB2026030802
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1162,7 +1165,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.ToTable("EmployeeBenefits");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeLeaveRecord", b =>
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeDailyRecord", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1187,7 +1190,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("LeaveRecords");
+                    b.ToTable("EmployeeDailyRecords");
                 });
 
             modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeePayment", b =>
@@ -3602,7 +3605,7 @@ namespace ERPKeeperCore.Enterprise.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeLeaveRecord", b =>
+            modelBuilder.Entity("ERPKeeperCore.Enterprise.Models.Employees.EmployeeDailyRecord", b =>
                 {
                     b.HasOne("ERPKeeperCore.Enterprise.Models.Employees.Employee", "Employee")
                         .WithMany("DailyRecords")

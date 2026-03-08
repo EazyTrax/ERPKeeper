@@ -164,22 +164,17 @@ namespace ERPKeeperCore.Enterprise.DBContext
 
 
         #region Employement
-
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<EmployeeDailyRecord> EmployeeDailyRecords { get; set; }
+        public DbSet<EmployeeLeaveRecord> LeaveRecords { get; set; }
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
         public DbSet<EmployeePayment> EmployeePayments { get; set; }
         public DbSet<EmployeePaymentItem> EmployeePaymentItems { get; set; }
         public DbSet<EmployeePaymentPeriod> EmployeePaymentPeriods { get; set; }
         public DbSet<EmployeePaymentType> EmployeePaymentTypes { get; set; }
-
         public DbSet<Models.Employees.EmployeeBenefit> EmployeeBenefits { get; set; }
-
+        public DbSet<Models.Employees.EmployeeCompensation> EmployeeCompensations { get; set; }
 
         #endregion
-
-
-
 
 
         #region Taxes
@@ -188,28 +183,11 @@ namespace ERPKeeperCore.Enterprise.DBContext
         public DbSet<IncomeTax> IncomeTaxes { get; set; }
         #endregion
 
-
-
         public DbSet<Models.Security.Member> Members { get; set; }
-
         public DbSet<Models.Setting.MemoTemplate> MemoTemplates { get; set; }
-
-
-
         public DbSet<Models.Storage.Document> Documents { get; set; }
         public DbSet<Models.Storage.NoteItem> NoteItems { get; set; }
-
-
-
-
         public DbSet<Models.Logistic.Shipment> Shipments { get; set; }
-
-
-
         public DbSet<Models.Logistic.LogisticProvider> LogisticProviders { get; set; }
-
-
     }
-
-
 }

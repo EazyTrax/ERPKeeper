@@ -18,7 +18,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
     {
         public object All(DataSourceLoadOptions loadOptions)
         {
-            var returnModel = Organization.ErpCOREDBContext.EmployeeDailyRecords
+            var returnModel = Organization.ErpCOREDBContext.LeaveRecords
                 .Where(a => a.EmployeeId == EmployeeId)
                 .OrderByDescending(a => a.RecordDate)
                 .ToList();
@@ -29,7 +29,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
         [HttpPost]
         public IActionResult Insert(string values)
         {
-            var model = new Enterprise.Models.Employees.EmployeeDailyRecord();
+            var model = new Enterprise.Models.Employees.EmployeeLeaveRecord();
             JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
 
             model.Id = Guid.NewGuid();
@@ -37,13 +37,13 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
             
             // Set default type to WorkNormal if not specified
             if (model.Type == 0)
-                model.Type = Enterprise.Models.Employees.AttendanceType.WorkNormal;
+                model.Type = Enterprise.Models.Employees.LeaveType.Absent;
             
             // Set default status to Approved if not specified
             if (model.Status == 0)
-                model.Status = Enterprise.Models.Employees.AttendanceStatus.Approved;
+                model.Status = Enterprise.Models.Employees.LeaveAttendanceStatus.Approved;
 
-            Organization.ErpCOREDBContext.EmployeeDailyRecords.Add(model);
+            Organization.ErpCOREDBContext.LeaveRecords.Add(model);
             Organization.ErpCOREDBContext.SaveChanges();
 
             return Ok();
@@ -52,7 +52,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
         [HttpPost]
         public IActionResult Update(Guid key, string values)
         {
-            var model = Organization.ErpCOREDBContext.EmployeeDailyRecords
+            var model = Organization.ErpCOREDBContext.LeaveRecords
                 .First(a => a.Id == key);
 
             JsonConvert.PopulateObject(values, model, DefaultAPIJsonSerializerSettings);
@@ -63,9 +63,9 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
         [HttpPost]
         public void Delete(Guid key)
         {
-            var model = Organization.ErpCOREDBContext.EmployeeDailyRecords
+            var model = Organization.ErpCOREDBContext.LeaveRecords
                 .First(a => a.Id == key);
-            Organization.ErpCOREDBContext.EmployeeDailyRecords
+            Organization.ErpCOREDBContext.LeaveRecords
                 .Remove(model);
             Organization.ErpCOREDBContext.SaveChanges();
         }
@@ -76,7 +76,7 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
         [HttpPost]
         public IActionResult GenerateAttendance(DateTime startDate, DateTime endDate)
         {
-            var existingDates = Organization.ErpCOREDBContext.EmployeeDailyRecords
+            var existingDates = Organization.ErpCOREDBContext.LeaveRecords
                 .Where(a => a.EmployeeId == EmployeeId && a.RecordDate >= startDate && a.RecordDate <= endDate)
                 .Select(a => a.RecordDate.Date)
                 .ToList();
@@ -88,18 +88,16 @@ namespace ERPKeeperCore.Web.Areas.API.HR.Employee
             {
                 if (!existingDates.Contains(currentDate))
                 {
-                    var attendance = new Enterprise.Models.Employees.EmployeeDailyRecord
+                    var attendance = new Enterprise.Models.Employees.EmployeeLeaveRecord
                     {
                         Id = Guid.NewGuid(),
                         EmployeeId = EmployeeId,
                         RecordDate = currentDate,
-                        Type = currentDate.DayOfWeek == DayOfWeek.Saturday || currentDate.DayOfWeek == DayOfWeek.Sunday
-                            ? Enterprise.Models.Employees.AttendanceType.Holiday
-                            : Enterprise.Models.Employees.AttendanceType.WorkNormal,
-                        Status = Enterprise.Models.Employees.AttendanceStatus.Approved
+                        Type = Enterprise.Models.Employees.LeaveType.Absent,
+                        Status = Enterprise.Models.Employees.LeaveAttendanceStatus.Approved
                     };
 
-                    Organization.ErpCOREDBContext.EmployeeDailyRecords.Add(attendance);
+                    Organization.ErpCOREDBContext.LeaveRecords.Add(attendance);
                     addedCount++;
                 }
 

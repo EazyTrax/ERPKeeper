@@ -1,4 +1,3 @@
-
 @{
     var profile = new
     {
@@ -19,57 +18,81 @@
             <div class="">
                 <div class="p-2 bg-gray-100 rouned mb-2">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
-                        .ID("form_0")
-                        .FormData(profile)
-                        .LabelMode(FormLabelMode.Static)
-                        .LabelLocation(FormLabelLocation.Left)
-                        .MinColWidth(300)
-                        .ReadOnly(false)
-                        .ShowColonAfterLabel(true)
-                        .ColCount(1)
-                        .Items(items =>
-                        {
-                            items.AddSimpleFor(m => m.Name);
-                            items.AddSimpleFor(m => m.ShotName);
-                            items.AddSimpleFor(m => m.TaxNumber);
-                        })
-                        )
+                                        .ID("form_0")
+                                        .FormData(profile)
+                                        .LabelMode(FormLabelMode.Static)
+                                        .LabelLocation(FormLabelLocation.Left)
+                                        .MinColWidth(300)
+                                        .ReadOnly(false)
+                                        .ShowColonAfterLabel(true)
+                                        .ColCount(1)
+                                        .Items(items =>
+                                        {
+                                            items.AddSimpleFor(m => m.Name);
+                                            items.AddSimpleFor(m => m.ShotName);
+                                            items.AddSimpleFor(m => m.TaxNumber);
+                                        })
+                                        )
                 </div>
                 <div class="p-2 bg-gray-100 rouned">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
-                        .ID("form_1")
-                        .FormData(profile)
-                        .LabelMode(FormLabelMode.Static)
-                        .LabelLocation(FormLabelLocation.Left)
-                        .MinColWidth(300)
-                        .ReadOnly(false)
-                        .ShowColonAfterLabel(true)
-                        .ColCount(1)
-                        .Items(items =>
-                        {
-                            items.AddSimpleFor(m => m.WebSite);
-                            items.AddSimpleFor(m => m.PhoneNumber);
-                            items.AddSimpleFor(m => m.Note).Editor(e => e.TextArea().MinHeight(100));
-                        })
-                        )
+                                        .ID("form_1")
+                                        .FormData(profile)
+                                        .LabelMode(FormLabelMode.Static)
+                                        .LabelLocation(FormLabelLocation.Left)
+                                        .MinColWidth(300)
+                                        .ReadOnly(false)
+                                        .ShowColonAfterLabel(true)
+                                        .ColCount(1)
+                                        .Items(items =>
+                                        {
+                                            items.AddSimpleFor(m => m.WebSite);
+                                            items.AddSimpleFor(m => m.PhoneNumber);
+                                            items.AddSimpleFor(m => m.Note).Editor(e => e.TextArea().MinHeight(100));
+                                        })
+                                        )
                 </div>
             </div>
-            <div class="">
+            <div class="p-2 bg-gray-200 rounded-lg">
 
-                @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
-                    .ID("form_1")
-                    .FormData(profile)
-                    .LabelMode(FormLabelMode.Static)
-                    .LabelLocation(FormLabelLocation.Left)
-                    .MinColWidth(300)
-                    .ReadOnly(false)
-                    .ShowColonAfterLabel(true)
-                    .ColCount(1)
-                    .Items(items =>
-                    {
-                        items.AddSimpleFor(m => m.IsSelfOrganization);
-                    })
-                    )
+                @if (Profile.ProfileType == ERPKeeperCore.Enterprise.Models.ProfileType.Organization)
+                {
+                    @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
+                                    .ID("form_1")
+                                    .FormData(profile)
+                                    .LabelMode(FormLabelMode.Static)
+                                    .LabelLocation(FormLabelLocation.Left)
+                                    .MinColWidth(300)
+                                    .ReadOnly(false)
+                                    .ShowColonAfterLabel(true)
+                                    .ColCount(1)
+                                    .Items(items =>
+                                    {
+                                        items.AddSimpleFor(m => m.IsSelfOrganization);
+                                    })
+                                    )
+                }
+                else
+                {
+                    @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
+                                    .ID("form_2")
+                                    .FormData(profile)
+                                    .LabelMode(FormLabelMode.Static)
+                                    .LabelLocation(FormLabelLocation.Left)
+                                    .MinColWidth(300)
+                                    .ReadOnly(false)
+                                    .ShowColonAfterLabel(true)
+                                    .ColCount(1)
+                                    .Items(items =>
+                                    {
+                                        items.AddSimpleFor(m => m.IsAccountant);
+                                        items.AddSimpleFor(m => m.IsAdministrator);
+                                        items.AddSimpleFor(m => m.IsEmployee);
+                                    })
+                                    )
+                }
+
+
 
             </div>
             <div class="col-span-2 text-right">

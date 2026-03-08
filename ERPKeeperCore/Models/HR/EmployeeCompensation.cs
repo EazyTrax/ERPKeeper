@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERPKeeperCore.Enterprise.Models.Employees
 {
-    public enum BenefitType
+    public enum EmployeeCompensationPeriod
     {
-        HealthInsurance,
-        RetirementPlan,
-        PaidTimeOff,
-        Other
+        Monthly = 0,
+        Daily = 1,
+        Weekly = 2,
+        HalfMont = 3
     }
-    public class EmployeeBenefit
+    public class EmployeeCompensation
     {
         [Key]
         public Guid Id { get; set; }
@@ -19,10 +19,11 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
         [ForeignKey("EmployeeId")]
         public virtual Employees.Employee Employee { get; set; }
 
-        public String Description { get; set; }
+        public EmployeeCompensationPeriod Period { get; set; }
+
         public Decimal Amount { get; set; }
+
+
     }
-
-
 
 }

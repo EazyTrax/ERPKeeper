@@ -16,7 +16,7 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
         public Guid Id { get; set; }
         public ProfileType ProfileType { get; set; }
         public ProfileStatus Status { get; set; }
-
+        public bool IsAccountant { get; set; } = false;
 
         public bool IsSelfOrganization { get; set; } = false;
         public bool IsRDVerify { get; set; }
@@ -51,6 +51,8 @@ namespace ERPKeeperCore.Enterprise.Models.Profiles
         public virtual Employees.Employee Employee { get; set; }
         public virtual Investors.Investor Investor { get; set; }
         public string? Password { get;  set; }
+        public bool IsEmployee { get; set; }
+        public bool IsAdministrator { get; set; }
 
         public Profile()
         {

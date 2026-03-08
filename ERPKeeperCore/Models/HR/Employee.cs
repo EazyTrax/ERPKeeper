@@ -1,4 +1,5 @@
-﻿using ERPKeeperCore.Enterprise.Models.Customers.Enums;
+﻿using ERPKeeperCore.Enterprise.DAL.Employees;
+using ERPKeeperCore.Enterprise.Models.Customers.Enums;
 using ERPKeeperCore.Enterprise.Models.Employees.Enums;
 using ERPKeeperCore.Enterprise.Models.Enums;
 using ERPKeeperCore.Enterprise.Models.Taxes;
@@ -38,9 +39,12 @@ namespace ERPKeeperCore.Enterprise.Models.Employees
 
 
         public virtual ICollection<EmployeePayment> Payments { get; set; }
-        public virtual ICollection<EmployeeDailyRecord> DailyRecords { get; set; }
+        public virtual ICollection<EmployeeLeaveRecord> EmployeeLeaveRecords { get; set; }
 
+        public virtual ICollection<EmployeePositions> EmployeePositions { get; set; }
+        public virtual ICollection<EmployeeBenefit> EmployeeBenefits { get; set; }
 
+        public virtual ICollection<EmployeeCompensation> EmployeeCompensations { get; set; }
 
 
 

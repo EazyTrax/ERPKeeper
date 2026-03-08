@@ -34,9 +34,7 @@ namespace ERPKeeperCore.CMD
                 var newOrganization = new ERPKeeperCore.Enterprise.EnterpriseRepo(enterpriseDB, true);
                 newOrganization.ErpCOREDBContext.Database.Migrate();
 
-
                 //newOrganization.Sales.Post_Ledgers();
-
                 //if (true && newOrganization != null)
                 //{
                 //    newOrganization.Transactions.Clear_EmptyLedgers();
@@ -46,21 +44,12 @@ namespace ERPKeeperCore.CMD
                 //    newOrganization.FiscalYears.Update_AllYearsAccountsBalance();
                 //    newOrganization.ErpCOREDBContext.SaveChanges();
                 //}
-
-              //  GeneralOperations(newOrganization);
+                // GeneralOperations(newOrganization);
             }
 
             static void GeneralOperations(EnterpriseRepo newOrganization)
             {
-
-
-                newOrganization.ErpCOREDBContext.Sales.OrderBy(x => x.Date)
-                    .ToList()
-                    .ForEach(x =>
-                    {
-                        x.UpdateName();
-                        Console.WriteLine($">{x.No} {x.Name}");
-                    });
+                newOrganization.ErpCOREDBContext.RemoveRange(newOrganization.ErpCOREDBContext.LeaveRecords);
                 newOrganization.SaveChanges();
 
                 // UpdateCurrentBalance(newOrganization);

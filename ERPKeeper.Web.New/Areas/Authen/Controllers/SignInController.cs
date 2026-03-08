@@ -25,7 +25,6 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
 
         public IActionResult Index()
         {
-
             return View(new LogInModel());
         }
 
@@ -53,9 +52,15 @@ namespace ERPKeeperCore.Web.Areas.Authen.Controllers
             {
                 new Claim(ClaimTypes.Name,  profile.Name),
                 new Claim(ClaimTypes.Email, profile.Email),
-                new Claim(ClaimTypes.NameIdentifier,profile.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier,profile.Id.ToString()),
             };
 
+            if (profile.IsAccountant)
+                claims.Add(new Claim(ClaimTypes.Role, "Accountant"));
+            if (profile.IsAdministrator)
+                claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+            if (profile.IsEmployee)
+                claims.Add(new Claim(ClaimTypes.Role, "Employee"));
 
 
             var modelIdentity = new ClaimsIdentity(claims, "Login");
