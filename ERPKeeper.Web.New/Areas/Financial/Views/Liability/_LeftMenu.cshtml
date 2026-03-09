@@ -6,20 +6,6 @@
         var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
         return currentControllerName == controllerName;
     }
-
-    void Template(string display, string url, int? count = null)
-    {
-        <div class="flex  justify-between e pl-0 @(checkCurrentController(url) ? "font-weight-600" : "")">
-            <div class="">
-                <a href="@url">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
 }
 
 <div class="lh-120">
@@ -30,10 +16,7 @@
     <a href="/Financial/Liabilities">Liabilities</a>: @Model.Name
 </div>
 <div class="lh-120">
-    @{
-        Template("Home", $"/Financial/Liabilities/{Model.Id}", Organization.FundTransfers.Count());
-        Template("Balances", $"/Financial/Liabilities/{Model.Id}/Balances");
-        Template("Payments", $"/Financial/Liabilities/{Model.Id}/Payments");
-
-    }
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Home", url = $"/Financial/Liabilities/{Model.Id}", count = Organization.FundTransfers.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Balances", url = $"/Financial/Liabilities/{Model.Id}/Balances" })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Payments", url = $"/Financial/Liabilities/{Model.Id}/Payments" })
 </div>

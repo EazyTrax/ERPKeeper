@@ -1,29 +1,5 @@
 @model ERPKeeperCore.Enterprise.Models.Suppliers.SupplierPayment
 
-
-@{
-    void MenuTemplate(int level, string displayName, string url, int? count = null)
-    {
-        <div>
-            <div class="flex  justify-between e-r">
-                <div class="w-10/12 p-l@(level)">
-                    <a href="@url">
-                        @if (level > 0)
-                        {
-
-                        }
-                        @SharedLocalizer.GetLocalizedHtmlString(displayName)
-                    </a>
-                </div>
-                <div class="w-2/12 text-right p-0">
-                    <span class="menuCount">@count</span>
-                </div>
-            </div>
-        </div>
-    }
-}
-
-
 <div class="lh-120">
     <a href="/Suppliers/Suppliers">Suppliers</a><br />
     <a href="/Suppliers/SupplierPayments">SupplierPayments</a><br />
@@ -31,15 +7,10 @@
 </div>
 
 <div class="lh-120">
-    @{
-        MenuTemplate(0, "Detail", $"/Suppliers/SupplierPayments/{Model.Id}");
-        MenuTemplate(0, $"Purchase: {Model.Purchase.Name}", $"/Suppliers/Purchases/{Model.PurchaseId}");
-        MenuTemplate(0, "Documents", $"/Suppliers/SupplierPayments/{Model.Id}/Documents");
-
-    }
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Detail", Url = $"/Suppliers/SupplierPayments/{Model.Id}" })
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = $"Purchase: {Model.Purchase.Name}", Url = $"/Suppliers/Purchases/{Model.PurchaseId}" })
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Documents", Url = $"/Suppliers/SupplierPayments/{Model.Id}/Documents" })
 </div>
 <div class="lh-120">
-    @{
-        MenuTemplate(0, "Export", $"/Suppliers/SupplierPayments/{Model.Id}/Export");
-    }
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Export", Url = $"/Suppliers/SupplierPayments/{Model.Id}/Export" })
 </div>

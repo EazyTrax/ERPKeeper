@@ -1,25 +1,10 @@
 @model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
 
-
 @{
     bool checkCurrentController(string controllerName)
     {
         var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
         return currentControllerName == controllerName;
-    }
-
-    void Template(string display, string url, int? count = null)
-    {
-        <div class="flex  justify-between e pl-0 @(checkCurrentController(url) ? "font-weight-600" : "")">
-            <div class="">
-                <a href="@url">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
     }
 }
 
@@ -31,12 +16,10 @@
     <a href="/Taxes/TaxPeriods/@Model.Id">@Model.Name</a>
 </div>
 <div class="border p-2 bg-gray-100">
-    @{
-        Template("Home", $"/Taxes/TaxPeriods/{Model.Id}");
-        Template("Sales", $"/Taxes/TaxPeriods/{Model.Id}/Sales", Model.SalesCount);
-        Template("Purchase", $"/Taxes/TaxPeriods/{Model.Id}/Purchases", Model.PurchasesCount);
-        Template("AutoAssign (ThisMonth)", $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign");
-        Template("AutoAssign (PreviusMonth)", $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign?IsHistoryAssign=True");
-        Template("Export", $"/Taxes/TaxPeriods/{Model.Id}/Export", Model.PurchasesCount);
-    }
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Home", url = $"/Taxes/TaxPeriods/{Model.Id}" })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Sales", url = $"/Taxes/TaxPeriods/{Model.Id}/Sales", count = Model.SalesCount })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Purchase", url = $"/Taxes/TaxPeriods/{Model.Id}/Purchases", count = Model.PurchasesCount })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "AutoAssign (ThisMonth)", url = $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign" })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "AutoAssign (PreviusMonth)", url = $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign?IsHistoryAssign=True" })
+    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Export", url = $"/Taxes/TaxPeriods/{Model.Id}/Export", count = Model.PurchasesCount })
 </div>
