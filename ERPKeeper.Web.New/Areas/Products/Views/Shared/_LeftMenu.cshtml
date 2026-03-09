@@ -1,9 +1,9 @@
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Products", Url = "/Products" })
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Brands", Url = "/Products/Brands", Count = Organization.ErpCOREDBContext.Brands.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Items", Url = "/Products/Items", Count = Organization.ErpCOREDBContext.Items.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 3, DisplayName = "Accounts", Url = "/Products/Items/Accounts", Count = Organization.ErpCOREDBContext.Items.Count() })

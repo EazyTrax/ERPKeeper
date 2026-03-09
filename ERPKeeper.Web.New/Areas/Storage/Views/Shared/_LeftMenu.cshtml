@@ -1,7 +1,7 @@
 
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Documents", Url = "/Storage/Documents", Count = Organization.ErpCOREDBContext.Documents.Count() })
 
 </div>

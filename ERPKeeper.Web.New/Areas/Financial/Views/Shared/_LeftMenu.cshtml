@@ -1,44 +1,17 @@
-@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
-
-    void Template(string display, string controller, int? count = null)
-    {
-        <div class="flex  justify-between e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
-            <div class="">
-                <a href="/Financial/@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
-}
-
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/Financial">Financial</a>
+<div class="lh-120">
+       @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Financial", Url = "/Financial" })
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        Template("FundTransfers", "FundTransfers", Organization.FundTransfers.Count());
-        Template("Liabilities", "Liabilities", Organization.ChartOfAccount.LiabilityAccounts.Count());
-        Template("LiabilityPayments", "LiabilityPayments", Organization.ErpCOREDBContext.LiabilityPayments.Count());
-        Template("Lends", "Lends", Organization.ErpCOREDBContext.Lends.Count());
-        Template("Loans", "Loans", Organization.ErpCOREDBContext.Loans.Count());
-
-    }
+<div class="lh-120">
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "FundTransfers", Url = "/Financial/FundTransfers", Count = Organization.FundTransfers.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Liabilities", Url = "/Financial/Liabilities", Count = Organization.ChartOfAccount.LiabilityAccounts.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "LiabilityPayments", Url = "/Financial/LiabilityPayments", Count = Organization.ErpCOREDBContext.LiabilityPayments.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Lends", Url = "/Financial/Lends", Count = Organization.ErpCOREDBContext.Lends.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Loans", Url = "/Financial/Loans", Count = Organization.ErpCOREDBContext.Loans.Count() })
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
-    @{
-        Template("Retention Types", "RetentionTypes", Organization.ErpCOREDBContext.RetentionTypes.Count());
-        Template("Retention Groups", "RetentionGroups");
-        Template("Payment Terms", "PaymentTerms");
-    }
+<div class="lh-120">
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Retention Types", Url = "/Financial/RetentionTypes", Count = Organization.ErpCOREDBContext.RetentionTypes.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Retention Groups", Url = "/Financial/RetentionGroups" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Payment Terms", Url = "/Financial/PaymentTerms" })
 </div>

@@ -1,16 +1,16 @@
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     <a href="/Employees">Employees</a>
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Positions", Url = "/HR/EmployeePositions", Count = Organization.ErpCOREDBContext.EmployeePositions.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employees", Url = "/HR/Employees", Count = Organization.Employees.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Certificate and License", Url = "/HR/CertificatesAndLicenses", Count = Organization.ErpCOREDBContext.CertificateAndLicenses.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Development Course", Url = "/HR/DevelopmentCourses", Count = Organization.ErpCOREDBContext.DevelopmentCourses.Count() })
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     <div class="font-semibold ">
         Payments
     </div>

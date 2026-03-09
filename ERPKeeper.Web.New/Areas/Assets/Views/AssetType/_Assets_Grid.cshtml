@@ -44,21 +44,20 @@
 
 
 
-                    columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>Purchased</text>);
-                    columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
+                    columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(new JS("function(container, options) { container.text('Purchased'); }"));
+                    columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(new JS("function(container, options) { container.text('Remain'); }"));
                     columns.AddFor(m => m.AssetTypeId)
-        .HeaderCellTemplate(@<text>Type</text>)
+        .HeaderCellTemplate(new JS("function(container, options) { container.text('Type'); }"))
         .Lookup(lookup => lookup
         .DataSource(Organization.ErpCOREDBContext.AssetTypes.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
         .DisplayExpr("Text")
         .ValueExpr("Value"))
-        .CellTemplate(@<text><a href="/Assets/AssetTypes/<%= data.AssetTypeId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Assets/AssetTypes/' + options.data.AssetTypeId + '/\">' + options.displayValue + '</a>'); }"));
 
 
-                    columns.AddFor(m=>m.Name).CellTemplate(@<text> <a href="/Assets/Assets/<%= data.Id %>/"><%= data.Name %></a></text>);
-                    columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Value</text>).Format(",##0.00");
-                    columns.AddFor(m => m.Id).AllowEditing(false).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(@<text><i class="fas fa-fingerprint text-danger"></i></text>
-    );
+                    columns.AddFor(m=>m.Name).CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Assets/Assets/' + options.data.Id + '/\">' + options.data.Name + '</a>'); }"));
+                    columns.AddFor(m => m.AssetValue).HeaderCellTemplate(new JS("function(container, options) { container.text('Value'); }")).Format(",##0.00");
+                    columns.AddFor(m => m.Id).AllowEditing(false).Width(30).HeaderCellTemplate(new JS("function(container, options) { container.text(''); }")).CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-danger\"></i>'); }"));
                  
                     @*
             columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup

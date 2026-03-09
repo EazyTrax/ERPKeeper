@@ -1,5 +1,6 @@
 @{
-    var profile = new
+    // Create a clean DTO to avoid circular reference issues with navigation properties
+    var profileDto = new
     {
         Profile.Id,
         Profile.Name,
@@ -8,10 +9,13 @@
         Profile.Email,
         Profile.WebSite,
         Profile.PhoneNumber,
-        Profile.IsSelfOrganization
+        Profile.Note,
+        Profile.IsSelfOrganization,
+        Profile.IsAccountant,
+        Profile.IsAdministrator,
+        Profile.IsEmployee
     };
 }
-
 
 <div class="mb-3 border">
     <form id="EditForm" method="post" action="/Profiles/@Profile.Id/Update">
@@ -20,7 +24,7 @@
                 <div class="p-2 bg-gray-100 rouned mb-2">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                                         .ID("form_0")
-                                        .FormData(profile)
+                                        .FormData(profileDto)
                                         .LabelMode(FormLabelMode.Static)
                                         .LabelLocation(FormLabelLocation.Left)
                                         .MinColWidth(300)
@@ -38,7 +42,7 @@
                 <div class="p-2 bg-gray-100 rouned">
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                                         .ID("form_1")
-                                        .FormData(profile)
+                                        .FormData(profileDto)
                                         .LabelMode(FormLabelMode.Static)
                                         .LabelLocation(FormLabelLocation.Left)
                                         .MinColWidth(300)
@@ -60,8 +64,8 @@
                 @if (Profile.ProfileType == ERPKeeperCore.Enterprise.Models.ProfileType.Organization)
                 {
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
-                                    .ID("form_1")
-                                    .FormData(profile)
+                                    .ID("form_org")
+                                    .FormData(profileDto)
                                     .LabelMode(FormLabelMode.Static)
                                     .LabelLocation(FormLabelLocation.Left)
                                     .MinColWidth(300)
@@ -78,7 +82,7 @@
                 {
                     @(Html.DevExtreme().Form<ERPKeeperCore.Enterprise.Models.Profiles.Profile>()
                                     .ID("form_2")
-                                    .FormData(profile)
+                                    .FormData(profileDto)
                                     .LabelMode(FormLabelMode.Static)
                                     .LabelLocation(FormLabelLocation.Left)
                                     .MinColWidth(300)

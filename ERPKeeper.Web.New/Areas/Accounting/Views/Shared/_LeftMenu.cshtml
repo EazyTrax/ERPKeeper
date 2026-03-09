@@ -9,7 +9,7 @@
 <div class="lh-120 bg-gray-100 font-semibold p-2 rounded border">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accounting", Url = "/Accounting" })
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accounts", Url = "/Accounting/Accounts", Count = Organization.ErpCOREDBContext.Accounts.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 1, DisplayName = "Default Accounts", Url = "/Accounting/DefaultAccounts" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Fiscal Years", Url = "/Accounting/FiscalYears", Count = Organization.ErpCOREDBContext.FiscalYears.Count() })

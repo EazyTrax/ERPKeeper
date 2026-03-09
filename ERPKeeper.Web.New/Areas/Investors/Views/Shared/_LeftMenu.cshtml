@@ -1,12 +1,12 @@
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     <a href="/Investors">Investors</a>
 
 </div>
 
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Stocks", Url = "/Investors/Stocks" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Investors", Url = "/Investors/Investors", Count = Organization.Investors.Count() })
 </div>

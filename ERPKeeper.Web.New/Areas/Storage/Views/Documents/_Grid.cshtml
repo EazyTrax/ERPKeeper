@@ -52,7 +52,7 @@
             .ValueExpr("Value"))
             .Width(150)
             
-            .HeaderCellTemplate(@<text>Profile</text>)
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('Profile'); }"))
         .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Profiles/Profile/' + options.data.ProfileId + '/').text(options.displayValue).appendTo(container); }"));
 
 

@@ -24,13 +24,13 @@
 }
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     <a href="/Suppliers/Suppliers">Suppliers</a><br />
     <a href="/Suppliers/SupplierPayments">SupplierPayments</a><br />
     <a href="/Suppliers/SupplierPayments/@Model.Id">@Model.Purchase.Name.Replace("SL", "RP")</a>
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @{
         MenuTemplate(0, "Detail", $"/Suppliers/SupplierPayments/{Model.Id}");
         MenuTemplate(0, $"Purchase: {Model.Purchase.Name}", $"/Suppliers/Purchases/{Model.PurchaseId}");
@@ -38,7 +38,7 @@
 
     }
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @{
         MenuTemplate(0, "Export", $"/Suppliers/SupplierPayments/{Model.Id}/Export");
     }

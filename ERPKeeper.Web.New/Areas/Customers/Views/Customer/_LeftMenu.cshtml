@@ -24,10 +24,10 @@
 }
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     <a href="/Customers">Customers</a>
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @{
         MenuTemplate(0, "Home", $"/Customers/Customers/{Model.Id}");
         MenuTemplate(0, "Quotes", $"/Customers/Customers/{Model.Id}/SaleQuotes", Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.CustomerId == Model.Id).Count());

@@ -1,26 +1,3 @@
-@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
-
-    void Template(string display, string controller, int? count = null)
-    {
-        <div class="flex justify-between e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
-            <div class="">
-                <a href="@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
-}
-
-
 <div class="bg-gray-200 border p-2 rounded">
     <div class="font-weight-600">
         <a href="/Assets">Assets</a>
@@ -28,10 +5,8 @@
 </div>
 
 <div class="bg-gray-200 border p-2 rounded">
-    @{
-        Template("Assets", $"/Assets/Assets", Organization.ErpCOREDBContext.Assets.Count());
-        Template("Obsolete Assets", $"/Assets/ObsoleteAssets", Organization.ErpCOREDBContext.ObsoleteAssets.Count());
-        Template("Asset Types", $"/Assets/AssetTypes", Organization.ErpCOREDBContext.AssetTypes.Count());
-        Template("AssetDeprecateSchedules", $"/Assets/AssetDeprecateSchedules", Organization.ErpCOREDBContext.AssetDeprecateSchedules.Count());
-    }
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Assets/Assets", Count = Organization.ErpCOREDBContext.Assets.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Obsolete Assets", Url = "/Assets/ObsoleteAssets", Count = Organization.ErpCOREDBContext.ObsoleteAssets.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Asset Types", Url = "/Assets/AssetTypes", Count = Organization.ErpCOREDBContext.AssetTypes.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "AssetDeprecateSchedules", Url = "/Assets/AssetDeprecateSchedules", Count = Organization.ErpCOREDBContext.AssetDeprecateSchedules.Count() })
 </div>

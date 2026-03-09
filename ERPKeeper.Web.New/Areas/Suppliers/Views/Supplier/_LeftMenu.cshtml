@@ -24,13 +24,13 @@
 }
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     <a href="/Suppliers">Suppliers</a>
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     <a href="/Suppliers/Suppliers/@Model.Id">@Model.Profile.Name</a>
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @{
         MenuTemplate(0, "Home", $"/Suppliers/Suppliers/{Model.Id}");
         MenuTemplate(0, "Purchases", $"/Suppliers/Suppliers/{Model.Id}/Purchases", Organization.ErpCOREDBContext.Purchases.Where(s=>s.SupplierId == Model.Id).Count());

@@ -1,7 +1,7 @@
 @inject LocalizeService SharedLocalizer
 
 
-<div class="lh-120 bg-gray-200 px-2 border-y-2">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Customers", Url = "/Customers", Count = Organization.Customers.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Suppliers", Url = "/Suppliers", Count = Organization.Suppliers.Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employees", Url = "/HR/Employees", Count = Organization.Employees.Count() })
@@ -12,14 +12,14 @@
 <div class="h-4">
 </div>
 
-<div class="lh-120 bg-gray-200 px-2 border-y-2">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Products", Url = "/Products", Count = Organization.Items.Count() })
 </div>
 
 <div class="h-4">
 </div>
 
-<div class="lh-120 bg-gray-200 px-2 border-y-2">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accounting", Url = "/Accounting" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Financial", Url = "/Financial" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Assets", Count = Organization.Assets.Count() })

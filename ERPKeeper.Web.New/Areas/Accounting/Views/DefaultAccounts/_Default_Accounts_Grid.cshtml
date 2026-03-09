@@ -41,22 +41,22 @@
 
             columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-            .HeaderCellTemplate(@<text>Account</text>)
-            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>); ;
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('Account'); }"))
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.AccountId + '/\">' + options.text + '</a>'); }"));
 
             columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, Type = t.Type.ToString() }).OrderBy(t => t.Type).ToList()).DisplayExpr("Type").ValueExpr("Id"))
             .Width(150)
             .AllowEditing(false)
-            .HeaderCellTemplate(@<text>AccType</text>)
-            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('AccType'); }"))
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.AccountId + '/\">' + options.text + '</a>'); }"));
 
             columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.ToList().Select(t => new { t.Id, SubType = t.SubType.ToString() }).OrderBy(t => t.SubType).ToList()).DisplayExpr("SubType").ValueExpr("Id"))
             .Width(150)
             .AllowEditing(false)
-            .HeaderCellTemplate(@<text>AccType</text>)
-            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('AccType'); }"))
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.AccountId + '/\">' + options.text + '</a>'); }"));
 
             
             })

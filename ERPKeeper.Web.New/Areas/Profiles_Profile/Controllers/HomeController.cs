@@ -129,6 +129,9 @@ namespace ERPKeeperCore.Web.Areas.Profiles_Profile.Controllers
 
             Organization.SaveChanges();
 
+            // Refresh the entity to get the latest values from database
+            Organization.ErpCOREDBContext.Entry(Profile).Reload();
+
             if (Profile.IsSelfOrganization)
             {
                 Console.WriteLine("IsSelfOrganization");

@@ -1,11 +1,15 @@
 
-<div class="flex w-full font-semibold text-lg justify-between">
-    <div class="col-9 p-2">
-        <a href="/Customers"> Customers</a>
-        <i class="fa-solid fa-chevron-right text-danger text-sm"></i> <a href="/Customers/Customers"> Customers</a>
-    </div>
-    <div class="w-3/12 text-right p-0">
 
+<div class="flex flex-1 font-semibold text-lg justify-between">
+    <div class="p-2">
+        @CompanyId.ToUpper()
+        <i class="fa-solid fa-chevron-right text-danger text-sm mx-2"></i>
+        <a href="/Customers"> Customers</a>
+        <i class="fa-solid fa-chevron-right text-danger text-sm"></i>
+        <a href="/Customers/Customers"> Customers</a>
+    </div>
+
+    <div class="p-2">
         <div class="dropdown dropleft p-1">
             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa-solid fa-arrows-rotate text-xl"></i>

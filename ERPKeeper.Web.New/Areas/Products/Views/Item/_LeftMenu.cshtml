@@ -18,13 +18,13 @@
     }
 }
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+<div class="lh-120">
     @{
         MenuTemplate(0, "Products", $"/Products");
     }
 </div>
 
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @{
         MenuTemplate(0, "Detail", $"/Products/Items/{Model.Id}");
         MenuTemplate(0, "Documents", $"/Products/Items/{Model.Id}/Documents");

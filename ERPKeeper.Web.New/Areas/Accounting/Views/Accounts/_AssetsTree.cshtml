@@ -28,8 +28,7 @@
         
         .Columns(columns =>
             {
-                    columns.AddFor(m => m.No).Width(90).CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Id %>/"><%= data.No %></a></text>
-    );
+                    columns.AddFor(m => m.No).Width(90).CellTemplate(new JS("function(container, options) { container.append('<a href=\"' + '/Accounting/Accounts/' + options.data.Id + '/\">' + options.data.No + '</a>'); }"));
 
                     columns.AddFor(m => m.Type)
                     .HeaderCellTemplate("Type")
@@ -53,7 +52,7 @@
 
 
                 columns.AddFor(m => m.Name)
-                .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Id %>/"><%= data.Name %></a></text>);
+                .CellTemplate(new JS("function(container, options) { container.append('<a href=\"' + '/Accounting/Accounts/' + options.data.Id + '/\">' + options.data.Name + '</a>'); }"));
 
             columns.Add()
         .Caption("Current")
@@ -63,13 +62,13 @@
             .Width(120)
             .Format("#,##0.00")
             .CssClass("bg-gray-200")
-            .HeaderCellTemplate(@<text>DR</text>);
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('DR'); }"));
 
                 b.AddFor(m => m.CurrentCredit)
             .Width(120)
             .Format("#,##0.00")
             .CssClass("bg-gray-200")
-            .HeaderCellTemplate(@<text>CR</text>);
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('CR'); }"));
             });
 
 
@@ -81,13 +80,13 @@
             .Width(120)
             .Format("#,##0.00")
             .CssClass("bg-gray-200")
-            .HeaderCellTemplate(@<text>DR</text>);
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('DR'); }"));
 
                 b.AddFor(m => m.TotalCredit)
             .Width(120)
             .Format("#,##0.00")
             .CssClass("bg-gray-200")
-            .HeaderCellTemplate(@<text>CR</text>);
+            .HeaderCellTemplate(new JS("function(container, options) { container.text('CR'); }"));
             });
             })
         .Summary(s => s.TotalItems(items => {

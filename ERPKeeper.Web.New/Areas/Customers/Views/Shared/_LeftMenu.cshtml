@@ -1,20 +1,19 @@
 @using ERPKeeperCore.Enterprise.Models.Customers.Enums
 
 
-<div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
-    <a href="/Customers">  @SharedLocalizer.GetLocalizedHtmlString("Customers")</a>
+<div class="lh-120">
+        @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Customers", Url = "/Customers" })
 </div>
-
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Customers", Url = "/Customers/Customers", Count = Organization.Customers.Count() })
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Quote", Url = $"/Customers/SaleQuotes?status={SaleQuoteStatus.Open}", Count = Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Open).Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 2, DisplayName = "Order", Url = $"/Customers/SaleQuotes?status={SaleQuoteStatus.Order}", Count = Organization.ErpCOREDBContext.SaleQuotes.Where(s => s.Status == SaleQuoteStatus.Order).Count() })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 2, DisplayName = "Close", Url = $"/Customers/SaleQuotes?status={SaleQuoteStatus.Close}" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 2, DisplayName = "Void", Url = $"/Customers/SaleQuotes?status={SaleQuoteStatus.Void}" })
 </div>
-<div class="lh-120 bg-gray-100 p-2 rounded border">
+<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Sales", Url = "/Customers/Sales", Count = Organization.ErpCOREDBContext.Sales.Where(s => s.Status == SaleStatus.Open).Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 2, DisplayName = "Payments", Url = "/Customers/ReceivePayments", Count = Organization.ErpCOREDBContext.ReceivePayments.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Payments", Url = "/Customers/ReceivePayments", Count = Organization.ErpCOREDBContext.ReceivePayments.Count() })
 </div>

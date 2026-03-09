@@ -26,11 +26,11 @@
 <div id="lefmenu_holder" class="">
 
 
-    <div class="lh-120 bg-gray-100 p-2 rounded border font-semibold">
+    <div class="lh-120">
         <a href="/Customers/SaleQuotes/@Model.Id">@Model.Name</a>
     </div>
 
-    <div class="lh-120 bg-gray-100 p-2 rounded border">
+    <div class="lh-120">
         @{
             MenuTemplate(0, "Detail", $"/Customers/SaleQuotes/{Model.Id}");
             MenuTemplate(0, "Items", $"/Customers/SaleQuotes/{Model.Id}/Items", Model.Items.Count());
@@ -45,12 +45,12 @@
 
     @if (Model.SaleId != null)
     {
-        <div class="lh-120 bg-gray-100 p-2 rounded border">
+        <div class="lh-120">
             <div>Sale</div>
         </div>
     }
 
-    <div class="lh-120 bg-gray-100 p-2 rounded border">
+    <div class="lh-120">
         @{
             MenuTemplate(0, "Export", $"/Customers/SaleQuotes/{Model.Id}/Export");
         }
