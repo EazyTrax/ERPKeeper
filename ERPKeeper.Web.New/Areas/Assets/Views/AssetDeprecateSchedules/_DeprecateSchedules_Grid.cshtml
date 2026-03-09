@@ -30,7 +30,7 @@
         .DataSource(Organization.ErpCOREDBContext.Assets.Select(i => new { Value = i.Id, Text = i.Name }).ToList())
         .DisplayExpr("Text")
         .ValueExpr("Value"))
-        .CellTemplate(@<text><a href="/Assets/Assets/<%= data.AssetId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(data) { return '<a href=\"/Assets/Assets/' + data.AssetId + '/\">' + data.displayValue + '</a>'; }"));
 
 
 
@@ -66,7 +66,7 @@
                 columns.AddFor(m => m.Id)
                 .Width(30)
                 .HeaderCellTemplate(@<text></text>)
-                .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                .CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
 
             })
         .Summary(s => s.TotalItems(items =>

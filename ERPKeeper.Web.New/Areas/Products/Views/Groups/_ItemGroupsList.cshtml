@@ -39,10 +39,10 @@
         )
          .Columns(columns =>
          {
-             columns.AddFor(m => m.Name).SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text><a href="/Products/Groups/<%= data.Id %>/"><%= data.Name %></a></text>);
+             columns.AddFor(m => m.Name).SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(new JS("function(data) { return '<a href=\"' + '/Products/Groups/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
              columns.AddFor(m => m.Detail);
 
-             columns.Add().DataField("ItemCount").HeaderCellTemplate(@<text>Assets#</text>);
+             columns.Add().DataField("ItemCount").HeaderCellTemplate(new JS("function() { return 'Assets#'; }"));
          });
 }
 

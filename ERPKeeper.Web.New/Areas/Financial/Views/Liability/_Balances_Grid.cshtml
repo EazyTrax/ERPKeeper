@@ -37,7 +37,7 @@
             .Format("#,##0.00"); // Apply the JavaScript function for TotalCredit
 
             columns.Add()
-            .CellTemplate(@<text><a href="/Financial/LiabilityPayments/New?AccountId=@Model.Id&amount=<%= data.TotalCredit %>&Date=<%= data.Date %>">+Pay</a></text>);
+            .CellTemplate(new JS($"function(data) {{ return '<a href=\"/Financial/LiabilityPayments/New?AccountId={Model.Id}&amount=' + data.TotalCredit + '&Date=' + data.Date + '\">+Pay</a>'; }}"));
         }).Summary(s => s.TotalItems(items =>
         {
             items.AddFor(m => m.TotalDebit).SummaryType(SummaryType.Sum).DisplayFormat("{0}").ValueFormat("#,##0.00");

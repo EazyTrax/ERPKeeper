@@ -22,8 +22,8 @@
         .Columns(columns =>
         {
 
-            columns.AddFor(m => m.Name).Width(300).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/Accounting/JournalEntryTypes/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
-            columns.AddFor(m => m.Detail).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/Accounting/JournalEntryTypes/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
+            columns.AddFor(m => m.Name).Width(300).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(data) { return '<div><a href=\"' + '/Accounting/JournalEntryTypes/' + data.Id + '/'\" >' + data.Name + '</a></div>'; }"));
+            columns.AddFor(m => m.Detail).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(data) { return '<div><a href=\"' + '/Accounting/JournalEntryTypes/' + data.Id + '/'\" >' + data.Detail + '</a></div>'; }"));
 
         })
         )

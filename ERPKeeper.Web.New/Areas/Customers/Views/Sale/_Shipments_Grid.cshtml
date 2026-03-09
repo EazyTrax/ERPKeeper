@@ -47,7 +47,7 @@
             .ValueExpr("Value"))
             .ShowInColumnChooser(true)
             .HeaderCellTemplate(@<text>Provider</text>)
-            .CellTemplate(@<text><a href="/Logistics/ShipmentProviders/<%= data.ShipmentProviderId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Logistics/ShipmentProviders/' + cellInfo.data.ShipmentProviderId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
 
 
@@ -56,21 +56,23 @@
             .DataSource(addresses.Select(i => new { Value = i.Id, Text = i.Title }).ToList())
             .DisplayExpr("Text")
             .ValueExpr("Value"))
-            .ShowInColumnChooser(true)
-            .HeaderCellTemplate(@<text>Addesss</text>)
-            .CellTemplate(@<text><a href="/Profiles/@Model.CustomerId"><%= displayValue %></a></text>);
+             .ShowInColumnChooser(true)
+             .HeaderCellTemplate(@<text>Addesss</text>)
+             .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Profiles/@Model.CustomerId').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
 
                 columns.Add()
             .AllowEditing(false)
             .Width(60)
-            .CellTemplate(@<text><a target="_self" href="/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportShipmentLabel">Print</a></text>);
+            .HeaderCellTemplate(@<text>Print</text>)
+            .CellTemplate(new JS($"function(cellElement, cellInfo) {{ $('<a>').attr({{'href': '/Customers/Sales/{Model.Id}/Shipments/' + cellInfo.data.Id + '/ExportShipmentLabel', 'target': '_self'}}).text('Print').appendTo(cellElement); }}"));
 
 
                   columns.Add()
             .AllowEditing(false)
             .Width(60)
-            .CellTemplate(@<text><a target="_self" href="/Customers/Sales/@Model.Id/Shipments/<%= data.Id %>/ExportPDFShipmentLabel">PDF</a></text>);
+            .HeaderCellTemplate(@<text>PDF</text>)
+            .CellTemplate(new JS($"function(cellElement, cellInfo) {{ $('<a>').attr({{'href': '/Customers/Sales/{Model.Id}/Shipments/' + cellInfo.data.Id + '/ExportPDFShipmentLabel', 'target': '_self'}}).text('PDF').appendTo(cellElement); }}"));
 
 
 

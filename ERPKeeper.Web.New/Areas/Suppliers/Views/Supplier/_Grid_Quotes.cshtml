@@ -45,7 +45,7 @@
             .ValueExpr("Value")
             );
                 columns.AddFor(m => m.Name).Width(130)
-                .CellTemplate(@<text><a href="@CompanyId/Suppliers/PurchaseQuotes<%= data.Id %>/"><%= data.Name %></a></text>);
+                .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Suppliers/PurchaseQuotes/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
 
 
 
@@ -60,8 +60,8 @@
             .Width(150)
             .Visible(false)
             .ShowInColumnChooser(true)
-            .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function() { return 'Project'; }"))
+        .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Projects/' + cellInfo.data.ProjectId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
 
 

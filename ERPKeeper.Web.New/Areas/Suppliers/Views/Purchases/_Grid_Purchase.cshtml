@@ -25,7 +25,7 @@
             .Columns(columns =>
             {
                 columns.AddFor(m => m.AgeInDays).Width(60).AllowEditing(false).ShowInColumnChooser(true)
-            .CellTemplate(@<text><span class="text-<%= data.AgeColor %>-400"><%= data.AgeInDays %></span></text>);
+            .CellTemplate(new JS("function(cellElement, cellInfo) { $('<span>').addClass('text-' + cellInfo.data.AgeColor + '-400').text(cellInfo.data.AgeInDays).appendTo(cellElement); }"));
 
 
                 columns.AddFor(m => m.Date).SortOrder(SortOrder.Desc).SortIndex(1).Width(130);
@@ -41,7 +41,7 @@
         .Visible(false)
             .ShowInColumnChooser(true)
     .Width(150)
-            .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Name %></a></text>);
+    .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Suppliers/Purchases/' + cellInfo.data.Id + '/').text(cellInfo.data.Name).appendTo(cellElement); }"));
 
 
                 columns.AddFor(m => m.SupplierId)
@@ -51,12 +51,12 @@
             .ValueExpr("Value"))
             .AllowEditing(IsOnEditMode)
             .MinWidth(200)
-            .CellTemplate(@<text><a href="/Suppliers/Suppliers/<%= data.SupplierId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Suppliers/Suppliers/' + cellInfo.data.SupplierId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
 
                 columns.AddFor(m => m.Reference)
                 .Width(180)
-                        .CellTemplate(@<text><a href="/Suppliers/Purchases/<%= data.Id %>/"><%= data.Reference %></a></text>); ;
+                        .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Suppliers/Purchases/' + cellInfo.data.Id + '/').text(cellInfo.data.Reference).appendTo(cellElement); }")); ;
 
         
 
@@ -76,8 +76,8 @@
                     .DisplayExpr("Text")
                     .ValueExpr("Value")
                     .AllowClearing(true))
-                    .HeaderCellTemplate(@<text>TaxCode</text>)
-                    .CellTemplate(@<text><a href="/Taxes/TaxCodes/<%= data.TaxCodeId %>/"><%= displayValue %></a></text>);
+                    .HeaderCellTemplate(new JS("function() { return 'TaxCode'; }"))
+                    .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Taxes/TaxCodes/' + cellInfo.data.TaxCodeId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
 
                 columns.AddFor(m => m.TaxPeriodId).Lookup(lookup => lookup
@@ -86,14 +86,14 @@
             .ValueExpr("Value"))
             .Width(150)
             .ShowInColumnChooser(true)
-            .HeaderCellTemplate(@<text>TaxPeriod</text>)
-        .CellTemplate(@<text><a href="/Taxes/TaxPeriods/<%= data.TaxPeriodId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function() { return 'TaxPeriod'; }"))
+        .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Taxes/TaxPeriods/' + cellInfo.data.TaxPeriodId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
                 columns.AddFor(m => m.ExpenseAccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.AssetsAndExpenses.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
-            .HeaderCellTemplate(@<text>Expense</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.ExpenseAccountId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function() { return 'Expense'; }"))
+        .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Accounting/Accounts/' + cellInfo.data.ExpenseAccountId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
           
         columns.AddFor(m => m.ProjectId)
             .Lookup(lookup => lookup
@@ -103,14 +103,14 @@
             .Width(150)
             .Visible(false)
             .ShowInColumnChooser(true)
-            .HeaderCellTemplate(@<text>Project</text>)
-        .CellTemplate(@<text><a href="/Projects/<%= data.ProjectId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function() { return 'Project'; }"))
+        .CellTemplate(new JS("function(cellElement, cellInfo) { $('<a>').attr('href', '/Projects/' + cellInfo.data.ProjectId + '/').text(cellInfo.displayValue).appendTo(cellElement); }"));
 
 
 
 
 
-                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(new JS("function() { return ' '; }")).CellTemplate(new JS("function(cellElement, cellInfo) { $('<i>').addClass('fas fa-fingerprint text-' + cellInfo.data.IsPosted).appendTo(cellElement); }"));
 
             })
         .Summary(s =>

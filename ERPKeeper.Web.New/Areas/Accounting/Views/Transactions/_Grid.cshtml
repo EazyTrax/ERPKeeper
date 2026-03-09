@@ -26,17 +26,17 @@
                 columns.AddFor(m => m.FiscalYearId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.FiscalYears.ToList().Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
-            .HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/Accounting/FiscalYears/<%= data.FiscalYearId %>/"><%= displayValue %></a></text>);
+            .HeaderCellTemplate(new JS("function() { return 'Account'; }"))
+        .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/FiscalYears/' + data.FiscalYearId + '/'\" >' + data.FiscalYearId + '</a>'; }"));
 
 
 
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Transactions/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
 
                 columns.AddFor(m => m.Reference)
-            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Reference %></a></text>);
+            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Transactions/' + data.Id + '/'\" >' + data.Reference + '</a>'; }"));
 
                 columns.AddFor(m => m.Date)
             .Width(150);
@@ -61,9 +61,8 @@
                 columns.AddFor(m => m.IsPosted)
             .AllowEditing(false)
             .Width(30)
-            .HeaderCellTemplate(@<text> </text>)
-        .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>
-        );
+            .HeaderCellTemplate(new JS("function() { return ' '; }"))
+        .CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
 
             })
         .Summary(s => s.TotalItems(items =>

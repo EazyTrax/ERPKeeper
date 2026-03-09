@@ -24,13 +24,7 @@
         .Width("100%")
         .Columns(columns =>
         {
-            @*  
-            columns.AddFor(m => m.AccountType).CellTemplate(@<text>
-                <div>
-                    <a href="/Accounting/DefaultAccounts/<%= data.Id %>/"><%= data.Name %></a>
-                </div>
-            </text>);
-            *@
+        
 
             columns.AddFor(m => m.Type)
             .Width(250)

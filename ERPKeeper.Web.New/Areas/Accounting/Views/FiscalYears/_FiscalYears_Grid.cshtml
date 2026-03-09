@@ -22,7 +22,7 @@
             {
                 columns.AddFor(m => m.Name)
             .SortOrder(SortOrder.Asc)
-            .CellTemplate(@<text><a href="/Accounting/FiscalYears/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/FiscalYears/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
                 columns.AddFor(m => m.StartDate)
                 .Format(Format.ShortDate);
 
@@ -66,8 +66,8 @@
                 columns.AddFor(m => m.IsPosted)
                 .AllowEditing(false)
                 .Width(30)
-                .HeaderCellTemplate(@<text> </text>)
-                .CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                .HeaderCellTemplate(new JS("function() { return ' '; }"))
+                .CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
            
         })
         .Summary(s => s.TotalItems(items =>

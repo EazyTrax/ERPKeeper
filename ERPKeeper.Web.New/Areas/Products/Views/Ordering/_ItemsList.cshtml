@@ -71,18 +71,7 @@
     columns.AddFor(m => m.Description).MinWidth(250)
     .Width(350)
     .CellTemplate(new JS("function(container, options) { $('<a>').attr('href', '/Products/Items/' + options.data.Id + '/').text(options.data.Description).appendTo(container); }"));
-        @* columns.Add().DataField("PartNumber").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text>
-            <div>
-            <a href="/Enterprise/@enterpriseId/PartNumber/<%= data.PartNumberId %>/"><%= data.PartNumber %></a>
-            </div>
-            </text>);
-
-            columns.Add().DataField("AssetType").SortOrder(SortOrder.Desc).SortIndex(1).CellTemplate(@<text>
-            <div>
-            <a href="/Enterprise/@enterpriseId/AssetType/<%= data.AssetTypeId %>/"><%= data.AssetType %></a>
-            </div>
-            </text>);*@
-
+      
 
     columns.AddFor(m=>m.ItemType).SortOrder(SortOrder.Asc).SortIndex(2).Lookup(lookup => lookup
     .DataSource(Html.GetEnumSelectList<ERPKeeperCore.Enterprise.Models.Items.Enums.ItemTypes>().Select(i => new { Value = int.Parse(i.Value), Text = i.Text}))
@@ -90,10 +79,10 @@
     .ValueExpr("Value")
     );
 
-    columns.AddFor(m => m.AmountOnHand).AllowEditing(false).Width(60).HeaderCellTemplate(@<text>Stock</text>);
-    columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(@<text>Sold</text>);
+    columns.AddFor(m => m.AmountOnHand).AllowEditing(false).Width(60).HeaderCellTemplate(new JS("function() { return 'Stock'; }"));
+    columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(new JS("function() { return 'Sold'; }"));
 
-    columns.Add().DataField("SalePrice").Width(130).Format( Format.FixedPoint ).HeaderCellTemplate(@<text>Price</text>);
+    columns.Add().DataField("SalePrice").Width(130).Format( Format.FixedPoint ).HeaderCellTemplate(new JS("function() { return 'Price'; }"));
     //columns.Add().DataField("Id");
     })
     )

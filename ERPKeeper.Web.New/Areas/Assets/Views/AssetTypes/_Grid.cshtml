@@ -43,38 +43,38 @@
 
 
 
-            columns.AddFor(m => m.CodePrefix).Width(80).HeaderCellTemplate(@<text>Purchased</text>).SortOrder(SortOrder.Asc).SortIndex(1);
-            columns.AddFor(m => m.Name).Width(150).CellTemplate(@<text> <a href="/Assets/AssetTypes/<%= data.Id %>/"><%= data.Name %></a></text>);
-            columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(@<text>Assets</text>);
-            columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(@<text>Value</text>);
+            columns.AddFor(m => m.CodePrefix).Width(80).HeaderCellTemplate(new JS("function() { return 'Purchased'; }")).SortOrder(SortOrder.Asc).SortIndex(1);
+            columns.AddFor(m => m.Name).Width(150).CellTemplate(new JS("function(data) { return '<a href=\"' + '/Assets/AssetTypes/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
+            columns.AddFor(m => m.AssetCount).Width(80).HeaderCellTemplate(new JS("function() { return 'Assets'; }"));
+            columns.AddFor(m => m.AssetValue).Width(80).HeaderCellTemplate(new JS("function() { return 'Value'; }"));
 
             columns.AddFor(m => m.DeprecatedAble);
             
-            columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(@<text>Life</text>);
+            columns.AddFor(m => m.UseFulLifeYear).Width(80).HeaderCellTemplate(new JS("function() { return 'Life'; }"));
 
 
 
             columns.AddFor(m => m.Purchase_Asset_AccountId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .HeaderCellTemplate(@<text>Purchase Acc</text>)
-    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.Purchase_Asset_AccountId %>/"><%= displayValue %></a></text>);
+        .HeaderCellTemplate(new JS("function() { return 'Purchase Acc'; }"))
+    .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Accounts/' + data.Purchase_Asset_AccountId + '/'\" >' + data.Purchase_Asset_AccountId + '</a>'; }"));
 
             columns.AddFor(m => m.AwaitDeprecateAccId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.Assets.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .HeaderCellTemplate(@<text>AwaitDep Acc</text>)
-    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AwaitDeprecateAccId %>/"><%= displayValue %></a></text>);
+        .HeaderCellTemplate(new JS("function() { return 'AwaitDep Acc'; }"))
+    .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Accounts/' + data.AwaitDeprecateAccId + '/'\" >' + data.AwaitDeprecateAccId + '</a>'; }"));
 
 
             columns.AddFor(m => m.AmortizeExpenseAccId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(AccountSubTypes.Expense_Asset_Amortize, AccountSubTypes.Expense_Asset_Deprecate)
         .Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .HeaderCellTemplate(@<text>Amortize Acc</text>)
-    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AmortizeExpenseAccId %>/"><%= displayValue %></a></text>);
+        .HeaderCellTemplate(new JS("function() { return 'Amortize Acc'; }"))
+    .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Accounts/' + data.AmortizeExpenseAccId + '/'\" >' + data.AmortizeExpenseAccId + '</a>'; }"));
 
             columns.AddFor(m => m.AccumulateDeprecateAccId)
         .Lookup(lookup => lookup.DataSource(Organization.ChartOfAccount.GetItemBySubType(ERPKeeperCore.Enterprise.Models.Accounting.Enums.AccountSubTypes.Asset_AccDepreciation).Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
-        .HeaderCellTemplate(@<text>Accumulate Acc</text>)
-    .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccumulateDeprecateAccId %>/"><%= displayValue %></a></text>);
+        .HeaderCellTemplate(new JS("function() { return 'Accumulate Acc'; }"))
+    .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Accounts/' + data.AccumulateDeprecateAccId + '/'\" >' + data.AccumulateDeprecateAccId + '</a>'; }"));
 
 
             @*

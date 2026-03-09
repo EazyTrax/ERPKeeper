@@ -37,7 +37,7 @@
                         columns.AddFor(m => m.Order).SortOrder(SortOrder.Asc).SortIndex(0).Width(40);
 
                     columns.AddFor(m => m.Group).Visible(true).ShowInColumnChooser(true).FormItem(i => i.Editor(e => e.TextBox()));
-                        columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(@<text><a target="_self" href="/Products/Items/<%= data.ItemId %>/"><%= data.PartNumber %></a></text> );
+                        columns.AddFor(m => m.PartNumber).Width(150).CellTemplate(new JS("function(data) { return '<a target=\"_self\" href=\"' + '/Products/Items/' + data.ItemId + '/'\" >' + data.PartNumber + '</a>'; }"));
                     columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
                     columns.AddFor(m => m.Price).Width(130).Format("#,##0.00");
                    @*  columns.AddFor(m => m.DiscountPercent).Width(130).Format("#,##0.00");
