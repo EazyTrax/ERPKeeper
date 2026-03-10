@@ -29,7 +29,7 @@
 
                 columns.AddFor(m => m.Name)
                 .Width(130)
-            .CellTemplate(@<text><a href="/Customers/ReceivePayments/<%= data.Id %>/"><%= data.Name %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Customers/ReceivePayments/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Reference).Width(180);
                 columns.AddFor(m => m.Amount).Width(130).Format("#,##0.00");
@@ -40,7 +40,7 @@
             .DisplayExpr("Text")
             .ValueExpr("Value"))
             .AllowEditing(false)
-            .CellTemplate(@<text><a href="/Financial/RetentionTypes/<%= data.RetentionTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Financial/RetentionTypes/' + options.data.RetentionTypeId + '/\">' + options.text + '</a>'); }"));
 
 
 
@@ -50,7 +50,7 @@
 
 
 
-                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-' + options.data.IsPosted + '\"></i>'); }"));
 
 
             })

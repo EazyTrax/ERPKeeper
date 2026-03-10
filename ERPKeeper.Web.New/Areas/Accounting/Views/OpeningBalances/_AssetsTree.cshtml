@@ -21,7 +21,7 @@
         .Editing(editing => editing.Mode(GridEditMode.Row).AllowUpdating(IsOnEditMode).UseIcons(true))
         .Columns(columns =>
             {
-                columns.AddFor(m => m.Code).Width(130).CellTemplate(new JS("function(data) { return '<a href=\"/Accounting/Accounts/' + data.Id + '/\">' + data.Code + '</a>'; }"));
+                columns.AddFor(m => m.Code).Width(130).CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Type)
                 .HeaderCellTemplate("Type")
@@ -39,7 +39,7 @@
     );
 
 
-                columns.AddFor(m => m.Name).CellTemplate(new JS("function(data) { return '<a href=\"/Accounting/Accounts/' + data.Id + '/\">' + data.Name + '</a>'; }"));
+                columns.AddFor(m => m.Name).CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.OpeningDebit).HeaderCellTemplate(@<text>Debit</text>).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.OpeningCredit).HeaderCellTemplate(@<text>Credit</text>).Width(130).Format("#,##0.00");

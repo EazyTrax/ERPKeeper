@@ -39,7 +39,7 @@
 
                 column.AddFor(m => m.FileName)
             .HeaderCellTemplate("Name")
-            .CellTemplate(new JS("function(data) { return '<a href=\"/storage/documents/' + data.Id + '/\">' + data.FileName + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/storage/documents/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
 
 
@@ -61,7 +61,7 @@
 
                 column.AddFor(m => m.Note)
             .HeaderCellTemplate("Note")
-            .CellTemplate(new JS("function(data) { return '<a href=\"/storage/documents/' + data.Id + '/\">' + data.Note + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/storage/documents/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
 
 
@@ -69,7 +69,7 @@
             .Width(40)
             .AllowSearch(false)
             .AllowEditing(false)
-            .CellTemplate(new JS("function(data) { return '<a href=\"/storage/documents/' + data.Id + '/Download\"><i class=\"fa-solid fa-cloud-arrow-down text-fs-15\"></i></a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/storage/documents/' + options.data.Id + '/Download\"><i class=\"fa-solid fa-cloud-arrow-down text-fs-15\"></i></a>'); }"));
 
 
             })

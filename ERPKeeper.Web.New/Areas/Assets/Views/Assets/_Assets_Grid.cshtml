@@ -42,7 +42,7 @@
             );
 
             columns.AddFor(m => m.StartDeprecationDate).Width(130).SortOrder(SortOrder.Desc).SortIndex(1).HeaderCellTemplate(@<text>StartDate</text>);
-            columns.AddFor(m => m.Name).CellTemplate(new JS("function(data) { return ' <a href=\"/Assets/Assets/' + data.Id + '/\">' + data.Name + '</a>'; }"));
+            columns.AddFor(m => m.Name).CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Assets/Assets/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
             columns.AddFor(m => m.AssetTypeId)
             .HeaderCellTemplate(@<text>Type</text>)
@@ -51,12 +51,12 @@
                 .ValueExpr("Id")
                 .DisplayExpr("Name")
             )
-            .CellTemplate(new JS("function(data) { return '<a href=\"/Assets/AssetTypes/' + data.AssetTypeId + '/\">' + data.displayValue + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Assets/AssetTypes/' + options.data.AssetTypeId + '/\">' + options.text + '</a>'); }"));
 
             columns.AddFor(m => m.RemainAgeDay).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Remain</text>);
             columns.AddFor(m => m.AssetValue).HeaderCellTemplate(@<text>Asset</text>).Format(",##0.00");
             columns.AddFor(m => m.SavageValue).HeaderCellTemplate(@<text>Savage</text>).Format(",##0.00");
-            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
+            columns.AddFor(m => m.IsPosted).AllowEditing(false).Width(30).HeaderCellTemplate(@<text> </text>).CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-' + options.data.IsPosted + '\"></i>'); }"));
         
             })
         .Summary(s => s.TotalItems(items =>

@@ -4,7 +4,7 @@
 
 
     <div class="lh-120">
-        <a href="/Customers/SaleQuotes/@Model.Id">@Model.Name</a>
+        @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = Model.Name, Url = $"/Customers/SaleQuotes/{Model.Id}" })
     </div>
 
     <div class="lh-120">

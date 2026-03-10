@@ -33,7 +33,7 @@
                 columns.AddFor(m => m.OrganizationName)
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
-            .CellTemplate(new JS("function(data) { return '<a href=\"/Setting/Branches/' + data.Id + '/\">' + data.OrganizationName + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Setting/Branches/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.BranchName);
                 columns.AddFor(m => m.TaxNumber);

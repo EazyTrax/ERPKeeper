@@ -27,10 +27,10 @@
                 columns.AddFor(m => m.JournalEntryTypeId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Type</text>)
-            .CellTemplate(@<text><a href="/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/JournalEntryTypes/' + options.data.JournalEntryTypeId + '/\">' + options.text + '</a>'); }"));
 
-                columns.AddFor(m => m.Name).AllowEditing(false).Width(130).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div> <a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text> <div><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
+                columns.AddFor(m => m.Name).AllowEditing(false).Width(130).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(container, options) { container.append('<div><a href=\"/Accounting/Transactions/' + options.data.Id + '/\">' + options.value + '</a></div>'); }"));
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(container, options) { container.append('<div><a href=\"/Accounting/Transactions/' + options.data.Id + '/\">' + options.value + '</a></div>'); }"));
                columns.AddFor(m => m.Debit).AllowEditing(false).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Credit).AllowEditing(false).Width(130).Format("#,##0.00");
         })

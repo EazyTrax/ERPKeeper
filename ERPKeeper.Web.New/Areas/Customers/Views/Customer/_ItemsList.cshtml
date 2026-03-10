@@ -34,9 +34,9 @@
 
             columns.AddFor(m => m.Item.PartNumber)
             .Width(180)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Products/Items/' + data.ItemId + '/'\" >' + data.Item.PartNumber + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Items/' + options.data.ItemId + '/\">' + options.data.Item.PartNumber + '</a>'); }"));
             columns.AddFor(m => m.Item.Description)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Products/Items/' + data.ItemId + '/'\" >' + data.Item.Description + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Items/' + options.data.ItemId + '/\">' + options.data.Item.Description + '</a>'); }"));
 
 
             columns.AddFor(m => m.AmountSale).Width(80);

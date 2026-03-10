@@ -27,16 +27,16 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.FiscalYears.ToList().Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(new JS("function() { return 'Account'; }"))
-        .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/FiscalYears/' + data.FiscalYearId + '/'\" >' + data.FiscalYearId + '</a>'; }"));
+        .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/FiscalYears/' + options.data.FiscalYearId + '/\">' + options.text + '</a>'); }"));
 
 
 
 
                 columns.AddFor(m => m.Name)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Transactions/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Transactions/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Reference)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/Transactions/' + data.Id + '/'\" >' + data.Reference + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Transactions/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Date)
             .Width(150);
@@ -62,7 +62,7 @@
             .AllowEditing(false)
             .Width(30)
             .HeaderCellTemplate(new JS("function() { return ' '; }"))
-        .CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
+        .CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-' + options.data.IsPosted + '\"></i>'); }"));
 
             })
         .Summary(s => s.TotalItems(items =>

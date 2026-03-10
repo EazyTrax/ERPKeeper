@@ -32,15 +32,15 @@
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.FiscalYears.ToList().Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150)
             .HeaderCellTemplate(@<text>Fiscal</text>)
-            .CellTemplate(@<text><a href="/Accounting/FiscalYears/<%= data.Transaction.FiscalYearId %>/">FY:<%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/FiscalYears/' + options.data.Transaction.FiscalYearId + '/\">FY:' + options.text + '</a>'); }"));
 
 
 
                 columns.AddFor(m => m.Transaction.Name)
-            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.TransactionId %>/">TR: <%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Transactions/' + options.data.TransactionId + '/\">TR: ' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Transaction.Reference)
-            .CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.TransactionId %>/">R:<%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Transactions/' + options.data.TransactionId + '/\">R:' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Debit).Width(130).Format("#,##0.00");
                 columns.AddFor(m => m.Credit).Width(130).Format("#,##0.00");

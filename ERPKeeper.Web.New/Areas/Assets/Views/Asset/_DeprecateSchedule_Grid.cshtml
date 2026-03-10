@@ -26,7 +26,7 @@
 			columns.AddFor(m => m.DepreciationValue).Format(",##0.00").Width(130).HeaderCellTemplate(@<text>Depreciate</text>);
 			columns.AddFor(m => m.DepreciateAccumulation).Format(",##0.00").Width(130).HeaderCellTemplate(@<text>Accumulate</text>);
 			columns.AddFor(m => m.RemainValue).Format(",##0.00").Width(130).HeaderCellTemplate(@<text>Value</text>);
-			columns.AddFor(m => m.Id).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
+			columns.AddFor(m => m.Id).Width(30).HeaderCellTemplate(@<text></text>).CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-' + options.data.IsPosted + '\"></i>'); }"));
 
 		})
 		)

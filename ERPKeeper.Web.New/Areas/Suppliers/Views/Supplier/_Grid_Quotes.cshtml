@@ -45,7 +45,7 @@
             .ValueExpr("Value")
             );
                 columns.AddFor(m => m.Name).Width(130)
-                .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Suppliers/PurchaseQuotes/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
+                .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Suppliers/PurchaseQuotes/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
 
 

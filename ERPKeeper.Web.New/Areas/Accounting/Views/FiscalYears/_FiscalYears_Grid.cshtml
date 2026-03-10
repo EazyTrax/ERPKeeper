@@ -22,7 +22,7 @@
             {
                 columns.AddFor(m => m.Name)
             .SortOrder(SortOrder.Asc)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Accounting/FiscalYears/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/FiscalYears/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
                 columns.AddFor(m => m.StartDate)
                 .Format(Format.ShortDate);
 
@@ -67,7 +67,7 @@
                 .AllowEditing(false)
                 .Width(30)
                 .HeaderCellTemplate(new JS("function() { return ' '; }"))
-                .CellTemplate(new JS("function(data) { return '<i class=\"fas fa-fingerprint text-' + data.IsPosted + '\"></i>'; }"));
+                .CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-' + options.data.IsPosted + '\"></i>'); }"));
            
         })
         .Summary(s => s.TotalItems(items =>

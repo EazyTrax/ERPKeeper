@@ -27,16 +27,16 @@
                 .AllowEditing(false)
                 .Width(130)
                 .SortOrder(SortOrder.Desc)
-                .CellTemplate(@<text> <div> <a href="/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Name %></a> </div></text>);
+                .CellTemplate(new JS("function(container, options) { container.append('<div><a href=\"/Accounting/JournalEntries/' + options.data.Id + '/\">' + options.value + '</a></div>'); }"));
                 
                 columns.AddFor(m => m.Memo)
                 .SortOrder(SortOrder.Desc)
-                .CellTemplate(@<text> <div><a href="/Accounting/JournalEntries/<%= data.Id %>/"><%= data.Memo %></a></div></text>);
+                .CellTemplate(new JS("function(container, options) { container.append('<div><a href=\"/Accounting/JournalEntries/' + options.data.Id + '/\">' + options.value + '</a></div>'); }"));
                 
                 columns.AddFor(m => m.JournalEntryTypeId)
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.JournalEntryTypes.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .HeaderCellTemplate(@<text>Type</text>)
-                    .CellTemplate(@<text><a href="/Accounting/JournalEntryTypes/<%= data.JournalEntryTypeId %>/"><%= displayValue %></a></text>);
+                    .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/JournalEntryTypes/' + options.data.JournalEntryTypeId + '/\">' + options.text + '</a>'); }"));
 
              
                 columns.AddFor(m => m.Debit)
@@ -52,7 +52,7 @@
                 columns.AddFor(m => m.IsPosted)
                 .AllowEditing(false)
                 .Width(30)
-                .HeaderCellTemplate(@<text> </text>).CellTemplate(@<text><i class="fas fa-fingerprint text-<%= data.IsPosted %>"></i></text>);
+                .HeaderCellTemplate(@<text> </text>).CellTemplate(new JS("function(container, options) { container.append('<i class=\"fas fa-fingerprint text-' + options.data.IsPosted + '\"></i>'); }"));
         })
         )
 </div>

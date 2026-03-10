@@ -36,7 +36,7 @@
             );
                 columns.AddFor(m => m.Name).AllowEditing(false)
                     .Width(130)
-                    .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Suppliers/Purchases/' + data.Id + '/'\" >' + data.Name + '</a>'; }"));
+                    .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Suppliers/Purchases/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.AddFor(m => m.Reference);
 

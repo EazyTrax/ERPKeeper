@@ -11,47 +11,46 @@
 
 <div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Items.Item>()
-            .ID("gridList")
-            .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/api/Products/Items/All")
-            .InsertUrl($"/api/Products/Items/Insert")
-            .UpdateUrl($"/api/Products/Items/Update")
-            .UpdateMethod("Post"))
-            .ShowRowLines(true)
-            .ShowBorders(false)
-            .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(true).AllowAdding(true))
-            .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Products"))
-            .AllowColumnResizing(true).AllowColumnReordering(true)
-            .AllowColumnReordering(true)
-            .Paging(paging => paging.PageSize(100))
-            .FilterRow(fp => fp.Visible(true))
-            .GroupPanel(Panel => Panel.Visible(true))
-            .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
-            .ColumnChooser(Panel => Panel.Enabled(true))
-            .ColumnAutoWidth(false)
-            .RowAlternationEnabled(true).AllowColumnReordering(true)
-            .WordWrapEnabled(true)
-            .Columns(columns =>
-            {
-                columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(new JS("(data) => `<a href=\"/Products/Brands/${data.BrandId}/\">${data.Name}</a>`"))
-        .HeaderCellTemplate(@<text>Brand</text>)
+        .ID("gridList")
+        .DataSource(d => d.RemoteController().Key("Id")
+        .LoadUrl($"/api/Products/Items/All")
+        .InsertUrl($"/api/Products/Items/Insert")
+        .UpdateUrl($"/api/Products/Items/Update")
+        .UpdateMethod("Post"))
+        .ShowRowLines(true)
+        .ShowBorders(false)
+        .Editing(editing => editing.Mode(GridEditMode.Popup).AllowUpdating(true).AllowAdding(true))
+        .StateStoring(s => s.Enabled(true).Type(StateStoringType.LocalStorage).StorageKey("Products"))
+        .AllowColumnResizing(true).AllowColumnReordering(true)
+        .AllowColumnReordering(true)
+        .Paging(paging => paging.PageSize(100))
+        .FilterRow(fp => fp.Visible(true))
+        .GroupPanel(Panel => Panel.Visible(true))
+        .HeaderFilter(headerFilter => headerFilter.Visible(true).Search(s => s.Enabled(true)))
+        .ColumnChooser(Panel => Panel.Enabled(true))
+        .ColumnAutoWidth(false)
+        .RowAlternationEnabled(true).AllowColumnReordering(true)
+        .WordWrapEnabled(true)
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.BrandId).Width(150)
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Brands/' + options.data.BrandId + '/\">' + options.text + '</a>'); }"))
+            .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
             .DisplayExpr("Name")
-            .ValueExpr("Id")
-            );
+            .ValueExpr("Id"));
 
-                columns.Add().DataField("PartNumber")
+            columns.Add().DataField("PartNumber")
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
             .MinWidth(200)
-            .CellTemplate(new JS("(data) => `<a href=\"/Products/Items/${data.Id}/\"><span>${data.PartNumber}</span></a>`"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Items/' + options.data.Id + '/\"><span>' + options.value + '</span></a>'); }"));
 
-                columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
+            columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
 
 
-                columns.AddFor(m => m.ItemType)
+            columns.AddFor(m => m.ItemType)
             .Width(130)
             .SortOrder(SortOrder.Asc)
             .SortIndex(2)
@@ -62,29 +61,29 @@
             .ValueExpr("Value")
             );
 
-                columns.AddFor(m => m.ItemGroupId).Width(150)
-            .CellTemplate(new JS("(data) => `<a href=\"/Products/ItemGroups/${data.ItemGroupId}/\">${data.Name}</a>`"))
-        .HeaderCellTemplate(@<text>Group</text>)
-        .Lookup(lookup => lookup
-        .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
-        .DisplayExpr("Name")
-        .ValueExpr("Id")
-        );
+            columns.AddFor(m => m.ItemGroupId).Width(150)
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/ItemGroups/' + options.data.ItemGroupId + '/\">' + options.text + '</a>'); }"))
+            .HeaderCellTemplate(@<text>Group</text>)
+            .Lookup(lookup => lookup
+            .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
+            .DisplayExpr("Name")
+            .ValueExpr("Id")
+            );
 
 
-                columns.AddFor(m => m.OnlineSale).Visible(false).Width(60).HeaderCellTemplate(@<text>Online</text>);
-                columns.AddFor(m => m.AmountOnHand).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Stock</text>);
-                @*   columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(@<text>Sold</text>);*@
-                columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(@<text>Price</text>);
+            columns.AddFor(m => m.OnlineSale).Visible(false).Width(60).HeaderCellTemplate(@<text>Online</text>);
+            columns.AddFor(m => m.AmountOnHand).AllowEditing(false).Width(80).HeaderCellTemplate(@<text>Stock</text>);
+            @*   columns.AddFor(m => m.SoldAmount).Width(60).HeaderCellTemplate(@<text>Sold</text>);*@
+            columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(@<text>Price</text>);
 
 
 
 
-                columns.Add().Width(150)
-                    .CellTemplate(new JS($"(data) => `<a href=\"/{profileType}/{transactionType}/{Model.Id}/Items/Add?ItemId=${{data.Id}}\"><i class=\"fa-solid fa-circle-plus text-lg\"></i> Add</a>`"))
-                    .HeaderCellTemplate(@<text> </text>);
+            columns.Add().Width(150)
+            .CellTemplate(new JS($"function(container, options) {{ container.append('<a href=\"/{profileType}/{transactionType}/{Model.Id}/Items/Add?ItemId=' + options.data.Id + '\"><i class=\"fa-solid fa-circle-plus text-lg\"></i> Add</a>'); }}"))
+            .HeaderCellTemplate(@<text> </text>);
 
-            })
+        })
         )
 </div>
 

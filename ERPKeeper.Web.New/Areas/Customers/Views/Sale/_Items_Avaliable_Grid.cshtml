@@ -34,7 +34,7 @@
             .Columns(columns =>
             {
                 columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(new JS("(data) => `<a href=\"/Products/Brands/${data.BrandId}/\">${data.Name}</a>`"))
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Brands/' + options.data.BrandId + '/\">' + options.text + '</a>'); }"))
         .HeaderCellTemplate(@<text>Brand</text>)
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -46,7 +46,7 @@
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
             .MinWidth(200)
-            .CellTemplate(new JS("(data) => `<a href=\"/Products/Items/${data.Id}/\"><span>${data.PartNumber}</span></a>`"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Items/' + options.data.Id + '/\"><span>' + options.value + '</span></a>'); }"));
 
                 columns.AddFor(m => m.Description).FormItem(i => i.Editor(e => e.TextArea().MinHeight(250)));
 
@@ -63,7 +63,7 @@
             );
 
                 columns.AddFor(m => m.ItemGroupId).Width(150)
-            .CellTemplate(new JS("(data) => `<a href=\"/Products/ItemGroups/${data.ItemGroupId}/\">${data.Name}</a>`"))
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/ItemGroups/' + options.data.ItemGroupId + '/\">' + options.text + '</a>'); }"))
         .HeaderCellTemplate(@<text>Group</text>)
         .Lookup(lookup => lookup
         .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -82,7 +82,7 @@
 
 
                 columns.Add().Width(150)
-            .CellTemplate(new JS($"(data) => `<a href=\"/{profileType}/{transactionType}/{Model.Id}/Items/Add?ItemId=${{data.Id}}\"><i class=\"fa-solid fa-circle-plus text-lg\"></i> Add</a>`"))
+            .CellTemplate(new JS($"function(container, options) {{ container.append('<a href=\"/{profileType}/{transactionType}/{Model.Id}/Items/Add?ItemId=' + options.data.Id + '\"><i class=\"fa-solid fa-circle-plus text-lg\"></i> Add</a>'); }}"))
         .HeaderCellTemplate(@<text> </text>);
             })
         )

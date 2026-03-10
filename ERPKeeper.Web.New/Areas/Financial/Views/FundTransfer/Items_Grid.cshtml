@@ -25,7 +25,7 @@
                 columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .Width(150).HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(new JS("function(data) { return '<a href=\"/Accounting/Accounts/' + data.AccountId + '/\">' + data.displayValue + '</a>'; }"));
+        .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.AccountId + '/\">' + options.text + '</a>'); }"));
 
 
                 columns.AddFor(m => m.Account.Type)
@@ -38,7 +38,7 @@
     );
 
 
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(data) { return '<a href=\"/Financial/Transactions/' + data.Id + '/\">' + data.Memo + '</a>'; }"));
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Financial/Transactions/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
                 columns.AddFor(m => m.Debit).Width(130).Format(",##0.00");
             })
         .Summary(s => s.TotalItems(items =>

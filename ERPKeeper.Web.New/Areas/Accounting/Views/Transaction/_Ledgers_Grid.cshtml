@@ -18,7 +18,7 @@
                 columns.AddFor(m => m.AccountId)
             .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
             .HeaderCellTemplate(@<text>Account</text>)
-        .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+        .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.AccountId + '/\">' + options.text + '</a>'); }"));
 
 
 

@@ -24,7 +24,7 @@
                     .Lookup(lookup => lookup.DataSource(Organization.ErpCOREDBContext.Accounts.Select(t => new { t.Id, t.Name }).OrderBy(t => t.Name).ToList()).DisplayExpr("Name").ValueExpr("Id"))
                     .Width(250)
             .HeaderCellTemplate(@<text>Account</text>)
-            .CellTemplate(@<text><a href="/Accounting/Accounts/<%= data.AccountId %>/"><%= displayValue %></a></text>);
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Accounts/' + options.data.AccountId + '/\">' + options.text + '</a>'); }"));
 
 
                
@@ -38,7 +38,7 @@
     );
 
 
-                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(@<text><a href="/Accounting/Transactions/<%= data.Id %>/"><%= data.Memo %></a></text>);
+                columns.AddFor(m => m.Memo).SortOrder(SortOrder.Desc).CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Accounting/Transactions/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
                 columns.AddFor(m => m.Debit).Width(130).Format(",##0.00");
                 columns.AddFor(m => m.Credit).Width(130).Format(",##0.00");
             })

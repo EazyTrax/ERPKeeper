@@ -60,7 +60,7 @@
 
 
                 columns.AddFor(m => m.BrandId).Width(150)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Products/Brands/' + data.BrandId + '/'\" >' + data.BrandId + '</a>'; }"))
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Brands/' + options.data.BrandId + '/\">' + options.text + '</a>'); }"))
         .HeaderCellTemplate(new JS("function() { return 'Brand'; }"))
             .Lookup(lookup => lookup
             .DataSource(Organization.ErpCOREDBContext.Brands.Select(t => new { t.Id, t.Name }).ToList())
@@ -72,10 +72,10 @@
             .SortOrder(SortOrder.Asc)
             .SortIndex(1)
             .Width(150)
-            .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Products/Items/' + data.Id + '/'\" ><span>' + data.PartNumber + '</span></a>'; }"));
+            .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Items/' + options.data.Id + '/\"><span>' + options.value + '</span></a>'); }"));
 
     columns.AddFor(m => m.Description).MinWidth(250)
-    .CellTemplate(new JS("function(data) { return '<a href=\"' + '/Products/Items/' + data.Id + '/'\" >' + data.Description + '</a>'; }"));
+    .CellTemplate(new JS("function(container, options) { container.append('<a href=\"/Products/Items/' + options.data.Id + '/\">' + options.value + '</a>'); }"));
 
                 columns.Add().DataField("SalePrice").Width(130).Format("#,##0.00").HeaderCellTemplate(new JS("function() { return 'Price'; }"));
                 //columns.AddFor(m=>m.AmountPurchase).Width(60).HeaderCellTemplate(@<text>PU</text>);
