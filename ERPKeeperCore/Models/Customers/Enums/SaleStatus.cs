@@ -4,5 +4,6 @@
     {
         Open = 0,
         Paid = 2,
+        Void = 3,
     }
 }

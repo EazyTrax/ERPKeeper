@@ -11,6 +11,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 {
     public class SaleQuotesController : _CustomersArea_BaseController
     {
+        [Route("/Customers/{controller}")]
+        [Route("/Customers/{controller}/{status}")]
         public IActionResult Index(SaleQuoteStatus? status = null)
         {
             return View(status);

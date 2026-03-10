@@ -1,10 +1,10 @@
 @model ERPKeeperCore.Enterprise.Models.Suppliers.Supplier
 
 <div class="lh-120">
-    <a href="/Suppliers">Suppliers</a>
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Suppliers", Url = $"/Suppliers" })
 </div>
 <div class="lh-120">
-    <a href="/Suppliers/Suppliers/@Model.Id">@Model.Profile.Name</a>
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = Model.Profile.Name, Url = $"/Suppliers/Suppliers/{Model.Id}" })
 </div>
 <div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Home", Url = $"/Suppliers/Suppliers/{Model.Id}" })

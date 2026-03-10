@@ -13,7 +13,7 @@ namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
     {
         [Route("/Suppliers/{controller}")]
         [Route("/Suppliers/{controller}/{status}")]
-        public IActionResult Index(PurchaseQuoteStatus status = PurchaseQuoteStatus.Open)
+        public IActionResult Index(PurchaseQuoteStatus? status = null)
         {
           
             return View("Index", status);

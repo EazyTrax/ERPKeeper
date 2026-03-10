@@ -8,16 +8,22 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 
 namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
 {
     public class PurchasesController : API_Suppliers_BaseController
     {
-        public object All(DataSourceLoadOptions loadOptions)
+        public object All(DataSourceLoadOptions loadOptions, PurchaseStatus? status = null)
         {
-            var returnModel = Organization.ErpCOREDBContext
-                .Purchases
-                .ToList();
+            var query = Organization.ErpCOREDBContext.Purchases.AsQueryable();
+
+            if (status.HasValue)
+            {
+                query = query.Where(p => p.Status == status.Value);
+            }
+
+            var returnModel = query.ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

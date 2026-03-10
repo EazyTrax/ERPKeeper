@@ -7,17 +7,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ERPKeeperCore.Enterprise.Models.Suppliers.Enums;
 
 namespace ERPKeeperCore.Web.Areas.Suppliers.Controllers
 {
     public class PurchasesController : _Suppliers_Base_Controller
     {
-        public IActionResult Index()
+        [Route("/Suppliers/{controller}")]
+        [Route("/Suppliers/{controller}/{status}")]
+        public IActionResult Index(PurchaseStatus? status = null)
         {
             Organization.Purchases.CreateTransactions();
             Organization.Purchases.UpdateStatus();
 
-            return View();
+            return View(status);
         }
         public IActionResult Post()
         {

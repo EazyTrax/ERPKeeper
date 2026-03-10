@@ -1,15 +1,15 @@
-@model ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus
+@model ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus?
 
 @{
-    var currentStatus = Model.ToString();
+    var currentStatus = Model?.ToString() ?? "All";
 }
 
 <div id="FilterWidget" class="mb-3">
     <div class="btn-group" role="group">
-        <a href="/Customers/Sales?status=Open" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Open" ? "active" : "")">Open</a>
-        <a href="/Customers/Sales?status=Order" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Order" ? "active" : "")">Order</a>
-        <a href="/Customers/Sales?status=Close" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Close" ? "active" : "")">Close</a>
-        <a href="/Customers/Sales?status=Void" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Void" ? "active" : "")">Void</a>
+        <a href="/Customers/Sales" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "All" ? "active" : "")">All</a>
+        <a href="/Customers/Sales/Open" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Open" ? "active" : "")">Open</a>
+        <a href="/Customers/Sales/Paid" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Paid" ? "active" : "")">Paid</a>
+        <a href="/Customers/Sales/Void" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Void" ? "active" : "")">Void</a>
     </div>
 </div>
 

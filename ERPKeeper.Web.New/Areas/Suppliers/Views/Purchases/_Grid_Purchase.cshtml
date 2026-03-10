@@ -1,9 +1,24 @@
 
+@model ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseStatus?
+
+@{
+    var currentStatus = Model?.ToString() ?? "All";
+}
+
+<div id="FilterWidget" class="mb-3">
+    <div class="btn-group" role="group">
+        <a href="/Suppliers/Purchases" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "All" ? "active" : "")">All</a>
+        <a href="/Suppliers/Purchases/Open" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Open" ? "active" : "")">Open</a>
+        <a href="/Suppliers/Purchases/Paid" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Paid" ? "active" : "")">Paid</a>
+        <a href="/Suppliers/Purchases/Void" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Void" ? "active" : "")">Void</a>
+    </div>
+</div>
+
 <div id="treeList" class="">
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Suppliers.Purchase>()
             .ID("gridList")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/Suppliers/Purchases/All")
+            .LoadUrl(Model.HasValue ? $"/API/Suppliers/Purchases/All?status={Model.ToString()}" : "/API/Suppliers/Purchases/All")
             .InsertUrl($"/API/Suppliers/Purchases/Insert")
             .UpdateUrl($"/API/Suppliers/Purchases/Update")
             .UpdateMethod("Post")

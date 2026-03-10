@@ -12,6 +12,8 @@ namespace ERPKeeperCore.Web.Areas.Customers.Controllers
 
     public class SalesController : _CustomersArea_BaseController
     {
+        [Route("/Customers/{controller}")]
+        [Route("/Customers/{controller}/{status}")]
         public IActionResult Index(SaleStatus? status = null)
         {
             Organization.Sales.CreateTransactions();

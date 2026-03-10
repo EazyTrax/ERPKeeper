@@ -24,11 +24,15 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Suppliers
             return DataSourceLoader.Load(returnModel, loadOptions);
         }
 
-        [Route("/API/Suppliers/{controller}/{action}/{status}")]
-        public object List(PurchaseQuoteStatus status, DataSourceLoadOptions loadOptions)
+        [Route("/API/Suppliers/{controller}/{action}/{status?}")]
+        public object List(PurchaseQuoteStatus? status, DataSourceLoadOptions loadOptions)
         {
-
-            if (status == PurchaseQuoteStatus.Open)
+            if (!status.HasValue)
+            {
+                var allModel = Organization.ErpCOREDBContext.PurchaseQuotes.ToList();
+                return DataSourceLoader.Load(allModel, loadOptions);
+            }
+            else if (status == PurchaseQuoteStatus.Open)
             {
                 var returnModel = Organization.ErpCOREDBContext.PurchaseQuotes
                  .Where(m => m.Status == PurchaseQuoteStatus.Open || m.Status == PurchaseQuoteStatus.Order)

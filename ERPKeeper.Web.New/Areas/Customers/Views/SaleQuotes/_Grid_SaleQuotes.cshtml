@@ -8,11 +8,11 @@
 
 <div id="FilterWidget" class="mb-3">
     <div class="btn-group" role="group">
-        <a href="/Customers/SaleQuotes" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "All" ? "active" : "")">All</a>
-        <a href="/Customers/SaleQuotes?status=Open" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Open" ? "active" : "")">Open</a>
-        <a href="/Customers/SaleQuotes?status=Order" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Order" ? "active" : "")">Order</a>
-        <a href="/Customers/SaleQuotes?status=Close" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Close" ? "active" : "")">Close</a>
-        <a href="/Customers/SaleQuotes?status=Void" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Void" ? "active" : "")">Void</a>
+        <a href="/Customers/SaleQuotes" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "All" ? "active" : "")">All</a>
+        <a href="/Customers/SaleQuotes/Open" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Open" ? "active" : "")">Open</a>
+        <a href="/Customers/SaleQuotes/Order" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Order" ? "active" : "")">Order</a>
+        <a href="/Customers/SaleQuotes/Close" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Close" ? "active" : "")">Close</a>
+        <a href="/Customers/SaleQuotes/Void" class="btn btn-sm px-3 btn-outline-secondary @(currentStatus == "Void" ? "active" : "")">Void</a>
     </div>
 </div>
 

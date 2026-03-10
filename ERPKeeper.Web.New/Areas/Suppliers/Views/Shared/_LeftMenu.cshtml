@@ -1,22 +1,12 @@
 @using ERPKeeperCore.Enterprise.Models.Suppliers.Enums
 
 <div class="lh-120">
-    <a href="/Suppliers">Suppliers</a>
-</div>
-
-<div class="lh-120">
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Suppliers", Url = "/Suppliers" })
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Suppliers", Url = "/Suppliers/Suppliers", Count = Organization.Suppliers.Count() })
 </div>
 
-
 <div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Quotes", Url = $"/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Open}", Count = Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Open).Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 3, DisplayName = "Order", Url = $"/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Order}", Count = Organization.ErpCOREDBContext.PurchaseQuotes.Where(s => s.Status == PurchaseQuoteStatus.Order).Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 3, DisplayName = "Close", Url = $"/Suppliers/PurchaseQuotes/{ERPKeeperCore.Enterprise.Models.Suppliers.Enums.PurchaseQuoteStatus.Close}" })
-</div>
-
-
-<div class="lh-120">
     @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Purchases", Url = "/Suppliers/Purchases", Count = Organization.ErpCOREDBContext.Purchases.Where(s => s.Status == PurchaseStatus.Open).Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 3, DisplayName = "Payments", Url = "/Suppliers/SupplierPayments" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Payments", Url = "/Suppliers/SupplierPayments" })
 </div>
