@@ -14,10 +14,16 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
 {
     public class SalesController : API_Profiles_Customers_BaseController
     {
-        public object All(DataSourceLoadOptions loadOptions)
+        public object All(DataSourceLoadOptions loadOptions, SaleStatus? status = null)
         {
-            var returnModel = Organization.ErpCOREDBContext.Sales
-                .ToList();
+            var query = Organization.ErpCOREDBContext.Sales.AsQueryable();
+
+            if (status.HasValue)
+            {
+                query = query.Where(s => s.Status == status.Value);
+            }
+
+            var returnModel = query.ToList();
 
             return DataSourceLoader.Load(returnModel, loadOptions);
         }

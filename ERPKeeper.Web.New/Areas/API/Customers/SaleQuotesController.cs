@@ -25,10 +25,15 @@ namespace ERPKeeperCore.Web.Areas.API.Profiles.Customers
         }
 
 
-        [Route("/API/Customers/{controller}/{action}/{status}")]
-        public object List(SaleQuoteStatus status, DataSourceLoadOptions loadOptions)
+        [Route("/API/Customers/{controller}/{action}/{status?}")]
+        public object List(SaleQuoteStatus? status, DataSourceLoadOptions loadOptions)
         {
-            if (status == SaleQuoteStatus.Open)
+            if (!status.HasValue)
+            {
+                var allModel = Organization.ErpCOREDBContext.SaleQuotes.ToList();
+                return DataSourceLoader.Load(allModel, loadOptions);
+            }
+            else if (status == SaleQuoteStatus.Open)
             {
                 var returnModel = Organization.ErpCOREDBContext.SaleQuotes
                  .Where(m => m.Status == SaleQuoteStatus.Open || m.Status == SaleQuoteStatus.Order)

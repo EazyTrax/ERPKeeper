@@ -1,10 +1,27 @@
+@model ERPKeeperCore.Enterprise.Models.Customers.Enums.SaleStatus
+
+@{
+    var currentStatus = Model.ToString();
+}
+
+<div id="FilterWidget" class="mb-3">
+    <div class="btn-group" role="group">
+        <a href="/Customers/Sales?status=Open" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Open" ? "active" : "")">Open</a>
+        <a href="/Customers/Sales?status=Order" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Order" ? "active" : "")">Order</a>
+        <a href="/Customers/Sales?status=Close" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Close" ? "active" : "")">Close</a>
+        <a href="/Customers/Sales?status=Void" class="btn btn-sm px-3 btn-outline-primary @(currentStatus == "Void" ? "active" : "")">Void</a>
+    </div>
+</div>
+
+
+
 <div id="treeList" class="">
 
     @(Html.DevExtreme().DataGrid<ERPKeeperCore.Enterprise.Models.Customers.Sale>()
             .ID("gridList")
             .KeyExpr("Id")
             .DataSource(d => d.RemoteController().Key("Id")
-            .LoadUrl($"/API/Customers/Sales/All")
+            .LoadUrl(Model.HasValue ? $"/API/Customers/Sales/All?status={Model.ToString()}" : "/API/Customers/Sales/All")
             .InsertUrl($"/API/Customers/Sales/Insert")
             .UpdateUrl($"/API/Customers/Sales/Update")
             .UpdateMethod("Post")
