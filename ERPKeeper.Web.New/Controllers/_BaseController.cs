@@ -17,6 +17,8 @@ namespace ERPKeeperCore.Web.Controllers
     public class _BaseController : Controller
     {
         public Guid AuthorizeUserId => Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        public static string DefaultCompanyId => "tec";
+
         public String CompanyId
         {
             get
@@ -25,7 +27,7 @@ namespace ERPKeeperCore.Web.Controllers
                 var parts = host.Split('.');
 
                 if (parts[0].StartsWith("localhost"))
-                    parts[0] = "bit";
+                    parts[0] = DefaultCompanyId;
 
                 return parts.Length > 0 ? parts[0] : host;
             }

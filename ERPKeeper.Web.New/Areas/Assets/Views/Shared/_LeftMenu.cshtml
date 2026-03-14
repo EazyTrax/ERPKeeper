@@ -1,12 +1,6 @@
-<div class="bg-gray-200 border p-2 rounded">
-    <div class="font-weight-600">
-        <a href="/Assets">Assets</a>
-    </div>
-</div>
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Assets" })
 
-<div class="bg-gray-200 border p-2 rounded">
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Assets/Assets", Count = Organization.ErpCOREDBContext.Assets.Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Obsolete Assets", Url = "/Assets/ObsoleteAssets", Count = Organization.ErpCOREDBContext.ObsoleteAssets.Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Asset Types", Url = "/Assets/AssetTypes", Count = Organization.ErpCOREDBContext.AssetTypes.Count() })
-    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "AssetDeprecateSchedules", Url = "/Assets/AssetDeprecateSchedules", Count = Organization.ErpCOREDBContext.AssetDeprecateSchedules.Count() })
-</div>
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Assets", Url = "/Assets/Assets", Count = Organization.ErpCOREDBContext.Assets.Count() })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Obsolete Assets", Url = "/Assets/ObsoleteAssets", Count = Organization.ErpCOREDBContext.ObsoleteAssets.Count() })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Asset Types", Url = "/Assets/AssetTypes", Count = Organization.ErpCOREDBContext.AssetTypes.Count() })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "AssetDeprecateSchedules", Url = "/Assets/AssetDeprecateSchedules", Count = Organization.ErpCOREDBContext.AssetDeprecateSchedules.Count() })

@@ -1,46 +1,10 @@
-@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
-
-    void Template(string display, string controller, string area, int? count = null)
-    {
-
-        <div class="flex  justify-between e  @(checkCurrentController(controller) ? "font-weight-600" : "")">
-            <div class="">
-                <a href="/@area/@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-
-            </div>
-            <div class="">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
-}
 
 
-@*<div class="px-2 py-1 bg-fb4 rounded-top">
-    <a href="/" class="text-white">@Organization.SelfProfile.Name</a>
-    </div>*@
-
-<div class="mb-3 p-1 rounded bg-gray-100">
-    <div class="p-1">
-       
-
-        <div>
-            @{
-                Template("Accounting", "", "Accounting");
-                Template("Employees", "", "Employees");
-                Template("Expenses", "", "Expenses");
-                Template("Incomes", "", "Incomes");
-                Template("Operations", "", "Operations");
-                Template("Products", "", "Products");
-            }
-        </div>
-    </div>
-
+<div>
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Accounting", Url = "/Accounting" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Employees", Url = "/Employees" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Expenses", Url = "/Expenses" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Incomes", Url = "/Incomes" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Operations", Url = "/Operations" })
+    @await Html.PartialAsync("_MenuTemplate", new MenuTemplateModel { Level = 0, DisplayName = "Products", Url = "/Products" })
 </div>

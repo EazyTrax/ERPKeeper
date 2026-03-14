@@ -11,7 +11,9 @@ namespace ERPKeeperCore.Web.Views
 {
     public abstract class Enterprise_BasePage<TModel> : RazorPage<TModel>
     {
+        public static string DefaultCompanyId => "tec";
         public String ApiUrl = @"";
+
         public Guid AuthorizeUserId => Guid.Parse(this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 
         public String GetRouteAtrribute(string key) => ViewContext.RouteData.Values[key]?.ToString();
@@ -31,7 +33,7 @@ namespace ERPKeeperCore.Web.Views
                     return host;
                 
                 if (parts[0].StartsWith("localhost"))
-                    parts[0] = "bit";
+                    parts[0] = DefaultCompanyId;
 
                 return parts[0];
             }

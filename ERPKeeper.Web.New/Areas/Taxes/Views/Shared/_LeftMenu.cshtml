@@ -1,35 +1,7 @@
-@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
 
-    void Template(string display, string controller, int? count = null)
-    {
-        <div class="flex  justify-between e pl-0 @(checkCurrentController(controller) ? "font-weight-600" : "")">
-            <div class="">
-                <a href="@controller">
-                    @SharedLocalizer.GetLocalizedHtmlString(display)
-                </a>
-            </div>
-            <div class="">
-                <span class="badge badge-light text-dark">@count</span>
-            </div>
-        </div>
-    }
-}
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Taxes", Url = "/Taxes" })
 
-<div class="font-weight-600 border p-2 bg-gray-100">
-    <a href="/Taxes">Taxes</a>
-</div>
-<div class="border p-2 bg-gray-100">
-    @{
-        Template("Income Taxes", $"/Taxes/IncomeTaxes", Organization.IncomeTaxes.Count());
-        Template("Codes", $"/Taxes/TaxCodes", Organization.TaxCodes.Count());
-        Template("Periods", $"/Taxes/TaxPeriods", Organization.TaxPeriods.Count());
-        Template("UnAssignTransactions", $"/Taxes/UnAssignTransactions");
-
-
-    }
-</div>
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Income Taxes", Url = "/Taxes/IncomeTaxes", Count = Organization.IncomeTaxes.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Codes", Url = "/Taxes/TaxCodes", Count = Organization.TaxCodes.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Periods", Url = "/Taxes/TaxPeriods", Count = Organization.TaxPeriods.Count() })
+    @await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "UnAssignTransactions", Url = "/Taxes/UnAssignTransactions" })

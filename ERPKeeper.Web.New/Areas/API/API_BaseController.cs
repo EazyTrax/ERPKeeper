@@ -19,6 +19,8 @@ namespace ERPKeeperCore.Web.API
     [Route("/API/{controller=Home}/{action=Index}/{id?}")]
     public class API_BaseController : Controller
     {
+        public static string DefaultCompanyId => "tec";
+
 
         public static readonly JsonSerializerSettings DefaultAPIJsonSerializerSettings = new JsonSerializerSettings
         {
@@ -39,7 +41,7 @@ namespace ERPKeeperCore.Web.API
                 var parts = host.Split('.');
 
                 if (parts[0].StartsWith("localhost"))
-                    parts[0] = "bit";
+                    parts[0] = DefaultCompanyId;
 
                 return parts.Length > 0 ? parts[0] : host;
             }

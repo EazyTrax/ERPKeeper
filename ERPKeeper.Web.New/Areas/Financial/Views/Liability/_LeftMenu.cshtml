@@ -1,22 +1,10 @@
 @model ERPKeeperCore.Enterprise.Models.Accounting.Account
 
-@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
-}
 
-<div class="lh-120">
-    <a href="/Financial">Financial</a>
-</div>
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Financial", Url = "/Financial" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Liabilities", Url = "/Financial/Liabilities" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = Model.Name, Url = $"/Financial/Liabilities/{Model.Id}" })
 
-<div class="lh-120">
-    <a href="/Financial/Liabilities">Liabilities</a>: @Model.Name
-</div>
-<div class="lh-120">
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Home", url = $"/Financial/Liabilities/{Model.Id}", count = Organization.FundTransfers.Count() })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Balances", url = $"/Financial/Liabilities/{Model.Id}/Balances" })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Payments", url = $"/Financial/Liabilities/{Model.Id}/Payments" })
-</div>
+@await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Home", url = $"/Financial/Liabilities/{Model.Id}", count = Organization.FundTransfers.Count() })
+@await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Balances", url = $"/Financial/Liabilities/{Model.Id}/Balances" })
+@await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Payments", url = $"/Financial/Liabilities/{Model.Id}/Payments" })

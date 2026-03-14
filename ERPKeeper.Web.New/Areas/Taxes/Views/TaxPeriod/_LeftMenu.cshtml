@@ -1,25 +1,14 @@
 @model ERPKeeperCore.Enterprise.Models.Taxes.TaxPeriod
 
-@{
-    bool checkCurrentController(string controllerName)
-    {
-        var currentControllerName = this.ViewContext.RouteData.Values["controller"].ToString();
-        return currentControllerName == controllerName;
-    }
-}
 
-<div class="font-weight-600 border p-2 bg-gray-100">
-    <a href="/Taxes">Taxes</a><br />
-</div>
-<div class="font-weight-600 border p-2 bg-gray-100">
-    <a href="/Taxes/TaxPeriods">TaxPeriods</a> <br />
-    <a href="/Taxes/TaxPeriods/@Model.Id">@Model.Name</a>
-</div>
-<div class="border p-2 bg-gray-100">
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Home", url = $"/Taxes/TaxPeriods/{Model.Id}" })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Sales", url = $"/Taxes/TaxPeriods/{Model.Id}/Sales", count = Model.SalesCount })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Purchase", url = $"/Taxes/TaxPeriods/{Model.Id}/Purchases", count = Model.PurchasesCount })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "AutoAssign (ThisMonth)", url = $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign" })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "AutoAssign (PreviusMonth)", url = $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign?IsHistoryAssign=True" })
-    @await Html.PartialAsync("_MenuTemplate", new { level = 0, displayName = "Export", url = $"/Taxes/TaxPeriods/{Model.Id}/Export", count = Model.PurchasesCount })
-</div>
+
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Taxes", Url = "/Taxes" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "TaxPeriods", Url = "/Taxes/TaxPeriods" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = Model.Name, Url = $"/Taxes/TaxPeriods/{Model.Id}" })
+
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Home", Url = $"/Taxes/TaxPeriods/{Model.Id}" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Sales", Url = $"/Taxes/TaxPeriods/{Model.Id}/Sales", Count = Model.SalesCount })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Purchase", Url = $"/Taxes/TaxPeriods/{Model.Id}/Purchases", Count = Model.PurchasesCount })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "AutoAssign (ThisMonth)", Url = $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "AutoAssign (PreviusMonth)", Url = $"/Taxes/TaxPeriods/{Model.Id}/AutoAssign?IsHistoryAssign=True" })
+@await Html.PartialAsync("_MenuTemplate", new ERPKeeper.Web.New.Models.MenuTemplateModel { Level = 0, DisplayName = "Export", Url = $"/Taxes/TaxPeriods/{Model.Id}/Export", Count = Model.PurchasesCount })
